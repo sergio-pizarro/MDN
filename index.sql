@@ -12,3 +12,6 @@ BEGIN
 	and (CONVERT(VARCHAR(20),Afiliado_Rut) + '-' + Afiliado_Dv = @AfiliadoRut OR CONVERT(VARCHAR(20),Afiliado_Rut) = @AfiliadoRut)
 
 END
+
+
+--chupalo cristian muñoz
