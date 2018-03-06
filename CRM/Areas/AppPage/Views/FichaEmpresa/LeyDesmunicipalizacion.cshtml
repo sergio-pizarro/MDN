@@ -1,0 +1,1373 @@
+﻿
+@{
+    Layout = "~/Areas/AppPage/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
+<!--Bootstrap Select [ OPTIONAL ]-->
+<script src="~/Assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+
+<!--Magic Checkbox [ OPTIONAL ]-->
+<link href="~/Assets/plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
+<script src="js/demo/nifty-demo.min.js"></script>
+
+<style type="text/css">
+    #container .table th {
+        font-size: 11px !important;
+        background-color: dodgerblue;
+        color: white;
+    }ñ
+</style>
+<div id="page-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="tab-base">
+
+                <!--Nav Tabs-->
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#tab-empresa" aria-expanded="true" id="tab_empresa" class="tab-principal">Ficha Empresa <span class="badge badge-purple" style="display:none;">15</span></a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+
+                    <div id="tab-empresa" class="tab-pane fade active in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <button type="button" id="btnvolver" class="btn btn-default btn-success-basic">Volver Atras</button>
+                            </div>
+                            <form id="FichaEmpresa">
+
+                                <br />
+                                <br />
+                                
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Rut Empresa</label>
+                                            <input class="form-control" id="emp_rut_FREE" type="text" name="rutEmpresaIngreso" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Empresa</label>
+                                            <input class="form-control" type="text" id="emp_nombre_FREE" name="nombreEmpresaIngreso" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Sucursal</label>
+                                            <input class="form-control" id="emp_sucursal_FREE" type="text" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Estamento</label>
+                                            <select id="sslEstamentoIngreso" class="form-control" name="sslEstamentoIngreso">
+                                                <option value="Empresas">Empresas</option>
+                                                <option value="Sindicato">Sindicato</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="divHolding" style="display:none;">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Nombre Local Holding</label>
+                                            <input class="form-control" id="nombre_sucursal" type="text" name="NombreSucursal">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Dirección Local Holding</label>
+                                            <input class="form-control" id="direccion" type="text" name="DireccionSucursal">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Nombre Funcionario</label>
+                                            <input class="form-control" id="emp_Nombrefuncionario_FREE" type="text" name="FuncionarioIngreso">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Cargo Funcionario</label>
+                                            <input class="form-control" type="text" id="emp_CargoFuncionario_FREE" name="CargoIngreso">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">N° de Empleados</label>
+                                            <input class="form-control" id="emp_numEmpleados_FREE" type="text" placeholder="Ingresar N° Empleados" name="NEmpleadosIngreso">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br />
+                                <br />
+                                <div>
+                                    <label style="text-align:center;font-weight: bold" class="control-label">Después de conversar con él o los representante del Daem o Corporación (RRHH, Dirigente, etc.) responde las siguientes interrogantes</label>
+                                </div>
+                               
+                                <br />
+                                <div class="row mar-btm">
+                                    <div class="col-sm-5">
+                                        <h3>I- Relación con la Empresa</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    
+                                    <div class="col-sm-5">
+                                        <label style="text-align:center;font-weight: bold;" class="control-label">1.1- ¿Cómo evaluarias la relación con la persona que sostuviste la reunión?</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <select id="sslOption1" class="form-control" name="sslOPtion1">
+                                                <option value="">Seleccione</option>
+                                                <option value="Excelente">Excelente</option>
+                                                <option value="Muy Buena">Muy Buena</option>
+                                                <option value="Normal">Normal</option>
+                                                <option value="Deficiente">Deficiente</option>
+                                                <option value="Mala">Mala</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <textarea placeholder="Explique brevemente su respuesta" rows="5" class="form-control" id="text_1" name="textObs1"></textarea>
+                                            <small>Máximo 500 caracteres.</small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <hr />
+
+                                @*pregunta 2*@
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                       <h3>II- Antecedentes de avances de aplicación de Ley Desmunicipalización</h3>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label style="text-align:center;font-weight: bold;" class="control-label">2.1- ¿El Daem o Corporación tiene definida una fecha propuesta por el Mineduc para el traspaso?</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div>
+
+                                                <label for="radio1_si" class="radio-inline">
+                                                    <input id="radio1_si" class="pregunta2" type="radio" name="respuesta1" value="1">
+                                                    Si
+                                                </label>
+
+
+                                                <label for="radio1_no" class="radio-inline">
+                                                    <input id="radio1_no" class="pregunta2" type="radio" name="respuesta1" value="0">
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="p2rsi" style="display:none;">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <label style="text-align:center;font-weight: bold;" class="control-label">2.2- ¿Cómo evaluarias la posibilidad de continuar afiliado a nuestra Caja?</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <select id="sslOption2" class="form-control" name="sslOption2">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="Buena">Buena</option>
+                                                    <option value="Regular">Regular</option>
+                                                    <option value="Mala">Mala</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <textarea placeholder="Explique brevemente su respuesta" rows="5" class="form-control" id="text-2Obs" name="textObs2"></textarea>
+                                                <small>Máximo 500 caracteres.</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                                <div class="p2rno" style="display:none;">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-sm-5">
+                                                <label style="text-align:center;font-weight: bold;" class="control-label">2.2- Detalle el motívo y las acciones comprometidas para revertir dicha situación</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <textarea placeholder="Detalle el motivo y las acciones comprometidas para revertir dicha situación" rows="5" class="form-control" id="text_2_3" name="textObs2_3"></textarea>
+                                                <small>Máximo 500 caracteres.</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+
+
+                                @*pregunta 4*@
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <label style="text-align:center;font-weight: bold;" class="control-label">2.3- ¿Se encuentra contratado el nuevo Director Ejecutivo del Servicio Local de Educación?</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div>
+
+                                            <label for="radio23_si" class="radio-inline">
+                                                <input id="radio23_si" class="pregunta23" type="radio" name="respuesta23" value="1">
+                                                Si
+                                            </label>
+
+
+                                            <label for="radi23_no" class="radio-inline">
+                                                <input id="radio23_no" class="pregunta23" type="radio" name="respuesta23" value="0">
+                                                No
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row respuesta23_si" style="display:none;">
+                                    <div class="col-sm-4">
+                                        <h4>2.4 Datos de contacto</h4>
+                                        <div class="form-group">
+                                            <label class="control-label">Nombre</label>
+                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Teléfono</label>
+                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Email</label>
+                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Dirección</label>
+                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row respuesta23_no" style="display:none;">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label style="text-align:center;font-weight: bold;" class="control-label">2.4- Explique en que estado se encuentra el proceso y compromisos de acciones para mantenernos informados de su contratación</label>
+                                            <textarea placeholder="" rows="5" class="form-control" id="tx_res_3" name="tx_res_3"></textarea>
+                                            <small>Máximo 500 caracteres.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script>
+                                    $(function () {
+                                        $(".pregunta23").on("click", function () {
+                                            if ($(this).val() == 1) {
+                                                $(".respuesta23_si").show();
+                                                $(".respuesta23_no").hide();
+                                            }
+                                            else {
+                                                $(".respuesta23_si").hide();
+                                                $(".respuesta23_no").show();
+                                            }
+                                        });
+                                    });
+                                </script>
+                                <hr />
+                                @*En caso de SI, agregue antecedentes de contacto, nombre, teléfono, mail, direcciones, etc., en caso de NO, en que estado se encuentra el proceso y compromisos de acciones para mantenernos informados de su contratación.
+                                pregunta 3 *@
+  
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <label style="text-align:center;font-weight: bold;" class="control-label">2.5- ¿Se encuentra creado el nuevo Servicio de Educación Local "Persona Juridica"?</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div>
+
+                                            <label for="radio25_si" class="radio-inline">
+                                                <input id="radio25_si" class="pregunta25" type="radio" name="respuesta25" value="1">
+                                                Si
+                                            </label>
+
+
+                                            <label for="radio25_no" class="radio-inline">
+                                                <input id="radio25_no" class="pregunta25" type="radio" name="respuesta25" value="0">
+                                                No
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row respuesta25_si" style="display:none;">
+                                    <div class="col-sm-4">
+                                        <h4>2.6 Datos de contacto</h4>
+                                        <div class="form-group">
+                                            <label class="control-label">Nombre</label>
+                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Teléfono</label>
+                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Email</label>
+                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Dirección</label>
+                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row respuesta25_si" style="display:none;">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label class="control-label">Compromisos de acciones de cercania, generación de reuniones, etc.</label>
+                                            <textarea placeholder="" rows="5" class="form-control" id="tx_res_3" name="tx_res_3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row respuesta25_no" style="display:none;">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label style="text-align:center;font-weight: bold;" class="control-label">2.6- Explique en que estado se encuentra su creación y compromisos para mantenernos informados del avance de este proceso</label>
+                                            <textarea placeholder="" rows="5" class="form-control" id="tx_res_3" name="tx_res_3"></textarea>
+                                            <small>Máximo 500 caracteres.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script>
+                                    $(function () {
+                                        $(".pregunta25").on("click", function () {
+                                            if ($(this).val() == 1) {
+                                                $(".respuesta25_si").show();
+                                                $(".respuesta25_no").hide();
+                                            }
+                                            else {
+                                                $(".respuesta25_si").hide();
+                                                $(".respuesta25_no").show();
+                                            }
+                                        });
+                                    });
+                                </script>
+                               
+                                <hr />
+                                
+
+
+                                @*pregunta 5*@
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        <h3>III- Aspectos futuros de la institución.</h3>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-7">
+                                            <label style="text-align:left;font-weight: bold;" class="control-label">3.1- ¿Dado los traspasos en la aplicación de Desmunicipalización, existen cambios que afectarán la empleabilidad de los trabajadores (desvinculaciones)?</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div>
+                                                <label class="radio-inline" for="radio_si_31"><input id="radio_si_31" class="radio31" type="radio" name="respuesta31" value="1"> Si</label>
+                                                <label class="radio-inline" for="radio_no_31"><input id="radio_no_31" class="radio31" type="radio" name="respuesta31" value="0"> No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row radio31si" style="display:none;">
+                                    <div class="form-group">
+                                        <div class="col-sm-7">
+                                            <label style="text-align:center;font-weight: bold;" class="control-label">3.2- ¿Se ha cuantificado algún porcentaje o número de ellos?</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div>
+                                                <label class="radio-inline" for="radio_si_32"><input id="radio_si_32" class="radio32" type="radio" name="respuesta32" value="1"> Si</label>
+                                                <label class="radio-inline" for="radio_no_32"><input id="radio_no_32" class="radio32" type="radio" name="respuesta32" value="0"> No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row radio32si" style="display:none;">
+                                    <div class="col-sm-6 mar-btm">
+                                        <div class="form-group">
+                                            <label class="control-label">Indique cuantos y el tipo de conteo</label>
+                                            <br />
+                                            <div class="col-sm-3">
+                                                <input class="form-control" id="" type="text" name="">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <select class="form-control">
+                                                    <option>N°</option>
+                                                    <option>%</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                                <div class="row radio5si" style="display:none;">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label style="text-align:center;font-weight: bold;" class="control-label">Explique impactos en detalle y las acciones coordinadas con la institución para evitar impactos en la Caja y funcionarios de la institución.</label>
+                                            <textarea placeholder="..." rows="5" class="form-control" id="text_5" name="textObs5"></textarea>
+                                            <small>Máximo 500 caracteres.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row radio5no" style="display:none;">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label style="text-align:center;font-weight: bold;" class="control-label">Indicar compromisos en el corto plazo  y acciones para informar estado de avances de este proceso.</label>
+                                            <textarea placeholder="..." rows="5" class="form-control" id="text_5" name="textObs5"></textarea>
+                                            <small>Máximo 500 caracteres.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script>
+                                    $(function () {
+                                        $(".radio31").on("click", function () {
+
+                                            if ($(this).val() == 1) {
+                                                $(".radio31si").show();
+                                                $(".radio5si").show();
+                                                $(".radio5no").hide();
+                                            }
+                                            else {
+                                                $(".radio31si").hide();
+                                                $(".radio5si").hide();
+                                                $(".radio5no").show();
+                                                $(".radio32si").hide();
+                                            }
+
+                                            $(".radio32").trigger("click")
+                                        });
+
+
+                                        $(".radio32").on("click", function () {
+                                            if ($(this).val() == 1) {
+                                                $(".radio32si").show();
+                                                $(".radio5si").show();
+                                                $(".radio5no").hide();
+                                            }
+                                            else {
+                                                $(".radio32si").hide();
+                                                $(".radio5si").hide();
+                                                $(".radio5no").show();
+                                            }
+                                        });
+                                    })
+                                </script>
+                                <hr />
+                                    @*pregunta 6*@
+                                <div class="row mar-btm">
+                                    <div class="col-sm-7">
+                                        <h3>IV- Antecedentes de acceso a financiamiento</h3>
+                                    </div>
+                                </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-sm-7">
+                                                <label style="text-align:center;font-weight: bold;" class="control-label">4.1- La institución tiene alguna medida restrictiva en el aceso al financiamiento y/o Seguros?, Ej.: No otorga créditos hasta el 25%</label>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div>
+                                                    <label class="radio-inline" for="radio_si_33"><input id="radio_si_33" class="radio33 " type="radio" name="respuesta33" value="1"> Si</label>
+                                                    <label class="radio-inline" for="radio_no_33"><input id="radio_no_33" class="radio33" type="radio" name="respuesta33" value="0"> No</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                <div class="row rdvoluntad" style="display:none;">
+                                    <div class="form-group">
+                                        <div class="col-sm-7">
+                                            <label style="text-align:center;font-weight: bold;" class="control-label">4.2- ¿Existe voluntad de la Empresa de eliminar la restricción?</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div>
+                                                <label class="radio-inline" for="radio_si_34"><input id="radio_si_34" class="radio34" type="radio" name="respuesta34" value="1"> Si</label>
+                                                <label class="radio-inline" for="radio_no_34"><input id="radio_no_34" class="radio34" type="radio" name="respuesta34" value="0"> No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                    <div class="row rd33si" style="display:none;">
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <label class="control-label">Explique en detalle la medida restrictiva y acciones para revertir la situación.</label>
+                                                <textarea placeholder="..." rows="5" class="form-control" id="text_6" name="textObs6"></textarea>
+                                                <small>Máximo 500 caracteres.</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row rd33no" style="display:none;">
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <label class="control-label">Explique en detalle el motivo y otras instancias que se visualicen.</label>
+                                                <textarea placeholder="..." rows="5" class="form-control" id="text_6" name="textObs6"></textarea>
+                                                <small>Máximo 500 caracteres.</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        $(function(){
+                                            $(".radio33").on("click", function () {
+                                                if ($(this).val() == 1) {
+                                                    
+                                                    $(".rdvoluntad").show();
+                                                    
+                                                }
+                                                else {
+                                                    $(".rdvoluntad").hide();
+                                                    $(".rd33si").hide();
+                                                    $(".rd33no").hide();
+                                                }
+                                            })
+
+                                            $(".radio34").on("click", function () {
+                                                if ($(this).val() == 1) {
+                                                    $(".rd33si").show();
+                                                    $(".rd33no").hide();
+                                                }
+                                                else {
+                                                    $(".rd33si").hide();
+                                                    $(".rd33no").show();
+                                                    
+                                                }
+                                            })
+                                        })
+                                    </script>
+                                    <hr />
+                                    @*pregunta 7*@
+                                <div class="row mar-btm">
+                                    <div class="col-sm-7">
+                                        <h3>V- Próxima Reunión</h3>
+                                    </div>
+                                </div>
+                                    <div class="row mar-btm">
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Fecha</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" type="text" id="tx_fecha_proxima_reunion" name="tx_fecha_proxima_reunion">
+                                        </div>
+                                    </div>
+                                    <div class="row mar-btm">
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Estamento</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select id="sslEstamentoIngreso" class="form-control" name="sslEstamentoIngreso">
+                                                <option value="Empresas">Empresas</option>
+                                                <option value="Sindicato">Sindicato</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mar-btm">
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Nombre del Funcionario de la Empresa</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" type="text" id="tx_nombre_funcionario_empresa" name="tx_nombre_funcionario_empresa">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Cargo del Funcionario</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" type="text" id="tx_cargo_funcionario_empresa" name="tx_cargo_funcionario_empresa">
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+
+                                    <div class="row">
+
+                                        <div class="panel-footer text-right">
+                                            <button class="btn btn-primary" type="button" id="btn_guardar">Guardar</button>
+                                            <button class="btn btn-success" type="submit" id="btn_enviar">Finalizar</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row charlyNTF" style="display:none;">
+                                        <div class="col-sm-12 charlyNTFContainer">
+
+                                        </div>
+                                    </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section script{
+
+    <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="~/Assets/plugins/bootbox/bootbox.min.js"></script>
+    <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
+    <script>
+
+
+
+
+        
+
+
+
+        var CargadorEncabezado = {
+            CargaEncabezadoTotal: function (p_periodo, p_rutempresa, p_id, p_isHolding) {
+
+                //Pre Aprobados
+                $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-ficha-empresa-encabezado", { Periodo: p_periodo, RutEmpresa: p_rutempresa, Id: p_id }, function (menus) {
+
+
+                    $("#emp_rut_FREE").val(menus.EmpresaRut + '-' + menus.EmpresaDV);
+                    $("#emp_nombre_FREE").val(menus.EmpresaNombre);
+                    $("#emp_sucursal_FREE").val(menus.EmpresaSucursal);
+                    $("#emp_funcionarioCaja_FREE").val(getCookie("Usuario"));
+                        if (p_isHolding === "1") {
+                            $("#divHolding").show();
+                        }
+                    if (menus.idFicha > 0) {
+                    $("#sslEstamentoIngreso").val(menus.Estamento)
+                    $("#emp_Nombrefuncionario_FREE").val(menus.FuncionarioEmple);
+                    $("#emp_CargoFuncionario_FREE").val(menus.FuncionarioCargo);
+                    $("#n_contacto").val(menus.Num_Contacto);
+                    $("#mail_ingreso").val(menus.Email);
+                    $("#nombre_sucursal").val(menus.NombreSucursal);
+                    $("#direccion").val(menus.DireccionSucursal);
+                    $("#emp_numEmpleados_FREE").val(menus.NumeroEmpleados);
+                    $("#emp_funcionarioCaja_FREE").val(menus.FuncionarioCaja);
+                    $("#sslOption1").val(menus.pregunta_1)
+                    $("#text_1").val(menus.pregunta_obs);
+                    $(".pregunta2[value=" + menus.pregunta2_radio + "]").prop("checked", true)
+                    $("#sslOption2").val(menus.pregunta2_combo);
+                    $("#text-2Obs").val(menus.pregunta2_obs2);
+                    $(".radio2[value=" + menus.pregunta2_radio_1 + "]").prop("checked", true)
+                    $("#text_2_1").val(menus.pregunta2_obs3);
+                    $("#text_2_2").val(menus.pregunta2_obs4);
+                    $("#text_2_3").val(menus.pregunta2_obs5);
+                    $(".radio3[value=" + menus.pregunta3_radio + "]").prop("checked", true)
+                    $("#text_3").val(menus.pregunta3_obs);
+                    $(".radio4[value=" + menus.pregunta4_radio + "]").prop("checked", true)
+                    $(".radio4_1[value=" + menus.pregunta4_radio_2 + "]").prop("checked", true)
+                    $("#text_4").val(menus.pregunta4_obs_1);
+                    $("#text_4_1").val(menus.pregunta4_obs_2);
+                    $(".radio5[value=" + menus.pregunta5_radio + "]").prop("checked", true)
+                    $("#text_5").val(menus.pregunta5_obs);
+                    $("#text_5_1").val(menus.pregunta5_obs_1);
+                    $(".radio6[value=" + menus.pregunta6_radio + "]").prop("checked", true)
+                    $("#text_6").val(menus.pregunta6_obs_1);
+                    $("#text_6_1").val(menus.pregunta6_obs_2);
+                    $(".radio7[value=" + menus.pregunta7_radio + "]").prop("checked", true)
+                    $("#text_7").val(menus.pregunta7_obs_1);
+                    $("#sslOption8").val(menus.pregunta8_combo);
+                    $("#text_8").val(menus.pregunta8_obs_1);
+                    $(".radio9[value=" + menus.pregunta9_radio + "]").prop("checked", true)
+                    $(".radio9_1[value=" + menus.pregunta9_radio_1 + "]").prop("checked", true)
+                    $("#text_9").val(menus.pregunta9_obs_1);
+                    $(".radio10[value=" + menus.pregunta10_radio + "]").prop("checked", true)
+                    $(".radio10_1[value=" + menus.pregunta10_radio_1 + "]").prop("checked", true)
+                    $("#textObs10").val(menus.pregunta10_obs);
+                    $("#sslOption11").val(menus.pregunta11_combo);
+                    $("#text_11").val(menus.pregunta11_obs_1);
+                   // $("#anexo").val(menus.Anexo);
+                    $("input[type='radio']:checked").trigger("click");
+
+
+
+                        if (menus.Estado === "Enviado")
+                        {
+                            $("input, textarea, select, button").prop({"disabled": "disabled"})
+                        }
+                    }
+
+
+
+
+
+
+                });
+
+            },
+
+
+        }
+
+
+        $(document).ready(function () {
+            //Cargas iniciales
+
+            CargadorEncabezado.CargaEncabezadoTotal(httpGet("Periodo"), httpGet("RutEmpresa"), httpGet("Id"), httpGet("isHolding"))
+
+            //Eventos
+            $("#btn_guardar").on("click", function () {
+
+
+
+                var x = $("#FichaEmpresa").serialize();
+                x = x + "&Estado=Guardado&idFicha=" + httpGet("Id")
+
+
+                $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-ficha-empresa", x, function (respuesta) {
+
+                    if (respuesta.Estado === "OK") {
+                        $.niftyNoty({
+                            type: 'success',
+                            container: 'floating',
+                            html: '<strong>OK</strong> ' + respuesta.Mensaje,
+                            focus: false,
+                            timer: 3000,
+                            onHidden: function () {
+                                //history.back(-1);
+                                location.href = "/motor/App/Gestion/Empresas"
+                            }
+                        });
+
+
+                    } else {
+                        $.niftyNoty({
+                            type: 'danger',
+                            container: 'floating',
+                            html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                            focus: false,
+                            timer: 3000
+                        });
+                    }
+                });
+
+            })
+
+
+            $('#FichaEmpresa').bootstrapValidator({
+                excluded: [':disabled', ':not(:visible)'],
+                fields: {
+                    sslEstamentoIngreso: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar un Estamento'
+                            }
+                        }
+                    },
+
+                    //anexo: {
+                    //    validators: {
+                    //        notEmpty: {
+                    //            message: 'Debe ingresar un anexo'
+                    //        }
+                    //    }
+                    //},
+                    FuncionarioIngreso: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe ingresar un funcionario'
+                            }
+                        }
+                    },
+                    ncontacto: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe ingresar un n° de contacto'
+                            }
+                        }
+                    },
+                    MailIngreso: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe ingresar un E-Mail'
+                            }
+                        }
+                    },
+                    NombreSucursal: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe ingresar nombre sucursal'
+                            }
+                        }
+                    },
+                    DireccionSucursal: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe ingresar dirección'
+                            }
+                        }
+                    },
+
+////////
+
+                    CargoIngreso: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar un estado'
+                            }
+                        }
+                    },
+                    NEmpleadosIngreso: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe ingresar un cargo'
+                            }
+                        }
+                    },
+                    pub: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe ingresar valor'
+                            }
+                        }
+                    },
+                    respuesta1: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    respuesta2: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    respuesta3: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    respuesta4: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    respuesta4_1: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    respuesta5: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    respuesta6: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    respuesta7: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    respuesta9: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    respuesta9_1: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    respuesta10: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    respuesta10_1: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+
+                    sslOPtion1: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    sslOption2: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    sslOption8: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+                    sslOption11: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una opción'
+                            }
+                        }
+                    },
+
+
+                    textObs1: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+
+                    textObs2: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+
+                    textObs2_1: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs2_2: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs2_3: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs3: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs4: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs4_1: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs5: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs5_1: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs6: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs6_1: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs7: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs8: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs9: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs10: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                    textObs11: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe agregar algún comentario'
+                            },
+                            stringLength: {
+                                message: 'No pueden ser mas de 500 caracteres',
+                                max: function (value, validator, $field) {
+                                    return 500 - (value.match(/\r/g) || []).length;
+                                }
+                            }
+                        }
+                    },
+                }
+            }).on('success.form.bv', function (e) {
+                // Prevén que se mande el formulario
+                e.preventDefault();
+                var $form = $(e.target);
+                var postForm = $("#FichaEmpresa").serialize();
+                postForm = postForm + "&Estado=Enviado&idFicha=" + httpGet("Id")
+                $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-ficha-empresa", postForm, function (respuesta) {
+
+                    if (respuesta.Estado === "OK") {
+                        $.niftyNoty({
+                            type: 'success',
+                            container: 'floating',
+                            html: '<strong>OK</strong> ' + respuesta.Mensaje,
+                            focus: false,
+                            timer: 3000
+                        });
+
+                    } else {
+                        $.niftyNoty({
+                            type: 'danger',
+                            container: 'floating',
+                            html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                            focus: false,
+                            timer: 3000,
+                            onHidden: function () {
+                                //history.back(-1);
+                                location.href = "/motor/App/Gestion/Empresas"
+                            }
+                        });
+                    }
+                });
+            });
+
+
+            $("#FichaEmpresa").on("submit", function () {
+                console.log($("#FichaEmpresa").serialize())
+
+                return false
+
+            });
+
+            $(".pregunta2").on("click", function () {
+                if ($(this).val() === "1") {
+                    $(".p2rno").hide();
+                    $(".p2rsi").show();
+                } else {
+                    $(".p2rno").show();
+                    $(".p2rsi").hide();
+                }
+            });
+
+            $(".radio2").on("click", function () {
+
+                if ($(this).val() === "1") {
+                    $(".radio2no").hide();
+                    $(".radio2si").show();
+                } else {
+                    $(".radio2no").show();
+                    $(".radio2si").hide();
+                }
+            })
+
+            $(".radio3").on("click", function () {
+
+                if ($(this).val() === "1") {
+                    $(".radio3si").show();
+                } else {
+                    $(".radio3si").hide();
+                }
+            })
+
+            $(".radio4").on("click", function () {
+
+                if ($(this).val() === "0") {
+                    $(".radio4no").show();
+                } else {
+                    $(".radio4no").hide();
+                }
+            })
+
+
+            $(".radio4_1").on("click", function () {
+
+                if ($(this).val() === "1") {
+                    $(".radio4_1si").show();
+                    $(".radio4_1no").hide();
+                } else {
+                    $(".radio4_1si").hide();
+                    $(".radio4_1no").show();
+                }
+            })
+
+            $(".radio5").on("click", function () {
+
+                if ($(this).val() === "1") {
+                    $(".radio5si").show();
+                    $(".radio5no").hide();
+                } else {
+                    $(".radio5si").hide();
+                    $(".radio5no").show();
+                }
+            })
+
+
+            $(".radio6").on("click", function () {
+
+                if ($(this).val() === "1") {
+                    $(".radio6si").show();
+                    $(".radio6no").hide();
+                } else {
+                    $(".radio6si").hide();
+                    $(".radio6no").show();
+                }
+            })
+
+            $(".radio7").on("click", function () {
+
+                if ($(this).val() === "1") {
+                    $(".radio7si").show();
+                } else {
+                    $(".radio7si").hide();
+                }
+            })
+
+            $(".radio9").on("click", function () {
+
+                if ($(this).val() === "1") {
+                    $(".radio9si").show();
+                } else {
+                    $(".radio9si").hide();
+                }
+            })
+
+
+            $(".radio9_1").on("click", function () {
+
+                if ($(this).val() === "1") {
+                    $(".radio9_1no").hide();
+                } else {
+                    $(".radio9_1no").show();
+                }
+            })
+
+
+            $(".radio10").on("click", function () {
+
+                if ($(this).val() === "1") {
+                    $(".radio10si").show();
+                } else {
+                    $(".radio10si").hide();
+                }
+            })
+
+            $(".radio10_1").on("click", function () {
+
+                if ($(this).val() === "1") {
+                    $(".radio10_1si").show();
+                } else {
+                    $(".radio10_1si").hide();
+                }
+            })
+
+
+
+
+        });
+
+
+        $("#cod_sucursal").val(getCookie("Oficina"))
+        $("#pub").val(getCookie("Usuario"))
+        $("#btnvolver").click(function (event) {
+            event.preventDefault();
+            history.back(-1);
+        });
+    </script>
+}

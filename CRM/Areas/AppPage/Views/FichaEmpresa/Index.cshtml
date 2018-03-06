@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AppPage/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<script>
+
+    const texto = "[01] - EL BRAVO", regex = /\[([^\]]*)\]/g, regex2 = /\[(.*)\]/;
+
+    console.log(regex.exec(texto))
+
+    /*var grupos;
+    while ((grupos = regex.exec(texto)) !== null) {
+        console.log("Llaves:", grupos[0], "\tPosición:", grupos.index, "\tColor:", grupos[1]);
+    }*/
+
+
+
+    //Pre Aprobados
+    $.getJSON("", function (formulario) {
+
+
+    });
+
+
+</script>
