@@ -19,7 +19,7 @@
         font-size: 11px !important;
         background-color: dodgerblue;
         color: white;
-    }ñ
+    }
 </style>
 <div id="page-content">
     <div class="row">
@@ -36,25 +36,22 @@
 
                     <div id="tab-empresa" class="tab-pane fade active in">
                         <div class="panel-body">
-                            <div class="row">
+                            <div class="row mar-btm">
                                 <button type="button" id="btnvolver" class="btn btn-default btn-success-basic">Volver Atras</button>
                             </div>
                             <form id="FichaEmpresa">
 
-                                <br />
-                                <br />
-                                
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label class="control-label">Rut Empresa</label>
-                                            <input class="form-control" id="emp_rut_FREE" type="text" name="rutEmpresaIngreso" readonly="readonly">
+                                            <input class="form-control" id="rut_empresa" type="text" name="rut_empresa" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">Empresa</label>
-                                            <input class="form-control" type="text" id="emp_nombre_FREE" name="nombreEmpresaIngreso" readonly="readonly">
+                                            <input class="form-control" type="text" id="nombre_empresa" name="nombre_empresa" readonly="readonly">
                                         </div>
                                     </div>
                                 </div>
@@ -62,13 +59,13 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label class="control-label">Sucursal</label>
-                                            <input class="form-control" id="emp_sucursal_FREE" type="text" readonly="readonly">
+                                            <input class="form-control" id="sucursal_empresa" name="sucursal_empresa" type="text" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">Estamento</label>
-                                            <select id="sslEstamentoIngreso" class="form-control" name="sslEstamentoIngreso">
+                                            <select id="estamento_empresa" class="form-control" name="estamento_empresa">
                                                 <option value="Empresas">Empresas</option>
                                                 <option value="Sindicato">Sindicato</option>
                                             </select>
@@ -79,13 +76,13 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label class="control-label">Nombre Local Holding</label>
-                                            <input class="form-control" id="nombre_sucursal" type="text" name="NombreSucursal">
+                                            <input class="form-control" id="holding_empresa" type="text" name="NombreSucursal">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">Dirección Local Holding</label>
-                                            <input class="form-control" id="direccion" type="text" name="DireccionSucursal">
+                                            <input class="form-control" id="direccion_holding_empresa" type="text" name="direccion_holding_empresa">
                                         </div>
                                     </div>
                                 </div>
@@ -93,13 +90,13 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label class="control-label">Nombre Funcionario</label>
-                                            <input class="form-control" id="emp_Nombrefuncionario_FREE" type="text" name="FuncionarioIngreso">
+                                            <input class="form-control" id="nombre_funcionario" type="text" name="nombre_funcionario">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">Cargo Funcionario</label>
-                                            <input class="form-control" type="text" id="emp_CargoFuncionario_FREE" name="CargoIngreso">
+                                            <input class="form-control" type="text" id="cargo_funcionario" name="cargo_funcionario">
                                         </div>
                                     </div>
                                 </div>
@@ -108,17 +105,10 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label class="control-label">N° de Empleados</label>
-                                            <input class="form-control" id="emp_numEmpleados_FREE" type="text" placeholder="Ingresar N° Empleados" name="NEmpleadosIngreso">
+                                            <input class="form-control" id="numero_empleados_empresa" type="text" placeholder="Ingresar N° Empleados" name="numero_empleados_empresa">
                                         </div>
                                     </div>
                                 </div>
-
-                                <br />
-                                <br />
-                                <div>
-                                    <label style="text-align:center;font-weight: bold" class="control-label">Después de conversar con él o los representante del Daem o Corporación (RRHH, Dirigente, etc.) responde las siguientes interrogantes</label>
-                                </div>
-                               
                                 <br />
                                 <div class="row mar-btm">
                                     <div class="col-sm-5">
@@ -132,13 +122,13 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <select id="sslOption1" class="form-control" name="sslOPtion1">
+                                            <select id="opciones_11" class="form-control larespuesta" data-id="1" name="opciones_11">
                                                 <option value="">Seleccione</option>
-                                                <option value="Excelente">Excelente</option>
-                                                <option value="Muy Buena">Muy Buena</option>
-                                                <option value="Normal">Normal</option>
-                                                <option value="Deficiente">Deficiente</option>
-                                                <option value="Mala">Mala</option>
+                                                <option value="4">Excelente</option>
+                                                <option value="5">Muy Buena</option>
+                                                <option value="6">Normal</option>
+                                                <option value="7">Deficiente</option>
+                                                <option value="8">Mala</option>
                                             </select>
                                         </div>
                                     </div>
@@ -147,7 +137,7 @@
                                 <div class="row">
                                     <div class="col-sm-8">
                                         <div class="form-group">
-                                            <textarea placeholder="Explique brevemente su respuesta" rows="5" class="form-control" id="text_1" name="textObs1"></textarea>
+                                            <textarea placeholder="Explique brevemente su respuesta" rows="5" class="form-control larespuesta" id="texto_11" data-id="2" name="texto_11"></textarea>
                                             <small>Máximo 500 caracteres.</small>
                                         </div>
                                     </div>
@@ -169,15 +159,14 @@
                                         </div>
                                         <div class="col-sm-3">
                                             <div>
-
                                                 <label for="radio1_si" class="radio-inline">
-                                                    <input id="radio1_si" class="pregunta2" type="radio" name="respuesta1" value="1">
+                                                    <input id="radio1_si" class="pregunta2 larespuesta" type="radio" data-id="3" name="opciones_21" value="2">
                                                     Si
                                                 </label>
 
 
                                                 <label for="radio1_no" class="radio-inline">
-                                                    <input id="radio1_no" class="pregunta2" type="radio" name="respuesta1" value="0">
+                                                    <input id="radio1_no" class="pregunta2 larespuesta" type="radio" data-id="3" name="opciones_21" value="3">
                                                     No
                                                 </label>
                                             </div>
@@ -192,11 +181,11 @@
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
-                                                <select id="sslOption2" class="form-control" name="sslOption2">
+                                                <select id="sslOption2" class="form-control larespuesta" data-id="4" name="sslOption2">
                                                     <option value="">Seleccione</option>
-                                                    <option value="Buena">Buena</option>
-                                                    <option value="Regular">Regular</option>
-                                                    <option value="Mala">Mala</option>
+                                                    <option value="9">Buena</option>
+                                                    <option value="6">Regular</option>
+                                                    <option value="8">Mala</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -205,7 +194,7 @@
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <div class="form-group">
-                                                <textarea placeholder="Explique brevemente su respuesta" rows="5" class="form-control" id="text-2Obs" name="textObs2"></textarea>
+                                                <textarea placeholder="Explique brevemente su respuesta" rows="5" class="form-control larespuesta" data-id="6" id="text-2Obs" name="textObs2"></textarea>
                                                 <small>Máximo 500 caracteres.</small>
                                             </div>
                                         </div>
@@ -224,7 +213,7 @@
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <div class="form-group">
-                                                <textarea placeholder="Detalle el motivo y las acciones comprometidas para revertir dicha situación" rows="5" class="form-control" id="text_2_3" name="textObs2_3"></textarea>
+                                                <textarea placeholder="Detalle el motivo y las acciones comprometidas para revertir dicha situación" rows="5" class="form-control larespuesta" data-id="5" id="text_2_3" name="textObs2_3"></textarea>
                                                 <small>Máximo 500 caracteres.</small>
                                             </div>
                                         </div>
@@ -242,13 +231,13 @@
                                         <div>
 
                                             <label for="radio23_si" class="radio-inline">
-                                                <input id="radio23_si" class="pregunta23" type="radio" name="respuesta23" value="1">
+                                                <input id="radio23_si" class="pregunta23 larespuesta" type="radio" data-id="7" name="respuesta23" value="2">
                                                 Si
                                             </label>
 
 
                                             <label for="radi23_no" class="radio-inline">
-                                                <input id="radio23_no" class="pregunta23" type="radio" name="respuesta23" value="0">
+                                                <input id="radio23_no" class="pregunta23 larespuesta" type="radio" data-id="7" name="respuesta23" value="3">
                                                 No
                                             </label>
                                         </div>
@@ -261,19 +250,19 @@
                                         <h4>2.4 Datos de contacto</h4>
                                         <div class="form-group">
                                             <label class="control-label">Nombre</label>
-                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                            <input class="form-control" id="nombre_director_ejecutivo" type="text" name="nombre_director_ejecutivo">
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Teléfono</label>
-                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                            <input class="form-control" id="telefono_director_ejecutivo" type="text" name="telefono_director_ejecutivo">
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Email</label>
-                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                            <input class="form-control" id="email_director_ejecutivo" type="text" name="email_director_ejecutivo">
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Dirección</label>
-                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                            <input class="form-control" id="direccion_director_ejecutivo" type="text" name="direccion_director_ejecutivo">
                                         </div>
                                     </div>
                                 </div>
@@ -281,7 +270,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <label style="text-align:center;font-weight: bold;" class="control-label">2.4- Explique en que estado se encuentra el proceso y compromisos de acciones para mantenernos informados de su contratación</label>
-                                            <textarea placeholder="" rows="5" class="form-control" id="tx_res_3" name="tx_res_3"></textarea>
+                                            <textarea placeholder="" rows="5" class="form-control larespuesta" data-id="8" id="tx_res_3" name="tx_res_3"></textarea>
                                             <small>Máximo 500 caracteres.</small>
                                         </div>
                                     </div>
@@ -289,7 +278,7 @@
                                 <script>
                                     $(function () {
                                         $(".pregunta23").on("click", function () {
-                                            if ($(this).val() == 1) {
+                                            if ($(this).val() == 2) {
                                                 $(".respuesta23_si").show();
                                                 $(".respuesta23_no").hide();
                                             }
@@ -312,13 +301,13 @@
                                         <div>
 
                                             <label for="radio25_si" class="radio-inline">
-                                                <input id="radio25_si" class="pregunta25" type="radio" name="respuesta25" value="1">
+                                                <input id="radio25_si" class="pregunta25 larespuesta" data-id="10" type="radio" name="respuesta25" value="2">
                                                 Si
                                             </label>
 
 
                                             <label for="radio25_no" class="radio-inline">
-                                                <input id="radio25_no" class="pregunta25" type="radio" name="respuesta25" value="0">
+                                                <input id="radio25_no" class="pregunta25 larespuesta" data-id="10" type="radio" name="respuesta25" value="3">
                                                 No
                                             </label>
                                         </div>
@@ -331,19 +320,19 @@
                                         <h4>2.6 Datos de contacto</h4>
                                         <div class="form-group">
                                             <label class="control-label">Nombre</label>
-                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                            <input class="form-control" id="nombre_persona_juridica" type="text" name="nombre_persona_juridica">
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Teléfono</label>
-                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                            <input class="form-control" id="telefono_persona_juridica" type="text" name="telefono_persona_juridica">
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Email</label>
-                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                            <input class="form-control" id="email_persona_juridica" type="text" name="email_persona_juridica">
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Dirección</label>
-                                            <input class="form-control" id="" type="text" name="rutEmpresaIngreso">
+                                            <input class="form-control" id="direccion_persona_juridica" type="text" name="direccion_persona_juridica">
                                         </div>
                                     </div>
                                 </div>
@@ -351,7 +340,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <label class="control-label">Compromisos de acciones de cercania, generación de reuniones, etc.</label>
-                                            <textarea placeholder="" rows="5" class="form-control" id="tx_res_3" name="tx_res_3"></textarea>
+                                            <textarea placeholder="" rows="5" class="form-control" id="compromisos_persona_juridica" name="compromisos_persona_juridica"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -359,7 +348,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <label style="text-align:center;font-weight: bold;" class="control-label">2.6- Explique en que estado se encuentra su creación y compromisos para mantenernos informados del avance de este proceso</label>
-                                            <textarea placeholder="" rows="5" class="form-control" id="tx_res_3" name="tx_res_3"></textarea>
+                                            <textarea placeholder="" rows="5" class="form-control larespuesta" data-id="12" id="tx_res_3" name="tx_res_3"></textarea>
                                             <small>Máximo 500 caracteres.</small>
                                         </div>
                                     </div>
@@ -367,7 +356,7 @@
                                 <script>
                                     $(function () {
                                         $(".pregunta25").on("click", function () {
-                                            if ($(this).val() == 1) {
+                                            if ($(this).val() == 2) {
                                                 $(".respuesta25_si").show();
                                                 $(".respuesta25_no").hide();
                                             }
@@ -397,8 +386,8 @@
                                         </div>
                                         <div class="col-sm-3">
                                             <div>
-                                                <label class="radio-inline" for="radio_si_31"><input id="radio_si_31" class="radio31" type="radio" name="respuesta31" value="1"> Si</label>
-                                                <label class="radio-inline" for="radio_no_31"><input id="radio_no_31" class="radio31" type="radio" name="respuesta31" value="0"> No</label>
+                                                <label class="radio-inline" for="radio_si_31"><input id="radio_si_31" class="radio31 larespuesta" data-id="13" type="radio" name="respuesta31" value="2"> Si</label>
+                                                <label class="radio-inline" for="radio_no_31"><input id="radio_no_31" class="radio31 larespuesta" data-id="13" type="radio" name="respuesta31" value="3"> No</label>
                                             </div>
                                         </div>
                                     </div>
@@ -411,8 +400,8 @@
                                         </div>
                                         <div class="col-sm-3">
                                             <div>
-                                                <label class="radio-inline" for="radio_si_32"><input id="radio_si_32" class="radio32" type="radio" name="respuesta32" value="1"> Si</label>
-                                                <label class="radio-inline" for="radio_no_32"><input id="radio_no_32" class="radio32" type="radio" name="respuesta32" value="0"> No</label>
+                                                <label class="radio-inline" for="radio_si_32"><input id="radio_si_32" class="radio32 larespuesta" data-id="14" type="radio" name="respuesta32" value="2"> Si</label>
+                                                <label class="radio-inline" for="radio_no_32"><input id="radio_no_32" class="radio32 larespuesta" data-id="14" type="radio" name="respuesta32" value="3"> No</label>
                                             </div>
                                         </div>
                                     </div>
@@ -424,10 +413,10 @@
                                             <label class="control-label">Indique cuantos y el tipo de conteo</label>
                                             <br />
                                             <div class="col-sm-3">
-                                                <input class="form-control" id="" type="text" name="">
+                                                <input class="form-control" id="cantidad_desvinculacion" type="text" name="">
                                             </div>
                                             <div class="col-sm-3">
-                                                <select class="form-control">
+                                                <select class="form-control" id="tipo_conteo_desvinculacion">
                                                     <option>N°</option>
                                                     <option>%</option>
                                                 </select>
@@ -441,7 +430,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <label style="text-align:center;font-weight: bold;" class="control-label">Explique impactos en detalle y las acciones coordinadas con la institución para evitar impactos en la Caja y funcionarios de la institución.</label>
-                                            <textarea placeholder="..." rows="5" class="form-control" id="text_5" name="textObs5"></textarea>
+                                            <textarea placeholder="..." rows="5" class="form-control"  id="text_5" name="textObs5"></textarea>
                                             <small>Máximo 500 caracteres.</small>
                                         </div>
                                     </div>
@@ -450,7 +439,7 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <label style="text-align:center;font-weight: bold;" class="control-label">Indicar compromisos en el corto plazo  y acciones para informar estado de avances de este proceso.</label>
-                                            <textarea placeholder="..." rows="5" class="form-control" id="text_5" name="textObs5"></textarea>
+                                            <textarea placeholder="..." rows="5" class="form-control larespuesta" data-id="16" id="text_5" name="textObs5"></textarea>
                                             <small>Máximo 500 caracteres.</small>
                                         </div>
                                     </div>
@@ -459,7 +448,7 @@
                                     $(function () {
                                         $(".radio31").on("click", function () {
 
-                                            if ($(this).val() == 1) {
+                                            if ($(this).val() == 2) {
                                                 $(".radio31si").show();
                                                 $(".radio5si").show();
                                                 $(".radio5no").hide();
@@ -476,7 +465,7 @@
 
 
                                         $(".radio32").on("click", function () {
-                                            if ($(this).val() == 1) {
+                                            if ($(this).val() == 2) {
                                                 $(".radio32si").show();
                                                 $(".radio5si").show();
                                                 $(".radio5no").hide();
@@ -503,8 +492,8 @@
                                             </div>
                                             <div class="col-sm-3">
                                                 <div>
-                                                    <label class="radio-inline" for="radio_si_33"><input id="radio_si_33" class="radio33 " type="radio" name="respuesta33" value="1"> Si</label>
-                                                    <label class="radio-inline" for="radio_no_33"><input id="radio_no_33" class="radio33" type="radio" name="respuesta33" value="0"> No</label>
+                                                    <label class="radio-inline" for="radio_si_33"><input id="radio_si_33" class="radio33 larespuesta" data-id="17" type="radio" name="respuesta33" value="2"> Si</label>
+                                                    <label class="radio-inline" for="radio_no_33"><input id="radio_no_33" class="radio33 larespuesta" data-id="17" type="radio" name="respuesta33" value="3"> No</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -517,8 +506,8 @@
                                         </div>
                                         <div class="col-sm-3">
                                             <div>
-                                                <label class="radio-inline" for="radio_si_34"><input id="radio_si_34" class="radio34" type="radio" name="respuesta34" value="1"> Si</label>
-                                                <label class="radio-inline" for="radio_no_34"><input id="radio_no_34" class="radio34" type="radio" name="respuesta34" value="0"> No</label>
+                                                <label class="radio-inline" for="radio_si_34"><input id="radio_si_34" class="radio34 larespuesta" data-id="18" type="radio" name="respuesta34" value="2"> Si</label>
+                                                <label class="radio-inline" for="radio_no_34"><input id="radio_no_34" class="radio34 larespuesta" data-id="18" type="radio" name="respuesta34" value="3"> No</label>
                                             </div>
                                         </div>
                                     </div>
@@ -528,7 +517,7 @@
                                         <div class="col-sm-8">
                                             <div class="form-group">
                                                 <label class="control-label">Explique en detalle la medida restrictiva y acciones para revertir la situación.</label>
-                                                <textarea placeholder="..." rows="5" class="form-control" id="text_6" name="textObs6"></textarea>
+                                                <textarea placeholder="..." rows="5" class="form-control larespuesta" data-id="19" id="text_6" name="textObs6"></textarea>
                                                 <small>Máximo 500 caracteres.</small>
                                             </div>
                                         </div>
@@ -537,7 +526,7 @@
                                         <div class="col-sm-8">
                                             <div class="form-group">
                                                 <label class="control-label">Explique en detalle el motivo y otras instancias que se visualicen.</label>
-                                                <textarea placeholder="..." rows="5" class="form-control" id="text_6" name="textObs6"></textarea>
+                                                <textarea placeholder="..." rows="5" class="form-control larespuesta" data-id="20" id="text_6" name="textObs6"></textarea>
                                                 <small>Máximo 500 caracteres.</small>
                                             </div>
                                         </div>
@@ -545,10 +534,8 @@
                                     <script>
                                         $(function(){
                                             $(".radio33").on("click", function () {
-                                                if ($(this).val() == 1) {
-                                                    
+                                                if ($(this).val() == 2) {
                                                     $(".rdvoluntad").show();
-                                                    
                                                 }
                                                 else {
                                                     $(".rdvoluntad").hide();
@@ -558,7 +545,7 @@
                                             })
 
                                             $(".radio34").on("click", function () {
-                                                if ($(this).val() == 1) {
+                                                if ($(this).val() == 2) {
                                                     $(".rd33si").show();
                                                     $(".rd33no").hide();
                                                 }
@@ -619,7 +606,6 @@
 
                                         <div class="panel-footer text-right">
                                             <button class="btn btn-primary" type="button" id="btn_guardar">Guardar</button>
-                                            <button class="btn btn-success" type="submit" id="btn_enviar">Finalizar</button>
                                         </div>
                                     </div>
 
@@ -650,84 +636,14 @@
 
 
 
-        
-
-
-
         var CargadorEncabezado = {
             CargaEncabezadoTotal: function (p_periodo, p_rutempresa, p_id, p_isHolding) {
 
-                //Pre Aprobados
-                $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-ficha-empresa-encabezado", { Periodo: p_periodo, RutEmpresa: p_rutempresa, Id: p_id }, function (menus) {
-
-
-                    $("#emp_rut_FREE").val(menus.EmpresaRut + '-' + menus.EmpresaDV);
-                    $("#emp_nombre_FREE").val(menus.EmpresaNombre);
-                    $("#emp_sucursal_FREE").val(menus.EmpresaSucursal);
-                    $("#emp_funcionarioCaja_FREE").val(getCookie("Usuario"));
-                        if (p_isHolding === "1") {
-                            $("#divHolding").show();
-                        }
-                    if (menus.idFicha > 0) {
-                    $("#sslEstamentoIngreso").val(menus.Estamento)
-                    $("#emp_Nombrefuncionario_FREE").val(menus.FuncionarioEmple);
-                    $("#emp_CargoFuncionario_FREE").val(menus.FuncionarioCargo);
-                    $("#n_contacto").val(menus.Num_Contacto);
-                    $("#mail_ingreso").val(menus.Email);
-                    $("#nombre_sucursal").val(menus.NombreSucursal);
-                    $("#direccion").val(menus.DireccionSucursal);
-                    $("#emp_numEmpleados_FREE").val(menus.NumeroEmpleados);
-                    $("#emp_funcionarioCaja_FREE").val(menus.FuncionarioCaja);
-                    $("#sslOption1").val(menus.pregunta_1)
-                    $("#text_1").val(menus.pregunta_obs);
-                    $(".pregunta2[value=" + menus.pregunta2_radio + "]").prop("checked", true)
-                    $("#sslOption2").val(menus.pregunta2_combo);
-                    $("#text-2Obs").val(menus.pregunta2_obs2);
-                    $(".radio2[value=" + menus.pregunta2_radio_1 + "]").prop("checked", true)
-                    $("#text_2_1").val(menus.pregunta2_obs3);
-                    $("#text_2_2").val(menus.pregunta2_obs4);
-                    $("#text_2_3").val(menus.pregunta2_obs5);
-                    $(".radio3[value=" + menus.pregunta3_radio + "]").prop("checked", true)
-                    $("#text_3").val(menus.pregunta3_obs);
-                    $(".radio4[value=" + menus.pregunta4_radio + "]").prop("checked", true)
-                    $(".radio4_1[value=" + menus.pregunta4_radio_2 + "]").prop("checked", true)
-                    $("#text_4").val(menus.pregunta4_obs_1);
-                    $("#text_4_1").val(menus.pregunta4_obs_2);
-                    $(".radio5[value=" + menus.pregunta5_radio + "]").prop("checked", true)
-                    $("#text_5").val(menus.pregunta5_obs);
-                    $("#text_5_1").val(menus.pregunta5_obs_1);
-                    $(".radio6[value=" + menus.pregunta6_radio + "]").prop("checked", true)
-                    $("#text_6").val(menus.pregunta6_obs_1);
-                    $("#text_6_1").val(menus.pregunta6_obs_2);
-                    $(".radio7[value=" + menus.pregunta7_radio + "]").prop("checked", true)
-                    $("#text_7").val(menus.pregunta7_obs_1);
-                    $("#sslOption8").val(menus.pregunta8_combo);
-                    $("#text_8").val(menus.pregunta8_obs_1);
-                    $(".radio9[value=" + menus.pregunta9_radio + "]").prop("checked", true)
-                    $(".radio9_1[value=" + menus.pregunta9_radio_1 + "]").prop("checked", true)
-                    $("#text_9").val(menus.pregunta9_obs_1);
-                    $(".radio10[value=" + menus.pregunta10_radio + "]").prop("checked", true)
-                    $(".radio10_1[value=" + menus.pregunta10_radio_1 + "]").prop("checked", true)
-                    $("#textObs10").val(menus.pregunta10_obs);
-                    $("#sslOption11").val(menus.pregunta11_combo);
-                    $("#text_11").val(menus.pregunta11_obs_1);
-                   // $("#anexo").val(menus.Anexo);
-                    $("input[type='radio']:checked").trigger("click");
+                /*$.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-ficha-empresa-encabezado", { Periodo: p_periodo, RutEmpresa: p_rutempresa, Id: p_id }, function (menus) {
 
 
 
-                        if (menus.Estado === "Enviado")
-                        {
-                            $("input, textarea, select, button").prop({"disabled": "disabled"})
-                        }
-                    }
-
-
-
-
-
-
-                });
+                });*/
 
             },
 
@@ -736,20 +652,68 @@
 
 
         $(document).ready(function () {
-            //Cargas iniciales
 
-            CargadorEncabezado.CargaEncabezadoTotal(httpGet("Periodo"), httpGet("RutEmpresa"), httpGet("Id"), httpGet("isHolding"))
+            //Cargas iniciales
+            //CargadorEncabezado.CargaEncabezadoTotal(httpGet("Periodo"), httpGet("RutEmpresa"), httpGet("Id"), httpGet("isHolding"))
 
             //Eventos
             $("#btn_guardar").on("click", function () {
 
+                var objetoFormulario = new Array();
+                
+                
+                $(".larespuesta").each(function (i, e) {
+                    
+                    if ($(e).prop("type") == "radio")
+                    {
+                        if($(e).is(":checked"))
+                        {
+                            objetoFormulario.push({ id: $(e).data("id"), valor: $(e).val(), tipo: 'boleano' })
+                        }
+                    }
+                    else if ($(e).is("select"))
+                    {
+                        objetoFormulario.push({ id: $(e).data("id"), valor: $(e).val(), tipo: 'multiopcion' });
+                    }
+                    else 
+                    {
+                        objetoFormulario.push({ id: $(e).data("id"), valor: $(e).val(), tipo: 'texto' });
+                    }
+                });
+
+                var objetoEnvio = {
+
+                    encabezado: {
+                        rut_empresa: $("#rut_empresa").val(),
+                        nombre_empresa: $("#nombre_empresa").val(),
+                        sucursal_empresa: $("#sucursal_empresa").val(),
+                        estamento_empresa: $("#estamento_empresa").val(),
+                        nombre_funcionario: $("#nombre_funcionario").val(),
+                        cargo_funcionario: $("#cargo_funcionario").val(),
+                        numero_empleados_empresa: $("#numero_empleados_empresa").val()
+                    },
+                    director: {
+                        nombre_director_ejecutivo: $("#nombre_director_ejecutivo").val(),
+                        telefono_director_ejecutivo: $("#telefono_director_ejecutivo").val(),
+                        email_director_ejecutivo: $("#email_director_ejecutivo").val(),
+                        direccion_director_ejecutivo: $("#direccion_director_ejecutivo").val(),
+                    },
+                    personalidad: {
+                        nombre_persona_juridica: $("#nombre_persona_juridica").val(),
+                        telefono_persona_juridica: $("#telefono_persona_juridica").val(),
+                        email_persona_juridica: $("#email_persona_juridica").val(),
+                        direccion_persona_juridica: $("#direccion_persona_juridica").val(),
+                        compromisos_persona_juridica: $("#compromisos_persona_juridica").val(),
+                    },
+                    desvinculacion: {
+                        cantidad_desvinculacion: $("#cantidad_desvinculacion").val(),
+                        tipo_conteo_desvinculacion: $("#tipo_conteo_desvinculacion").val(),
+                    },
+                    data: objetoFormulario
+                }
 
 
-                var x = $("#FichaEmpresa").serialize();
-                x = x + "&Estado=Guardado&idFicha=" + httpGet("Id")
-
-
-                $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-ficha-empresa", x, function (respuesta) {
+                $.SecPostJSON(BASE_URL + "/motor/api/FichaEmpresas/guardar-formulario", objetoEnvio, function (respuesta) {
 
                     if (respuesta.Estado === "OK") {
                         $.niftyNoty({
@@ -757,13 +721,8 @@
                             container: 'floating',
                             html: '<strong>OK</strong> ' + respuesta.Mensaje,
                             focus: false,
-                            timer: 3000,
-                            onHidden: function () {
-                                //history.back(-1);
-                                location.href = "/motor/App/Gestion/Empresas"
-                            }
+                            timer: 3000
                         });
-
 
                     } else {
                         $.niftyNoty({
@@ -771,473 +730,24 @@
                             container: 'floating',
                             html: '<strong>Error</strong> ' + respuesta.Mensaje,
                             focus: false,
-                            timer: 3000
+                            timer: 3000,
+                            onHidden: function () {
+                                //history.back(-1);
+                                //location.href = "/motor/App/Gestion/Empresas"
+                            }
                         });
                     }
                 });
 
             })
 
-
-            $('#FichaEmpresa').bootstrapValidator({
-                excluded: [':disabled', ':not(:visible)'],
-                fields: {
-                    sslEstamentoIngreso: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar un Estamento'
-                            }
-                        }
-                    },
-
-                    //anexo: {
-                    //    validators: {
-                    //        notEmpty: {
-                    //            message: 'Debe ingresar un anexo'
-                    //        }
-                    //    }
-                    //},
-                    FuncionarioIngreso: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe ingresar un funcionario'
-                            }
-                        }
-                    },
-                    ncontacto: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe ingresar un n° de contacto'
-                            }
-                        }
-                    },
-                    MailIngreso: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe ingresar un E-Mail'
-                            }
-                        }
-                    },
-                    NombreSucursal: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe ingresar nombre sucursal'
-                            }
-                        }
-                    },
-                    DireccionSucursal: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe ingresar dirección'
-                            }
-                        }
-                    },
-
-////////
-
-                    CargoIngreso: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar un estado'
-                            }
-                        }
-                    },
-                    NEmpleadosIngreso: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe ingresar un cargo'
-                            }
-                        }
-                    },
-                    pub: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe ingresar valor'
-                            }
-                        }
-                    },
-                    respuesta1: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    respuesta2: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    respuesta3: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    respuesta4: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    respuesta4_1: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    respuesta5: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    respuesta6: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    respuesta7: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    respuesta9: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    respuesta9_1: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    respuesta10: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    respuesta10_1: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-
-                    sslOPtion1: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    sslOption2: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    sslOption8: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-                    sslOption11: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar una opción'
-                            }
-                        }
-                    },
-
-
-                    textObs1: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-
-                    textObs2: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-
-                    textObs2_1: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs2_2: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs2_3: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs3: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs4: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs4_1: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs5: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs5_1: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs6: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs6_1: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs7: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs8: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs9: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs10: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                    textObs11: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe agregar algún comentario'
-                            },
-                            stringLength: {
-                                message: 'No pueden ser mas de 500 caracteres',
-                                max: function (value, validator, $field) {
-                                    return 500 - (value.match(/\r/g) || []).length;
-                                }
-                            }
-                        }
-                    },
-                }
-            }).on('success.form.bv', function (e) {
-                // Prevén que se mande el formulario
-                e.preventDefault();
-                var $form = $(e.target);
-                var postForm = $("#FichaEmpresa").serialize();
-                postForm = postForm + "&Estado=Enviado&idFicha=" + httpGet("Id")
-                $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-ficha-empresa", postForm, function (respuesta) {
-
-                    if (respuesta.Estado === "OK") {
-                        $.niftyNoty({
-                            type: 'success',
-                            container: 'floating',
-                            html: '<strong>OK</strong> ' + respuesta.Mensaje,
-                            focus: false,
-                            timer: 3000
-                        });
-
-                    } else {
-                        $.niftyNoty({
-                            type: 'danger',
-                            container: 'floating',
-                            html: '<strong>Error</strong> ' + respuesta.Mensaje,
-                            focus: false,
-                            timer: 3000,
-                            onHidden: function () {
-                                //history.back(-1);
-                                location.href = "/motor/App/Gestion/Empresas"
-                            }
-                        });
-                    }
-                });
-            });
-
-
             $("#FichaEmpresa").on("submit", function () {
                 console.log($("#FichaEmpresa").serialize())
-
                 return false
-
             });
 
             $(".pregunta2").on("click", function () {
-                if ($(this).val() === "1") {
+                if ($(this).val() === "2") {
                     $(".p2rno").hide();
                     $(".p2rsi").show();
                 } else {
@@ -1248,7 +758,7 @@
 
             $(".radio2").on("click", function () {
 
-                if ($(this).val() === "1") {
+                if ($(this).val() === "2") {
                     $(".radio2no").hide();
                     $(".radio2si").show();
                 } else {
@@ -1259,7 +769,7 @@
 
             $(".radio3").on("click", function () {
 
-                if ($(this).val() === "1") {
+                if ($(this).val() === "2") {
                     $(".radio3si").show();
                 } else {
                     $(".radio3si").hide();
@@ -1268,7 +778,7 @@
 
             $(".radio4").on("click", function () {
 
-                if ($(this).val() === "0") {
+                if ($(this).val() === "3") {
                     $(".radio4no").show();
                 } else {
                     $(".radio4no").hide();
@@ -1278,7 +788,7 @@
 
             $(".radio4_1").on("click", function () {
 
-                if ($(this).val() === "1") {
+                if ($(this).val() === "2") {
                     $(".radio4_1si").show();
                     $(".radio4_1no").hide();
                 } else {
@@ -1289,7 +799,7 @@
 
             $(".radio5").on("click", function () {
 
-                if ($(this).val() === "1") {
+                if ($(this).val() === "2") {
                     $(".radio5si").show();
                     $(".radio5no").hide();
                 } else {
@@ -1301,7 +811,7 @@
 
             $(".radio6").on("click", function () {
 
-                if ($(this).val() === "1") {
+                if ($(this).val() === "2") {
                     $(".radio6si").show();
                     $(".radio6no").hide();
                 } else {
@@ -1312,7 +822,7 @@
 
             $(".radio7").on("click", function () {
 
-                if ($(this).val() === "1") {
+                if ($(this).val() === "2") {
                     $(".radio7si").show();
                 } else {
                     $(".radio7si").hide();
@@ -1321,7 +831,7 @@
 
             $(".radio9").on("click", function () {
 
-                if ($(this).val() === "1") {
+                if ($(this).val() === "2") {
                     $(".radio9si").show();
                 } else {
                     $(".radio9si").hide();
@@ -1331,7 +841,7 @@
 
             $(".radio9_1").on("click", function () {
 
-                if ($(this).val() === "1") {
+                if ($(this).val() === "2") {
                     $(".radio9_1no").hide();
                 } else {
                     $(".radio9_1no").show();
@@ -1341,7 +851,7 @@
 
             $(".radio10").on("click", function () {
 
-                if ($(this).val() === "1") {
+                if ($(this).val() === "2") {
                     $(".radio10si").show();
                 } else {
                     $(".radio10si").hide();
@@ -1350,16 +860,12 @@
 
             $(".radio10_1").on("click", function () {
 
-                if ($(this).val() === "1") {
+                if ($(this).val() === "2") {
                     $(".radio10_1si").show();
                 } else {
                     $(".radio10_1si").hide();
                 }
             })
-
-
-
-
         });
 
 

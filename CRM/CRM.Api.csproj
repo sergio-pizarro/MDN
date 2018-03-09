@@ -264,6 +264,7 @@
     <Compile Include="Controllers\CarteraEmpresasController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\EmpresasController.cs" />
+    <Compile Include="Controllers\FichaEmpresasController.cs" />
     <Compile Include="Controllers\InformeFFVVController.cs" />
     <Compile Include="Controllers\GestionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
