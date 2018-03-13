@@ -19,7 +19,7 @@
                 <!--Nav Tabs-->
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_" class="tab-principal">Gestión Empresas</a>
+                        <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_" class="tab-principal">Gestión Fichas Empresa</a>
                     </li>
                 </ul>
 
@@ -32,7 +32,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
 
-                                    <table id="empresas_table" class="table"></table>
+                                    <table id="fichas_table" class="table"></table>
 
                                 </div>
                             </div>
@@ -58,27 +58,47 @@
     <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 
     <script>
-        $("#empresas_table").bootstrapTable({
-            url: "/Motor/api/FichaEmpresas/listar-empresas",
+        $("#fichas_table").bootstrapTable({
+            url: "/Motor/api/FichaEmpresas/listar-fichas?rut=" + httpGet("RE"),
             pagination: false,
             locale: 'es-CL',
             striped: true,
             columns: [
                 {
-                    field: 'rut_empresa',
-                    title: 'Rut',
+                    field: 'nombre_funcionario',
+                    title: 'Entrevista Con',
                     sortable: true,
                     formatter: function(value, row, index)
                     {
-                        var dondeir = "http://localhost/motor/App/FichaEmpresa/Listado";
-                        return '<a href="' + dondeir + '?RE='+value+'">' + value + '</a>';
+                        console.log(row)
+
+                        var dondeir = "http://localhost/motor/App/FichaEmpresa/LeyDesmunicipalizacion";
+
+                        switch (row.cuestionario_id)
+                        {
+                            case 1:
+                                dondeir = "http://localhost/motor/App/FichaEmpresa/LeyDesmunicipalizacion";
+                                break;
+                            case 2:
+                                dondeir = "http://localhost/motor/App/FichaEmpresa/OtrasEmpresas";
+                                break;
+                        }
+
+
+                        return '<a href="' + dondeir + '?id=' + row.enc_id + '">' + value + '</a>';
                     }
                 },
                 {
-                    field: 'nombre_empresa',
-                    title: 'Nombre',
+                    field: 'cargo_funcionario',
+                    title: 'Cargo',
                     sortable: true
+                    
                 },
+                {
+                    field: 'estamento',
+                    title: 'Estamento',
+                    sortable: true
+                }
             ]
         })
     </script>

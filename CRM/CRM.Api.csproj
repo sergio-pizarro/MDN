@@ -1723,6 +1723,7 @@
     <Content Include="Areas\AppPage\Views\FichaEmpresa\LeyDesmunicipalizacion.cshtml" />
     <Content Include="Areas\AppPage\Views\Configuraciones\DotacionMesAdmin.cshtml" />
     <Content Include="Areas\AppPage\Views\FichaEmpresa\OtrasEmpresas.cshtml" />
+    <Content Include="Areas\AppPage\Views\FichaEmpresa\Listado.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

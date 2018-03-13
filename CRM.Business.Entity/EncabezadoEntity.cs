@@ -68,7 +68,29 @@ namespace CRM.Business.Entity
         /// </summary>
         public string rut_ejecutivo { get; set; }
 
+        /// <summary>
+        /// nombre_empresa
+        /// </summary>
+        public string nombre_empresa { get; set; }
 
+        /// <summary>
+        /// fecha_entrevista
+        /// </summary>
+        public DateTime fecha_entrevista { get; set; }
+
+
+        /// <summary>
+        /// fecha_actualizacion
+        /// </summary>
+        public DateTime fecha_actualizacion { get; set; }
+
+
+        /// <summary>
+        /// nombre_sucursal_empresa
+        /// </summary>
+        public string nombre_sucursal_empresa { get; set; }
+
+        
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="EncabezadoEntity"/>.
         /// </summary>
@@ -83,7 +105,10 @@ namespace CRM.Business.Entity
             cantidad_empleados = 0;
             cod_sucursal = 0;
             rut_ejecutivo = string.Empty;
-
+            nombre_empresa = string.Empty;
+            fecha_entrevista = new DateTime(1900, 1, 1);
+            fecha_actualizacion = new DateTime(1900, 1, 1);
+            nombre_sucursal_empresa = string.Empty;
         }
     }
 }

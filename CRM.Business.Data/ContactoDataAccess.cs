@@ -40,12 +40,13 @@ namespace CRM.Business.Data
             Parametros parametros = new Parametros
             {
                 new Parametro("@cnt_id", contacto.cnt_id),
-                new Parametro("@pregunta_id", contacto.pregunta_id),
+                new Parametro("@encabezado_id", contacto.encabezado_id),
                 new Parametro("@nombre", contacto.nombre),
                 new Parametro("@telefono", contacto.telefono),
                 new Parametro("@email", contacto.email),
                 new Parametro("@direccion", contacto.direccion),
                 new Parametro("@compromisos", contacto.compromisos),
+                new Parametro("@tipo", contacto.tipo),
 
             };
 
@@ -99,13 +100,13 @@ namespace CRM.Business.Data
             return new ContactoEntity
             {
                 cnt_id = row["cnt_id"] != DBNull.Value ? Convert.ToInt32(row["cnt_id"]) : 0,
-                pregunta_id = row["pregunta_id"] != DBNull.Value ? Convert.ToInt32(row["pregunta_id"]) : 0,
+                encabezado_id = row["encabezado_id"] != DBNull.Value ? Convert.ToInt32(row["encabezado_id"]) : 0,
                 nombre = row["nombre"] != DBNull.Value ? row["nombre"].ToString() : string.Empty,
                 telefono = row["telefono"] != DBNull.Value ? Convert.ToInt32(row["telefono"]) : 0,
                 email = row["email"] != DBNull.Value ? row["email"].ToString() : string.Empty,
                 direccion = row["direccion"] != DBNull.Value ? row["direccion"].ToString() : string.Empty,
                 compromisos = row["compromisos"] != DBNull.Value ? row["compromisos"].ToString() : string.Empty,
-
+                tipo = row["tipo"] != DBNull.Value ? row["tipo"].ToString() : string.Empty,
             };
         }
         #endregion

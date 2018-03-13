@@ -31,7 +31,7 @@ namespace CRM.Business.Entity
         /// <summary>
         /// pregunta_id
         /// </summary>
-        public int pregunta_id { get; set; }
+        public int encabezado_id { get; set; }
 
         /// <summary>
         /// nombre
@@ -58,6 +58,11 @@ namespace CRM.Business.Entity
         /// </summary>
         public string compromisos { get; set; }
 
+        /// <summary>
+        /// Tipo
+        /// </summary>
+        public string tipo { get; set; }
+
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="ContactoEntity"/>.
@@ -65,12 +70,13 @@ namespace CRM.Business.Entity
         public ContactoEntity()
         {
             cnt_id = 0;
-            pregunta_id = 0;
+            encabezado_id = 0;
             nombre = string.Empty;
             telefono = 0;
             email = string.Empty;
             direccion = string.Empty;
             compromisos = string.Empty;
+            tipo = string.Empty;
 
         }
     }

@@ -109,7 +109,8 @@ namespace CRM.Business.Data
                 cantidad_empleados = row["cantidad_empleados"] != DBNull.Value ? Convert.ToInt32(row["cantidad_empleados"]) : 0,
                 cod_sucursal = row["cod_sucursal"] != DBNull.Value ? Convert.ToInt32(row["cod_sucursal"]) : 0,
                 rut_ejecutivo = row["rut_ejecutivo"] != DBNull.Value ? row["rut_ejecutivo"].ToString() : string.Empty,
-
+                nombre_empresa = row["nombre_empresa"] != DBNull.Value ? row["nombre_empresa"].ToString() : string.Empty,
+                
             };
         }
         #endregion

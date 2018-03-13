@@ -66,6 +66,7 @@
                                         <div class="form-group">
                                             <label class="control-label">Estamento</label>
                                             <select id="estamento_empresa" class="form-control" name="estamento_empresa">
+                                                <option value="">Seleccione</option>
                                                 <option value="Empresas">Empresas</option>
                                                 <option value="Sindicato">Sindicato</option>
                                             </select>
@@ -108,6 +109,19 @@
                                             <input class="form-control" id="numero_empleados_empresa" type="text" placeholder="Ingresar N° Empleados" name="numero_empleados_empresa">
                                         </div>
                                     </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Fecha Entrevista</label>
+                                            <div id="dp_fecha_entrevista">
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control">
+                                                    <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                    
                                 </div>
                                 <br />
                                 <div class="row mar-btm">
@@ -417,24 +431,25 @@
                                             </div>
                                             <div class="col-sm-3">
                                                 <select class="form-control" id="tipo_conteo_desvinculacion">
-                                                    <option>N°</option>
-                                                    <option>%</option>
+                                                    <option value="">Seleccione</option>
+                                                    <option value="12">N°</option>
+                                                    <option value="13">%</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-
-                                <div class="row radio5si" style="display:none;">
-                                    <div class="col-sm-8">
-                                        <div class="form-group">
-                                            <label style="text-align:center;font-weight: bold;" class="control-label">Explique impactos en detalle y las acciones coordinadas con la institución para evitar impactos en la Caja y funcionarios de la institución.</label>
-                                            <textarea placeholder="..." rows="5" class="form-control"  id="text_5" name="textObs5"></textarea>
-                                            <small>Máximo 500 caracteres.</small>
-                                        </div>
-                                    </div>
-                                </div>
+                                @*
+    <div class="row radio5si" style="display:none;">
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label style="text-align:center;font-weight: bold;" class="control-label">Explique impactos en detalle y las acciones coordinadas con la institución para evitar impactos en la Caja y funcionarios de la institución.</label>
+                <textarea placeholder="..." rows="5" class="form-control"  id="text_5" name="textObs5"></textarea>
+                <small>Máximo 500 caracteres.</small>
+            </div>
+        </div>
+    </div>*@
                                 <div class="row radio5no" style="display:none;">
                                     <div class="col-sm-8">
                                         <div class="form-group">
@@ -534,6 +549,7 @@
                                     <script>
                                         $(function(){
                                             $(".radio33").on("click", function () {
+
                                                 if ($(this).val() == 2) {
                                                     $(".rdvoluntad").show();
                                                 }
@@ -569,7 +585,14 @@
                                             <label class="control-label">Fecha</label>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input class="form-control" type="text" id="tx_fecha_proxima_reunion" name="tx_fecha_proxima_reunion">
+                                            <div id="dp_fecha_entrevista">
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control" id="tx_fecha_proxima_reunion" name="tx_fecha_proxima_reunion">
+                                                    <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                                </div>
+                                            </div>
+
+
                                         </div>
                                     </div>
                                     <div class="row mar-btm">
@@ -578,6 +601,7 @@
                                         </div>
                                         <div class="col-sm-3">
                                             <select id="sslEstamentoIngreso" class="form-control" name="sslEstamentoIngreso">
+                                                <option value="">Seleccione</option>
                                                 <option value="Empresas">Empresas</option>
                                                 <option value="Sindicato">Sindicato</option>
                                             </select>
@@ -637,13 +661,70 @@
 
 
         var CargadorEncabezado = {
-            CargaEncabezadoTotal: function (p_periodo, p_rutempresa, p_id, p_isHolding) {
+            CargaEncabezadoTotal: function (p_id) {
 
-                /*$.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-ficha-empresa-encabezado", { Periodo: p_periodo, RutEmpresa: p_rutempresa, Id: p_id }, function (menus) {
+                $.SecGetJSON(BASE_URL + "/Motor/api/FichaEmpresas/empresa-ficha-data", { id: p_id}, function (resuelve) {
+
+                    console.log(resuelve);
+                    //Encabezado
+                    $("#rut_empresa").val(resuelve.encabezado.rut_empresa)
+                    $("#nombre_empresa").val(resuelve.encabezado.nombre_empresa)
+                    $("#estamento_empresa").val(resuelve.encabezado.estamento)
+
+                    $("#nombre_funcionario").val(resuelve.encabezado.nombre_funcionario)
+                    $("#cargo_funcionario").val(resuelve.encabezado.cargo_funcionario)
+                    $("#numero_empleados_empresa").val(resuelve.encabezado.cantidad_empleados)
+
+                    //Las Generales
+                    $.each(resuelve.respuestas, function (i, e) {
+                        //console.log(e);
+                        $(".larespuesta").each(function (x, htel) {
+                            if ($(htel).data("id") == e.respuesta.pregunta_id)
+                            {
+                                //**Por tipo de control
+                                if($(htel).is("input") && $(htel).prop("type") == "radio")
+                                {
+                                    if (e.respuesta.nuberespuesta_id == $(htel).val())
+                                    {
+                                        $(htel).prop("checked", true).trigger("click");
+                                        
+                                    }
+                                }
+                                else if($(htel).is("select"))
+                                {
+                                    $(htel).val(e.respuesta.nuberespuesta_id)
+                                }
+                                else
+                                {
+                                    $(htel).val(e.desarrollo.texto)
+                                }
+                            }
+                        })
+                    });
 
 
+                    //Contactos
+                    if (resuelve.personalidad != null)
+                    {
+                        $("#nombre_persona_juridica").val(resuelve.personalidad.nombre)
+                        $("#telefono_persona_juridica").val(resuelve.personalidad.telefono)
+                        $("#email_persona_juridica").val(resuelve.personalidad.email)
+                        $("#direccion_persona_juridica").val(resuelve.personalidad.direccion)
+                        $("#compromisos_persona_juridica").val(resuelve.personalidad.compromisos)
+                    }
 
-                });*/
+                    if (resuelve.director != null) {
+                        $("#nombre_director_ejecutivo").val(resuelve.director.nombre)
+                        $("#telefono_director_ejecutivo").val(resuelve.director.telefono)
+                        $("#email_director_ejecutivo").val(resuelve.director.email)
+                        $("#direccion_director_ejecutivo").val(resuelve.director.direccion)
+                    }
+
+                    //Agenda
+
+
+                   
+                });
 
             },
 
@@ -653,8 +734,18 @@
 
         $(document).ready(function () {
 
+
+            $('#dp_fecha_entrevista .input-group.date').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy",
+            });
+
+
+
+
+
             //Cargas iniciales
-            //CargadorEncabezado.CargaEncabezadoTotal(httpGet("Periodo"), httpGet("RutEmpresa"), httpGet("Id"), httpGet("isHolding"))
+            CargadorEncabezado.CargaEncabezadoTotal(httpGet("id"))
 
             //Eventos
             $("#btn_guardar").on("click", function () {
@@ -683,6 +774,7 @@
 
                 var objetoEnvio = {
 
+                    sucursal: getCookie("Oficina"),
                     encabezado: {
                         rut_empresa: $("#rut_empresa").val(),
                         nombre_empresa: $("#nombre_empresa").val(),
@@ -741,12 +833,10 @@
 
             })
 
-            $("#FichaEmpresa").on("submit", function () {
-                console.log($("#FichaEmpresa").serialize())
-                return false
-            });
+
 
             $(".pregunta2").on("click", function () {
+
                 if ($(this).val() === "2") {
                     $(".p2rno").hide();
                     $(".p2rsi").show();
