@@ -48,10 +48,31 @@ namespace CRM.Business.Data
                 new Parametro("@cantidad_empleados", encabezado.cantidad_empleados),
                 new Parametro("@cod_sucursal", encabezado.cod_sucursal),
                 new Parametro("@rut_ejecutivo", encabezado.rut_ejecutivo),
+                new Parametro("@fecha_entrevista", encabezado.fecha_entrevista),
 
             };
 
             return DBHelper.InstanceCRM.ObtenerEscalar<int>("fichas.spFicha_Encabezado_Guardar", parametros);
+        }
+
+
+        /// <summary>
+        /// Guarda la entidad de dominio <see cref="EncabezadoEntity"/> en la Base de Datos
+        /// </summary>
+        /// <author>@Charly</author>
+        /// <created>07-03-2018 10:53:58</created>
+        /// <param name="encabezado">Referencia a una clase <see cref="EncabezadoEntity"/>.</param>
+        /// <returns>Clave primaria resultante de la operación</returns>
+        public static int GuardarNombre(EncabezadoEntity encabezado)
+        {
+            Parametros parametros = new Parametros
+            {
+                new Parametro("@enc_id", encabezado.enc_id),
+                new Parametro("@nombre_empresa", encabezado.nombre_empresa),
+
+            };
+
+            return DBHelper.InstanceCRM.ObtenerEscalar<int>("fichas.spFicha_Encabezado_GuardarNombre", parametros);
         }
 
         /// <summary>
@@ -110,7 +131,9 @@ namespace CRM.Business.Data
                 cod_sucursal = row["cod_sucursal"] != DBNull.Value ? Convert.ToInt32(row["cod_sucursal"]) : 0,
                 rut_ejecutivo = row["rut_ejecutivo"] != DBNull.Value ? row["rut_ejecutivo"].ToString() : string.Empty,
                 nombre_empresa = row["nombre_empresa"] != DBNull.Value ? row["nombre_empresa"].ToString() : string.Empty,
-                
+                fecha_entrevista = row["fecha_entrevista"] != DBNull.Value ? Convert.ToDateTime(row["fecha_entrevista"]) : DateTime.MinValue,
+                fecha_actualizacion = row["fecha_actualizacion"] != DBNull.Value ? Convert.ToDateTime(row["fecha_actualizacion"]) : DateTime.MinValue,
+                nombre_sucursal_empresa = row["nombre_sucursal_empresa"] != DBNull.Value ? row["nombre_sucursal_empresa"].ToString() : string.Empty,
             };
         }
         #endregion

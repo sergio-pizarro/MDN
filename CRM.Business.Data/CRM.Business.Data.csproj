@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgendaDataAccess.cs" />
     <Compile Include="AsignacionDataAccess.cs" />
     <Compile Include="AusenciaDataAccess.cs" />
     <Compile Include="BaseCampagnaDataAccess.cs" />

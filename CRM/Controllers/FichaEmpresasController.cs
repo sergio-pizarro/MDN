@@ -26,7 +26,8 @@ namespace CRM.Controllers
         {
             CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
             int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s=>s.Name == "Oficina").Value );
-            return EncabezadoDataAccess.ObtenerEntidades().FindAll(e => e.cod_sucursal == codOficina).Select(d => new EncabezadoEntity { rut_empresa = d.rut_empresa, nombre_empresa = d.nombre_empresa }).Distinct().ToList();
+            return EncabezadoDataAccess.ObtenerEntidades().FindAll(e => e.cod_sucursal == codOficina).GroupBy(enc=> enc.rut_empresa)
+            .Select(gr => gr.First()).ToList();
         }
 
         //[AuthorizationRequired]
@@ -64,11 +65,40 @@ namespace CRM.Controllers
             {
                 encabezado = ee,
                 respuestas = lasres,
-                director = ContactoDataAccess.ObtenerEntidades().Find(z=>z.encabezado_id == ee.enc_id && z.tipo == "DIRECTOR_EJECUTIVO"),
-                personalidad = ContactoDataAccess.ObtenerEntidades().Find(z => z.encabezado_id == ee.enc_id && z.tipo == "PERSONALIDAD_JURIDICA")
+                director = ContactoDataAccess.ObtenerEntidades().Find(z => z.encabezado_id == ee.enc_id && z.tipo == "DIRECTOR_EJECUTIVO"),
+                personalidad = ContactoDataAccess.ObtenerEntidades().Find(z => z.encabezado_id == ee.enc_id && z.tipo == "PERSONALIDAD_JURIDICA"),
+                agenda = AgendaDataAccess.ObtenerEntidades().Find(f => f.encabezado_id == ee.enc_id)
             };  
         }
 
+
+
+        [HttpGet]
+        [Route("nueva-ficha")]
+        public ResultadoBase NuevaFicha(string re)
+        {
+            try
+            {
+                CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+                int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+                EncabezadoEntity muestra = EncabezadoDataAccess.ObtenerEntidades().FirstOrDefault(s => s.cod_sucursal == codOficina && s.rut_empresa == re);
+
+                EncabezadoEntity ee = new EncabezadoEntity();
+                ee.cod_sucursal = codOficina;
+                ee.cuestionario_id = muestra.cuestionario_id;
+                ee.rut_empresa = re;
+                
+                int codigonuea = EncabezadoDataAccess.Guardar(ee);
+                EncabezadoEntity rs = EncabezadoDataAccess.ObtenerPorID(codigonuea);
+                rs.nombre_empresa = muestra.nombre_empresa;
+                EncabezadoDataAccess.GuardarNombre(rs);
+                return new ResultadoBase { Estado = "OK", Mensaje = "OK", Objeto = rs };
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoBase { Estado = "EE", Mensaje = "Error al Crear la ficha, por favor comuniquese con soporte.", Objeto = ex };
+            }   
+        }
 
 
 
@@ -81,16 +111,16 @@ namespace CRM.Controllers
             {
                 string token = ActionContext.Request.Headers.GetValues("Token").First();
 
-                EncabezadoEntity enx = EncabezadoDataAccess.ObtenerEntidades().Find(e => e.rut_empresa == entrada.encabezado.rut_empresa && e.cod_sucursal == entrada.sucursal);
+                EncabezadoEntity enx = EncabezadoDataAccess.ObtenerEntidades().Find(e => e.enc_id == entrada.encabezado.id_ficha);
 
                 enx.estamento = entrada.encabezado.estamento_empresa;
                 enx.cantidad_empleados = Convert.ToInt32(entrada.encabezado.numero_empleados_empresa);
                 enx.nombre_funcionario = entrada.encabezado.nombre_funcionario;
                 enx.cargo_funcionario = entrada.encabezado.cargo_funcionario;
+                enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
 
                 EncabezadoDataAccess.Guardar(enx);
-
-
+                
 
                 if (entrada.personalidad.nombre_persona_juridica != null)
                 {
@@ -166,6 +196,23 @@ namespace CRM.Controllers
                     DesarrolloDataAccess.Guardar(desarrolloFormulario);
                 }
 
+                if (entrada.agenda.fecha_prox_reunion != null)
+                {
+                    AgendaEntity lg = AgendaDataAccess.ObtenerEntidades().Find(d => d.encabezado_id == enx.enc_id);
+                    if(lg == null)
+                    {
+                        lg = new AgendaEntity();
+                    }
+
+                    lg.encabezado_id = enx.enc_id;
+                    lg.fecha = Convert.ToDateTime(entrada.agenda.fecha_prox_reunion);
+                    lg.estamento = entrada.agenda.estamento;
+                    lg.nombre_funcionario = entrada.agenda.nombre_funcionario_empresa;
+                    lg.cargo_funcionario = entrada.agenda.cargo_funcionario_empresa;
+
+                    AgendaDataAccess.Guardar(lg);
+                }
+
                 entrada.data.ToList().ForEach(v =>
                 {
 
@@ -198,7 +245,7 @@ namespace CRM.Controllers
                     }
                 });
 
-                return new ResultadoBase() { Estado = "OK", Mensaje = "OK", Objeto = entrada };
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Ficha Guardada con éxito!", Objeto = entrada };
 
             }catch(Exception ex) {
 
@@ -206,14 +253,92 @@ namespace CRM.Controllers
             }
         }
 
+
+
+        //[AuthorizationRequired]
+        [HttpPost]
+        [Route("guardar-formulario-privadas")]
+        public ResultadoBase GuardarFomularioPrivadas(webFRM entrada)
+        {
+            try
+            {
+                string token = ActionContext.Request.Headers.GetValues("Token").First();
+
+                EncabezadoEntity enx = EncabezadoDataAccess.ObtenerEntidades().Find(e => e.enc_id == entrada.encabezado.id_ficha);
+
+                enx.estamento = entrada.encabezado.estamento_empresa;
+                enx.cantidad_empleados = Convert.ToInt32(entrada.encabezado.numero_empleados_empresa);
+                enx.nombre_funcionario = entrada.encabezado.nombre_funcionario;
+                enx.cargo_funcionario = entrada.encabezado.cargo_funcionario;
+                enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
+
+                EncabezadoDataAccess.Guardar(enx);
+
+                
+
+                if (entrada.agenda.fecha_prox_reunion != null)
+                {
+                    AgendaEntity lg = AgendaDataAccess.ObtenerEntidades().Find(d => d.encabezado_id == enx.enc_id);
+                    if (lg == null)
+                    {
+                        lg = new AgendaEntity();
+                    }
+
+                    lg.encabezado_id = enx.enc_id;
+                    lg.fecha = Convert.ToDateTime(entrada.agenda.fecha_prox_reunion);
+                    lg.estamento = entrada.agenda.estamento;
+                    lg.nombre_funcionario = entrada.agenda.nombre_funcionario_empresa;
+                    lg.cargo_funcionario = entrada.agenda.cargo_funcionario_empresa;
+
+                    AgendaDataAccess.Guardar(lg);
+                }
+
+                entrada.data.ToList().ForEach(v =>
+                {
+
+                    if (v.valor != null)
+                    {
+                        RespuestaEntity resval = new RespuestaEntity();
+                        string texti = "";
+                        if (v.tipo == "texto")
+                        {
+                            resval = RespuestaDataAccess.ObtenerEntidades().Find(x => x.pregunta_id == v.id && x.nuberespuesta_id == 1);
+                            texti = v.valor;
+                        }
+                        else
+                        {
+                            resval = RespuestaDataAccess.ObtenerEntidades().Find(x => x.pregunta_id == v.id && x.nuberespuesta_id.ToString() == v.valor);
+                        }
+                        DesarrolloEntity desarrolloFormulario = DesarrolloDataAccess.ObtenerEntidades().Find(y => y.encabezado_id == enx.enc_id && y.respuesta_id == resval.resp_id);
+
+                        if (desarrolloFormulario == null)
+                        {
+                            desarrolloFormulario = new DesarrolloEntity();
+                        }
+
+                        desarrolloFormulario.encabezado_id = enx.enc_id;
+                        desarrolloFormulario.respuesta_id = resval.resp_id;
+                        desarrolloFormulario.texto = texti;
+
+                        DesarrolloDataAccess.Guardar(desarrolloFormulario);
+
+                    }
+                });
+
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Ficha Guardada con éxito!", Objeto = entrada };
+
+            }
+            catch (Exception ex)
+            {
+
+                return new ResultadoBase() { Estado = "Error", Mensaje = "Error", Objeto = ex };
+            }
+        }
+
+
     }
 
-
-
-
-
-
-
+    
 
     //Auxiliares
     public class ContenedorData
@@ -222,12 +347,20 @@ namespace CRM.Controllers
         public List<ContenedorRespuestas> respuestas { get; set; }
         public ContactoEntity personalidad { get; set; }
         public ContactoEntity director { get; set; }
+        public AgendaEntity agenda { get; set; }
     }
 
     public class ContenedorRespuestas
     {
         public DesarrolloEntity desarrollo { get; set; }
         public RespuestaEntity respuesta { get; set; }
+    }
+
+
+    public class webFRM_NF
+    {
+        public int sucursal { get; set; }
+        public string rutEmpresa { get; set; }
     }
 
     public class webFRM
@@ -237,6 +370,7 @@ namespace CRM.Controllers
         public directorEjecutivo director { get; set; }
         public personalidadJuridica personalidad { get; set; }
         public desvinculation desvinculacion { get; set; }
+        public lagenda agenda { get; set; }
         public vluz[] data { get; set; }
     }
 
@@ -249,6 +383,7 @@ namespace CRM.Controllers
 
     public class encabezao
     {
+        public int id_ficha { get; set; }
         public string rut_empresa { get; set; }
         public string nombre_empresa { get; set; }
         public string sucursal_empresa { get; set; }
@@ -256,6 +391,7 @@ namespace CRM.Controllers
         public string nombre_funcionario { get; set; }
         public string cargo_funcionario { get; set; }
         public string numero_empleados_empresa { get; set; }
+        public string fecha_entrevista { get; set; }
     }
 
     public class directorEjecutivo
@@ -279,5 +415,13 @@ namespace CRM.Controllers
     {
         public string cantidad_desvinculacion { get; set; }
         public string tipo_conteo_desvinculacion { get; set; }
+    }
+
+    public class lagenda
+    {
+        public string fecha_prox_reunion { get; set; }
+        public string estamento { get; set; }
+        public string nombre_funcionario_empresa { get; set; }
+        public string cargo_funcionario_empresa { get; set; }
     }
 }

@@ -26,14 +26,19 @@
                 <!--Tabs Content-->
                 <div class="tab-content">
 
-
+                    
                     <div id="demo-lft-tab-1" class="tab-pane fade active in">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
+                                    <div class="row mar-btm">
+                                        <a href="/motor/App/FichaEmpresa" class="btn btn-default">Volver</a>
+                                        <button type="button" id="bt_nueva" class="btn btn-default btn-success-basic">Nueva Ficha</button>
+                                    </div>
+                                    <div class="row mar-btm">
 
-                                    <table id="fichas_table" class="table"></table>
-
+                                        <table id="fichas_table" class="table"></table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -70,22 +75,19 @@
                     sortable: true,
                     formatter: function(value, row, index)
                     {
-                        console.log(row)
-
-                        var dondeir = "http://localhost/motor/App/FichaEmpresa/LeyDesmunicipalizacion";
-
+                        var dondeir = BASE_URL + "/motor/App/FichaEmpresa/LeyDesmunicipalizacion";
                         switch (row.cuestionario_id)
                         {
                             case 1:
-                                dondeir = "http://localhost/motor/App/FichaEmpresa/LeyDesmunicipalizacion";
+                                dondeir = BASE_URL + "/motor/App/FichaEmpresa/LeyDesmunicipalizacion";
                                 break;
                             case 2:
-                                dondeir = "http://localhost/motor/App/FichaEmpresa/OtrasEmpresas";
+                                dondeir = BASE_URL + "/motor/App/FichaEmpresa/OtrasEmpresas";
                                 break;
                         }
 
-
-                        return '<a href="' + dondeir + '?id=' + row.enc_id + '">' + value + '</a>';
+                        var leyenda = value.length == 0 ? 'Sin completar' : value;
+                        return '<a href="' + dondeir + '?id=' + row.enc_id + '">' + leyenda + '</a>';
                     }
                 },
                 {
@@ -95,12 +97,61 @@
                     
                 },
                 {
+                    field: 'fecha_entrevista',
+                    title: 'Fecha Entrevista',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        var leyenda = value.toFecha() == '01-01-0001' || value.toFecha() == '01-01-1900' ? '' : value.toFecha();
+                        return leyenda;
+                    }
+                },
+                {
                     field: 'estamento',
                     title: 'Estamento',
                     sortable: true
                 }
             ]
         })
+
+
+        $(function () {
+            $("#bt_nueva").on("click", function () {
+                $(this).text("Creando nueva ficha........");
+                $(this).prop("disabled", true);
+                $.SecGetJSON(BASE_URL + "/Motor/api/FichaEmpresas/nueva-ficha", { re: httpGet("RE") }, function (resuelve) {
+
+                    if (resuelve.Estado == "OK")
+                    {
+                        var dondeir = BASE_URL + "/motor/App/FichaEmpresa/LeyDesmunicipalizacion";
+                        switch (resuelve.Objeto.cuestionario_id) {
+                            case 1:
+                                dondeir = BASE_URL + "/motor/App/FichaEmpresa/LeyDesmunicipalizacion";
+                                break;
+                            case 2:
+                                dondeir = BASE_URL + "/motor/App/FichaEmpresa/OtrasEmpresas";
+                                break;
+                        }
+
+                        location.href = dondeir + "?id=" + resuelve.Objeto.enc_id
+                    }
+                    else
+                    {
+                        $.niftyNoty({
+                            type: 'danger',
+                            container: 'floating',
+                            html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                            focus: false,
+                            timer: 3000,
+                            onHidden: function () {
+                                $(this).text("Nueva Ficha");
+                                $(this).prop("disabled", false);
+                            }
+                        });
+                    }
+
+                });
+            });
+        });
     </script>
 
 }

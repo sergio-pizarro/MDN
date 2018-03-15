@@ -114,7 +114,7 @@
                                             <label class="control-label">Fecha Entrevista</label>
                                             <div id="dp_fecha_entrevista">
                                                 <div class="input-group date">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" id="fecha_entrevista" class="form-control">
                                                     <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
                                                 </div>
                                             </div>
@@ -587,7 +587,7 @@
                                         <div class="col-sm-3">
                                             <div id="dp_fecha_entrevista">
                                                 <div class="input-group date">
-                                                    <input type="text" class="form-control" id="tx_fecha_proxima_reunion" name="tx_fecha_proxima_reunion">
+                                                    <input type="text" class="form-control" id="fecha_proxima_reunion_agenda" name="fecha_proxima_reunion_agenda">
                                                     <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
                                                 </div>
                                             </div>
@@ -600,7 +600,7 @@
                                             <label class="control-label">Estamento</label>
                                         </div>
                                         <div class="col-sm-3">
-                                            <select id="sslEstamentoIngreso" class="form-control" name="sslEstamentoIngreso">
+                                            <select id="sl_estamento_agenda" class="form-control" name="sl_estamento_agenda">
                                                 <option value="">Seleccione</option>
                                                 <option value="Empresas">Empresas</option>
                                                 <option value="Sindicato">Sindicato</option>
@@ -612,7 +612,7 @@
                                             <label class="control-label">Nombre del Funcionario de la Empresa</label>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input class="form-control" type="text" id="tx_nombre_funcionario_empresa" name="tx_nombre_funcionario_empresa">
+                                            <input class="form-control" type="text" id="nombre_funcionario_empresa_agenda" name="nombre_funcionario_empresa_agenda">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -620,7 +620,7 @@
                                             <label class="control-label">Cargo del Funcionario</label>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input class="form-control" type="text" id="tx_cargo_funcionario_empresa" name="tx_cargo_funcionario_empresa">
+                                            <input class="form-control" type="text" id="cargo_funcionario_empresa_agenda" name="cargo_funcionario_empresa_agenda">
                                         </div>
                                     </div>
                                     <br />
@@ -665,7 +665,6 @@
 
                 $.SecGetJSON(BASE_URL + "/Motor/api/FichaEmpresas/empresa-ficha-data", { id: p_id}, function (resuelve) {
 
-                    console.log(resuelve);
                     //Encabezado
                     $("#rut_empresa").val(resuelve.encabezado.rut_empresa)
                     $("#nombre_empresa").val(resuelve.encabezado.nombre_empresa)
@@ -674,10 +673,10 @@
                     $("#nombre_funcionario").val(resuelve.encabezado.nombre_funcionario)
                     $("#cargo_funcionario").val(resuelve.encabezado.cargo_funcionario)
                     $("#numero_empleados_empresa").val(resuelve.encabezado.cantidad_empleados)
+                    $("#fecha_entrevista").val(resuelve.encabezado.fecha_entrevista.toFecha())
 
                     //Las Generales
                     $.each(resuelve.respuestas, function (i, e) {
-                        //console.log(e);
                         $(".larespuesta").each(function (x, htel) {
                             if ($(htel).data("id") == e.respuesta.pregunta_id)
                             {
@@ -700,6 +699,14 @@
                                 }
                             }
                         })
+
+                        
+                        if (e.respuesta.pregunta_id == 15)
+                        {
+                            $("#cantidad_desvinculacion").val(e.desarrollo.texto);
+                            $("#tipo_conteo_desvinculacion").val(e.respuesta.nuberespuesta_id)
+                        }
+
                     });
 
 
@@ -721,7 +728,12 @@
                     }
 
                     //Agenda
-
+                    if (resuelve.agenda != null) {
+                        $("#fecha_proxima_reunion_agenda").val(resuelve.agenda.fecha.toFecha());
+                        $("#sl_estamento_agenda").val(resuelve.agenda.estamento);
+                        $("#nombre_funcionario_empresa_agenda").val(resuelve.agenda.nombre_funcionario);
+                        $("#cargo_funcionario_empresa_agenda").val(resuelve.agenda.cargo_funcionario);
+                    }
 
                    
                 });
@@ -776,13 +788,15 @@
 
                     sucursal: getCookie("Oficina"),
                     encabezado: {
+                        id_ficha: httpGet("id"),
                         rut_empresa: $("#rut_empresa").val(),
                         nombre_empresa: $("#nombre_empresa").val(),
                         sucursal_empresa: $("#sucursal_empresa").val(),
                         estamento_empresa: $("#estamento_empresa").val(),
                         nombre_funcionario: $("#nombre_funcionario").val(),
                         cargo_funcionario: $("#cargo_funcionario").val(),
-                        numero_empleados_empresa: $("#numero_empleados_empresa").val()
+                        numero_empleados_empresa: $("#numero_empleados_empresa").val(),
+                        fecha_entrevista: $("#fecha_entrevista").val(),
                     },
                     director: {
                         nombre_director_ejecutivo: $("#nombre_director_ejecutivo").val(),
@@ -800,6 +814,12 @@
                     desvinculacion: {
                         cantidad_desvinculacion: $("#cantidad_desvinculacion").val(),
                         tipo_conteo_desvinculacion: $("#tipo_conteo_desvinculacion").val(),
+                    },
+                    agenda: {
+                        fecha_prox_reunion: $("#fecha_proxima_reunion_agenda").val(),
+                        estamento: $("#sl_estamento_agenda").val(),
+                        nombre_funcionario_empresa: $("#nombre_funcionario_empresa_agenda").val(),
+                        cargo_funcionario_empresa: $("#cargo_funcionario_empresa_agenda").val()
                     },
                     data: objetoFormulario
                 }
@@ -963,7 +983,8 @@
         $("#pub").val(getCookie("Usuario"))
         $("#btnvolver").click(function (event) {
             event.preventDefault();
-            history.back(-1);
+            //history.back(-1);
+            location.href = BASE_URL + '/motor/App/FichaEmpresa/Listado?RE=' + $("#rut_empresa").val();
         });
     </script>
 }
