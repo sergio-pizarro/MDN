@@ -36,5 +36,11 @@ namespace CRM.Business.Entity
         public DateTime FechaActualizacion { get; set; }
 
     }
+    public class LicenciaDerivacionEntity
+    {
+        public int sucursalOrigen { get; set; }
+        public int sucursalDerivacion { get; set; }
+        public string RutEjecutivo { get; set; }
+    }
    
 }

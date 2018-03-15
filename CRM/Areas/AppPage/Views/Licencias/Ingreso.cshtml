@@ -8,6 +8,7 @@
 
 <!--Magic Checkbox [ OPTIONAL ]-->
 <link href="~/Assets/plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
+<script src="~/Assets/plugins/bootbox/bootbox.min.js"></script>
 
 
 
@@ -28,6 +29,8 @@
                 <!--===================================================-->
                 <form id="frm-data-lc">
                     <div class="panel-body">
+
+                      
                         <div class="row">
                             <div class="col-sm-3">
                                 <div class="form-group">
@@ -349,13 +352,61 @@
 
 
                         } else {
-                            $.niftyNoty({
-                                type: 'danger',
-                                container: 'floating',
-                                html: '<strong>Error</strong> ' + respuesta.Mensaje,
-                                focus: false,
-                                timer: 3000
+                            bootbox.dialog({
+
+
+
+                                message: respuesta.Mensaje,
+                                title: "Derivación de LM",
+                                buttons: {
+                                    success: {
+                                        label: "Si",
+                                        className: "btn-success",
+                                        callback: function () {
+                                            $.SecPostJSON(BASE_URL + "/motor/api/Licencias/guardar-licencia-derivacion", WebIngresoLicencia, function (respuesta) {
+                                                if (respuesta.Estado === "OK") {
+                                                    $.niftyNoty({
+                                                        type: 'success',
+                                                        message: '<strong>OK</strong> Licencia Derivada. ',
+                                                        container: 'floating',
+                                                        timer: 5000
+                                                    });
+                                                }
+                                                else {
+                                                    $.niftyNoty({
+                                                        type: 'success',
+                                                        message: '<strong>Licencia Derivada</strong>  ' + respuesta.Mensaje,
+                                                        container: 'floating',
+                                                        timer: 5000
+                                                    });
+                                                }
+                                            });
+                                           
+                                        }
+                                    },
+
+                                    danger: {
+                                        label: "No",
+                                        className: "btn-danger",
+                                        callback: function () {
+                                            $.niftyNoty({
+                                                type: 'danger',
+                                                message: '<strong>Liciencia no derivada</strong>',
+                                                container: 'floating',
+                                                timer: 5000
+                                            });
+                                        }
+                                    }
+
+                                }
                             });
+                            //$.niftyNoty({
+                            //    type: 'danger',
+                            //    container: 'floating',
+                            //    html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                            //    focus: false,
+                            //    timer: 3000
+                            //});
                         }
                     });
 
@@ -517,7 +568,7 @@
                     $("#frm-data-lc").bootstrapValidator('resetForm', true);
                 }
             });
-
+           
 
             $("#bt-bolver").on("click", function () {
                 location.href = BASE_URL + "/motor/App/Licencias"

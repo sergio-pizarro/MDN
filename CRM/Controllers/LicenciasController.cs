@@ -133,6 +133,32 @@ namespace CRM.Controllers
 
 
         [AuthorizationRequired]
+        [HttpPost]
+        [Route("guardar-licencia-derivacion")]
+        public ResultadoBase GuardarLicenciaDerivacion(WebIngresoLicencia entrada)
+        {
+
+
+            try
+            {
+                string token = ActionContext.Request.Headers.GetValues("Token").First();
+
+                Ingresolicencia ing = new Ingresolicencia();
+                ing.RutAfiliado = entrada.RutAfiliado.Replace(".", ""); ;
+                ing.FolioLicencia = entrada.FolioLc;
+               // ing.Oficina = entrada.CodOficina;
+
+                IngresolicenciaDataAccess.GuardaDerivacion(ing, token);
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Licencia derivada con éxito", };
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoBase() { Estado = "ERR", Mensaje = ex.Message, Objeto = ex };
+            }
+        }
+
+
+        [AuthorizationRequired]
         [HttpGet]
         [Route("eliminar-licencia")]
         public ResultadoBase EliminarLicencia(int CodIngreso)
