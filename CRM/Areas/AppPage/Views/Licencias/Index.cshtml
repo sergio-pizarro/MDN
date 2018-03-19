@@ -12,6 +12,8 @@
 <link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
 <!--Bootstrap Select [ OPTIONAL ]-->
 <link href="~/Assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+<script src="~/Assets/plugins/bootbox/bootbox.min.js"></script>
+
 
  <!--Page content-->
 <!--===================================================-->
@@ -44,8 +46,7 @@
                 </div>
                 <div class="panel-body">
 
-                    
-                    
+              
 
                     <table id="demo-foo-filtering" class="table table-bordered table-hover toggle-circle" data-page-size="20">
                         <thead>
@@ -69,9 +70,9 @@
                                     <div class="input-group">
                                         <button class="btn btn-success" type="button" id="bt-nueva">Ingresar Licencias</button>
                                         @*<a class="btn btn-primary mar-lft" href="#" id="exportar">Exportar LM Manual</a>
-                                        <a class="btn btn-primary mar-lft" href="#" id="expLmMixta">Exportar LM Mixta</a>*@
+                        <a class="btn btn-primary mar-lft" href="#" id="expLmMixta">Exportar LM Mixta</a>*@
                                     </div>
-                                    
+
                                 </div>
 
 
@@ -108,21 +109,19 @@
                                     @*<span class="badge badge-mint control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Total" id="cantLM"></span>*@
                                     <span class="badge badge-success control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Folio y rut idénticos AS400–Motor" id="number_one">0</span>
                                     <span class="badge badge-yelow control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Inconsistencia:Rut distinto AS400–Motor" id="number_two">0</span>
-                                    <span class="badge badge-danger control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Folio no encontrado en AS400"id="number_three">0</span>
+                                    <span class="badge badge-danger control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Folio no encontrado en AS400" id="number_three">0</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4 mar-top">
+                                    <div class="input-group">
+
+                                        <a class="btn btn-primary mar-lft" href="#" id="exportar">Exportar LM Manual</a>
+                                        <a class="btn btn-mint" href="#" id="expLmMixta">Exportar LM Mixta</a>
                                     </div>
                                 </div>
                             </div>
-                        <div class="row">
-                            <div class="col-sm-4 mar-top">
-                                <div class="input-group">
-
-                                    <a class="btn btn-primary mar-lft" href="#" id="exportar">Exportar LM Manual</a>
-                                    <a class="btn btn-mint" href="#" id="expLmMixta">Exportar LM Mixta</a>
-                                </div>
-
-                            </div>
-
-                        </div>
                         </div>
                         <tbody id="bdy_datos"></tbody>
                         <tfoot>
@@ -149,7 +148,7 @@
     <!--Bootstrap Select [ OPTIONAL ]-->
     <script src="~/Assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
     <!--Bootbox Modals [ OPTIONAL ]-->
-    <script src="~/Assets/plugins/bootbox/bootbox.min.js"></script>
+    @*<script src="~/Assets/plugins/bootbox/bootbox.min.js"></script>*@
 
     <script>
 
@@ -255,6 +254,7 @@
         $("#bt-nueva").on("click", function () {
             location.href = BASE_URL + "/motor/App/Licencias/Ingreso";
         });
+      
 
         $('#demo-dp-component .input-group.date').datepicker({
             autoclose: true,
@@ -268,6 +268,7 @@
             cargador.CargaDatosTabla($("#flt_dia").val());
             cargador.CargaDatosEncabezado($("#flt_dia").val());
         });
+      
 
 
        
