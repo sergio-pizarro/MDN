@@ -102,6 +102,26 @@ namespace CRM.Controllers
 
 
 
+        [HttpGet]
+        [Route("empresa-data")]
+        public EncabezadoEntity EmpresaData(string re)
+        {
+            try
+            {
+                CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+                int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+                EncabezadoEntity muestra = EncabezadoDataAccess.ObtenerEntidades().FirstOrDefault(s => s.cod_sucursal == codOficina && s.rut_empresa == re);
+
+                return muestra;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener data de la empresa: ", ex);
+            }
+        }
+
+
+
         //[AuthorizationRequired]
         [HttpPost]
         [Route("guardar-formulario")]
@@ -110,17 +130,43 @@ namespace CRM.Controllers
             try
             {
                 string token = ActionContext.Request.Headers.GetValues("Token").First();
+                CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+                int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
 
-                EncabezadoEntity enx = EncabezadoDataAccess.ObtenerEntidades().Find(e => e.enc_id == entrada.encabezado.id_ficha);
+                EncabezadoEntity enx;
+                if (entrada.encabezado.id_ficha == "NEW")
+                {
+                    EncabezadoEntity muestra = EncabezadoDataAccess.ObtenerEntidades().FirstOrDefault(s => s.cod_sucursal == codOficina && s.rut_empresa == entrada.encabezado.rut_empresa);
 
-                enx.estamento = entrada.encabezado.estamento_empresa;
-                enx.cantidad_empleados = Convert.ToInt32(entrada.encabezado.numero_empleados_empresa);
-                enx.nombre_funcionario = entrada.encabezado.nombre_funcionario;
-                enx.cargo_funcionario = entrada.encabezado.cargo_funcionario;
-                enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
+                    enx = new EncabezadoEntity();
+                    enx.cod_sucursal = codOficina;
+                    enx.cuestionario_id = muestra.cuestionario_id;
+                    enx.rut_empresa = entrada.encabezado.rut_empresa;
 
-                EncabezadoDataAccess.Guardar(enx);
-                
+                    enx.estamento = entrada.encabezado.estamento_empresa;
+                    enx.cantidad_empleados = Convert.ToInt32(entrada.encabezado.numero_empleados_empresa);
+                    enx.nombre_funcionario = entrada.encabezado.nombre_funcionario;
+                    enx.cargo_funcionario = entrada.encabezado.cargo_funcionario;
+                    enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
+
+                    int codigonuea = EncabezadoDataAccess.Guardar(enx);
+                    EncabezadoEntity rs = EncabezadoDataAccess.ObtenerPorID(codigonuea);
+                    rs.nombre_empresa = muestra.nombre_empresa;
+                    EncabezadoDataAccess.GuardarNombre(rs);
+
+                }
+                else
+                {
+                    enx = EncabezadoDataAccess.ObtenerEntidades().Find(e => e.enc_id == Convert.ToInt32(entrada.encabezado.id_ficha));
+                    enx.estamento = entrada.encabezado.estamento_empresa;
+                    enx.cantidad_empleados = Convert.ToInt32(entrada.encabezado.numero_empleados_empresa);
+                    enx.nombre_funcionario = entrada.encabezado.nombre_funcionario;
+                    enx.cargo_funcionario = entrada.encabezado.cargo_funcionario;
+                    enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
+                    EncabezadoDataAccess.Guardar(enx);
+                }
+
+
 
                 if (entrada.personalidad.nombre_persona_juridica != null)
                 {
@@ -263,18 +309,43 @@ namespace CRM.Controllers
             try
             {
                 string token = ActionContext.Request.Headers.GetValues("Token").First();
+                CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+                int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
 
-                EncabezadoEntity enx = EncabezadoDataAccess.ObtenerEntidades().Find(e => e.enc_id == entrada.encabezado.id_ficha);
+                EncabezadoEntity enx;
+                if (entrada.encabezado.id_ficha == "NEW")
+                {
+                    EncabezadoEntity muestra = EncabezadoDataAccess.ObtenerEntidades().FirstOrDefault(s => s.cod_sucursal == codOficina && s.rut_empresa == entrada.encabezado.rut_empresa);
 
-                enx.estamento = entrada.encabezado.estamento_empresa;
-                enx.cantidad_empleados = Convert.ToInt32(entrada.encabezado.numero_empleados_empresa);
-                enx.nombre_funcionario = entrada.encabezado.nombre_funcionario;
-                enx.cargo_funcionario = entrada.encabezado.cargo_funcionario;
-                enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
+                    enx = new EncabezadoEntity();
+                    enx.cod_sucursal = codOficina;
+                    enx.cuestionario_id = muestra.cuestionario_id;
+                    enx.rut_empresa = entrada.encabezado.rut_empresa;
 
-                EncabezadoDataAccess.Guardar(enx);
+                    enx.estamento = entrada.encabezado.estamento_empresa;
+                    enx.cantidad_empleados = Convert.ToInt32(entrada.encabezado.numero_empleados_empresa);
+                    enx.nombre_funcionario = entrada.encabezado.nombre_funcionario;
+                    enx.cargo_funcionario = entrada.encabezado.cargo_funcionario;
+                    enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
 
-                
+                    int codigonuea = EncabezadoDataAccess.Guardar(enx);
+                    EncabezadoEntity rs = EncabezadoDataAccess.ObtenerPorID(codigonuea);
+                    rs.nombre_empresa = muestra.nombre_empresa;
+                    EncabezadoDataAccess.GuardarNombre(rs);
+
+                }
+                else
+                {
+                    enx = EncabezadoDataAccess.ObtenerEntidades().Find(e => e.enc_id == Convert.ToInt32(entrada.encabezado.id_ficha));
+                    enx.estamento = entrada.encabezado.estamento_empresa;
+                    enx.cantidad_empleados = Convert.ToInt32(entrada.encabezado.numero_empleados_empresa);
+                    enx.nombre_funcionario = entrada.encabezado.nombre_funcionario;
+                    enx.cargo_funcionario = entrada.encabezado.cargo_funcionario;
+                    enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
+                    EncabezadoDataAccess.Guardar(enx);
+                }
+
+
 
                 if (entrada.agenda.fecha_prox_reunion != null)
                 {
@@ -383,7 +454,7 @@ namespace CRM.Controllers
 
     public class encabezao
     {
-        public int id_ficha { get; set; }
+        public string id_ficha { get; set; }
         public string rut_empresa { get; set; }
         public string nombre_empresa { get; set; }
         public string sucursal_empresa { get; set; }

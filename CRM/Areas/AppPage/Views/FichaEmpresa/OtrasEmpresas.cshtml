@@ -765,8 +765,26 @@
                 format: "dd-mm-yyyy",
             });
 
-            //Cargas iniciales
-            CargadorEncabezado.CargaEncabezadoTotal(httpGet("id"))
+            if (httpGet("id") == 'NEW') {
+            
+
+                $.SecGetJSON(BASE_URL + "/Motor/api/FichaEmpresas/empresa-data", { re: httpGet("re") }, function (resuelve) {
+
+                    //Encabezado
+                    $("#rut_empresa").val(resuelve.rut_empresa)
+                    $("#nombre_empresa").val(resuelve.nombre_empresa)
+
+                    $("#numero_empleados_empresa").val(resuelve.cantidad_empleados)
+
+                });
+
+
+            }
+            else
+            {
+                //Cargas iniciales
+                CargadorEncabezado.CargaEncabezadoTotal(httpGet("id"))
+            }
 
             //Eventos
             $("#btn_guardar").on("click", function () {
@@ -822,7 +840,11 @@
                             container: 'floating',
                             html: '<strong>OK</strong> ' + respuesta.Mensaje,
                             focus: false,
-                            timer: 3000
+                            timer: 3000,
+                            onHidden: function () {
+                                //history.back(-1);
+                                location.href = BASE_URL + '/motor/App/FichaEmpresa/Listado?RE=' + $("#rut_empresa").val();
+                            }
                         });
 
                     } else {
