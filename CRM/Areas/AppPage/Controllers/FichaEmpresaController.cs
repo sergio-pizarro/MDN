@@ -25,6 +25,11 @@ namespace CRM.Areas.AppPage.Controllers
             return View();
         }
 
+        public ActionResult OtrasPublicas()
+        {
+            return View();
+        }
+
         public ActionResult LeyDesmunicipalizacion()
         {
             return View();

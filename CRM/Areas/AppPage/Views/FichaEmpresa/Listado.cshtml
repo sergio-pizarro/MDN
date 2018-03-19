@@ -5,6 +5,16 @@
 
 <!--Bootstrap Table [ OPTIONAL ]-->
 <link href="~/Assets/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+<style>
+
+    .fixed-table-container thead th .both
+    {
+        background-color:dodgerblue;
+        color:white;
+    }
+</style>
+
+
 <!--Page content-->
 <!--===================================================-->
 <div id="page-content">
@@ -84,6 +94,9 @@
                             case 2:
                                 dondeir = BASE_URL + "/motor/App/FichaEmpresa/OtrasEmpresas";
                                 break;
+                            case 3:
+                                dondeir = BASE_URL + "/motor/App/FichaEmpresa/OtrasPublicas";
+                                break;
                         }
 
                         var leyenda = value.length == 0 ? 'Sin completar' : value;
@@ -129,6 +142,9 @@
                                 break;
                             case 2:
                                 dondeir = BASE_URL + "/motor/App/FichaEmpresa/OtrasEmpresas";
+                                break;
+                            case 2:
+                                dondeir = BASE_URL + "/motor/App/FichaEmpresa/OtrasPublicas";
                                 break;
                         }
 
