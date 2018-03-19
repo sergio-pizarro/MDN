@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgendaEntity.cs" />
     <Compile Include="AsignacionEntity.cs" />
     <Compile Include="AsignacionRechazos.cs" />
     <Compile Include="AusenciaEntity.cs" />
@@ -63,9 +64,13 @@
     <Compile Include="Clases\WebLicencia.cs" />
     <Compile Include="ConfirmDotacion.cs" />
     <Compile Include="ContactoafiliadoEntity.cs" />
+    <Compile Include="ContactoEntity.cs" />
     <Compile Include="Contracts\IResultado.cs" />
+    <Compile Include="CuestionarioEntity.cs" />
+    <Compile Include="DesarrolloEntity.cs" />
     <Compile Include="DotacionEntity.cs" />
     <Compile Include="Empresa.cs" />
+    <Compile Include="EncabezadoEntity.cs" />
     <Compile Include="Estadolicencia.cs" />
     <Compile Include="EstadosYTiposEntity.cs" />
     <Compile Include="Features\Notificacion.cs" />
@@ -80,9 +85,12 @@
     <Compile Include="LicenciaEntity.cs" />
     <Compile Include="NoticiaEntity.cs" />
     <Compile Include="NotificacionAsignacionEntity.cs" />
+    <Compile Include="NuberespuestasEntity.cs" />
     <Compile Include="PeriodoEntity.cs" />
     <Compile Include="PreferenciaAfiliadoEntity.cs" />
+    <Compile Include="PreguntaEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RespuestaEntity.cs" />
     <Compile Include="SeguimientoArticulosOficinaEntity.cs" />
     <Compile Include="SucursalEntity.cs" />
     <Compile Include="TipoausenciaEntity.cs" />
