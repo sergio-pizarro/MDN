@@ -300,69 +300,17 @@
                                 </script>
                                 <hr />
                                 @*pregunta 3 *@
-                                <div class="row mar-btm">
-                                    <div class="col-sm-7">
-                                        <h3>III- SIL</h3>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <label style="text-align:center;font-weight: bold;" class="control-label">3.1- ¿La empresa tiene montos pendientes de retiro asociados a excedentes y pagos generados por conceptos de SIL?</label>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div>
-
-                                                <label for="radio31_si" class="radio-inline">
-                                                    <input id="radio31_si" class="pregunta3 larespuesta" data-id="31" type="radio" name="respuesta3" value="2">
-                                                    Si
-                                                </label>
-
-
-                                                <label for="radio31_no" class="radio-inline">
-                                                    <input id="radio31_no" class="pregunta3 larespuesta" data-id="31" type="radio" name="respuesta3" value="3">
-                                                    No
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row desarrollo-3" style="display:none;">
-                                    <div class="col-sm-8">
-                                        <div class="form-group">
-                                            <label class="control-label">Explique acciones inmediatas y fechas comprometidas  para dejar en $0 el stock</label>
-                                            <textarea placeholder="..." rows="5" class="form-control larespuesta" data-id="32" name="rs[21]"></textarea>
-                                            <small>Máximo 500 caracteres.</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <script>
-                                    $(function () {
-                                        $(".pregunta3").on("click", function (e) {
-                                            if($(this).val() == 2)
-                                            {
-                                                $(".desarrollo-3").show();
-                                            }
-                                            else
-                                            {
-                                                $(".desarrollo-3").hide();
-                                            }
-                                        })
-                                    });
-                                </script>
-                                <hr />
-
+                                
                                 @**@
                                 <div class="row mar-btm">
                                     <div class="col-sm-7">
-                                        <h3>IV- Riesgo de Crédito</h3>
+                                        <h3>III- Riesgo de Crédito</h3>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-sm-7">
-                                            <label style="text-align:center;font-weight: bold;" class="control-label">4.1- ¿Tenemos aspectos relacionados a morosidad pendientes por aclarar?</label>
+                                            <label style="text-align:center;font-weight: bold;" class="control-label">3.1- ¿Tenemos aspectos relacionados a morosidad pendientes por aclarar?</label>
                                         </div>
                                         <div class="col-sm-3">
                                             <div>
@@ -376,7 +324,7 @@
                                 <div class="row  rs42_si" style="display:none;">
                                     <div class="form-group">
                                         <div class="col-sm-7">
-                                            <label style="text-align:center;font-weight: bold;" class="control-label">4.2- ¿tenemos la complicidad y apoyo de la empresa para lograr su pronta solución?</label>
+                                            <label style="text-align:center;font-weight: bold;" class="control-label">3.2- ¿tenemos la complicidad y apoyo de la empresa para lograr su pronta solución?</label>
                                         </div>
                                         <div class="col-sm-3">
                                             <div>
@@ -390,7 +338,7 @@
                                 <div class="row rs43_si" style="display:none;">
                                     <div class="col-sm-8">
                                         <div class="form-group">
-                                            <label class="control-label" style="text-align:center;font-weight: bold;">4.3- Indique porque.</label>
+                                            <label class="control-label" style="text-align:center;font-weight: bold;">3.3- Indique porque.</label>
                                             <textarea placeholder="..." rows="5" class="form-control larespuesta" data-id="35" id="text_6" name="textObs6"></textarea>
                                             <small>Máximo 500 caracteres.</small>
                                         </div>
@@ -436,14 +384,14 @@
                                 @*pregunta 4*@
                                 <div class="row mar-btm">
                                     <div class="col-sm-7">
-                                        <h3>V- Difusión de Beneficios</h3>
+                                        <h3>IV- Difusión de Beneficios</h3>
                                     </div>
                                 </div>
                                 
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-sm-6">
-                                            <label style="text-align:center;font-weight: bold;" class="control-label">5.1- ¿Se realizó difusión "masiva" de prestaciones 2018?</label>
+                                            <label style="text-align:center;font-weight: bold;" class="control-label">4.1- ¿Se realizó difusión "masiva" de prestaciones 2018?</label>
                                         </div>
                                         <div class="col-sm-3">
                                             <div>
@@ -466,7 +414,7 @@
                                 <div class="row 51_no" style="display:none;">
                                     <div class="form-group">
                                         <div class="col-sm-6">
-                                            <label style="text-align:center;font-weight: bold;" class="control-label">5.2- Tiene agendada actividad "Masiva"de difusión de prestaciones 2018 (feria de servicio, Stand, etc)?</label>
+                                            <label style="text-align:center;font-weight: bold;" class="control-label">4.2- Tiene agendada actividad "Masiva"de difusión de prestaciones 2018 (feria de servicio, Stand, etc)?</label>
                                         </div>
                                         <div class="col-sm-3">
                                             <div>
@@ -489,12 +437,47 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label style="text-align:center;" class="control-label">Conseguirla de manera inmediata e informar las fechas comprometidas</label>
-                                            <input type="text" class="form-control larespuesta" data-id="42" id="calendario1" />
+                                            <div id="dp_fecha_entrevista">
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control larespuesta" data-id="42" id="calendario1" name="calendario1">
+                                                    <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                                </div>
+                                            </div>
                                         </div>
                                         
                                     </div>
                                 </div>
                                 <div class="row 521_no" style="display:none;">
+                                    <br/>
+                                    <div class="row mar-btm">
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Indique Fecha Difusión</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div id="dp_fecha_entrevista">
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control" id="fecha_difusion_actividad_masiva" name="fecha_difusion_actividad_masiva">
+                                                    <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="row mar-btm">
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Indique Estamento</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select id="sl_estamento_actividad" class="form-control" name="sl_estamento_actividad">
+                                                <option value="">Seleccione</option>
+                                                <option value="Empresas">Empresas</option>
+                                                <option value="Sindicato">Sindicato</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <label class="control-label">Explique el formato de difusión, lugares, cantidad de personas, como asegurará llegar a más del 60% de la dotación, etc.</label>
@@ -506,7 +489,7 @@
                                 <div class="row 51_si" style="display:none;">
                                     <div class="form-group">
                                         <div class="col-sm-6">
-                                            <label style="text-align:center;font-weight: bold;" class="control-label">5.2- ¿Cómo es la percepción de los beneficios de la Caja?</label>
+                                            <label style="text-align:center;font-weight: bold;" class="control-label">4.2- ¿Cómo es la percepción de los beneficios de la Caja?</label>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
@@ -592,7 +575,7 @@
                                 @*pregunta 8*@
                                 <div class="row mar-btm">
                                     <div class="col-sm-7">
-                                        <h3>VI- Próxima Reunión</h3>
+                                        <h3>V- Próxima Reunión</h3>
                                     </div>
                                 </div>
                                 <div class="row mar-btm">
@@ -766,7 +749,7 @@
             });
 
             if (httpGet("id") == 'NEW') {
-            
+
 
                 $.SecGetJSON(BASE_URL + "/Motor/api/FichaEmpresas/empresa-data", { re: httpGet("re") }, function (resuelve) {
 
@@ -780,8 +763,7 @@
 
 
             }
-            else
-            {
+            else {
                 //Cargas iniciales
                 CargadorEncabezado.CargaEncabezadoTotal(httpGet("id"))
             }
