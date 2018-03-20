@@ -150,6 +150,7 @@ namespace CRM.Controllers
                     enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
 
                     int codigonuea = EncabezadoDataAccess.Guardar(enx);
+                    enx.enc_id = codigonuea;
                     EncabezadoEntity rs = EncabezadoDataAccess.ObtenerPorID(codigonuea);
                     rs.nombre_empresa = muestra.nombre_empresa;
                     EncabezadoDataAccess.GuardarNombre(rs);
@@ -329,6 +330,7 @@ namespace CRM.Controllers
                     enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
 
                     int codigonuea = EncabezadoDataAccess.Guardar(enx);
+                    enx.enc_id = codigonuea;
                     EncabezadoEntity rs = EncabezadoDataAccess.ObtenerPorID(codigonuea);
                     rs.nombre_empresa = muestra.nombre_empresa;
                     EncabezadoDataAccess.GuardarNombre(rs);
@@ -364,7 +366,8 @@ namespace CRM.Controllers
                     AgendaDataAccess.Guardar(lg);
                 }
 
-                entrada.data.ToList().ForEach(v =>
+                //entrada.data.ToList().ForEach(v =>
+                foreach (var v in entrada.data.ToList())
                 {
 
                     if (v.valor != null)
@@ -394,7 +397,8 @@ namespace CRM.Controllers
                         DesarrolloDataAccess.Guardar(desarrolloFormulario);
 
                     }
-                });
+                }
+                //);
 
                 return new ResultadoBase() { Estado = "OK", Mensaje = "Ficha Guardada con éxito!", Objeto = entrada };
 
