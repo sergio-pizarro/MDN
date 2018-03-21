@@ -127,7 +127,24 @@ namespace CRM.Controllers
             }
             catch (Exception ex)
             {
-                return new ResultadoBase() { Estado = "ERR", Mensaje = ex.Message, Objeto = ex };
+                var x = ex.Message.Split(';');
+                return new ResultadoBase() {Estado= "ERR" , Mensaje = x[1], Objeto = x[0] };
+                
+                
+
+
+              
+               
+                //if (base1.Estado.Equals("ERR"))
+                //{
+                //    return new ResultadoBase() { Estado = "ERR", Mensaje = x[0], Objeto = ex };
+                //}
+                //else
+                //{
+                //    return new ResultadoBase() { Estado = "ERR", Mensaje = x[1], Objeto = ex };
+                //}
+
+                
             }
         }
 

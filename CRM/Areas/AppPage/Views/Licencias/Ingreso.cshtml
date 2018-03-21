@@ -343,7 +343,6 @@
                                 focus: false,
                                 timer: 3000,
                                 onHidden: function () {
-
                                     if (typeof volver != "undefined" && volver == 1) {
                                         location.href = BASE_URL + "/motor/App/Licencias"
                                     }
@@ -352,54 +351,64 @@
 
 
                         } else {
-                            bootbox.dialog({
 
-
-
-                                message: respuesta.Mensaje,
-                                title: "Derivación de LM",
-                                buttons: {
-                                    success: {
-                                        label: "Si",
-                                        className: "btn-success",
-                                        callback: function () {
-                                            $.SecPostJSON(BASE_URL + "/motor/api/Licencias/guardar-licencia-derivacion", WebIngresoLicencia, function (respuesta) {
-                                                if (respuesta.Estado === "OK") {
-                                                    $.niftyNoty({
-                                                        type: 'success',
-                                                        message: '<strong>OK</strong> Licencia Derivada. ',
-                                                        container: 'floating',
-                                                        timer: 5000
-                                                    });
-                                                }
-                                                else {
-                                                    $.niftyNoty({
-                                                        type: 'success',
-                                                        message: '<strong>Licencia Derivada</strong>  ' + respuesta.Mensaje,
-                                                        container: 'floating',
-                                                        timer: 5000
-                                                    });
-                                                }
-                                            });
-                                           
-                                        }
-                                    },
-
-                                    danger: {
-                                        label: "No",
-                                        className: "btn-danger",
-                                        callback: function () {
-                                            $.niftyNoty({
-                                                type: 'danger',
-                                                message: '<strong>Liciencia no derivada</strong>',
-                                                container: 'floating',
-                                                timer: 5000
-                                            });
+                            if (respuesta.Objeto == "[0001]")
+                            {
+                                $.niftyNoty({
+                                    type: 'danger',
+                                    container: 'floating',
+                                    html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                                    focus: false,
+                                    timer: 3000,
+                                    onHidden: function () {
+                                        if (typeof volver != "undefined" && volver == 1) {
+                                            location.href = BASE_URL + "/motor/App/Licencias"
                                         }
                                     }
+                                });
+                            }
 
-                                }
-                            });
+                            if (respuesta.Objeto == "[0002]") {
+                                bootbox.dialog({
+                                    message: respuesta.Mensaje + " " + "¿Desea Actualizar?",
+                                    title: "Derivación de LM",
+                                    buttons: {
+                                        success: {
+                                            label: "Si",
+                                            className: "btn-success",
+                                            callback: function () {
+                                                $.SecPostJSON(BASE_URL + "/motor/api/Licencias/guardar-licencia-derivacion", WebIngresoLicencia, function (respuesta) {
+                                                    if (respuesta.Estado === "OK") {
+                                                        $.niftyNoty({
+                                                            type: 'success',
+                                                            message: '<strong>OK</strong> Licencia Actualizada. ',
+                                                            container: 'floating',
+                                                            timer: 5000
+                                                        });
+                                                    }
+                                                    
+                                                });
+
+                                            }
+                                        },
+
+                                        danger: {
+                                            label: "No",
+                                            className: "btn-danger",
+                                            callback: function () {
+                                                $.niftyNoty({
+                                                    type: 'danger',
+                                                    message: '<strong>Liciencia no derivada</strong>',
+                                                    container: 'floating',
+                                                    timer: 5000
+                                                });
+                                            }
+                                        }
+
+                                    }
+                                });
+
+                            }
                             //$.niftyNoty({
                             //    type: 'danger',
                             //    container: 'floating',
