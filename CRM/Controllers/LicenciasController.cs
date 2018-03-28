@@ -82,6 +82,7 @@ namespace CRM.Controllers
                 ing.NombreAfiliado = entrada.NombreAfiliado;
                 ing.SinDatosEnSistema = entrada.SinDatosEnSistema;
                 ing.FormatoLM = entrada.FormatoLM;
+                ing.OficinaDerivacion = entrada.OfiDerivacion;
 
 
                 if (entrada.CantidadDiasLM > 0)
@@ -476,6 +477,14 @@ namespace CRM.Controllers
 
         }
 
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("listar-suc-derivacion")]
+        public List<OficinaDerivacionEntity> listaOfiDerivacion()
+        {
+            return LicenciaDataAccess.ListaOficinaDerivacion();
+        }
 
 
     }

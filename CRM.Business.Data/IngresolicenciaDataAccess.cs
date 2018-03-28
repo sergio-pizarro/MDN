@@ -48,7 +48,8 @@ namespace CRM.Business.Data
                 new Parametro("@Oficina", ingresolicencia.Oficina),
                 new Parametro("@Token", Token),
                 new Parametro("@CodEstado", ingresolicencia.CodEstado),
-                new Parametro("@FechaIngreso", ingresolicencia.FechaIngreso)
+                new Parametro("@FechaIngreso", ingresolicencia.FechaIngreso),
+                new Parametro("@OficinaDerivacion", ingresolicencia.OficinaDerivacion)
                 //
 
             };
@@ -208,7 +209,8 @@ namespace CRM.Business.Data
                 CodEstado = row["CodEstado"] != DBNull.Value ? Convert.ToInt32(row["CodEstado"]) : 0,
                 FechaIngreso = row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]) : new DateTime(1900, 1, 1),
                 FormatoLM = row["FormatoLM"] != DBNull.Value ? row["FormatoLM"].ToString() : string.Empty,
-                FlagLM = row["FlagLM"] != DBNull.Value ? row["FlagLM"].ToString() : string.Empty
+                FlagLM = row["FlagLM"] != DBNull.Value ? row["FlagLM"].ToString() : string.Empty,
+                OficinaDerivacion= row["OficinaDerivada"] != DBNull.Value ? Convert.ToInt32(row["OficinaDerivada"]) : 0,
 
             };
         }
