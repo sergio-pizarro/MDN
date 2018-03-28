@@ -1725,6 +1725,9 @@
     <Content Include="Areas\AppPage\Views\FichaEmpresa\OtrasEmpresas.cshtml" />
     <Content Include="Areas\AppPage\Views\FichaEmpresa\Listado.cshtml" />
     <Content Include="Areas\AppPage\Views\FichaEmpresa\OtrasPublicas.cshtml" />
+    <Content Include="Areas\AppPage\Views\Empresas\Nuevo\Fidelizacion.cshtml" />
+    <Content Include="Areas\AppPage\Views\Empresas\Nuevo\Retencion.cshtml" />
+    <Content Include="Areas\AppPage\Views\Empresas\Nuevo\Prospeccion.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

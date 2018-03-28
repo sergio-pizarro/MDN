@@ -15,9 +15,25 @@ namespace CRM.Areas.AppPage.Controllers
         }
 
         // GET: AppPage/Empresas/Nuevo
-        public ActionResult Nuevo()
+        public ActionResult Nuevo(string t)
         {
-            return View();
+            switch(t)
+            {
+                case "F":
+                    return View("Nuevo/Fidelizacion");
+                    
+                case "R":
+                    return View("Nuevo/Retencion");
+                    
+                case "P":
+                    return View("Nuevo/Prospeccion");
+                    
+                default:
+                    return View();
+            }
+
+
+            
         }
     }
 }
