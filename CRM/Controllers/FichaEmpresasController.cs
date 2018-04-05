@@ -130,6 +130,8 @@ namespace CRM.Controllers
             try
             {
                 string token = ActionContext.Request.Headers.GetValues("Token").First();
+                int _uid = Security.Data.TokenDataAccess.Obtener(token).FirstOrDefault().UserId;
+                string _rut = Security.Data.UsuarioDataAccess.UsuarioData(_uid).RutUsuario;
                 CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
                 int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
 
@@ -148,6 +150,7 @@ namespace CRM.Controllers
                     enx.nombre_funcionario = entrada.encabezado.nombre_funcionario;
                     enx.cargo_funcionario = entrada.encabezado.cargo_funcionario;
                     enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
+                    enx.rut_ejecutivo = _rut;
 
                     int codigonuea = EncabezadoDataAccess.Guardar(enx);
                     enx.enc_id = codigonuea;
@@ -164,6 +167,7 @@ namespace CRM.Controllers
                     enx.nombre_funcionario = entrada.encabezado.nombre_funcionario;
                     enx.cargo_funcionario = entrada.encabezado.cargo_funcionario;
                     enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
+                    enx.rut_ejecutivo = _rut;
                     EncabezadoDataAccess.Guardar(enx);
                 }
 
@@ -310,6 +314,9 @@ namespace CRM.Controllers
             try
             {
                 string token = ActionContext.Request.Headers.GetValues("Token").First();
+                int _uid = Security.Data.TokenDataAccess.Obtener(token).FirstOrDefault().UserId;
+                string _rut = Security.Data.UsuarioDataAccess.UsuarioData(_uid).RutUsuario;
+                
                 CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
                 int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
 
@@ -328,6 +335,7 @@ namespace CRM.Controllers
                     enx.nombre_funcionario = entrada.encabezado.nombre_funcionario;
                     enx.cargo_funcionario = entrada.encabezado.cargo_funcionario;
                     enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
+                    enx.rut_ejecutivo = _rut;
 
                     int codigonuea = EncabezadoDataAccess.Guardar(enx);
                     enx.enc_id = codigonuea;
@@ -344,6 +352,7 @@ namespace CRM.Controllers
                     enx.nombre_funcionario = entrada.encabezado.nombre_funcionario;
                     enx.cargo_funcionario = entrada.encabezado.cargo_funcionario;
                     enx.fecha_entrevista = Convert.ToDateTime(entrada.encabezado.fecha_entrevista);
+                    enx.rut_ejecutivo = _rut;
                     EncabezadoDataAccess.Guardar(enx);
                 }
 

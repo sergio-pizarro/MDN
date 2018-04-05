@@ -712,7 +712,7 @@ namespace CRM.Controllers
 
             return salida;
         }
-        [AuthorizationRequired]
+        /*[AuthorizationRequired]
         [HttpGet]
         [Route("Lista-empresa-grilla")]
         public IEnumerable<EmpresaEntity> ListarEmpresaGrilla(string periodo)
@@ -726,7 +726,7 @@ namespace CRM.Controllers
         public IEnumerable<EmpresaEntity> ListarEmpresaGrillaTodos(string periodo)
         {
             return EmpresaDataAccess.ListarEmpresaGrillaTodos(periodo);
-        }
+        }*/
         [AuthorizationRequired]
         [HttpGet]
         [Route("listar-empresa-licencia")]
@@ -805,6 +805,8 @@ namespace CRM.Controllers
             }
             return res;
         }
+
+        /*
         [AuthorizationRequired]
         [HttpPost]
         [Route("guardar-ficha-empresa")]
@@ -901,7 +903,7 @@ namespace CRM.Controllers
 
             return EmpresaDataAccess.ObtenerNombreEmpresa(RutEmpresa, Periodo);
 
-        }
+        }*/
 
 
         [AuthorizationRequired]
@@ -934,7 +936,7 @@ namespace CRM.Controllers
                 return new ResultadoBase { Estado = "ER", Mensaje = "Error al obtener datos", Objeto = ex };
             }
         }
-        [AuthorizationRequired]
+        /*[AuthorizationRequired]
         [HttpGet]
         [Route("lista-gestion-detalle-empresa")]
         public IEnumerable<DetalleEmpresaEntity> ObtenerDetalle(int RutEmpresa, string Periodo)
@@ -979,7 +981,7 @@ namespace CRM.Controllers
                 res.Objeto = ex;
             }
             return res;
-        }
+        }*/
 
 
         [AuthorizationRequired]

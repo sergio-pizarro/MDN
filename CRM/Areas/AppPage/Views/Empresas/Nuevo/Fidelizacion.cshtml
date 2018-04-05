@@ -3,11 +3,9 @@
     Layout = "~/Areas/AppPage/Views/Shared/_Layout.cshtml";
 }
 
-<!--Bootstrap Table [ OPTIONAL ]-->
 <link href="~/Assets/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
-
-<!--Magic Checkbox [ OPTIONAL ]-->
 <link href="~/Assets/plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
 
 <style>
     .ocultus{
@@ -20,6 +18,23 @@
         margin-bottom: 1px;
         border: 0;
         border-top: 1px solid #eee;
+    }
+
+    .icono-down {
+        display: inline-block;
+        position: relative;
+        float: left;
+        margin-right: 7px;
+        margin-top: 5px;
+    }
+
+    .caret.caret-reversed {
+        border-top-width: 0;
+        border-bottom: 4px solid #000000;
+    }
+
+    .seleccionabless{
+        cursor: pointer;
     }
 </style>
 <!--Page content-->
@@ -48,27 +63,27 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form name="form-ingreso" action="#" method="post">
+                                    <form name="formIngreso" id="form-ingreso" action="#" method="post">
                                         
                                         <div class="row empresa-data">
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label class="control-label">Rut</label>
-                                                    <input type="text" class="form-control" id="Rut" />
+                                                    <input type="text" class="form-control" id="Rut" name="Rut" />
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label class="control-label">Razón Social</label>
-                                                    <input type="text" class="form-control inusable" id="RazonSocial" readonly="readonly" />
+                                                    <input type="text" class="form-control inusable" id="RazonSocial" name="RazonSocial" readonly="readonly" />
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label class="control-label">Holding</label>
-                                                    <input type="text" class="form-control inusable" id="Holding" readonly="readonly" />
+                                                    <input type="text" class="form-control inusable" id="Holding" name="Holding" readonly="readonly" />
                                                 </div>
                                             </div>
                                         </div>
@@ -104,9 +119,9 @@
                                                     <label class="control-label">Estamento</label>
                                                     <select class="form-control esestamento" id="Estamento" name="Estamento">
                                                         <option value="">Seleccione</option>
-                                                        <option value="1">Empresa</option>
-                                                        <option value="2">Sindicato</option>
-                                                        <option value="3">Empresa y Sindicato</option>
+                                                        <option value="Empresa">Empresa</option>
+                                                        <option value="Sindicato">Sindicato</option>
+                                                        <option value="Empresa y Sindicato">Empresa y Sindicato</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -116,9 +131,9 @@
                                                     <label class="control-label">Actividad</label>
                                                     <select class="form-control" id="Actividad" name="Actividad">
                                                         <option value="">Seleccione</option>
-                                                        <option value="1">Empresa</option>
-                                                        <option value="2">Sindicato</option>
-                                                        <option value="3">Empresa y Sindicato</option>
+                                                        <option value="Empresa">Empresa</option>
+                                                        <option value="Sindicato">Sindicato</option>
+                                                        <option value="Empresa y Sindicato">Empresa y Sindicato</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -134,7 +149,7 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label class="control-label">Nombre Representante Empresa</label>
-                                                    <input type="text" class="form-control" id="Nombre" name="Nombre" />
+                                                    <input type="text" class="form-control" id="NombreRepresentante" name="NombreRepresentante" />
                                                 </div>
                                             </div>
 
@@ -142,7 +157,7 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label class="control-label">Cargo</label>
-                                                    <input type="text" class="form-control" id="Cargo" name="Cargo" />
+                                                    <input type="text" class="form-control" id="CargoRepresentante" name="CargoRepresentante" />
                                                 </div>
                                             </div>
 
@@ -222,7 +237,9 @@
                                         <div class="row acciones">
                                             <hr />
                                             <a class="btn btn-primary" href="/motor/App/Empresas/">Volver</a>
-                                            <button class="btn btn-success" type="button" disabled="disabled">Guardar</button>
+                                            <button class="btn btn-success" type="submit" id="btn-guardar" data-target="document.body">Guardar</button>
+                                            <input type="hidden" name="IdRepresentante" id="IdRepresentante" value="0" />
+                                            <input type="hidden" name="IdFidelizacion" id="IdFidelizacion" value="@Html.Raw(ViewBag.id != null ? ViewBag.id : "0")" />
                                         </div>
 
                                     </form>
@@ -243,31 +260,36 @@
 </div>
 <!--===================================================-->
 <!--End page content-->
+@section metas{
+    <meta name="id" content="@Html.Raw(ViewBag.id != null ? ViewBag.id : "0")" />
+}
+
 
 @section script{
-
+   <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+   <script src="~/Assets/plugins/masked-input/jquery.maskedinput.min.js"></script>
    <script>
        var rs_GestionList = [];
+       var elm_Form = {};
        var herramientas = {
            actualizaVistaLista: function (rs_gstL) {
                
                $("#resultado-gestion-listado").html("");
                $.each(rs_gstL, function (i, o) {
 
-                   var __container = $('<div>').addClass('media col-md-8 mar-btm').on({
-                       mouseenter: function () {
-                           //stuff to do on mouse enter
-                           $(this).find(".media-buttons").toggle("slow");
-                       },
-                       mouseleave: function () {
-                           //stuff to do on mouse leave
-                           $(this).find(".media-buttons").toggle("slow");
+                   var __container = $('<div>').addClass('media col-md-8 mar-btm seleccionabless').on("click", function (e) {
+                       $(this).find(".media-buttons").toggle("slow");
+                       if (!$(this).find(".caret").hasClass("caret-reversed")) {
+                           $(this).find(".caret").addClass("caret-reversed")
+                       } else {
+                           $(this).find(".caret").removeClass("caret-reversed")
                        }
                    });
                    var __media_body = $('<div>').addClass('media-body')
+                                                .append($("<span>").addClass("caret icono-down"))
                                                 .append($('<h5>').addClass('media-heading').text(o.tipo + " " + (o.fecha != null ? "(" + o.fecha + ")" : "")))
-                                                .append(o.contenido)
-                   var __media_buttons = $('<div>').addClass('media-buttons mar-top').css('display', 'none');
+                                                .append($("<p>").addClass("mar-lft").text(o.contenido))
+                   var __media_buttons = $('<div>').addClass('media-buttons').css('display', 'none');
                    var __edit_button = $('<button>').addClass('btn btn-default btn-icon btn-circle editar').prop({ title: 'Editar', type: 'button' }).append($('<i>').addClass('ion-edit icon-sm')).on("click", function () {
 
                        var index = $(".editar").index(this);
@@ -303,16 +325,88 @@
                    __container.append(__media_body).append(__media_buttons);
                    $("#resultado-gestion-listado").append(__container);
                });
+           },
+           renderizaFormulario: function (e) {
+
+               $('#Rut').val(e.Empresa.emp_rut).mask('99.999.999-*');
+               $('#RazonSocial').val(e.Empresa.emp_nombre);
+               $('#Holding').val(e.Empresa.emp_holding);
+
+               $("#Estamento").val(e.Fidelizacion.fide_estamento);
+               $("#Actividad").val(e.Fidelizacion.fide_actividad);
+               $("#Cobertura").val(e.Fidelizacion.fide_cobertura);
+               $("#NombreRepresentante").val(e.Representante.rep_nombre);
+               $("#CargoRepresentante").val(e.Representante.rep_cargo);
+               $("#IdRepresentante").val(e.Representante.rep_id);
+               $("#Fecha_Fidelizacion").val(e.Fidelizacion.fide_fecha_calendario.toFecha());
+
+               
+               
+               var areasExisten = e.Ambitos.map(function (x) {
+                   return x.Area.area_id
+               });
+
+               var ambitosExisten = e.Ambitos.map(function (x) {
+                   return x.AmbitoArea.ambito_id;
+               });
+
+               $.ajaxSetup({ async: false });
+               $('.chk-padres').each(function(i,e) {
+                   if($.inArray(parseInt($(e).val()),areasExisten) > -1)
+                   {
+                       $(e).trigger("click");
+                   }
+               });
+
+               $('.chk-hijos').each(function (i, e) {
+                   if ($.inArray(parseInt($(e).val()), ambitosExisten) > -1) {
+                       $(e).prop('checked', true);
+                   }
+               });
+               $.ajaxSetup({ async: true });
+
+               
+
+               
+
+
+           },
+           cargarDatos: function () {
+               var id = $("#IdFidelizacion").val();
+
+               if(id > 0)
+               {
+                   $.SecGetJSON(BASE_URL + "/Motor/api/Empresas/data-fidelizacion", { id: id }, function (response) {
+                       console.log(response);
+
+                       herramientas.renderizaFormulario(response)
+
+                       rs_GestionList = response.ResultadoGestion.map(function (e) {
+                           return {
+                               tipo: e.resg_tipo,
+                               fecha: e.resg_fecha.toFecha(),
+                               contenido: e.resg_comentarios
+                           }
+                       });
+                       herramientas.actualizaVistaLista(rs_GestionList)
+
+
+                   }).fail(function () { })
+               }
            }
        }
 
 
        $(function () {
            
+           herramientas.cargarDatos();
+
+           $('#Rut').mask('99.999.999-*');
+
+           $('#btn-guardar').niftyOverlay();
 
            $(".bt-accion").on("click", function () {
 
-               const template = '<div class="media col-md-8 mar-btm"><div class="media-body"><h5 class="media-heading">{{tipo}} {{fecha}}</h5>{{contenido}}</div> <div class="media-buttons mar-top" style="display:none;"><button class="btn btn-default btn-icon btn-circle editar" title="Editar" type="button"><i class="ion-edit icon-sm"></i></button><button class="btn btn-default btn-icon btn-circle eliminar" title="Eliminar" type="button"><i class="ion-trash-a icon-sm"></i></button></div></div>';
                const indix = $(this).data("edita");
 
                if( $(this).hasClass("compromiso") )
@@ -366,8 +460,6 @@
                
            });
 
-
-
            $("#TipoRG").on("change", function () {
 
                if($(this).val() == 1)
@@ -387,15 +479,15 @@
                }
            });
 
+
            $.SecGetJSON(BASE_URL + "/Motor/Assets/data/areas.json", function (respuesta) {
                $.each(respuesta, function (i, e) {
                    var dv_contenedor = $('<div>').addClass('checkbox');
                    var _lbl = $('<label>').prop({ for: 'area-fdlz-' + i }).text(e.nombre);
-                   var _chk_box = $('<input>').addClass('magic-checkbox').prop({ type: 'checkbox', id: 'area-fdlz-' + i }).val(e.id).on("click", function () {
+                   var _chk_box = $('<input>').addClass('magic-checkbox chk-padres').prop({ type: 'checkbox', id: 'area-fdlz-' + i, name: 'Areas__' }).val(e.id).on("click", function () {
                        $that = $(this);
                        var _class_name = e.nombre;
                        var _cluster = $('<div>').addClass('cluster').addClass(_class_name).append($('<hr>').addClass('delim')).append($('<p>').addClass('text-main').text(_class_name));
-                       //$("#ambitos_fideliza")
                        if ($that.is(":checked"))
                        {
                            $.SecGetJSON(BASE_URL + "/Motor/Assets/data/ambitos.json", function (respuesta) {
@@ -404,7 +496,7 @@
                                    if (ne.padre == $that.val()) {
                                        var dv_sb_contenedor = $('<div>').addClass('checkbox');
                                        var _sb_lbl = $('<label>').prop({ for: 'ambito-fdlz-' + ni }).text(ne.nombre);
-                                       var _sb_chk_box = $('<input>').addClass('magic-checkbox').prop({ type: 'checkbox', id: 'ambito-fdlz-' + ni }).val(ne.id);
+                                       var _sb_chk_box = $('<input>').addClass('magic-checkbox chenv chk-hijos').prop({ type: 'checkbox', id: 'ambito-fdlz-' + ni }).val(ne.id);
                                        _cluster.append(dv_sb_contenedor.append(_sb_chk_box).append(_sb_lbl));
                                    }
                                });
@@ -425,10 +517,7 @@
            $('#Calendario_Fecha_Fidelizacion .input-group.date').datepicker(
                 { autoclose: true, format: 'dd-mm-yyyy', startDate: "0d", language: "es", daysOfWeekDisabled: [6, 0], todayHighlight: true }
             ).on('changeDate', function (e) {
-                //$('#datos-gestion').bootstrapValidator('updateStatus', 'ges_prox_gestion', 'NOT_VALIDATED').bootstrapValidator('validateField', 'ges_prox_gestion');
-
-                console.log(e)
-
+                $('#form-ingreso').bootstrapValidator('updateStatus', 'Fecha_Fidelizacion', 'NOT_VALIDATED').bootstrapValidator('validateField', 'Fecha_Fidelizacion');
             });
 
            $('#Calendario_Fecha_Compromiso .input-group.date').datepicker(
@@ -439,6 +528,135 @@
                 console.log(e)
 
             });
+
+
+
+           $('#form-ingreso').bootstrapValidator({
+               excluded: [':disabled'],
+               fields: {
+                   Rut: {
+                       validators: {
+                           notEmpty: {
+                               message: 'Debe Ingresar un Rut'
+                           }
+                       }
+                   },
+                   Estamento: {
+                       validators: {
+                           notEmpty: {
+                               message: 'Debe Seleccionar un Estamento'
+                           }
+                       }
+                   },
+                   Actividad: {
+                       validators: {
+                           notEmpty: {
+                               message: 'Debe Seleccionar una Actividad'
+                           }
+                       }
+                   },
+                   Cobertura: {
+                       validators: {
+                           notEmpty: {
+                               message: 'Debe Ingresar una Cobertura'
+                           }
+                       }
+                   },
+                   NombreRepresentante: {
+                       validators: {
+                           notEmpty: {
+                               message: 'Debe Ingresar el Nombre del Representante de la Empresa'
+                           }
+                       }
+                   },
+                   CargoRepresentante: {
+                       validators: {
+                           notEmpty: {
+                               message: 'Debe Ingresar el Cargo del Representante de la Empresa'
+                           }
+                       }
+                   },
+                   Fecha_Fidelizacion: {
+                       validators: {
+                           notEmpty: {
+                               message: 'Debe Ingresar el Cargo del Representante de la Empresa'
+                           }
+                       }
+                   }
+               }
+
+           }).on('success.form.bv', function (e) {
+               // Prevén que se mande el formulario
+               e.preventDefault();
+               var $form = $(e.target);
+               var __Ambitos = [];
+
+
+
+              $('#btn-guardar').niftyOverlay('show');
+              
+              
+
+
+
+               $('.chenv').each(function (i,e) {
+                   if($(e).is(":checked"))
+                   {
+                       var amb = {
+                           id: 0,
+                           valor: $(e).val()
+                       }
+                       __Ambitos.push(amb);
+                   }
+               })
+               
+               var envio = {
+                   IdFidelizacion: $('#IdFidelizacion').val(),
+                   Rut: $('#Rut').val(),
+                   Nombre: Evalua($('#RazonSocial').val()),
+                   Holding: Evalua($('#Holding').val()),
+                   Estamento: $('#Estamento').val(),
+                   Actividad: $('#Actividad').val(),
+                   Cobertura: $('#Cobertura').val(),
+                   IdRepresentante: $('#IdRepresentante').val(),
+                   NombreRepresentante: $('#NombreRepresentante').val(),
+                   CargoRepresentante: $('#CargoRepresentante').val(),
+                   FechaFidelizacion: $('#Fecha_Fidelizacion').val(),
+                   Ambitos: __Ambitos,
+                   ResultadosGestion: rs_GestionList
+               }
+
+               console.log(envio);
+               $.SecPostJSON(BASE_URL + "/Motor/api/Empresas/guardar-fidelizacion", envio, function (response) {
+
+                   $('#btn-guardar').niftyOverlay('hide');
+                   $.niftyNoty({
+                       type: 'success',
+                       container: 'floating',
+                       title:'OK',
+                       message: response.Mensaje,
+                       focus: false,
+                       closeBtn: true
+                   });
+
+               }).fail(function (jqxhr, textStatus, error) {
+                   $('#btn-guardar').niftyOverlay('hide');
+                   $.niftyNoty({
+                       type: 'danger',
+                       container: 'floating',
+                       title: 'Error',
+                       message: jqxhr.responseJSON.ExceptionMessage,
+                       focus: false,
+                       closeBtn: true
+                   });
+               });
+           });
+
+
+           $('#form-ingreso').on("submit", function (e) {
+               e.preventDefault();
+               return false;
+           })
 
            
 

@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgendaDataAccess.cs" />
+    <Compile Include="AmbitosareaDataAccess.cs" />
+    <Compile Include="AmbitosfidelizacionDataAccess.cs" />
+    <Compile Include="AreasDataAccess.cs" />
     <Compile Include="AsignacionDataAccess.cs" />
     <Compile Include="AusenciaDataAccess.cs" />
     <Compile Include="BaseCampagnaDataAccess.cs" />
@@ -52,7 +55,7 @@
     <Compile Include="DesarrolloDataAccess.cs" />
     <Compile Include="DotacionDataAccess.cs" />
     <Compile Include="EmpresaDataAccess.cs" />
-    <Compile Include="EmpresasDataAccess.cs" />
+    <Compile Include="EmpresasDataAccess__.cs" />
     <Compile Include="EncabezadoDataAccess.cs" />
     <Compile Include="EstadolicenciaDataAccess.cs" />
     <Compile Include="EstadosyTiposDataAccess.cs" />
@@ -72,7 +75,9 @@
     <Compile Include="PreferenciaAfiliadoDataAccess.cs" />
     <Compile Include="PreguntaDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepresentanteempresaDataAccess.cs" />
     <Compile Include="RespuestaDataAccess.cs" />
+    <Compile Include="ResultadogestionDataAccess.cs" />
     <Compile Include="ResumenesDataAccess.cs" />
     <Compile Include="SeguimientoArticulosOficinaDataAccess.cs" />
     <Compile Include="SucursalDataAccess.cs" />

@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgendaEntity.cs" />
+    <Compile Include="AmbitosareaEntity.cs" />
+    <Compile Include="AmbitosfidelizacionEntity.cs" />
+    <Compile Include="AreasEntity.cs" />
     <Compile Include="AsignacionEntity.cs" />
     <Compile Include="AsignacionRechazos.cs" />
     <Compile Include="AusenciaEntity.cs" />
@@ -70,6 +73,7 @@
     <Compile Include="DesarrolloEntity.cs" />
     <Compile Include="DotacionEntity.cs" />
     <Compile Include="Empresa.cs" />
+    <Compile Include="EmpresaEntity.cs" />
     <Compile Include="EncabezadoEntity.cs" />
     <Compile Include="Estadolicencia.cs" />
     <Compile Include="EstadosYTiposEntity.cs" />
@@ -78,6 +82,7 @@
     <Compile Include="Feriados.cs" />
     <Compile Include="FFVVBaseEntity.cs" />
     <Compile Include="Fidelizacion.cs" />
+    <Compile Include="FidelizacionEntity.cs" />
     <Compile Include="FiltrosrsgEntity.cs" />
     <Compile Include="GestionEntity.cs" />
     <Compile Include="IngresoCarteraEmpresa.cs" />
@@ -90,7 +95,9 @@
     <Compile Include="PreferenciaAfiliadoEntity.cs" />
     <Compile Include="PreguntaEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepresentanteempresaEntity.cs" />
     <Compile Include="RespuestaEntity.cs" />
+    <Compile Include="ResultadogestionEntity.cs" />
     <Compile Include="SeguimientoArticulosOficinaEntity.cs" />
     <Compile Include="SucursalEntity.cs" />
     <Compile Include="TipoausenciaEntity.cs" />

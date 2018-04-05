@@ -255,10 +255,11 @@ String.prototype.OrdenaNombre = function () {
     } else {
         return this;
     }
-
-    
 }
 
+function Evalua(valor) {
+    return valor == null ? '' : valor;
+}
 
 String.prototype.toEtiquetaPreAprobados = function(hijo)
 {
