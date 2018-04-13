@@ -6,8 +6,9 @@ using System.Net.Http;
 using System.Web.Http;
 using CRM.Business.Entity;
 using CRM.Business.Entity.Clases;
-using CRM.Business.Entity.Contracts;
+using CRM.Business.Entity.Empresas;
 using CRM.Business.Data;
+using CRM.Business.Data.Empresas;
 using CRM.ActionFilters;
 using CRM.Filters;
 using System.Net.Http.Headers;
@@ -18,33 +19,57 @@ namespace CRM.Controllers
     [RoutePrefix("api/Empresas")]
     public class EmpresasController : ApiController
     {
+        #region Generales
+
+        [HttpGet]
+        [Route("data-empresa/{RutEmpresa}")]
+        public Business.Entity.Maestros.EmpresasEntity DataEmpresa(string RutEmpresa)
+        {
+            return Business.Data.Maestros.EmpresasDataAccess.ObtenerByRut(RutEmpresa);
+        }
+
+        #endregion
+
+
+
         #region Fidelizacion
 
         //[AuthorizationRequired]
         [HttpGet]
         [Route("listar-fidelizacion")]
-        public BootstrapTableResult<FidelizaContainer> ListadoFidelizacion(string sort="Rut", string order="asc", int limit = 30, int offset = 0)
+        public BootstrapTableResult<FidelizaContainer> ListadoFidelizacion(string sort= "Empresa.emp_rut", string order="asc", int limit = 30, int offset = 0, string search="")
         {
+            CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+            int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+
             List<FidelizaContainer> salida = new List<FidelizaContainer>();
             BootstrapTableResult<FidelizaContainer> salida_final = new BootstrapTableResult<FidelizaContainer>();
-            FidelizacionDataAccess.ObtenerEntidades().ForEach(fide =>
+            FidelizacionDataAccess.ObtenerEntidades().FindAll(x => x.cod_oficina == codOficina ).ForEach(fide =>
             {
                 FidelizaContainer fc = new FidelizaContainer();
                 fc.Fidelizacion = fide;
                 fc.Representante = RepresentanteempresaDataAccess.ObtenerPorID(fide.representante_id);
                 fc.Empresa = EmpresaDataAccess.ObtenerPorID(fc.Representante.emp_id);
                 fc.ResultadoGestion = ResultadogestionDataAccess.ObtenerEntidades().FindAll(d => d.fidelizacion_id == fide.fide_id);
-                List<AmbitosContainer> ambits = new List<AmbitosContainer>();
+                List<AmbitosContainer<AmbitosfidelizacionEntity>> ambits = new List<AmbitosContainer<AmbitosfidelizacionEntity>>();
                 AmbitosfidelizacionDataAccess.ObtenerEntidades().FindAll(d => d.fidelizacion_id == fc.Fidelizacion.fide_id).ForEach(amf => {
-                    AmbitosContainer saf = new AmbitosContainer();
-                    saf.AmbitoFidelizacion = amf;
+                    AmbitosContainer<AmbitosfidelizacionEntity> saf = new AmbitosContainer<AmbitosfidelizacionEntity>();
+                    saf.AmbitoFinal = amf;
                     saf.AmbitoArea = AmbitosareaDataAccess.ObtenerPorID(amf.ambito_id);
                     saf.Area = AreasDataAccess.ObtenerPorID(saf.AmbitoArea.area_id);
                     ambits.Add(saf);
                 });
-
+                fc.Ambitos = ambits;
                 salida.Add(fc);
             });
+
+            if(!string.IsNullOrEmpty(search))
+            {
+                salida = salida.FindAll(s =>    s.Empresa.emp_nombre.ToLower().Contains(search.ToLower()) 
+                                            ||  s.Empresa.emp_rut.ToLower().Contains(search.ToLower().Replace(".",""))
+                                            ||  s.Empresa.emp_holding.ToLower().Contains(search.ToLower())
+                                            ).ToList();
+            }
 
             switch (order)
             {
@@ -113,17 +138,17 @@ namespace CRM.Controllers
             salida.Empresa = EmpresaDataAccess.ObtenerPorID(salida.Representante.emp_id);
             salida.ResultadoGestion = ResultadogestionDataAccess.ObtenerEntidades().FindAll(d=>d.fidelizacion_id == salida.Fidelizacion.fide_id);
 
-            List<AmbitosContainer> ambits = new List<AmbitosContainer>();
+            List<AmbitosContainer<AmbitosfidelizacionEntity>> ambits = new List<AmbitosContainer<AmbitosfidelizacionEntity>>();
             AmbitosfidelizacionDataAccess.ObtenerEntidades().FindAll(d => d.fidelizacion_id == salida.Fidelizacion.fide_id).ForEach(amf => {
-                AmbitosContainer saf = new AmbitosContainer();
-                saf.AmbitoFidelizacion = amf;
+                AmbitosContainer<AmbitosfidelizacionEntity> saf = new AmbitosContainer<AmbitosfidelizacionEntity>();
+                saf.AmbitoFinal = amf;
                 saf.AmbitoArea = AmbitosareaDataAccess.ObtenerPorID(amf.ambito_id);
                 saf.Area = AreasDataAccess.ObtenerPorID(saf.AmbitoArea.area_id);
                 ambits.Add(saf);
             });
 
             salida.Ambitos = ambits;
-
+            
             return salida;
         }
 
@@ -217,6 +242,407 @@ namespace CRM.Controllers
 
         #endregion
 
+
+        #region Retnecion
+        //[AuthorizationRequired]
+        [HttpGet]
+        [Route("listar-retencion")]
+        public BootstrapTableResult<RetieneContainer> ListadoRetencion(string sort = "Empresa.emp_rut", string order = "asc", int limit = 30, int offset = 0, string search = "")
+        {
+            CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+            int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+
+            List<RetieneContainer> salida = new List<RetieneContainer>();
+            BootstrapTableResult<RetieneContainer> salida_final = new BootstrapTableResult<RetieneContainer>();
+
+            RetencionDataAccess.ObtenerEntidades().FindAll(x => x.oficina == codOficina).ForEach(ret => {
+                RetieneContainer container = new RetieneContainer();
+                container.Retencion = ret;
+                container.Gestiones = GestionretencionDataAccess.ObtenerEntidades().FindAll(g => g.retencion_id == ret.ret_id);
+                container.UltimaGestion = GestionretencionDataAccess.ObtenerEntidades().FindAll(g => g.retencion_id == ret.ret_id).OrderByDescending(d => d.gstr_fecha_accion).FirstOrDefault();
+                container.Empresa = EmpresaDataAccess.ObtenerPorID(ret.empresa_id);
+                List<AmbitosContainer<AmbitosretencionEntity>> ambits = new List<AmbitosContainer<AmbitosretencionEntity>>();
+                AmbitosretencionDataAccess.ObtenerEntidades().FindAll(d => d.retencion_id == ret.ret_id).ForEach(amf => {
+                    AmbitosContainer<AmbitosretencionEntity> saf = new AmbitosContainer<AmbitosretencionEntity>();
+                    saf.AmbitoFinal = amf;
+                    saf.AmbitoArea = AmbitosareaDataAccess.ObtenerPorID(amf.ambito_id);
+                    saf.Area = AreasDataAccess.ObtenerPorID(saf.AmbitoArea.area_id);
+                    ambits.Add(saf);
+                });
+                container.Ambitos = ambits;
+                salida.Add(container);
+            });
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                salida = salida.FindAll(s => s.Empresa.emp_nombre.ToLower().Contains(search.ToLower())
+                                            || s.Empresa.emp_rut.ToLower().Contains(search.ToLower().Replace(".", ""))
+                                            || s.Empresa.emp_holding.ToLower().Contains(search.ToLower())
+                                            ).ToList();
+            }
+
+            switch (order)
+            {
+                case "asc":
+                    switch (sort)
+                    {
+                        case "Empresa.emp_rut":
+                            salida = salida.OrderBy(o => o.Empresa.emp_rut).ToList();
+                            break;
+                        case "Empresa.emp_nombre":
+                            salida = salida.OrderBy(o => o.Empresa.emp_nombre).ToList();
+                            break;
+                        case "Empresa.emp_holding":
+                            salida = salida.OrderBy(o => o.Empresa.emp_holding).ToList();
+                            break;
+                        case "Retencion.ret_estamento":
+                            salida = salida.OrderBy(o => o.Retencion.ret_estamento).ToList();
+                            break;
+                        case "Retencion.ret_caja_destino":
+                            salida = salida.OrderBy(o => o.Retencion.ret_caja_destino).ToList();
+                            break;
+                    }
+                    break;
+                case "desc":
+                    switch (sort)
+                    {
+                        case "Empresa.emp_rut":
+                            salida = salida.OrderByDescending(o => o.Empresa.emp_rut).ToList();
+                            break;
+                        case "Empresa.emp_nombre":
+                            salida = salida.OrderByDescending(o => o.Empresa.emp_nombre).ToList();
+                            break;
+                        case "Empresa.emp_holding":
+                            salida = salida.OrderByDescending(o => o.Empresa.emp_holding).ToList();
+                            break;
+                        case "Retencion.ret_estamento":
+                            salida = salida.OrderByDescending(o => o.Retencion.ret_estamento).ToList();
+                            break;
+                        case "Retencion.ret_caja_destino":
+                            salida = salida.OrderByDescending(o => o.Retencion.ret_caja_destino).ToList();
+                            break;
+                    }
+                    break;
+            }
+
+            salida_final.total = salida.Count;
+            salida_final.rows = salida.Skip(offset).Take(limit).ToList();
+            return salida_final;
+        }
+
+        //[AuthorizationRequired]
+        [HttpGet]
+        [Route("data-retencion")]
+        public RetieneContainer DataRetencion(int id)
+        {
+            RetieneContainer salida = new RetieneContainer();
+            salida.Retencion = RetencionDataAccess.ObtenerPorID(id);
+            salida.Empresa = EmpresaDataAccess.ObtenerPorID(salida.Retencion.empresa_id);
+            salida.Gestiones = GestionretencionDataAccess.ObtenerEntidades().FindAll(g => g.retencion_id == id);
+            salida.UltimaGestion = GestionretencionDataAccess.ObtenerEntidades().FindAll(g => g.retencion_id == id).OrderByDescending(d => d.gstr_fecha_accion).FirstOrDefault();
+            List<AmbitosContainer<AmbitosretencionEntity>> ambits = new List<AmbitosContainer<AmbitosretencionEntity>>();
+            AmbitosretencionDataAccess.ObtenerEntidades().FindAll(d => d.retencion_id == salida.Retencion.ret_id).ForEach(amf => {
+                AmbitosContainer<AmbitosretencionEntity> saf = new AmbitosContainer<AmbitosretencionEntity>();
+                saf.AmbitoFinal = amf;
+                saf.AmbitoArea = AmbitosareaDataAccess.ObtenerPorID(amf.ambito_id);
+                saf.Area = AreasDataAccess.ObtenerPorID(saf.AmbitoArea.area_id);
+                ambits.Add(saf);
+            });
+
+            salida.Ambitos = ambits;
+
+            return salida;
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("guardar-retencion")]
+        public ResultadoBase GuardarRetencion(Retiene entrada)
+        {
+            try
+            {
+                string token = ActionContext.Request.Headers.GetValues("Token").First();
+                int _uid = Security.Data.TokenDataAccess.Obtener(token).FirstOrDefault().UserId;
+                string _rut = Security.Data.UsuarioDataAccess.UsuarioData(_uid).RutUsuario;
+                CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+                int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+
+
+
+                EmpresaEntity em = EmpresaDataAccess.ObtenerEntidades().Find(emp => emp.emp_rut == entrada.Rut.Replace(".", ""));
+                if (em == null)
+                {
+                    em = new EmpresaEntity();
+                    em.emp_rut = entrada.Rut.Replace(".", "");
+                    em.emp_nombre = entrada.Nombre;
+                    em.emp_holding = entrada.Holding;
+                    em.emp_id = EmpresaDataAccess.Guardar(em);
+                }
+
+
+                RetencionEntity rt = RetencionDataAccess.ObtenerPorID(entrada.IdRetencion);
+                if(rt.ret_id == 0)
+                {
+                    rt.empresa_id = em.emp_id;
+                    rt.ret_caja_destino = entrada.CajaDestino;
+                    rt.ret_dotacion = Convert.ToInt32(entrada.Dotacion);
+                    rt.ret_estamento = entrada.Estamento;
+                    rt.ret_segmento = entrada.Segmento;
+                    rt.ejecutivo_rut = _rut;
+                    rt.oficina = codOficina;
+                    rt.ret_id = RetencionDataAccess.Guardar(rt);
+                    
+                    //Primera Gestion solo si es nuevo
+                    GestionretencionEntity gst = new GestionretencionEntity();
+                    gst.gstr_etapa = "Estudio Cajas";
+                    gst.gstr_fecha = DateTime.Now;
+                    gst.gstr_fecha_accion = DateTime.Now;
+                    gst.gstr_observaciones = "SISTEMA Gestion Inicial";
+                    gst.retencion_id = rt.ret_id;
+                    gst.ejecutivo_rut = _rut;
+                    gst.oficina = codOficina;
+                    GestionretencionDataAccess.Guardar(gst);
+                }
+                
+
+                if (entrada.Ambitos.Count > 0)
+                {
+                    AmbitosretencionDataAccess.EliminarByRetencion(rt.ret_id);
+                    entrada.Ambitos.ForEach(amb =>
+                    {
+                        AmbitosretencionEntity _amb = new AmbitosretencionEntity();
+                        _amb.ambito_id = Convert.ToInt32(amb.valor);
+                        _amb.retencion_id = rt.ret_id;
+                        AmbitosretencionDataAccess.Guardar(_amb);
+                    });
+                }
+
+                
+
+
+
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Retención Almacenada con Éxito", Objeto = entrada };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Guardar Retencion", ex);
+            }
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("guardar-gestion-retencion")]
+        public ResultadoBase GuardarGestionRetencion(GestionRetiene entrada)
+        {
+            try
+            {
+                string token = ActionContext.Request.Headers.GetValues("Token").First();
+                int _uid = Security.Data.TokenDataAccess.Obtener(token).FirstOrDefault().UserId;
+                string _rut = Security.Data.UsuarioDataAccess.UsuarioData(_uid).RutUsuario;
+                CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+                int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+
+                GestionretencionEntity gst = new GestionretencionEntity();
+                gst.ejecutivo_rut = _rut;
+                gst.oficina = codOficina;
+                gst.retencion_id = entrada.IdRetencion;
+                gst.gstr_etapa = entrada.Etapa;
+                gst.gstr_fecha = Convert.ToDateTime(entrada.Fecha);
+                gst.gstr_fecha_accion = DateTime.Now;
+                gst.gstr_observaciones = entrada.Observaciones;
+
+                GestionretencionDataAccess.Guardar(gst);
+
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Gestión Almacenada con Éxito", Objeto = entrada };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Guardar Retencion", ex);
+            }
+        }
+        #endregion
+
+
+        #region Prospeccion
+        //[AuthorizationRequired]
+        [HttpGet]
+        [Route("listar-prospeccion")]
+        public BootstrapTableResult<ProspectoContainer> ListadoProspeccion(string sort = "Empresa.emp_rut", string order = "asc", int limit = 30, int offset = 0, string search = "")
+        {
+
+            CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+            int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+
+            List<ProspectoContainer> salida = new List<ProspectoContainer>();
+            BootstrapTableResult<ProspectoContainer> salida_final = new BootstrapTableResult<ProspectoContainer>();
+
+            ProspeccionDataAccess.ObtenerEntidades().FindAll(x => x.oficina == codOficina).ForEach(pro => {
+                ProspectoContainer container = new ProspectoContainer();
+                container.Prospeccion = pro;
+                container.Gestiones = GestionprospeccionDataAccess.ObtenerEntidades().FindAll(g => g.prospecto_id == pro.pros_id);
+                container.UltimaGestion = container.Gestiones.OrderByDescending(d => d.gstp_fecha_accion).FirstOrDefault();
+                container.Empresa = EmpresaDataAccess.ObtenerPorID(pro.empresa_id);
+                salida.Add(container);
+            });
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                salida = salida.FindAll(s => s.Empresa.emp_nombre.ToLower().Contains(search.ToLower())
+                                            || s.Empresa.emp_rut.ToLower().Contains(search.ToLower().Replace(".", ""))
+                                            || s.Empresa.emp_holding.ToLower().Contains(search.ToLower())
+                                            ).ToList();
+            }
+
+            switch (order)
+            {
+                case "asc":
+                    switch (sort)
+                    {
+                        case "Empresa.emp_rut":
+                            salida = salida.OrderBy(o => o.Empresa.emp_rut).ToList();
+                            break;
+                        case "Empresa.emp_nombre":
+                            salida = salida.OrderBy(o => o.Empresa.emp_nombre).ToList();
+                            break;
+                        case "Empresa.emp_holding":
+                            salida = salida.OrderBy(o => o.Empresa.emp_holding).ToList();
+                            break;
+                        case "Prospeccion.pros_caja_origen":
+                            salida = salida.OrderBy(o => o.Prospeccion.pros_caja_origen).ToList();
+                            break;
+                        case "UltimaGestion.gstp_fecha_accion":
+                            salida = salida.OrderBy(o => o.UltimaGestion.gstp_fecha_accion).ToList();
+                            break;
+                    }
+                    break;
+                case "desc":
+                    switch (sort)
+                    {
+                        case "Empresa.emp_rut":
+                            salida = salida.OrderByDescending(o => o.Empresa.emp_rut).ToList();
+                            break;
+                        case "Empresa.emp_nombre":
+                            salida = salida.OrderByDescending(o => o.Empresa.emp_nombre).ToList();
+                            break;
+                        case "Empresa.emp_holding":
+                            salida = salida.OrderByDescending(o => o.Empresa.emp_holding).ToList();
+                            break;
+                        case "Prospeccion.pros_caja_origen":
+                            salida = salida.OrderByDescending(o => o.Prospeccion.pros_caja_origen).ToList();
+                            break;
+                        case "UltimaGestion.gstp_fecha_accion":
+                            salida = salida.OrderByDescending(o => o.UltimaGestion.gstp_fecha_accion).ToList();
+                            break;
+                    }
+                    break;
+            }
+
+            salida_final.total = salida.Count;
+            salida_final.rows = salida.Skip(offset).Take(limit).ToList();
+            return salida_final;
+        }
+
+        //[AuthorizationRequired]
+        [HttpGet]
+        [Route("data-prospeccion")]
+        public ProspectoContainer DataProspeccion(int id)
+        {
+            ProspectoContainer salida = new ProspectoContainer();
+            salida.Prospeccion = ProspeccionDataAccess.ObtenerPorID(id);
+            salida.Empresa = EmpresaDataAccess.ObtenerPorID(salida.Prospeccion.empresa_id);
+            salida.Gestiones = GestionprospeccionDataAccess.ObtenerEntidades().FindAll(g => g.prospecto_id == id);
+            salida.UltimaGestion = salida.Gestiones.OrderByDescending(d => d.gstp_fecha_accion).FirstOrDefault();
+            
+            return salida;
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("guardar-prospeccion")]
+        public ResultadoBase GuardarRetencion(Prospecta entrada)
+        {
+            try
+            {
+                string token = ActionContext.Request.Headers.GetValues("Token").First();
+                int _uid = Security.Data.TokenDataAccess.Obtener(token).FirstOrDefault().UserId;
+                string _rut = Security.Data.UsuarioDataAccess.UsuarioData(_uid).RutUsuario;
+                CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+                int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+
+
+
+                EmpresaEntity em = EmpresaDataAccess.ObtenerEntidades().Find(emp => emp.emp_rut == entrada.Rut.Replace(".", ""));
+                if (em == null)
+                {
+                    em = new EmpresaEntity();
+                    em.emp_rut = entrada.Rut.Replace(".", "");
+                    em.emp_nombre = entrada.Nombre;
+                    em.emp_holding = entrada.Holding;
+                    em.emp_id = EmpresaDataAccess.Guardar(em);
+                }
+
+
+                ProspeccionEntity pro = ProspeccionDataAccess.ObtenerPorID(entrada.IdProspeccion);
+                if (pro.pros_id == 0)
+                {
+                    pro.empresa_id = em.emp_id;
+                    pro.pros_caja_origen = entrada.CajaOrigen;
+                    pro.pros_dotacion = Convert.ToInt32(entrada.Dotacion);
+                    pro.ejecutivo_rut = _rut;
+                    pro.oficina = codOficina;
+                    pro.pros_id = ProspeccionDataAccess.Guardar(pro);
+
+                    //Primera Gestion solo si es nuevo
+                    GestionprospeccionEntity gst = new GestionprospeccionEntity();
+                    gst.gstp_etapa = "Prospección";
+                    gst.gstp_fecha = DateTime.Now;
+                    gst.gstp_fecha_accion = DateTime.Now;
+                    gst.gstp_observaciones = "SISTEMA Gestión Inicial";
+                    gst.prospecto_id = pro.pros_id;
+                    gst.ejecutivo_rut = _rut;
+                    gst.oficina = codOficina;
+                    GestionprospeccionDataAccess.Guardar(gst);
+                }
+                
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Prospección Almacenada con Éxito", Objeto = entrada };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Guardar Retencion", ex);
+            }
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("guardar-gestion-prospeccion")]
+        public ResultadoBase GuardarGestionProspeccion(GestionProspecto entrada)
+        {
+            try
+            {
+                string token = ActionContext.Request.Headers.GetValues("Token").First();
+                int _uid = Security.Data.TokenDataAccess.Obtener(token).FirstOrDefault().UserId;
+                string _rut = Security.Data.UsuarioDataAccess.UsuarioData(_uid).RutUsuario;
+                CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+                int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+
+                GestionprospeccionEntity gst = new GestionprospeccionEntity();
+                gst.ejecutivo_rut = _rut;
+                gst.oficina = codOficina;
+                gst.prospecto_id = entrada.IdProspeccion;
+                gst.gstp_etapa = entrada.Etapa;
+                gst.gstp_fecha = Convert.ToDateTime(entrada.Fecha);
+                gst.gstp_fecha_accion = DateTime.Now;
+                gst.gstp_observaciones = entrada.Observaciones;
+                GestionprospeccionDataAccess.Guardar(gst);
+
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Gestión Almacenada con Éxito", Objeto = entrada };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Guardar Retencion", ex);
+            }
+        }
+        #endregion
     }
 
     public class BootstrapTableResult<T>
@@ -230,13 +656,30 @@ namespace CRM.Controllers
         public FidelizacionEntity Fidelizacion { get; set; }
         public RepresentanteempresaEntity Representante { get; set; }
         public EmpresaEntity Empresa { get; set; }
-        public IEnumerable<AmbitosContainer> Ambitos { get; set; }
+        public IEnumerable<AmbitosContainer<AmbitosfidelizacionEntity>> Ambitos { get; set; }
         public IEnumerable<ResultadogestionEntity> ResultadoGestion { get; set; } 
     }
 
-    public class AmbitosContainer
+    public class RetieneContainer
     {
-        public AmbitosfidelizacionEntity AmbitoFidelizacion { get; set; }
+        public RetencionEntity Retencion { get; set; }
+        public EmpresaEntity Empresa { get; set; }
+        public GestionretencionEntity UltimaGestion { get; set; }
+        public IEnumerable<GestionretencionEntity> Gestiones { get; set; }
+        public IEnumerable<AmbitosContainer<AmbitosretencionEntity>> Ambitos { get; set; }
+    }
+
+    public class ProspectoContainer
+    {
+        public ProspeccionEntity Prospeccion { get; set; }
+        public EmpresaEntity Empresa { get; set; }
+        public GestionprospeccionEntity UltimaGestion { get; set; }
+        public IEnumerable<GestionprospeccionEntity> Gestiones { get; set; }
+    }
+
+    public class AmbitosContainer<T>
+    {
+        public T AmbitoFinal { get; set; }
         public AmbitosareaEntity AmbitoArea { get; set; }
         public AreasEntity Area { get; set; }
     }
@@ -259,6 +702,29 @@ namespace CRM.Controllers
 
     }
 
+    public class Retiene
+    {
+        public int IdRetencion { get; set; }
+        public string Rut { get; set; }
+        public string Nombre { get; set; }
+        public string Holding { get; set; }
+        public string Estamento { get; set; }
+        public string Segmento { get; set; }
+        public string Dotacion { get; set; }
+        public string CajaDestino { get; set; }
+        public List<Ambito> Ambitos { get; set; }
+    }
+
+    public class Prospecta
+    {
+        public int IdProspeccion { get; set; }
+        public string Rut { get; set; }
+        public string Nombre { get; set; }
+        public string Holding { get; set; }
+        public string Dotacion { get; set; }
+        public string CajaOrigen { get; set; }
+    }
+
     public class ResultadoGestion
     {
         public int id { get; set; }
@@ -271,5 +737,21 @@ namespace CRM.Controllers
     {
         public int id { get; set; }
         public string valor { get; set; }
+    }
+
+    public class GestionRetiene
+    {
+        public int IdRetencion { get; set; }
+        public string Fecha { get; set; }
+        public string Etapa { get; set; }
+        public string Observaciones { get; set; }
+    }
+
+    public class GestionProspecto
+    {
+        public int IdProspeccion { get; set; }
+        public string Fecha { get; set; }
+        public string Etapa { get; set; }
+        public string Observaciones { get; set; }
     }
 }

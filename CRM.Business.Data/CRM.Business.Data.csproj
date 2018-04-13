@@ -56,6 +56,11 @@
     <Compile Include="DotacionDataAccess.cs" />
     <Compile Include="EmpresaDataAccess.cs" />
     <Compile Include="EmpresasDataAccess__.cs" />
+    <Compile Include="Empresas\AmbitosretencionDataAccess.cs" />
+    <Compile Include="Empresas\GestionprospeccionDataAccess.cs" />
+    <Compile Include="Empresas\GestionretencionDataAccess.cs" />
+    <Compile Include="Empresas\ProspeccionDataAccess.cs" />
+    <Compile Include="Empresas\RetencionDataAccess.cs" />
     <Compile Include="EncabezadoDataAccess.cs" />
     <Compile Include="EstadolicenciaDataAccess.cs" />
     <Compile Include="EstadosyTiposDataAccess.cs" />
@@ -68,6 +73,7 @@
     <Compile Include="IngresoCarteraEmpresaDataAccess.cs" />
     <Compile Include="IngresolicenciaDataAccess.cs" />
     <Compile Include="LicenciaDataAccess.cs" />
+    <Compile Include="Maestros\EmpresasDataAccess.cs" />
     <Compile Include="NoticiaDataAccess.cs" />
     <Compile Include="NotificacionAsignacionDataAccess.cs" />
     <Compile Include="NuberespuestasDataAccess.cs" />
@@ -93,6 +99,7 @@
       <Name>CRM.Business.Entity</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

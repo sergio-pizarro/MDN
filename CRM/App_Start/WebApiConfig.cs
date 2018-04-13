@@ -23,11 +23,11 @@ namespace CRM
             // Rutas de Web API
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
+            /*config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
+            );*/
         }
     }
 }

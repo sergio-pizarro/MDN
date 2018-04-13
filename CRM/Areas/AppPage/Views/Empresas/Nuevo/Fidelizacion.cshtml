@@ -268,6 +268,7 @@
 @section script{
    <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
    <script src="~/Assets/plugins/masked-input/jquery.maskedinput.min.js"></script>
+   <script src="~/Assets/js/jquery.rut.chileno.min.js"></script>
    <script>
        var rs_GestionList = [];
        var elm_Form = {};
@@ -365,10 +366,6 @@
                });
                $.ajaxSetup({ async: true });
 
-               
-
-               
-
 
            },
            cargarDatos: function () {
@@ -377,8 +374,6 @@
                if(id > 0)
                {
                    $.SecGetJSON(BASE_URL + "/Motor/api/Empresas/data-fidelizacion", { id: id }, function (response) {
-                       console.log(response);
-
                        herramientas.renderizaFormulario(response)
 
                        rs_GestionList = response.ResultadoGestion.map(function (e) {
@@ -402,8 +397,6 @@
            herramientas.cargarDatos();
 
            $('#Rut').mask('99.999.999-*');
-
-           $('#btn-guardar').niftyOverlay();
 
            $(".bt-accion").on("click", function () {
 
@@ -538,6 +531,19 @@
                        validators: {
                            notEmpty: {
                                message: 'Debe Ingresar un Rut'
+                           },
+                           callback: {
+                               message: 'Rut Invalido',
+                               callback: function (value, validator, $field) {
+
+                                   if ($.rut.validar(value))
+                                   {
+                                       $field.trigger("empresa.onRutValidado");
+                                   }
+
+                                   return $.rut.validar(value);
+                                   
+                               }
                            }
                        }
                    },
@@ -592,13 +598,6 @@
                var __Ambitos = [];
 
 
-
-              $('#btn-guardar').niftyOverlay('show');
-              
-              
-
-
-
                $('.chenv').each(function (i,e) {
                    if($(e).is(":checked"))
                    {
@@ -626,7 +625,6 @@
                    ResultadosGestion: rs_GestionList
                }
 
-               console.log(envio);
                $.SecPostJSON(BASE_URL + "/Motor/api/Empresas/guardar-fidelizacion", envio, function (response) {
 
                    $('#btn-guardar').niftyOverlay('hide');
@@ -640,7 +638,6 @@
                    });
 
                }).fail(function (jqxhr, textStatus, error) {
-                   $('#btn-guardar').niftyOverlay('hide');
                    $.niftyNoty({
                        type: 'danger',
                        container: 'floating',
@@ -657,6 +654,18 @@
                e.preventDefault();
                return false;
            })
+
+           $("#Rut").on("keyup", function () {
+               $('#form-ingreso').bootstrapValidator('updateStatus', 'Rut', 'NOT_VALIDATED').bootstrapValidator('validateField', 'Rut');
+           })
+
+           $("#Rut").on("empresa.onRutValidado", function (event) {
+               const rutEmpresa = $(this).val().replace(/\./g, '');
+               $.SecGetJSON(BASE_URL + "/Motor/api/Empresas/data-empresa/" + rutEmpresa, function (respuesta) {
+                   $('#RazonSocial').val(respuesta.NombreEmpresa);
+                   $('#Holding').val(respuesta.NombreHolding);
+               });
+           });
 
            
 

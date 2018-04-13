@@ -74,6 +74,11 @@
     <Compile Include="DotacionEntity.cs" />
     <Compile Include="Empresa.cs" />
     <Compile Include="EmpresaEntity.cs" />
+    <Compile Include="Empresas\AmbitosretencionEntity.cs" />
+    <Compile Include="Empresas\GestionprospeccionEntity.cs" />
+    <Compile Include="Empresas\GestionretencionEntity.cs" />
+    <Compile Include="Empresas\ProspeccionEntity.cs" />
+    <Compile Include="Empresas\RetencionEntity.cs" />
     <Compile Include="EncabezadoEntity.cs" />
     <Compile Include="Estadolicencia.cs" />
     <Compile Include="EstadosYTiposEntity.cs" />
@@ -88,6 +93,7 @@
     <Compile Include="IngresoCarteraEmpresa.cs" />
     <Compile Include="Ingresolicencia.cs" />
     <Compile Include="LicenciaEntity.cs" />
+    <Compile Include="Maestros\EmpresasEntity.cs" />
     <Compile Include="NoticiaEntity.cs" />
     <Compile Include="NotificacionAsignacionEntity.cs" />
     <Compile Include="NuberespuestasEntity.cs" />

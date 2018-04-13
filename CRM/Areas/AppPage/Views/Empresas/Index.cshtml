@@ -19,13 +19,13 @@
                 <!--Nav Tabs-->
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_" class="tab-principal">Fidelización</a>
+                        <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_fideliacion" class="tab-principal">Fidelización</a>
                     </li>
                     <li class="">
-                        <a data-toggle="tab" href="#lft-tab-2" aria-expanded="false" id="tab_2" class="tab-principal">Retención</a>
+                        <a data-toggle="tab" href="#lft-tab-2" aria-expanded="false" id="tab_retencion" class="tab-principal">Retención</a>
                     </li>
                     <li class="">
-                        <a data-toggle="tab" href="#lft-tab-3" aria-expanded="false" id="tab_3" class="tab-principal">Prospección</a>
+                        <a data-toggle="tab" href="#lft-tab-3" aria-expanded="false" id="tab_prospeccion" class="tab-principal">Prospección</a>
                     </li>
                 </ul>
 
@@ -62,28 +62,13 @@
                                     <div class="mar-btm">
                                         <a href="/motor/App/Empresas/Nuevo?t=R" class="btn btn-primary">
                                             <i class="ion-plus-circled"></i>
-                                            Nuevo
+                                            Nueva
                                         </a>
 
                                     </div>
 
 
-                                    <table data-toggle="table"
-                                           data-url="/Motor/Assets/data/empresas.json"
-                                           data-sort-name="Rut"
-                                           data-page-list="[15, 30]"
-                                           data-page-size="15"
-                                           data-pagination="true" data-show-pagination-switch="false">
-                                        <thead>
-                                            <tr>
-                                                <th data-field="Rut" data-sortable="true">Rut</th>
-                                                <th data-field="RazonSocial" data-sortable="true">Razon Social</th>
-                                                <th data-field="Holding" data-sortable="true">Holding</th>
-                                                <th data-field="Tipo" data-sortable="true">Tipo</th>
-                                                <th data-field="FechaUltimaGestion" data-sortable="true">Fecha Última Gestión</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                                    <table class="table" id="tabla_retencion"></table>
 
                                 </div>
                             </div>
@@ -104,22 +89,7 @@
                                     </div>
 
 
-                                    <table data-toggle="table"
-                                           data-url="/Motor/Assets/data/empresas.json"
-                                           data-sort-name="Rut"
-                                           data-page-list="[15, 30]"
-                                           data-page-size="15"
-                                           data-pagination="true" data-show-pagination-switch="false">
-                                        <thead>
-                                            <tr>
-                                                <th data-field="Rut" data-sortable="true">Rut</th>
-                                                <th data-field="RazonSocial" data-sortable="true">Razon Social</th>
-                                                <th data-field="Holding" data-sortable="true">Holding</th>
-                                                <th data-field="Tipo" data-sortable="true">Tipo</th>
-                                                <th data-field="FechaUltimaGestion" data-sortable="true">Fecha Última Gestión</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                                    <table class="table" id="tabla_prospeccion"></table>
 
                                 </div>
                             </div>
@@ -144,22 +114,61 @@
     
 <!--Bootstrap Table [ OPTIONAL ]-->
 <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
+    
 
     <script>
+        const pestana = sessionStorage.getItem('PESTANA_ACTIVA');
+        if (pestana != null)
+        {
+            switch (pestana)
+            {
+                case 'FIDELIZACION':
+                    $('#tab_fideliacion').tab('show');
+                    break;
+                case 'RETENCION':
+                    $('#tab_retencion').tab('show');
+                    break;
+                case 'PROSPECCION':
+                    $('#tab_prospeccion').tab('show');
+                    break;
+            }
+        }
+            
+
+
+        $("#tab_fideliacion").on("shown.bs.tab", function () {
+            sessionStorage.setItem('PESTANA_ACTIVA', 'FIDELIZACION');
+        });
+
+        $("#tab_retencion").on("shown.bs.tab", function () {
+            sessionStorage.setItem('PESTANA_ACTIVA', 'RETENCION');
+        });
+
+        $("#tab_prospeccion").on("shown.bs.tab", function () {
+            sessionStorage.setItem('PESTANA_ACTIVA', 'PROSPECCION');
+        });
+
+        
 
         $("#tabla_fidelizacion").bootstrapTable({
             url: "/Motor/api/Empresas/listar-fidelizacion",
             pagination: true,
             sidePagination: 'server',
-            locale: 'es-CL',
+            locale: 'es-ES',
             striped: true,
+            pagination: true,
+            pageSize: 30,
+            pageList: [30, 60, 90],
+            search: true,
+            showColumns: false,
+            showRefresh: false,
             columns: [
                 {
                     field: 'Empresa.emp_rut',
                     title: 'Rut',
                     sortable: true,
                     formatter: function (value, row, index) {
-                        console.log(row.Fidelizacion.fide_id);
                         var dondeir = BASE_URL + "/motor/App/Empresas/Editar?t=F&id=" + row.Fidelizacion.fide_id;
                         return '<a href="' + dondeir + '">' + value + '</a>';
                     }
@@ -194,6 +203,101 @@
                 },
             ]
         })
+
+        $("#tabla_retencion").bootstrapTable({
+            url: "/Motor/api/Empresas/listar-retencion",
+            pagination: true,
+            sidePagination: 'server',
+            locale: 'es-ES',
+            striped: true,
+            pagination: true,
+            pageSize: 30,
+            pageList: [30, 60, 90],
+            search: true,
+            showColumns: false,
+            showRefresh: false,
+            columns: [
+                {
+                    field: 'Empresa.emp_rut',
+                    title: 'Rut',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        var dondeir = BASE_URL + "/motor/App/Empresas/Editar?t=R&id=" + row.Retencion.ret_id;
+                        return '<a href="' + dondeir + '">' + value + '</a>';
+                    }
+                },
+                {
+                    field: 'Empresa.emp_nombre',
+                    title: 'Nombre',
+                    sortable: true
+                },
+                {
+                    field: 'Empresa.emp_holding',
+                    title: 'Holding',
+                    sortable: true
+                },
+                {
+                    field: 'Retencion.ret_estamento',
+                    title: 'Estamento',
+                    sortable: true
+                },
+                {
+                    field: 'Retencion.ret_caja_destino',
+                    title: 'Caja Destino',
+                    sortable: true
+                },
+            ]
+        })
+
+        $("#tabla_prospeccion").bootstrapTable({
+            url: "/Motor/api/Empresas/listar-prospeccion",
+            pagination: true,
+            sidePagination: 'server',
+            locale: 'es-ES',
+            striped: true,
+            pagination: true,
+            pageSize: 30,
+            pageList: [30, 60, 90],
+            search: true,
+            showColumns: false,
+            showRefresh: false,
+            columns: [
+                {
+                    field: 'Empresa.emp_rut',
+                    title: 'Rut',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        var dondeir = BASE_URL + "/motor/App/Empresas/Editar?t=P&id=" + row.Prospeccion.pros_id;
+                        return '<a href="' + dondeir + '">' + value + '</a>';
+                    }
+                },
+                {
+                    field: 'Empresa.emp_nombre',
+                    title: 'Nombre',
+                    sortable: true
+                },
+                {
+                    field: 'Empresa.emp_holding',
+                    title: 'Holding',
+                    sortable: true
+                },
+                {
+                    field: 'Prospeccion.pros_caja_origen',
+                    title: 'Caja Origen',
+                    sortable: true
+                },
+                {
+                    field: 'UltimaGestion.gstp_fecha_accion',
+                    title: 'Fecha Ultima Gestión',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        
+                        return value.toFecha();
+                    }
+                },
+            ]
+        })
+
 
     </script>
     
