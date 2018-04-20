@@ -12,15 +12,21 @@ namespace CRM.Security.Data
 {
     public static class UsuarioDataAccess
     {
-        public static List<Usuario> ListarUsuarios()
+        /*public static List<Usuario> ListarUsuarios()
         {
-            return DBHelper.InstanceCRM.ObtenerColeccion("sp_SCA_ListarUsuarios", ConstructorEntidad);
-        }
+            return DBHelper.InstanceCRM.ObtenerColeccion("security.sp_SCA_ListarUsuarios", ConstructorEntidad);
+        }*/
 
         public static Usuario UsuarioData(string RutUsuario)
         {
             Parametro p = new Parametro("@RutUsuario", RutUsuario);            
             return DBHelper.InstanceCRM.ObtenerEntidad("security.spSca_ObtenerUsuarioByRut", p, ConstructorEntidad);
+        }
+
+        public static Usuario UsuarioData(int IdUsuairo)
+        {
+            Parametro p = new Parametro("@IdUsuario", IdUsuairo);
+            return DBHelper.InstanceCRM.ObtenerEntidad("security.spSca_ObtenerUsuario", p, ConstructorEntidad);
         }
 
         public static void InsertUsuario(Usuario usuario)

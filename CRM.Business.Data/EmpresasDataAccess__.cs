@@ -7,14 +7,14 @@ using CDK.Integration;
 
 namespace CRM.Business.Data
 {
-    public class EmpresasDataAccess
+    public class EmpresasDataAccess__
     {
         
         
 
-        private static EmpresaEntity ContructorEntidad(DataRow row)
+        private static EmpresaEntity__ ContructorEntidad(DataRow row)
         {
-            return new EmpresaEntity
+            return new EmpresaEntity__
             {
                 EmpresaRut = row["RutEmpresa"] != DBNull.Value ? Convert.ToInt32(row["RutEmpresa"]) : 0,
                 EmpresaDV = row["DvEmpresa"] != DBNull.Value ? row["DvEmpresa"].ToString() : string.Empty,
