@@ -39,6 +39,15 @@ function setCookie(c_name, value, exdays) {
     document.cookie = c_name + "=" + c_value + "; path=/";
 }
 
+function objectifyForm(formArray) {//serialize data function
+
+    var returnArray = {};
+    for (var i = 0; i < formArray.length; i++) {
+        returnArray[formArray[i]['name']] = formArray[i]['value'].replace(/\./g,'');
+    }
+    return returnArray;
+}
+
 /**
  * @param {int} The month number, 0 based
  * @param {int} The year, not zero based, required to account for leap years

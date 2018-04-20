@@ -93,6 +93,7 @@
     <Compile Include="IngresoCarteraEmpresa.cs" />
     <Compile Include="Ingresolicencia.cs" />
     <Compile Include="LicenciaEntity.cs" />
+    <Compile Include="Log\LogcalculadoraEntity.cs" />
     <Compile Include="Maestros\EmpresasEntity.cs" />
     <Compile Include="NoticiaEntity.cs" />
     <Compile Include="NotificacionAsignacionEntity.cs" />

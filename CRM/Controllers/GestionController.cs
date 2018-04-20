@@ -10,6 +10,7 @@ using CRM.Business.Entity.Contracts;
 using CRM.Business.Data;
 using CRM.ActionFilters;
 using CRM.Filters;
+using System.Net.Http.Headers;
 
 namespace CRM.Controllers
 {
@@ -985,6 +986,28 @@ namespace CRM.Controllers
 
 
         [AuthorizationRequired]
+        [HttpPost]
+        [Route("logear-calculadora")]
+        public ResultadoBase LogearCalculadora(CRM.Business.Entity.Log.LogcalculadoraEntity entrada)
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            int _uid = Security.Data.TokenDataAccess.Obtener(token).FirstOrDefault().UserId;
+            string _rut = Security.Data.UsuarioDataAccess.UsuarioData(_uid).RutUsuario;
+            CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+            int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+            entrada.fecha_accion = DateTime.Now;
+            entrada.ejecutivo = _rut;
+            entrada.oficina = codOficina;
+
+            Business.Data.Log.LogcalculadoraDataAccess.Guardar(entrada);
+            return new ResultadoBase()
+            {
+                Mensaje = "OK",
+                 Objeto = entrada
+            };
+        }
+
+        [AuthorizationRequired]
         [HttpGet]
         [Route("lista-rechazos-rsg")]
         public IEnumerable<AsignacionRechazos> ObtenerRechRSG(int Periodo, int RutEmpresa, int RutAfiliado)
@@ -998,6 +1021,18 @@ namespace CRM.Controllers
         {
             return BaseCampagnaDataAccess.ObtenerAfiliado(RutAfi);
 
+        }
+
+        //[AuthorizationRequired]
+        [HttpGet]
+        [Route("existe-empresas-15-porciento")]
+        public dynamic ObtenerEmpresas15(string rut_empresa)
+        {
+            string rut = rut_empresa.Replace("_", "").Replace(".","");
+            rut = rut.Substring(0, rut.IndexOf("-"));
+            int existe = Business.Data.Log.LogcalculadoraDataAccess.ObtenerEmpresas15porc(rut);
+            dynamic d = new { valid = (existe == 1), data = rut };
+            return d;
         }
 
     }
