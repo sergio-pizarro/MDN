@@ -638,6 +638,7 @@
                                 $("#EmpresaRut").val(respuesta.Objeto.empresasField[0].rutEmpresaField);
                                 $("#EmpresaNombre").val(respuesta.Objeto.empresasField[0].razonSocialField);
                                 $("#SistemaNoData").prop("checked", false);
+                                $("#SistemaNoData").prop("disabled", true);
                             } else {
                                 $("#AfiNombres").val("")
                                 $("#EmpresaRut").val("");
