@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CRM.Business.Entity
 {
-    public class EmpresaEntity
+    public class EmpresaEntity__
     {
         public int idFicha { get; set; }
         public int Periodo { get; set; }

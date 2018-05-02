@@ -128,7 +128,7 @@ namespace CRM.Business.Data
 
         #region metodos adicionales
 
-        public static AsignacionEntity ObtenerByAfiRut(int Periodo, string AfiliadoRut)
+        public static List<AsignacionEntity> ObtenerByAfiRut(int Periodo, string AfiliadoRut)
         {
             Parametros pram = new Parametros
             {
@@ -136,7 +136,7 @@ namespace CRM.Business.Data
                 new Parametro("@AfiliadoRut",AfiliadoRut),
             };
 
-            return DBHelper.InstanceCRM.ObtenerEntidad("spMotor_Asignacion_ObtenerByAfiliado", pram, ConstructorEntidad);
+            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ObtenerByAfiliado", pram, ConstructorEntidad);
         }
 
 
@@ -177,6 +177,19 @@ namespace CRM.Business.Data
         }
 
 
+        public static List<ContenedorCampaniaList> ListarByEjecutivo2(int Periodo, string TokenEjecutivo, string TipoDerivacion = "")
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@Periodo", Periodo),
+                new Parametro("@TokenEjecutivo",TokenEjecutivo),
+                new Parametro("@TipoDerivacion",TipoDerivacion),
+            };
+
+            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivo2", pram, ContainerConstructor);
+        }
+
+
         public static List<AsignacionEntity> ListarByOficina(int Periodo, string TokenEjecutivo)
         {
             Parametros pram = new Parametros
@@ -186,6 +199,18 @@ namespace CRM.Business.Data
             };
 
             return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByOficina", pram, ConstructorEntidad);
+        }
+
+        public static List<ContenedorCampaniaList> ListarByOficina2(int Periodo, string TokenEjecutivo, string TipoDerivacion = "")
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@Periodo", Periodo),
+                new Parametro("@TokenEjecutivo",TokenEjecutivo),
+                new Parametro("@TipoDerivacion",TipoDerivacion),
+            };
+
+            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByOficina2", pram, ContainerConstructor);
         }
 
         public static List<AsignacionEntity> ListarByPeriodo(int Periodo)
@@ -345,6 +370,76 @@ namespace CRM.Business.Data
                 EmpresaRut = row["Empresa_Rut"] != DBNull.Value ? Convert.ToInt32(row["Empresa_Rut"]) : 0,
                 MotivoRechazo = row["MotivoRechazo"] != DBNull.Value ? row["MotivoRechazo"].ToString() : string.Empty
             };
+        }
+
+
+        private static ContenedorCampaniaList ContainerConstructor(DataRow row)
+        {
+            ContenedorCampaniaList retorno = new ContenedorCampaniaList();
+
+            retorno.Seguimiento = new AsignacionEntity();
+            retorno.Seguimiento.id_Asign = row["id_Asign"] != DBNull.Value ? Convert.ToInt32(row["id_Asign"]) : 0;
+            retorno.Seguimiento.Periodo = row["Periodo"] != DBNull.Value ? row["Periodo"].ToString() : string.Empty;
+            retorno.Seguimiento.Afiliado_Rut = row["Afiliado_Rut"] != DBNull.Value ? Convert.ToDecimal(row["Afiliado_Rut"]) : 0;
+            retorno.Seguimiento.Afiliado_Dv = row["Afiliado_Dv"] != DBNull.Value ? row["Afiliado_Dv"].ToString() : string.Empty;
+            retorno.Seguimiento.Nombre = row["Nombre"] != DBNull.Value ? row["Nombre"].ToString() : string.Empty;
+            retorno.Seguimiento.Apellido = row["Apellido"] != DBNull.Value ? row["Apellido"].ToString() : string.Empty;
+            retorno.Seguimiento.Empresa_Rut = row["Empresa_Rut"] != DBNull.Value ? row["Empresa_Rut"].ToString() : string.Empty;
+            retorno.Seguimiento.Empresa_Dv = row["Empresa_Dv"] != DBNull.Value ? row["Empresa_Dv"].ToString() : string.Empty;
+            retorno.Seguimiento.Empresa = row["Empresa"] != DBNull.Value ? row["Empresa"].ToString() : string.Empty;
+            retorno.Seguimiento.Holding = row["Holding"] != DBNull.Value ? row["Holding"].ToString() : string.Empty;
+            retorno.Seguimiento.Segmento = row["Segmento"] != DBNull.Value ? row["Segmento"].ToString() : string.Empty;
+            retorno.Seguimiento.PensionadoFFAA = row["PensionadoFFAA"] != DBNull.Value ? Convert.ToInt32(row["PensionadoFFAA"]) : 0;
+            retorno.Seguimiento.Ejec_Asignacion = row["Ejec_Asignacion"] != DBNull.Value ? row["Ejec_Asignacion"].ToString() : string.Empty;
+            retorno.Seguimiento.PreAprobadoFinal = row["PreAprobadoFinal"] != DBNull.Value ? Convert.ToInt64(row["PreAprobadoFinal"]) : 0;
+            retorno.Seguimiento.TipoAsignacion = row["TipoAsignacion"] != DBNull.Value ? Convert.ToInt32(row["TipoAsignacion"]) : 0;
+            retorno.Seguimiento.Prioridad = row["Prioridad"] != DBNull.Value ? Convert.ToInt32(row["Prioridad"]) : 0;
+            retorno.Seguimiento.TipoCampania = row["TipoCampania"] != DBNull.Value ? row["TipoCampania"].ToString() : string.Empty;
+            retorno.Seguimiento.Cuadrante = row["Cuadrante"] != DBNull.Value ? Convert.ToInt32(row["Cuadrante"]) : 0;
+            retorno.Seguimiento.OfertaTexto = row["OfertaTexto"] != DBNull.Value ? row["OfertaTexto"].ToString() : string.Empty;
+            retorno.Seguimiento.TipoDerivacion = row["TipoDerivacion"] != DBNull.Value ? row["TipoDerivacion"].ToString() : string.Empty;
+
+
+            retorno.UltimaGestion = new GestionGenerica();
+            retorno.UltimaGestion.GestionBase = new GestionEntity();
+            retorno.UltimaGestion.GestionBase.IdBaseCampagna = row["ges_bcam_uid"] != DBNull.Value ? Convert.ToInt32(row["ges_bcam_uid"]) : 0;
+            retorno.UltimaGestion.GestionBase.FechaAccion = row["ges_fecha_accion"] != DBNull.Value ? Convert.ToDateTime(row["ges_fecha_accion"]) : DateTime.MinValue;
+            retorno.UltimaGestion.GestionBase.FechaCompromete = row["ges_fecha_compromete"] != DBNull.Value ? Convert.ToDateTime(row["ges_fecha_compromete"]) : DateTime.MinValue;
+            retorno.UltimaGestion.GestionBase.Descripcion = row["ges_descripcion_gst"] != DBNull.Value ? row["ges_descripcion_gst"].ToString() : string.Empty;
+            retorno.UltimaGestion.GestionBase.IdEstado = row["ges_estado_gst"] != DBNull.Value ? Convert.ToInt32(row["ges_estado_gst"]) : 0;
+            retorno.UltimaGestion.GestionBase.RutEjecutivo = row["ges_ejecutivo_rut"] != DBNull.Value ? row["ges_ejecutivo_rut"].ToString() : string.Empty;
+            retorno.UltimaGestion.GestionBase.IdOficina = row["ges_oficina"] != DBNull.Value ? row["ges_oficina"].ToString() : string.Empty;
+
+            if (retorno.Seguimiento.TipoAsignacion == 2)
+            {
+                var x = retorno.UltimaGestion.GestionBase;
+                int causaBasalId = 0, consecuenciaId = 0, estadoId = 0;
+                
+                if(x.IdEstado.ToString().Length >= 9 )
+                {
+                    causaBasalId = Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(0, 1) : x.IdEstado.ToString().Substring(0, 2));
+                    consecuenciaId = Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(1, 4) : x.IdEstado.ToString().Substring(2, 4));
+                    estadoId = Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(5, 4) : x.IdEstado.ToString().Substring(6, 4));
+                }
+                
+                retorno.UltimaGestion.CausaBasalGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(causaBasalId);
+                retorno.UltimaGestion.ConsecuenciaGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(consecuenciaId);
+                retorno.UltimaGestion.EstadoGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(estadoId);
+
+                
+                
+            }
+            else
+            {
+                retorno.UltimaGestion.SubEstadoGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(retorno.UltimaGestion.GestionBase.IdEstado);
+                retorno.UltimaGestion.EstadoGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(retorno.UltimaGestion.SubEstadoGestion != null ? retorno.UltimaGestion.SubEstadoGestion.ejes_id_padre : 0);
+            }
+            
+            retorno.Notificaciones = NotificacionAsignacionDataAccess.ObtenerSetNTF(retorno.Seguimiento.Afiliado_Rut.ToString());
+
+
+            return retorno;
+
         }
 
 

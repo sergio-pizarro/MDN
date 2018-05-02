@@ -456,7 +456,7 @@
                                         <div class="col-sm-3">
                                             <div id="dp_fecha_entrevista">
                                                 <div class="input-group date">
-                                                    <input type="text" class="form-control" id="fecha_difusion_actividad_masiva" name="fecha_difusion_actividad_masiva">
+                                                    <input type="text" class="form-control larespuesta" data-id="66" id="fecha_difusion_actividad_masiva" name="fecha_difusion_actividad_masiva">
                                                     <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
                                                 </div>
                                             </div>
@@ -469,7 +469,7 @@
                                             <label class="control-label">Indique Estamento</label>
                                         </div>
                                         <div class="col-sm-3">
-                                            <select id="sl_estamento_actividad" class="form-control" name="sl_estamento_actividad">
+                                            <select id="sl_estamento_actividad" class="form-control larespuesta" data-id="65" name="sl_estamento_actividad">
                                                 <option value="">Seleccione</option>
                                                 <option value="Empresas">Empresas</option>
                                                 <option value="Sindicato">Sindicato</option>
@@ -781,7 +781,7 @@
                             objetoFormulario.push({ id: $(e).data("id"), valor: $(e).val(), tipo: 'boleano' })
                         }
                     }
-                    else if ($(e).is("select")) {
+                    else if ($(e).is("select") && $(e).data("id") != '65') {
                         objetoFormulario.push({ id: $(e).data("id"), valor: $(e).val(), tipo: 'multiopcion' });
                     }
                     else {
