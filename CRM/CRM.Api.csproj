@@ -319,6 +319,7 @@
     <Content Include="Assets\js.App\Ext.js" />
     <Content Include="Assets\js.App\gestion\BuscadorGrilla.js" />
     <Content Include="Assets\js.App\gestion\index.js" />
+    <Content Include="Assets\js.App\gestion\oferta.js" />
     <Content Include="Assets\js\bootstrap.js" />
     <Content Include="Assets\js\bootstrap.min.js" />
     <Content Include="Assets\js\demo\bg-images.js" />
@@ -1730,6 +1731,7 @@
     <Content Include="Areas\AppPage\Views\Empresas\Nuevo\Retencion.cshtml" />
     <Content Include="Areas\AppPage\Views\Empresas\Nuevo\Prospeccion.cshtml" />
     <Content Include="Areas\AppPage\Views\HerramientasGestion\CalculadoraCredito.cshtml" />
+    <Content Include="Areas\AppPage\Views\Gestion\Oferta.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

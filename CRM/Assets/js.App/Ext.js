@@ -576,9 +576,71 @@ $(function () {
         });
     }
 
+    
 
-    $.SecGetJSON(BASE_URL + "/motor/api/Auth/menu", function (categorias) {
 
+
+    if (sessionStorage.getItem('menu_principal') == null)
+    {
+        $.SecGetJSON(BASE_URL + "/motor/api/Auth/menu", function (categorias) {
+
+            sessionStorage.setItem('menu_principal', JSON.stringify(categorias));
+
+            $.each(categorias, function (i, categoriaItm) {
+
+                $("#mainnav-menu").append($("<li>").addClass("list-header").text(categoriaItm.Nombre))
+
+                Recxve(categoriaItm.Menus, $("#mainnav-menu"));
+            });
+
+
+
+            //Otras campañas siempre al final
+            $.SecGetJSON(BASE_URL + "/CPEngine/api/camp/lista-camps-ejecutivo", { re: getCookie("Token") }, function (menus) {
+
+                sessionStorage.setItem('menu_campasejec', JSON.stringify(menus));
+
+                var algunaCamp = 0, cUL = $("<ul>");
+
+                $.each(menus, function (i, e) {
+                    if (e.Activa) {
+                        cUL.append('<li>' +
+                                ' <a href="/motor/App/Engine?cc=' + e.CodCamp + '" >' +
+                                    '  <span class="menu-title">' +
+                                    '      <strong>' + e.IdentidadCamp + '</strong>' +
+                                    '  </span>' +
+                                '  </a>' +
+                            ' </li>');
+                        algunaCamp++;
+                    }
+                });
+
+                if (algunaCamp > 0) {
+                    //.addClass("active-link")
+                    $("#mainnav-menu").append($("<li>").addClass("list-header").text("Otras Campañas"))
+                    $("#mainnav-menu").append($("<li>").append(
+                          $("<a>").addClass("otras-campas").attr({ href: "#" }).append(
+                              $("<i>").addClass("ion-clipboard")
+                          ).append(
+                              $("<span>").addClass("menu-title").append($("<strong>").text("Mis Campañas"))
+                          )
+                      ).append(cUL));
+                }
+
+
+
+                $.niftyNav('bind')
+
+            });
+
+
+
+
+        });
+    }
+    else
+    {
+        var categorias = JSON.parse(sessionStorage.getItem('menu_principal'));
         $.each(categorias, function (i, categoriaItm) {
 
             $("#mainnav-menu").append($("<li>").addClass("list-header").text(categoriaItm.Nombre))
@@ -587,47 +649,45 @@ $(function () {
         });
 
 
+        var menus = JSON.parse(sessionStorage.getItem('menu_campasejec'));
+        var algunaCamp = 0, cUL = $("<ul>");
 
-        //Otras campañas siempre al final
-        $.SecGetJSON(BASE_URL + "/CPEngine/api/camp/lista-camps-ejecutivo", { re: getCookie("Token") }, function (menus) {
-
-            var algunaCamp = 0, cUL = $("<ul>");
-
-            $.each(menus, function (i, e) {
-                if (e.Activa) {
-                    cUL.append('<li>' +
-                            ' <a href="/motor/App/Engine?cc=' + e.CodCamp + '" >' +
-                                '  <span class="menu-title">' +
-                                '      <strong>' + e.IdentidadCamp + '</strong>' +
-                                '  </span>' +
-                            '  </a>' +
-                        ' </li>');
-                    algunaCamp++;
-                }
-            });
-
-            if (algunaCamp > 0) {
-                //.addClass("active-link")
-                $("#mainnav-menu").append($("<li>").addClass("list-header").text("Otras Campañas"))
-                $("#mainnav-menu").append($("<li>").append(
-                      $("<a>").addClass("otras-campas").attr({ href: "#" }).append(
-                          $("<i>").addClass("ion-clipboard")
-                      ).append(
-                          $("<span>").addClass("menu-title").append($("<strong>").text("Mis Campañas"))
-                      )
-                  ).append(cUL));
+        $.each(menus, function (i, e) {
+            if (e.Activa) {
+                cUL.append('<li>' +
+                        ' <a href="/motor/App/Engine?cc=' + e.CodCamp + '" >' +
+                            '  <span class="menu-title">' +
+                            '      <strong>' + e.IdentidadCamp + '</strong>' +
+                            '  </span>' +
+                        '  </a>' +
+                    ' </li>');
+                algunaCamp++;
             }
-
-
-
-            $.niftyNav('bind')
-
         });
 
+        if (algunaCamp > 0) {
+            //.addClass("active-link")
+            $("#mainnav-menu").append($("<li>").addClass("list-header").text("Otras Campañas"))
+            $("#mainnav-menu").append($("<li>").append(
+                  $("<a>").addClass("otras-campas").attr({ href: "#" }).append(
+                      $("<i>").addClass("ion-clipboard")
+                  ).append(
+                      $("<span>").addClass("menu-title").append($("<strong>").text("Mis Campañas"))
+                  )
+              ).append(cUL));
+        }
 
 
 
-    });
+        $.niftyNav('bind')
+    }
+
+   
+
+
+
+
+
 
 
 

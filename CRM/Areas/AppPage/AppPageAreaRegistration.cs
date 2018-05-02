@@ -33,6 +33,19 @@ namespace CRM.Areas.AppPage
                );
                */
 
+
+
+            context.MapRoute(
+                "AppPage_ListaOfertas",
+                "App/{controller}/{action}",
+                new { controller = "Gestion", action = "Index"});
+
+            context.MapRoute(
+                "AppPage_Oferta",
+                "App/{controller}/{action}/{periodo}/{rut}/{tipo}",
+                new { controller = "Gestion", action = "Oferta", periodo = 0, rut = '0', tipo=0 });
+
+
             context.MapRoute(
                 "AppPage_Default",
                 "App/{controller}/{action}/{apiId}",
