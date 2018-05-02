@@ -152,7 +152,7 @@ namespace CRM.Business.Data
                 Estado = row["EstadoGestion"] != DBNull.Value ? row["EstadoGestion"].ToString() : string.Empty,
                 SubEstado = row["SubEstadoGestion"] != DBNull.Value ? row["SubEstadoGestion"].ToString() : string.Empty,
                 FechaCompromete = row["FComprometeGestion"] != DBNull.Value ? Convert.ToDateTime(row["FComprometeGestion"]) : DateTime.MinValue,
-             //   FechaAccion = row["FechaAccion"] != DBNull.Value ? Convert.ToDateTime(row["FechaAccion"]) : DateTime.MinValue,
+                FechaAccion = row["FechaAccion"] != DBNull.Value ? Convert.ToDateTime(row["FechaAccion"]) : DateTime.MinValue,
                 Descripcion = row["Descripcion"] != DBNull.Value ? row["Descripcion"].ToString() : string.Empty,
                 Nombres = row["Nombre"] != DBNull.Value ? row["Nombre"].ToString() : string.Empty,
                 EsTerminal = row["EstadoTerminal"] != DBNull.Value ? row["EstadoTerminal"].ToString() : string.Empty,
