@@ -10,6 +10,7 @@ using CRM.Business.Entity.Contracts;
 using CRM.Business.Data;
 using CRM.ActionFilters;
 using CRM.Filters;
+using System.Net.Http.Headers;
 
 namespace CRM.Controllers
 {
@@ -712,7 +713,7 @@ namespace CRM.Controllers
 
             return salida;
         }
-        [AuthorizationRequired]
+        /*[AuthorizationRequired]
         [HttpGet]
         [Route("Lista-empresa-grilla")]
         public IEnumerable<EmpresaEntity> ListarEmpresaGrilla(string periodo)
@@ -726,7 +727,7 @@ namespace CRM.Controllers
         public IEnumerable<EmpresaEntity> ListarEmpresaGrillaTodos(string periodo)
         {
             return EmpresaDataAccess.ListarEmpresaGrillaTodos(periodo);
-        }
+        }*/
         [AuthorizationRequired]
         [HttpGet]
         [Route("listar-empresa-licencia")]
@@ -805,6 +806,8 @@ namespace CRM.Controllers
             }
             return res;
         }
+
+        /*
         [AuthorizationRequired]
         [HttpPost]
         [Route("guardar-ficha-empresa")]
@@ -901,7 +904,7 @@ namespace CRM.Controllers
 
             return EmpresaDataAccess.ObtenerNombreEmpresa(RutEmpresa, Periodo);
 
-        }
+        }*/
 
 
         [AuthorizationRequired]
@@ -934,7 +937,7 @@ namespace CRM.Controllers
                 return new ResultadoBase { Estado = "ER", Mensaje = "Error al obtener datos", Objeto = ex };
             }
         }
-        [AuthorizationRequired]
+        /*[AuthorizationRequired]
         [HttpGet]
         [Route("lista-gestion-detalle-empresa")]
         public IEnumerable<DetalleEmpresaEntity> ObtenerDetalle(int RutEmpresa, string Periodo)
@@ -979,8 +982,30 @@ namespace CRM.Controllers
                 res.Objeto = ex;
             }
             return res;
-        }
+        }*/
 
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("logear-calculadora")]
+        public ResultadoBase LogearCalculadora(CRM.Business.Entity.Log.LogcalculadoraEntity entrada)
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            int _uid = Security.Data.TokenDataAccess.Obtener(token).FirstOrDefault().UserId;
+            string _rut = Security.Data.UsuarioDataAccess.UsuarioData(_uid).RutUsuario;
+            CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+            int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+            entrada.fecha_accion = DateTime.Now;
+            entrada.ejecutivo = _rut;
+            entrada.oficina = codOficina;
+
+            Business.Data.Log.LogcalculadoraDataAccess.Guardar(entrada);
+            return new ResultadoBase()
+            {
+                Mensaje = "OK",
+                 Objeto = entrada
+            };
+        }
 
         [AuthorizationRequired]
         [HttpGet]
@@ -996,6 +1021,18 @@ namespace CRM.Controllers
         {
             return BaseCampagnaDataAccess.ObtenerAfiliado(RutAfi);
 
+        }
+
+        //[AuthorizationRequired]
+        [HttpGet]
+        [Route("existe-empresas-15-porciento")]
+        public dynamic ObtenerEmpresas15(string rut_empresa)
+        {
+            string rut = rut_empresa.Replace("_", "").Replace(".","");
+            rut = rut.Substring(0, rut.IndexOf("-"));
+            int existe = Business.Data.Log.LogcalculadoraDataAccess.ObtenerEmpresas15porc(rut);
+            dynamic d = new { valid = (existe == 1), data = rut };
+            return d;
         }
 
     }

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using CRM.Business.Entity;
-using CDK.Data;
 using CDK.Integration;
+using CDK.Data;
 
 //------------------------------------------------------------------------------
 // <generado automáticamente>
@@ -20,7 +20,7 @@ namespace CRM.Business.Data
     /// Clase Acceso de Datos FidelizacionDataAccess
     /// </summary>
     /// <author>@Charly</author>
-    /// <created>04-01-2018 15:39:10</created>
+    /// <created>02-04-2018 13:08:00</created>
     /// <remarks>
     /// Esta clase fué generada automáticamente por una herramienta.
     /// </remarks>
@@ -29,71 +29,65 @@ namespace CRM.Business.Data
         #region metodos base
 
         /// <summary>
-        /// Guarda la entidad de dominio <see cref="Fidelizacion"/> en la Base de Datos
+        /// Guarda la entidad de dominio <see cref="FidelizacionEntity"/> en la Base de Datos
         /// </summary>
         /// <author>@Charly</author>
-        /// <created>04-01-2018 15:39:10</created>
-        /// <param name="fidelizacion">Referencia a una clase <see cref="Fidelizacion"/>.</param>
+        /// <created>02-04-2018 13:08:00</created>
+        /// <param name="fidelizacion">Referencia a una clase <see cref="FidelizacionEntity"/>.</param>
         /// <returns>Clave primaria resultante de la operación</returns>
-        public static long Guardar(Fidelizacion fidelizacion)
+        public static int Guardar(FidelizacionEntity fidelizacion)
         {
             Parametros parametros = new Parametros
             {
-                new Parametro("@CodFide", fidelizacion.CodFide),
-                new Parametro("@RutEmpresa", fidelizacion.RutEmpresa),
-                new Parametro("@NombreEmpresa", fidelizacion.NombreEmpresa),
-                new Parametro("@HoldingEmpresa", fidelizacion.HoldingEmpresa),
-                new Parametro("@Area", fidelizacion.Area),
-                new Parametro("@AmbitoAccion", fidelizacion.AmbitoAccion),
-                new Parametro("@Estamento", fidelizacion.Estamento),
-                new Parametro("@Actividad", fidelizacion.Actividad),
-                new Parametro("@Cobertura", fidelizacion.Cobertura),
-                new Parametro("@NombreRepresentanteEmpresa", fidelizacion.NombreRepresentanteEmpresa),
-                new Parametro("@Cargo", fidelizacion.Cargo),
-                new Parametro("@FechaIngreso", fidelizacion.FechaIngreso),
-                new Parametro("@FechaCreacion", fidelizacion.FechaCreacion),
-                new Parametro("@RutEjecutivo", fidelizacion.RutEjecutivo),
-                new Parametro("@Oficina", fidelizacion.Oficina),
+                new Parametro("@fide_id", fidelizacion.fide_id),
+                new Parametro("@fide_estamento", fidelizacion.fide_estamento),
+                new Parametro("@fide_actividad", fidelizacion.fide_actividad),
+                new Parametro("@fide_cobertura", fidelizacion.fide_cobertura),
+                new Parametro("@fide_fecha_calendario", fidelizacion.fide_fecha_calendario),
+                new Parametro("@fide_fecha_accion", fidelizacion.fide_fecha_accion),
+                new Parametro("@representante_id", fidelizacion.representante_id),
+                new Parametro("@cod_oficina", fidelizacion.cod_oficina),
+                new Parametro("@rut_ejecutivo", fidelizacion.rut_ejecutivo),
 
             };
 
-            return DBHelper.InstanceCRM.ObtenerEscalar<long>("sp_Fidelizacion_Guardar", parametros);
+            return DBHelper.InstanceCRM.ObtenerEscalar<int>("empresas.spEmp_Fidelizacion_Guardar", parametros);
         }
 
         /// <summary>
-        /// Recupera una entidad <see cref="Fidelizacion"/> de la Base de Datos dado un ID de Fidelizacion
+        /// Recupera una entidad <see cref="FidelizacionEntity"/> de la Base de Datos dado un ID de FidelizacionEntity
         /// </summary>
         /// <author>@Charly</author>
-        /// <created>04-01-2018 15:39:10</created>
-        /// <param name="CodFide">ID de Fidelizacion.</param>
-        /// <returns>Referencia a una clase <see cref="Fidelizacion"/>.</returns>
-        public static Fidelizacion ObtenerPorID(long CodFide)
+        /// <created>02-04-2018 13:08:00</created>
+        /// <param name="fide_id">ID de FidelizacionEntity.</param>
+        /// <returns>Referencia a una clase <see cref="FidelizacionEntity"/>.</returns>
+        public static FidelizacionEntity ObtenerPorID(int fide_id)
         {
-            Parametro parametro = new Parametro("@CodFide", CodFide);
+            Parametro parametro = new Parametro("@fide_id", fide_id);
 
-            return DBHelper.InstanceCRM.ObtenerEntidad("sp_Fidelizacion_ObtenerPorID", parametro, ConstructorEntidad);
+            return DBHelper.InstanceCRM.ObtenerEntidad("empresas.spEmp_Fidelizacion_ObtenerPorID", parametro, ConstructorEntidad);
         }
 
         /// <summary>
-        /// Lista todas las entidades <see cref="Fidelizacion"/> de la Base de Datos
+        /// Lista todas las entidades <see cref="FidelizacionEntity"/> de la Base de Datos
         /// </summary>
         /// <author>@Charly</author>
-        /// <created>04-01-2018 15:39:10</created>
+        /// <created>02-04-2018 13:08:00</created>
         /// <returns><see cref="DataTable"/> con todos los objetos.</returns>
         public static DataTable Listar()
         {
-            return DBHelper.InstanceCRM.ObtenerDataTable("sp_Fidelizacion_Listar");
+            return DBHelper.InstanceCRM.ObtenerDataTable("empresas.spEmp_Fidelizacion_Listar");
         }
 
         /// <summary>
-        /// Recupera todas las entidades <see cref="Fidelizacion"/> de la Base de Datos
+        /// Recupera todas las entidades <see cref="FidelizacionEntity"/> de la Base de Datos
         /// </summary>
         /// <author>@Charly</author>
-        /// <created>04-01-2018 15:39:10</created>
-        /// <returns>Lista con todas las entidades <see cref="Fidelizacion"/>.</returns>
-        public static List<Fidelizacion> ObtenerEntidades()
+        /// <created>02-04-2018 13:08:00</created>
+        /// <returns>Lista con todas las entidades <see cref="FidelizacionEntity"/>.</returns>
+        public static List<FidelizacionEntity> ObtenerEntidades()
         {
-            return DBHelper.InstanceCRM.ObtenerColeccion("sp_Fidelizacion_Listar", ConstructorEntidad);
+            return DBHelper.InstanceCRM.ObtenerColeccion("empresas.spEmp_Fidelizacion_Listar", ConstructorEntidad);
         }
 
         #endregion
@@ -102,25 +96,19 @@ namespace CRM.Business.Data
         #endregion
 
         #region constructor
-        private static Fidelizacion ConstructorEntidad(DataRow row)
+        private static FidelizacionEntity ConstructorEntidad(DataRow row)
         {
-            return new Fidelizacion
+            return new FidelizacionEntity
             {
-                CodFide = row["CodFide"] != DBNull.Value ? Convert.ToInt64(row["CodFide"]) : 0,
-                RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
-                NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
-                HoldingEmpresa = row["HoldingEmpresa"] != DBNull.Value ? row["HoldingEmpresa"].ToString() : string.Empty,
-                Area = row["Area"] != DBNull.Value ? row["Area"].ToString() : string.Empty,
-                AmbitoAccion = row["AmbitoAccion"] != DBNull.Value ? row["AmbitoAccion"].ToString() : string.Empty,
-                Estamento = row["Estamento"] != DBNull.Value ? row["Estamento"].ToString() : string.Empty,
-                Actividad = row["Actividad"] != DBNull.Value ? row["Actividad"].ToString() : string.Empty,
-                Cobertura = row["Cobertura"] != DBNull.Value ? row["Cobertura"].ToString() : string.Empty,
-                NombreRepresentanteEmpresa = row["NombreRepresentanteEmpresa"] != DBNull.Value ? row["NombreRepresentanteEmpresa"].ToString() : string.Empty,
-                Cargo = row["Cargo"] != DBNull.Value ? row["Cargo"].ToString() : string.Empty,
-                FechaIngreso = row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]) : new DateTime(1900, 1, 1),
-                FechaCreacion = row["FechaCreacion"] != DBNull.Value ? Convert.ToDateTime(row["FechaCreacion"]) : new DateTime(1900, 1, 1),
-                RutEjecutivo = row["RutEjecutivo"] != DBNull.Value ? row["RutEjecutivo"].ToString() : string.Empty,
-                Oficina = row["Oficina"] != DBNull.Value ? Convert.ToInt32(row["Oficina"]) : 0,
+                fide_id = row["fide_id"] != DBNull.Value ? Convert.ToInt32(row["fide_id"]) : 0,
+                fide_estamento = row["fide_estamento"] != DBNull.Value ? row["fide_estamento"].ToString() : string.Empty,
+                fide_actividad = row["fide_actividad"] != DBNull.Value ? row["fide_actividad"].ToString() : string.Empty,
+                fide_cobertura = row["fide_cobertura"] != DBNull.Value ? row["fide_cobertura"].ToString() : string.Empty,
+                fide_fecha_calendario = row["fide_fecha_calendario"] != DBNull.Value ? Convert.ToDateTime(row["fide_fecha_calendario"]) : new DateTime(1900, 1, 1),
+                fide_fecha_accion = row["fide_fecha_accion"] != DBNull.Value ? Convert.ToDateTime(row["fide_fecha_accion"]) : new DateTime(1900, 1, 1),
+                representante_id = row["representante_id"] != DBNull.Value ? Convert.ToInt32(row["representante_id"]) : 0,
+                cod_oficina = row["cod_oficina"] != DBNull.Value ? Convert.ToInt32(row["cod_oficina"]) : 0,
+                rut_ejecutivo = row["rut_ejecutivo"] != DBNull.Value ? row["rut_ejecutivo"].ToString() : string.Empty,
 
             };
         }

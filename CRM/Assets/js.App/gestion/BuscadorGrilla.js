@@ -4,7 +4,7 @@ $(function () {
 
     //Pre Aprobados
     $("#bdy_datos").html("");
-    $.SecGetJSON(BASE_URL + "/motor/api/busqueda-dotacion/listar-ejecutivos", function (ejecutivos) {
+    $.getJSON(BASE_URL + "/motor/api/busqueda-dotacion/listar-ejecutivos", function (ejecutivos) {
 
         
 
