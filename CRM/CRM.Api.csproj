@@ -195,6 +195,7 @@
     <Compile Include="Areas\AppPage\App_Start\AppPageConfig.cs" />
     <Compile Include="Areas\AppPage\Controllers\CarteraEmpresasController.cs" />
     <Compile Include="Areas\AppPage\Controllers\ConfiguracionesController.cs" />
+    <Compile Include="Areas\AppPage\Controllers\DatosAfiliadosController.cs" />
     <Compile Include="Areas\AppPage\Controllers\EmpresasController.cs" />
     <Compile Include="Areas\AppPage\Controllers\EngineController.cs" />
     <Compile Include="Areas\AppPage\Controllers\FichaEmpresaController.cs" />
@@ -259,6 +260,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AfiliadosController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\CallCenterController.cs" />
     <Compile Include="Controllers\BuscarController.cs" />
@@ -1726,6 +1728,7 @@
     <Content Include="Areas\AppPage\Views\FichaEmpresa\OtrasEmpresas.cshtml" />
     <Content Include="Areas\AppPage\Views\FichaEmpresa\Listado.cshtml" />
     <Content Include="Areas\AppPage\Views\FichaEmpresa\OtrasPublicas.cshtml" />
+    <Content Include="Areas\AppPage\Views\DatosAfiliados\Index.cshtml" />
     <Content Include="Areas\AppPage\Views\Empresas\Nuevo\Fidelizacion.cshtml" />
     <Content Include="Areas\AppPage\Views\Empresas\Nuevo\Retencion.cshtml" />
     <Content Include="Areas\AppPage\Views\Empresas\Nuevo\Prospeccion.cshtml" />
@@ -1839,6 +1842,7 @@
     <Folder Include="Assets\css-preprocessors\" />
     <Folder Include="Assets\fonts\" />
     <Folder Include="Assets\premium\" />
+    <Folder Include="Views\Afiliados\" />
     <Folder Include="Views\Buscar\" />
     <Folder Include="Views\CarteraEmpresas\" />
     <Folder Include="Views\Configuracion\" />
