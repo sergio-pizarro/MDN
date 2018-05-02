@@ -120,6 +120,36 @@ namespace CRM.Controllers
             return ret;
         }
 
+
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("v2/lista-seguimientos")]
+        public IEnumerable<ContenedorCampaniaList> ListaSeguimientosv2(int tipoCampagna, int periodo)
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            List<ContenedorCampaniaList> res = new List<ContenedorCampaniaList>();
+
+            if (tipoCampagna == 5)
+            {
+                res = AsignacionDataAccess.ListarByOficina2(periodo, token, "CALL").Where(x => x.Seguimiento.TipoAsignacion == 5 || x.Seguimiento.TipoAsignacion == 1).ToList();
+                res.AddRange(AsignacionDataAccess.ListarByOficina2(periodo, token, "WEB").Where(d => d.Seguimiento.TipoAsignacion == 1 || d.Seguimiento.TipoAsignacion == 5 ));
+            }
+            else if (tipoCampagna == 1)
+            {
+                res = AsignacionDataAccess.ListarByEjecutivo2(periodo, token).Where(x => x.Seguimiento.TipoAsignacion == tipoCampagna).ToList();
+                res.AddRange(AsignacionDataAccess.ListarByEjecutivo2(periodo, token, "ESPONTANEA").Where(x => x.Seguimiento.TipoAsignacion == tipoCampagna));
+                res.AddRange(AsignacionDataAccess.ListarByOficina2(periodo, token, "ESPONTANEA").Where(x => x.Seguimiento.TipoAsignacion == 5));
+            }
+            else
+            {
+                res = AsignacionDataAccess.ListarByEjecutivo2(periodo, token).Where(x => x.Seguimiento.TipoAsignacion == tipoCampagna).ToList();
+            }
+
+            return res;
+        }
+
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("detalle-contacto")]
@@ -153,10 +183,8 @@ namespace CRM.Controllers
             {
 
                 BaseCampagna x = new BaseCampagna();
-                List<AsignacionEntity> ordCmp = new List<AsignacionEntity>();
-                ordCmp.Add(AsignacionDataAccess.ObtenerByAfiRut(periodo, afiRut));
-                
-
+                List<AsignacionEntity> ordCmp = AsignacionDataAccess.ObtenerByAfiRut(periodo, afiRut);
+                    
                 if (tipoCampagna == 1)
                 {
                     ordCmp = ordCmp.Where(y => y.TipoAsignacion == 1 || y.TipoAsignacion == 5).ToList();
@@ -311,12 +339,12 @@ namespace CRM.Controllers
                 int id = GestionDataAccess.Guardar(oGuardar);
 
                 ///////
-                List<PadreGestion> glst = new List<PadreGestion>();
+                List<GestionGenerica> glst = new List<GestionGenerica>();
                 var xx = GestionDataAccess.ListarGestion(entrada.ges_id_asignacion).OrderByDescending(d => d.FechaAccion).ToList();
 
                 xx.ForEach(x =>
                 {
-                    Gestion g = new Gestion()
+                    GestionGenerica g = new GestionGenerica()
                     {
                         GestionBase = x,
                         EstadoGestion = EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == EstadosyTiposDataAccess.ListarEstadosGestion().Where(d => d.eges_id == x.IdEstado).FirstOrDefault().ejes_id_padre).FirstOrDefault(),
@@ -336,6 +364,7 @@ namespace CRM.Controllers
             {
                 res.Estado = "ERROR";
                 res.Mensaje = ex.Message;
+                res.Objeto = ex;
             }
 
             return res;
@@ -582,6 +611,7 @@ namespace CRM.Controllers
 
             return res;
         }
+
         [AuthorizationRequired]
         [HttpPost]
         [Route("guardar-preferencia-afiliado")]
@@ -614,6 +644,7 @@ namespace CRM.Controllers
 
             return res;
         }
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("listar-oficinas")]
@@ -628,6 +659,7 @@ namespace CRM.Controllers
         {
             return PeriodoDataAccess.ListarPeriodosGestion(tipoAsignacion);
         }
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("listar-periodosDotacion")]
@@ -635,6 +667,7 @@ namespace CRM.Controllers
         {
             return PeriodoDataAccess.ListarPeriodosDotacion(tipoAsignacion);
         }
+
         [AuthorizationRequired]
         [HttpPost]
         [Route("procesar-reasignacion")]
@@ -661,6 +694,7 @@ namespace CRM.Controllers
                 };
             }
         }
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("listar-mi-oficina")]
@@ -687,6 +721,7 @@ namespace CRM.Controllers
 
             return salida;
         }
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("listar-mi-oficina-historica")]
@@ -988,7 +1023,7 @@ namespace CRM.Controllers
         [AuthorizationRequired]
         [HttpPost]
         [Route("logear-calculadora")]
-        public ResultadoBase LogearCalculadora(CRM.Business.Entity.Log.LogcalculadoraEntity entrada)
+        public ResultadoBase LogearCalculadora(Business.Entity.Log.LogcalculadoraEntity entrada)
         {
             string token = ActionContext.Request.Headers.GetValues("Token").First();
             int _uid = Security.Data.TokenDataAccess.Obtener(token).FirstOrDefault().UserId;
@@ -1028,13 +1063,23 @@ namespace CRM.Controllers
         [Route("existe-empresas-15-porciento")]
         public dynamic ObtenerEmpresas15(string rut_empresa)
         {
-            string rut = rut_empresa.Replace("_", "").Replace(".","");
-            rut = rut.Substring(0, rut.IndexOf("-"));
-            int existe = Business.Data.Log.LogcalculadoraDataAccess.ObtenerEmpresas15porc(rut);
-            dynamic d = new { valid = (existe == 1), data = rut };
-            return d;
+            try
+            {
+                string rut = rut_empresa.Replace("_", "").Replace(".", "");
+                rut = rut.Substring(0, rut.IndexOf("-"));
+                int existe = Business.Data.Log.LogcalculadoraDataAccess.ObtenerEmpresas15porc(rut);
+                dynamic d = new { valid = (existe == 1), data = rut };
+                return d;
+            }catch(Exception ex)
+            {
+                dynamic d = new { valid = false, data = ex };
+                return d;
+            }
+            
         }
 
     }
+
+   
 
 }
