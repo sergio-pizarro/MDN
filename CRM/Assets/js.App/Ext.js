@@ -325,6 +325,34 @@ String.prototype.toEtiquetaPrioridad = function () {
 
     return t.replace("{CLASE}", f[this]).replace("{VALOR}", (this > 5 ? "": this) ).replace("{COLOR}",d[this]);
 }
+
+String.prototype.toEtiquetaPrioridadScan = function () {
+    
+    var f = [];
+    f[0] = 'badge-neutral';
+    f[1] = 'badge-success';
+    f[2] = 'badge-yelow';
+    f[3] = 'badge-warning';
+    f[4] = 'badge-danger';
+    f[5] = 'badge-purple';
+    f[6] = 'badge-neutral';
+    
+    var d = [];
+    d[0] = 'light';
+    d[1] = 'verde';
+    d[2] = 'amarillo';
+    d[3] = 'naranjo';
+    d[4] = 'rojo';
+    d[5] = 'morado';
+    d[6] = 'neutral';
+    
+  
+        var t = '<span class="badge {CLASE}">{VALOR} <label style="display:none;">{COLOR}</label></span>';
+
+        return t.replace("{CLASE}", f[this]).replace("{VALOR}", (this > 5 ? "": this) ).replace("{COLOR}",d[this]);
+    
+   
+}
 String.prototype.toEtiquetaFlagLicencia = function () {
 
     var f = [];

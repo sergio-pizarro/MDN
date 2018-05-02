@@ -48,12 +48,13 @@ namespace CRM.Business.Data
                 new Parametro("@Oficina", ingresolicencia.Oficina),
                 new Parametro("@Token", Token),
                 new Parametro("@CodEstado", ingresolicencia.CodEstado),
-                new Parametro("@FechaIngreso", ingresolicencia.FechaIngreso)
+                new Parametro("@FechaIngreso", ingresolicencia.FechaIngreso),
+                new Parametro("@OficinaDerivacion", ingresolicencia.OficinaDerivacion)
                 //
 
             };
 
-            return DBHelper.InstanceCRM.ObtenerEscalar<long>("licencias.sp_Lic_Ingresolicencia_Guardar", parametros);
+            return DBHelper.InstanceCRM.ObtenerEscalar<long>("licencias.sp_Lic_Ingresolicencia_Guardar_DESA", parametros);
         }
         public static long GuardaDerivacion(Ingresolicencia derivacion, string token)
         {
@@ -98,7 +99,7 @@ namespace CRM.Business.Data
         {
             Parametro parametro = new Parametro("@CodIngreso", CodIngreso);
 
-            return DBHelper.InstanceCRM.ObtenerEntidad("licencias.sp_Lic_Ingresolicencia_ObtenerPorID", parametro, ConstructorEntidad);
+            return DBHelper.InstanceCRM.ObtenerEntidad("licencias.sp_Lic_Ingresolicencia_ObtenerPorID_Desa", parametro, ConstructorEntidad);
         }
 
         /// <summary>
@@ -109,7 +110,7 @@ namespace CRM.Business.Data
         /// <returns><see cref="DataTable"/> con todos los objetos.</returns>
         public static DataTable Listar()
         {
-            return DBHelper.InstanceCRM.ObtenerDataTable("licencias.sp_Lic_Ingresolicencia_Listar");
+            return DBHelper.InstanceCRM.ObtenerDataTable("licencias.sp_Lic_Ingresolicencia_Listar_desa");
         }
 
         /// <summary>
@@ -120,7 +121,7 @@ namespace CRM.Business.Data
         /// <returns>Lista con todas las entidades <see cref="Ingresolicencia"/>.</returns>
         public static List<Ingresolicencia> ObtenerEntidades()
         {
-            return DBHelper.InstanceCRM.ObtenerColeccion("licencias.sp_Lic_Ingresolicencia_Listar", ConstructorEntidad);
+            return DBHelper.InstanceCRM.ObtenerColeccion("licencias.sp_Lic_Ingresolicencia_Listar_desa", ConstructorEntidad);
         }
 
 
@@ -137,7 +138,7 @@ namespace CRM.Business.Data
                 new Parametro("@CodOficina", CodOficina),
                 new Parametro("@Dia", Dia),
             };
-            return DBHelper.InstanceCRM.ObtenerColeccion("licencias.sp_Lic_Ingresolicencia_ListarByOficina", parametros, ConstructorEntidad);
+            return DBHelper.InstanceCRM.ObtenerColeccion("licencias.sp_Lic_Ingresolicencia_ListarByOficina_desa", parametros, ConstructorEntidad);
         }
 
         public static Ingresolicencia ObtenerEncabezado(int CodOficina, DateTime Dia)
@@ -208,7 +209,8 @@ namespace CRM.Business.Data
                 CodEstado = row["CodEstado"] != DBNull.Value ? Convert.ToInt32(row["CodEstado"]) : 0,
                 FechaIngreso = row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]) : new DateTime(1900, 1, 1),
                 FormatoLM = row["FormatoLM"] != DBNull.Value ? row["FormatoLM"].ToString() : string.Empty,
-                FlagLM = row["FlagLM"] != DBNull.Value ? row["FlagLM"].ToString() : string.Empty
+                FlagLM = row["FlagLM"] != DBNull.Value ? row["FlagLM"].ToString() : string.Empty,
+                OficinaDerivacion= row["OficinaDerivada"] != DBNull.Value ? Convert.ToInt32(row["OficinaDerivada"]) : 0,
 
             };
         }
