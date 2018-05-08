@@ -403,16 +403,16 @@ namespace CRM.Controllers
 
                 int id = GestionDataAccess.Guardar(oGuardar);
                 List<PadreGestion> glst = new List<PadreGestion>();
-                var xx = GestionDataAccess.ListarGestion(entrada.ges_id_asignacion_normalizacion).OrderByDescending(d => d.FechaAccion).ToList();
+                var xx = GestionDataAccess.ListarGestion(entrada.ges_id_asignacion_normalizacion); //.OrderByDescending(d => d.FechaAccion).ToList();
 
                 xx.ForEach(x =>
                 {
-                    GestionRecuperacion g = new GestionRecuperacion()
+                    GestionGenerica g = new GestionGenerica()
                     {
                         GestionBase = x,
-                        CausaBasalGestion = EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(0, 1) : x.IdEstado.ToString().Substring(0, 2))).FirstOrDefault(),
-                        ConsecuenciaGestion = EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(1, 4) : x.IdEstado.ToString().Substring(2, 4))).FirstOrDefault(),
-                        EstadoGestion = EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(5, 4) : x.IdEstado.ToString().Substring(6, 4))).FirstOrDefault(),
+                        CausaBasalGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(entrada.ges_causa_basal_normalizacion),//EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == entrada.ges_causa_basal_normalizacion).FirstOrDefault(),
+                        ConsecuenciaGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(entrada.ges_consecuencia_normalizacion),//EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == entrada.ges_consecuencia_normalizacion).FirstOrDefault(),
+                        EstadoGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(entrada.ges_estado_normalizacion),//EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == entrada.ges_estado_normalizacion).FirstOrDefault(),
                         Gestor = new Ejecutivo() { EjecutivoData = DotacionDataAccess.ObtenerByRut(x.RutEjecutivo) }
                     };
                     glst.Add(g);
