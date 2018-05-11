@@ -46,9 +46,11 @@
         invalid: 'fa fa-times-circle fa-lg',
         validating: 'fa fa-refresh'
     }
-    var trutAfiliado = $('meta[name=rut-afi]').prop("content");
-    var tperiodo = $('meta[name=periodo]').prop("content");
-    var tipoCamp = $('meta[name=tipo]').prop("content");
+    var trutAfiliado = $('#rut-afi').val();
+    var tperiodo = $('#periodo').val();
+    var tipoCamp = $('#tipo').val();
+
+    console.log(tipoCamp)
 
     $('.volvere').on('click', function (event) {
         location.href = BASE_URL + '/Motor/App/Gestion';

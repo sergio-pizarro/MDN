@@ -120,8 +120,6 @@ namespace CRM.Controllers
             return ret;
         }
 
-
-
         [AuthorizationRequired]
         [HttpGet]
         [Route("v2/lista-seguimientos")]
@@ -133,7 +131,7 @@ namespace CRM.Controllers
             if (tipoCampagna == 5)
             {
                 res = AsignacionDataAccess.ListarByOficina2(periodo, token, "CALL").Where(x => x.Seguimiento.TipoAsignacion == 5 || x.Seguimiento.TipoAsignacion == 1).ToList();
-                res.AddRange(AsignacionDataAccess.ListarByOficina2(periodo, token, "WEB").Where(d => d.Seguimiento.TipoAsignacion == 1 || d.Seguimiento.TipoAsignacion == 5 ));
+                res.AddRange(AsignacionDataAccess.ListarByOficina2(periodo, token, "WEB").Where(d => d.Seguimiento.TipoAsignacion == 1 || d.Seguimiento.TipoAsignacion == 5));
             }
             else if (tipoCampagna == 1)
             {
@@ -147,6 +145,49 @@ namespace CRM.Controllers
             }
 
             return res;
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("v3/lista-seguimientos")]
+        public BootstrapTableResult<ContenedorCampaniaList> ListaSeguimientosv3(int tipoCampagna, int periodo, string estado="-1", string subestado="-1", string prioridad="", string segmento="", string tipo="", string rut="", int limit=30, int offset=0, string sort="asc", string order="")
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            List<ContenedorCampaniaList> res = new List<ContenedorCampaniaList>();
+            BootstrapTableResult<ContenedorCampaniaList> xd = new BootstrapTableResult<ContenedorCampaniaList>();
+
+            if (tipoCampagna == 5)
+            {
+                res = AsignacionDataAccess.ListarByOficina2(periodo, token, "CALL").Where(x => x.Seguimiento.TipoAsignacion == 5 || x.Seguimiento.TipoAsignacion == 1).ToList();
+                res.AddRange(AsignacionDataAccess.ListarByOficina2(periodo, token, "WEB").Where(d => d.Seguimiento.TipoAsignacion == 1 || d.Seguimiento.TipoAsignacion == 5 ));
+            }
+            else if (tipoCampagna == 1)
+            {
+                //res = AsignacionDataAccess.ListarByEjecutivo2(periodo, token).Where(x => x.Seguimiento.TipoAsignacion == tipoCampagna).ToList();
+                //res.AddRange(AsignacionDataAccess.ListarByEjecutivo2(periodo, token, "ESPONTANEA").Where(x => x.Seguimiento.TipoAsignacion == tipoCampagna));
+                //res.AddRange(AsignacionDataAccess.ListarByOficina2(periodo, token, "ESPONTANEA").Where(x => x.Seguimiento.TipoAsignacion == 5));
+                int estado_dos = estado == null ? 0 : Convert.ToInt32(estado);
+                int subestado_dos = subestado == null ? 0 : Convert.ToInt32(subestado);
+
+
+                res = AsignacionDataAccess.ListarPaginado(periodo, tipoCampagna, token, estado_dos, subestado_dos, prioridad, segmento, tipo,rut, offset, limit, sort, order);
+
+
+
+                    //(periodo, tipoCampagna, token, offset, limit, sort, order);
+
+            }
+            else
+            {
+                res = AsignacionDataAccess.ListarByEjecutivo2(periodo, token).Where(x => x.Seguimiento.TipoAsignacion == tipoCampagna).ToList();
+            }
+
+            //return res;
+            xd.rows = res;
+            xd.total = res.Count > 0 ? res[0].TotalRegistros : 0;
+
+            return xd;
+            
         }
 
 
@@ -181,7 +222,7 @@ namespace CRM.Controllers
             ResultadoBase a = new ResultadoBase();
             try
             {
-
+                //string rut_enviar = afiRut.Substring(0, afiRut.IndexOf("-"));
                 BaseCampagna x = new BaseCampagna();
                 List<AsignacionEntity> ordCmp = AsignacionDataAccess.ObtenerByAfiRut(periodo, afiRut);
                     
@@ -269,7 +310,7 @@ namespace CRM.Controllers
                 if (x.Seguimiento == null)
                 {
                     a.Estado = "ERROR";
-                    a.Mensaje = "No se encuentra afiliado para el periodo";
+                    a.Mensaje = "No se encuentra afiliado para el periodo*";
                 }
                 else
                 {
@@ -290,6 +331,85 @@ namespace CRM.Controllers
             return a;
 
         }
+
+
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("obtener-seguimiento-rec")]
+        public ResultadoBase ObtenerByAfiliado2(int periodo, string afiRut, int tipoCampagna)
+        {
+
+            ResultadoBase a = new ResultadoBase();
+            try
+            {
+                //string rut_enviar = afiRut.Substring(0, afiRut.IndexOf("-"));
+                BaseCampagna x = new BaseCampagna();
+                AsignacionEntity item = AsignacionDataAccess.ObtenerByAfiRutTipo(periodo, afiRut,tipoCampagna);
+                
+
+                if (item == null)
+                {
+                    a.Estado = "ERROR";
+                    a.Mensaje = "No se encuentra afiliado para el periodo*";
+                }
+                else
+                {
+
+                    List<PadreGestion> glst = new List<PadreGestion>();
+                    var xx = GestionDataAccess.ListarGestion(item.id_Asign).OrderByDescending(d => d.FechaAccion).ToList();
+
+                    xx.ForEach(n =>
+                    {
+
+
+                        if (tipoCampagna == 2)
+                        {
+                            GestionRecuperacion g = new GestionRecuperacion()
+                            {
+                                GestionBase = n,
+                                CausaBasalGestion = EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == Convert.ToInt32((n.IdEstado.ToString().Length == 9) ? n.IdEstado.ToString().Substring(0, 1) : n.IdEstado.ToString().Substring(0, 2))).FirstOrDefault(),
+                                ConsecuenciaGestion = EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == Convert.ToInt32((n.IdEstado.ToString().Length == 9) ? n.IdEstado.ToString().Substring(1, 4) : n.IdEstado.ToString().Substring(2, 4))).FirstOrDefault(),
+                                EstadoGestion = EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == Convert.ToInt32((n.IdEstado.ToString().Length == 9) ? n.IdEstado.ToString().Substring(5, 4) : n.IdEstado.ToString().Substring(6, 4))).FirstOrDefault(),
+                                Gestor = new Ejecutivo() { EjecutivoData = DotacionDataAccess.ObtenerByRut(n.RutEjecutivo) }
+                            };
+                            glst.Add(g);
+                        }
+
+
+                    });
+
+                    x.Seguimiento = item;
+                    x.HistorialGestion = glst;
+                    x.Notificaciones = NotificacionAsignacionDataAccess.ObtenerSetNTF(item.Afiliado_Rut.ToString());
+                    x.Celulares = ContactoafiliadoDataAccess.ObtenerPorRutAfiliadoYTipo(Convert.ToInt32(item.Afiliado_Rut), "CELULAR");
+                    x.Telefonos = ContactoafiliadoDataAccess.ObtenerPorRutAfiliadoYTipo(Convert.ToInt32(item.Afiliado_Rut), "TELEFONO");
+                    x.Correos = ContactoafiliadoDataAccess.ObtenerPorRutAfiliadoYTipo(Convert.ToInt32(item.Afiliado_Rut), "EMAIL");
+                    x.OficinaPreferencia = PreferenciaAfiliadoDataAccess.ObtenerPorID(Convert.ToInt32(item.Afiliado_Rut), "OFICINA");
+                    x.HorarioPreferencia = PreferenciaAfiliadoDataAccess.ObtenerPorID(Convert.ToInt32(item.Afiliado_Rut), "HORARIO");
+                    x.FiltrosRSG = FiltrosrsgDataAccess.ObtenerEntidad(periodo, item.Afiliado_Rut.ToString(), item.Empresa_Rut.ToString()).Filtros;
+                    x.NombreOficina = SucursalDataAccess.ObtenerSucursal(item.Oficina).Nombre;
+
+
+
+                    a.Estado = "OK";
+                    a.Mensaje = "Afiliado encontrado para el periodo";
+                    a.Objeto = x;
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                a.Estado = "ERROR";
+                a.Mensaje = "No se encuentra afiliado para el periodo";
+            }
+
+            return a;
+
+        }
+
 
 
         [AuthorizationRequired]
@@ -403,16 +523,16 @@ namespace CRM.Controllers
 
                 int id = GestionDataAccess.Guardar(oGuardar);
                 List<PadreGestion> glst = new List<PadreGestion>();
-                var xx = GestionDataAccess.ListarGestion(entrada.ges_id_asignacion_normalizacion).OrderByDescending(d => d.FechaAccion).ToList();
+                var xx = GestionDataAccess.ListarGestion(entrada.ges_id_asignacion_normalizacion); //.OrderByDescending(d => d.FechaAccion).ToList();
 
                 xx.ForEach(x =>
                 {
-                    GestionRecuperacion g = new GestionRecuperacion()
+                    GestionGenerica g = new GestionGenerica()
                     {
                         GestionBase = x,
-                        CausaBasalGestion = EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(0, 1) : x.IdEstado.ToString().Substring(0, 2))).FirstOrDefault(),
-                        ConsecuenciaGestion = EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(1, 4) : x.IdEstado.ToString().Substring(2, 4))).FirstOrDefault(),
-                        EstadoGestion = EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(5, 4) : x.IdEstado.ToString().Substring(6, 4))).FirstOrDefault(),
+                        CausaBasalGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(entrada.ges_causa_basal_normalizacion),//EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == entrada.ges_causa_basal_normalizacion).FirstOrDefault(),
+                        ConsecuenciaGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(entrada.ges_consecuencia_normalizacion),//EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == entrada.ges_consecuencia_normalizacion).FirstOrDefault(),
+                        EstadoGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(entrada.ges_estado_normalizacion),//EstadosyTiposDataAccess.ListarEstadosGestion().Where(c => c.eges_id == entrada.ges_estado_normalizacion).FirstOrDefault(),
                         Gestor = new Ejecutivo() { EjecutivoData = DotacionDataAccess.ObtenerByRut(x.RutEjecutivo) }
                     };
                     glst.Add(g);

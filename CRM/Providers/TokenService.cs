@@ -54,8 +54,8 @@ namespace CRM.Providers
             Token token = TokenDataAccess.Obtener(tokenId).FirstOrDefault(x => x.ExpiresOn > DateTime.Now);
             if (token != null && !(DateTime.Now > token.ExpiresOn))
             {
-                token.ExpiresOn = DateTime.Now.AddSeconds(Convert.ToDouble(ConfigurationManager.AppSettings["AuthTokenExpiry"]));
-                TokenDataAccess.Actualizar(token);
+                //token.ExpiresOn = DateTime.Now.AddSeconds(Convert.ToDouble(ConfigurationManager.AppSettings["AuthTokenExpiry"]));
+                //TokenDataAccess.Actualizar(token);
                 return true;
             }
             return false;

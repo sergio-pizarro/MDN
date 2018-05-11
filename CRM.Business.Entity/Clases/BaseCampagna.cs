@@ -28,5 +28,6 @@ namespace CRM.Business.Entity.Clases
         public AsignacionEntity Seguimiento { get; set; }
         public List<NotificacionAsignacionEntity> Notificaciones { get; set; }
         public GestionGenerica UltimaGestion { get; set; }
+        public int TotalRegistros { get; set; }
     }
 }
