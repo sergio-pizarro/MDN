@@ -1219,18 +1219,18 @@ $(function () {
                     info_xxx = ("Filtros Riesgo " + Asignacion.FiltrosRSG).toEtiquetaSuperior('x');
                 }
 
-
-                $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-rechazos-rsg", { Periodo: tperiodo, RutEmpresa: afiData.Empresa_Rut, RutAfiliado: afiData.Afiliado_Rut }, function (datos) {
-                    $("#letable").html("");
-                    $.each(datos, function (i, e) {
-                        $("#letable").append($("<tr>").append("<td>").html(e.MotivoRechazo))
-                    });
-                });
-
+                
 
                 if (tipoCamp === 1 || tipoCamp === 5) {
                     render.HistorialGestion(gesList);
                     $("#myLargeModalLabel").html("Gestión Comercial " + afiData.Prioridad.toString().toEtiquetaPrioridad() + " " + info_xxx);
+
+                    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-rechazos-rsg", { Periodo: tperiodo, RutEmpresa: afiData.Empresa_Rut, RutAfiliado: afiData.Afiliado_Rut }, function (datos) {
+                        $("#letable").html("");
+                        $.each(datos, function (i, e) {
+                            $("#letable").append($("<tr>").append("<td>").html(e.MotivoRechazo))
+                        });
+                    });
                 }
 
                 if (tipoCamp === 2) {
@@ -1448,6 +1448,7 @@ $(function () {
                 // Prevén que se mande el formulario
                 e.preventDefault();
                 var $form = $(e.target);
+
                 $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-gestion", $form.serialize(), function (respuesta) {
 
                     if (respuesta.Estado === 'OK') {
@@ -1481,6 +1482,7 @@ $(function () {
                     }
 
                 });
+
             });
 
         }
@@ -1736,22 +1738,26 @@ $(function () {
         const pestana = sessionStorage.getItem('GST_PESTANA_ACTIVA');
         switch (pestana) {
             case '1':
+            case '5':
                 $("#datos-gestion").bootstrapValidator('resetForm', true);
+                $('#datos-gestion').bootstrapValidator('destroy')
                 $('#datos-gestion').hide();
                 break;
             case '2':
                 $("#datos-gestion_normalizacion").bootstrapValidator('resetForm', true);
+                $('#datos-gestion_normalizacion').bootstrapValidator('destroy')
                 $('#datos-gestion_normalizacion').hide();
                 break;
             case '4':
                 $("#datos-gestion-sc").bootstrapValidator('resetForm', true);
+                $('#datos-gestion-sc').bootstrapValidator('destroy')
                 $('#datos-gestion-sc').hide();
                 break;
-            case '5':
-                $("#datos-gestion").bootstrapValidator('resetForm', true);
-                $('#datos-gestion').hide();
-                break;
+            
+                
         }
+
+
     });
 
 

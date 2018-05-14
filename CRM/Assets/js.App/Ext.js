@@ -568,12 +568,35 @@ Number.prototype.toMoney = function (decimals, decimal_sep, thousands_sep) {
 
 $(function () {
 
-    if (!DEBUG_JS)
-    {
-        $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
-            location.href = BASE_URL + "/motor/home/Acceso";
+
+
+    $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
+            
+
+            
+            if (DEBUG_JS) {
+                console.log('event', event)
+                console.log('jqxhr', jqxhr)
+                console.log('settings', settings)
+                console.log('thrownError', thrownError)
+            } else {
+                const ajx = jqxhr;
+                switch(ajx.status) 
+                {
+                    case 401:
+                        location.href = BASE_URL + "/motor/home/Acceso";
+                        break;
+                    default:
+                        console.log('event', event)
+                        console.log('jqxhr', jqxhr)
+                        console.log('settings', settings)
+                        console.log('thrownError', thrownError)
+                }
+                
+            }
         });
-    }
+
+   
 
     var nid = getCookie("Noticia")
     if (nid > 0)
