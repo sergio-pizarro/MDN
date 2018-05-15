@@ -1120,6 +1120,8 @@
             ));
 
     });
+
+
     $("#afi_oficina_preferencia").on("change", function () {
 
         if ($(this).val() != "") {

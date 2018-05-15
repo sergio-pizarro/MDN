@@ -150,7 +150,7 @@ namespace CRM.Controllers
         [AuthorizationRequired]
         [HttpGet]
         [Route("v3/lista-seguimientos")]
-        public BootstrapTableResult<ContenedorCampaniaList> ListaSeguimientosv3(int tipoCampagna, int periodo, string estado="-1", string subestado="-1", string prioridad="", string segmento="", string tipo="", string rut="", int limit=30, int offset=0, string sort="asc", string order="")
+        public BootstrapTableResult<ContenedorCampaniaList> ListaSeguimientosv3(int tipoCampagna, int periodo, string estado="-1", string subestado="-1", string causaBasal = "-1", string consecuencia = "-1", string prioridad="", string segmento="", string tipo="", string rut="", int limit=30, int offset=0, string sort="asc", string order="")
         {
             string token = ActionContext.Request.Headers.GetValues("Token").First();
             List<ContenedorCampaniaList> res = new List<ContenedorCampaniaList>();
@@ -163,23 +163,18 @@ namespace CRM.Controllers
             }
             else if (tipoCampagna == 1)
             {
-                //res = AsignacionDataAccess.ListarByEjecutivo2(periodo, token).Where(x => x.Seguimiento.TipoAsignacion == tipoCampagna).ToList();
-                //res.AddRange(AsignacionDataAccess.ListarByEjecutivo2(periodo, token, "ESPONTANEA").Where(x => x.Seguimiento.TipoAsignacion == tipoCampagna));
-                //res.AddRange(AsignacionDataAccess.ListarByOficina2(periodo, token, "ESPONTANEA").Where(x => x.Seguimiento.TipoAsignacion == 5));
                 int estado_dos = estado == null ? 0 : Convert.ToInt32(estado);
                 int subestado_dos = subestado == null ? 0 : Convert.ToInt32(subestado);
-
-
+                
                 res = AsignacionDataAccess.ListarPaginado(periodo, tipoCampagna, token, estado_dos, subestado_dos, prioridad, segmento, tipo,rut, offset, limit, sort, order);
-
-
-
-                    //(periodo, tipoCampagna, token, offset, limit, sort, order);
-
             }
-            else
+            else if (tipoCampagna == 2)
             {
-                res = AsignacionDataAccess.ListarByEjecutivo2(periodo, token).Where(x => x.Seguimiento.TipoAsignacion == tipoCampagna).ToList();
+                int estado_dos = estado == null ? 0 : Convert.ToInt32(estado);
+                int causa_dos = causaBasal == null ? 0 : Convert.ToInt32(causaBasal);
+                int consecuencia_dos = consecuencia == null ? 0 : Convert.ToInt32(consecuencia);
+
+                res = AsignacionDataAccess.ListarPaginado(periodo, tipoCampagna, token, estado_dos, causa_dos, consecuencia_dos, prioridad, rut, offset, limit, sort, order);
             }
 
             //return res;

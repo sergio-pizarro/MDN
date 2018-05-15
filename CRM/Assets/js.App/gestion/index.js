@@ -23,10 +23,6 @@ $(function () {
         validating: 'fa fa-refresh'
     }
 
-    var Variables = {
-        Afiliado_Current: null
-    }
-
     var render = {
         PreaProbadosTableBody: (data, elm) => {
             $.each(data, function (i, e) {
@@ -165,33 +161,6 @@ $(function () {
             });
 
 
-
-            //sessionStorage.setItem('lista_seguimientos_preaprobados', null);
-            //Pre Aprobados
-            /*var segimientos = JSON.parse(sessionStorage.getItem('lista_seguimientos_preaprobados'));
-            if (segimientos === null || (segimientos !== null && segimientos.periodo !== p_periodo.toString()))
-            {
-                
-            }
-            else
-            {
-                $("#bdy_datos").html("");
-                render.PreaProbadosTableBody(segimientos.data, $('#bdy_datos'));
-                if (typeof $('#demo-foo-filtering').data('footable') !== "undefined") {
-                    var ft = $('#demo-foo-filtering').data("footable");
-                    ft.redraw();
-                    //console.log(localStorage.getItem('footable-page-comercial') != null ? localStorage.getItem('footable-page-comercial') : 0)
-                    //$(ft.table).data('currentPage', localStorage.getItem('footable-page-comercial') != null ? localStorage.getItem('footable-page-comercial') : 0);
-                    //ft.raise('footable_page_filled');
-                    //ft.pageInfo.currentPage = localStorage.getItem('footable-page-comercial') != null ? localStorage.getItem('footable-page-comercial') : 0;
-                    //ft.raise('footable_paging', { page: parseInt(localStorage.getItem('footable-page-comercial') != null ? localStorage.getItem('footable-page-comercial') : 0), size: ft.pageInfo.pageSize });
-                }
-                
-
-            }*/
-
-
-
         },
         CargaRecuperaciones: function (p_periodo) {
 
@@ -227,84 +196,6 @@ $(function () {
             });
 
 
-            $("#bdy_datos_recu").html("");
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/v2/lista-seguimientos", { tipoCampagna: 2, periodo: p_periodo }, function (menus) {
-
-                //sessionStorage.setItem('lista_seguimientos_recuperaciones', JSON.stringify({ periodo: p_periodo, data: menus }));
-                render.RecuperacionesTableBody(menus, $("#bdy_datos_recu"))
-
-                if (typeof $('#demo-foo-filtering-recu').data('footable') !== "undefined") {
-                    $('#demo-foo-filtering-recu').data('footable').redraw();
-                }
-            });
-
-
-
-            //Recuperaciones
-            //sessionStorage.clear();
-            //sessionStorage.setItem('lista_seguimientos_recuperaciones', null);
-            /*var segimientos = JSON.parse(sessionStorage.getItem('lista_seguimientos_recuperaciones'));
-            if (segimientos === null || (segimientos !== null && segimientos.periodo !== p_periodo.toString()))
-            {
-                
-            } else {
-                render.RecuperacionesTableBody(segimientos.data, $("#bdy_datos_recu"))
-                if (typeof $('#demo-foo-filtering-recu').data('footable') !== "undefined") {
-                    $('#demo-foo-filtering-recu').data('footable').redraw();
-                }
-            }*/
-
-
-        },
-        CargaNormalizacionTMC: function (p_periodo) {
-            ////////////////////////////////////////////////////////////////////
-            /////DEPRECATED DEPRECATED DEPRECATED DEPRECATED DEPRECATED/////////
-            /////DEPRECATED DEPRECATED DEPRECATED DEPRECATED DEPRECATED/////////
-            /////DEPRECATED DEPRECATED DEPRECATED DEPRECATED DEPRECATED/////////
-            /////DEPRECATED DEPRECATED DEPRECATED DEPRECATED DEPRECATED/////////
-            ////////////////////////////////////////////////////////////////////
-
-            //Pre Aprobados
-            $("#bdy_datos_TMC").html("");
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-seguimientos", { tipoCampagna: 3, periodo: p_periodo }, function (menus) {
-
-
-                /*if (menus.length == 0 && getCookie("Cargo") !== "Agente") {
-                    $("#tab_preaprobados").hide();
-                    $('#tab_recuperaciones').tab('show')
-                    return false;
-                }*/
-
-                $.each(menus, function (i, e) {
-
-                    e.Seguimiento.Empresa = e.Seguimiento.Empresa.addSlashes();
-                    e.Seguimiento.Nombre = e.Seguimiento.Nombre.addSlashes();
-                    e.Seguimiento.Apellido = e.Seguimiento.Apellido.addSlashes();
-                    e.Seguimiento.Holding = e.Seguimiento.Holding.addSlashes();
-
-                    $("#bdy_datos_TMC")
-                        .append(
-                            $("<tr>")
-                                .append($("<td>").append('<a href="#" class="btn-link" data-target="#demo-lg-modal" data-toggle="modal" data-afiliado=\'' + JSON.stringify(e) + '\'>' + e.Seguimiento.Afiliado_Rut.toMoney(0) + '-' + e.Seguimiento.Afiliado_Dv + '</a>'))
-                                .append($("<td>").append(e.Seguimiento.Nombre + ' ' + e.Seguimiento.Apellido))
-                               // .append($("<td>").append(e.Seguimiento.Segmento))
-                                .append($("<td>").append((e.HistorialGestion.length > 0 && e.HistorialGestion[0].GestionBase.FechaCompromete.toFecha() != '01-01-1753') ? e.HistorialGestion[0].GestionBase.FechaCompromete.toFecha() : 'N/A'))
-                                .append($("<td>").append('$' + e.Seguimiento.PreAprobadoFinal.toMoney(0)))
-                               // .append($("<td>").append(e.Seguimiento.Prioridad.toString().toEtiquetaPrioridad() + (e.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')))
-                               // .append($("<td>").append(e.Seguimiento.TipoCampania))
-                                .append($("<td>").append((e.HistorialGestion.length > 0) ? e.HistorialGestion[0].EstadoGestion.eges_nombre : 'Sin Gestión'))
-                                .append($("<td>").append((e.HistorialGestion.length > 0) ? e.HistorialGestion[0].SubEstadoGestion.eges_nombre : 'Sin Gestión'))
-                        );
-                });
-
-                if (typeof $('#demo-foo-filtering-TMC').data('footable') !== "undefined") {
-                    $('#demo-foo-filtering-TMC').data('footable').redraw();
-                }
-
-
-
-
-            });
         },
         CargaNormalizacionSC: function (p_periodo) {
             //Pre Aprobados
@@ -351,71 +242,7 @@ $(function () {
 
 
 
-    // Filtering
-    var filtering_recup = $('#demo-foo-filtering-recu');
-
-    filtering_recup.footable().on('footable_filtering', function (e) {
-
-        var selected1 = $('#flt_causa_normalizacion').find(':selected').html();
-        if (selected1 != "Todos") {
-            e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected1 : selected1;
-        }
-
-        var selected2 = $('#flt_consecuencia_normalizacion').find(':selected').html();
-        if (selected2 != "Todos") {
-            e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected2 : selected2;
-        }
-
-        var selected3 = $('#flt_estado_normalizacion').find(':selected').html();
-        if (selected3 != "Todos") {
-            e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected3 : selected3;
-        }
-
-        var selectedX = $('#slPrioridad_normalizacion').find(':selected').html();
-        if (selectedX != "Todos") {
-            e.filter += (e.filter && e.filter.length > 0) ? ' ' + selectedX : selectedX;
-        }
-
-        e.clear = !e.filter;
-    });
-
-    // Filter status
-    $('#flt_causa_normalizacion').change(function (e) {
-        e.preventDefault();
-        filtering_recup.trigger('footable_filter', { filter: '' });
-    });
-
-    $('#flt_consecuencia_normalizacion').change(function (e) {
-        e.preventDefault();
-        filtering_recup.trigger('footable_filter', { filter: '' });
-    });
-
-
-    $('#flt_estado_normalizacion').change(function (e) {
-        e.preventDefault();
-        filtering_recup.trigger('footable_filter', { filter: '' });
-    });
-
-    $('#slPrioridad_normalizacion').change(function (e) {
-        e.preventDefault();
-        filtering_recup.trigger('footable_filter', { filter: '' });
-    });
-
-    // Search input
-    $('#demo-foo-search_normalizacion').on('input', function (e) {
-        e.preventDefault();
-        if ($(this).val().length >= 5 || $(this).val().length == 0) {
-            filtering_recup.trigger('footable_filter', { filter: $(this).val() });
-        }
-    });
-
-
-
-    
-
-
-
-    // Filter status
+    // Estados de Gestion
     $('#demo-foo-filter-status').change(function (e) {
         e.preventDefault();
 
@@ -436,20 +263,7 @@ $(function () {
         }
     });
 
-    /*$('#demo-foo-filter-statusSub').change(function (e) {
-        e.preventDefault();
-        filtering.trigger('footable_filter', { filter: '' });
-    });*/
-
-
-
-
-
-
-
-
-
-
+    
     //////////////////////////////////////////////////////////////////////////////////
     // Filtros
 
@@ -559,13 +373,10 @@ $(function () {
     });
 
 
-
-
-
     //add filtros Seg Cesantía
 
     //////////////////////////////////////////////////////////////////////////////////
-    // Filtros
+   /// Filtros                                                          /////////////
 
     var filteringSC = $('#demo-foo-filtering-SC');
 
@@ -707,16 +518,8 @@ $(function () {
             $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-seguimiento", { periodo: $("#slPeriodo").val(), afiRut: rutAfilado.trim(), tipoCampagna: tpcmp }, function (datos) {
 
                 if (datos.Estado === "OK") {
-                    /*$("#afi_rut_busc").data("afiliado", datos.Objeto);
-                    $('#demo-lg-modal').modal('toggle', $("#afi_rut_busc"));
-                    $('#demo-lg-modal-search').modal('toggle');
-                    $("#afi_rut_busc").val("");*/
-
-
                     location.href = BASE_URL + '/motor/App/Gestion/Oferta/' + $("#slPeriodo").val() + '/' + rutAfilado + '/' + tpcmp
-
-                }
-                else {
+                }else {
                     $.niftyNoty({
                         type: 'primary',
                         container: '#bdy_busqueda',
@@ -936,7 +739,7 @@ $(function () {
 
 
     
-    //NUEVA GRILLA
+    //COMERCIAL //DERIVACIONES
 
     $('#button').click(function () {
         $("#tabla_comercial").bootstrapTable('refresh', {
@@ -1060,8 +863,7 @@ $(function () {
                 sortable: false,
                 formatter: function (value, row, index) {
                     var mostrar = ''
-                    switch(row.UltimaGestion.SubEstadoGestion.eges_id)
-                    {
+                    switch (row.UltimaGestion.SubEstadoGestion.eges_id) {
                         case 202:
                             mostrar = '<div class="label label-table label-success">' + row.UltimaGestion.SubEstadoGestion.eges_nombre + '</div>';
                             break;
@@ -1083,9 +885,146 @@ $(function () {
 
 
         ]
-    })
+    });
 
-    //Carga de selects Filtros de Pre Aprobados
+
+
+
+    //RECUPERACIONES 
+
+    $('#btn_recuperaciones').click(function() {
+        $("#tabla_recuperaciones").bootstrapTable('refresh', {
+            url: BASE_URL + "/motor/api/Gestion/v3/lista-seguimientos",
+                query: {
+                    tipoCampagna: 2,
+                    periodo: $('#slPeriodo_normalizacion').val(),
+                    estado: $('#flt_estado_normalizacion').val(),
+                    causaBasal: $('#flt_causa_normalizacion').val(),
+                    consecuencia: $('#flt_consecuencia_normalizacion').val(),
+                    prioridad: $('#slPrioridad_normalizacion').val(),
+                    rut: $('flt_rut_normalizacion').val()
+            }
+        });
+
+   });
+
+
+    $("#tabla_recuperaciones").bootstrapTable({
+        pagination: true,
+        sidePagination: 'server',
+        ajaxOptions: {
+            headers: {
+                "Token": getCookie("Token"),
+                "TokenExpiry": "900",
+                "Access-Control-Expose-Headers": "Token,TokenExpiry"
+            }
+        },
+        queryParams: function (params) {
+
+            params.periodo = $('#slPeriodo_normalizacion').val();
+            params.tipoCampagna = 2;
+            params.causaBasal = $('#flt_causa_normalizacion').val();
+            params.consecuencia = $('#flt_consecuencia_normalizacion').val();
+            params.estado = $('#flt_estado_normalizacion').val();
+            params.prioridad = $('#slPrioridad_normalizacion').val();
+            params.rut = $('flt_rut_normalizacion').val();
+            return params;
+        },
+        locale: 'es-ES',
+        striped: true,
+        pagination: true,
+        pageSize: 30,
+        pageList: [],
+        search: false,
+        showColumns: false,
+        showRefresh: false,
+        sortName: 'Seguimiento.Afiliado_Rut',
+        columns: [
+                    {
+                        field: 'Seguimiento.Afiliado_Rut',
+                        title: 'Rut',
+                        sortable: true,
+                        formatter: function (value, row, index) {
+                            return '<a href="#" class="btn-link" data-target="#mdl_data" data-toggle="modal" data-periodo="' + row.Seguimiento.Periodo + '" data-rut="' + value + '-' + row.Seguimiento.Afiliado_Dv + '" data-tipo="' + row.Seguimiento.TipoAsignacion + '">' + value.toMoney(0).toString() + '-' + row.Seguimiento.Afiliado_Dv + '</a>';
+                        }
+                    },
+                    {
+                        field: 'Seguimiento.Nombre',
+                        title: 'Nombre',
+                        sortable: false,
+                        formatter: function (value, row, index) {
+                            return value + ' ' + row.Seguimiento.Apellido
+                        }
+                    },
+                    {
+                        field: 'Seguimiento.Empresa',
+                        title: 'Empresa',
+                        sortable: false
+                    },
+                    {
+                        field: 'Seguimiento.Segmento',
+                        title: 'Segmento',
+                        sortable: false
+                    },
+                    {
+                        field: 'UltimaGestion.GestionBase.IdBaseCampagna',
+                        title: 'Prox. Gestión',
+                        sortable: false,
+                        formatter: function (value, row, index) {
+                            return value > 0 ? row.UltimaGestion.GestionBase.FechaCompromete.toFecha() === '01-01-1753' ? '-' : row.UltimaGestion.GestionBase.FechaCompromete.toFecha() : 'N/A';
+                        }
+                    },
+                    {
+                        field: 'Seguimiento.PreAprobadoFinal',
+                        title: 'Monto Adeudado',
+                        sortable: false,
+                        align: 'right',
+                        formatter: function (value, row, index) {
+                            return value.toMoney(0);
+                        }
+                    },
+                    {
+                        field: 'Seguimiento.Prioridad',
+                        title: 'Prioridad',
+                        sortable: false,
+                        formatter: function (value, row, index) {
+                            return value.toString().toEtiquetaPloma() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')
+                        }
+                    },
+                    {
+                        field: 'UltimaGestion.CausaBasalGestion.eges_id',
+                        title: 'Causa Basal',
+                        sortable: false,
+                        formatter: function (value, row, index) {
+                            return value > 0 ? row.UltimaGestion.CausaBasalGestion.eges_nombre : 'Sin Causa';
+                        }
+                    },
+                    {
+                        field: 'UltimaGestion.ConsecuenciaGestion.eges_id',
+                        title: 'Concecuencia',
+                        sortable: false,
+                        formatter: function (value, row, index) {
+                            return value > 0 ? row.UltimaGestion.ConsecuenciaGestion.eges_nombre : 'Sin Consecuencia';
+                        }
+                    },
+                    {
+                        field: 'UltimaGestion.EstadoGestion.eges_id',
+                        title: 'Estado',
+                        sortable: false,
+                        formatter: function (value, row, index) {
+                            return value > 0 ? row.UltimaGestion.EstadoGestion.eges_nombre: 'Sin Gestión';
+
+                        }
+                    },
+        ]
+    });
+
+
+
+
+    //SEGURO CESANTIA
+
+    //GENERALES
     $.SecGetJSON(BASE_URL + "/motor/api/Gestion/listar-oficinas", function (datos) {
 
         $("#afi_oficina_preferencia").html("");
@@ -1096,7 +1035,6 @@ $(function () {
     });
     
 
-    // END NUEVA GRILLA
     $('#mdl_data').on('show.bs.modal', function (e) {
 
         
@@ -1219,18 +1157,18 @@ $(function () {
                     info_xxx = ("Filtros Riesgo " + Asignacion.FiltrosRSG).toEtiquetaSuperior('x');
                 }
 
-
-                $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-rechazos-rsg", { Periodo: tperiodo, RutEmpresa: afiData.Empresa_Rut, RutAfiliado: afiData.Afiliado_Rut }, function (datos) {
-                    $("#letable").html("");
-                    $.each(datos, function (i, e) {
-                        $("#letable").append($("<tr>").append("<td>").html(e.MotivoRechazo))
-                    });
-                });
-
+                
 
                 if (tipoCamp === 1 || tipoCamp === 5) {
                     render.HistorialGestion(gesList);
                     $("#myLargeModalLabel").html("Gestión Comercial " + afiData.Prioridad.toString().toEtiquetaPrioridad() + " " + info_xxx);
+
+                    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-rechazos-rsg", { Periodo: tperiodo, RutEmpresa: afiData.Empresa_Rut, RutAfiliado: afiData.Afiliado_Rut }, function (datos) {
+                        $("#letable").html("");
+                        $.each(datos, function (i, e) {
+                            $("#letable").append($("<tr>").append("<td>").html(e.MotivoRechazo))
+                        });
+                    });
                 }
 
                 if (tipoCamp === 2) {
@@ -1448,6 +1386,7 @@ $(function () {
                 // Prevén que se mande el formulario
                 e.preventDefault();
                 var $form = $(e.target);
+
                 $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-gestion", $form.serialize(), function (respuesta) {
 
                     if (respuesta.Estado === 'OK') {
@@ -1481,6 +1420,7 @@ $(function () {
                     }
 
                 });
+
             });
 
         }
@@ -1733,28 +1673,37 @@ $(function () {
     $('#mdl_data').on('hide.bs.modal', function (e) {
 
         $('#tab_contacti').tab('show');
+
+        $(".desaparecible, .forma-uno").show();
+        $(".desaparecible-cel, .forma-uno-cel").show();
+        $(".desaparecible-mail, .forma-uno-mail").show();
+
         const pestana = sessionStorage.getItem('GST_PESTANA_ACTIVA');
         switch (pestana) {
             case '1':
+            case '5':
                 $("#datos-gestion").bootstrapValidator('resetForm', true);
+                $('#datos-gestion').bootstrapValidator('destroy')
                 $('#datos-gestion').hide();
                 break;
             case '2':
                 $("#datos-gestion_normalizacion").bootstrapValidator('resetForm', true);
+                $('#datos-gestion_normalizacion').bootstrapValidator('destroy')
                 $('#datos-gestion_normalizacion').hide();
                 break;
             case '4':
                 $("#datos-gestion-sc").bootstrapValidator('resetForm', true);
+                $('#datos-gestion-sc').bootstrapValidator('destroy')
                 $('#datos-gestion-sc').hide();
                 break;
-            case '5':
-                $("#datos-gestion").bootstrapValidator('resetForm', true);
-                $('#datos-gestion').hide();
-                break;
+            
+                
         }
+
+
     });
 
-
+    //PREFERENCIAS AFILIADO
     $("#afi_oficina_preferencia").on("change", function () {
 
         if ($(this).val() != "") {
@@ -1768,8 +1717,13 @@ $(function () {
 
             $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-preferencia-afiliado", WebPreferencia, function (respuesta) {
                 if (respuesta.Estado === "OK") {
-                    //Variables.Afiliado_Current.data("afiliado").OficinaPreferencia = respuesta.Objeto;
-                    //console.log(Variables.Afiliado_Current.data("afiliado"))
+                        $.niftyNoty({
+                            type: 'success',
+                            container: 'floating',
+                            html: '<strong>OK</strong> Oficina asignada con éxito!',
+                            focus: false,
+                            timer: 3000
+                        });
                 }
             });
         }
@@ -1797,6 +1751,377 @@ $(function () {
 
 
     });
+
+
+    //CONTACTABILIDAD AFILIADOS
+    $("#afi_telefonos").on("change", function (e) {
+
+        $(".desaparecible, .forma-uno").show();
+        if ($("#afi_telefonos :selected").data("malo") !== "undefined" && $("#afi_telefonos :selected").data("malo") === "true") {
+            $(".desaparecible, .forma-uno").hide();
+        }
+    })
+    $("#telefonos_Malo").on("click", function (e) {
+
+
+        var WebDatoContacto = {
+            afiliado_Rut: $("#afi_rut").val().replace('.', '').replace('.', ''),
+            tipo: "telefonos",
+            valor_contacto: $("#afi_telefonos :selected").html().replace("+", ""),
+            valido: 0
+        }
+        WebDatoContacto.afiliado_Rut = WebDatoContacto.afiliado_Rut.substring(0, WebDatoContacto.afiliado_Rut.length - 2);
+
+        $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-nuevo-contacto", WebDatoContacto, function (respuesta) {
+
+            if (respuesta.Estado === "OK") {
+
+                /*$.each(Variables.Afiliado_Current.data("afiliado").Telefonos, function (i, el) {
+                    if (el.Valor_contacto == respuesta.Objeto.Valor_contacto) {
+                        Variables.Afiliado_Current.data("afiliado").Telefonos.splice(i, 1);
+                        return false;
+                    }
+                });
+                Variables.Afiliado_Current.data("afiliado").Telefonos.push(respuesta.Objeto);*/
+
+                $("#afi_telefonos :selected").html($("#afi_telefonos :selected").html() + ' (malo)').data("malo", "true");
+                $(".desaparecible, .forma-uno").hide();
+            }
+
+        });
+
+
+    });
+    $("#telefonos_Nuevo").on("click", function (e) {
+
+        var that = $(this);
+        $("#afi_telefonos, .desaparecible, .forma-dos").hide();
+
+
+
+        $(".multicontrol").append(
+            $("<form>").attr({ "id": "miForm", "name": "miForm", "method": "post" }).append($("<input>").attr({ "type": "hidden", "id": "afiliado_Rut", "name": "afiliado_Rut", "value": $("#afi_rut").val() })).append($("<input>").attr({ "type": "hidden", "id": "tipo", "name": "tipo", "value": "telefonos" })).append(
+                $("<input>").attr({ "type": "text", "id": "tmp_telefono", "name": "tmp_telefono", "maxlength": "12" }).val("+56").addClass("form-control").on({
+                    "keypress blur": function (e) {
+
+
+                        if (e.type === "blur" || (e.type === "keypress" && e.which === 13)) {
+                            e.preventDefault();
+
+                            if (typeof $("#miForm").data("bootstrapValidator") === "undefined") {
+                                $("#miForm").bootstrapValidator({
+                                    fields: {
+                                        tmp_telefono: {
+                                            validators: {
+                                                notEmpty: {
+                                                    message: 'no puede guardar numero vacio',
+                                                },
+                                                stringLength: {
+                                                    min: 12,
+                                                    max: 12,
+                                                    message: 'formato de numero incorrecto'
+                                                },
+                                            }
+                                        },
+                                    }
+                                }).on('success.form.bv', function (e) {
+                                    e.preventDefault();
+                                    var $form = $(e.target);
+                                    var funcion = {
+                                        existeValorEnSelect: function (arrayOptions, valorBuscado) {
+                                            $.each(arrayOptions, function (i, e) {
+
+                                                if ($(e).val() === valorBuscado) {
+                                                    return true;
+                                                }
+                                            });
+                                            return false;
+                                        }
+                                    }
+                                    if (!funcion.existeValorEnSelect($("#afi_telefonos option"), $form.find("#tmp_telefono").val())) {
+
+                                        var WebDatoContacto = {
+                                            afiliado_Rut: $form.find("#afiliado_Rut").val().replace('.', '').replace('.', ''),
+                                            tipo: $form.find("#tipo").val(),
+                                            valor_contacto: $form.find("#tmp_telefono").val().replace("+", ""),
+                                            valido: 1
+                                        }
+                                        WebDatoContacto.afiliado_Rut = WebDatoContacto.afiliado_Rut.substring(0, WebDatoContacto.afiliado_Rut.length - 2);
+
+                                        $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-nuevo-contacto", WebDatoContacto, function (respuesta) {
+                                            if (respuesta.Estado === "OK") {
+
+                                                $("#afi_telefonos").prepend($("<option>").html($form.find("#tmp_telefono").val()));
+                                                $("#afi_telefonos option:eq(0)").prop('selected', true)
+                                                $("#afi_telefonos, .desaparecible, .forma-dos, .forma-uno").show();
+                                                $("#miForm").remove();
+                                            }
+                                        });
+
+                                    }
+                                });
+                            }
+
+
+                            $("#miForm").submit();
+                        }
+
+                    },
+
+                })
+
+            ));
+
+    });
+
+    $("#afi_celulares").on("change", function (e) {
+
+        $(".desaparecible-cel, .forma-uno-cel").show();
+        if ($("#afi_celulares :selected").data("malo") !== "undefined" && $("#afi_celulares :selected").data("malo") === "true") {
+            $(".desaparecible-cel, .forma-uno-cel").hide();
+        }
+    })
+    $("#celulares_Malo").on("click", function (e) {
+
+
+        var WebDatoContacto = {
+            afiliado_Rut: $("#afi_rut").val().replace('.', '').replace('.', ''),
+            tipo: "celulares",
+            valor_contacto: $("#afi_celulares :selected").html().replace("+", ""),
+            valido: 0
+        }
+        WebDatoContacto.afiliado_Rut = WebDatoContacto.afiliado_Rut.substring(0, WebDatoContacto.afiliado_Rut.length - 2);
+
+        $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-nuevo-contacto", WebDatoContacto, function (respuesta) {
+
+            if (respuesta.Estado === "OK") {
+
+                /*$.each(Variables.Afiliado_Current.data("afiliado").Celulares, function (i, el) {
+                    if (el.Valor_contacto == respuesta.Objeto.Valor_contacto) {
+                        Variables.Afiliado_Current.data("afiliado").Celulares.splice(i, 1);
+                        return false;
+                    }
+                });
+                Variables.Afiliado_Current.data("afiliado").Celulares.push(respuesta.Objeto);
+                */
+
+                $("#afi_celulares :selected").html($("#afi_celulares :selected").html() + ' (malo)').data("malo", "true");
+                $(".desaparecible-cel, .forma-uno-cel").hide();
+            }
+
+        });
+
+
+    });
+    $("#celulares_Nuevo").on("click", function (e) {
+
+        var that = $(this);
+        $("#afi_celulares, .desaparecible-cel, .forma-dos-cel").hide();
+
+
+
+        $(".multicontrol-cel").append(
+            $("<form>").attr({ "id": "miFormCel", "name": "miFormCel", "method": "post" }).append($("<input>").attr({ "type": "hidden", "id": "afiliado_Rut", "name": "afiliado_Rut", "value": $("#afi_rut").val() })).append($("<input>").attr({ "type": "hidden", "id": "tipo", "name": "tipo", "value": "celulares" })).append(
+                $("<input>").attr({ "type": "text", "id": "tmp_celular", "name": "tmp_celular", "maxlength": "12" }).val("+56").addClass("form-control").on({
+                    "keypress blur": function (e) {
+
+
+                        if (e.type === "blur" || (e.type === "keypress" && e.which === 13)) {
+                            e.preventDefault();
+
+                            if (typeof $("#miFormCel").data("bootstrapValidator") === "undefined") {
+                                $("#miFormCel").bootstrapValidator({
+                                    fields: {
+                                        tmp_celular: {
+                                            validators: {
+                                                notEmpty: {
+                                                    message: 'no puede guardar numero vacio',
+                                                },
+                                                stringLength: {
+                                                    min: 12,
+                                                    max: 12,
+                                                    message: 'formato de numero incorrecto'
+                                                },
+                                            }
+                                        },
+                                    }
+                                }).on('success.form.bv', function (e) {
+                                    e.preventDefault();
+                                    var $form = $(e.target);
+                                    var funcion = {
+                                        existeValorEnSelect: function (arrayOptions, valorBuscado) {
+                                            $.each(arrayOptions, function (i, e) {
+
+                                                if ($(e).val() === valorBuscado) {
+                                                    return true;
+                                                }
+                                            });
+                                            return false;
+                                        }
+                                    }
+                                    if (!funcion.existeValorEnSelect($("#afi_celulares option"), $form.find("#tmp_celular").val())) {
+
+                                        var WebDatoContacto = {
+                                            afiliado_Rut: $form.find("#afiliado_Rut").val().replace('.', '').replace('.', ''),
+                                            tipo: $form.find("#tipo").val(),
+                                            valor_contacto: $form.find("#tmp_celular").val().replace("+", ""),
+                                            valido: 1
+                                        }
+                                        WebDatoContacto.afiliado_Rut = WebDatoContacto.afiliado_Rut.substring(0, WebDatoContacto.afiliado_Rut.length - 2);
+
+                                        $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-nuevo-contacto", WebDatoContacto, function (respuesta) {
+                                            if (respuesta.Estado === "OK") {
+                                                //Variables.Afiliado_Current.data("afiliado").Celulares.push(respuesta.Objeto)
+                                                $("#afi_celulares").prepend($("<option>").html($form.find("#tmp_celular").val()));
+                                                $("#afi_celulares option:eq(0)").prop('selected', true)
+                                                $("#afi_celulares, .desaparecible-cel, .forma-dos-cel, .forma-uno-cel").show();
+                                                $("#miFormCel").remove();
+                                            }
+
+                                        });
+
+                                    }
+                                });
+                            }
+
+
+                            $("#miFormCel").submit();
+                        }
+
+                    },
+
+                })
+
+            ));
+
+    });
+
+    $("#afi_correos").on("change", function (e) {
+
+        $(".desaparecible-mail, .forma-uno-mail").show();
+        if ($("#afi_correos :selected").data("malo") !== "undefined" && $("#afi_correos :selected").data("malo") === "true") {
+            $(".desaparecible-mail, .forma-uno-mail").hide();
+        }
+    })
+    $("#correos_Malo").on("click", function (e) {
+
+
+        var WebDatoContacto = {
+            afiliado_Rut: $("#afi_rut").val().replace('.', '').replace('.', ''),
+            tipo: "correos",
+            valor_contacto: $("#afi_correos :selected").html(),
+            valido: 0
+        }
+        WebDatoContacto.afiliado_Rut = WebDatoContacto.afiliado_Rut.substring(0, WebDatoContacto.afiliado_Rut.length - 2);
+
+        $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-nuevo-contacto", WebDatoContacto, function (respuesta) {
+
+            if (respuesta.Estado === "OK") {
+
+                /*$.each(Variables.Afiliado_Current.data("afiliado").Correos, function (i, el) {
+                    if (el.Valor_contacto == respuesta.Objeto.Valor_contacto) {
+                        Variables.Afiliado_Current.data("afiliado").Correos.splice(i, 1);
+                        return false;
+                    }
+                });
+                Variables.Afiliado_Current.data("afiliado").Correos.push(respuesta.Objeto);
+                console.log(Variables.Afiliado_Current.data("afiliado"))*/
+
+                $("#afi_correos :selected").html($("#afi_correos :selected").html() + ' (malo)').data("malo", "true");
+                $(".desaparecible-mail, .forma-uno-mail").hide();
+            }
+
+        });
+
+
+    });
+    $("#correos_Nuevo").on("click", function (e) {
+
+        var that = $(this);
+        $("#afi_correos, .desaparecible-mail, .forma-dos-mail").hide();
+
+
+
+        $(".multicontrol-mail").append(
+            $("<form>").attr({ "id": "miFormMail", "name": "miFormMail", "method": "post" }).append($("<input>").attr({ "type": "hidden", "id": "afiliado_Rut", "name": "afiliado_Rut", "value": $("#afi_rut").val() })).append($("<input>").attr({ "type": "hidden", "id": "tipo", "name": "tipo", "value": "correos" })).append(
+                $("<input>").attr({ "type": "text", "id": "tmp_correo", "name": "tmp_correo" }).addClass("form-control").on({
+                    "keypress blur": function (e) {
+
+
+                        if (e.type === "blur" || (e.type === "keypress" && e.which === 13)) {
+                            e.preventDefault();
+
+                            if (typeof $("#miFormMail").data("bootstrapValidator") === "undefined") {
+                                $("#miFormMail").bootstrapValidator({
+                                    fields: {
+                                        tmp_correo: {
+                                            validators: {
+                                                notEmpty: {
+                                                    message: 'No puede guardar correo vacio',
+                                                },
+                                                stringLength: {
+                                                    max: 512,
+                                                    message: 'No puede Exceder los 512 caracteres'
+                                                },
+                                                emailAddress: {
+                                                    message: 'No es un formato de correo válido'
+                                                },
+                                            }
+                                        },
+                                    }
+                                }).on('success.form.bv', function (e) {
+                                    e.preventDefault();
+                                    var $form = $(e.target);
+                                    var funcion = {
+                                        existeValorEnSelect: function (arrayOptions, valorBuscado) {
+                                            $.each(arrayOptions, function (i, e) {
+
+                                                if ($(e).val() === valorBuscado) {
+                                                    return true;
+                                                }
+                                            });
+                                            return false;
+                                        }
+                                    }
+                                    if (!funcion.existeValorEnSelect($("#afi_correos option"), $form.find("#tmp_correo").val())) {
+
+                                        var WebDatoContacto = {
+                                            afiliado_Rut: $form.find("#afiliado_Rut").val().replace('.', '').replace('.', ''),
+                                            tipo: $form.find("#tipo").val(),
+                                            valor_contacto: $form.find("#tmp_correo").val(),
+                                            valido: 1
+                                        }
+                                        WebDatoContacto.afiliado_Rut = WebDatoContacto.afiliado_Rut.substring(0, WebDatoContacto.afiliado_Rut.length - 2);
+
+                                        $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-nuevo-contacto", WebDatoContacto, function (respuesta) {
+                                            if (respuesta.Estado === "OK") {
+                                                //console.log(Variables.Afiliado_Current.data("afiliado"))
+                                                //Variables.Afiliado_Current.data("afiliado").Correos.push(respuesta.Objeto)
+                                                $("#afi_correos").prepend($("<option>").html($form.find("#tmp_correo").val()));
+                                                $("#afi_correos option:eq(0)").prop('selected', true)
+                                                $("#afi_correos, .desaparecible-mail, .forma-dos-mail, .forma-uno-mail").show();
+                                                $("#miFormMail").remove();
+                                            }
+
+                                        });
+
+                                    }
+                                });
+                            }
+
+
+                            $("#miFormMail").submit();
+                        }
+
+                    },
+
+                })
+
+            ));
+
+    });
+
+
 
     const pestana = sessionStorage.getItem('GST_PESTANA_ACTIVA');
     if (pestana != null) {
