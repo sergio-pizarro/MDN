@@ -225,7 +225,7 @@ namespace CRM.Business.Data
 
             };
 
-            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag2", pram, ContainerConstructor);
+            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag", pram, ContainerConstructor);
         }
 
 
@@ -250,7 +250,7 @@ namespace CRM.Business.Data
 
             };
 
-            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag2", pram, ContainerConstructor);
+            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag", pram, ContainerConstructor);
         }
 
 
