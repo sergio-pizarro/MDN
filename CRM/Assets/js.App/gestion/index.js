@@ -936,7 +936,7 @@ $(function () {
 
 
     
-    //NUEVA GRILLA
+    //COMERCIAL //DERIVACIONES
 
     $('#button').click(function () {
         $("#tabla_comercial").bootstrapTable('refresh', {
@@ -1060,8 +1060,7 @@ $(function () {
                 sortable: false,
                 formatter: function (value, row, index) {
                     var mostrar = ''
-                    switch(row.UltimaGestion.SubEstadoGestion.eges_id)
-                    {
+                    switch (row.UltimaGestion.SubEstadoGestion.eges_id) {
                         case 202:
                             mostrar = '<div class="label label-table label-success">' + row.UltimaGestion.SubEstadoGestion.eges_nombre + '</div>';
                             break;
@@ -1083,9 +1082,146 @@ $(function () {
 
 
         ]
-    })
+    });
 
-    //Carga de selects Filtros de Pre Aprobados
+
+
+
+    //RECUPERACIONES 
+
+    $('#btn_recuperaciones').click(function() {
+        $("#tabla_recuperaciones").bootstrapTable('refresh', {
+            url: BASE_URL + "/motor/api/Gestion/v3/lista-seguimientos",
+                query: {
+                    tipoCampagna: 2,
+                    periodo: $('#slPeriodo_normalizacion').val(),
+                    estado: $('#flt_estado_normalizacion').val(),
+                    causaBasal: $('#flt_causa_normalizacion').val(),
+                    consecuencia: $('#flt_consecuencia_normalizacion').val(),
+                    prioridad: $('#slPrioridad_normalizacion').val(),
+                    rut: $('flt_rut_normalizacion').val()
+            }
+        });
+
+   });
+
+
+    $("#tabla_recuperaciones").bootstrapTable({
+        pagination: true,
+        sidePagination: 'server',
+        ajaxOptions: {
+            headers: {
+                "Token": getCookie("Token"),
+                "TokenExpiry": "900",
+                "Access-Control-Expose-Headers": "Token,TokenExpiry"
+            }
+        },
+        queryParams: function (params) {
+
+            params.periodo = $('#slPeriodo_normalizacion').val();
+            params.tipoCampagna = 2;
+            params.causaBasal = $('#flt_causa_normalizacion').val();
+            params.consecuencia = $('#flt_consecuencia_normalizacion').val();
+            params.estado = $('#flt_estado_normalizacion').val();
+            params.prioridad = $('#slPrioridad_normalizacion').val();
+            params.rut = $('flt_rut_normalizacion').val();
+            return params;
+        },
+        locale: 'es-ES',
+        striped: true,
+        pagination: true,
+        pageSize: 30,
+        pageList: [],
+        search: false,
+        showColumns: false,
+        showRefresh: false,
+        sortName: 'Seguimiento.Afiliado_Rut',
+        columns: [
+                    {
+                        field: 'Seguimiento.Afiliado_Rut',
+                        title: 'Rut',
+                        sortable: true,
+                        formatter: function (value, row, index) {
+                            return '<a href="#" class="btn-link" data-target="#mdl_data" data-toggle="modal" data-periodo="' + row.Seguimiento.Periodo + '" data-rut="' + value + '-' + row.Seguimiento.Afiliado_Dv + '" data-tipo="' + row.Seguimiento.TipoAsignacion + '">' + value.toMoney(0).toString() + '-' + row.Seguimiento.Afiliado_Dv + '</a>';
+                        }
+                    },
+                    {
+                        field: 'Seguimiento.Nombre',
+                        title: 'Nombre',
+                        sortable: false,
+                        formatter: function (value, row, index) {
+                            return value + ' ' + row.Seguimiento.Apellido
+                        }
+                    },
+                    {
+                        field: 'Seguimiento.Empresa',
+                        title: 'Empresa',
+                        sortable: false
+                    },
+                    {
+                        field: 'Seguimiento.Segmento',
+                        title: 'Segmento',
+                        sortable: false
+                    },
+                    {
+                        field: 'UltimaGestion.GestionBase.IdBaseCampagna',
+                        title: 'Prox. Gestión',
+                        sortable: false,
+                        formatter: function (value, row, index) {
+                            return value > 0 ? row.UltimaGestion.GestionBase.FechaCompromete.toFecha() === '01-01-1753' ? '-' : row.UltimaGestion.GestionBase.FechaCompromete.toFecha() : 'N/A';
+                        }
+                    },
+                    {
+                        field: 'Seguimiento.PreAprobadoFinal',
+                        title: 'Monto Adeudado',
+                        sortable: false,
+                        align: 'right',
+                        formatter: function (value, row, index) {
+                            return value.toMoney(0);
+                        }
+                    },
+                    {
+                        field: 'Seguimiento.Prioridad',
+                        title: 'Prioridad',
+                        sortable: false,
+                        formatter: function (value, row, index) {
+                            return value.toString().toEtiquetaPloma() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')
+                        }
+                    },
+                    {
+                        field: 'UltimaGestion.CausaBasalGestion.eges_id',
+                        title: 'Causa Basal',
+                        sortable: false,
+                        formatter: function (value, row, index) {
+                            return value > 0 ? row.UltimaGestion.CausaBasalGestion.eges_nombre : 'Sin Causa';
+                        }
+                    },
+                    {
+                        field: 'UltimaGestion.ConsecuenciaGestion.eges_id',
+                        title: 'Concecuencia',
+                        sortable: false,
+                        formatter: function (value, row, index) {
+                            return value > 0 ? row.UltimaGestion.ConsecuenciaGestion.eges_nombre : 'Sin Consecuencia';
+                        }
+                    },
+                    {
+                        field: 'UltimaGestion.EstadoGestion.eges_id',
+                        title: 'Estado',
+                        sortable: false,
+                        formatter: function (value, row, index) {
+                            return value > 0 ? row.UltimaGestion.EstadoGestion.eges_nombre: 'Sin Gestión';
+
+                        }
+                    },
+        ]
+    });
+
+
+
+
+    //SEGURO CESANTIA
+
+    //GENERALES
     $.SecGetJSON(BASE_URL + "/motor/api/Gestion/listar-oficinas", function (datos) {
 
         $("#afi_oficina_preferencia").html("");
@@ -1096,7 +1232,6 @@ $(function () {
     });
     
 
-    // END NUEVA GRILLA
     $('#mdl_data').on('show.bs.modal', function (e) {
 
         
