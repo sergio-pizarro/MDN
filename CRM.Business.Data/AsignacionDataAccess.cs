@@ -229,6 +229,29 @@ namespace CRM.Business.Data
         }
 
 
+        public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, int SubEstado, string rut, int Offset, int Limit, string Sort, string Orden)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@Periodo", Periodo),
+                new Parametro("@TokenEjecutivo",TokenEjecutivo),
+                new Parametro("@TipoCamp",TipoAsignacion),
+
+                new Parametro("@Estado",Estado),
+                new Parametro("@SubEstado",SubEstado),
+                new Parametro("@RutAfiliado", rut),
+
+                new Parametro("@Offset",Offset),
+                new Parametro("@Limit",Limit),
+                new Parametro("@Sort",Sort),
+                new Parametro("@Orden",Orden),
+
+            };
+
+            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag", pram, ContainerConstructor);
+        }
+
+
         public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, int CausaBasal, int Consecuencia, string Prioridad, string rut, int Offset, int Limit, string Sort, string Orden)
         {
             Parametros pram = new Parametros

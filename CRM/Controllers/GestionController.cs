@@ -156,12 +156,7 @@ namespace CRM.Controllers
             List<ContenedorCampaniaList> res = new List<ContenedorCampaniaList>();
             BootstrapTableResult<ContenedorCampaniaList> xd = new BootstrapTableResult<ContenedorCampaniaList>();
 
-            if (tipoCampagna == 5)
-            {
-                res = AsignacionDataAccess.ListarByOficina2(periodo, token, "CALL").Where(x => x.Seguimiento.TipoAsignacion == 5 || x.Seguimiento.TipoAsignacion == 1).ToList();
-                res.AddRange(AsignacionDataAccess.ListarByOficina2(periodo, token, "WEB").Where(d => d.Seguimiento.TipoAsignacion == 1 || d.Seguimiento.TipoAsignacion == 5 ));
-            }
-            else if (tipoCampagna == 1)
+            if (tipoCampagna == 1 || tipoCampagna == 5)
             {
                 int estado_dos = estado == null ? 0 : Convert.ToInt32(estado);
                 int subestado_dos = subestado == null ? 0 : Convert.ToInt32(subestado);
@@ -175,6 +170,13 @@ namespace CRM.Controllers
                 int consecuencia_dos = consecuencia == null ? 0 : Convert.ToInt32(consecuencia);
 
                 res = AsignacionDataAccess.ListarPaginado(periodo, tipoCampagna, token, estado_dos, causa_dos, consecuencia_dos, prioridad, rut, offset, limit, sort, order);
+            }
+            else if(tipoCampagna == 4)
+            {
+                int estado_dos = estado == null ? 0 : Convert.ToInt32(estado);
+                int subestado_dos = subestado == null ? 0 : Convert.ToInt32(subestado);
+
+                res = AsignacionDataAccess.ListarPaginado(periodo, tipoCampagna, token, estado_dos, subestado_dos, rut, offset, limit, sort, order);
             }
 
             //return res;
@@ -412,10 +414,18 @@ namespace CRM.Controllers
         [Route("lista-estados-gestion")]
         public IEnumerable<EstadogestionEntity> ListaEstadosGestion(int tipoCampagna, int padre)
         {
-            tipoCampagna = tipoCampagna == 5 ? 1 : tipoCampagna;
+            //tipoCampagna = tipoCampagna == 5 ? 1 : tipoCampagna;
             List<EstadogestionEntity> ret = new List<EstadogestionEntity>();
             List<EstadogestionEntity> dataList = EstadosyTiposDataAccess.ListarEstadosGestion();
-            ret = dataList.Where(x => x.ejes_id_padre == padre && x.ejes_tipo_campagna == tipoCampagna).ToList();
+            if(tipoCampagna == 5)
+            {
+                ret = dataList.Where(x => x.ejes_id_padre == padre && (x.ejes_tipo_campagna == 5 || x.ejes_tipo_campagna == 1)).ToList();
+            }
+            else
+            {
+                ret = dataList.Where(x => x.ejes_id_padre == padre && x.ejes_tipo_campagna == tipoCampagna).ToList();
+            }
+            
             return ret;
         }
 
