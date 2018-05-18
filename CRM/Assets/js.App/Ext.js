@@ -321,9 +321,37 @@ String.prototype.toEtiquetaPrioridad = function () {
     d[5] = 'morado';
     d[6] = 'neutral';
     
-    var t = '<span class="badge {CLASE}">{VALOR} <label style="display:none;">{COLOR}</label></span>';
+    var t = '<span class="badge {CLASE}">{VALOR}</span>';
 
-    return t.replace("{CLASE}", f[this]).replace("{VALOR}", (this > 5 ? "": this) ).replace("{COLOR}",d[this]);
+    return t.replace("{CLASE}", f[this]).replace("{VALOR}", (this > 5 ? "": this) ); //.replace("{COLOR}",d[this]);
+}
+
+String.prototype.toEtiquetaPrioridadScan = function () {
+    
+    var f = [];
+    f[0] = 'badge-neutral';
+    f[1] = 'badge-success';
+    f[2] = 'badge-yelow';
+    f[3] = 'badge-warning';
+    f[4] = 'badge-danger';
+    f[5] = 'badge-purple';
+    f[6] = 'badge-neutral';
+    
+    var d = [];
+    d[0] = 'light';
+    d[1] = 'verde';
+    d[2] = 'amarillo';
+    d[3] = 'naranjo';
+    d[4] = 'rojo';
+    d[5] = 'morado';
+    d[6] = 'neutral';
+    
+  
+        var t = '<span class="badge {CLASE}">{VALOR} <label style="display:none;">{COLOR}</label></span>';
+
+        return t.replace("{CLASE}", f[this]).replace("{VALOR}", (this > 5 ? "": this) ).replace("{COLOR}",d[this]);
+    
+   
 }
 String.prototype.toEtiquetaFlagLicencia = function () {
 
@@ -540,12 +568,35 @@ Number.prototype.toMoney = function (decimals, decimal_sep, thousands_sep) {
 
 $(function () {
 
-    if (!DEBUG_JS)
-    {
-        $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
-            location.href = BASE_URL + "/motor/home/Acceso";
+
+
+    $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
+            
+
+            
+            if (DEBUG_JS) {
+                console.log('event', event)
+                console.log('jqxhr', jqxhr)
+                console.log('settings', settings)
+                console.log('thrownError', thrownError)
+            } else {
+                const ajx = jqxhr;
+                switch(ajx.status) 
+                {
+                    case 401:
+                        location.href = BASE_URL + "/motor/home/Acceso";
+                        break;
+                    default:
+                        console.log('event', event)
+                        console.log('jqxhr', jqxhr)
+                        console.log('settings', settings)
+                        console.log('thrownError', thrownError)
+                }
+                
+            }
         });
-    }
+
+   
 
     var nid = getCookie("Noticia")
     if (nid > 0)
@@ -576,9 +627,71 @@ $(function () {
         });
     }
 
+    
 
-    $.SecGetJSON(BASE_URL + "/motor/api/Auth/menu", function (categorias) {
 
+
+    if (sessionStorage.getItem('menu_principal') == null)
+    {
+        $.SecGetJSON(BASE_URL + "/motor/api/Auth/menu", function (categorias) {
+
+            sessionStorage.setItem('menu_principal', JSON.stringify(categorias));
+
+            $.each(categorias, function (i, categoriaItm) {
+
+                $("#mainnav-menu").append($("<li>").addClass("list-header").text(categoriaItm.Nombre))
+
+                Recxve(categoriaItm.Menus, $("#mainnav-menu"));
+            });
+
+
+
+            //Otras campañas siempre al final
+            $.SecGetJSON(BASE_URL + "/CPEngine/api/camp/lista-camps-ejecutivo", { re: getCookie("Token") }, function (menus) {
+
+                sessionStorage.setItem('menu_campasejec', JSON.stringify(menus));
+
+                var algunaCamp = 0, cUL = $("<ul>");
+
+                $.each(menus, function (i, e) {
+                    if (e.Activa) {
+                        cUL.append('<li>' +
+                                ' <a href="/motor/App/Engine?cc=' + e.CodCamp + '" >' +
+                                    '  <span class="menu-title">' +
+                                    '      <strong>' + e.IdentidadCamp + '</strong>' +
+                                    '  </span>' +
+                                '  </a>' +
+                            ' </li>');
+                        algunaCamp++;
+                    }
+                });
+
+                if (algunaCamp > 0) {
+                    //.addClass("active-link")
+                    $("#mainnav-menu").append($("<li>").addClass("list-header").text("Otras Campañas"))
+                    $("#mainnav-menu").append($("<li>").append(
+                          $("<a>").addClass("otras-campas").attr({ href: "#" }).append(
+                              $("<i>").addClass("ion-clipboard")
+                          ).append(
+                              $("<span>").addClass("menu-title").append($("<strong>").text("Mis Campañas"))
+                          )
+                      ).append(cUL));
+                }
+
+
+
+                $.niftyNav('bind')
+
+            });
+
+
+
+
+        });
+    }
+    else
+    {
+        var categorias = JSON.parse(sessionStorage.getItem('menu_principal'));
         $.each(categorias, function (i, categoriaItm) {
 
             $("#mainnav-menu").append($("<li>").addClass("list-header").text(categoriaItm.Nombre))
@@ -587,47 +700,45 @@ $(function () {
         });
 
 
+        var menus = JSON.parse(sessionStorage.getItem('menu_campasejec'));
+        var algunaCamp = 0, cUL = $("<ul>");
 
-        //Otras campañas siempre al final
-        $.SecGetJSON(BASE_URL + "/CPEngine/api/camp/lista-camps-ejecutivo", { re: getCookie("Token") }, function (menus) {
-
-            var algunaCamp = 0, cUL = $("<ul>");
-
-            $.each(menus, function (i, e) {
-                if (e.Activa) {
-                    cUL.append('<li>' +
-                            ' <a href="/motor/App/Engine?cc=' + e.CodCamp + '" >' +
-                                '  <span class="menu-title">' +
-                                '      <strong>' + e.IdentidadCamp + '</strong>' +
-                                '  </span>' +
-                            '  </a>' +
-                        ' </li>');
-                    algunaCamp++;
-                }
-            });
-
-            if (algunaCamp > 0) {
-                //.addClass("active-link")
-                $("#mainnav-menu").append($("<li>").addClass("list-header").text("Otras Campañas"))
-                $("#mainnav-menu").append($("<li>").append(
-                      $("<a>").addClass("otras-campas").attr({ href: "#" }).append(
-                          $("<i>").addClass("ion-clipboard")
-                      ).append(
-                          $("<span>").addClass("menu-title").append($("<strong>").text("Mis Campañas"))
-                      )
-                  ).append(cUL));
+        $.each(menus, function (i, e) {
+            if (e.Activa) {
+                cUL.append('<li>' +
+                        ' <a href="/motor/App/Engine?cc=' + e.CodCamp + '" >' +
+                            '  <span class="menu-title">' +
+                            '      <strong>' + e.IdentidadCamp + '</strong>' +
+                            '  </span>' +
+                        '  </a>' +
+                    ' </li>');
+                algunaCamp++;
             }
-
-
-
-            $.niftyNav('bind')
-
         });
 
+        if (algunaCamp > 0) {
+            //.addClass("active-link")
+            $("#mainnav-menu").append($("<li>").addClass("list-header").text("Otras Campañas"))
+            $("#mainnav-menu").append($("<li>").append(
+                  $("<a>").addClass("otras-campas").attr({ href: "#" }).append(
+                      $("<i>").addClass("ion-clipboard")
+                  ).append(
+                      $("<span>").addClass("menu-title").append($("<strong>").text("Mis Campañas"))
+                  )
+              ).append(cUL));
+        }
 
 
 
-    });
+        $.niftyNav('bind')
+    }
+
+   
+
+
+
+
+
 
 
 

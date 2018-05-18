@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     Layout = "~/Areas/AppPage/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,9 +10,9 @@
 <link href="~/Assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 
 
+<link href="~/Assets/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
 
-
- <!--Page content-->
+<!--Page content-->
 <!--===================================================-->
 <div id="page-content">
 
@@ -26,15 +26,11 @@
                 <!--Nav Tabs-->
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_preaprobados" class="tab-principal">Pre Aprobados <span class="badge badge-purple" style="display:none;">15</span></a>
+                        <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_preaprobados" class="tab-principal">Comercial <span class="badge badge-purple" style="display:none;">15</span></a>
                     </li>
                     <li class="">
-                        <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_recuperaciones" class="tab-principal">Recuperaciones <span class="badge badge-purple" style="display:none;">5</span></a>
+                        <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_recuperaciones" class="tab-principal">Normalización <span class="badge badge-purple" style="display:none;">5</span></a>
                     </li>
-                    <li style="display:none;">
-                        <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_normalizacionTMC" class="tab-principal">Devolución TMC <span class="badge badge-purple" style="display:none;">5</span></a>
-                    </li>
-
                     <li class="">
                         <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false" id="tab_segcesantia" class="tab-principal">Seg. Cesantía</a>
                     </li>
@@ -50,522 +46,355 @@
 
                     <div id="demo-lft-tab-1" class="tab-pane fade active in">
                         <div class="panel-body">
-                            <table id="demo-foo-filtering" class="table table-bordered table-hover toggle-circle" data-page-size="30">
-                                <thead>
-                                    <tr>
-                                        <th data-toggle="true">Rut</th>
-                                        <th>Nombre</th>
-                                        <th data-hide="phone, tablet">Empresa</th>
-                                        <th data-hide="phone, tablet">Segmento</th>
-                                        <th data-hide="phone, tablet">Prox. Gestión</th>
-                                        <th data-hide="phone, tablet">Pre Aprobado</th>
-                                        <th data-hide="phone">Prioridad</th>
-                                        <th data-hide="phone">Tipo</th>
-                                        <th data-hide="phone">Estado</th>
-                                        <th data-hide="phone">Sub Estado</th>
-                                    </tr>
-                                </thead>
-                                <div class="pad-btm">
-                                    <div class="row">
 
-                                        <div class="col-sm-1 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Periodo</label>
-                                                <select id="slPeriodo" class="form-control">
-                                                    <option value="201705">Mayo 2017</option>
-                                                    <option value="201704">Abril 2017</option>
-                                                </select>
+
+                            <div class="pad-btm">
+                                <div class="row">
+
+                                    <div class="col-sm-1 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Periodo</label>
+                                            <select id="slPeriodo" class="form-control">
+                                                <option value="201705">Mayo 2017</option>
+                                                <option value="201704">Abril 2017</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Estado</label>
+                                            <select id="demo-foo-filter-status" class="form-control">
+                                                <option value="">Todos</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Sub Estado</label>
+                                            <select id="demo-foo-filter-statusSub" class="form-control">
+                                                <option value="">Todos</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Prioridad</label>
+                                            <select id="slPrioridad" class="form-control selectpicker">
+                                                <option value="">Todos</option>
+                                                <option data-content='<span class="badge badge-success">1</span>'>1</option>
+                                                <option data-content='<span class="badge badge-yelow">2</span>'>2</option>
+                                                <option data-content='<span class="badge badge-warning">3</span>'>3</option>
+                                                <option data-content='<span class="badge badge-danger">4</span>'>4</option>
+                                                <option data-content='<span class="badge badge-purple">5</span>'>5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-1 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Segmento</label>
+                                            <select id="slSegmento" class="form-control">
+                                                <option value="">Todos</option>
+                                                <option value="Pensionados">Pensionados</option>
+                                                <option value="Privados">Privados</option>
+                                                <option value="Publicos">Públicos</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Tipo</label>
+                                            <select id="slTipo" class="form-control">
+                                                <option value="">Todos</option>
+                                                <option value="NUEVOS">Nuevos</option>
+                                                <option value="PARALELO">Paralelo</option>
+                                                <option value="RENEGOCIACION">Renegociación</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3 text-xs-center">
+                                        <label class="control-label">Rut</label>
+                                        <div class="input-group mar-btm">
+                                            <input id="demo-foo-search" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
+                                            <div class="input-group-btn">
+                                                <button data-target="#demo-lg-modal-search" data-toggle="modal" class="btn btn-primary" type="button">
+                                                    <i class="pli-search-on-cloud"></i>
+                                                </button>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Estado</label>
-                                                <select id="demo-foo-filter-status" class="form-control">
-                                                    <option value="">Todos</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Sub Estado</label>
-                                                <select id="demo-foo-filter-statusSub" class="form-control">
-                                                    <option value="">Todos</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-1 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Prioridad</label>
-                                                <select id="slPrioridad" class="form-control selectpicker">
-                                                    <option value="">Todos</option>
-                                                    <option data-content='<span class="badge badge-success">1 <label style="display:none;">verde</label></span>'>1 verde</option>
-                                                    <option data-content='<span class="badge badge-yelow">2 <label style="display:none;">amarillo</label></span>'>2 amarillo</option>
-                                                    <option data-content='<span class="badge badge-warning">3 <label style="display:none;">naranjo</label></span>'>3 naranjo</option>
-                                                    <option data-content='<span class="badge badge-danger">4 <label style="display:none;">rojo</label></span>'>4 rojo</option>
-                                                    <option data-content='<span class="badge badge-purple">5 <label style="display:none;">morado</label></span>'>5 morado</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-1 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Segmento</label>
-                                                <select id="slSegmento" class="form-control">
-                                                    <option value="">Todos</option>
-                                                    <option value="Pensionados">Pensionados</option>
-                                                    <option value="Privados">Privados</option>
-                                                    <option value="Publicos">Públicos</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Tipo</label>
-                                                <select id="slTipo" class="form-control">
-                                                    <option value="">Todos</option>
-                                                    <option value="NUEVOS">Nuevos</option>
-                                                    <option value="PARALELO">Paralelo</option>
-                                                    <option value="RENEGOCIACION">Renegociación</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-sm-3 text-xs-center">
-                                            <label class="control-label">Búsqueda</label>
-                                            <div class="input-group mar-btm">
-                                                <input id="demo-foo-search" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
-                                                <div class="input-group-btn">
-                                                    <button data-target="#demo-lg-modal-search" data-toggle="modal" class="btn btn-primary" type="button">
-                                                        <i class="pli-search-on-cloud"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-
-
 
 
                                     </div>
+
+
+
+
                                 </div>
-                                <tbody id="bdy_datos"></tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="10">
-                                            <div class="text-right">
-                                                <ul class="pagination"></ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                <div class="row">
+                                     <div class="col-sm-3">
+                                         <button id="button" class="btn btn-default">Filtrar</button>
+                                     </div>
+                                    <div class="col-sm-6">
+                                        <h4>Para visualizar datos debe presionar el botón filtrar.</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <table class="table table-bordered table-hover toggle-circle" id="tabla_comercial"></table>
+
+
                         </div>
                     </div>
+                   
+                    
                     <div id="demo-lft-tab-2" class="tab-pane fade">
                         <div class="panel-body">
-                            <table id="demo-foo-filtering-recu" class="table table-bordered table-hover toggle-circle" data-page-size="30">
-                                <thead>
-                                    <tr>
-                                        <th data-toggle="true">Rut</th>
-                                        <th>Nombre</th>
-                                        <th data-hide="phone, tablet">Empresa</th>
-                                        <th data-hide="phone, tablet">Segmento</th>
-                                        <th data-hide="phone, tablet">Prox. Gestión</th>
-                                        <th data-hide="phone, tablet">Monto Adeudado</th>
-                                        <th data-hide="phone">Prioridad</th>
-                                        <th data-hide="phone" style="width:10%;">Causa Basal</th>
-                                        <th data-hide="phone" style="width:10%;">Consecuencia</th>
-                                        <th data-hide="phone" style="width:10%;">Estado</th>
-                                    </tr>
-                                </thead>
-                                <div class="pad-btm">
-                                    <div class="row">
 
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Periodo</label>
-                                                <select id="slPeriodo_normalizacion" class="form-control">
-                                                    <option value="201705">Mayo 2017</option>
-                                                </select>
+                            <div class="pad-btm">
+                                <div class="row">
+
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Periodo</label>
+                                            <select id="slPeriodo_normalizacion" class="form-control">
+                                                <option value="201705">Mayo 2017</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Causa</label>
+                                            <select id="flt_causa_normalizacion" class="form-control">
+                                                <option value="">Todos</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Consecuencia</label>
+                                            <select id="flt_consecuencia_normalizacion" class="form-control">
+                                                <option value="">Todos</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Estado</label>
+                                            <select id="flt_estado_normalizacion" class="form-control">
+                                                <option value="">Todos</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-1 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Prioridad</label>
+                                            <select id="slPrioridad_normalizacion" class="form-control selectpicker">
+                                                <option value="">Todos</option>
+                                                <option data-content='<span class="badge badge-gray">1</span>'>1</option>
+                                                <option data-content='<span class="badge badge-gray">2</span>'>2</option>
+                                                <option data-content='<span class="badge badge-gray">3</span>'>3</option>
+                                                <option data-content='<span class="badge badge-gray">4</span>'>4</option>
+                                                <option data-content='<span class="badge badge-gray">5</span>'>5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3 text-xs-center">
+                                        <label class="control-label">Rut</label>
+                                        <div class="input-group mar-btm">
+                                            <input id="flt_rut_normalizacion" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
+                                            <div class="input-group-btn">
+                                                <button data-target="#demo-lg-modal-search" data-toggle="modal" class="btn btn-primary" type="button">
+                                                    <i class="pli-search-on-cloud"></i>
+                                                </button>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Causa</label>
-                                                <select id="flt_causa_normalizacion" class="form-control">
-                                                    <option value="">Todos</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Consecuencia</label>
-                                                <select id="flt_consecuencia_normalizacion" class="form-control">
-                                                    <option value="">Todos</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Estado</label>
-                                                <select id="flt_estado_normalizacion" class="form-control">
-                                                    <option value="">Todos</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-sm-1 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Prioridad</label>
-                                                <select id="slPrioridad_normalizacion" class="form-control selectpicker">
-                                                    <option data-content='Todos'>Todos</option>
-                                                    <option data-content='<span class="badge badge-gray">1 <label style="display:none;">uno_</label></span>'>1 uno_</option>
-                                                    <option data-content='<span class="badge badge-gray">2 <label style="display:none;">dos_</label></span>'>2 dos_</option>
-                                                    <option data-content='<span class="badge badge-gray">3 <label style="display:none;">tres_</label></span>'>3 tres_</option>
-                                                    <option data-content='<span class="badge badge-gray">4 <label style="display:none;">cuatro_</label></span>'>4 cuatro_</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-sm-3 text-xs-center">
-                                            <label class="control-label">Búsqueda</label>
-                                            <div class="input-group mar-btm">
-                                                <input id="demo-foo-search_normalizacion" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
-                                                <div class="input-group-btn">
-                                                    <button data-target="#demo-lg-modal-search" data-toggle="modal" class="btn btn-primary" type="button">
-                                                        <i class="pli-search-on-cloud"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-
-
-
-
 
 
                                     </div>
+
+
+
+
+
+
                                 </div>
-                                <tbody id="bdy_datos_recu"></tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="10">
-                                            <div class="text-right">
-                                                <ul class="pagination"></ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="demo-lft-tab-3" class="tab-pane fade">
-                        <div class="panel-body">
-                            <table id="demo-foo-filtering-TMC" class="table table-bordered table-hover toggle-circle" data-page-size="30">
-                                <thead>
-                                    <tr>
-                                        <th data-toggle="true">Rut</th>
-                                        <th>Nombre</th>
-                                        @*<th data-hide="phone, tablet">Segmento</th>*@
-                                        <th data-hide="phone, tablet">Prox. Gestión</th>
-                                        <th data-hide="phone, tablet">Monto Devolución</th>
-                                       @* <th data-hide="phone">Prioridad</th>*@
-                                        @*<th data-hide="phone">Tipo</th>*@
-                                        <th data-hide="phone">Estado</th>
-                                        <th data-hide="phone">Sub Estado</th>
-                                    </tr>
-                                </thead>
-                                <div class="pad-btm">
-                                    <div class="row">
-
-                                        <div class="col-sm-1 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Periodo</label>
-                                                <select id="slPeriodoTMC" class="form-control">
-                                                    <option value="201705">Mayo 2017</option>
-                                                    <option value="201704">Abril 2017</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Estado</label>
-                                                <select id="demo-foo-filter-status-TMC" class="form-control">
-                                                    <option value="">Todos</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Sub Estado</label>
-                                                <select id="demo-foo-filter-statusSub-TMC" class="form-control">
-                                                    <option value="">Todos</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                         <!---
-                                        <div class="col-sm-1 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Prioridad</label>
-                                                <select id="slPrioridadTMC" class="form-control selectpicker">
-                                                    <option value="">Todos</option>
-                                                    <option data-content='<span class="badge badge-success">1 <label style="display:none;">verde</label></span>'>1 verde</option>
-                                                    <option data-content='<span class="badge badge-yelow">2 <label style="display:none;">amarillo</label></span>'>2 amarillo</option>
-                                                    <option data-content='<span class="badge badge-warning">3 <label style="display:none;">naranjo</label></span>'>3 naranjo</option>
-                                                    <option data-content='<span class="badge badge-danger">4 <label style="display:none;">rojo</label></span>'>4 rojo</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <--
-                                        <!---
-                                        <div class="col-sm-1 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Segmento</label>
-                                                <select id="slSegmentoTMC" class="form-control">
-                                                    <option value="">Todos</option>
-                                                    <option value="Pensionados">Pensionados</option>
-                                                    <option value="Privados">Privados</option>
-                                                    <option value="Publicos">Públicos</option>
-                                                </select>
-                                            </div>
-                                        </div>
--->
-                                         <!---
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Tipo</label>
-                                                <select id="slTipoTMC" class="form-control">
-                                                    <option value="">Todos</option>
-                                                    <option value="NUEVOS">Nuevos</option>
-                                                    <option value="PARALELO">Paralelo</option>
-                                                    <option value="RENEGOCIACION">Renegociación</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        -->
-
-                                        <div class="col-sm-3 text-xs-center">
-                                            <label class="control-label">Búsqueda</label>
-                                            <div class="input-group mar-btm">
-                                                <input id="demo-foo-search-TMC" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
-                                                <div class="input-group-btn">
-                                                    <button data-target="#demo-lg-modal-search" data-toggle="modal" class="btn btn-primary" type="button">
-                                                        <i class="pli-search-on-cloud"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-
-
-
-
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <button id="btn_recuperaciones" class="btn btn-default">Filtrar</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h4>Para visualizar datos debe presionar el botón filtrar.</h4>
                                     </div>
                                 </div>
-                                <tbody id="bdy_datos_TMC"></tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="10">
-                                            <div class="text-right">
-                                                <ul class="pagination"></ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
+                            </div>
 
+                            <table class="table table-bordered table-hover toggle-circle" id="tabla_recuperaciones"></table>
+
+                        </div>
                     </div>
+                    
 
                     <div id="demo-lft-tab-4" class="tab-pane fade">
                         <div class="panel-body">
-                            <table id="demo-foo-filtering-TMC" class="table table-bordered table-hover toggle-circle" data-page-size="30">
-                                <thead>
-                                    <tr>
-                                        <th data-toggle="true">Rut</th>
-                                        <th>Nombre</th>
-                                        <th data-hide="phone, tablet">Número de Créditos</th>
-                                        <th data-hide="phone, tablet">Prioridad</th>
-                                        <th data-hide="phone, tablet">Prox. Gestión</th>
-                                        <th data-hide="phone">Estado</th>
-                                        <th data-hide="phone">Sub Estado</th>
-                                    </tr>
-                                </thead>
-                                <div class="pad-btm">
-                                    <div class="row">
 
-                                        <div class="col-sm-1 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Periodo</label>
-                                                <select id="slPeriodoSC" class="form-control">
-                                                    <option value="201710">Octubre 2017</option>
-                                                </select>
-                                            </div>
+                            <div class="pad-btm">
+                                <div class="row">
+
+                                    <div class="col-sm-1 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Periodo</label>
+                                            <select id="flt_periodo_sc" class="form-control">
+                                                <option value="201805">Mayo 2018</option>
+                                            </select>
                                         </div>
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Estado</label>
-                                                <select id="demo-foo-filter-status-SC" class="form-control">
-                                                    <option value="">Todos</option>
-                                                </select>
-                                            </div>
+                                    </div>
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Estado</label>
+                                            <select id="flt_estado_sc" class="form-control">
+                                                <option value="">Todos</option>
+                                            </select>
                                         </div>
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Sub Estado</label>
-                                                <select id="demo-foo-filter-statusSub-SC" class="form-control">
-                                                    <option value="">Todos</option>
-                                                </select>
-                                            </div>
+                                    </div>
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Sub Estado</label>
+                                            <select id="flt_sub_estado_sc" class="form-control">
+                                                <option value="">Todos</option>
+                                            </select>
                                         </div>
-                                        
+                                    </div>
 
 
-                                        <div class="col-sm-3 text-xs-center">
-                                            <label class="control-label">Búsqueda</label>
-                                            <div class="input-group mar-btm">
-                                                <input id="demo-foo-search-SC" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
-                                                <div class="input-group-btn">
-                                                    <button data-target="#demo-lg-modal-search" data-toggle="modal" class="btn btn-primary" type="button">
-                                                        <i class="pli-search-on-cloud"></i>
-                                                    </button>
-                                                </div>
+
+                                    <div class="col-sm-3 text-xs-center">
+                                        <label class="control-label">Rut</label>
+                                        <div class="input-group mar-btm">
+                                            <input id="flt_rut_sc" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
+                                            <div class="input-group-btn">
+                                                <button data-target="#demo-lg-modal-search" data-toggle="modal" class="btn btn-primary" type="button">
+                                                    <i class="pli-search-on-cloud"></i>
+                                                </button>
                                             </div>
-
-
                                         </div>
 
 
                                     </div>
+
+
                                 </div>
-                                <tbody id="bdy_datos_SC"></tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="10">
-                                            <div class="text-right">
-                                                <ul class="pagination"></ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <button id="btn_seguro_cesantia" class="btn btn-default">Filtrar</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h4>Para visualizar datos debe presionar el botón filtrar.</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered table-hover toggle-circle" id="tabla_seguro_cesantia"></table>
+                            
                         </div>
 
                     </div>
-
 
 
                     <div id="demo-lft-tab-5" class="tab-pane fade">
                         <div class="panel-body">
-                            <table id="demo-foo-filteringDR" class="table table-bordered table-hover toggle-circle" data-page-size="30">
-                                <thead>
-                                    <tr>
-                                        <th data-toggle="true">Rut</th>
-                                        <th>Nombre</th>
-                                        <th data-hide="phone, tablet">Empresa</th>
-                                        <th data-hide="phone, tablet">Segmento</th>
-                                        <th data-hide="phone, tablet">Prox. Gestión</th>
-                                        <th data-hide="phone, tablet">Pre Aprobado</th>
-                                        <th data-hide="phone">Prioridad</th>
-                                        <th data-hide="phone">Tipo</th>
-                                        <th data-hide="phone">Estado</th>
-                                        <th data-hide="phone">Sub Estado</th>
-                                    </tr>
-                                </thead>
-                                <div class="pad-btm">
-                                    <div class="row">
+                            
+                            <div class="pad-btm">
+                                <div class="row">
 
-                                        <div class="col-sm-1 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Periodo</label>
-                                                <select id="slPeriodoDR" class="form-control">
-                                                    <option value="201705">Mayo 2017</option>
-                                                    <option value="201704">Abril 2017</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Estado</label>
-                                                <select id="demo-foo-filter-statusDR" class="form-control">
-                                                    <option value="">Todos</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Sub Estado</label>
-                                                <select id="demo-foo-filter-statusSubDR" class="form-control">
-                                                    <option value="">Todos</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-1 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Prioridad</label>
-                                                <select id="slPrioridadDR" class="form-control selectpicker">
-                                                    <option value="">Todos</option>
-                                                    <option data-content='<span class="badge badge-success">1 <label style="display:none;">verde</label></span>'>1 verde</option>
-                                                    <option data-content='<span class="badge badge-yelow">2 <label style="display:none;">amarillo</label></span>'>2 amarillo</option>
-                                                    <option data-content='<span class="badge badge-warning">3 <label style="display:none;">naranjo</label></span>'>3 naranjo</option>
-                                                    <option data-content='<span class="badge badge-danger">4 <label style="display:none;">rojo</label></span>'>4 rojo</option>
-                                                    <option data-content='<span class="badge badge-purple">5 <label style="display:none;">morado</label></span>'>5 morado</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-1 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Segmento</label>
-                                                <select id="slSegmentoDR" class="form-control">
-                                                    <option value="">Todos</option>
-                                                    <option value="Pensionados">Pensionados</option>
-                                                    <option value="Privados">Privados</option>
-                                                    <option value="Publicos">Públicos</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-2 text-xs-center">
-                                            <div class="form-group">
-                                                <label class="control-label">Tipo</label>
-                                                <select id="slTipoDR" class="form-control">
-                                                    <option value="">Todos</option>
-                                                    <option value="NUEVOS">Nuevos</option>
-                                                    <option value="PARALELO">Paralelo</option>
-                                                    <option value="RENEGOCIACION">Renegociación</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-sm-3 text-xs-center">
-                                            <label class="control-label">Búsqueda</label>
-                                            <input id="demo-foo-searchDR" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
+                                    <div class="col-sm-1 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Periodo</label>
+                                            <select id="slPeriodoDR" class="form-control">
+                                                <option value="201705">Mayo 2017</option>
+                                                <option value="201704">Abril 2017</option>
+                                            </select>
                                         </div>
                                     </div>
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Estado</label>
+                                            <select id="demo-foo-filter-statusDR" class="form-control">
+                                                <option value="">Todos</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Sub Estado</label>
+                                            <select id="demo-foo-filter-statusSubDR" class="form-control">
+                                                <option value="">Todos</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Prioridad</label>
+                                            <select id="slPrioridadDR" class="form-control selectpicker">
+                                                <option value="">Todos</option>
+                                                <option data-content='<span class="badge badge-success">1</span>'>1</option>
+                                                <option data-content='<span class="badge badge-yelow">2</span>'>2</option>
+                                                <option data-content='<span class="badge badge-warning">3</span>'>3</option>
+                                                <option data-content='<span class="badge badge-danger">4</span>'>4</option>
+                                                <option data-content='<span class="badge badge-purple">5</span>'>5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-1 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Segmento</label>
+                                            <select id="slSegmentoDR" class="form-control">
+                                                <option value="">Todos</option>
+                                                <option value="Pensionados">Pensionados</option>
+                                                <option value="Privados">Privados</option>
+                                                <option value="Publicos">Públicos</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Tipo</label>
+                                            <select id="slTipoDR" class="form-control">
+                                                <option value="">Todos</option>
+                                                <option value="NUEVOS">Nuevos</option>
+                                                <option value="PARALELO">Paralelo</option>
+                                                <option value="RENEGOCIACION">Renegociación</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3 text-xs-center">
+                                        <label class="control-label">Rut</label>
+                                        <input id="demo-foo-searchDR" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
+                                    </div>
                                 </div>
-                                <tbody id="bdy_datosDR"></tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="10">
-                                            <div class="text-right">
-                                                <ul class="pagination"></ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <button id="btn_derivaciones" class="btn btn-default">Filtrar</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h4>Para visualizar datos debe presionar el botón filtrar.</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered table-hover toggle-circle" id="tabla_derivaciones"></table>
                         </div>
                     </div>
 
@@ -577,7 +406,42 @@
 
         <!--Large Bootstrap Modal-->
         <!--===================================================-->
-        <div id="demo-lg-modal" class="modal fade" tabindex="-1">
+        <div id="demo-lg-modal-search" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                        <h4 class="modal-title" id="myLargeModalLabel-search">Buscar Afiliado</h4>
+                    </div>
+                    <div class="modal-body" id="bdy_busqueda">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                    <label class="control-label">Rut Afiliado</label>
+                                    <input class="form-control" id="afi_rut_busc" type="text">
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!--Modal footer-->
+                    <div class="modal-footer">
+
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                        <button class="btn btn-primary" id="btn_buscar_otr" type="submit">Buscar</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--===================================================-->
+        <!--End Large Bootstrap Modal-->
+
+        
+        <div id="mdl_data" class="modal fade" tabindex="-1">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -590,7 +454,7 @@
                             <!--Nav Tabs-->
                             <ul class="nav nav-tabs">
                                 <li class="active">
-                                    <a data-toggle="tab" href="#tab-gestion-1" aria-expanded="true">Contacto</a>
+                                    <a data-toggle="tab" href="#tab-gestion-1" id="tab_contacti" aria-expanded="true">Contacto</a>
                                 </li>
                                 <li class="">
                                     <a data-toggle="tab" href="#tab-gestion-2" aria-expanded="false">Historial de Gestión</a>
@@ -637,7 +501,7 @@
 
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label class="control-label" id="labelrutempresa" >Rut Empresa</label>
+                                                    <label class="control-label" id="labelrutempresa">Rut Empresa</label>
                                                     <input class="form-control" id="afi_empresa_rut" type="text" value="99.999.999-9" readonly="readonly">
                                                 </div>
                                             </div>
@@ -764,7 +628,7 @@
                                     </form>
                                 </div>
                                 <div id="tab-gestion-2" class="tab-pane fade">
-                                    <div class="list-group" id="gestiones_realizadas">
+                                    <div class="list-group" id="gestiones_realizadas" style="min-height:290px;">
 
 
                                     </div>
@@ -780,11 +644,8 @@
                                 </div>
                                 <div id="tab-gestion-4" class="tab-pane fade">
                                     <div class="table-responsive" style="overflow:scroll; height:350px;">
-                                        <table class="table table-striped" >
-                                            <tbody id="letable">
-                                                
-                                                
-                                            </tbody>
+                                        <table class="table table-striped">
+                                            <tbody id="letable"></tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -793,7 +654,7 @@
                     </div>
                     <!--Modal footer-->
                     <div class="modal-footer" id="mensahes-must">
-                        <form id="datos-gestion" action="#" method="post">
+                        <form id="datos-gestion" action="#" method="post" style="display:none;">
                             <div class="row esconder" style="text-align: left;">
                                 <div class="col-sm-4">
                                     <div class="form-group">
@@ -897,54 +758,7 @@
                             <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
                             <button class="btn btn-primary esconder" id="btn_savear_normalizacion" type="submit">Guardar</button>
                         </form>
-                        <form id="datos-gestion-tmc" action="#" method="post">
-                            <div class="row esconder" style="text-align: left;">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label class="control-label">Estado</label>
-                                        <select class="form-control" id="ges_estadoTMC" name="ges_estadoTMC">
-                                            <option value="">Seleccione</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label class="control-label">Sub Estado</label>
-                                        <select class="form-control" id="ges_subestadoTMC" name="ges_subestadoTMC" disabled="disabled">
-                                            <option value="">Seleccione</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group" id="fpg">
-                                        <label class="control-label">Fecha Próxima Gestión</label>
-                                        <div id="demo-dp-componentTMC">
-                                            <div class="input-group date">
-                                                <input type="text" class="form-control" id="ges_prox_gestionTMC" name="ges_prox_gestionTMC">
-                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row esconder" style="text-align: left;">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label class="control-label">Comentarios</label>
-                                        <textarea placeholder="Comentarios" rows="3" class="form-control" id="ges_comentariosTMC" name="ges_comentariosTMC"></textarea>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <input type="hidden" id="ges_id_asignacionTMC" name="ges_id_asignacionTMC" value="" />
-
-                            <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                            <button class="btn btn-primary esconder" id="btn_savear" type="submit">Guardar</button>
-                        </form>
-                        <form id="datos-gestion-sc" action="#" method="post">
+                        <form id="datos-gestion-sc" action="#" method="post" style="display:none;">
                             <div class="row esconder" style="text-align: left;">
                                 <div class="col-sm-4">
                                     <div class="form-group">
@@ -995,56 +809,9 @@
                 </div>
             </div>
         </div>
-        <!--===================================================-->
-        <!--End Large Bootstrap Modal-->
-        <!--ADD MODAL TMC-->
-      
 
 
-        <!--end modal tmc-->
-
-
-        <!--Large Bootstrap Modal-->
-        <!--===================================================-->
-        <div id="demo-lg-modal-search" class="modal fade" tabindex="-1">
-            <div class="modal-dialog modal-md">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                        <h4 class="modal-title" id="myLargeModalLabel-search">Buscar Afiliado</h4>
-                    </div>
-                    <div class="modal-body" id="bdy_busqueda">
-                        <div class="row">
-                            <div class="col-sm-10">
-                                <div class="form-group">
-                                    <label class="control-label">Rut Afiliado</label>
-                                    <input class="form-control" id="afi_rut_busc" type="text">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-                    </div>
-                    <!--Modal footer-->
-                    <div class="modal-footer">
-                        
-                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                        <button class="btn btn-primary" id="btn_buscar_otr" type="submit">Buscar</button>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-
-     
-        <!--===================================================-->
-        <!--End Large Bootstrap Modal-->
-
-
-
-
-
-        <input type="hidden" id="PrincipalTabActivo" value="1"/>
+        <input type="hidden" id="PrincipalTabActivo" value="1" />
     </div>
 
 
@@ -1053,12 +820,19 @@
 <!--===================================================-->
 <!--End page content-->
 
-@section script{ 
+@section script{
 
-<script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
-<script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+    <script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
     <!--Bootstrap Select [ OPTIONAL ]-->
-<script src="~/Assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
-<script src="~/Assets/js.App/gestion/index.js?v=15454454-a5454sa54-54dfd54f5572"></script>
+    <script src="~/Assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+
+
+    <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
+
+
+    <script src="~/Assets/js.App/gestion/index.js?v=@Html.Raw(ViewBag.hash)"></script>
+    
 
 }

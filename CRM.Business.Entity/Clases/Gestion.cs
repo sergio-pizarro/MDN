@@ -39,5 +39,13 @@ namespace CRM.Business.Entity.Clases
         public EstadogestionEntity SubEstadoGestion { get; set; }
     }
 
+    public class GestionGenerica : PadreGestion
+    {
+        public EstadogestionEntity CausaBasalGestion { get; set; }
+        public EstadogestionEntity ConsecuenciaGestion { get; set; }
+        public EstadogestionEntity EstadoGestion { get; set; }
+        public EstadogestionEntity SubEstadoGestion { get; set; }
+    }
+
 
 }

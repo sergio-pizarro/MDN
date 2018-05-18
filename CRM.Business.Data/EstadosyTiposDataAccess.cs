@@ -26,6 +26,11 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Estadogestion_Listar", EntidadEstadoGestion);
         }
 
+        public static EstadogestionEntity ObtenerEstadosGestionById(long id)
+        {
+            return DBHelper.InstanceCRM.ObtenerEntidad("spMotor_Estadogestion_ObtenerById", new Parametro("@Id", id),EntidadEstadoGestion);
+        }
+
 
         private static TipoCampagnaEntity EntidadTipoCampagna(DataRow row)
         {

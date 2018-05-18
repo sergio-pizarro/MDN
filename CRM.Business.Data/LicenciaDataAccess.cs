@@ -63,6 +63,11 @@ namespace CRM.Business.Data
             };
             return DBHelper.InstanceCRM.ObtenerEscalar<int>("spMotor_LicenciaEnvioCompin_Guardar", parametros);
         }
+        public static List<OficinaDerivacionEntity>ListaOficinaDerivacion()
+        {
+            //return DBHelper.InstanceReportes.ObtenerColeccion("negocios.spReporte_ListaPeriodos", ConstructorEntidad);
+            return DBHelper.InstanceCRM.ObtenerColeccion("licencias.sp_Lic_Ingresolicencia_ListaOficina", ConstructorOfiDerivacion);
+        }
 
         
         #region CONSTRUCTORES
@@ -99,6 +104,15 @@ namespace CRM.Business.Data
                 EmpresaDv = row["Empresa_Dv"] != DBNull.Value ? row["Empresa_Dv"].ToString() : string.Empty,
                 EmpresaRutDv = row["Rut_Dv"] != DBNull.Value ? row["Rut_Dv"].ToString() : string.Empty,
                 EmpresaNombre = row["EmpresaNombre"] != DBNull.Value ? row["EmpresaNombre"].ToString() : string.Empty,
+            };
+        }
+        private static OficinaDerivacionEntity ConstructorOfiDerivacion(DataRow row)
+        {
+            return new OficinaDerivacionEntity
+            {
+                codOficina= row["Cod_Oficina"] != DBNull.Value ? Convert.ToInt32(row["Cod_Oficina"]) : 0,
+                DescOficina= row["Oficina"] != DBNull.Value ? row["Oficina"].ToString() : string.Empty,
+
             };
         }
 

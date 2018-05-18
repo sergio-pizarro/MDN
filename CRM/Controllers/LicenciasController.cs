@@ -82,6 +82,7 @@ namespace CRM.Controllers
                 ing.NombreAfiliado = entrada.NombreAfiliado;
                 ing.SinDatosEnSistema = entrada.SinDatosEnSistema;
                 ing.FormatoLM = entrada.FormatoLM;
+                ing.OficinaDerivacion = entrada.OfiDerivacion;
 
 
                 if (entrada.CantidadDiasLM > 0)
@@ -127,7 +128,24 @@ namespace CRM.Controllers
             }
             catch (Exception ex)
             {
-                return new ResultadoBase() { Estado = "ERR", Mensaje = ex.Message, Objeto = ex };
+                var x = ex.Message.Split(';');
+                return new ResultadoBase() {Estado= "ERR" , Mensaje = x[1], Objeto = x[0] };
+                
+                
+
+
+              
+               
+                //if (base1.Estado.Equals("ERR"))
+                //{
+                //    return new ResultadoBase() { Estado = "ERR", Mensaje = x[0], Objeto = ex };
+                //}
+                //else
+                //{
+                //    return new ResultadoBase() { Estado = "ERR", Mensaje = x[1], Objeto = ex };
+                //}
+
+                
             }
         }
 
@@ -459,6 +477,14 @@ namespace CRM.Controllers
 
         }
 
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("listar-suc-derivacion")]
+        public List<OficinaDerivacionEntity> listaOfiDerivacion()
+        {
+            return LicenciaDataAccess.ListaOficinaDerivacion();
+        }
 
 
     }
