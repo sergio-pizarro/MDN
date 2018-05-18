@@ -1711,7 +1711,6 @@
     <Content Include="Areas\AppPage\Views\Gestion\DetalleGestionEmpresasAdmin.cshtml" />
     <Content Include="Areas\AppPage\Views\Licencias\Index.cshtml" />
     <Content Include="Areas\AppPage\Views\Inicio\SinPermiso.cshtml" />
-    <Content Include="Areas\AppPage\Views\Licencias\Ingreso.cshtml" />
     <Content Include="Assets\data\licencias.json" />
     <Content Include="Areas\AppPage\Views\Empresas\Index.cshtml" />
     <Content Include="Assets\data\empresas.json" />
@@ -1735,6 +1734,7 @@
     <Content Include="Areas\AppPage\Views\Empresas\Nuevo\Prospeccion.cshtml" />
     <Content Include="Areas\AppPage\Views\HerramientasGestion\CalculadoraCredito.cshtml" />
     <Content Include="Areas\AppPage\Views\Gestion\Oferta.cshtml" />
+    <Content Include="Areas\AppPage\Views\Licencias\Ingreso.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

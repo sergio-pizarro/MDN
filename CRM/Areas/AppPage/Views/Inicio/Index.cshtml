@@ -33,20 +33,6 @@
                         <div id="demo-lft-tab-1" class="tab-pane fade active in">
                             <form id="frm-data-afi">
                                 <div class="panel-body">
-
-                                    <div class="row" style="display:block;">
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-
-                                                <input type="text" class="form-control es-rut" name="AfiliadoRut" id="AfiliadoRut" tabindex="1" required placeholder="Ingresar Rut">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <button class="btn btn-primary" type="button" id="bt-buscar">Buscar Afiliado</button>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div id="totales">
                                         <div class="row">
 
@@ -315,36 +301,7 @@
 
         });
 
-        
-        $('.es-rut').mask('99.999.999-*');
-        $('#frm-data-afi').bootstrapValidator({
-            excluded: [':disabled', ':not(:visible)'],
-            feedbackIcons: [],
-            fields: {
-                AfiliadoRut: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Debe ingresar un rut'
-                        },
-                        callback: {
-                            message: 'Rut Invalido',
-                            callback: function (value, validator, $field) {
-                                return $.rut.validar(value);
-                            }
-                        }
-                    }
-                }
-
-            }
-        }).on('success.form.bv', function (e) {
-
-        });
-
-        $("#bt-buscar").on("click", function () {
-            var rutreplace = $("#AfiliadoRut").val().substring(10, $("#AfiliadoRut").length - 1)
-            var rut = rutreplace.replace(/\./g, '')
-            location.href = BASE_URL + "/motor/App/DatosAfiliados?RutAfiliado=" + rut
-        });
+       
 
     });
 
