@@ -429,5 +429,26 @@ namespace CRM.Business.Entity
         public float PorcentajeInteresado { get; set; }
     }
 
+    public class TrackingEjecutivoGestion
+    {
+        public string Campana { get; set; }
+        public int Asignados { get; set; }
+        public int Gestionados { get; set; }
+        public int Contactados { get; set; }
+        public int Interesados { get; set; }
+        public int Cursados { get; set; }
+    }
+
+    public class TrackinVencimientosGestiones
+    {
+        public int Vencidos { get; set; }
+        public int VenceHoy { get; set; }
+        public int VenceProx { get; set; }
+    }
+
+
+
+
+
 
 }

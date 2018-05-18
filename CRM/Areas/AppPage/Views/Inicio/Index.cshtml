@@ -4,37 +4,32 @@
 }
 
 
+
+
+
 <!--Page content-->
 <!--===================================================-->
 <div id="page-content">
-
-
     <div class="row">
         <div class="col-lg-12">
-
-
             <div class="tab-base">
-
                 <!--Nav Tabs-->
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_mymangement" class="tab-principal">Resumen de mi Gestión<span class="badge badge-purple" style="display:none;">15</span></a>
+                        <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_mymangement" class="tab-principal"><i class="demo-pli-male ic-user"></i>   Mi Motor<span class="badge badge-purple" style="display:none;">15</span></a>
                     </li>
                     <li class="" style="display:none;">
-                        <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_myoffice" class="tab-principal">Mi Oficina <span class="badge badge-purple" style="display:none;">5</span></a>
+                        <a data-toggle="tab" href="#demo-lft-tab-2" aria-expande d="false" id="tab_myoffice" class="tab-principal">Normalización<span class="badge badge-purple" style="display:none;">5</span></a>
                     </li>
                 </ul>
 
                 <!--Tabs Content-->
                 <div class="tab-content">
+                    <div id="demo-lft-tab-1" class="tab-pane fade active in">
+                        <form id="frm-data-afi">
+                            <div class="panel-body">
 
-                 
-
-                        <div id="demo-lft-tab-1" class="tab-pane fade active in">
-                            <form id="frm-data-afi">
-                                <div class="panel-body">
-
-                                    @*<div class="row" style="display:block;">
+                                @*<div class="row" style="display:block;">
                                         <div class="col-sm-3">
                                             <div class="form-group">
 
@@ -47,127 +42,102 @@
                                             </div>
                                         </div>
                                     </div>*@
-                                    <div id="totales">
-                                        <div class="row">
+                                <div id="totales" style="display:none;">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4>Mi Sucursal (Comercial)</h4>
+                                            <div id="demo-weather-widget-lg" class="panel panel-info">
+                                                <div class="panel-body">
+                                                    <div class="col-md-2">
 
-                                            <div class="col-sm-12">
-                                                <h4>Mi Sucursal (Comercial)</h4>
-                                                <div id="demo-weather-widget-lg" class="panel panel-info">
-                                                    <div class="panel-body">
-                                                        <div class="col-md-2">
-
-                                                            <div class="row pad-btm">
-                                                                <div class="col-md-4">
-                                                                    <p class="text-2x mar-no"><label style="font-weight:bold;" id="idPorcentajeGestionados">45%</label></p>
-                                                                    Gestión Sucursal
-                                                                </div>
+                                                        <div class="row pad-btm">
+                                                            <div class="col-md-4">
+                                                                <p class="text-2x mar-no"><label style="font-weight:bold;" id="idPorcentajeGestionados">45%</label></p>
+                                                                Gestión Sucursal
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="list-unstyled text-center clearfix">
+                                                            <table class="table  table-condensed">
+                                                                <thead>
+                                                                    <tr style="text-align:center">
+                                                                        <th style="text-align:center">Asignados</th>
+                                                                        <th style="text-align:center">Gestionados</th>
+                                                                        <th style="text-align:center">Contactados</th>
+                                                                        <th style="text-align:center">Presentados</th>
+                                                                        <th style="text-align:center">Aprobados</th>
+                                                                        <th style="text-align:center">Cursados</th>
+                                                                        <th style="text-align:center">Monto Neto Promedio</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="idTotalAsignados">668</label></td>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="idTotalGestionados">301</label> - <label style="font-weight:bold;" id="idPorcentajeGestionados2">45%</label></td>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="idTotalContactados">234</label> - <label style="font-weight:bold;" id="idPorcentajeContactados">78%</label></td>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="idTotalPresentados">46</label> - <label style="font-weight:bold;" id="idPorcentajePresentados">53%</label></td>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="idTotalAprobados">18</label> - <label style="font-weight:bold;" id="idPorcentajeAprobados">39%</label></td>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="idTotalCursados">17</label> - <label style="font-weight:bold;" id="idPorcentajeCursados">94%</label></td>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="idPromedioNeto">946.094</label></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
 
-
-
-                                                        <div class="col-md-10">
-                                                            <div class="list-unstyled text-center clearfix">
-                                                                <table class="table  table-condensed">
-                                                                    <thead>
-                                                                        <tr style="text-align:center">
-                                                                            <th style="text-align:center">Asignados</th>
-                                                                            <th style="text-align:center">Gestionados</th>
-                                                                            <th style="text-align:center">Contactados</th>
-                                                                            <th style="text-align:center">Presentados</th>
-                                                                            <th style="text-align:center">Aprobados</th>
-                                                                            <th style="text-align:center">Cursados</th>
-
-                                                                            <th style="text-align:center">Monto Neto Promedio</th>
-
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td><label style="font-weight:bold;text-align:center" id="idTotalAsignados">668</label></td>
-                                                                            <td><label style="font-weight:bold;text-align:center" id="idTotalGestionados">301</label> - <label style="font-weight:bold;" id="idPorcentajeGestionados2">45%</label></td>
-                                                                            <td><label style="font-weight:bold;text-align:center" id="idTotalContactados">234</label> - <label style="font-weight:bold;" id="idPorcentajeContactados">78%</label></td>
-                                                                            <td><label style="font-weight:bold;text-align:center" id="idTotalPresentados">46</label> - <label style="font-weight:bold;" id="idPorcentajePresentados">53%</label></td>
-                                                                            <td><label style="font-weight:bold;text-align:center" id="idTotalAprobados">18</label> - <label style="font-weight:bold;" id="idPorcentajeAprobados">39%</label></td>
-                                                                            <td><label style="font-weight:bold;text-align:center" id="idTotalCursados">17</label> - <label style="font-weight:bold;" id="idPorcentajeCursados">94%</label></td>
-
-                                                                            <td><label style="font-weight:bold;text-align:center" id="idPromedioNeto">946.094</label></td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
-
-
-
-
-                                        </div>
-
-
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <h4>Mi Gestión (Comercial)</h4>
-                                                <div id="demo-weather-widget-lg" class="panel panel-info">
-                                                    <div class="panel-body">
-                                                        <div class="col-md-2">
-
-                                                            <div class="row pad-btm">
-                                                                <div class="col-md-4">
-                                                                    <p class="text-2x mar-no"><label style="font-weight:bold;" id="MI_idPorcentajeGestionados">45%</label></p>
-                                                                    Mi Gestión
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-
-
-                                                        <div class="col-md-10">
-                                                            <div class="list-unstyled text-center clearfix">
-                                                                <table class="table  table-condensed">
-                                                                    <thead>
-                                                                        <tr style="text-align:center">
-                                                                            <th style="text-align:center">Asignados</th>
-                                                                            <th style="text-align:center">Gestionados</th>
-                                                                            <th style="text-align:center">Contactados</th>
-                                                                            <th style="text-align:center">Presentados</th>
-                                                                            <th style="text-align:center">Aprobados</th>
-                                                                            <th style="text-align:center">Cursados</th>
-
-                                                                            <th style="text-align:center">Monto Neto Promedio</th>
-
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td><label style="font-weight:bold;text-align:center" id="MI_idTotalAsignados">668</label></td>
-                                                                            <td><label style="font-weight:bold;text-align:center" id="MI_idTotalGestionados">301</label> - <label style="font-weight:bold;" id="MI_idPorcentajeGestionados2">45%</label></td>
-                                                                            <td><label style="font-weight:bold;text-align:center" id="MI_idTotalContactados">234</label> - <label style="font-weight:bold;" id="MI_idPorcentajeContactados">78%</label></td>
-                                                                            <td><label style="font-weight:bold;text-align:center" id="MI_idTotalPresentados">46</label> - <label style="font-weight:bold;" id="MI_idPorcentajePresentados">53%</label></td>
-                                                                            <td><label style="font-weight:bold;text-align:center" id="MI_idTotalAprobados">18</label> - <label style="font-weight:bold;" id="MI_idPorcentajeAprobados">39%</label></td>
-                                                                            <td><label style="font-weight:bold;text-align:center" id="MI_idTotalCursados">17</label> - <label style="font-weight:bold;" id="MI_idPorcentajeCursados">94%</label></td>
-                                                                            <td><label style="font-weight:bold;text-align:center" id="MI_idPromedioNeto">946.094</label></td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-
                                         </div>
                                     </div>
-                                    <div id="bdafiliado"  style="display:none;">
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4>Mi Gestión (Comercial)</h4>
+                                            <div id="demo-weather-widget-lg" class="panel panel-info">
+                                                <div class="panel-body">
+                                                    <div class="col-md-2">
+                                                        <div class="row pad-btm">
+                                                            <div class="col-md-4">
+                                                                <p class="text-2x mar-no"><label style="font-weight:bold;" id="MI_idPorcentajeGestionados">45%</label></p>
+                                                                Mi Gestión
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="list-unstyled text-center clearfix">
+                                                            <table class="table  table-condensed">
+                                                                <thead>
+                                                                    <tr style="text-align:center">
+                                                                        <th style="text-align:center">Asignados</th>
+                                                                        <th style="text-align:center">Gestionados</th>
+                                                                        <th style="text-align:center">Contactados</th>
+                                                                        <th style="text-align:center">Presentados</th>
+                                                                        <th style="text-align:center">Aprobados</th>
+                                                                        <th style="text-align:center">Cursados</th>
+                                                                        <th style="text-align:center">Monto Neto Promedio</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="MI_idTotalAsignados">668</label></td>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="MI_idTotalGestionados">301</label> - <label style="font-weight:bold;" id="MI_idPorcentajeGestionados2">45%</label></td>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="MI_idTotalContactados">234</label> - <label style="font-weight:bold;" id="MI_idPorcentajeContactados">78%</label></td>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="MI_idTotalPresentados">46</label> - <label style="font-weight:bold;" id="MI_idPorcentajePresentados">53%</label></td>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="MI_idTotalAprobados">18</label> - <label style="font-weight:bold;" id="MI_idPorcentajeAprobados">39%</label></td>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="MI_idTotalCursados">17</label> - <label style="font-weight:bold;" id="MI_idPorcentajeCursados">94%</label></td>
+                                                                        <td><label style="font-weight:bold;text-align:center" id="MI_idPromedioNeto">946.094</label></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="bdafiliado" style="display:none;">
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <div class="form-group">
@@ -184,7 +154,6 @@
                                         <div class="col-sm-3">
                                         </div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <div class="form-group">
@@ -199,45 +168,141 @@
                                             </div>
                                         </div>
                                     </div>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label class="control-label">Segmento</label>
-                                                    <input type="text" class="form-control" readonly="readonly" id="Segmento"  value="Privado">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Segmento</label>
+                                                <input type="text" class="form-control" readonly="readonly" id="Segmento" value="Privado">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Pre-Aprobado</label>
+                                                <div class="input-group mar-btm">
+                                                    <span class="input-group-addon"><i class="demo-pli-wallet-2"></i></span>
+                                                    <input class="form-control text-lg-right" id="afi_preaprobado" type="text" value="4.300.000" readonly="readonly">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Pre-Aprobado</label>
-                                                    <div class="input-group mar-btm">
-                                                        <span class="input-group-addon"><i class="demo-pli-wallet-2"></i></span>
-                                                        <input class="form-control text-lg-right" id="afi_preaprobado" type="text" value="4.300.000" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="bdy_Brutas" class="panel-body">
+
+                                <div class="col-sm-12">
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <div class="pad-all">
+                                                <p class="text-lg text-semibold"><i class="demo-pli-check icon-fw"></i> Mi Gestión Comercial</p>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div id="LinealBruto">
+                                                <div class="row">
+                                                    <div class="pad-all text-center" style="float: left;">
+                                                        <canvas id="demo-gauge" height="107" class="canvas-responsive"></canvas>
+                                                        <p>
+                                                            <span id="demo-gauge-text" class="text-lg text-semibold"></span>%
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="col-sm-3">
+                                                        <table class="table table-hover table-vcenter" style="font-size: 11px;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="min-width"></th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="text-center"><i class="demo-pli-information icon-lg icon-fw"></i></td>
+                                                                    <td>
+                                                                        <span class="text-main text-semibold">Asignados</span>
+                                                                        <span class="text-success text-semibold" style="float: right;" id="asigComercial">0.0</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-center"><i class="demo-pli-information icon-lg icon-fw"></i></td>
+                                                                    <td>
+                                                                        <span class="text-main text-semibold">Gestionados</span>
+                                                                        <span class="text-success text-semibold" style="float: right;" id="gestComercial">0.0</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-center"><i class="demo-pli-information icon-lg icon-fw"></i></td>
+                                                                    <td>
+                                                                        <span class="text-main text-semibold">Contactados</span>
+                                                                        <span class="text-success text-semibold" style="float: right;" id="contacComercial">0.0</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-center"><i class="demo-pli-information icon-lg icon-fw"></i></td>
+                                                                    <td>
+                                                                        <span class="text-main text-semibold">Interesados</span>
+                                                                        <span class="text-success text-semibold" style="float: right;" id="InterComercial">0.0</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-center"><i class="demo-pli-information icon-lg icon-fw"></i></td>
+                                                                    <td>
+                                                                        <span class="text-main text-semibold">Cursados</span>
+                                                                        <span class="text-success text-semibold" style="float: right;" id="CursComercial">0.0</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <table class="table table-hover table-vcenter" style="font-size: 11px;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="min-width"></th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="text-center"><i class="demo-pli-information icon-lg icon-fw"></i></td>
+                                                                    <td>
+                                                                        <span class="text-main text-semibold">Gestiones Vencidas</span>
+                                                                        <span class="text-danger text-semibold" style="float: right;" id="gestVencido">0.0</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-center"><i class="demo-pli-information icon-lg icon-fw"></i></td>
+                                                                    <td>
+                                                                        <span class="text-main text-semibold">Gestiones a vencer hoy</span>
+                                                                        <span class="text-warning text-semibold" style="float: right;" id="gestVenceHoy">0.0</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-center"><i class="demo-pli-information icon-lg icon-fw"></i></td>
+                                                                    <td>
+                                                                        <span class="text-main text-semibold">Gestiones a vencer 5 dias</span>
+                                                                        <span class="text-primary text-semibold" style="float: right;" id="gestVenceProx">0.0</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-                                   
-                            </form>
-</div>
-                    
-                    <div id="demo-lft-tab-2" class="tab-pane fade">
-                        <div class="panel-body">
-
-                        </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-
+                    <div id="demo-lft-tab-2" class="tab-pane fade">
+                        Prueba 1
+                    </div>
                 </div>
             </div>
         </div>
-
-
         <input type="hidden" id="PrincipalTabActivo" value="1" />
     </div>
-
-
-
 </div>
 <!--===================================================-->
 <!--End page content-->
@@ -249,141 +314,191 @@
     <!--Masked Input [ OPTIONAL ]-->
     <script src="~/Assets/plugins/masked-input/jquery.maskedinput.min.js"></script>
     <script src="~/Assets/js/jquery.rut.chileno.min.js"></script>
-<script>
-
-
-    $(function () {
-
-
-        var today = new Date()
-        var tperiodo = today.getFullYear().toString() + (today.getMonth() + 1).toString().paddingLeft("00");
+    <script src="~/Assets/plugins/gauge-js/gauge.min.js"></script>
+    <script>
 
 
 
+    </script>
 
-        $.SecGetJSON(BASE_URL + "/motor/api/Informes/lista-traking-totalEjecutivo2", { Periodo: tperiodo }, function (menus) {
-
-
-            if (getCookie("Cargo") == "Ejecutivo NormalizaciÃ³n" || getCookie("Cargo") == "Ejecutivo GestiÃ³n de NÃ³mina") {
-                $("#demo-lft-tab-1").hide();
-               // $("#totales").show();
-                return false;
-              
-            }
+    <script>
 
 
-
-            $("#MI_idTotalAsignados").html(menus.SumaAsignadosWidEjec.toMoney());
-            $("#MI_idTotalGestionados").text(menus.SumaGestionadosWidEjec);
-            $("#MI_idNombreEjecutivo").text(menus.nombreEjecutivo);
-            $("#MI_idFechaActualizacion").text(menus.ActualizacionEjec);
-            $("#MI_idPorcentajeGestionados").text((menus.SumaPorcentajeGestionadoWidEjec).toMoney(0) + '%');
-            $("#MI_idPorcentajeGestionados2").text((menus.SumaPorcentajeGestionadoWidEjec).toMoney(0) + '%');
-            $("#MI_idTotalContactados").text(menus.SumaContactadosWidEjec);
-            $("#MI_idPorcentajeContactados").text((menus.SumaPorcentajeContactadosWidEjec).toMoney(0) + '%');
-            $("#MI_idTotalPresentados").text(menus.SumaPresentadosWidEjec);
-            $("#MI_idPorcentajePresentados").text((menus.SumaPorcentajePresentadosWidEjec).toMoney(0) + '%');
-            $("#MI_idTotalAprobados").text(menus.SumaAprobadosWidEjec);
-            $("#MI_idPorcentajeAprobados").text((menus.SumaPorcentajeAprobadosWidEjec).toMoney(0) + '%');
-            $("#MI_idTotalCursados").text(menus.SumaCursadosWidEjec);
-            $("#MI_idPorcentajeCursados").text((menus.SumaPorcentajeCursadosWidEjec).toMoney(0) + '%');
-            $("#MI_idPromedioNeto").text(menus.MontoNetoPromWidEjec.toMoney());
-
-        });
+        $(function () {
 
 
-        $.SecGetJSON(BASE_URL + "/motor/api/Informes/lista-traking-total", { periodo: tperiodo }, function (menus) {
-
-            $("#idTotalAsignados").html(menus.SumaAsignadosWid.toMoney());
-            $("#idTotalGestionados").text(menus.SumaGestionadosWid);
-            $("#IdDiaHAbil").text(menus.diaHabilActual);
-            $("#idFechaActualizacion").text(menus.Actualizacion);
-            $("#idSucursal").text(menus.Oficina);
-            $("#idPorcentajeGestionados2").text((menus.SumaPorcentajeGestionadoWid).toMoney(0) + '%');
-            $("#idPorcentajeGestionados").text((menus.SumaPorcentajeGestionadoWid).toMoney(0) + '%');
-            $("#idTotalContactados").text(menus.SumaContactadosWid);
-            $("#idPorcentajeContactados").text((menus.SumaPorcentajeContactadosWid).toMoney(0) + '%');
-            $("#idTotalPresentados").text(menus.SumaPresentadosWid);
-            $("#idPorcentajePresentados").text((menus.SumaPorcentajePresentadosWid).toMoney(0) + '%');
-            $("#idTotalAprobados").text(menus.SumaAprobadosWid);
-            $("#idPorcentajeAprobados").text((menus.SumaPorcentajeAprobadosWid).toMoney(0) + '%');
-            $("#idTotalCursados").text(menus.SumaCursadosWid);
-            $("#idPorcentajeCursados").text((menus.SumaPorcentajeCursadosWid).toMoney(0) + '%');
-            $("#idPromedioNeto").text(menus.MontoNetoPromWid.toMoney());
+            var today = new Date()
+            var tperiodo = today.getFullYear().toString() + (today.getMonth() + 1).toString().paddingLeft("00");
 
 
 
-        });
 
-        
-        $('.es-rut').mask('99.999.999-*');
-        $('#frm-data-afi').bootstrapValidator({
-            excluded: [':disabled', ':not(:visible)'],
-            feedbackIcons: [],
-            fields: {
-                AfiliadoRut: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Debe ingresar un rut'
-                        },
-                        callback: {
-                            message: 'Rut Invalido',
-                            callback: function (value, validator, $field) {
-                                return $.rut.validar(value);
+            $.SecGetJSON(BASE_URL + "/motor/api/Informes/lista-traking-totalEjecutivo2", { Periodo: tperiodo }, function (menus) {
+
+
+                if (getCookie("Cargo") == "Ejecutivo NormalizaciÃ³n" || getCookie("Cargo") == "Ejecutivo GestiÃ³n de NÃ³mina") {
+                    $("#demo-lft-tab-1").hide();
+                    //$("#totales").show();
+                    return false;
+
+                }
+
+                $("#MI_idTotalAsignados").html(menus.SumaAsignadosWidEjec.toMoney());
+                $("#MI_idTotalGestionados").text(menus.SumaGestionadosWidEjec);
+                $("#MI_idNombreEjecutivo").text(menus.nombreEjecutivo);
+                $("#MI_idFechaActualizacion").text(menus.ActualizacionEjec);
+                $("#MI_idPorcentajeGestionados").text((menus.SumaPorcentajeGestionadoWidEjec).toMoney(0) + '%');
+                $("#MI_idPorcentajeGestionados2").text((menus.SumaPorcentajeGestionadoWidEjec).toMoney(0) + '%');
+                $("#MI_idTotalContactados").text(menus.SumaContactadosWidEjec);
+                $("#MI_idPorcentajeContactados").text((menus.SumaPorcentajeContactadosWidEjec).toMoney(0) + '%');
+                $("#MI_idTotalPresentados").text(menus.SumaPresentadosWidEjec);
+                $("#MI_idPorcentajePresentados").text((menus.SumaPorcentajePresentadosWidEjec).toMoney(0) + '%');
+                $("#MI_idTotalAprobados").text(menus.SumaAprobadosWidEjec);
+                $("#MI_idPorcentajeAprobados").text((menus.SumaPorcentajeAprobadosWidEjec).toMoney(0) + '%');
+                $("#MI_idTotalCursados").text(menus.SumaCursadosWidEjec);
+                $("#MI_idPorcentajeCursados").text((menus.SumaPorcentajeCursadosWidEjec).toMoney(0) + '%');
+                $("#MI_idPromedioNeto").text(menus.MontoNetoPromWidEjec.toMoney());
+
+                var opts = {
+                    lines: 10, // The number of lines to draw
+                    angle: 0, // The length of each line
+                    lineWidth: 0.41, // The line thickness
+                    radiusScale: 1, // Relative radius
+                    pointer: {
+                        length: 0.75, // The radius of the inner circle
+                        strokeWidth: 0.035, // The rotation offset
+                        color: 'rgba(0, 0, 0, 0.38)' // Fill color
+                    },
+                    limitMax: 'true', // If true, the pointer will not go past the end of the gauge
+                    colorStart: '#42a5f5', // Colors
+                    colorStop: '#42a5f5', // just experiment with them
+                    strokeColor: '#8bc34a', // to see which ones work best for you
+                    generateGradient: true,
+                    highDpiSupport: true,
+                };
+
+
+                var target = document.getElementById('demo-gauge'); // your canvas element
+                var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+                gauge.maxValue = 100; // set max gauge value
+                gauge.setMinValue = 20;
+                gauge.animationSpeed = 54; // set animation speed (32 is default value)
+                gauge.set((menus.SumaPorcentajeGestionadoWidEjec).toMoney(0)); // set actual value
+                gauge.setTextField(document.getElementById("demo-gauge-text"));
+
+            });
+
+
+            $.SecGetJSON(BASE_URL + "/motor/api/Informes/lista-traking-total", { periodo: tperiodo }, function (menus) {
+
+                $("#idTotalAsignados").html(menus.SumaAsignadosWid.toMoney());
+                $("#idTotalGestionados").text(menus.SumaGestionadosWid);
+                $("#IdDiaHAbil").text(menus.diaHabilActual);
+                $("#idFechaActualizacion").text(menus.Actualizacion);
+                $("#idSucursal").text(menus.Oficina);
+                $("#idPorcentajeGestionados2").text((menus.SumaPorcentajeGestionadoWid).toMoney(0) + '%');
+                $("#idPorcentajeGestionados").text((menus.SumaPorcentajeGestionadoWid).toMoney(0) + '%');
+                $("#idTotalContactados").text(menus.SumaContactadosWid);
+                $("#idPorcentajeContactados").text((menus.SumaPorcentajeContactadosWid).toMoney(0) + '%');
+                $("#idTotalPresentados").text(menus.SumaPresentadosWid);
+                $("#idPorcentajePresentados").text((menus.SumaPorcentajePresentadosWid).toMoney(0) + '%');
+                $("#idTotalAprobados").text(menus.SumaAprobadosWid);
+                $("#idPorcentajeAprobados").text((menus.SumaPorcentajeAprobadosWid).toMoney(0) + '%');
+                $("#idTotalCursados").text(menus.SumaCursadosWid);
+                $("#idPorcentajeCursados").text((menus.SumaPorcentajeCursadosWid).toMoney(0) + '%');
+                $("#idPromedioNeto").text(menus.MontoNetoPromWid.toMoney());
+
+
+
+            });
+
+            $.SecGetJSON(BASE_URL + "/motor/api/Informes/obtener-gestion-comercial", function (menus) {
+
+                $("#asigComercial").html(menus.Asignados);
+                $("#gestComercial").html(menus.Gestionados);
+                $("#contacComercial").html(menus.Contactados);
+                $("#InterComercial").html(menus.Interesados);
+                $("#CursComercial").html(menus.Cursados);
+
+            });
+
+
+
+            $.SecGetJSON(BASE_URL + "/motor/api/Informes/obtener-gestion-comercial-vencidas", function (menus) {
+
+                $("#gestVencido").html(menus.Vencidos);
+                $("#gestVenceHoy").html(menus.VenceHoy);
+                $("#gestVenceProx").html(menus.VenceProx);
+
+            });
+
+
+
+
+            $('.es-rut').mask('99.999.999-*');
+            $('#frm-data-afi').bootstrapValidator({
+                excluded: [':disabled', ':not(:visible)'],
+                feedbackIcons: [],
+                fields: {
+                    AfiliadoRut: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe ingresar un rut'
+                            },
+                            callback: {
+                                message: 'Rut Invalido',
+                                callback: function (value, validator, $field) {
+                                    return $.rut.validar(value);
+                                }
                             }
                         }
                     }
+
                 }
+            }).on('success.form.bv', function (e) {
 
-            }
-        }).on('success.form.bv', function (e) {
+            });
 
-        });
+            $("#bt-buscar").on("click", function () {
+                var rut = $("#AfiliadoRut").val().substring(9, $("#AfiliadoRut").length - 1)
 
-        $("#bt-buscar").on("click", function () {
-            var rut = $("#AfiliadoRut").val().substring(9, $("#AfiliadoRut").length - 1)
-         
-            if ($("#AfiliadoRut").val().length > 7) {
-                $.SecGetJSON(BASE_URL + "/motor/api/Licencias/datos-afiliado", { AfiliadoRut: $("#AfiliadoRut").val() }, function (respuesta) {
-                    if (respuesta.Estado === "OK") {
-                        if (respuesta.Objeto.logField.codRespuestaField != 5) {
-                             
-                            $("#totales").hide();
-                            $("#bdafiliado").show();
-                            $("#AfiNombres").val(respuesta.Objeto.datosAfiliado1Field.nombresField + " " + respuesta.Objeto.datosAfiliado1Field.apellidoPaternoField + " " + respuesta.Objeto.datosAfiliado1Field.apellidoMaternoField)
-                            $("#EmpresaRut").val(respuesta.Objeto.empresasField[0].rutEmpresaField);
-                            $("#EmpresaNombre").val(respuesta.Objeto.empresasField[0].razonSocialField);
-                            console.log(respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.substring(0, respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.length - 2))
-                            console.log($("#AfiliadoRut").val().substring(0, $("#AfiliadoRut").val().length - 2))
-                            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-afi", { AfiliadoRut: respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.substring(0, respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.length - 2) }, function (respuesta1) {
-                            });
+                if ($("#AfiliadoRut").val().length > 7) {
+                    $.SecGetJSON(BASE_URL + "/motor/api/Licencias/datos-afiliado", { AfiliadoRut: $("#AfiliadoRut").val() }, function (respuesta) {
+                        if (respuesta.Estado === "OK") {
+                            if (respuesta.Objeto.logField.codRespuestaField != 5) {
+
+                                $("#totales").hide();
+                                $("#bdafiliado").show();
+                                $("#AfiNombres").val(respuesta.Objeto.datosAfiliado1Field.nombresField + " " + respuesta.Objeto.datosAfiliado1Field.apellidoPaternoField + " " + respuesta.Objeto.datosAfiliado1Field.apellidoMaternoField)
+                                $("#EmpresaRut").val(respuesta.Objeto.empresasField[0].rutEmpresaField);
+                                $("#EmpresaNombre").val(respuesta.Objeto.empresasField[0].razonSocialField);
+                                console.log(respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.substring(0, respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.length - 2))
+                                console.log($("#AfiliadoRut").val().substring(0, $("#AfiliadoRut").val().length - 2))
+                                $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-afi", { AfiliadoRut: respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.substring(0, respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.length - 2) }, function (respuesta1) {
+                                });
+                            } else {
+                                $("#AfiNombres").val("");
+                                $("AfiliadoRut2").val("");
+                                $("#EmpresaRut").val("");
+                                $("#EmpresaNombre").val("");
+                            }
+
+
                         } else {
-                            $("#AfiNombres").val("");
-                            $("AfiliadoRut2").val("");
-                            $("#EmpresaRut").val("");
-                            $("#EmpresaNombre").val("");
+                            $.niftyNoty({
+                                type: 'danger',
+                                container: 'floating',
+                                html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                                focus: false,
+                                timer: 3000
+                            });
                         }
 
+                    });
 
-                    } else {
-                        $.niftyNoty({
-                            type: 'danger',
-                            container: 'floating',
-                            html: '<strong>Error</strong> ' + respuesta.Mensaje,
-                            focus: false,
-                            timer: 3000
-                        });
-                    }
-                
-                });
-              
-
-
-
-            }
+                }
+            });
         });
 
-    });
-
-</script>
-    }
+    </script>
+}

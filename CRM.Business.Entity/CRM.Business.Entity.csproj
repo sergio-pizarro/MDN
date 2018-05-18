@@ -64,6 +64,7 @@
     <Compile Include="Clases\WebCall.cs" />
     <Compile Include="Clases\WebCarteraEmpresa.cs" />
     <Compile Include="Clases\WebGestion.cs" />
+    <Compile Include="Clases\WebInstalador.cs" />
     <Compile Include="Clases\WebLicencia.cs" />
     <Compile Include="ConfirmDotacion.cs" />
     <Compile Include="ContactoafiliadoEntity.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="GestionEntity.cs" />
     <Compile Include="IngresoCarteraEmpresa.cs" />
     <Compile Include="Ingresolicencia.cs" />
+    <Compile Include="InstaladorEntity.cs" />
     <Compile Include="LicenciaEntity.cs" />
     <Compile Include="Log\LogcalculadoraEntity.cs" />
     <Compile Include="Maestros\EmpresasEntity.cs" />

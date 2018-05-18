@@ -72,6 +72,7 @@
     <Compile Include="InformesDataAccess.cs" />
     <Compile Include="IngresoCarteraEmpresaDataAccess.cs" />
     <Compile Include="IngresolicenciaDataAccess.cs" />
+    <Compile Include="InstalacionDataAccess.cs" />
     <Compile Include="LicenciaDataAccess.cs" />
     <Compile Include="Log\LogcalculadoraDataAccess.cs" />
     <Compile Include="Maestros\EmpresasDataAccess.cs" />

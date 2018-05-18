@@ -15,7 +15,7 @@ namespace CRM.Controllers
         private string baseUrl = ConfigurationManager.AppSettings["ServidorApi"];
         public ActionResult Index()
         {
-            if(Request.Browser.Type.ToUpper().Contains("IE"))
+            if (Request.Browser.Type.ToUpper().Contains("IE"))
             {
                 return View();
             }
@@ -23,8 +23,7 @@ namespace CRM.Controllers
             {
                 return Redirect("/motor/Home/Acceso");
             }
-        }       
-
+        }
 
         public ActionResult Acceso(string RutEjecutivo, string ClaveEjecutivo)
         {
@@ -32,11 +31,9 @@ namespace CRM.Controllers
             {
                 if (RutEjecutivo != null)
                 {
-                    
                     AutenticarLdapService.AutenticarLdapDelegateClient ServicioAuth = new AutenticarLdapService.AutenticarLdapDelegateClient();
                     ServicioAuth.ClientCredentials.UserName.UserName = "SOAPCES";
                     ServicioAuth.ClientCredentials.UserName.Password = "r{91u5#0T.k2)9Y";
-
 
                     AutenticarLdapService.entradaAutenticarLdap usrData = new AutenticarLdapService.entradaAutenticarLdap()
                     {
@@ -54,12 +51,8 @@ namespace CRM.Controllers
                         RespuestaAuth = ServicioAuth.autenticarUsuario(usrData);
                     }
 
-                    
-
                     if (RespuestaAuth.log.codRespuesta.Equals("3"))
                     {
-                        
-
                         var client = new RestClient(baseUrl + "/motor/api");
                         var request = new RestRequest("Auth/authenticate", Method.GET);
                         request.AddQueryParameter("re", RutEjecutivo);
@@ -97,7 +90,7 @@ namespace CRM.Controllers
 
                             int multi = Convert.ToInt32(response.Headers.Where(x => x.Name == "Multi").FirstOrDefault().Value.ToString());
 
-                            if(multi > 1)
+                            if (multi > 1)
                             {
                                 ViewBag.Modo = "MULTISELECT";
                                 ViewBag.Logins = CRM.Business.Data.DotacionDataAccess.MultiLoginByRut(RutEjecutivo);
@@ -170,8 +163,6 @@ namespace CRM.Controllers
                             ViewBag.CodError = "NO_EJEC";
                             return View();
                         }
-
-                        
                     }
                 }
                 else
@@ -185,12 +176,9 @@ namespace CRM.Controllers
             }
         }
 
-
-
         public ActionResult AccesoAdmin(string RE)
         {
-
-            if(RE != null)
+            if (RE != null)
             {
                 var client = new RestClient(baseUrl + "/motor/api");
                 var request = new RestRequest("Auth/authenticate", Method.GET);
@@ -227,20 +215,27 @@ namespace CRM.Controllers
                     ofiCookie.Expires = DateTime.Now.AddDays(1);
                     Response.Cookies.Add(ofiCookie);
 
+                    int install = Convert.ToInt32(response.Headers.Where(x => x.Name == "Instalar").FirstOrDefault().Value.ToString());
                     int multi = Convert.ToInt32(response.Headers.Where(x => x.Name == "Multi").FirstOrDefault().Value.ToString());
 
-                    if (multi > 1)
+                    if (install > 0)
                     {
-                        ViewBag.Modo = "MULTISELECT";
-                        ViewBag.Logins = CRM.Business.Data.DotacionDataAccess.MultiLoginByRut(RE);
-                        return View("Acceso");
-                    }
-                    else
-                    {
-                        return Redirect(response.Headers.Where(x => x.Name == "Location").FirstOrDefault().Value.ToString());
+                        return Redirect("../Home/Instalador?i="+ install.ToString());
                     }
 
-                    
+                    else
+                    {
+                        if (multi > 1)
+                        {
+                            ViewBag.Modo = "MULTISELECT";
+                            ViewBag.Logins = CRM.Business.Data.DotacionDataAccess.MultiLoginByRut(RE);
+                            return View("Acceso");
+                        }
+                        else
+                        {
+                            return Redirect(response.Headers.Where(x => x.Name == "Location").FirstOrDefault().Value.ToString());
+                        }
+                    }
                 }
 
                 return Redirect("/motor/home/Acceso");
@@ -249,13 +244,10 @@ namespace CRM.Controllers
             {
                 return View();
             }
-            
         }
-
 
         public RedirectResult AccesoAdminInforme(string RE)
         {
-
             var client = new RestClient(baseUrl + "/motor/api");
             var request = new RestRequest("Auth/authenticate", Method.GET);
             request.AddQueryParameter("re", RE);
@@ -299,7 +291,9 @@ namespace CRM.Controllers
             return Redirect("/motor/home/Acceso");
         }
 
-
-
+        public ActionResult Instalador()
+        {
+            return View();
+        }
     }
 }
