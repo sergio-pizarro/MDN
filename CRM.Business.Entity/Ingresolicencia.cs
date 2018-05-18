@@ -100,7 +100,7 @@ namespace CRM.Business.Entity
         public string Lm_Actualizacion { get; set; }
 
         public bool Editable { get; set; }
-
+        public int OficinaDerivacion { get; set; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Ingresolicencia"/>.
         /// </summary>
@@ -122,6 +122,7 @@ namespace CRM.Business.Entity
             Editable = true;
 
             FlagLM = string.Empty;
+            OficinaDerivacion = 0;
         }
     }
 }

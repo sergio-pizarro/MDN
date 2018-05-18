@@ -30,7 +30,7 @@
                 <form id="frm-data-lc">
                     <div class="panel-body">
 
-                      
+
                         <div class="row">
                             <div class="col-sm-3">
                                 <div class="form-group">
@@ -72,54 +72,58 @@
                             <div class="col-sm-5">
                                 <div class="form-group">
                                     <label class="control-label">Formato Licencia</label>
-                                    
                                     <div class="radio">
-
                                         <!-- Inline radio buttons -->
                                         <input id="radio-formato-manual-lm" class="magic-radio" type="radio" name="radio-formato-licencia" checked="checked">
                                         <label for="radio-formato-manual-lm">Manual</label>
-
-                                       <!-- <input id="radio-formato-electronico-lm" class="magic-radio" type="radio" name="radio-formato-licencia">
-                                        <label for="radio-formato-electronico-lm">Electrónica</label> -->
-
+                                        <!-- <input id="radio-formato-electronico-lm" class="magic-radio" type="radio" name="radio-formato-licencia">
+                                         <label for="radio-formato-electronico-lm">Electrónica</label> -->
                                         <input id="radio-formato-mixto-lm" class="magic-radio" type="radio" name="radio-formato-licencia">
                                         <label for="radio-formato-mixto-lm">Mixta</label>
-
-
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="checkbox pad-top">
+                                        <label>
+                                            <input type="checkbox" name="DerivarLM" id="DerivarLM" tabindex="2"> Derivar Licencia
+                                        </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+
                         <div class="row">
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label">Numero Licencia</label>
-                                    
-                                        <input type="text" class="form-control" name="FolioLic" id="FolioLic" tabindex="3" >
-                                    
-                                    
+                                    <input type="text" class="form-control" name="FolioLic" id="FolioLic" tabindex="3">
                                 </div>
                             </div>
-
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label">Dias Licencia</label>
-                                    <input type="text" class="form-control validatore" id="DiasLM" name="DiasLM" tabindex="6" readonly="readonly" >
+                                    <input type="text" class="form-control validatore" id="DiasLM" name="DiasLM" tabindex="6" readonly="readonly">
                                 </div>
                             </div>
-                            <div class="col-sm-2">
+
+
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <input type="text" class="form-control validatore" id="FormLM" name="FormLM" tabindex="7" readonly="readonly" value="Manual" style="display:none;">
+                                    <label class="control-label">Derivar LM a:</label>
+                                    <select class="form-control" id="sslOfiDerivacion" name="OfiDerivacion " disabled="disabled"></select>
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="row">
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label">Fecha Desde</label>
-                                    <input type="text" id="FechaDesdeLM" name="FechaDesdeLM" class="form-control demo-msk-date validatore" placeholder="dd/mm/yyyy" tabindex="5" readonly="readonly" >
+                                    <input type="text" id="FechaDesdeLM" name="FechaDesdeLM" class="form-control demo-msk-date validatore" placeholder="dd/mm/yyyy" tabindex="5" readonly="readonly">
                                 </div>
                             </div>
 
@@ -127,6 +131,11 @@
                                 <div class="form-group">
                                     <label class="control-label">Fecha Hasta</label>
                                     <input type="text" id="FechaHastaLM" class="form-control demo-msk-date" placeholder="dd/mm/yyyy" readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control validatore" id="FormLM" name="FormLM" tabindex="7" readonly="readonly" value="Manual" style="display:none;">
                                 </div>
                             </div>
                         </div>
@@ -177,7 +186,7 @@
                         <hr />
 
                         <div class="row" id="checkList">
-                            
+
                             <div class="form-group pad-ver">
                                 <div class="col-md-4" id="doc_check" style="display:none;">
                                     <h4 class="title">Documentos Recepcionados</h4>
@@ -277,11 +286,33 @@
 
         $(function () {
             var CodIng = httpGet("ci");
-            
+            $("#DerivarLM").on("click", function () {
+                if (DerivarLM.checked) {
+                    $("#sslOfiDerivacion").prop("disabled", false);
+                } else {
+                    $("#sslOfiDerivacion").prop("disabled", true);
+                }
+            });
+
+
+            $.SecGetJSON(BASE_URL + "/motor/api/Licencias/listar-suc-derivacion", function (datos) {
+                $("#sslOfiDerivacion").html("");
+                $.each(datos, function (i, oficina) {
+                    $("#sslOfiDerivacion").append($("<option>").val(oficina.codOficina).html(oficina.DescOficina));
+                });
+            });
+            $("#sslOfiDerivacion").on("change", function (e) {
+
+                $(this).val()
+
+            });
+
+
+
 
             var cargador = {
                 cargaLC: function (CodIng) {
-                
+
                     $.SecGetJSON(BASE_URL + "/motor/api/Licencias/licencia-data", { codIngreso: CodIng }, function (response) {
 
                         $("#AfiliadoRut").val(response.IngresoData.RutAfiliado);
@@ -290,7 +321,7 @@
                         if (response.IngresoData.FormatoLM == 'Mixta') {
                             $("#radio-formato-mixto-lm").prop('checked', true)
                             $("#radio-formato-mixto-lm").trigger("change")
-                            
+
                             if ($("#FolioLic").val().length == 9) {
                                 $('#FolioLic').mask('9-9999999-*');
                             }
@@ -299,6 +330,14 @@
                             }
                         }
                         $("#FolioLic").val(response.IngresoData.FolioLicencia);
+                        $.SecGetJSON(BASE_URL + "/motor/api/Licencias/listar-suc-derivacion", function (datos) {
+                            $("#sslOfiDerivacion").html("");
+                            $("#sslOfiDerivacion").attr("disabled", true);
+                            $.each(datos, function (i, oficina) {
+                                var selected = (oficina.codOficina == response.IngresoData.OficinaDerivacion)
+                                $("#sslOfiDerivacion").append($("<option>").val(oficina.codOficina).html(oficina.DescOficina).prop("selected", selected));
+                            });
+                        });
                         //$('#FolioLic').mask('999999?9999*');
                         //$("#DiasLM").val(response.IngresoData.CantidadDiasLM);
                         //$("#FechaDesdeLM").val(response.IngresoData.FechaDesdeLM);
@@ -315,7 +354,7 @@
                         CodIngreso: (typeof CodIng != "undefined") ? CodIng : 0,
                         CodOficina: getCookie("Oficina"),
                         RutAfiliado: $("#AfiliadoRut").val(),
-                        NombreAfiliado: $("#AfiNombres").val().length > 0 ? $("#AfiNombres").val() :  "-",
+                        NombreAfiliado: $("#AfiNombres").val().length > 0 ? $("#AfiNombres").val() : "-",
                         FolioLc: $("#FolioLic").val(),
                         SinDatosEnSistema: $("#SistemaNoData").is(":checked"),
                         FormatoLM: $("#FormLM").val(),
@@ -324,16 +363,17 @@
                         FechaInicioLM: $("#FechaDesdeLM").val(),
                         FechaHastaLM: $("#FechaHastaLM").val(),
                         TipoLM: $("#TipoLM").val(),
+                        OfiDerivacion: $("#sslOfiDerivacion").val(),
                         //Los Documentos
                         DocumentacionLM: []
-                       // 
+                        //
                     }
 
-                   
+
                     //$.each($(':checkbox'), function (i, e) {
                     //    WebIngresoLicencia.DocumentacionLM.push({ Periodo: $(e).val(), TipoDoc: $(e).data("tipodoc"), Recepcionado: $(e).is(":checked") })
                     //})
-                    
+
                     $.SecPostJSON(BASE_URL + "/motor/api/Licencias/guardar-licencia", WebIngresoLicencia, function (respuesta) {
                         if (respuesta.Estado === "OK") {
                             $.niftyNoty({
@@ -343,7 +383,6 @@
                                 focus: false,
                                 timer: 3000,
                                 onHidden: function () {
-
                                     if (typeof volver != "undefined" && volver == 1) {
                                         location.href = BASE_URL + "/motor/App/Licencias"
                                     }
@@ -352,54 +391,63 @@
 
 
                         } else {
-                            bootbox.dialog({
 
-
-
-                                message: respuesta.Mensaje,
-                                title: "Derivación de LM",
-                                buttons: {
-                                    success: {
-                                        label: "Si",
-                                        className: "btn-success",
-                                        callback: function () {
-                                            $.SecPostJSON(BASE_URL + "/motor/api/Licencias/guardar-licencia-derivacion", WebIngresoLicencia, function (respuesta) {
-                                                if (respuesta.Estado === "OK") {
-                                                    $.niftyNoty({
-                                                        type: 'success',
-                                                        message: '<strong>OK</strong> Licencia Derivada. ',
-                                                        container: 'floating',
-                                                        timer: 5000
-                                                    });
-                                                }
-                                                else {
-                                                    $.niftyNoty({
-                                                        type: 'success',
-                                                        message: '<strong>Licencia Derivada</strong>  ' + respuesta.Mensaje,
-                                                        container: 'floating',
-                                                        timer: 5000
-                                                    });
-                                                }
-                                            });
-                                           
-                                        }
-                                    },
-
-                                    danger: {
-                                        label: "No",
-                                        className: "btn-danger",
-                                        callback: function () {
-                                            $.niftyNoty({
-                                                type: 'danger',
-                                                message: '<strong>Liciencia no derivada</strong>',
-                                                container: 'floating',
-                                                timer: 5000
-                                            });
+                            if (respuesta.Objeto == "[0001]") {
+                                $.niftyNoty({
+                                    type: 'danger',
+                                    container: 'floating',
+                                    html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                                    focus: false,
+                                    timer: 3000,
+                                    onHidden: function () {
+                                        if (typeof volver != "undefined" && volver == 1) {
+                                            location.href = BASE_URL + "/motor/App/Licencias"
                                         }
                                     }
+                                });
+                            }
 
-                                }
-                            });
+                            if (respuesta.Objeto == "[0002]") {
+                                bootbox.dialog({
+                                    message: respuesta.Mensaje + " " + "¿Desea Actualizar?",
+                                    title: "Recepción de LM",
+                                    buttons: {
+                                        success: {
+                                            label: "Si",
+                                            className: "btn-success",
+                                            callback: function () {
+                                                $.SecPostJSON(BASE_URL + "/motor/api/Licencias/guardar-licencia-derivacion", WebIngresoLicencia, function (respuesta) {
+                                                    if (respuesta.Estado === "OK") {
+                                                        $.niftyNoty({
+                                                            type: 'success',
+                                                            message: '<strong>OK</strong> Licencia Actualizada. ',
+                                                            container: 'floating',
+                                                            timer: 5000
+                                                        });
+                                                    }
+
+                                                });
+
+                                            }
+                                        },
+
+                                        danger: {
+                                            label: "No",
+                                            className: "btn-danger",
+                                            callback: function () {
+                                                $.niftyNoty({
+                                                    type: 'danger',
+                                                    message: '<strong>Liciencia no derivada</strong>',
+                                                    container: 'floating',
+                                                    timer: 5000
+                                                });
+                                            }
+                                        }
+
+                                    }
+                                });
+
+                            }
                             //$.niftyNoty({
                             //    type: 'danger',
                             //    container: 'floating',
@@ -410,10 +458,10 @@
                         }
                     });
 
-                    
+
                 }
             }
-            
+
 
             // Initialize Masked Inputs
             // a - Represents an alpha character (A-Z,a-z)
@@ -457,13 +505,11 @@
                             callback: {
                                 message: 'Folio Invalido',
                                 callback: function (value, validator, $field) {
-                                    if ($('#FormLM').val() == 'Mixta')
-                                    {
+                                    if ($('#FormLM').val() == 'Mixta') {
                                         value = value.replace(/-/g, '');
                                         var xx = value.substring(0, 1);
                                         //console.log(value.substring(0, 1))
-                                        if (xx == '3' || xx == '4')
-                                        {
+                                        if (xx == '3' || xx == '4') {
 
                                             //console.log(value.substring(value.length - 1))
                                             var xy = Number(value.substring(1, value.length - 1)).toMoney(0) + '-' + value.substring(value.length - 1);
@@ -484,15 +530,13 @@
 
                                             return result;
 
-                                            
+
                                         }
-                                        else
-                                        {
+                                        else {
                                             return false;
                                         }
                                     }
-                                    else
-                                    {
+                                    else {
                                         return true;
                                     }
                                 }
@@ -568,7 +612,7 @@
                     $("#frm-data-lc").bootstrapValidator('resetForm', true);
                 }
             });
-           
+
 
             $("#bt-bolver").on("click", function () {
                 location.href = BASE_URL + "/motor/App/Licencias"
@@ -594,6 +638,7 @@
                                 $("#EmpresaRut").val(respuesta.Objeto.empresasField[0].rutEmpresaField);
                                 $("#EmpresaNombre").val(respuesta.Objeto.empresasField[0].razonSocialField);
                                 $("#SistemaNoData").prop("checked", false);
+                                $("#SistemaNoData").prop("disabled", true);
                             } else {
                                 $("#AfiNombres").val("")
                                 $("#EmpresaRut").val("");
@@ -601,7 +646,7 @@
                                 $("#SistemaNoData").prop("checked", true);
                             }
 
-                            
+
                         } else {
                             $.niftyNoty({
                                 type: 'danger',
@@ -632,16 +677,13 @@
             })
 
             $('#FolioLic').on("keyup", function (e) {
-                
-                if($('#FormLM').val() == 'Mixta')
-                {
-                    if ($(this).val().replace(/-/g, '').replace(/_/g, '').length == 0)
-                    {
+
+                if ($('#FormLM').val() == 'Mixta') {
+                    if ($(this).val().replace(/-/g, '').replace(/_/g, '').length == 0) {
                         $('#FolioLic').unmask();
                         $('#FolioLic').val('');
                     }
-                    else
-                    {
+                    else {
                         $(this).val($(this).val().replace(/-/g, '').replace(/_/g, ''))
                         $('#FolioLic').unmask();
                     }
@@ -677,18 +719,18 @@
 
 
                         }
-                    
+
                         //if ($(this).val().replace(/-/g, '').replace(/_/g, '').length > 8) {
                         //    $('#frm-data-lc').bootstrapValidator('updateStatus', 'FolioLic', 'NOT_VALIDATED').bootstrapValidator('validateField', 'FolioLic');
                         //}
-                    
+
                 }
             });*/
 
 
 
             $('#FolioLic').on("focus", function (e) {
-                
+
                 if ($('#FormLM').val() == 'Mixta') {
                     $('#FolioLic').val($('#FolioLic').val().replace(/-/g, '').replace(/_/g, ''))
                     $('#FolioLic').unmask();
@@ -707,18 +749,16 @@
 
             $('#FolioLic').on("blur", function (e) {
                 if ($('#FormLM').val() == 'Mixta') {
-                    if ($(this).val().length == 9)
-                    {
+                    if ($(this).val().length == 9) {
                         $('#FolioLic').mask('9-9999999-*');
                     }
-                    else
-                    {
+                    else {
                         $('#FolioLic').mask('9-99999999-*');
                     }
                 }
             });
 
-            
+
 
 
 
@@ -729,29 +769,24 @@
                     VaLM.reiniciar();
 
 
-                    if ($("#TipoLM").val() == "" || $("#DiasLM").val() == "" || $("#FechaDesdeLM").val() == "")
-                    {
+                    if ($("#TipoLM").val() == "" || $("#DiasLM").val() == "" || $("#FechaDesdeLM").val() == "") {
                         return false;
                     }
 
-                    if ($("#DiasLM").val() != "" && $("#FechaDesdeLM").val() != "")
-                    {
+                    if ($("#DiasLM").val() != "" && $("#FechaDesdeLM").val() != "") {
                         $("#FechaHastaLM").val(CalcularDiasCorridos($("#FechaDesdeLM").val().replace(/\//g, '-'), $("#DiasLM").val()).replace(/-/g, '/'));
                     }
 
                     //Mostrar tres ultimas liquidaciones
-                    if ($("#TipoLM").val() == "1" || $("#TipoLM").val() == "3" || $("#TipoLM").val() == "4" || $("#TipoLM").val() == "7")
-                    {
+                    if ($("#TipoLM").val() == "1" || $("#TipoLM").val() == "3" || $("#TipoLM").val() == "4" || $("#TipoLM").val() == "7") {
                         $("#doc_check").show();
                         VaLM.mesesUltimasLiq($("#FechaDesdeLM").val())
                     }
 
-                    if($("#TipoLM").val() == "3")
-                    {
+                    if ($("#TipoLM").val() == "3") {
                         $("#doc_check_nac").show();
                         VaLM.mesesLiqParental($("#FechaDesdeLM").val())
-                        if ($("#DiasLM").val() >= 50)
-                        {
+                        if ($("#DiasLM").val() >= 50) {
                             $("#nac").show();
                         }
                     }
@@ -770,7 +805,7 @@
                     $("#doc_check_nac").hide();
                     $("#nac").hide();
                 },
-                mesesUltimasLiq: function(fechaLM) {
+                mesesUltimasLiq: function (fechaLM) {
                     var leyendaMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
                     var dt = parseDate(fechaLM.replace(/\//g, '-'));
                     dt.setMonth(dt.getMonth() - 1)
@@ -808,13 +843,12 @@
             $(".validatore").on("keyup", VaLM.AplicarValidaciones);
 
 
-            
-            if(typeof CodIng != "undefined")
-            {
+
+            if (typeof CodIng != "undefined") {
                 cargador.cargaLC(CodIng);
             }
 
-            
+            $("#sslOfiDerivacion").trigger("change");
         })
 
 

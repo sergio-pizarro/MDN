@@ -1,4 +1,3 @@
-﻿
 @{
     Layout = "~/Areas/AppPage/Views/Shared/_Layout.cshtml";
 }
@@ -26,22 +25,13 @@
                 <!--Tabs Content-->
                 <div class="tab-content">
                     <div id="demo-lft-tab-1" class="tab-pane fade active in">
-                        <form id="frm-data-afi">
+                        
                             <div class="panel-body">
 
-                                @*<div class="row" style="display:block;">
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
+                            <div class="row" style="display:block;">
 
-                                                <input type="text" class="form-control es-rut" name="AfiliadoRut" id="AfiliadoRut" tabindex="1" required placeholder="Ingresar Rut">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <button class="btn btn-primary" type="button" id="bt-buscar">Buscar Afiliado</button>
-                                            </div>
-                                        </div>
-                                    </div>*@
+                                       
+                                 
                                 <div id="totales" style="display:none;">
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -54,6 +44,23 @@
                                                             <div class="col-md-4">
                                                                 <p class="text-2x mar-no"><label style="font-weight:bold;" id="idPorcentajeGestionados">45%</label></p>
                                                                 Gestión Sucursal
+
+                                    </div>
+                                    <div id="totales">
+                                        <div class="row">
+
+                                            <div class="col-sm-12">
+                                                <h4>Mi Sucursal (Comercial)</h4>
+                                                <div id="demo-weather-widget-lg" class="panel panel-info">
+                                                    <div class="panel-body">
+                                                        <div class="col-md-2">
+
+                                                            <div class="row pad-btm">
+                                                                <div class="col-md-4">
+                                                                    <p class="text-2x mar-no"><label style="font-weight:bold;" id="idPorcentajeGestionados">45%</label></p>
+                                                                    Gestión Sucursal
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -434,70 +441,6 @@
 
 
 
-
-            $('.es-rut').mask('99.999.999-*');
-            $('#frm-data-afi').bootstrapValidator({
-                excluded: [':disabled', ':not(:visible)'],
-                feedbackIcons: [],
-                fields: {
-                    AfiliadoRut: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe ingresar un rut'
-                            },
-                            callback: {
-                                message: 'Rut Invalido',
-                                callback: function (value, validator, $field) {
-                                    return $.rut.validar(value);
-                                }
-                            }
-                        }
-                    }
-
-                }
-            }).on('success.form.bv', function (e) {
-
-            });
-
-            $("#bt-buscar").on("click", function () {
-                var rut = $("#AfiliadoRut").val().substring(9, $("#AfiliadoRut").length - 1)
-
-                if ($("#AfiliadoRut").val().length > 7) {
-                    $.SecGetJSON(BASE_URL + "/motor/api/Licencias/datos-afiliado", { AfiliadoRut: $("#AfiliadoRut").val() }, function (respuesta) {
-                        if (respuesta.Estado === "OK") {
-                            if (respuesta.Objeto.logField.codRespuestaField != 5) {
-
-                                $("#totales").hide();
-                                $("#bdafiliado").show();
-                                $("#AfiNombres").val(respuesta.Objeto.datosAfiliado1Field.nombresField + " " + respuesta.Objeto.datosAfiliado1Field.apellidoPaternoField + " " + respuesta.Objeto.datosAfiliado1Field.apellidoMaternoField)
-                                $("#EmpresaRut").val(respuesta.Objeto.empresasField[0].rutEmpresaField);
-                                $("#EmpresaNombre").val(respuesta.Objeto.empresasField[0].razonSocialField);
-                                console.log(respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.substring(0, respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.length - 2))
-                                console.log($("#AfiliadoRut").val().substring(0, $("#AfiliadoRut").val().length - 2))
-                                $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-afi", { AfiliadoRut: respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.substring(0, respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.length - 2) }, function (respuesta1) {
-                                });
-                            } else {
-                                $("#AfiNombres").val("");
-                                $("AfiliadoRut2").val("");
-                                $("#EmpresaRut").val("");
-                                $("#EmpresaNombre").val("");
-                            }
-
-
-                        } else {
-                            $.niftyNoty({
-                                type: 'danger',
-                                container: 'floating',
-                                html: '<strong>Error</strong> ' + respuesta.Mensaje,
-                                focus: false,
-                                timer: 3000
-                            });
-                        }
-
-                    });
-
-                }
-            });
         });
 
     </script>

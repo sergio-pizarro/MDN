@@ -47,7 +47,9 @@ namespace CRM.Business.Entity.Clases
         public string FechaInicioLM { get; set; }
         public string FechaHastaLM { get; set; }
         public int TipoLM { get; set; }
-      
+        public int OfiDerivacion { get; set; }
+
+
         public List<WebDocumentacion> DocumentacionLM { get; set; }
        // 
 

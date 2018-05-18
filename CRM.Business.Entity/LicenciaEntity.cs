@@ -41,6 +41,13 @@ namespace CRM.Business.Entity
         public int sucursalOrigen { get; set; }
         public int sucursalDerivacion { get; set; }
         public string RutEjecutivo { get; set; }
+
+    }
+    public class OficinaDerivacionEntity
+    {
+        public int codOficina { get; set; }
+        public string DescOficina { get; set; }
     }
    
+    
 }
