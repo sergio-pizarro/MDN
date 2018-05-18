@@ -31,6 +31,8 @@ namespace CRM.Business.Entity.Afiliados
         public string Cel { get; set; }
         public string Fono { get; set; }
         public string Mail { get; set; }
+        public int Vigente { get; set; }
+        public int Fallecido { get; set; }
 
     }
     public class AfiliadoEmpresaEntity
@@ -71,7 +73,20 @@ namespace CRM.Business.Entity.Afiliados
         public string EsTerminal { get; set; }
         
     }
+    public class AfiliadoDatosCumpleanios
+    {
+        public string Estado { get; set; }
+        public string FechaNacimiento { get; set; }
+        public int Edad { get; set; }
+        public int RutAfiliado { get; set; }
+    }
 
-
+    public class AlertasAfiliados
+    {
+        public int AfiliadoRut { get; set; }
+        public string Tipo { get; set; }
+        public string Valor { get; set; }
+        public string TipoValor { get; set; }
+    }
 
 }
