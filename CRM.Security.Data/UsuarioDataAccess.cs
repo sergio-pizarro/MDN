@@ -52,6 +52,7 @@ namespace CRM.Security.Data
                 RutUsuario = row["usr_rut"] != DBNull.Value ? row["usr_rut"].ToString() : string.Empty,
                 NoticiInicio = row["usr_noticia_inicio"] != DBNull.Value ? Convert.ToInt32(row["usr_noticia_inicio"]) : 0,
                 Tipo = row["usr_tipo"] != DBNull.Value ? row["usr_tipo"].ToString() : string.Empty,
+                Instalacion = row["usr_instalacion"] != DBNull.Value ? Convert.ToInt32(row["usr_instalacion"]) : 0,
             };
         }
     }

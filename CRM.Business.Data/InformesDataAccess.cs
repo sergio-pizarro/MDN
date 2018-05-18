@@ -9,7 +9,7 @@ namespace CRM.Business.Data
 {
     public class InformesDataAccess
     {
-        public static List<TrackingEntity> ListarTrackingBySucursal(string TokenEjecutivo,int Periodo)
+        public static List<TrackingEntity> ListarTrackingBySucursal(string TokenEjecutivo, int Periodo)
         {
             Parametros pram = new Parametros
             {
@@ -31,7 +31,7 @@ namespace CRM.Business.Data
                 SumaGestionados = row["Gestionados"] != DBNull.Value ? Convert.ToInt32(row["Gestionados"]) : 0,
                 SumaPorcentajeGestionado = row["GestionadosPorc"] != DBNull.Value ? Convert.ToSingle(row["GestionadosPorc"]) : 0,
                 SumaContactados = row["Contactados"] != DBNull.Value ? Convert.ToInt32(row["Contactados"]) : 0,
-                SumaPorcentajeContactados= row["ContactadosPorc"] != DBNull.Value ? Convert.ToInt32(row["ContactadosPorc"]) : 0,
+                SumaPorcentajeContactados = row["ContactadosPorc"] != DBNull.Value ? Convert.ToInt32(row["ContactadosPorc"]) : 0,
                 SumaPresentados = row["Presentados"] != DBNull.Value ? Convert.ToInt32(row["Presentados"]) : 0,
                 SumaPorcentajePresentados = row["PresentadosPorc"] != DBNull.Value ? Convert.ToInt32(row["PresentadosPorc"]) : 0,
                 SumaAprobados = row["Aprobados"] != DBNull.Value ? Convert.ToInt32(row["Aprobados"]) : 0,
@@ -39,7 +39,7 @@ namespace CRM.Business.Data
                 SumaCursados = row["Cursados"] != DBNull.Value ? Convert.ToInt32(row["Cursados"]) : 0,
                 SumaPorcentajeCursados = row["CursadosPorc"] != DBNull.Value ? Convert.ToInt32(row["CursadosPorc"]) : 0,
                 MontoPromedio = row["MontoNetoProm"] != DBNull.Value ? Convert.ToInt32(row["MontoNetoProm"]) : 0,
-                SumaInteresados= row["Interesados"] != DBNull.Value ? Convert.ToInt32(row["Interesados"]) : 0,
+                SumaInteresados = row["Interesados"] != DBNull.Value ? Convert.ToInt32(row["Interesados"]) : 0,
                 SumaPorcentajeInteresados = row["InteresadosPorc"] != DBNull.Value ? Convert.ToSingle(row["InteresadosPorc"]) : 0,
             };
         }
@@ -172,8 +172,8 @@ namespace CRM.Business.Data
             return new TrackingWidgetsSucursal
             {
                 Periodo = row["Periodo"] != DBNull.Value ? Convert.ToInt32(row["Periodo"]) : 0,
-                Actualizacion=row["Actualizacion"] != DBNull.Value ? row["Actualizacion"].ToString() : string.Empty,
-                diaHabilActual=row["DiaHabil_Actual"] != DBNull.Value ? row["DiaHabil_Actual"].ToString() : string.Empty,
+                Actualizacion = row["Actualizacion"] != DBNull.Value ? row["Actualizacion"].ToString() : string.Empty,
+                diaHabilActual = row["DiaHabil_Actual"] != DBNull.Value ? row["DiaHabil_Actual"].ToString() : string.Empty,
                 CodOficina = row["codOficina"] != DBNull.Value ? Convert.ToInt32(row["codOficina"]) : 0,
                 Oficina = row["Oficina"] != DBNull.Value ? row["Oficina"].ToString() : string.Empty,
                 SumaAsignadosWid = row["SumaAsignados"] != DBNull.Value ? Convert.ToInt32(row["SumaAsignados"]) : 0,
@@ -181,16 +181,16 @@ namespace CRM.Business.Data
                 SumaPorcentajeGestionadoWid = row["SumaPorcentajeGestionados"] != DBNull.Value ? Convert.ToSingle(row["SumaPorcentajeGestionados"]) : 0,
                 SumaContactadosWid = row["SumaContactados"] != DBNull.Value ? Convert.ToInt32(row["SumaContactados"]) : 0,
                 SumaPorcentajeContactadosWid = row["SumaPorcentajeContactados"] != DBNull.Value ? Convert.ToInt32(row["SumaPorcentajeContactados"]) : 0,
-                SumaPresentadosWid= row["SumaPresentados"] != DBNull.Value ? Convert.ToInt32(row["SumaPresentados"]) : 0,
+                SumaPresentadosWid = row["SumaPresentados"] != DBNull.Value ? Convert.ToInt32(row["SumaPresentados"]) : 0,
                 SumaPorcentajePresentadosWid = row["SumaPorcentajePresentados"] != DBNull.Value ? Convert.ToInt32(row["SumaPorcentajePresentados"]) : 0,
                 SumaAprobadosWid = row["SumaAprobados"] != DBNull.Value ? Convert.ToInt32(row["SumaAprobados"]) : 0,
                 SumaPorcentajeAprobadosWid = row["SumaPorcentajeAprobados"] != DBNull.Value ? Convert.ToInt32(row["SumaPorcentajeAprobados"]) : 0,
                 SumaCursadosWid = row["SumaCursados"] != DBNull.Value ? Convert.ToInt32(row["SumaCursados"]) : 0,
                 SumaPorcentajeCursadosWid = row["SumaPorcentajeCursados"] != DBNull.Value ? Convert.ToInt32(row["SumaPorcentajeCursados"]) : 0,
-                MontoBrutoSumWid= row["MontoBrutoSum"] != DBNull.Value ? Convert.ToInt32(row["MontoBrutoSum"]) : 0,
+                MontoBrutoSumWid = row["MontoBrutoSum"] != DBNull.Value ? Convert.ToInt32(row["MontoBrutoSum"]) : 0,
                 MontoBrutoPromWid = row["MontoBrutoProm"] != DBNull.Value ? Convert.ToInt32(row["MontoBrutoProm"]) : 0,
                 MontoNetoSumWid = row["MontoNetoSum"] != DBNull.Value ? Convert.ToInt32(row["MontoNetoSum"]) : 0,
-                MontoNetoPromWid= row["MontoNetoProm"] != DBNull.Value ? Convert.ToInt32(row["MontoNetoProm"]) : 0,
+                MontoNetoPromWid = row["MontoNetoProm"] != DBNull.Value ? Convert.ToInt32(row["MontoNetoProm"]) : 0,
                 TotalECWid = row["TotalEc"] != DBNull.Value ? Convert.ToInt32(row["TotalEc"]) : 0,
 
             };
@@ -230,7 +230,7 @@ namespace CRM.Business.Data
                 MontoNetoSumWid = row["MontoNetoSum"] != DBNull.Value ? Convert.ToInt32(row["MontoNetoSum"]) : 0,
                 MontoNetoPromWid = row["MontoNetoProm"] != DBNull.Value ? Convert.ToInt32(row["MontoNetoProm"]) : 0,
                 TotalECWid = row["TotalEc"] != DBNull.Value ? Convert.ToInt32(row["TotalEc"]) : 0,
-                SumaInteresadosWid =row["Interesados"] != DBNull.Value ? Convert.ToInt32(row["Interesados"]) : 0,
+                SumaInteresadosWid = row["Interesados"] != DBNull.Value ? Convert.ToInt32(row["Interesados"]) : 0,
                 SumaPorcentajeInteresadosWid = row["SumaPorcentajeInteresados"] != DBNull.Value ? Convert.ToInt32(row["SumaPorcentajeInteresados"]) : 0,
 
             };
@@ -247,7 +247,7 @@ namespace CRM.Business.Data
             {
                 new Parametro("@Periodo", Periodo)
             };
-            return DBHelper.InstanceReportes.ObtenerEntidad("negocios.SPReporte_WidgetsPais",  pram,ConstructorTotalPais);
+            return DBHelper.InstanceReportes.ObtenerEntidad("negocios.SPReporte_WidgetsPais", pram, ConstructorTotalPais);
         }
         private static TrackingWidgetsPais ConstructorTotalPais(DataRow row)
         {
@@ -313,7 +313,7 @@ namespace CRM.Business.Data
                 PromNeto = row["MontoNetoProm"] != DBNull.Value ? Convert.ToInt64(row["MontoNetoProm"]) : 0,
                 TotalEC = row["SumTotalEc"] != DBNull.Value ? Convert.ToInt64(row["SumTotalEc"]) : 0,
                 SumInteresado = row["InteresadosSum"] != DBNull.Value ? Convert.ToInt32(row["InteresadosSum"]) : 0,
-             //   SumRechazado = row["RechazadosSum"] != DBNull.Value ? Convert.ToInt32(row["RechazadosSum"]) : 0,
+                //   SumRechazado = row["RechazadosSum"] != DBNull.Value ? Convert.ToInt32(row["RechazadosSum"]) : 0,
                 PorcentajeInteresado = row["SumaPorcentajeInteresados"] != DBNull.Value ? Convert.ToInt32(row["SumaPorcentajeInteresados"]) : 0,
 
             };
@@ -393,13 +393,13 @@ namespace CRM.Business.Data
                 PromNeto = row["MontoNetoProm"] != DBNull.Value ? Convert.ToInt64(row["MontoNetoProm"]) : 0,
                 TotalEC = row["SumTotalEc"] != DBNull.Value ? Convert.ToInt64(row["SumTotalEc"]) : 0,
                 SumInteresado = row["InteresadosSum"] != DBNull.Value ? Convert.ToInt32(row["InteresadosSum"]) : 0,
-               // SumRechazado = row["RechazadosSum"] != DBNull.Value ? Convert.ToInt32(row["RechazadosSum"]) : 0,
+                // SumRechazado = row["RechazadosSum"] != DBNull.Value ? Convert.ToInt32(row["RechazadosSum"]) : 0,
                 PorcentajeInteresado = row["SumaPorcentajeInteresados"] != DBNull.Value ? Convert.ToInt32(row["SumaPorcentajeInteresados"]) : 0,
 
             };
         }
         //end normalizacion
-        public static TrackingSucursalZonal ListarTotalesZona(int Periodo,int zona)
+        public static TrackingSucursalZonal ListarTotalesZona(int Periodo, int zona)
         {
             Parametros pram = new Parametros
             {
@@ -475,7 +475,7 @@ namespace CRM.Business.Data
                 PromNeto = row["MontoNetoProm"] != DBNull.Value ? Convert.ToInt32(row["MontoNetoProm"]) : 0,
                 TotalEC = row["SumTotalEc"] != DBNull.Value ? Convert.ToInt32(row["SumTotalEc"]) : 0,
                 SumInteresado = row["InteresadosSum"] != DBNull.Value ? Convert.ToInt32(row["InteresadosSum"]) : 0,
-               // SumRechazado = row["RechazadosSum"] != DBNull.Value ? Convert.ToInt32(row["RechazadosSum"]) : 0,
+                // SumRechazado = row["RechazadosSum"] != DBNull.Value ? Convert.ToInt32(row["RechazadosSum"]) : 0,
                 PorcentajeInteresado = row["SumaPorcentajeInteresados"] != DBNull.Value ? Convert.ToInt32(row["SumaPorcentajeInteresados"]) : 0,
 
             };
@@ -612,7 +612,7 @@ namespace CRM.Business.Data
 
             };
         }
-        public static List<TrackingDetalleEjecutivo> Obtener(int RutEjecutivo,int Periodo)
+        public static List<TrackingDetalleEjecutivo> Obtener(int RutEjecutivo, int Periodo)
         {
             //Parametro p = new Parametro("@EjecutivoRut", RutEjecutivo);
             Parametros pram = new Parametros
@@ -680,7 +680,7 @@ namespace CRM.Business.Data
             {
 
                 AfiliadoRut = row["AfiliadoRut"] != DBNull.Value ? Convert.ToInt32(row["AfiliadoRut"]) : 0,
-                AfiliadoDv  = row["AfiliadoDv"] != DBNull.Value ? row["AfiliadoDv"].ToString() : string.Empty,
+                AfiliadoDv = row["AfiliadoDv"] != DBNull.Value ? row["AfiliadoDv"].ToString() : string.Empty,
                 AfiliadoNombre = row["AfiliadoNombre"] != DBNull.Value ? row["AfiliadoNombre"].ToString() : string.Empty,
                 AfiliadoApellido = row["AfiliadoApellido"] != DBNull.Value ? row["AfiliadoApellido"].ToString() : string.Empty,
                 AfiliadoSegmento = row["AfiliadoSegmento"] != DBNull.Value ? row["AfiliadoSegmento"].ToString() : string.Empty,
@@ -716,22 +716,22 @@ namespace CRM.Business.Data
 
             };
         }
-        public static List<TrackingComboCargo> ObtenerCombo (string TokenEjecutivo,int Periodo)
+        public static List<TrackingComboCargo> ObtenerCombo(string TokenEjecutivo, int Periodo)
         {
             Parametros pram = new Parametros
             {
                 new Parametro("@Periodo", Periodo),
                 new Parametro("@TokenEjecutivo",TokenEjecutivo),
             };
-           return DBHelper.InstanceReportes.ObtenerColeccion("negocios.SPReporte_CargaComboCargos", pram, ContructorCombo);
+            return DBHelper.InstanceReportes.ObtenerColeccion("negocios.SPReporte_CargaComboCargos", pram, ContructorCombo);
 
         }
         private static TrackingComboCargo ContructorCombo(DataRow row)
         {
             return new TrackingComboCargo
             {
-               // Periodo= row["Periodo"] != DBNull.Value ? Convert.ToInt32(row["Periodo"]) : 0,
-                EjecutivoCargo =row["EjecAsign_Cargo"] != DBNull.Value ? row["EjecAsign_Cargo"].ToString() : string.Empty,
+                // Periodo= row["Periodo"] != DBNull.Value ? Convert.ToInt32(row["Periodo"]) : 0,
+                EjecutivoCargo = row["EjecAsign_Cargo"] != DBNull.Value ? row["EjecAsign_Cargo"].ToString() : string.Empty,
             };
         }
         public static List<TrackingComboCargo> ObtenerComboPerfZonal(int CodOficina, int Periodo)
@@ -740,7 +740,7 @@ namespace CRM.Business.Data
             {
                 new Parametro("@CodOficina",CodOficina),
                 new Parametro("@Periodo", Periodo)
-                
+
             };
             return DBHelper.InstanceReportes.ObtenerColeccion("negocios.SPReporte_CargaComboCargosPerfZonal", pram, ContructorComboPerfZonal);
 
@@ -903,6 +903,60 @@ namespace CRM.Business.Data
                 SumaPorcentajeInteresados = row["InteresadosPorc"] != DBNull.Value ? Convert.ToSingle(row["InteresadosPorc"]) : 0,
             };
         }
+
+        // Sergio
+
+        public static TrackingEjecutivoGestion ObtenerTotalesEjecutivoGestion(string Token)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@Token", Token)
+            };
+            return DBHelper.InstanceReportes.ObtenerEntidad("negocios.SPReporte_WidgetsEjecutivo_Gestiones", pram, EjecutivoGestion);
+        }
+
+        private static TrackingEjecutivoGestion EjecutivoGestion(DataRow row)
+        {
+            return new TrackingEjecutivoGestion
+            {
+                Asignados = row["Asignados"] != DBNull.Value ? Convert.ToInt32(row["Asignados"]) : 0,
+                Gestionados = row["Gestionados"] != DBNull.Value ? Convert.ToInt32(row["Gestionados"]) : 0,
+                Contactados = row["Contactados"] != DBNull.Value ? Convert.ToInt32(row["Contactados"]) : 0,
+                Interesados = row["Interesados"] != DBNull.Value ? Convert.ToInt32(row["Interesados"]) : 0,
+                Cursados = row["Cursados"] != DBNull.Value ? Convert.ToInt32(row["Cursados"]) : 0,
+            };
+        }
+
+        public static TrackinVencimientosGestiones ObtenerVencidosGestiones(string Token)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@Token", Token)
+            };
+            return DBHelper.InstanceReportes.ObtenerEntidad("negocios.SPReporte_WidgetsEjec_GestionesDetalle", pram, EjecutivoVencimientoGestion);
+        }
+
+        private static TrackinVencimientosGestiones EjecutivoVencimientoGestion(DataRow row)
+        {
+            return new TrackinVencimientosGestiones
+            {
+                //Vencidos = row["Vencimiento"] != DBNull.Value ? row["Vencimiento"].ToString() : string.Empty,
+                Vencidos = row["Vencido"] != DBNull.Value ? Convert.ToInt32(row["Vencido"]) : 0,
+                VenceHoy = row["VenceHoy"] != DBNull.Value ? Convert.ToInt32(row["VenceHoy"]) : 0,
+                VenceProx = row["VenceProx"] != DBNull.Value ? Convert.ToInt32(row["VenceProx"]) : 0,
+            };
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

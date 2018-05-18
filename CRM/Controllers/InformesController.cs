@@ -287,5 +287,25 @@ namespace CRM.Controllers
         }
 
 
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("obtener-gestion-comercial")]
+        public TrackingEjecutivoGestion ObtenerTrackingInformeEjecutivoGestion()
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return InformesDataAccess.ObtenerTotalesEjecutivoGestion(token);
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("obtener-gestion-comercial-vencidas")]
+        public TrackinVencimientosGestiones ObtenerTrackingVencimientoGestion()
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return InformesDataAccess.ObtenerVencidosGestiones(token);
+        }
+
+
     }
 }

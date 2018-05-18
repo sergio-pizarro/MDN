@@ -2,14 +2,9 @@
 @{
     ViewBag.Title = "Oferta";
     Layout = "~/Areas/AppPage/Views/Shared/_Layout.cshtml";
-    
+    //Layout = null;
 }
 
-@section metas{
-    <meta name="rut-afi" content="@Html.Raw(ViewBag.rut != null ? ViewBag.rut : "0")" />
-    <meta name="periodo" content="@Html.Raw(ViewBag.periodo != null ? ViewBag.periodo : "0")" />
-    <meta name="tipo" content="@Html.Raw(ViewBag.tipo != null ? ViewBag.tipo : "0")" />
-}
 <!--Page content-->
 <!--===================================================-->
 <div id="page-content">
@@ -442,12 +437,11 @@
 </div>
 
 
-@section script{
+<input type="hidden" id="rut-afi" value="@Html.Raw(ViewBag.rut != null ? ViewBag.rut : "0")" />
+<input type="hidden" id="periodo" value="@Html.Raw(ViewBag.periodo != null ? ViewBag.periodo : "0")" />
+<input type="hidden" id="tipo" value="@Html.Raw(ViewBag.tipo != null ? ViewBag.tipo : "0")" />
 
-    <script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
-    <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
-    <!--Bootstrap Select [ OPTIONAL ]-->
-    <script src="~/Assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
-    <script src="~/Assets/js.App/gestion/oferta.js?v=@Html.Raw(ViewBag.hash)"></script>
+<script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+<script src="~/Assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="~/Assets/js.App/gestion/oferta.js?v=@Html.Raw(ViewBag.hash)"></script>
 
-}
