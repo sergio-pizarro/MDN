@@ -144,39 +144,6 @@ $(function () {
         }
     }
 
-    var Cargador = {
-        CargaPreAprobados: function (p_periodo) {
-
-
-            //Carga de selects Filtros de Pre Aprobados
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: 0 }, function (datos) {
-
-                $("#demo-foo-filter-status").html("");
-                $("#demo-foo-filter-status").append($("<option>").attr("value", "").html("Seleccione"));
-                $.each(datos, function (i, e) {
-                    $("#demo-foo-filter-status").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre).data("terminal", e.ejes_terminal))
-                });
-            });
-        },
-        CargaRecuperaciones: function (p_periodo) {
-
-            
-
-
-        },
-        CargaNormalizacionSC: function (p_periodo) {
-            
-        },
-        CargaPreAprobadosDR: function (p_periodo) {
-
-
-            
-
-        }
-    }
-
-
-
     // Estados de Gestion
     $('#demo-foo-filter-status').change(function (e) {
         e.preventDefault();
@@ -245,45 +212,22 @@ $(function () {
     //Evento de busqueda de cualquier gestión    
     $("#btn_buscar_otr").on("click", function () {
 
-        var rutAfilado = $("#afi_rut_busc").val().replace(".", "").replace(".", "");
+        var rutAfilado = $("#afi_rut_busc").val().replace(/\./g, '')
         var tpcmp = $("#PrincipalTabActivo").val();
-        if (tpcmp == '2') {
-            
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-seguimiento-rec", { periodo: $("#slPeriodo_normalizacion").val(), afiRut: rutAfilado.trim(), tipoCampagna: tpcmp }, function (datos) {
+        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-seguimiento", { periodo: entorno.Periodo, afiRut: rutAfilado.trim(), tipoCampagna: tpcmp }, function (datos) {
 
-                if (datos.Estado === "OK") {
-                   
-                    location.href = BASE_URL + '/motor/App/Gestion/Oferta/' + $("#slPeriodo_normalizacion").val() + '/' + rutAfilado + '/' + tpcmp
-
-                }
-                else {
-                    $.niftyNoty({
-                        type: 'primary',
-                        container: '#bdy_busqueda',
-                        html: '<strong>!</strong> No se encontro Rut para el periodo actual.',
-                        focus: false,
-                        timer: 3000
-                    });
-                }
-            });
-
-
-        } else {
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-seguimiento", { periodo: $("#slPeriodo").val(), afiRut: rutAfilado.trim(), tipoCampagna: tpcmp }, function (datos) {
-
-                if (datos.Estado === "OK") {
-                    location.href = BASE_URL + '/motor/App/Gestion/Oferta/' + $("#slPeriodo").val() + '/' + rutAfilado + '/' + tpcmp
-                }else {
-                    $.niftyNoty({
-                        type: 'primary',
-                        container: '#bdy_busqueda',
-                        html: '<strong>!</strong> No se encontro Rut para el periodo actual.',
-                        focus: false,
-                        timer: 3000
-                    });
-                }
-            });
-        }
+            if (datos.Estado === "OK") {
+                location.href = BASE_URL + '/motor/App/Gestion/Oferta/' + datos.Objeto.Seguimiento.Periodo.toString() + '/' + rutAfilado + '/' + tpcmp
+            } else {
+                $.niftyNoty({
+                    type: 'primary',
+                    container: '#bdy_busqueda',
+                    html: '<strong>!</strong> No se encontro Rut para el periodo actual.',
+                    focus: false,
+                    timer: 3000
+                });
+            }
+        });
 
        
     });
