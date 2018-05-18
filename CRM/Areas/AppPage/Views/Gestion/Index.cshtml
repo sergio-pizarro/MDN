@@ -51,15 +51,6 @@
                             <div class="pad-btm">
                                 <div class="row">
 
-                                    <div class="col-sm-1 text-xs-center">
-                                        <div class="form-group">
-                                            <label class="control-label">Periodo</label>
-                                            <select id="slPeriodo" class="form-control">
-                                                <option value="201705">Mayo 2017</option>
-                                                <option value="201704">Abril 2017</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="col-sm-2 text-xs-center">
                                         <div class="form-group">
                                             <label class="control-label">Estado</label>
@@ -114,8 +105,20 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Vencimiento</label>
+                                            <select id="flt_vencidos" class="form-control">
+                                                <option value="">Todos</option>
+                                                <option value="AYER">Vencidos</option>
+                                                <option value="HOY">Vence Hoy</option>
+                                                <option value="PROX5DIAS">Prox. 5 días</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-                                    <div class="col-sm-3 text-xs-center">
+
+                                    <div class="col-sm-2 text-xs-center">
                                         <label class="control-label">Rut</label>
                                         <div class="input-group mar-btm">
                                             <input id="demo-foo-search" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
@@ -158,14 +161,6 @@
 
                                     <div class="col-sm-2 text-xs-center">
                                         <div class="form-group">
-                                            <label class="control-label">Periodo</label>
-                                            <select id="slPeriodo_normalizacion" class="form-control">
-                                                <option value="201705">Mayo 2017</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2 text-xs-center">
-                                        <div class="form-group">
                                             <label class="control-label">Causa</label>
                                             <select id="flt_causa_normalizacion" class="form-control">
                                                 <option value="">Todos</option>
@@ -206,7 +201,17 @@
                                         </div>
                                     </div>
 
-
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Vencimiento</label>
+                                            <select id="flt_vencidos_normalizacion" class="form-control">
+                                                <option value="">Todos</option>
+                                                <option value="AYER">Vencidos</option>
+                                                <option value="HOY">Vence Hoy</option>
+                                                <option value="PROX5DIAS">Prox. 5 días</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-3 text-xs-center">
                                         <label class="control-label">Rut</label>
                                         <div class="input-group mar-btm">
@@ -249,14 +254,6 @@
                             <div class="pad-btm">
                                 <div class="row">
 
-                                    <div class="col-sm-1 text-xs-center">
-                                        <div class="form-group">
-                                            <label class="control-label">Periodo</label>
-                                            <select id="flt_periodo_sc" class="form-control">
-                                                <option value="201805">Mayo 2018</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="col-sm-2 text-xs-center">
                                         <div class="form-group">
                                             <label class="control-label">Estado</label>
@@ -274,7 +271,17 @@
                                         </div>
                                     </div>
 
-
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Vencimiento</label>
+                                            <select id="flt_vencidos_sc" class="form-control">
+                                                <option value="">Todos</option>
+                                                <option value="AYER">Vencidos</option>
+                                                <option value="HOY">Vence Hoy</option>
+                                                <option value="PROX5DIAS">Prox. 5 días</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="col-sm-3 text-xs-center">
                                         <label class="control-label">Rut</label>
@@ -315,15 +322,6 @@
                             <div class="pad-btm">
                                 <div class="row">
 
-                                    <div class="col-sm-1 text-xs-center">
-                                        <div class="form-group">
-                                            <label class="control-label">Periodo</label>
-                                            <select id="slPeriodoDR" class="form-control">
-                                                <option value="201705">Mayo 2017</option>
-                                                <option value="201704">Abril 2017</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="col-sm-2 text-xs-center">
                                         <div class="form-group">
                                             <label class="control-label">Estado</label>
@@ -377,9 +375,19 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Vencimiento</label>
+                                            <select id="flt_vencidos_dr" class="form-control">
+                                                <option value="">Todos</option>
+                                                <option value="AYER">Vencidos</option>
+                                                <option value="HOY">Vence Hoy</option>
+                                                <option value="PROX5DIAS">Prox. 5 días</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-
-                                    <div class="col-sm-3 text-xs-center">
+                                    <div class="col-sm-2 text-xs-center">
                                         <label class="control-label">Rut</label>
                                         <input id="demo-foo-searchDR" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
                                     </div>
