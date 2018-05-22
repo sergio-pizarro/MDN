@@ -105,10 +105,10 @@
                                     &nbsp;
                                     &nbsp;
                                     &nbsp;
-                                    &nbsp;
                                     @*<span class="badge badge-mint control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Total" id="cantLM"></span>*@
                                     <span class="badge badge-success control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Folio y rut idénticos AS400–Motor" id="number_one">0</span>
                                     <span class="badge badge-yelow control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Inconsistencia:Rut distinto AS400–Motor" id="number_two">0</span>
+                                    <span class="badge badge-warning control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Inconsistencia:Folios Diferentes" id="number_folios">0</span>
                                     <span class="badge badge-danger control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Folio no encontrado en AS400" id="number_three">0</span>
                                 </div>
                             </div>
@@ -159,6 +159,7 @@
                 $.SecGetJSON(BASE_URL + "/motor/api/Licencias/datos-encabezado-lic", { codOficina: getCookie("Oficina"), dia: enc_dia }, function (menus) {
                     $("#number_one").html(menus.Lm_Verde);
                     $("#number_two").html(menus.Lm_Amarillo);
+                    $("#number_folios").html(menus.Lm_Naranjo);
                     $("#number_three").html(menus.Lm_Rojo);
                     $("#fecha_actualizacion").html(menus.Lm_Actualizacion);
                     
@@ -178,7 +179,7 @@
                                  .append($("<td>").html(e.IngresoData.FormatoLM))
                                  .append($("<td>").html(e.NombreEjecutivo.OrdenaNombre()))
                                  .append($("<td>").html(e.EstadoData.Nombre))
-                                 .append($("<td align=center>").html(e.IngresoData.FlagLM.toString().toEtiquetaFlagLicencia()))
+                                 .append($("<td align=center>").html(e.IngresoData.FlagLM.toString().toEtiquetaFlagLicenciaGrilla()))
                                  .append($("<td>").append($("<a>").addClass("btn").addClass("btn-danger").append($('<i>').addClass("ion-trash-a")).prop({ "title": "Eliminar", "href": "javascript:eliminar(" + e.IngresoData.CodIngreso + ")" })
                                                     ).append($("<a>").addClass("btn").addClass("btn-primary").addClass("mar-lft").append($('<i>').addClass("ion-edit")).prop({ "title": "Editar", "href": "/motor/App/Licencias/Ingreso?ci=" + e.IngresoData.CodIngreso }))
                                     )
