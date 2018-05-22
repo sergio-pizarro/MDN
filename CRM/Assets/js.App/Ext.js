@@ -367,9 +367,31 @@ String.prototype.toEtiquetaFlagLicencia = function () {
     d[1] = 'verde';
     d[2] = 'amarillo';
     d[3] = 'rojo';
-    d[4] = 'neutral';
+    d[4] = 'naranjo'; 
     d[5] = 'morado';
-    d[6] = 'naranjo';
+    d[6] = 'neutral';
+
+    var t = '<span class="badge {CLASE}"><label></label><label></label><label style="display:none;">{COLOR}</label></span>';
+
+    return t.replace("{CLASE}", f[this]).replace("{COLOR}", d[this]);
+}
+String.prototype.toEtiquetaFlagLicenciaGrilla = function () {
+
+    var f = [];
+    f[1] = 'badge-success';
+    f[2] = 'badge-yelow';
+    f[3] = 'badge-danger';
+    f[4] = 'badge-mint';
+    f[5] = 'badge-warning';
+    f[6] = 'badge-purple';
+
+    var d = [];
+    d[1] = 'verde';
+    d[2] = 'amarillo';
+    d[3] = 'rojo';
+    d[4] = 'naranjo';
+    d[5] = 'morado'; 
+    d[6] = 'neutral';
 
     var t = '<span class="badge {CLASE}"><label></label><label></label><label style="display:none;">{COLOR}</label></span>';
 

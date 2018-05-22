@@ -129,13 +129,13 @@ namespace CRM.Controllers
             catch (Exception ex)
             {
                 var x = ex.Message.Split(';');
-                return new ResultadoBase() {Estado= "ERR" , Mensaje = x[1], Objeto = x[0] };
-                
-                
+                return new ResultadoBase() { Estado = "ERR", Mensaje = x[1], Objeto = x[0] };
 
 
-              
-               
+
+
+
+
                 //if (base1.Estado.Equals("ERR"))
                 //{
                 //    return new ResultadoBase() { Estado = "ERR", Mensaje = x[0], Objeto = ex };
@@ -145,7 +145,7 @@ namespace CRM.Controllers
                 //    return new ResultadoBase() { Estado = "ERR", Mensaje = x[1], Objeto = ex };
                 //}
 
-                
+
             }
         }
 
@@ -164,7 +164,7 @@ namespace CRM.Controllers
                 Ingresolicencia ing = new Ingresolicencia();
                 ing.RutAfiliado = entrada.RutAfiliado.Replace(".", ""); ;
                 ing.FolioLicencia = entrada.FolioLc;
-               // ing.Oficina = entrada.CodOficina;
+                // ing.Oficina = entrada.CodOficina;
 
                 IngresolicenciaDataAccess.GuardaDerivacion(ing, token);
                 return new ResultadoBase() { Estado = "OK", Mensaje = "Licencia derivada con éxito", };
@@ -211,7 +211,7 @@ namespace CRM.Controllers
                                     new Columna("RutEjecutivo", "Rut Ejecutivo"),
                                     new Columna("NombreEjecutivo", "Nombre Ejecutivo"),
                                     new Columna("SinDatosEnSistema", "Sin datos en sistema"),
-                                    new Columna("FormatoLM","Formato LM")
+                                    new Columna("SucursalDestino","Sucursal Destino")
             };
 
             byte[] filecontent = ExcelExportHelper.ExportExcel(ingLc, "LM Ingresadas al " + dia, true, columns);
@@ -245,7 +245,11 @@ namespace CRM.Controllers
                                     new Columna("RutEjecutivo", "Rut Ejecutivo"),
                                     new Columna("NombreEjecutivo", "Nombre Ejecutivo"),
                                     new Columna("SinDatosEnSistema", "Sin datos en sistema"),
-                                    new Columna("FormatoLM","Formato LM")
+                                    new Columna("FormatoLM","Formato LM"),
+                                    new Columna("LmFueradeArea","LM fuera de area"),
+                                    new Columna("FormatoLM","Formato LM"),
+                                    new Columna("SinDatosEnSistema", "Sin datos en sistema"),
+                                    new Columna("SucursalDestino","Sucursal Destino")
             };
 
             byte[] filecontent = CreatePDF2(ingLc, "LM Ingresadas al " + dia, true, columns);
@@ -273,7 +277,7 @@ namespace CRM.Controllers
                 doc.Open();
                 PdfPTable tblPrueba = new PdfPTable(dataTable.Columns.Count);
                 PdfPRow row = null;
-                float[] widths = new float[] { 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f };
+                float[] widths = new float[] { 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f };
                 iTextSharp.text.Font font5 = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
                 iTextSharp.text.Font font6 = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
                 Paragraph header = new Paragraph("Motor de Negocios: Recepción LM Sin Visar Manuales") { Alignment = Element.ALIGN_CENTER };
@@ -306,7 +310,9 @@ namespace CRM.Controllers
                         tblPrueba.AddCell(new Phrase(r[5].ToString(), font5));
                         tblPrueba.AddCell(new Phrase(r[6].ToString(), font5));
                         tblPrueba.AddCell(new Phrase(r[7].ToString(), font5));
-                        
+                        tblPrueba.AddCell(new Phrase(r[8].ToString(), font5));
+                        tblPrueba.AddCell(new Phrase(r[9].ToString(), font5));
+
                     }
                 }
 
@@ -342,7 +348,9 @@ namespace CRM.Controllers
                                     new Columna("RutEjecutivo", "Rut Ejecutivo"),
                                     new Columna("NombreEjecutivo", "Nombre Ejecutivo"),
                                     new Columna("SinDatosEnSistema", "Sin datos en sistema"),
-                                    new Columna("FormatoLM","Formato LM")
+                                    new Columna("FormatoLM","Formato LM"),
+                                    new Columna("SinDatosEnSistema", "Sin datos en sistema"),
+                                    new Columna("SucursalDestino","Sucursal Destino")
             };
 
             byte[] filecontent = CreatePDFMixta(ingLc, "LM Ingresadas al " + dia, true, columns);
@@ -371,7 +379,7 @@ namespace CRM.Controllers
                 doc.Open();
                 PdfPTable tblPrueba = new PdfPTable(dataTable.Columns.Count);
                 PdfPRow row = null;
-                float[] widths = new float[] { 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f };
+                float[] widths = new float[] { 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f,4f,4f };
                 iTextSharp.text.Font font5 = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
                 iTextSharp.text.Font font6 = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
                 Paragraph header = new Paragraph("Motor de Negocios: Recepción LM Sin Visar Mixta") { Alignment = Element.ALIGN_CENTER };
@@ -404,6 +412,8 @@ namespace CRM.Controllers
                         tblPrueba.AddCell(new Phrase(r[5].ToString(), font5));
                         tblPrueba.AddCell(new Phrase(r[6].ToString(), font5));
                         tblPrueba.AddCell(new Phrase(r[7].ToString(), font5));
+                        tblPrueba.AddCell(new Phrase(r[8].ToString(), font5));
+                        tblPrueba.AddCell(new Phrase(r[9].ToString(), font5));
 
                     }
                 }
@@ -473,7 +483,7 @@ namespace CRM.Controllers
         public Ingresolicencia ObtEncabezadoLicencia(int codOficina, string dia)
         {
             DateTime elDia = Convert.ToDateTime(dia);
-            return IngresolicenciaDataAccess.ObtenerEncabezado(codOficina,elDia);
+            return IngresolicenciaDataAccess.ObtenerEncabezado(codOficina, elDia);
 
         }
 
