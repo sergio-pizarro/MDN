@@ -30,7 +30,7 @@ namespace IA.Security.Api.Controllers
         {
             _tokenServices = new TokenService();
         }
-        
+
 
         [ApiAuthenticationFilter(false)]
         [HttpGet]
@@ -38,7 +38,7 @@ namespace IA.Security.Api.Controllers
         public HttpResponseMessage Authenticate(string re)
         {
             Usuario usr = UsuarioDataAccess.UsuarioData(re);
-            if(usr.IdUsuario != 0)
+            if (usr.IdUsuario != 0)
             {
                 var x = GetAuthToken(usr);
                 x.Headers.Location = new Uri(baseUrl + redirectUrl);
@@ -64,7 +64,7 @@ namespace IA.Security.Api.Controllers
                         var x = GetAuthToken(usr);
                         x.Headers.Location = new Uri(baseUrl + redirectUrl);
                         return x;
-                    }                    
+                    }
                 }
             }
             return null;
@@ -78,7 +78,7 @@ namespace IA.Security.Api.Controllers
         public HttpResponseMessage AuthenticateCall(UsuarioAccesoWeb acceso)
         {
 
-            if(acceso == null)
+            if (acceso == null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, "Authorized");
             }
@@ -100,7 +100,7 @@ namespace IA.Security.Api.Controllers
                 }
                 return null;
             }
-            
+
         }
 
 
@@ -159,44 +159,46 @@ namespace IA.Security.Api.Controllers
             Token token = _tokenServices.GenerateToken(user.IdUsuario);
             //Recurso r = this.PaginaInicio(token.AuthToken);
             var response = Request.CreateResponse(HttpStatusCode.OK, "Authorized");
-            
+
             response.Headers.Add("Token", token.AuthToken);
             response.Headers.Add("TokenExpiry", ConfigurationManager.AppSettings["AuthTokenExpiry"]);
-            response.Headers.Add("Uname",  user.Nombres);
+            response.Headers.Add("Uname", user.Nombres);
             response.Headers.Add("Cargo", CargoDataAccess.obtener(token.AuthToken));
             response.Headers.Add("Noticia", user.NoticiInicio.ToString());
             response.Headers.Add("Oficina", DotacionDataAccess.ObtenerByRut(user.RutUsuario).IdSucursal.ToString());
             response.Headers.Add("Multi", DotacionDataAccess.MultiLoginByRut(user.RutUsuario).Count.ToString());
-            response.Headers.Add("Access-Control-Expose-Headers", "Token,TokenExpiry,Uname,Cargo,Noticia,Oficina,Multi");
-            var obj = new {
-                Rut= user.RutUsuario,
+            response.Headers.Add("Instalar", user.Instalacion.ToString());
+            response.Headers.Add("Access-Control-Expose-Headers", "Token,TokenExpiry,Uname,Cargo,Noticia,Oficina,Multi,Instalar");
+            var obj = new
+            {
+                Rut = user.RutUsuario,
                 Usuario = user.Nombres,
                 Cargo = CargoDataAccess.obtener(token.AuthToken),
-                Noticia= user.NoticiInicio.ToString(),
-                Oficina= DotacionDataAccess.ObtenerByRut(user.RutUsuario).IdSucursal.ToString()
-
+                Noticia = user.NoticiInicio.ToString(),
+                Instalar = user.Instalacion.ToString(),
+                Oficina = DotacionDataAccess.ObtenerByRut(user.RutUsuario).IdSucursal.ToString()
             };
 
             response.Content = new JsonContent(obj);
             return response;
         }
-        
-        
+
+
         private HttpResponseMessage KillToken(string Token)
         {
             _tokenServices.Kill(Token);
             var response = Request.CreateResponse(HttpStatusCode.OK, "Authorized");
             return response;
         }
-        
-        
+
+
         private bool TienePermiso(string token, string url)
         {
-            
+
 
             return true;
         }
-        
+
 
     }
 
@@ -216,7 +218,7 @@ namespace IA.Security.Api.Controllers
             _Stream.Position = 0;
 
         }
-        
+
         protected override Task SerializeToStreamAsync(Stream stream, TransportContext context)
         {
             return _Stream.CopyToAsync(stream);

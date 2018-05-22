@@ -14,6 +14,7 @@ namespace CRM.Security.Entity
         public string RutUsuario { get; set; }
         public int NoticiInicio { get; set; }
         public string Tipo { get; set; }
+        public int Instalacion { get; set; }
 
         public Usuario() { }
 

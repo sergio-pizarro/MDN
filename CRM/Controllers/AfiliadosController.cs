@@ -32,7 +32,14 @@ namespace CRM.Areas.AppPage.Controllers
         {
             return AfiliadoDataAccess.ListaCampaniasAfi(RutAfiliado);
         }
-       // [AuthorizationRequired]
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-alerta-afiliado")]
+        public IEnumerable<Business.Entity.Afiliados.AlertasAfiliados> ListarAlertasAfiliado(int RutAfiliado)
+        {
+            return AfiliadoDataAccess.ListarAlertasAfiliado(RutAfiliado);
+        }
+        // [AuthorizationRequired]
         [HttpGet]
         [Route("lista-rut-empresa")]
         public IEnumerable<Business.Entity.Afiliados.AfiliadoEmpresaEntity> ListarRutEmpresa(int RutAfiliado)
@@ -51,5 +58,14 @@ namespace CRM.Areas.AppPage.Controllers
         {
             return AfiliadoDataAccess.ObtenerHistorialCampana(RutAfiliado, TipoAsignacion);
         }
+        [HttpGet]
+        [Route("obtener-cumpleanos")]
+        public Business.Entity.Afiliados.AfiliadoDatosCumpleanios ObtenerCumpleanos(int RutAfiliado)
+        {
+            return AfiliadoDataAccess.ObtenerCumpleanos(RutAfiliado);
+        }
+       
+       
+
     }
 }

@@ -39,6 +39,14 @@ namespace CRM.Business.Data
             };
             return DBHelper.InstanceCRM.ObtenerEntidad("mae.spMotor_BuscarAfiliadoScan_ObtenerEmpresa", pram, EmpresaAfiliado);
         }
+        public static Entity.Afiliados.AfiliadoDatosCumpleanios ObtenerCumpleanos(int RutAfiliado)
+        {
+            Parametros param = new Parametros
+            {
+                new Parametro("@RutAfiliado",RutAfiliado)
+            };
+            return DBHelper.InstanceCRM.ObtenerEntidad("scafi.spMotor_MostrarCumpleanos", param, DatosContacto);
+        }
 
 
         public static List<Entity.Afiliados.AfiliadoCampanas> ListaCampaniasAfi(int RutAfiliado)
@@ -49,6 +57,15 @@ namespace CRM.Business.Data
             };
             return DBHelper.InstanceCRM.ObtenerColeccion("mae.spMotor_BuscarAfiliadoScanCampanas", pram, CampaniaAfiConst);
         }
+        public static List<Entity.Afiliados.AlertasAfiliados> ListarAlertasAfiliado(int RutAfiliado)
+        {
+            Parametros pram = new Parametros
+            {
+                  new Parametro("@RutAfiliado", RutAfiliado)
+            };
+            return DBHelper.InstanceCRM.ObtenerColeccion("alertafi.spMotor_ListarAlertas", pram, Alertas);
+        }
+
         public static List<Entity.Afiliados.AfiliadoCampanas> ObtenerHistorialCampana(int RutAfiliado, int TipoAsignacion)
         {
             Parametros pram = new Parametros
@@ -70,6 +87,32 @@ namespace CRM.Business.Data
 
             };
         }
+        private static Entity.Afiliados.AfiliadoDatosCumpleanios DatosContacto(DataRow row)
+        {
+
+            return new Entity.Afiliados.AfiliadoDatosCumpleanios
+            {
+               Estado = row["Estado"] != DBNull.Value ? row["Estado"].ToString() : string.Empty,
+               FechaNacimiento = row["FechaNacimiento"] != DBNull.Value ? row["FechaNacimiento"].ToString() : string.Empty,
+               Edad = row["Edad"] != DBNull.Value ? Convert.ToInt32(row["Edad"]) : 0,
+               RutAfiliado = row["RutAfiliado"] != DBNull.Value ? Convert.ToInt32(row["RutAfiliado"]) : 0,
+
+            };
+        }
+
+        private static Entity.Afiliados.AlertasAfiliados Alertas(DataRow row)
+        {
+
+            return new Entity.Afiliados.AlertasAfiliados
+            {
+                AfiliadoRut= row["RutAfiliado"] != DBNull.Value ? Convert.ToInt32(row["RutAfiliado"]) : 0,
+                Tipo = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty,
+                Valor = row["valor"] != DBNull.Value ? row["valor"].ToString() : string.Empty,
+                TipoValor = row["TipoAlerta"] != DBNull.Value ? row["TipoAlerta"].ToString() : string.Empty,
+            };
+        }
+
+
         private static Entity.Afiliados.EmpresaAfiliadoEntity EmpresaAfiliado(DataRow row)
         {
 
@@ -113,6 +156,8 @@ namespace CRM.Business.Data
                 Cel = row["Cel"] != DBNull.Value ? row["Cel"].ToString() : string.Empty,
                 Fono = row["Fono"] != DBNull.Value ? row["Fono"].ToString() : string.Empty,
                 Mail = row["Mail"] != DBNull.Value ? row["Mail"].ToString() : string.Empty,
+                Vigente = row["Vigente"] != DBNull.Value ? Convert.ToInt32(row["Vigente"]) : 0,
+                Fallecido = row["Fallecido"] != DBNull.Value ? Convert.ToInt32(row["Fallecido"]) : 0,
 
 
             };
@@ -152,7 +197,7 @@ namespace CRM.Business.Data
                 Estado = row["EstadoGestion"] != DBNull.Value ? row["EstadoGestion"].ToString() : string.Empty,
                 SubEstado = row["SubEstadoGestion"] != DBNull.Value ? row["SubEstadoGestion"].ToString() : string.Empty,
                 FechaCompromete = row["FComprometeGestion"] != DBNull.Value ? Convert.ToDateTime(row["FComprometeGestion"]) : DateTime.MinValue,
-             //   FechaAccion = row["FechaAccion"] != DBNull.Value ? Convert.ToDateTime(row["FechaAccion"]) : DateTime.MinValue,
+                FechaAccion = row["FechaAccion"] != DBNull.Value ? Convert.ToDateTime(row["FechaAccion"]) : DateTime.MinValue,
                 Descripcion = row["Descripcion"] != DBNull.Value ? row["Descripcion"].ToString() : string.Empty,
                 Nombres = row["Nombre"] != DBNull.Value ? row["Nombre"].ToString() : string.Empty,
                 EsTerminal = row["EstadoTerminal"] != DBNull.Value ? row["EstadoTerminal"].ToString() : string.Empty,

@@ -272,6 +272,7 @@
     <Compile Include="Controllers\GestionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformesController.cs" />
+    <Compile Include="Controllers\InstaladorController.cs" />
     <Compile Include="Controllers\LicenciasController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Filters\ApiAuthenticationFilter.cs" />
@@ -1461,6 +1462,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Img_Install\001 inst_derivlm.jpg" />
+    <Content Include="Img_Install\002 inst_negfiltroorder.jpg" />
+    <Content Include="Img_Install\003 inst_dashejec.jpg" />
+    <Content Include="Img_Install\004 inst_scanafi.jpg" />
+    <Content Include="Img_Install\Incio_instalador\009 inst_final.jpg" />
+    <Content Include="Img_Install\Incio_instalador\000_inst_bienvenida.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -1711,7 +1718,6 @@
     <Content Include="Areas\AppPage\Views\Gestion\DetalleGestionEmpresasAdmin.cshtml" />
     <Content Include="Areas\AppPage\Views\Licencias\Index.cshtml" />
     <Content Include="Areas\AppPage\Views\Inicio\SinPermiso.cshtml" />
-    <Content Include="Areas\AppPage\Views\Licencias\Ingreso.cshtml" />
     <Content Include="Assets\data\licencias.json" />
     <Content Include="Areas\AppPage\Views\Empresas\Index.cshtml" />
     <Content Include="Assets\data\empresas.json" />
@@ -1735,6 +1741,7 @@
     <Content Include="Areas\AppPage\Views\Empresas\Nuevo\Prospeccion.cshtml" />
     <Content Include="Areas\AppPage\Views\HerramientasGestion\CalculadoraCredito.cshtml" />
     <Content Include="Areas\AppPage\Views\Gestion\Oferta.cshtml" />
+    <Content Include="Areas\AppPage\Views\Licencias\Ingreso.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1837,6 +1844,7 @@
     <Content Include="Views\Home\AccesoAdmin.cshtml" />
     <Content Include="Views\Shared\Alternativo.cshtml" />
     <None Include="Service References\WSFonasaCajas\WSFonaCajas.wsdl" />
+    <Content Include="Views\Home\Instalador.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1851,6 +1859,8 @@
     <Folder Include="Views\Empresa\" />
     <Folder Include="Views\FFVVBase\" />
     <Folder Include="Views\Informes\" />
+    <Folder Include="Views\Instalacion\" />
+    <Folder Include="Views\Instalador\" />
     <Folder Include="Views\SucursalAdmin\" />
   </ItemGroup>
   <ItemGroup>

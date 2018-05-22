@@ -9,7 +9,7 @@ namespace CRM.Areas.AppPage.Controllers
     public class DatosAfiliadosController : Controller
     {
         // GET: AppPage/DatosAfiliados
-        public ActionResult Index(int RutAfiliado)
+        public ActionResult Index(string RutBuscar)
         {
             return View();
         }
