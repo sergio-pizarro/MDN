@@ -4,10 +4,11 @@
 
 <head>
     <meta charset=”utf-8″ />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="~/Assets/img/favicon.ico" />
+    <link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
 
-        @*
+    @*
 
         <meta http-equiv="cache-control" content="max-age=0" />
         <meta http-equiv="cache-control" content="no-cache" />
@@ -16,7 +17,7 @@
         <meta http-equiv="pragma" content="no-cache" />
 
 
-        *@
+    *@
 
     @RenderSection("metas", false)
 
@@ -128,6 +129,7 @@
                                 <i class="demo-pli-view-list"></i>
                             </a>
                         </li>
+
                         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                         <!--End Navigation toogle button-->
                         <!--Notification dropdown-->
@@ -208,8 +210,27 @@
                         </li>
                         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                         <!--End notifications dropdown-->
+                        <li>
+                            <form id="frm-rut" action="/motor/App/DatosAfiliados" method="get">
+                                <div class="col-sm-offset-5">
+                                    <div class="col-sm-6 text-right">
+                                        <span class="brand-text" style="font-size:14px;margin-left: 58px; margin-top:6px; color:white;">Buscar Afiliado: </span>
+                                    </div>
 
+                                    <div class="input-group col-sm-6">
+                                        <input type="text" class="form-control es-rut" name="RutBuscar" id="RutBuscar" tabindex="1" required placeholder="11111111-1" style="padding-bottom:0px; margin-top:3px;">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="submit" style="padding-bottom:0px; margin-top:3px;"><i class="ion-search"></i></button>
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                        </li>
                     </ul>
+                 
+                   
                     <ul class="nav navbar-top-links pull-right">
 
                         <!--User dropdown-->
@@ -308,9 +329,9 @@
                                         </div>
                                         <a href="#profile-nav">
                                             <script type="text/javascript">
-                                               
+
                                                 $(function () {
-                                                 
+
                                                     var oficinas = [];
                                                     oficinas[0] = "Sin Información"
                                                     oficinas[1] = "Huérfanos"
@@ -382,13 +403,11 @@
                                                     oficinas[172] = "Huechuraba"
                                                     oficinas[174] = "Estación Central"
 
-                                                    if (getCookie("Usuario") == "Vega Salgado, M.Eugenia" | getCookie("Usuario") == "Garcia Gonzalez,Alejandra")
-                                                    {
+                                                    if (getCookie("Usuario") == "Vega Salgado, M.Eugenia" | getCookie("Usuario") == "Garcia Gonzalez,Alejandra") {
                                                         $("#nombre_usuario").html(getCookie("Usuario").OrdenaNombre() + '<br/><small>' + '</small><br/><small>' + "Gerencia de Personas" + '</small>')
                                                     }
-                                                    else
-                                                        {
-                                                    $("#nombre_usuario").html(getCookie("Usuario").OrdenaNombre() + '<br/><small>' + getCookie("Cargo") + '</small><br/><small>' + oficinas[getCookie("Oficina")] + '</small>')
+                                                    else {
+                                                        $("#nombre_usuario").html(getCookie("Usuario").OrdenaNombre() + '<br/><small>' + getCookie("Cargo") + '</small><br/><small>' + oficinas[getCookie("Oficina")] + '</small>')
                                                     }
                                                 })
 
@@ -469,6 +488,68 @@
 
     @RenderSection("script", false)
 
+  <script src="~/Assets/js/jquery.rut.chileno.min.js"></script>
+    <script src="~/Assets/plugins/masked-input/jquery.maskedinput.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //$('.es-rut').mask('99.999.999-*');
+
+            /*$('#frm-rut').bootstrapValidator({
+                framework: 'bootstrap',
+                err: {
+                    container: function ($field, validator) {
+                        // Look at the markup
+                        //  <div class="col-xs-4">
+                        //      <field>
+                        //  </div>
+                        //  <div class="col-xs-5 messageContainer"></div>
+                        return $field.parent().next('.messageContainer');
+                    }
+                },
+                fields: {
+                    RutBuscar: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe Ingresar un Rut'
+                            }
+                            //callback: {
+                            //    message: 'Rut Invalido',
+                            //    callback: function (value, validator, $field) {
+                            //        console.log(value)
+                            //        return $.rut.validar(value);
+                            //    }
+                            //}
+                        }
+                    }
+                }
+
+
+
+            }).on('success.form.bv', function (e) {
+                //$('#frm-rut').bootstrapValidator('updateStatus', 'AfiliadoRut', 'NOT_VALIDATED').bootstrapValidator('validateField', 'AfiliadoRut');
+                var rutreplace = $("#RutBuscar").val().substring(10, $("#RutBuscar").length - 1)
+                var rut = rutreplace.replace(/\./g, '')
+                location.href = BASE_URL + "/motor/App/DatosAfiliados?RutAfiliado=" + rut
+
+            });*/
+
+
+
+            /*$('#frm-rut').on({
+                submit: function (e) {
+                    e.preventDefault();
+                    return false;
+                },
+                reset: function (event) {
+                    $(this).bootstrapValidator('resetForm', true);
+                }
+            })
+            $("#RutBuscar").on("keyup", function () {
+                $('#frm-rut').bootstrapValidator('updateStatus', 'RutBuscar', 'NOT_VALIDATED').bootstrapValidator('validateField', 'RutBuscar');
+            })*/
+
+        });
+    </script>
 
 
 </body>

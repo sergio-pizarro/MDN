@@ -85,32 +85,32 @@
 
                                     <div class="col-lg-8 col-lg-offset-4">
                                         <div class="col-lg-3 text-center">
-                                            <p>Mes 1</p>
+                                            @*<p>Mes 1</p>*@
                                         </div>
                                         <div class="col-lg-3 text-center">
-                                            <p>Mes 2</p>
+                                            @*<p>Mes 2</p>*@
                                         </div>
                                         <div class="col-lg-3 text-center">
-                                            <p>Mes 3</p>
+                                            @*<p>Mes 3</p>*@
                                         </div>
                                         <div class="col-lg-3 text-center">
-                                            <p>Promedio</p>
+                                            @*<p></p>*@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-4"> Ingresar 3 Últimos meses de Descuentos Legales</div>
+                                    <div class="col-lg-4"> Ingresar Descuentos Legales Última Liquidación</div>
                                     <div class="col-lg-8">
-                                        <div class="col-lg-3">
-                                            <input type="text" class="form-control promediar-descuentos-legal solo-numeros" name="descuentos_legales_primer_mes" id="descuentos_legales_primer_mes" />
+                                        @*<div class="col-lg-3">
+                                            <input type="text" class="form-control promediar-descuentos-legal solo-numeros" name="descuentos_legales_primer_mes" id="descuentos_legales_primer_mes" style="display:none"/>
                                         </div>
                                         <div class="col-lg-3">
-                                            <input type="text" class="form-control promediar-descuentos-legal solo-numeros" name="descuentos_legales_segundo_mes" id="descuentos_legales_segundo_mes" />
+                                            <input type="text" class="form-control promediar-descuentos-legal solo-numeros" name="descuentos_legales_segundo_mes" id="descuentos_legales_segundo_mes"style="display:none" />
                                         </div>
                                         <div class="col-lg-3">
-                                            <input type="text" class="form-control promediar-descuentos-legal solo-numeros" name="descuentos_legales_tercer_mes" id="descuentos_legales_tercer_mes" />
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <input type="text" class="form-control" name="descuentos_legales_promedio" id="descuentos_legales_promedio" readonly />
+                                            <input type="text" class="form-control promediar-descuentos-legal solo-numeros" name="descuentos_legales_tercer_mes" id="descuentos_legales_tercer_mes"style="display:none" />
+                                        </div>*@
+                                        @*<div class="col-lg-8">*@
+                                            <input type="text" class="form-control solo-numeros" name="descuentos_legales_promedio" id="descuentos_legales_promedio" />
                                         </div>
                                     </div>
                                 </div>
@@ -331,6 +331,26 @@
                            }
                        }
                    },
+                   descuentos_legales_promedio: {
+                       validators: {
+                           notEmpty: {
+                               message: 'Debe seleccionar una opción'
+                           },
+                           callback: {
+                               //message: 'El valor no puede ser mayor que ',
+                               callback: function (value, validator, $field) {
+                                   return {
+                                       valid: parseInt(value.replace(/\./g, '')) <= parseInt($("#total_descuentos_promedio").val().replace(/\./g, '')),
+                                       message: 'Este valor debe ser menor que el total descuentos Última Liquidación'
+                                   }
+                               }
+                           },
+                           greaterThan: {
+                               value: 1 ,
+                               message: 'Este valor debe ser mayor que 0'
+                           },
+                       }
+                   },
                    descuentos_creditos_planilla: {
                        validators: {
                            notEmpty: {
@@ -357,7 +377,7 @@
                var cuota = parseInt($("#descuento_legal").val().replace(/\./g, '')) - (parseInt($('#total_descuentos_promedio').val().replace(/\./g, '')) - parseInt($('#descuentos_legales_promedio').val().replace(/\./g, ''))) + (!isNaN(parseInt($('#descuentos_creditos_planilla').val().replace(/\./g, ''))) ? parseInt($('#descuentos_creditos_planilla').val().replace(/\./g, '')) : 0);
 
                const descuento_legal = parseInt($("#descuento_legal").val().replace(/\./g, ''));
-               cuota = (cuota > descuento_legal) ? descuento_legal : cuota;
+               //cuota = (cuota > descuento_legal) ? descuento_legal : cuota;
                $('#cuota_maxima_descontar_caja').val(!isNaN(cuota) ? cuota.toMoney(0) : 0);
 
 

@@ -203,7 +203,7 @@ namespace CRM.Business.Data
         }
 
 
-        public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, int SubEstado, string Prioridad, string Segmento, string Tipo, string rut, int Offset, int Limit, string Sort, string Orden)
+        public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, int SubEstado, string Prioridad, string Segmento, string Tipo, string rut, int Offset, int Limit, string Sort, string Orden, string Vencimiento)
         {
             Parametros pram = new Parametros
             {
@@ -217,6 +217,7 @@ namespace CRM.Business.Data
                 new Parametro("@Segmento",Segmento),
                 new Parametro("@Tipo",Tipo),
                 new Parametro("@RutAfiliado", rut),
+                new Parametro("@Vencimiento", Vencimiento),
 
                 new Parametro("@Offset",Offset),
                 new Parametro("@Limit",Limit),
@@ -225,11 +226,11 @@ namespace CRM.Business.Data
 
             };
 
-            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag", pram, ContainerConstructor);
+            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag2", pram, ContainerConstructor);
         }
 
 
-        public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, int SubEstado, string rut, int Offset, int Limit, string Sort, string Orden)
+        public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, int SubEstado, string rut, int Offset, int Limit, string Sort, string Orden, string Vencimiento)
         {
             Parametros pram = new Parametros
             {
@@ -240,6 +241,7 @@ namespace CRM.Business.Data
                 new Parametro("@Estado",Estado),
                 new Parametro("@SubEstado",SubEstado),
                 new Parametro("@RutAfiliado", rut),
+                new Parametro("@Vencimiento", Vencimiento),
 
                 new Parametro("@Offset",Offset),
                 new Parametro("@Limit",Limit),
@@ -248,11 +250,11 @@ namespace CRM.Business.Data
 
             };
 
-            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag", pram, ContainerConstructor);
+            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag2", pram, ContainerConstructor);
         }
 
 
-        public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, int CausaBasal, int Consecuencia, string Prioridad, string rut, int Offset, int Limit, string Sort, string Orden)
+        public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, int CausaBasal, int Consecuencia, string Prioridad, string rut, int Offset, int Limit, string Sort, string Orden, string Vencimiento)
         {
             Parametros pram = new Parametros
             {
@@ -265,6 +267,7 @@ namespace CRM.Business.Data
                 new Parametro("@Estado",Estado),
                 new Parametro("@Prioridad",Prioridad),
                 new Parametro("@RutAfiliado", rut),
+                new Parametro("@Vencimiento", Vencimiento),
 
                 new Parametro("@Offset",Offset),
                 new Parametro("@Limit",Limit),
@@ -273,7 +276,7 @@ namespace CRM.Business.Data
 
             };
 
-            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag", pram, ContainerConstructor);
+            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag2", pram, ContainerConstructor);
         }
 
 
