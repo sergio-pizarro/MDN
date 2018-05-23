@@ -193,7 +193,7 @@
                                     <div class="panel">
                                         <div class="panel-heading">
                                             <div class="pad-all">
-                                                <p class="text-lg text-semibold"><i class="demo-pli-check icon-fw"></i> Mi Gestión Comercial</p>
+                                                <p class="text-lg text-semibold"><i class="demo-pli-check icon-fw"></i> Mi Gesti&oacute;n Comercial</p>
                                             </div>
                                         </div>
                                         <div class="panel-body">
@@ -432,72 +432,7 @@
 
             });
 
-
-
-
-            $('.es-rut').mask('99.999.999-*');
-            $('#frm-data-afi').bootstrapValidator({
-                excluded: [':disabled', ':not(:visible)'],
-                feedbackIcons: [],
-                fields: {
-                    AfiliadoRut: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe ingresar un rut'
-                            },
-                            callback: {
-                                message: 'Rut Invalido',
-                                callback: function (value, validator, $field) {
-                                    return $.rut.validar(value);
-                                }
-                            }
-                        }
-                    }
-
-                }
-            }).on('success.form.bv', function (e) {
-
-            });
-
-            $("#bt-buscar").on("click", function () {
-                var rut = $("#AfiliadoRut").val().substring(9, $("#AfiliadoRut").length - 1)
-
-                if ($("#AfiliadoRut").val().length > 7) {
-                    $.SecGetJSON(BASE_URL + "/motor/api/Licencias/datos-afiliado", { AfiliadoRut: $("#AfiliadoRut").val() }, function (respuesta) {
-                        if (respuesta.Estado === "OK") {
-                            if (respuesta.Objeto.logField.codRespuestaField != 5) {
-
-                                $("#totales").hide();
-                                $("#bdafiliado").show();
-                                $("#AfiNombres").val(respuesta.Objeto.datosAfiliado1Field.nombresField + " " + respuesta.Objeto.datosAfiliado1Field.apellidoPaternoField + " " + respuesta.Objeto.datosAfiliado1Field.apellidoMaternoField)
-                                $("#EmpresaRut").val(respuesta.Objeto.empresasField[0].rutEmpresaField);
-                                $("#EmpresaNombre").val(respuesta.Objeto.empresasField[0].razonSocialField);
-                                console.log(respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.substring(0, respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.length - 2))
-                                console.log($("#AfiliadoRut").val().substring(0, $("#AfiliadoRut").val().length - 2))
-                                $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-afi", { AfiliadoRut: respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.substring(0, respuesta.Objeto.datosAfiliado1Field.rutAfiliadoField.length - 2) }, function (respuesta1) {
-                                });
-                            } else {
-                                $("#AfiNombres").val("");
-                                $("AfiliadoRut2").val("");
-                                $("#EmpresaRut").val("");
-                                $("#EmpresaNombre").val("");
-                            }
-
-
-                        } else {
-                            $.niftyNoty({
-                                type: 'danger',
-                                container: 'floating',
-                                html: '<strong>Error</strong> ' + respuesta.Mensaje,
-                                focus: false,
-                                timer: 3000
-                            });
-                        }
-
-                    });
-
-                }
-            });
+            
         });
 
     </script>
