@@ -1,9 +1,9 @@
 ﻿
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es-cl">
 
 <head>
-    <meta charset=”utf-8″ />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="~/Assets/img/favicon.ico" />
     <link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
@@ -210,23 +210,24 @@
                         </li>
                         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                         <!--End notifications dropdown-->
-                        <li>
-                            <form id="frm-rut" action="/motor/App/DatosAfiliados" method="get">
-                                <div class="col-sm-offset-5">
-                                    <div class="col-sm-6 text-right">
-                                        <span class="brand-text" style="font-size:14px;margin-left: 58px; margin-top:6px; color:white;">Buscar Afiliado: </span>
+                        <li class="col-sm-8">
+                                <div class="col-sm-offset-3 col-sm-8">
+                                    <div class="col-sm-4 text-right">
+                                        <span class="brand-text" style="font-size:14px;margin-left: 58px; margin-top:10px; color:white;">Buscar Afiliado: </span>
                                     </div>
-
-                                    <div class="input-group col-sm-6">
-                                        <input type="text" class="form-control es-rut" name="RutBuscar" id="RutBuscar" tabindex="1" required placeholder="11111111-1" style="padding-bottom:0px; margin-top:3px;">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="submit" style="padding-bottom:0px; margin-top:3px;"><i class="ion-search"></i></button>
-                                        </span>
+                                    <div class="col-sm-6" style="padding-bottom:0px; margin-top:3px;">
+                                        <form id="frm-rut" action="/motor/App/DatosAfiliados" method="get">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control es-rut" name="RutBuscar" id="RutBuscar" tabindex="1" required placeholder="11111111-1" autocomplete="off" style="padding-bottom:0px; margin-top:3px;">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="submit" style="padding-bottom:0px; margin-top:3px;"><i class="ion-search"></i></button>
+                                                </span>
+                                            </div>
+                                        </form>
                                     </div>
-
                                 </div>
 
-                            </form>
+                            
                         </li>
                     </ul>
                  

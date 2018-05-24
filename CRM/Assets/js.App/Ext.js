@@ -750,19 +750,47 @@ $(function () {
               ).append(cUL));
         }
 
-
-
         $.niftyNav('bind')
+        const url = document.URL.replace(BASE_URL, '');
+        const clear_url = url.indexOf('?') > 0 ? document.URL.replace(BASE_URL, '').substr(0, url.indexOf('?')) : null;
+        const params = url.indexOf('?') > 0 ? document.URL.replace(BASE_URL, '').substr(url.indexOf('?')+1) : null;
+        const array_url = url.split('/');
+        
+        if (url.indexOf('FichaEmpresa') > -1 || url.indexOf('Licencias') > -1 || url.indexOf('Informes') > -1) {
+            if (array_url.length > 3)
+            {
+                array_url.splice(4, 1);
+            }
+
+            var nurl = array_url.join('/')
+            $('a[href="' + nurl + '"]').closest('li').addClass('active-link').closest('ul').addClass('in').closest('li').addClass('active-sub active')
+        }
+        else if(url.indexOf('Engine') > -1 && url.indexOf('Detalle') > -1)
+        {
+            
+            var cod_camp = params.split('&')[1];
+            console.log(cod_camp)
+            if (array_url.length > 3) {
+                array_url.splice(4, 1);
+            }
+
+            var nurl = array_url.join('/')
+            $('a[href="' + nurl + '?' + cod_camp + '"]').closest('li').addClass('active-link').closest('ul').addClass('in').closest('li').addClass('active-sub active')
+        }
+        else if (url.indexOf('Engine') > -1 || clear_url === null)
+        {
+            $('a[href="' + url + '"]').closest('li').addClass('active-link').closest('ul').addClass('in').closest('li').addClass('active-sub active')
+        }
+        else
+        {
+            $('a[href="' + clear_url + '"]').closest('li').addClass('active-link').closest('ul').addClass('in').closest('li').addClass('active-sub active')
+        }
+        
+        
+        
     }
 
    
-
-
-
-
-
-
-
 
 
 
