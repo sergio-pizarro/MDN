@@ -130,59 +130,58 @@ namespace CRM.Controllers
             }
             else
             {
-                //try
-                //{uj
-                    GestionEntity oSv = new GestionEntity();
-                    oSv.IdBaseCampagna = entrada.Asignacion;
-                    oSv.IdEstado = 701;
-                    oSv.IdOficina = "555";
-                    oSv.Descripcion = entrada.Comentarios;
-                    oSv.FechaAccion = DateTime.Now;
-                    oSv.FechaCompromete = entrada.FechaProxGestion != null && entrada.FechaProxGestion != "" ? Convert.ToDateTime(entrada.FechaProxGestion) : Convert.ToDateTime("1/1/1753 12:00:00");
-                    oSv.RutEjecutivo = entrada.RutEjecutivo;
-                    GestionDataAccess.Guardar(oSv);
-                    AsignacionDataAccess.AsignarOficina(entrada.Asignacion, entrada.Oficina);
+                GestionEntity oSv = new GestionEntity();
+                oSv.IdBaseCampagna = entrada.Asignacion;
+                oSv.IdEstado = 701;
+                oSv.IdOficina = "555";
+                oSv.Descripcion = entrada.Comentarios;
+                oSv.FechaAccion = DateTime.Now;
+                oSv.FechaCompromete = entrada.FechaProxGestion != null && entrada.FechaProxGestion != "" ? Convert.ToDateTime(entrada.FechaProxGestion) : Convert.ToDateTime("1/1/1753 12:00:00");
+                oSv.RutEjecutivo = entrada.RutEjecutivo;
+                GestionDataAccess.Guardar(oSv);
+                AsignacionDataAccess.AsignarOficina(entrada.Asignacion, entrada.Oficina);
 
-                    if(entrada.FonoContact != "OTR")
-                    {
-                        var contc = ContactoafiliadoDataAccess.Obtener(Convert.ToInt32(entrada.RutAfiliado), entrada.FonoContact.Replace("+",string.Empty));
-                        ContactoafiliadoDataAccess.Guardar(contc);
-                    }
-                    else
-                    {
-                        //si no se valida dispara exception
-                        int validaFono = Convert.ToInt32(entrada.NuevoFono);
 
-                        ContactoafiliadoEntity cn = new ContactoafiliadoEntity
-                        {
-                            Afiliado_rut = Convert.ToInt32(entrada.RutAfiliado),
-                            Fecha_accion = DateTime.Now,
-                            Fecha_contacto = DateTime.Now,
-                            Tipo_contacto = "CELULAR",
-                            Valido = 1,
-                            Valor_contacto = prefijo_numero + entrada.NuevoFono
-                        };
-                        ContactoafiliadoDataAccess.Guardar(cn);
-                    }
-                    
-                    return new ResultadoBase
-                    {
-                        Estado = "OK",
-                        Mensaje = "Guardado con Exito",
-                        Objeto = entrada
-                    };
-                /*}
-                catch(Exception ex)
+                AsignacionEntity asg = AsignacionDataAccess.ObtenerPorID(entrada.Asignacion);
+                PreferenciaAfiliadoEntity pa = new PreferenciaAfiliadoEntity()
                 {
-                    //AsignacionDataAccess
-                    return new ResultadoBase
+                    Afiliado_rut = (int)asg.Afiliado_Rut,
+                    Fecha_accion = DateTime.Now,
+                    Tipo_preferencia = "HORARIO",
+                    Valida = true,
+                    Valor_preferencia = entrada.HorarioPreferencia
+                };
+
+                PreferenciaAfiliadoDataAccess.Guardar(pa);
+
+                if(entrada.FonoContact != "OTR")
+                {
+                    var contc = ContactoafiliadoDataAccess.Obtener(Convert.ToInt32(entrada.RutAfiliado), entrada.FonoContact.Replace("+",string.Empty));
+                    ContactoafiliadoDataAccess.Guardar(contc);
+                }
+                else
+                {
+                    //si no se valida dispara exception
+                    int validaFono = Convert.ToInt32(entrada.NuevoFono);
+
+                    ContactoafiliadoEntity cn = new ContactoafiliadoEntity
                     {
-                        Estado = "ERR",
-                        Mensaje = "Error al guardar",
-                        Objeto = ex
+                        Afiliado_rut = Convert.ToInt32(entrada.RutAfiliado),
+                        Fecha_accion = DateTime.Now,
+                        Fecha_contacto = DateTime.Now,
+                        Tipo_contacto = "CELULAR",
+                        Valido = 1,
+                        Valor_contacto = prefijo_numero + entrada.NuevoFono
                     };
-                }*/
-                
+                    ContactoafiliadoDataAccess.Guardar(cn);
+                }
+                    
+                return new ResultadoBase
+                {
+                    Estado = "OK",
+                    Mensaje = "Guardado con Exito",
+                    Objeto = entrada
+                };
                 
             }
             
