@@ -50,6 +50,7 @@
     <Compile Include="BaseCampagnaDataAccess.cs" />
     <Compile Include="CarteraEmpresaDataAccess.cs" />
     <Compile Include="ConfirmDotacionDataAccess.cs" />
+    <Compile Include="ContactabilidadDataAccess\ContactabilidadDataAccess.cs" />
     <Compile Include="ContactoafiliadoDataAccess.cs" />
     <Compile Include="ContactoDataAccess.cs" />
     <Compile Include="CuestionarioDataAccess.cs" />
