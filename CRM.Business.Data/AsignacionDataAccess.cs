@@ -97,9 +97,9 @@ namespace CRM.Business.Data
         /// <returns>Referencia a una clase <see cref="Asignacion"/>.</returns>
         public static AsignacionEntity ObtenerPorID(int id_Asign)
         {
-            Parametro parametro = new Parametro("@id_Asign", id_Asign);
+            Parametro parametro = new Parametro("@IdAsig", id_Asign);
 
-            return DBHelper.InstanceCRM.ObtenerEntidad("sp_Asignacion_ObtenerPorID", parametro, ConstructorEntidad);
+            return DBHelper.InstanceCRM.ObtenerEntidad("dbo.spMotor_Asignacion_ObtenerByID", parametro, ConstructorEntidad);
         }
 
         /// <summary>
