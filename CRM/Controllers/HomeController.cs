@@ -13,6 +13,7 @@ namespace CRM.Controllers
     public class HomeController : Controller
     {
         private string baseUrl = ConfigurationManager.AppSettings["ServidorApi"];
+
         public ActionResult Index()
         {
             if (Request.Browser.Type.ToUpper().Contains("IE"))
@@ -31,6 +32,17 @@ namespace CRM.Controllers
             {
                 if (RutEjecutivo != null)
                 {
+                    //Cuenta de mantencion y soporte
+                    if(RutEjecutivo.Equals("soporte") && ClaveEjecutivo.Equals("#spt546;V18$"))
+                    {
+                        string tokenSoporte = Guid.NewGuid().ToString();
+                        System.Web.HttpCookie myCookie = new System.Web.HttpCookie("X-Support-Token");
+                        myCookie.Value = tokenSoporte;
+                        myCookie.Expires = DateTime.Now.AddDays(1);
+                        Response.Cookies.Add(myCookie);
+                        return Redirect("/motor/home/AccesoAdmin");
+                    }
+
                     AutenticarLdapService.AutenticarLdapDelegateClient ServicioAuth = new AutenticarLdapService.AutenticarLdapDelegateClient();
                     ServicioAuth.ClientCredentials.UserName.UserName = "SOAPCES";
                     ServicioAuth.ClientCredentials.UserName.Password = "r{91u5#0T.k2)9Y";
@@ -57,41 +69,40 @@ namespace CRM.Controllers
                         var request = new RestRequest("Auth/authenticate", Method.GET);
                         request.AddQueryParameter("re", RutEjecutivo);
                         IRestResponse response = client.Execute(request);
-
-                        //Response.Headers.Add("Token", response.Headers.Where(x => x.Name == "Token").FirstOrDefault().Value.ToString()); 
+                        
                         if (response.StatusCode == System.Net.HttpStatusCode.OK)
                         {
+                            dynamic respuesta = SimpleJson.DeserializeObject(response.Content);
+
                             System.Web.HttpCookie myCookie = new System.Web.HttpCookie("Token");
                             myCookie.Value = response.Headers.Where(x => x.Name == "Token").FirstOrDefault().Value.ToString();
                             myCookie.Expires = DateTime.Now.AddDays(5);
                             Response.Cookies.Add(myCookie);
 
-
                             System.Web.HttpCookie usuarioCookie = new System.Web.HttpCookie("Usuario");
-                            usuarioCookie.Value = response.Headers.Where(x => x.Name == "Uname").FirstOrDefault().Value.ToString();
+                            usuarioCookie.Value = respuesta.Usuario;
                             usuarioCookie.Expires = DateTime.Now.AddDays(5);
                             Response.Cookies.Add(usuarioCookie);
 
                             System.Web.HttpCookie cargoCookie = new System.Web.HttpCookie("Cargo");
-                            cargoCookie.Value = response.Headers.Where(x => x.Name == "Cargo").FirstOrDefault().Value.ToString();
+                            cargoCookie.Value = respuesta.Cargo;
                             cargoCookie.Expires = DateTime.Now.AddDays(5);
                             Response.Cookies.Add(cargoCookie);
 
-
                             System.Web.HttpCookie notiniCookie = new System.Web.HttpCookie("Noticia");
-                            notiniCookie.Value = response.Headers.Where(x => x.Name == "Noticia").FirstOrDefault().Value.ToString();
+                            notiniCookie.Value = respuesta.Noticia;
                             notiniCookie.Expires = DateTime.Now.AddDays(1);
                             Response.Cookies.Add(notiniCookie);
 
                             System.Web.HttpCookie ofiCookie = new System.Web.HttpCookie("Oficina");
-                            ofiCookie.Value = response.Headers.Where(x => x.Name == "Oficina").FirstOrDefault().Value.ToString();
-                            ofiCookie.Expires = DateTime.Now.AddDays(1);
+                            ofiCookie.Value = respuesta.Oficina;
+                            ofiCookie.Expires = DateTime.Now.AddDays(5);
                             Response.Cookies.Add(ofiCookie);
 
 
 
-                            int install = Convert.ToInt32(response.Headers.Where(x => x.Name == "Instalar").FirstOrDefault().Value.ToString());
-                            int multi = Convert.ToInt32(response.Headers.Where(x => x.Name == "Multi").FirstOrDefault().Value.ToString());
+                            int install = Convert.ToInt32(respuesta.Instalar);
+                            int multi = Convert.ToInt32(respuesta.Multi);
 
                             if (install > 0)
                             {
@@ -115,7 +126,7 @@ namespace CRM.Controllers
                         }
                         else
                         {
-                            ViewBag.CodError = "NO_EJEC";
+                            ViewBag.CodError = "NO_CONECT";
                             return View();
                         }
                     }
@@ -130,35 +141,35 @@ namespace CRM.Controllers
                         //Response.Headers.Add("Token", response.Headers.Where(x => x.Name == "Token").FirstOrDefault().Value.ToString()); 
                         if (response.StatusCode == System.Net.HttpStatusCode.OK)
                         {
+                            dynamic respuesta = SimpleJson.DeserializeObject(response.Content);
+
                             System.Web.HttpCookie myCookie = new System.Web.HttpCookie("Token");
                             myCookie.Value = response.Headers.Where(x => x.Name == "Token").FirstOrDefault().Value.ToString();
                             myCookie.Expires = DateTime.Now.AddDays(5);
                             Response.Cookies.Add(myCookie);
 
-
                             System.Web.HttpCookie usuarioCookie = new System.Web.HttpCookie("Usuario");
-                            usuarioCookie.Value = response.Headers.Where(x => x.Name == "Uname").FirstOrDefault().Value.ToString();
+                            usuarioCookie.Value = respuesta.Usuario;
                             usuarioCookie.Expires = DateTime.Now.AddDays(5);
                             Response.Cookies.Add(usuarioCookie);
 
                             System.Web.HttpCookie cargoCookie = new System.Web.HttpCookie("Cargo");
-                            cargoCookie.Value = response.Headers.Where(x => x.Name == "Cargo").FirstOrDefault().Value.ToString();
+                            cargoCookie.Value = respuesta.Cargo;
                             cargoCookie.Expires = DateTime.Now.AddDays(5);
                             Response.Cookies.Add(cargoCookie);
 
-
                             System.Web.HttpCookie notiniCookie = new System.Web.HttpCookie("Noticia");
-                            notiniCookie.Value = response.Headers.Where(x => x.Name == "Noticia").FirstOrDefault().Value.ToString();
+                            notiniCookie.Value = respuesta.Noticia;
                             notiniCookie.Expires = DateTime.Now.AddDays(1);
                             Response.Cookies.Add(notiniCookie);
 
                             System.Web.HttpCookie ofiCookie = new System.Web.HttpCookie("Oficina");
-                            ofiCookie.Value = response.Headers.Where(x => x.Name == "Oficina").FirstOrDefault().Value.ToString();
-                            ofiCookie.Expires = DateTime.Now.AddDays(1);
+                            ofiCookie.Value = respuesta.Oficina;
+                            ofiCookie.Expires = DateTime.Now.AddDays(5);
                             Response.Cookies.Add(ofiCookie);
 
-                            int install = Convert.ToInt32(response.Headers.Where(x => x.Name == "Instalar").FirstOrDefault().Value.ToString());
-                            int multi = Convert.ToInt32(response.Headers.Where(x => x.Name == "Multi").FirstOrDefault().Value.ToString());
+                            int install = Convert.ToInt32(respuesta.Instalar);
+                            int multi = Convert.ToInt32(respuesta.Multi);
 
                             if (install > 0)
                             {
@@ -182,7 +193,7 @@ namespace CRM.Controllers
                         }
                         else
                         {
-                            ViewBag.CodError = "NO_EJEC";
+                            ViewBag.CodError = "NO_CONECT";
                             return View();
                         }
                     }
@@ -200,51 +211,51 @@ namespace CRM.Controllers
 
         public ActionResult AccesoAdmin(string RE)
         {
+            
             if (RE != null)
             {
                 var client = new RestClient(baseUrl + "/motor/api");
                 var request = new RestRequest("Auth/authenticate", Method.GET);
                 request.AddQueryParameter("re", RE);
                 IRestResponse response = client.Execute(request);
-
-                //Response.Headers.Add("Token", response.Headers.Where(x => x.Name == "Token").FirstOrDefault().Value.ToString()); 
+                
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
+                    dynamic respuesta = SimpleJson.DeserializeObject(response.Content);
+
+
                     System.Web.HttpCookie myCookie = new System.Web.HttpCookie("Token");
                     myCookie.Value = response.Headers.Where(x => x.Name == "Token").FirstOrDefault().Value.ToString();
                     myCookie.Expires = DateTime.Now.AddDays(5);
                     Response.Cookies.Add(myCookie);
 
-
                     System.Web.HttpCookie usuarioCookie = new System.Web.HttpCookie("Usuario");
-                    usuarioCookie.Value = response.Headers.Where(x => x.Name == "Uname").FirstOrDefault().Value.ToString();
+                    usuarioCookie.Value = respuesta.Usuario;
                     usuarioCookie.Expires = DateTime.Now.AddDays(5);
                     Response.Cookies.Add(usuarioCookie);
-
+                    
                     System.Web.HttpCookie cargoCookie = new System.Web.HttpCookie("Cargo");
-                    cargoCookie.Value = response.Headers.Where(x => x.Name == "Cargo").FirstOrDefault().Value.ToString();
+                    cargoCookie.Value = respuesta.Cargo; 
                     cargoCookie.Expires = DateTime.Now.AddDays(5);
                     Response.Cookies.Add(cargoCookie);
 
                     System.Web.HttpCookie notiniCookie = new System.Web.HttpCookie("Noticia");
-                    notiniCookie.Value = response.Headers.Where(x => x.Name == "Noticia").FirstOrDefault().Value.ToString();
+                    notiniCookie.Value = respuesta.Noticia;
                     notiniCookie.Expires = DateTime.Now.AddDays(1);
                     Response.Cookies.Add(notiniCookie);
 
-
                     System.Web.HttpCookie ofiCookie = new System.Web.HttpCookie("Oficina");
-                    ofiCookie.Value = response.Headers.Where(x => x.Name == "Oficina").FirstOrDefault().Value.ToString();
-                    ofiCookie.Expires = DateTime.Now.AddDays(1);
+                    ofiCookie.Value = respuesta.Oficina;
+                    ofiCookie.Expires = DateTime.Now.AddDays(5);
                     Response.Cookies.Add(ofiCookie);
 
-                    int install = Convert.ToInt32(response.Headers.Where(x => x.Name == "Instalar").FirstOrDefault().Value.ToString());
-                    int multi = Convert.ToInt32(response.Headers.Where(x => x.Name == "Multi").FirstOrDefault().Value.ToString());
+                    int install = Convert.ToInt32(respuesta.Instalar);
+                    int multi = Convert.ToInt32(respuesta.Multi);
 
                     if (install > 0)
                     {
                         return Redirect("../Home/Instalador?i=" + install.ToString());
                     }
-
                     else
                     {
                         if (multi > 1)
@@ -264,7 +275,14 @@ namespace CRM.Controllers
             }
             else
             {
-                return View();
+                if (Request.Cookies["X-Support-Token"] != null)
+                {
+                    return View();
+                }
+                else
+                {
+                    return Redirect("/motor/home/Acceso");
+                }
             }
         }
 
@@ -278,33 +296,31 @@ namespace CRM.Controllers
             //Response.Headers.Add("Token", response.Headers.Where(x => x.Name == "Token").FirstOrDefault().Value.ToString()); 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
+                dynamic respuesta = SimpleJson.DeserializeObject(response.Content);
+
                 System.Web.HttpCookie myCookie = new System.Web.HttpCookie("Token");
                 myCookie.Value = response.Headers.Where(x => x.Name == "Token").FirstOrDefault().Value.ToString();
                 myCookie.Expires = DateTime.Now.AddDays(5);
                 Response.Cookies.Add(myCookie);
 
-
                 System.Web.HttpCookie usuarioCookie = new System.Web.HttpCookie("Usuario");
-                usuarioCookie.Value = response.Headers.Where(x => x.Name == "Uname").FirstOrDefault().Value.ToString();
+                usuarioCookie.Value = respuesta.Usuario;
                 usuarioCookie.Expires = DateTime.Now.AddDays(5);
                 Response.Cookies.Add(usuarioCookie);
 
-
                 System.Web.HttpCookie cargoCookie = new System.Web.HttpCookie("Cargo");
-                cargoCookie.Value = response.Headers.Where(x => x.Name == "Cargo").FirstOrDefault().Value.ToString();
+                cargoCookie.Value = respuesta.Cargo;
                 cargoCookie.Expires = DateTime.Now.AddDays(5);
                 Response.Cookies.Add(cargoCookie);
 
-
                 System.Web.HttpCookie notiniCookie = new System.Web.HttpCookie("Noticia");
-                notiniCookie.Value = response.Headers.Where(x => x.Name == "Noticia").FirstOrDefault().Value.ToString();
+                notiniCookie.Value = respuesta.Noticia;
                 notiniCookie.Expires = DateTime.Now.AddDays(1);
                 Response.Cookies.Add(notiniCookie);
 
-
                 System.Web.HttpCookie ofiCookie = new System.Web.HttpCookie("Oficina");
-                ofiCookie.Value = response.Headers.Where(x => x.Name == "Oficina").FirstOrDefault().Value.ToString();
-                ofiCookie.Expires = DateTime.Now.AddDays(1);
+                ofiCookie.Value = respuesta.Oficina;
+                ofiCookie.Expires = DateTime.Now.AddDays(5);
                 Response.Cookies.Add(ofiCookie);
 
                 return Redirect(baseUrl + "/motor/App/Informes");

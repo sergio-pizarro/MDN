@@ -256,7 +256,7 @@ namespace CRM.Controllers
                             };
                             glst.Add(g);
                         }
-                       if (tipoCampagna == 2)
+                        if (tipoCampagna == 2)
                         {
                             GestionRecuperacion g = new GestionRecuperacion()
                             {
@@ -311,6 +311,7 @@ namespace CRM.Controllers
                 {
                     a.Estado = "ERROR";
                     a.Mensaje = "No se encuentra afiliado para el periodo*";
+                    a.Objeto = ordCmp;
                 }
                 else
                 {
@@ -326,6 +327,7 @@ namespace CRM.Controllers
             {
                 a.Estado = "ERROR";
                 a.Mensaje = "No se encuentra afiliado para el periodo";
+                a.Objeto = ex;
             }
 
             return a;

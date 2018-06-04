@@ -130,7 +130,7 @@ namespace IA.Security.Api.Controllers
 
         [ApiAuthenticationFilter(false)]
         [AuthorizationRequired]
-        [HttpPost]
+        [HttpGet]
         [Route("kill")]
         public HttpResponseMessage killAuth()
         {
@@ -162,13 +162,14 @@ namespace IA.Security.Api.Controllers
 
             response.Headers.Add("Token", token.AuthToken);
             response.Headers.Add("TokenExpiry", ConfigurationManager.AppSettings["AuthTokenExpiry"]);
-            response.Headers.Add("Uname", user.Nombres);
-            response.Headers.Add("Cargo", CargoDataAccess.obtener(token.AuthToken));
-            response.Headers.Add("Noticia", user.NoticiInicio.ToString());
-            response.Headers.Add("Oficina", DotacionDataAccess.ObtenerByRut(user.RutUsuario).IdSucursal.ToString());
-            response.Headers.Add("Multi", DotacionDataAccess.MultiLoginByRut(user.RutUsuario).Count.ToString());
-            response.Headers.Add("Instalar", user.Instalacion.ToString());
-            response.Headers.Add("Access-Control-Expose-Headers", "Token,TokenExpiry,Uname,Cargo,Noticia,Oficina,Multi,Instalar");
+            //response.Headers.Add("Uname", user.Nombres);
+            //response.Headers.Add("Cargo", CargoDataAccess.obtener(token.AuthToken));
+            //response.Headers.Add("Noticia", user.NoticiInicio.ToString());
+            //response.Headers.Add("Oficina", DotacionDataAccess.ObtenerByRut(user.RutUsuario).IdSucursal.ToString());
+            //response.Headers.Add("Multi", DotacionDataAccess.MultiLoginByRut(user.RutUsuario).Count.ToString());
+            //response.Headers.Add("Instalar", user.Instalacion.ToString());
+            //,Uname,Cargo,Noticia,Oficina,Multi,Instalar
+            response.Headers.Add("Access-Control-Expose-Headers", "Token,TokenExpiry");
             var obj = new
             {
                 Rut = user.RutUsuario,
@@ -176,6 +177,7 @@ namespace IA.Security.Api.Controllers
                 Cargo = CargoDataAccess.obtener(token.AuthToken),
                 Noticia = user.NoticiInicio.ToString(),
                 Instalar = user.Instalacion.ToString(),
+                Multi = DotacionDataAccess.MultiLoginByRut(user.RutUsuario).Count.ToString(),
                 Oficina = DotacionDataAccess.ObtenerByRut(user.RutUsuario).IdSucursal.ToString()
             };
 
