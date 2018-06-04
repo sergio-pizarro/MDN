@@ -97,6 +97,7 @@ namespace CRM.Business.Entity
         public int Lm_Verde { get; set; }
         public int Lm_Amarillo { get; set; }
         public int Lm_Rojo { get; set; }
+        public int Lm_Naranjo { get; set; }
         public string Lm_Actualizacion { get; set; }
 
         public bool Editable { get; set; }

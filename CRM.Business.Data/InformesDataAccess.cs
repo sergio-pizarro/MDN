@@ -948,6 +948,51 @@ namespace CRM.Business.Data
         }
 
 
+        public static TrackEjecutivoGestionNormalizacion ObtenerGestionNormalizacion(string Token)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@Token", Token)
+            };
+            return DBHelper.InstanceReportes.ObtenerEntidad("negocios.SPReporte_WidgetsEjecutivo_Gestiones_Normalizacion", pram, EjecutivoNormalizacion);
+        }
+
+        private static TrackEjecutivoGestionNormalizacion EjecutivoNormalizacion(DataRow row)
+        {
+            return new TrackEjecutivoGestionNormalizacion
+            {
+                AsignadosNorm = row["Asignados"] != DBNull.Value ? Convert.ToInt32(row["Asignados"]) : 0,
+                GestionadosNorm = row["Gestionados"] != DBNull.Value ? Convert.ToInt32(row["Gestionados"]) : 0,
+                ContactadosNorm = row["Contactados"] != DBNull.Value ? Convert.ToInt32(row["Contactados"]) : 0,
+                InteresadosNorm = row["Cursados"] != DBNull.Value ? Convert.ToInt32(row["Cursados"]) : 0,
+                CursadosNorm = row["Interesados"] != DBNull.Value ? Convert.ToInt32(row["Interesados"]) : 0,
+                SumaPorcentajeCurNorm = row["CursadosPorc"] != DBNull.Value ? Convert.ToInt32(row["CursadosPorc"]) : 0,
+
+            };
+        }
+
+
+        public static TrackVencimientosGesNormalizacion ObtenerVencidosGesNormalizacion(string Token)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@Token", Token)
+            };
+            return DBHelper.InstanceReportes.ObtenerEntidad("negocios.SPReporte_WidgetsEjec_GestionesDetalle_Normalizacion", pram, EjecutivoVencNormalizacion);
+        }
+
+        private static TrackVencimientosGesNormalizacion EjecutivoVencNormalizacion(DataRow row)
+        {
+            return new TrackVencimientosGesNormalizacion
+            {
+                //Vencidos = row["Vencimiento"] != DBNull.Value ? row["Vencimiento"].ToString() : string.Empty,
+                VencidosNorm = row["Vencido"] != DBNull.Value ? Convert.ToInt32(row["Vencido"]) : 0,
+                VenceHoyNorm = row["VenceHoy"] != DBNull.Value ? Convert.ToInt32(row["VenceHoy"]) : 0,
+                VenceProxNorm = row["VenceProx"] != DBNull.Value ? Convert.ToInt32(row["VenceProx"]) : 0,
+            };
+        }
+
+
 
 
 

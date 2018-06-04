@@ -28,7 +28,7 @@ namespace CRM.Controllers
         [AuthorizationRequired]
         [HttpGet]
         [Route("traking-perfil-zonal")]
-        public IEnumerable<TrackingEntity> ObtTrackPerfZonal(int CodOficina,int Periodo)
+        public IEnumerable<TrackingEntity> ObtTrackPerfZonal(int CodOficina, int Periodo)
         {
             return InformesDataAccess.ListarTrackingBySucursalPerfZonal(CodOficina, Periodo);
         }
@@ -44,7 +44,7 @@ namespace CRM.Controllers
         [AuthorizationRequired]
         [HttpGet]
         [Route("Lista-Traking-Normalizacion-perfzonal")]
-        public IEnumerable<TrackingEntity> ObtenerTrackNormPerfZonal(int CodOficina,int Periodo)
+        public IEnumerable<TrackingEntity> ObtenerTrackNormPerfZonal(int CodOficina, int Periodo)
         {
             return InformesDataAccess.ListarTrackNormBySucursalPerfZonal(CodOficina, Periodo);
         }
@@ -52,7 +52,7 @@ namespace CRM.Controllers
         [AuthorizationRequired]
         [HttpGet]
         [Route("lista-trackNorm-perf-zonal")]
-        public TrackingWidgetsSucursal ObtTrackNormalizacionPerfZonal(int CodOficina,int Periodo)
+        public TrackingWidgetsSucursal ObtTrackNormalizacionPerfZonal(int CodOficina, int Periodo)
         {
             return InformesDataAccess.ListTrackNormPerfZonal(CodOficina, Periodo);
         }
@@ -85,7 +85,7 @@ namespace CRM.Controllers
         [Route("lista-traking-total-perfil-zonal")]
         public TrackingWidgetsSucursal ObtTrackPerfilZonal(int CodOficina, int Periodo)
         {
-           
+
             return InformesDataAccess.ListarTotalesPerfZonal(CodOficina, Periodo);
         }
 
@@ -196,9 +196,9 @@ namespace CRM.Controllers
         [AuthorizationRequired]
         [HttpGet]
         [Route("lista-traking-combobox-perfZonal")]
-        public IEnumerable<TrackingComboCargo> ObtenerComboCargoPerfZonal(int CodOficina,int Periodo)
+        public IEnumerable<TrackingComboCargo> ObtenerComboCargoPerfZonal(int CodOficina, int Periodo)
         {
-           
+
             return InformesDataAccess.ObtenerComboPerfZonal(CodOficina, Periodo);
         }
         [AuthorizationRequired]
@@ -304,6 +304,24 @@ namespace CRM.Controllers
         {
             string token = ActionContext.Request.Headers.GetValues("Token").First();
             return InformesDataAccess.ObtenerVencidosGestiones(token);
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("obtener-gestion-normalizacion")]
+        public TrackEjecutivoGestionNormalizacion ObtenerInformeEjecutivoNormalizacion()
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return InformesDataAccess.ObtenerGestionNormalizacion(token);
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("obtener-gestion-normalizacion-vencidas")]
+        public TrackVencimientosGesNormalizacion ObtenerInfoVencidosGesNormalizacion()
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return InformesDataAccess.ObtenerVencidosGesNormalizacion(token);
         }
 
 
