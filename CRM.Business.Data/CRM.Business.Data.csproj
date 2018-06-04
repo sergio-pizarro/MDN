@@ -77,6 +77,7 @@
     <Compile Include="LicenciaDataAccess.cs" />
     <Compile Include="Log\LogcalculadoraDataAccess.cs" />
     <Compile Include="Maestros\EmpresasDataAccess.cs" />
+    <Compile Include="Mail\DbMailDataAccess.cs" />
     <Compile Include="NoticiaDataAccess.cs" />
     <Compile Include="NotificacionAsignacionDataAccess.cs" />
     <Compile Include="NuberespuestasDataAccess.cs" />

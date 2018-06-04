@@ -317,5 +317,12 @@ namespace CRM.Controllers
         {
             return View();
         }
+
+        public ActionResult RecuperarPassword()
+        {
+           return View();
+        }
+
+
     }
 }
