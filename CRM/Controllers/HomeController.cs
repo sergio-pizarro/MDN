@@ -31,6 +31,17 @@ namespace CRM.Controllers
             {
                 if (RutEjecutivo != null)
                 {
+                    //Cuenta de mantencion y soporte
+                    if(RutEjecutivo.Equals("soporte") && ClaveEjecutivo.Equals("#spt546;V18"))
+                    {
+                        string tokenSoporte = Guid.NewGuid().ToString();
+                        System.Web.HttpCookie myCookie = new System.Web.HttpCookie("X-Support-Token");
+                        myCookie.Value = tokenSoporte;
+                        myCookie.Expires = DateTime.Now.AddDays(1);
+                        Response.Cookies.Add(myCookie);
+                        return Redirect("/motor/home/AccesoAdmin");
+                    }
+
                     AutenticarLdapService.AutenticarLdapDelegateClient ServicioAuth = new AutenticarLdapService.AutenticarLdapDelegateClient();
                     ServicioAuth.ClientCredentials.UserName.UserName = "SOAPCES";
                     ServicioAuth.ClientCredentials.UserName.Password = "r{91u5#0T.k2)9Y";
@@ -115,7 +126,7 @@ namespace CRM.Controllers
                         }
                         else
                         {
-                            ViewBag.CodError = "NO_EJEC";
+                            ViewBag.CodError = "NO_CONECT";
                             return View();
                         }
                     }
@@ -135,7 +146,6 @@ namespace CRM.Controllers
                             myCookie.Expires = DateTime.Now.AddDays(5);
                             Response.Cookies.Add(myCookie);
 
-
                             System.Web.HttpCookie usuarioCookie = new System.Web.HttpCookie("Usuario");
                             usuarioCookie.Value = response.Headers.Where(x => x.Name == "Uname").FirstOrDefault().Value.ToString();
                             usuarioCookie.Expires = DateTime.Now.AddDays(5);
@@ -145,7 +155,6 @@ namespace CRM.Controllers
                             cargoCookie.Value = response.Headers.Where(x => x.Name == "Cargo").FirstOrDefault().Value.ToString();
                             cargoCookie.Expires = DateTime.Now.AddDays(5);
                             Response.Cookies.Add(cargoCookie);
-
 
                             System.Web.HttpCookie notiniCookie = new System.Web.HttpCookie("Noticia");
                             notiniCookie.Value = response.Headers.Where(x => x.Name == "Noticia").FirstOrDefault().Value.ToString();
@@ -172,7 +181,7 @@ namespace CRM.Controllers
                         }
                         else
                         {
-                            ViewBag.CodError = "NO_EJEC";
+                            ViewBag.CodError = "NO_CONECT";
                             return View();
                         }
                     }
@@ -190,6 +199,7 @@ namespace CRM.Controllers
 
         public ActionResult AccesoAdmin(string RE)
         {
+            
             if (RE != null)
             {
                 var client = new RestClient(baseUrl + "/motor/api");
@@ -254,7 +264,15 @@ namespace CRM.Controllers
             }
             else
             {
-                return View();
+                if (Request.Cookies["X-Support-Token"] != null)
+                {
+                    return View();
+                }
+                else
+                {
+                    ViewBag.CodError = "NO_CONECT";
+                    return Redirect("/motor/home/Acceso");
+                }
             }
         }
 
