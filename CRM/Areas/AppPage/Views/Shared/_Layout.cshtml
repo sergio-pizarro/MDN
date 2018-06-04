@@ -1,6 +1,6 @@
 ﻿
 <!DOCTYPE html>
-<html lang="es-cl">
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -211,8 +211,17 @@
                                 <div class="username hidden-xs"></div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
+                                
+                               
                                 <!-- User dropdown menu -->
-                                <ul class="head-list">
+                                <ul class="head-list usuario-soporte" style="display:none;">
+                                    <li>
+                                        <a href="#" id="btVolverListado">
+                                            <i class="demo-pli-computer-secure icon-lg icon-fw"></i> Volver a listado de Usuarios
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="head-list usuario-comun" style="display:none;">
                                     <li>
                                         <a href="#" data-target="#demo-default-modal" data-toggle="modal">
                                             <i class="demo-psi-lock-2"></i> Cambiar contraseña
@@ -455,65 +464,25 @@
     <script type="text/javascript">
         $(function () {
 
-            //$('.es-rut').mask('99.999.999-*');
+         
+            $.SecGetJSON(BASE_URL + "/motor/api/Contrasena/consulta-estado-pass", function (respuesta) {
 
-            /*$('#frm-rut').bootstrapValidator({
-                framework: 'bootstrap',
-                err: {
-                    container: function ($field, validator) {
-                        // Look at the markup
-                        //  <div class="col-xs-4">
-                        //      <field>
-                        //  </div>
-                        //  <div class="col-xs-5 messageContainer"></div>
-                        return $field.parent().next('.messageContainer');
-                    }
-                },
-                fields: {
-                    RutBuscar: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe Ingresar un Rut'
-                            }
-                            //callback: {
-                            //    message: 'Rut Invalido',
-                            //    callback: function (value, validator, $field) {
-                            //        console.log(value)
-                            //        return $.rut.validar(value);
-                            //    }
-                            //}
-                        }
-                    }
+                if (respuesta.estadoClave === 1) {
+                    $('#demo-default-modal').modal({ backdrop: 'static', keyboard: false })
+                    $('#btMCerrar').attr("disabled", true);
                 }
-            }).on('success.form.bv', function (e) {
-                //$('#frm-rut').bootstrapValidator('updateStatus', 'AfiliadoRut', 'NOT_VALIDATED').bootstrapValidator('validateField', 'AfiliadoRut');
-                var rutreplace = $("#RutBuscar").val().substring(10, $("#RutBuscar").length - 1)
-                var rut = rutreplace.replace(/\./g, '')
-                location.href = BASE_URL + "/motor/App/DatosAfiliados?RutAfiliado=" + rut
-
-            });*/
-
-            /*$('#frm-rut').on({
-                submit: function (e) {
-                    e.preventDefault();
-                    return false;
-                },
-                reset: function (event) {
-                    $(this).bootstrapValidator('resetForm', true);
-                }
-            })
-            $("#RutBuscar").on("keyup", function () {
-                $('#frm-rut').bootstrapValidator('updateStatus', 'RutBuscar', 'NOT_VALIDATED').bootstrapValidator('validateField', 'RutBuscar');
-            })*/
-            $(document).ready(function () {
-                $.SecGetJSON(BASE_URL + "/motor/api/Contrasena/consulta-estado-pass", function (respuesta) {
-
-                    if (respuesta.estadoClave === 1) {
-                        $('#demo-default-modal').modal({ backdrop: 'static', keyboard: false })
-                        $('#btMCerrar').attr("disabled", true);
-                    }
-                });
             });
+
+            var support = getCookie('X-Support-Token');
+            if (support != null)
+            {
+                $('.usuario-soporte').show();
+            }
+            else
+            {
+                $('.usuario-comun').show();
+            }
+           
 
             $('#btActulizaPass').on('click', function () {
                 var pass1 = $('#inpPass').val();
@@ -539,7 +508,39 @@
             });
 
             $('#btCerSesion').on('click', function () {
-                setTimeout("location.href = '/motor/home/Acceso'", 1000);
+                //Kill sesion y salir
+                $.SecGetJSON(BASE_URL + "/motor/api/Auth/kill", function (respuesta) {
+                    //Limpiar cookies y variables locales y de sesion
+                    var cookies = document.cookie.split(";");
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i];
+                        var eqPos = cookie.indexOf("=");
+                        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                        delCookie(name);
+                    }
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    setTimeout("location.href = '/motor/home/Acceso'", 1000);
+                });
+            });
+
+            $('#btVolverListado').on('click', function (e) {
+                //Kill sesion e ir a inicio soporte
+                $.SecGetJSON(BASE_URL + "/motor/api/Auth/kill", function (respuesta) {
+                    //Limpiar cookies y variables locales y de sesion
+                    var cookies = document.cookie.split(";");
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i];
+                        var eqPos = cookie.indexOf("=");
+                        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                        if (name != "X-Support-Token") {
+                            delCookie(name);
+                        }
+                    }
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    setTimeout("location.href = '/motor/home/AccesoAdmin'", 1000);
+                });
             });
         });
     </script>
