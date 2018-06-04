@@ -222,6 +222,7 @@ namespace CRM.Business.Data
                 Lm_Verde = row["1"] != DBNull.Value ? Convert.ToInt32(row["1"]) : 0,
                 Lm_Amarillo = row["2"] != DBNull.Value ? Convert.ToInt32(row["2"]) : 0,
                 Lm_Rojo = row["3"] != DBNull.Value ? Convert.ToInt32(row["3"]) : 0,
+                Lm_Naranjo= row["4"] != DBNull.Value ? Convert.ToInt32(row["4"]) : 0,
                 Lm_Actualizacion = row["Actualizacion"] != DBNull.Value ? row["Actualizacion"].ToString() : string.Empty
 
             };

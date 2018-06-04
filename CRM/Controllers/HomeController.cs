@@ -166,17 +166,27 @@ namespace CRM.Controllers
                             ofiCookie.Expires = DateTime.Now.AddDays(1);
                             Response.Cookies.Add(ofiCookie);
 
+                            int install = Convert.ToInt32(response.Headers.Where(x => x.Name == "Instalar").FirstOrDefault().Value.ToString());
                             int multi = Convert.ToInt32(response.Headers.Where(x => x.Name == "Multi").FirstOrDefault().Value.ToString());
 
-                            if (multi > 1)
+                            if (install > 0)
                             {
-                                ViewBag.Modo = "MULTISELECT";
-                                ViewBag.Logins = CRM.Business.Data.DotacionDataAccess.MultiLoginByRut(RutEjecutivo);
-                                return View();
+                                return Redirect("../Home/Instalador?i=" + install.ToString());
                             }
+
                             else
                             {
-                                return Redirect(response.Headers.Where(x => x.Name == "Location").FirstOrDefault().Value.ToString());
+
+                                if (multi > 1)
+                                {
+                                    ViewBag.Modo = "MULTISELECT";
+                                    ViewBag.Logins = CRM.Business.Data.DotacionDataAccess.MultiLoginByRut(RutEjecutivo);
+                                    return View();
+                                }
+                                else
+                                {
+                                    return Redirect(response.Headers.Where(x => x.Name == "Location").FirstOrDefault().Value.ToString());
+                                }
                             }
                         }
                         else
@@ -325,5 +335,12 @@ namespace CRM.Controllers
         {
             return View();
         }
+
+        public ActionResult RecuperarPassword()
+        {
+           return View();
+        }
+
+
     }
 }

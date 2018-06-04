@@ -62,6 +62,9 @@
     <!--NiftyJS [ RECOMMENDED ]-->
     <script src="~/Assets/js/nifty.min.js"></script>
 
+    <script src="~/Assets/plugins/masked-input/jquery.maskedinput.min.js"></script>
+    <script src="~/Assets/js/jquery.rut.chileno.min.js"></script>
+
 
 </head>
 
@@ -74,8 +77,8 @@
         @if (!string.IsNullOrEmpty(ViewBag.Modo))
         {
 
-             <!-- LOGIN FORM -->
-        <!--===================================================-->
+            <!-- LOGIN FORM -->
+            <!--===================================================-->
             <div class="cls-content">
                 <div class="cls-content-sm panel">
                     <div class="panel-body">
@@ -84,11 +87,12 @@
                             <p class="text-bold">Por favor Seleccione Sucursal a Ingresar</p>
                         </div>
                         <div class="list-group">
-                            @foreach (var lg in ViewBag.Logins){
-                                
+                            @foreach (var lg in ViewBag.Logins)
+                            {
+
                                 <a href="@(lg.Rut.IndexOf("I") > -1 ? "/motor/Home/AccesoAdmin?RE="+ lg.Rut : "/motor/App/Inicio" )" class="list-group-item">
                                     <h4 class="list-group-item-heading">@Html.Raw(lg.Sucursal)</h4>
-                                    <p class="list-group-item-text">@Html.Raw(lg.Cargo + "  " + (lg.Rut.IndexOf("I") > -1 ? "(I)" : "" ) )  </p>
+                                    <p class="list-group-item-text">@Html.Raw(lg.Cargo + "  " + (lg.Rut.IndexOf("I") > -1 ? "(I)" : ""))  </p>
                                 </a>
                             }
                         </div>
@@ -97,7 +101,7 @@
             </div>
 
 
-           
+
 
         }
         else
@@ -111,30 +115,31 @@
                 if (ViewBag.CodError == "NO_EJEC")
                 {
                     <script type="text/javascript">
-                $(function () {
-                    $.niftyNoty({
-                        type: 'warning',
-                        container: '#container',
-                        html: '<strong>Problema!</strong> Ejecutivo no registrado en dotación.',
-                        focus: false,
-                        timer: 9000
-                    });
-                });
+                        $(function () {
+                            $.niftyNoty({
+                                type: 'warning',
+                                container: '#container',
+                                html: '<strong>Problema!</strong> Ejecutivo no registrado en dotación.',
+                                focus: false,
+                                timer: 9000
+                            });
+                        });
                     </script>
                 }
 
                 if (ViewBag.CodError == "NO_CONECT")
                 {
                     <script type="text/javascript">
-                $(function () {
-                    $.niftyNoty({
-                        type: 'warning',
-                        container: '#container',
-                        html: '<strong>Problema!</strong> Contraseña o usuario no válidos.',
-                        focus: false,
-                        timer: 9000
-                    });
-                });
+                        $(function () {
+                            $.niftyNoty({
+                                type:
+                                    'warning',
+                                container: '#container',
+                                html: '<strong>Problema!</strong> Contraseña o usuario no válidos.',
+                                focus: false,
+                                timer: 9000
+                            });
+                        });
                     </script>
                 }
 
@@ -142,11 +147,11 @@
             }
 
 
-        <!-- LOGIN FORM -->
-        <!--===================================================-->
+            <!-- LOGIN FORM -->
+            <!--===================================================-->
             <div class="cls-content">
                 <div class="cls-content-sm panel">
-                    <div class="panel-body">
+                    <div class="panel-body" id="divAcceso" style="display:block">
                         <div class="mar-ver pad-btm">
                             <h3 class="h4 mar-no">Acceso a Motor de Negocios</h3>
                             <p class="text-bold">Por favor ingrese sus datos de acceso de <a href="http://conectados.laaraucana.cl" target="_blank">Conectados</a></p>
@@ -161,18 +166,23 @@
                             </div>
                             <button class="btn btn-primary btn-lg btn-block" type="submit">Acceder</button>
                         </form>
+                        <br />
+                        <br />
+                        <button id="btRecPass" type="submit" class="btn-link text-semibold">Recuperar Contraseña</button>
+
                     </div>
                 </div>
             </div>
-
-
         }
-
-        
-
     </div>
     <!--===================================================-->
     <!-- END OF CONTAINER -->
+
+    <script>
+        $("#btRecPass").on("click", function () {
+            location.href ="/motor/Home/RecuperarPassword"
+        });
+    </script>
 
 
 </body>
