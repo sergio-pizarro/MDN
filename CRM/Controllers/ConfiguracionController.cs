@@ -253,6 +253,7 @@ namespace CRM.Controllers
             string token = ActionContext.Request.Headers.GetValues("Token").First();
             return SeguimientoArticulosOficinaDataAccess.ObtenerPorOficina(token);   
         }
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("lista-sucursales")]
