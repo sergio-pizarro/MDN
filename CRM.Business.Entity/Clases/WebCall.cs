@@ -18,5 +18,6 @@ namespace CRM.Business.Entity.Clases
         public string FonoContact { get; set; }
         public string NuevoFono { get; set; }
         public string RutAfiliado { get; set; }
+        public string HorarioPreferencia { get; set; }
     }
 }
