@@ -326,20 +326,16 @@ namespace CRM.Business.Data
 
             if (TipoAsignacion == 1)
             {
-                sql = "select count(*) Retorno from dbo.TabMotor_Asignacion where Periodo = (select max(Periodo) from dbo.TabMotor_Asignacion) and Ejec_Asignacion = @rutEjec and TipoAsignacion=@tipAsig and Oficina=@CodOffice and (Celular<>'' Or Telefono1<>'' Or Telefono2<>'') and Cuadrante = 1 ";
+                sql = "select count(*) Retorno from dbo.TabMotor_Asignacion where Periodo = (select max(Periodo) from dbo.TabMotor_Asignacion) and Ejec_Asignacion = @rutEjec and TipoAsignacion=@tipAsig and Oficina=@CodOffice and Cuadrante = 1 and Afiliado_Rut in ( select Afiliado_rut from dbo.TabMotor_Contacto_Afiliado where Tipo_contacto in ('CELULAR','TELEFONO') and Valido = 1)";
             }
             if (TipoAsignacion ==2)
             {
-                sql = "select count(*) Retorno from dbo.TabMotor_Asignacion where Periodo = (select max(Periodo) from dbo.TabMotor_Asignacion) and Ejec_Asignacion = @rutEjec and TipoAsignacion=@tipAsig and Oficina=@CodOffice and (Celular<>'' Or Telefono1<>'' Or Telefono2<>'')";
+                sql = "select count(*) Retorno from dbo.TabMotor_Asignacion where Periodo = (select max(Periodo) from dbo.TabMotor_Asignacion) and Ejec_Asignacion = @rutEjec and TipoAsignacion=@tipAsig and Oficina=@CodOffice and Afiliado_Rut in ( select Afiliado_rut from dbo.TabMotor_contacto_Afiliado where Tipo_Contacto in ('CELULAR','TELEFONO') and Valido = 1)";
             }
-            if (TipoAsignacion==3)
-            {
-                sql = "select count(*) Retorno from dbo.TabMotor_Asignacion where Periodo = (select max(Periodo) from dbo.TabMotor_Asignacion) and Ejec_Asignacion = @rutEjec and TipoAsignacion=@tipAsig and Oficina=@CodOffice and (Celular<>'' Or Telefono1<>'' Or Telefono2<>'') and Cuadrante = 1 ";
-            }
-
+           
             if (TipoAsignacion == 4)
             {
-                sql = "select count(*) Retorno from dbo.TabMotor_Asignacion where Periodo = (select max(Periodo) from dbo.TabMotor_Asignacion) and Ejec_Asignacion = @rutEjec and TipoAsignacion=@tipAsig and Oficina=@CodOffice and (Celular<>'' Or Telefono1<>'' Or Telefono2<>'')";
+                sql = "select count(*) Retorno from dbo.TabMotor_Asignacion where Periodo = (select max(Periodo) from dbo.TabMotor_Asignacion) and Ejec_Asignacion = @rutEjec and TipoAsignacion=@tipAsig and Oficina=@CodOffice and Afiliado_Rut in ( select Afiliado_rut from dbo.TabMotor_contacto_Afiliado where Tipo_Contacto in ('CELULAR','TELEFONO') and Valido = 1)";
             }
 
             return DBHelper.InstanceCRM.ObtenerEscalarFromSql<int>(sql, pram);
