@@ -117,6 +117,8 @@ namespace CRM.Business.Data
                 new Parametro("@TipoContrato",dotacion.TipoContrato),
                 new Parametro("@FechaIngreso",dotacion.FechaIngreso),
                 new Parametro("@FechaFinaliza",dotacion.FechaFinalizacion),
+                new Parametro("@Email",dotacion.Email),
+                new Parametro("@Sexo",dotacion.Sexo),
             };
 
 
@@ -125,7 +127,7 @@ namespace CRM.Business.Data
 
         public static List<CargoEntity> ListaCargos()
         {
-            return DBHelper.InstanceCRM.ObtenerColeccionFromSql("select distinct Cargo from dbo.TabMotor_Dotacion order by Cargo asc", Cargos);
+            return DBHelper.InstanceCRM.ObtenerColeccionFromSql("Select Distinct Cargo From dbo.TabMotor_Dotacion Where Cod_sucursal not in(0,99,999,555) Order By Cargo", Cargos);
         }
 
         private static CargoEntity Cargos(DataRow row)

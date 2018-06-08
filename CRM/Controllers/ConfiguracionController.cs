@@ -50,7 +50,7 @@ namespace CRM.Controllers
             }
             catch (Exception exz)
             {
-                return new ResultadoBase() { Estado = "ERR", Mensaje = exz.Message, Objeto = exz};
+                return new ResultadoBase() { Estado = "ERR", Mensaje = exz.Message, Objeto = exz };
             }
         }
 
@@ -81,16 +81,18 @@ namespace CRM.Controllers
             List<EjecutivosDotacion> LstEjecutivos = new List<EjecutivosDotacion>();
             List<DateTime> FechasFeriado = new List<DateTime>();
 
-            FeriadosDataAccess.ObtenerEntidades().ForEach(x => {
+            FeriadosDataAccess.ObtenerEntidades().ForEach(x =>
+            {
                 FechasFeriado.Add(x.Fecha);
             });
 
             List<TipoausenciaEntity> lstTiposAusen = TipoausenciaDataAccess.ObtenerEntidades();
-            
 
 
-            DotacionDataAccess.ListarMiOficinaProyeccion(token, periodo).ForEach(ejecutivs => {
-                LstEjecutivos.Add(new EjecutivosDotacion { Ejecutivo = ejecutivs, PeriodoAusencia = AusenciaDataAccess.ObtenerMensual(periodo, ejecutivs.Rut) });    
+
+            DotacionDataAccess.ListarMiOficinaProyeccion(token, periodo).ForEach(ejecutivs =>
+            {
+                LstEjecutivos.Add(new EjecutivosDotacion { Ejecutivo = ejecutivs, PeriodoAusencia = AusenciaDataAccess.ObtenerMensual(periodo, ejecutivs.Rut) });
             });
 
 
@@ -114,7 +116,8 @@ namespace CRM.Controllers
             List<EjecutivosDotacion> LstEjecutivos = new List<EjecutivosDotacion>();
             List<DateTime> FechasFeriado = new List<DateTime>();
 
-            FeriadosDataAccess.ObtenerEntidades().ForEach(x => {
+            FeriadosDataAccess.ObtenerEntidades().ForEach(x =>
+            {
                 FechasFeriado.Add(x.Fecha);
             });
 
@@ -122,7 +125,8 @@ namespace CRM.Controllers
 
 
 
-            DotacionDataAccess.ListarMiOficinaProyeccionAdmin(periodo,codOficina).ForEach(ejecutivs => {
+            DotacionDataAccess.ListarMiOficinaProyeccionAdmin(periodo, codOficina).ForEach(ejecutivs =>
+            {
                 LstEjecutivos.Add(new EjecutivosDotacion { Ejecutivo = ejecutivs, PeriodoAusencia = AusenciaDataAccess.ObtenerMensual(periodo, ejecutivs.Rut) });
             });
 
@@ -160,7 +164,7 @@ namespace CRM.Controllers
                 };
 
                 AusenciaDataAccess.Guardar(ausen);
-                return new ResultadoBase() { Estado="OK", Mensaje="Ausencia registrada exitosamente", Objeto=entrada};
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Ausencia registrada exitosamente", Objeto = entrada };
             }
             catch (Exception ex)
             {
@@ -174,7 +178,6 @@ namespace CRM.Controllers
         [Route("guardar-dotacion-ejecutivo")]
         public ResultadoBase GuardarEjecutivoDotacion(WebDotacionEntrada entrada)
         {
-
             try
             {
                 DotacionEntity d = new DotacionEntity
@@ -185,8 +188,11 @@ namespace CRM.Controllers
                     EsAsignable = 1,
                     Nombres = entrada.Nombre,
                     FechaIngreso = Convert.ToDateTime(entrada.FechaIngreso),
-                    FechaFinalizacion = entrada.TipoContrato == "P" ?  Convert.ToDateTime(entrada.FechaFinal) : DateTime.MaxValue,
-                    TipoContrato = entrada.TipoContrato
+                    FechaFinalizacion = entrada.TipoContrato == "P" ? Convert.ToDateTime(entrada.FechaFinal) : DateTime.MaxValue,
+                    TipoContrato = entrada.TipoContrato,
+                    Email = entrada.Email,
+                    Sexo = entrada.Sexo
+                    
                 };
 
                 DotacionDataAccess.InsertEjecutivoDotacion(d);
@@ -216,8 +222,6 @@ namespace CRM.Controllers
             }
         }
 
-
-
         [AuthorizationRequired]
         [HttpPost]
         [Route("marca-camaras-hoy")]
@@ -228,8 +232,7 @@ namespace CRM.Controllers
                 string token = ActionContext.Request.Headers.GetValues("Token").First();
                 SeguimientoArticulosOficinaEntity haydat = SeguimientoArticulosOficinaDataAccess.ObtenerPorOficina(token);
 
-
-                if(haydat.IdSeguimiento > 0)
+                if (haydat.IdSeguimiento > 0)
                 {
                     return new ResultadoBase() { Estado = "WARN", Mensaje = "Ya esta marcado hoy", Objeto = null };
                 }
@@ -251,7 +254,7 @@ namespace CRM.Controllers
         public SeguimientoArticulosOficinaEntity MarcadasCamarasDiaria()
         {
             string token = ActionContext.Request.Headers.GetValues("Token").First();
-            return SeguimientoArticulosOficinaDataAccess.ObtenerPorOficina(token);   
+            return SeguimientoArticulosOficinaDataAccess.ObtenerPorOficina(token);
         }
 
         [AuthorizationRequired]
@@ -261,5 +264,52 @@ namespace CRM.Controllers
         {
             return SucursalDataAccess.ListarSucursalAdmin();
         }
+
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("dotacion-oficina")]
+        public IEnumerable<DotacionAgenteEntity> DatosDotacionOficina()
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return DotacionAgenteDataAccess.ListarDotacionAgente(token); 
+        }
+
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("obtiene-datos-ejecutivos")]
+        public DatosEjecutivoEntity ObtieneDataEjecutivo(string rut)
+        {
+            return DotacionAgenteDataAccess.ListarDataEjecutivo(rut);
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("actualiza-dotacion-ejecutivo")]
+        public ResultadoBase ActualizaEjecutivoDotacion(WebActualizaDotacionEntrada entrada)
+        {
+            try
+            {
+                DatosActualizaEjecutivoEntity d = new DatosActualizaEjecutivoEntity
+                {
+                    Rut = entrada.Rut,
+                    Cargo = entrada.Cargo,
+                    TipoContrato = entrada.TipoContrato,
+                    FechaInicio = Convert.ToDateTime(entrada.FechaInicio),
+                    FechaFinaliza = entrada.TipoContrato == "P" ? Convert.ToDateTime(entrada.FechaFinal) : DateTime.MaxValue,
+                    Sexo = entrada.Sexo
+                };
+
+                DotacionAgenteDataAccess.ActualizaDataEjecutivo(d);
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Ejecutivo actualizado exitosamente", Objeto = d };
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoBase() { Estado = "ER", Mensaje = "Ha ocurrido un error al actualizar Ejecutivo", Objeto = ex };
+            }
+        }
+
+
     }
 }

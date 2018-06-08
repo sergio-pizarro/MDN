@@ -115,6 +115,8 @@ namespace CRM.Business.Entity.Clases
         public string TipoContrato { get; set; }
         public string FechaIngreso { get; set; }
         public string FechaFinal { get; set; }
+        public string Email { get; set; }
+        public string Sexo { get; set; }
     }
 
     public class WebFichaEmpresa
@@ -179,5 +181,15 @@ namespace CRM.Business.Entity.Clases
         public int wsslOficinaAnterior { get; set; }
         public string wtext_observacion { get; set; }
         public int wencRut { get; set; }
+    }
+
+    public class WebActualizaDotacionEntrada
+    {
+        public string Rut { get; set; }
+        public string Cargo { get; set; }
+        public string TipoContrato { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFinal { get; set; }
+        public string Sexo { get; set; }
     }
 }
