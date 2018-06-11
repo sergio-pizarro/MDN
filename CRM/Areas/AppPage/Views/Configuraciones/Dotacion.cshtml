@@ -367,7 +367,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group rge-esconder" style="display:none;">
+                                <div class="form-group rge-esconderAct" style="display:none;">
                                     <label>Fecha Finalización</label>
                                     <div id="dp-component-finalizacionAct">
                                         <div class="input-group date">
@@ -879,7 +879,7 @@
                             });
                         } else {
 
-                          $("#modal-actualiza-ejec").modal("toggle")
+                            $("#modal-actualiza-ejec").modal("toggle")
                             $.niftyNoty({
                                 type: 'success',
                                 container: 'floating',
@@ -887,7 +887,7 @@
                                 focus: false,
                                 timer: 3000
                             });
-                           $("#tabla_dotacion_agente").bootstrapTable('refresh');
+                            $("#tabla_dotacion_agente").bootstrapTable('refresh');
                             //cargador.CargaMes(hoy);
                         }
                     });
@@ -1109,7 +1109,7 @@
 
             });
 
-          
+
 
             $('#modal-actualiza-ejec').on('show.bs.modal', function (event) {
                 var link = $(event.relatedTarget);
@@ -1161,8 +1161,8 @@
                             Rut: $("#tbRutAct").val(),
                             Cargo: $("#slCargosAct").val(),
                             TipoContrato: $("#slTipoContratoAct").val(),
-                            FechaInicio: $("#tbFechaIngresoAct").val(),
-                            FechaFinal: $("#tbFechaFinalAct").val(),
+                            FechaInicio: $("#tbFechaIngresoAct").val().toFecha(),
+                            FechaFinal: $("#tbFechaFinalAct").val().toFecha(),
                             sexo: $("#slSexoAct").val()
                         }
                         cargador.UpdateEjecutivo(webUpdateEjecutivo);
@@ -1213,7 +1213,7 @@
             }).on('show.bs.modal hide.bs.modal', function (event) {
                 // prevent datepicker from firing bootstrap modal "show.bs.modal"
                 event.stopPropagation();
-                });
+            });
 
             $('#dp-component-finalizacionAct .input-group.date').datepicker({ autoclose: true, format: "dd-mm-yyyy", todayHighlight: true }).on("changeDate", function () {
                 $('#form-actualiza-ejecutivo').bootstrapValidator('updateStatus', 'fechaFinalAct', 'NOT_VALIDATED').bootstrapValidator('validateField', 'fechaFinalAct');
@@ -1221,8 +1221,6 @@
                 // prevent datepicker from firing bootstrap modal "show.bs.modal"
                 event.stopPropagation();
             });
-
-
 
             $("#slTipoContrato").on("change", function () {
 
@@ -1236,11 +1234,10 @@
             $("#slTipoContratoAct").on("change", function () {
 
                 if ($(this).val() === "P") {
-                    $(".rge-esconder").show();
+                    $(".rge-esconderAct").show();
                 } else {
-                    $(".rge-esconder").hide();
+                    $(".rge-esconderAct").hide();
                 }
-
             })
 
             $("#bt-modificar-ausencia").on("click", function () {
@@ -1272,12 +1269,12 @@
                 $("#tbNombreAct").val(respuesta.Nombre);
                 $("#slCargosAct").val(respuesta.Cargo);
                 $("#slTipoContratoAct").val(respuesta.TipoContrato);
-                $("#tbFechaIngresoAct").val(respuesta.FechaIngreso.toString().toFecha());
-                $("#tbFechaFinalAct").val(respuesta.FechaIngreso.toString().toFecha());
+                $("#tbFechaIngresoAct").val(respuesta.FechaIngreso.toFecha());
+                $("#tbFechaFinalAct").val(respuesta.FechaFinal.toFecha());
                 $("#tbEmailAct").val(respuesta.Correo);
                 $("#slSexoAct").val(respuesta.Sexo);
+                if (respuesta.TipoContrato === 'P') { $(".rge-esconderAct").show(); } else { $(".rge-esconderAct").hide(); }
             });
-            if ($("#slTipoContratoAct").val() === 'P') { $(".rge-esconder").show();}
 
         });
 

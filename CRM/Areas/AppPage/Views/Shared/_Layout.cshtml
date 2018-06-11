@@ -211,8 +211,8 @@
                                 <div class="username hidden-xs"></div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
-                                
-                               
+
+
                                 <!-- User dropdown menu -->
                                 <ul class="head-list usuario-soporte" style="display:none;">
                                     <li>
@@ -464,7 +464,7 @@
     <script type="text/javascript">
         $(function () {
 
-         
+
             $.SecGetJSON(BASE_URL + "/motor/api/Contrasena/consulta-estado-pass", function (respuesta) {
 
                 if (respuesta.estadoClave === 1) {
@@ -474,15 +474,13 @@
             });
 
             var support = getCookie('X-Support-Token');
-            if (support != null)
-            {
+            if (support != null) {
                 $('.usuario-soporte').show();
             }
-            else
-            {
+            else {
                 $('.usuario-comun').show();
             }
-           
+
 
             $('#btActulizaPass').on('click', function () {
                 var pass1 = $('#inpPass').val();
