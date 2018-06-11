@@ -20,6 +20,7 @@ namespace CRM.Business.Entity
         public string Cargo { get; set; }
         public string TipoContrato { get; set; }
         public DateTime FechaIngreso { get; set; }
+        public DateTime FechaFinal { get; set; }
         public string Correo { get; set; }
         public string Sexo { get; set; }
     }

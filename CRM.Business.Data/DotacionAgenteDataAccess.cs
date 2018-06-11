@@ -44,6 +44,7 @@ namespace CRM.Business.Data
                 Cargo = row["Cargo"] != DBNull.Value ? row["Cargo"].ToString() : string.Empty,
                 TipoContrato = row["TipoContrato"] != DBNull.Value ? row["TipoContrato"].ToString() : string.Empty,
                 FechaIngreso = row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]) : DateTime.MinValue,
+                FechaFinal = row["FechaFinalizacion"] != DBNull.Value ? Convert.ToDateTime(row["FechaFinalizacion"]) : DateTime.MinValue,
                 Correo = row["Correo"] != DBNull.Value ? row["Correo"].ToString() : string.Empty,
                 Sexo = row["Sexo"] != DBNull.Value ? row["Sexo"].ToString() : string.Empty,
             };
