@@ -30,4 +30,9 @@ namespace CRM.Business.Entity.Clases
         public GestionGenerica UltimaGestion { get; set; }
         public int TotalRegistros { get; set; }
     }
+    public class DatosEmpresaEntity
+    {
+        public string NonEmpresa { get; set; }
+
+    }
 }
