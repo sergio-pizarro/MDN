@@ -69,6 +69,7 @@
     <Compile Include="FFVVBaseDataAccess.cs" />
     <Compile Include="FidelizacionDataAccess.cs" />
     <Compile Include="FiltrosrsgDataAccess.cs" />
+    <Compile Include="DotacionAgenteDataAccess.cs" />
     <Compile Include="GestionDataAccess.cs" />
     <Compile Include="InformesDataAccess.cs" />
     <Compile Include="IngresoCarteraEmpresaDataAccess.cs" />
