@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,7 +17,6 @@ namespace CRM.Controllers
     [RoutePrefix("api/Gestion")]
     public class GestionController : ApiController
     {
-
         [AuthorizationRequired]
         [HttpGet]
         [Route("lista-seguimientos")]
@@ -150,18 +149,21 @@ namespace CRM.Controllers
         [AuthorizationRequired]
         [HttpGet]
         [Route("v3/lista-seguimientos")]
-        public BootstrapTableResult<ContenedorCampaniaList> ListaSeguimientosv3(int tipoCampagna, int periodo, string estado="-1", string subestado="-1", string causaBasal = "-1", string consecuencia = "-1", string prioridad="", string segmento="", string tipo="", string rut="", int limit=30, int offset=0, string sort="asc", string order="")
+        public BootstrapTableResult<ContenedorCampaniaList> ListaSeguimientosv3(int tipoCampagna, int periodo, string estado="-1", string marca="", string subestado="-1", string causaBasal = "-1", string consecuencia = "-1", string prioridad="", string segmento="", string tipo="", string busEmpresa="", string rut="", int limit=30, int offset=0, string sort="asc", string order="", string vencimiento = "")
         {
             string token = ActionContext.Request.Headers.GetValues("Token").First();
             List<ContenedorCampaniaList> res = new List<ContenedorCampaniaList>();
             BootstrapTableResult<ContenedorCampaniaList> xd = new BootstrapTableResult<ContenedorCampaniaList>();
 
+
+            sort = sort.Substring(sort.IndexOf(".") + 1);
+            sort = sort.IndexOf(".") >=0 ? sort.Substring(sort.IndexOf(".") + 1) : sort;
+
             if (tipoCampagna == 1 || tipoCampagna == 5)
             {
                 int estado_dos = estado == null ? 0 : Convert.ToInt32(estado);
                 int subestado_dos = subestado == null ? 0 : Convert.ToInt32(subestado);
-                
-                res = AsignacionDataAccess.ListarPaginado(periodo, tipoCampagna, token, estado_dos, subestado_dos, prioridad, segmento, tipo,rut, offset, limit, sort, order);
+                res = AsignacionDataAccess.ListarPaginado(periodo, tipoCampagna, token, estado_dos, marca, subestado_dos, prioridad, segmento, tipo, busEmpresa, rut, offset, limit, sort, order, vencimiento);
             }
             else if (tipoCampagna == 2)
             {
@@ -169,14 +171,14 @@ namespace CRM.Controllers
                 int causa_dos = causaBasal == null ? 0 : Convert.ToInt32(causaBasal);
                 int consecuencia_dos = consecuencia == null ? 0 : Convert.ToInt32(consecuencia);
 
-                res = AsignacionDataAccess.ListarPaginado(periodo, tipoCampagna, token, estado_dos, causa_dos, consecuencia_dos, prioridad, rut, offset, limit, sort, order);
+                res = AsignacionDataAccess.ListarPaginado(periodo, tipoCampagna, token, estado_dos, causa_dos, consecuencia_dos, prioridad, rut, offset, limit, sort, order, vencimiento);
             }
             else if(tipoCampagna == 4)
             {
                 int estado_dos = estado == null ? 0 : Convert.ToInt32(estado);
                 int subestado_dos = subestado == null ? 0 : Convert.ToInt32(subestado);
 
-                res = AsignacionDataAccess.ListarPaginado(periodo, tipoCampagna, token, estado_dos, subestado_dos, rut, offset, limit, sort, order);
+                res = AsignacionDataAccess.ListarPaginado(periodo, tipoCampagna, token, estado_dos, subestado_dos, rut, offset, limit, sort, order, vencimiento);
             }
 
             //return res;
@@ -253,7 +255,7 @@ namespace CRM.Controllers
                             };
                             glst.Add(g);
                         }
-                       if (tipoCampagna == 2)
+                        if (tipoCampagna == 2)
                         {
                             GestionRecuperacion g = new GestionRecuperacion()
                             {
@@ -308,6 +310,7 @@ namespace CRM.Controllers
                 {
                     a.Estado = "ERROR";
                     a.Mensaje = "No se encuentra afiliado para el periodo*";
+                    a.Objeto = ordCmp;
                 }
                 else
                 {
@@ -323,6 +326,7 @@ namespace CRM.Controllers
             {
                 a.Estado = "ERROR";
                 a.Mensaje = "No se encuentra afiliado para el periodo";
+                a.Objeto = ex;
             }
 
             return a;
@@ -439,8 +443,6 @@ namespace CRM.Controllers
 
             try
             {
-
-
                 if (entrada.ges_subestado.Equals("0"))
                 {
                     throw new Exception("[ERR-00001] Error al guardar por favor comuniquese con Soporte");
@@ -1180,7 +1182,6 @@ namespace CRM.Controllers
         public BaseCampagnaEntity ObtenerAfiliado(string RutAfi)
         {
             return BaseCampagnaDataAccess.ObtenerAfiliado(RutAfi);
-
         }
 
         //[AuthorizationRequired]
@@ -1200,11 +1201,18 @@ namespace CRM.Controllers
                 dynamic d = new { valid = false, data = ex };
                 return d;
             }
-            
         }
 
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-empresas")]
+        public IEnumerable<DatosEmpresaEntity> ListaEmpresa()
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return AsignacionDataAccess.ListaEmpresaEje(token);
+        }
     }
 
-   
+
 
 }

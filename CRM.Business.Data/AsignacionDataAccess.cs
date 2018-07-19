@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using CRM.Business.Entity;
@@ -97,9 +97,9 @@ namespace CRM.Business.Data
         /// <returns>Referencia a una clase <see cref="Asignacion"/>.</returns>
         public static AsignacionEntity ObtenerPorID(int id_Asign)
         {
-            Parametro parametro = new Parametro("@id_Asign", id_Asign);
+            Parametro parametro = new Parametro("@IdAsig", id_Asign);
 
-            return DBHelper.InstanceCRM.ObtenerEntidad("sp_Asignacion_ObtenerPorID", parametro, ConstructorEntidad);
+            return DBHelper.InstanceCRM.ObtenerEntidad("dbo.spMotor_Asignacion_ObtenerByID", parametro, ConstructorEntidad);
         }
 
         /// <summary>
@@ -135,10 +135,8 @@ namespace CRM.Business.Data
                 new Parametro("@Periodo", Periodo),
                 new Parametro("@AfiliadoRut",AfiliadoRut.Trim()),
             };
-
             return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ObtenerByAfiliado", pram, ConstructorEntidad);
         }
-
 
         public static AsignacionEntity ObtenerByAfiRutTipo(int Periodo, string AfiliadoRut, int TipoAsig)
         {
@@ -198,12 +196,10 @@ namespace CRM.Business.Data
                 new Parametro("@TokenEjecutivo",TokenEjecutivo),
                 new Parametro("@TipoDerivacion",TipoDerivacion),
             };
-
-            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivo2", pram, ContainerConstructor);
+            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivo3", pram, ContainerConstructor);
         }
 
-
-        public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, int SubEstado, string Prioridad, string Segmento, string Tipo, string rut, int Offset, int Limit, string Sort, string Orden)
+        public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, string Marca, int SubEstado, string Prioridad, string Segmento, string Tipo, string BusEmpresa, string rut, int Offset, int Limit, string Sort, string Orden, string Vencimiento)
         {
             Parametros pram = new Parametros
             {
@@ -212,24 +208,28 @@ namespace CRM.Business.Data
                 new Parametro("@TipoCamp",TipoAsignacion),
 
                 new Parametro("@Estado",Estado),
+                new Parametro("@Marca",Marca),
                 new Parametro("@SubEstado",SubEstado),
                 new Parametro("@Prioridad",Prioridad),
                 new Parametro("@Segmento",Segmento),
                 new Parametro("@Tipo",Tipo),
+                new Parametro("@BusquedaGeneral",BusEmpresa),
                 new Parametro("@RutAfiliado", rut),
+                
+                new Parametro("@Vencimiento", Vencimiento),
 
                 new Parametro("@Offset",Offset),
                 new Parametro("@Limit",Limit),
                 new Parametro("@Sort",Sort),
                 new Parametro("@Orden",Orden),
-
             };
 
-            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag", pram, ContainerConstructor);
+            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag3", pram, ContainerConstructor);
+            //MODIFICAR SP DE PAG3 A PAG2  Y COMENTAR INSTACIA ACTUAL DESCOMENTAR AL ANTERIOR.
+            //return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag2", pram, ContainerConstructor);
         }
 
-
-        public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, int SubEstado, string rut, int Offset, int Limit, string Sort, string Orden)
+        public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, int SubEstado, string rut, int Offset, int Limit, string Sort, string Orden, string Vencimiento)
         {
             Parametros pram = new Parametros
             {
@@ -240,6 +240,7 @@ namespace CRM.Business.Data
                 new Parametro("@Estado",Estado),
                 new Parametro("@SubEstado",SubEstado),
                 new Parametro("@RutAfiliado", rut),
+                new Parametro("@Vencimiento", Vencimiento),
 
                 new Parametro("@Offset",Offset),
                 new Parametro("@Limit",Limit),
@@ -248,11 +249,11 @@ namespace CRM.Business.Data
 
             };
 
-            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag", pram, ContainerConstructor);
+            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag2", pram, ContainerConstructor);
         }
 
 
-        public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, int CausaBasal, int Consecuencia, string Prioridad, string rut, int Offset, int Limit, string Sort, string Orden)
+        public static List<ContenedorCampaniaList> ListarPaginado(int Periodo, int TipoAsignacion, string TokenEjecutivo, int Estado, int CausaBasal, int Consecuencia, string Prioridad, string rut, int Offset, int Limit, string Sort, string Orden, string Vencimiento)
         {
             Parametros pram = new Parametros
             {
@@ -265,6 +266,7 @@ namespace CRM.Business.Data
                 new Parametro("@Estado",Estado),
                 new Parametro("@Prioridad",Prioridad),
                 new Parametro("@RutAfiliado", rut),
+                new Parametro("@Vencimiento", Vencimiento),
 
                 new Parametro("@Offset",Offset),
                 new Parametro("@Limit",Limit),
@@ -273,7 +275,7 @@ namespace CRM.Business.Data
 
             };
 
-            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag", pram, ContainerConstructor);
+            return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Asignacion_ListarByEjecutivoPag2", pram, ContainerConstructor);
         }
 
 
@@ -374,8 +376,6 @@ namespace CRM.Business.Data
 
             return DBHelper.InstanceCRM.EjecutarProcedimiento("dbo.spMotor_AsignarOficina", pram);
         }
-
-
 
         public static List<AsignacionRechazos> obtenerRechazos(int periodo, int empresarut, int afiliadorut)
         {
@@ -512,10 +512,7 @@ namespace CRM.Business.Data
                 
                 retorno.UltimaGestion.CausaBasalGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(causaBasalId);
                 retorno.UltimaGestion.ConsecuenciaGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(consecuenciaId);
-                retorno.UltimaGestion.EstadoGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(estadoId);
-
-                
-                
+                retorno.UltimaGestion.EstadoGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(estadoId);  
             }
             else
             {
@@ -530,7 +527,25 @@ namespace CRM.Business.Data
 
         }
 
-
-            #endregion
+        public static IEnumerable<DatosEmpresaEntity> ListaEmpresaEje(string token)
+        {
+            Parametros prms = new Parametros
+            {
+                new Parametro("@TokenEjecutivo", token),
+            };
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Asignacion_Lista_Empresa", prms, Empresa);
         }
+
+        private static DatosEmpresaEntity Empresa(DataRow row)
+        {
+            return new DatosEmpresaEntity
+            {
+                NonEmpresa = row["Empresa"] != DBNull.Value ? row["Empresa"].ToString() : string.Empty
+            };
+        }
+
+
+        #endregion
+    }
 }
+

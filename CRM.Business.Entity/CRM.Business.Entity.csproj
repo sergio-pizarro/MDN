@@ -49,6 +49,7 @@
     <Compile Include="AsignacionRechazos.cs" />
     <Compile Include="AusenciaEntity.cs" />
     <Compile Include="BaseCampagnaEntity.cs" />
+    <Compile Include="ContrasenaEntity.cs" />
     <Compile Include="CargoEntity.cs" />
     <Compile Include="CarteraEmpresaEntity.cs" />
     <Compile Include="Clases\CallBase.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="NoticiaEntity.cs" />
     <Compile Include="NotificacionAsignacionEntity.cs" />
     <Compile Include="NuberespuestasEntity.cs" />
+    <Compile Include="DotacionAgenteEntity.cs" />
     <Compile Include="PeriodoEntity.cs" />
     <Compile Include="PreferenciaAfiliadoEntity.cs" />
     <Compile Include="PreguntaEntity.cs" />

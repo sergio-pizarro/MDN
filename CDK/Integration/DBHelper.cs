@@ -11,6 +11,7 @@ namespace CDK.Integration
         private static DBHelperBase _instanceReportes;
         private static DBHelperBase _instanceReportesCRF;
         private static DBHelperBase _instanceEngine;
+        private static DBHelperBase _instanceMotorHerramientas;
 
         #endregion
 
@@ -42,6 +43,11 @@ namespace CDK.Integration
         public static DBHelperBase InstanceEngine
         {
             get { return (_instanceEngine = _instanceEngine ?? new DBHelperBase("CN_ENGINE")); }
+        }
+
+        public static DBHelperBase InstanceMotorEmail
+        {
+            get { return (_instanceMotorHerramientas = _instanceMotorHerramientas ?? new DBHelperBase("CN_MotorHerra")); }
         }
         #endregion
     }

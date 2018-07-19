@@ -1,4 +1,6 @@
-﻿var clipboard = new Clipboard("#btn_copiar", {
+
+
+var clipboard = new Clipboard("#btn_copiar", {
     container: document.getElementById('demo-lg-modal'),
     text: function () {
         return $("#afi_correos").find(':selected').html();
@@ -21,6 +23,13 @@ $(function () {
         valid: 'fa fa-check-circle fa-lg text-success',
         invalid: 'fa fa-times-circle fa-lg',
         validating: 'fa fa-refresh'
+    }
+
+    var entorno = {
+        Periodo: function () {
+            var hoy = new Date();
+            return hoy.getFullYear().toString() + (hoy.getMonth() + 1).toString().paddingLeft("00");
+        }
     }
 
     var render = {
@@ -58,19 +67,19 @@ $(function () {
                 e.Seguimiento.Holding = e.Seguimiento.Holding.addSlashes();
 
                 $("#bdy_datos_recu")
-                            .append(
-                                $("<tr>")
-                                    .append($("<td>").append('<a href="#" data-target="#mdl_data" data-toggle="modal" data-periodo="' + e.Seguimiento.Periodo + '" data-rut="' + e.Seguimiento.Afiliado_Rut + '-' + e.Seguimiento.Afiliado_Dv + '" data-tipo="' + e.Seguimiento.TipoAsignacion + '" class="btn-link" >' + e.Seguimiento.Afiliado_Rut.toMoney(0) + '-' + e.Seguimiento.Afiliado_Dv + '</a>'))
-                                    .append($("<td>").append(e.Seguimiento.Nombre + ' ' + e.Seguimiento.Apellido))
-                                    .append($("<td>").append(e.Seguimiento.Empresa))
-                                    .append($("<td>").append(e.Seguimiento.Segmento))
-                                    .append($("<td>").append((e.UltimaGestion.GestionBase.IdBaseCampagna > 0 && e.UltimaGestion.GestionBase.FechaCompromete.toFecha() != '01-01-1753') ? e.UltimaGestion.GestionBase.FechaCompromete.toFecha() : 'N/A'))
-                                    .append($("<td>").append('$' + e.Seguimiento.PreAprobadoFinal.toMoney(0)))
-                                    .append($("<td>").append(e.Seguimiento.Prioridad.toString().toEtiquetaPloma() + (e.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')))
-                                    .append($("<td>").append((e.UltimaGestion.GestionBase.IdBaseCampagna > 0) ? e.UltimaGestion.CausaBasalGestion.eges_nombre : 'Sin Causa'))
-                                    .append($("<td>").append((e.UltimaGestion.GestionBase.IdBaseCampagna > 0) ? e.UltimaGestion.ConsecuenciaGestion.eges_nombre : 'Sin Consecuencia'))
-                                    .append($("<td>").append((e.UltimaGestion.GestionBase.IdBaseCampagna > 0) ? e.UltimaGestion.EstadoGestion.eges_nombre : 'Sin Gestión'))
-                            );
+                    .append(
+                    $("<tr>")
+                        .append($("<td>").append('<a href="#" data-target="#mdl_data" data-toggle="modal" data-periodo="' + e.Seguimiento.Periodo + '" data-rut="' + e.Seguimiento.Afiliado_Rut + '-' + e.Seguimiento.Afiliado_Dv + '" data-tipo="' + e.Seguimiento.TipoAsignacion + '" class="btn-link" >' + e.Seguimiento.Afiliado_Rut.toMoney(0) + '-' + e.Seguimiento.Afiliado_Dv + '</a>'))
+                        .append($("<td>").append(e.Seguimiento.Nombre + ' ' + e.Seguimiento.Apellido))
+                        .append($("<td>").append(e.Seguimiento.Empresa))
+                        .append($("<td>").append(e.Seguimiento.Segmento))
+                        .append($("<td>").append((e.UltimaGestion.GestionBase.IdBaseCampagna > 0 && e.UltimaGestion.GestionBase.FechaCompromete.toFecha() != '01-01-1753') ? e.UltimaGestion.GestionBase.FechaCompromete.toFecha() : 'N/A'))
+                        .append($("<td>").append('$' + e.Seguimiento.PreAprobadoFinal.toMoney(0)))
+                        .append($("<td>").append(e.Seguimiento.Prioridad.toString().toEtiquetaPloma() + (e.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')))
+                        .append($("<td>").append((e.UltimaGestion.GestionBase.IdBaseCampagna > 0) ? e.UltimaGestion.CausaBasalGestion.eges_nombre : 'Sin Causa'))
+                        .append($("<td>").append((e.UltimaGestion.GestionBase.IdBaseCampagna > 0) ? e.UltimaGestion.ConsecuenciaGestion.eges_nombre : 'Sin Consecuencia'))
+                        .append($("<td>").append((e.UltimaGestion.GestionBase.IdBaseCampagna > 0) ? e.UltimaGestion.EstadoGestion.eges_nombre : 'Sin Gestión'))
+                    );
 
             });
         },
@@ -97,36 +106,36 @@ $(function () {
         },
         HistorialGestion: function (gesList) {
             //Gestiones Realizadas
-        $("#gestiones_realizadas").html("");
-        $.each(gesList, function (i, e) {
-            $("#gestiones_realizadas").append($("<a>").attr("href", '#')
-                 .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Gestor.EjecutivoData.Nombres))
-                 .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.GestionBase.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.GestionBase.FechaCompromete.toFecha()))
-                 .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.EstadoGestion.eges_nombre + ",  <strong>Sub Estado:</strong> " + e.SubEstadoGestion.eges_nombre))
-                 .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.GestionBase.Descripcion))
-             );
-        });
-          
-        if (gesList.length > 0 && gesList[0].EstadoGestion.ejes_terminal === "CERRADOS") {
-            $(".esconder").hide();
-        } else {
-            $(".esconder").show();
-        }
+            $("#gestiones_realizadas").html("");
+            $.each(gesList, function (i, e) {
+                $("#gestiones_realizadas").append($("<a>").attr("href", '#')
+                    .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Gestor.EjecutivoData.Nombres))
+                    .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.GestionBase.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.GestionBase.FechaCompromete.toFecha()))
+                    .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.EstadoGestion.eges_nombre + ",  <strong>Sub Estado:</strong> " + e.SubEstadoGestion.eges_nombre))
+                    .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.GestionBase.Descripcion))
+                );
+            });
 
-        $("#morfeable_monto").text("Monto Pre Aprobado");
+            if (gesList.length > 0 && gesList[0].EstadoGestion.ejes_terminal === "CERRADOS") {
+                $(".esconder").hide();
+            } else {
+                $(".esconder").show();
+            }
 
-    },
+            $("#morfeable_monto").text("Monto Pre Aprobado");
+
+        },
         HistorialGestionRecuperaciones: function (gesList) {
             $("#gestiones_realizadas").html("");
             $.each(gesList, function (i, e) {
                 var consecuencia = (e.ConsecuenciaGestion !== null) ? ", <strong>Consecuencia:</strong> " + e.ConsecuenciaGestion.eges_nombre : "";
                 var estatus = (e.EstadoGestion !== null) ? ", <strong>Estado:</strong> " + e.EstadoGestion.eges_nombre : "";
                 $("#gestiones_realizadas").append($("<a>").attr("href", '#')
-                     .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Gestor.EjecutivoData.Nombres))
-                     .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.GestionBase.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.GestionBase.FechaCompromete.toFecha()))
-                     .append($("<p>").addClass("list-group-item-text").html("<strong>Causa basal:</strong> " + e.CausaBasalGestion.eges_nombre + consecuencia + estatus))
-                     .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.GestionBase.Descripcion))
-                 );
+                    .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Gestor.EjecutivoData.Nombres))
+                    .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.GestionBase.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.GestionBase.FechaCompromete.toFecha()))
+                    .append($("<p>").addClass("list-group-item-text").html("<strong>Causa basal:</strong> " + e.CausaBasalGestion.eges_nombre + consecuencia + estatus))
+                    .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.GestionBase.Descripcion))
+                );
             });
 
             if (gesList.length > 0 && gesList[0].EstadoGestion.ejes_terminal === "CERRADOS") {
@@ -136,68 +145,6 @@ $(function () {
             }
         }
     }
-
-    var Cargador = {
-        CargaPreAprobados: function (p_periodo) {
-
-
-            //Carga de selects Filtros de Pre Aprobados
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: 0 }, function (datos) {
-
-                $("#demo-foo-filter-status").html("");
-                $("#demo-foo-filter-status").append($("<option>").attr("value", "").html("Seleccione"));
-                $.each(datos, function (i, e) {
-                    $("#demo-foo-filter-status").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre).data("terminal", e.ejes_terminal))
-                });
-            });
-        },
-        CargaRecuperaciones: function (p_periodo) {
-
-            //Carga de selects Filtros de Normalizaciones
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 2, padre: 0 }, function (datos) {
-
-                $("#flt_causa_normalizacion").html("");
-                $("#flt_causa_normalizacion").append($("<option>").attr("value", "").html("Todos"));
-
-                $.each(datos, function (i, e) {
-                    $("#flt_causa_normalizacion").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre).data("terminal", e.ejes_terminal))
-                });
-            });
-            //Carga de selects Filtros de Normalizaciones
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 2, padre: 10 }, function (datos) {
-
-                $("#flt_consecuencia_normalizacion").html("");
-                $("#flt_consecuencia_normalizacion").append($("<option>").attr("value", "").html("Todos"));
-
-                $.each(datos, function (i, e) {
-                    $("#flt_consecuencia_normalizacion").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre).data("terminal", e.ejes_terminal))
-                });
-            });
-            //Carga de selects Filtros de Normalizaciones
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 2, padre: 20 }, function (datos) {
-
-                $("#flt_estado_normalizacion").html("");
-                $("#flt_estado_normalizacion").append($("<option>").attr("value", "").html("Todos"));
-
-                $.each(datos, function (i, e) {
-                    $("#flt_estado_normalizacion").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre).data("terminal", e.ejes_terminal))
-                });
-            });
-
-
-        },
-        CargaNormalizacionSC: function (p_periodo) {
-            
-        },
-        CargaPreAprobadosDR: function (p_periodo) {
-
-
-            
-
-        }
-    }
-
-
 
     // Estados de Gestion
     $('#demo-foo-filter-status').change(function (e) {
@@ -224,7 +171,7 @@ $(function () {
     // Filter status
     $('#demo-foo-filter-statusDR').change(function (e) {
         e.preventDefault();
-        
+
         if ($(this).val() != '') {
             $("#demo-foo-filter-statusSubDR").attr("disabled", false);
             $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 5, padre: $(this).val() }, function (datos) {
@@ -244,7 +191,7 @@ $(function () {
 
     $('#flt_estado_sc').change(function (e) {
         e.preventDefault();
-        
+
         if ($(this).val() != '') {
             $("#flt_sub_estado_sc").attr("disabled", false);
             $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 4, padre: $(this).val() }, function (datos) {
@@ -267,49 +214,25 @@ $(function () {
     //Evento de busqueda de cualquier gestión    
     $("#btn_buscar_otr").on("click", function () {
 
-        var rutAfilado = $("#afi_rut_busc").val().replace(".", "").replace(".", "");
+        var rutAfilado = $("#afi_rut_busc").val().replace(/\./g, '')
         var tpcmp = $("#PrincipalTabActivo").val();
-        if (tpcmp == '2') {
-            
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-seguimiento-rec", { periodo: $("#slPeriodo_normalizacion").val(), afiRut: rutAfilado.trim(), tipoCampagna: tpcmp }, function (datos) {
+        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-seguimiento", { periodo: entorno.Periodo, afiRut: rutAfilado.trim(), tipoCampagna: tpcmp }, function (datos) {
 
-                if (datos.Estado === "OK") {
-                   
-                    location.href = BASE_URL + '/motor/App/Gestion/Oferta/' + $("#slPeriodo_normalizacion").val() + '/' + rutAfilado + '/' + tpcmp
-
-                }
-                else {
-                    $.niftyNoty({
-                        type: 'primary',
-                        container: '#bdy_busqueda',
-                        html: '<strong>!</strong> No se encontro Rut para el periodo actual.',
-                        focus: false,
-                        timer: 3000
-                    });
-                }
-            });
+            if (datos.Estado === "OK") {
+                location.href = BASE_URL + '/motor/App/Gestion/Oferta/' + datos.Objeto.Seguimiento.Periodo.toString() + '/' + rutAfilado + '/' + tpcmp
+            } else {
+                $.niftyNoty({
+                    type: 'primary',
+                    container: '#bdy_busqueda',
+                    html: '<strong>!</strong> No se encontro Rut para el periodo actual.',
+                    focus: false,
+                    timer: 3000
+                });
+            }
+        });
 
 
-        } else {
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-seguimiento", { periodo: $("#slPeriodo").val(), afiRut: rutAfilado.trim(), tipoCampagna: tpcmp }, function (datos) {
-
-                if (datos.Estado === "OK") {
-                    location.href = BASE_URL + '/motor/App/Gestion/Oferta/' + $("#slPeriodo").val() + '/' + rutAfilado + '/' + tpcmp
-                }else {
-                    $.niftyNoty({
-                        type: 'primary',
-                        container: '#bdy_busqueda',
-                        html: '<strong>!</strong> No se encontro Rut para el periodo actual.',
-                        focus: false,
-                        timer: 3000
-                    });
-                }
-            });
-        }
-
-       
     });
-
 
     //Evento de Estado maestro Pre Aprobados
     $("#ges_estado").on("change", function () {
@@ -402,43 +325,41 @@ $(function () {
         }
     });
 
-    //end tmc
 
-    //Recarga de periodo de Normalizaciones
-    $("#slPeriodo_normalizacion").on("change", function () {
-        Cargador.CargaRecuperaciones($(this).val());
-    });
-
-    //Recarga de periodo de preaprobados
-    //$("#slPeriodo").on("change", function () {
-    //    Cargador.CargaPreAprobados($(this).val());
-    //});
-
-    //Recarga de periodo de preaprobados derivaciones
-    $("#slPeriodoDR").on("change", function () {
-        Cargador.CargaPreAprobadosDR($(this).val());
-    });
-
-
-    //Recarga de periodo de preaprobados
-    $("#flt_periodo_sc").on("change", function () {
-        Cargador.CargaNormalizacionSC($(this).val());
-    });
-
+    //EVENTOS TABS
     $("#tab_recuperaciones").on("shown.bs.tab", function () {
         sessionStorage.setItem('GST_PESTANA_ACTIVA', '2');
-        $("#PrincipalTabActivo").val("2")
+        $("#PrincipalTabActivo").val("2");
 
-        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/listar-periodos", { tipoAsignacion: 2 }, function (datos) {
+        //Carga de selects Filtros de Normalizaciones
+        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 2, padre: 0 }, function (datos) {
 
-            $("#slPeriodo_normalizacion").html("");
-            $.each(datos, function (i, periodo) {
-                $("#slPeriodo_normalizacion").append($("<option>").val(periodo.Periodo).html(periodo.PeriodoText));
+            $("#flt_causa_normalizacion").html("");
+            $("#flt_causa_normalizacion").append($("<option>").attr("value", "").html("Todos"));
+
+            $.each(datos, function (i, e) {
+                $("#flt_causa_normalizacion").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre).data("terminal", e.ejes_terminal))
             });
+        });
+        //Carga de selects Filtros de Normalizaciones
+        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 2, padre: 10 }, function (datos) {
 
+            $("#flt_consecuencia_normalizacion").html("");
+            $("#flt_consecuencia_normalizacion").append($("<option>").attr("value", "").html("Todos"));
 
-            //Trigger para primera carga de Recuperaciones
-            $("#slPeriodo_normalizacion").trigger("change");
+            $.each(datos, function (i, e) {
+                $("#flt_consecuencia_normalizacion").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre).data("terminal", e.ejes_terminal))
+            });
+        });
+        //Carga de selects Filtros de Normalizaciones
+        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 2, padre: 20 }, function (datos) {
+
+            $("#flt_estado_normalizacion").html("");
+            $("#flt_estado_normalizacion").append($("<option>").attr("value", "").html("Todos"));
+
+            $.each(datos, function (i, e) {
+                $("#flt_estado_normalizacion").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre).data("terminal", e.ejes_terminal))
+            });
         });
     })
 
@@ -446,18 +367,6 @@ $(function () {
         sessionStorage.setItem('GST_PESTANA_ACTIVA', '1');
         $("#PrincipalTabActivo").val("1")
 
-        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/listar-periodos", { tipoAsignacion: 1 }, function (datos) {
-
-            $("#slPeriodo").html("");
-            $.each(datos, function (i, periodo) {
-                $("#slPeriodo").append($("<option>").val(periodo.Periodo).html(periodo.PeriodoText));
-            });
-
-
-
-            //Trigger para primera carga de preaprobaDOs
-            //$("#slPeriodo").trigger("change");
-        });
         $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: 0 }, function (datos) {
 
             $("#demo-foo-filter-status").html("");
@@ -482,14 +391,6 @@ $(function () {
         sessionStorage.setItem('GST_PESTANA_ACTIVA', '4');
         $("#PrincipalTabActivo").val("4")
 
-        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/listar-periodos", { tipoAsignacion: 4 }, function (datos) {
-
-            $("#flt_periodo_sc").html("");
-            $.each(datos, function (i, periodo) {
-                $("#flt_periodo_sc").append($("<option>").val(periodo.Periodo).html(periodo.PeriodoText));
-            });
-        });
-
         //Carga de selects Filtros de Normalizaciones
         $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 4, padre: 0 }, function (datos) {
 
@@ -506,15 +407,6 @@ $(function () {
     $("#tab_derivaciones").on("shown.bs.tab", function () {
         sessionStorage.setItem('GST_PESTANA_ACTIVA', '5');
         $("#PrincipalTabActivo").val("5");
-
-        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/listar-periodos", { tipoAsignacion: 5 }, function (datos) {
-
-            $("#slPeriodoDR").html("");
-            $.each(datos, function (i, periodo) {
-                $("#slPeriodoDR").append($("<option>").val(periodo.Periodo).html(periodo.PeriodoText));
-            });
-
-        });
 
         //Carga de selects Filtros de Pre Aprobados
         $("#demo-foo-filter-statusDR").html("");
@@ -537,13 +429,14 @@ $(function () {
             url: BASE_URL + "/motor/api/Gestion/v3/lista-seguimientos",
             query: {
                 tipoCampagna: 5,
-                periodo: $('#slPeriodoDR').val(),
+                periodo: entorno.Periodo,
                 estado: $('#demo-foo-filter-statusDR').val(),
                 subestado: $('#demo-foo-filter-statusSubDR').val(),
                 prioridad: $('#slPrioridadDR').val(),
                 segmento: $('#slSegmentoDR').val(),
                 tipo: $('#slTipoDR').val(),
-                rut: $('#demo-foo-searchDR').val()
+                rut: $('#demo-foo-searchDR').val(),
+                vencimiento: $('#flt_vencidos_dr').val()
             }
         });
 
@@ -562,13 +455,14 @@ $(function () {
         },
         queryParams: function (params) {
 
-            params.periodo = $('#slPeriodoDR').val();
+            params.periodo = entorno.Periodo;
             params.tipoCampagna = 5;
             params.estado = $('#demo-foo-filter-statusDR').val();
             params.subestado = $('#demo-foo-filter-statusSubDR').val();
             params.prioridad = $('#slPrioridadDR').val();
             params.segmento = $('#slSegmentoDR').val();
             params.tipo = $('#slTipoDR').val();
+            params.vencimiento = $('#flt_vencidos_dr').val()
             return params;
         },
         locale: 'es-ES',
@@ -600,7 +494,7 @@ $(function () {
             {
                 field: 'Seguimiento.Empresa',
                 title: 'Empresa',
-                sortable: false
+                sortable: true
             },
             {
                 field: 'Seguimiento.Segmento',
@@ -610,7 +504,7 @@ $(function () {
             {
                 field: 'UltimaGestion.GestionBase.IdBaseCampagna',
                 title: 'Prox. Gestión',
-                sortable: false,
+                sortable: true,
                 formatter: function (value, row, index) {
                     return value > 0 ? row.UltimaGestion.GestionBase.FechaCompromete.toFecha() === '01-01-1753' ? '-' : row.UltimaGestion.GestionBase.FechaCompromete.toFecha() : 'N/A';
                 }
@@ -618,7 +512,7 @@ $(function () {
             {
                 field: 'Seguimiento.PreAprobadoFinal',
                 title: 'Pre Aprobado',
-                sortable: false,
+                sortable: true,
                 align: 'right',
                 formatter: function (value, row, index) {
                     return value.toMoney(0);
@@ -686,16 +580,19 @@ $(function () {
             url: BASE_URL + "/motor/api/Gestion/v3/lista-seguimientos",
             query: {
                 tipoCampagna: 1,
-                periodo: $('#slPeriodo').val(),
+                periodo: entorno.Periodo,
                 estado: $('#demo-foo-filter-status').val(),
                 subestado: $('#demo-foo-filter-statusSub').val(),
+                marca: $('#demo-foo-filter-statusMarca').val(),
                 prioridad: $('#slPrioridad').val(),
                 segmento: $('#slSegmento').val(),
                 tipo: $('#slTipo').val(),
-                rut: $('#demo-foo-search').val()
+                busEmpresa: $('#demo-chosen-select').val(),
+                rut: $('#demo-foo-search').val(),
+                vencimiento: $('#flt_vencidos').val()
             }
         });
-
+        $("#tabla_comercial > tbody").addClass("buscar")
     });
 
     $("#tabla_comercial").bootstrapTable({
@@ -710,14 +607,14 @@ $(function () {
             }
         },
         queryParams: function (params) {
-
-            params.periodo = $('#slPeriodo').val();
+            params.periodo = entorno.Periodo;
             params.tipoCampagna = 1;
             params.estado = $('#demo-foo-filter-status').val();
             params.subestado = $('#demo-foo-filter-statusSub').val();
             params.prioridad = $('#slPrioridad').val();
             params.segmento = $('#slSegmento').val();
             params.tipo = $('#slTipo').val();
+            params.vencimiento = $('#flt_vencidos').val();
             return params;
         },
         locale: 'es-ES',
@@ -749,7 +646,7 @@ $(function () {
             {
                 field: 'Seguimiento.Empresa',
                 title: 'Empresa',
-                sortable: false
+                sortable: true
             },
             {
                 field: 'Seguimiento.Segmento',
@@ -759,7 +656,7 @@ $(function () {
             {
                 field: 'UltimaGestion.GestionBase.IdBaseCampagna',
                 title: 'Prox. Gestión',
-                sortable: false,
+                sortable: true,
                 formatter: function (value, row, index) {
                     return value > 0 ? row.UltimaGestion.GestionBase.FechaCompromete.toFecha() === '01-01-1753' ? '-' : row.UltimaGestion.GestionBase.FechaCompromete.toFecha() : 'N/A';
                 }
@@ -767,7 +664,7 @@ $(function () {
             {
                 field: 'Seguimiento.PreAprobadoFinal',
                 title: 'Pre Aprobado',
-                sortable: false,
+                sortable: true,
                 align: 'right',
                 formatter: function (value, row, index) {
                     return value.toMoney(0);
@@ -830,21 +727,22 @@ $(function () {
 
     //RECUPERACIONES 
 
-    $('#btn_recuperaciones').click(function() {
+    $('#btn_recuperaciones').click(function () {
         $("#tabla_recuperaciones").bootstrapTable('refresh', {
             url: BASE_URL + "/motor/api/Gestion/v3/lista-seguimientos",
-                query: {
-                    tipoCampagna: 2,
-                    periodo: $('#slPeriodo_normalizacion').val(),
-                    estado: $('#flt_estado_normalizacion').val(),
-                    causaBasal: $('#flt_causa_normalizacion').val(),
-                    consecuencia: $('#flt_consecuencia_normalizacion').val(),
-                    prioridad: $('#slPrioridad_normalizacion').val(),
-                    rut: $('flt_rut_normalizacion').val()
+            query: {
+                tipoCampagna: 2,
+                periodo: entorno.Periodo,
+                estado: $('#flt_estado_normalizacion').val(),
+                causaBasal: $('#flt_causa_normalizacion').val(),
+                consecuencia: $('#flt_consecuencia_normalizacion').val(),
+                prioridad: $('#slPrioridad_normalizacion').val(),
+                rut: $('flt_rut_normalizacion').val(),
+                vencimiento: $('#flt_vencidos_normalizacion').val()
             }
         });
 
-   });
+    });
 
 
     $("#tabla_recuperaciones").bootstrapTable({
@@ -859,13 +757,14 @@ $(function () {
         },
         queryParams: function (params) {
 
-            params.periodo = $('#slPeriodo_normalizacion').val();
+            params.periodo = entorno.Periodo;
             params.tipoCampagna = 2;
             params.causaBasal = $('#flt_causa_normalizacion').val();
             params.consecuencia = $('#flt_consecuencia_normalizacion').val();
             params.estado = $('#flt_estado_normalizacion').val();
             params.prioridad = $('#slPrioridad_normalizacion').val();
             params.rut = $('flt_rut_normalizacion').val();
+            params.vencimiento = $('#flt_vencidos_normalizacion').val()
             return params;
         },
         locale: 'es-ES',
@@ -878,86 +777,84 @@ $(function () {
         showRefresh: false,
         sortName: 'Seguimiento.Afiliado_Rut',
         columns: [
-                    {
-                        field: 'Seguimiento.Afiliado_Rut',
-                        title: 'Rut',
-                        sortable: true,
-                        formatter: function (value, row, index) {
-                            return '<a href="#" class="btn-link" data-target="#mdl_data" data-toggle="modal" data-periodo="' + row.Seguimiento.Periodo + '" data-rut="' + value + '-' + row.Seguimiento.Afiliado_Dv + '" data-tipo="' + row.Seguimiento.TipoAsignacion + '">' + value.toMoney(0).toString() + '-' + row.Seguimiento.Afiliado_Dv + '</a>';
-                        }
-                    },
-                    {
-                        field: 'Seguimiento.Nombre',
-                        title: 'Nombre',
-                        sortable: false,
-                        formatter: function (value, row, index) {
-                            return value + ' ' + row.Seguimiento.Apellido
-                        }
-                    },
-                    {
-                        field: 'Seguimiento.Empresa',
-                        title: 'Empresa',
-                        sortable: false
-                    },
-                    {
-                        field: 'Seguimiento.Segmento',
-                        title: 'Segmento',
-                        sortable: false
-                    },
-                    {
-                        field: 'UltimaGestion.GestionBase.IdBaseCampagna',
-                        title: 'Prox. Gestión',
-                        sortable: false,
-                        formatter: function (value, row, index) {
-                            return value > 0 ? row.UltimaGestion.GestionBase.FechaCompromete.toFecha() === '01-01-1753' ? '-' : row.UltimaGestion.GestionBase.FechaCompromete.toFecha() : 'N/A';
-                        }
-                    },
-                    {
-                        field: 'Seguimiento.PreAprobadoFinal',
-                        title: 'Monto Adeudado',
-                        sortable: false,
-                        align: 'right',
-                        formatter: function (value, row, index) {
-                            return value.toMoney(0);
-                        }
-                    },
-                    {
-                        field: 'Seguimiento.Prioridad',
-                        title: 'Prioridad',
-                        sortable: false,
-                        formatter: function (value, row, index) {
-                            return value.toString().toEtiquetaPloma() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')
-                        }
-                    },
-                    {
-                        field: 'UltimaGestion.CausaBasalGestion.eges_id',
-                        title: 'Causa Basal',
-                        sortable: false,
-                        formatter: function (value, row, index) {
-                            return value > 0 ? row.UltimaGestion.CausaBasalGestion.eges_nombre : 'Sin Causa';
-                        }
-                    },
-                    {
-                        field: 'UltimaGestion.ConsecuenciaGestion.eges_id',
-                        title: 'Concecuencia',
-                        sortable: false,
-                        formatter: function (value, row, index) {
-                            return value > 0 ? row.UltimaGestion.ConsecuenciaGestion.eges_nombre : 'Sin Consecuencia';
-                        }
-                    },
-                    {
-                        field: 'UltimaGestion.EstadoGestion.eges_id',
-                        title: 'Estado',
-                        sortable: false,
-                        formatter: function (value, row, index) {
-                            return value > 0 ? row.UltimaGestion.EstadoGestion.eges_nombre: 'Sin Gestión';
+            {
+                field: 'Seguimiento.Afiliado_Rut',
+                title: 'Rut',
+                sortable: true,
+                formatter: function (value, row, index) {
+                    return '<a href="#" class="btn-link" data-target="#mdl_data" data-toggle="modal" data-periodo="' + row.Seguimiento.Periodo + '" data-rut="' + value + '-' + row.Seguimiento.Afiliado_Dv + '" data-tipo="' + row.Seguimiento.TipoAsignacion + '">' + value.toMoney(0).toString() + '-' + row.Seguimiento.Afiliado_Dv + '</a>';
+                }
+            },
+            {
+                field: 'Seguimiento.Nombre',
+                title: 'Nombre',
+                sortable: false,
+                formatter: function (value, row, index) {
+                    return value + ' ' + row.Seguimiento.Apellido
+                }
+            },
+            {
+                field: 'Seguimiento.Empresa',
+                title: 'Empresa',
+                sortable: true
+            },
+            {
+                field: 'Seguimiento.Segmento',
+                title: 'Segmento',
+                sortable: false
+            },
+            {
+                field: 'UltimaGestion.GestionBase.IdBaseCampagna',
+                title: 'Prox. Gestión',
+                sortable: true,
+                formatter: function (value, row, index) {
+                    return value > 0 ? row.UltimaGestion.GestionBase.FechaCompromete.toFecha() === '01-01-1753' ? '-' : row.UltimaGestion.GestionBase.FechaCompromete.toFecha() : 'N/A';
+                }
+            },
+            {
+                field: 'Seguimiento.PreAprobadoFinal',
+                title: 'Monto Adeudado',
+                sortable: true,
+                align: 'right',
+                formatter: function (value, row, index) {
+                    return value.toMoney(0);
+                }
+            },
+            {
+                field: 'Seguimiento.Prioridad',
+                title: 'Prioridad',
+                sortable: false,
+                formatter: function (value, row, index) {
+                    return value.toString().toEtiquetaPloma() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')
+                }
+            },
+            {
+                field: 'UltimaGestion.CausaBasalGestion.eges_id',
+                title: 'Causa Basal',
+                sortable: false,
+                formatter: function (value, row, index) {
+                    return value > 0 ? row.UltimaGestion.CausaBasalGestion.eges_nombre : 'Sin Causa';
+                }
+            },
+            {
+                field: 'UltimaGestion.ConsecuenciaGestion.eges_id',
+                title: 'Concecuencia',
+                sortable: false,
+                formatter: function (value, row, index) {
+                    return value > 0 ? row.UltimaGestion.ConsecuenciaGestion.eges_nombre : 'Sin Consecuencia';
+                }
+            },
+            {
+                field: 'UltimaGestion.EstadoGestion.eges_id',
+                title: 'Estado',
+                sortable: false,
+                formatter: function (value, row, index) {
+                    return value > 0 ? row.UltimaGestion.EstadoGestion.eges_nombre : 'Sin Gestión';
 
-                        }
-                    },
+                }
+            },
         ]
     });
-
-
 
 
     //SEGURO CESANTIA
@@ -966,10 +863,11 @@ $(function () {
             url: BASE_URL + "/motor/api/Gestion/v3/lista-seguimientos",
             query: {
                 tipoCampagna: 4,
-                periodo: $('#flt_periodo_sc').val(),
-                estado: $('#flt_estado_sc').val(),                
+                periodo: entorno.Periodo,
+                estado: $('#flt_estado_sc').val(),
                 subestado: $('#flt_sub_estado_sc').val(),
-                rut: $('#flt_rut_sc').val()
+                rut: $('#flt_rut_sc').val(),
+                vencimiento: $('#flt_vencidos_sc').val()
             }
         });
     });
@@ -987,10 +885,11 @@ $(function () {
         },
         queryParams: function (params) {
             params.tipoCampagna = 4;
-            params.periodo = $('#flt_periodo_sc').val();
+            params.periodo = entorno.Periodo;
             params.estado = $('#flt_estado_sc').val();
             params.subestado = $('#flt_sub_estado_sc').val();
             params.rut = $('#flt_rut_sc').val();
+            params.vencimiento = $('#flt_vencidos_sc').val();
 
             return params;
         },
@@ -1004,59 +903,59 @@ $(function () {
         showRefresh: false,
         sortName: 'Seguimiento.Afiliado_Rut',
         columns: [
-                    {
-                        field: 'Seguimiento.Afiliado_Rut',
-                        title: 'Rut',
-                        sortable: true,
-                        formatter: function (value, row, index) {
-                            return '<a href="#" class="btn-link" data-target="#mdl_data" data-toggle="modal" data-periodo="' + row.Seguimiento.Periodo + '" data-rut="' + value + '-' + row.Seguimiento.Afiliado_Dv + '" data-tipo="' + row.Seguimiento.TipoAsignacion + '">' + value.toMoney(0).toString() + '-' + row.Seguimiento.Afiliado_Dv + '</a>';
-                        }
-                    },
-                    {
-                        field: 'Seguimiento.Nombre',
-                        title: 'Nombre',
-                        sortable: false,
-                        formatter: function (value, row, index) {
-                            return value + ' ' + row.Seguimiento.Apellido
-                        }
-                    },
-                    {
-                        field: 'Seguimiento.PensionadoFFAA',
-                        title: 'Número de Créditos',
-                        sortable: false
-                    },
-                    {
-                        field: 'Seguimiento.Prioridad',
-                        title: 'Prioridad',
-                        sortable: false,
-                        formatter: function (value, row, index) {
-                            return value.toString().toEtiquetaPloma() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')
-                        }
-                    },
-                    {
-                        field: 'UltimaGestion.GestionBase.IdBaseCampagna',
-                        title: 'Prox. Gestión',
-                        sortable: false,
-                        formatter: function (value, row, index) {
-                            return value > 0 ? row.UltimaGestion.GestionBase.FechaCompromete.toFecha() === '01-01-1753' ? '-' : row.UltimaGestion.GestionBase.FechaCompromete.toFecha() : 'N/A';
-                        }
-                    },
-                    {
-                        field: 'UltimaGestion.EstadoGestion.eges_id',
-                        title: 'Estado',
-                        sortable: false,
-                        formatter: function (value, row, index) {
-                            return value > 0 ? row.UltimaGestion.EstadoGestion.eges_nombre : 'Sin Gestión';
-                        }
-                    },
-                    {
-                        field: 'UltimaGestion.SubEstadoGestion.eges_id',
-                        title: 'Sub Estado',
-                        sortable: false,
-                        formatter: function (value, row, index) {
-                            return value > 0 ? row.UltimaGestion.SubEstadoGestion.eges_nombre : 'Sin Gestión';
-                        }
-                    },
+            {
+                field: 'Seguimiento.Afiliado_Rut',
+                title: 'Rut',
+                sortable: true,
+                formatter: function (value, row, index) {
+                    return '<a href="#" class="btn-link" data-target="#mdl_data" data-toggle="modal" data-periodo="' + row.Seguimiento.Periodo + '" data-rut="' + value + '-' + row.Seguimiento.Afiliado_Dv + '" data-tipo="' + row.Seguimiento.TipoAsignacion + '">' + value.toMoney(0).toString() + '-' + row.Seguimiento.Afiliado_Dv + '</a>';
+                }
+            },
+            {
+                field: 'Seguimiento.Nombre',
+                title: 'Nombre',
+                sortable: false,
+                formatter: function (value, row, index) {
+                    return value + ' ' + row.Seguimiento.Apellido
+                }
+            },
+            {
+                field: 'Seguimiento.PensionadoFFAA',
+                title: 'Número de Créditos',
+                sortable: true
+            },
+            {
+                field: 'Seguimiento.Prioridad',
+                title: 'Prioridad',
+                sortable: true,
+                formatter: function (value, row, index) {
+                    return value.toString().toEtiquetaPloma() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')
+                }
+            },
+            {
+                field: 'UltimaGestion.GestionBase.IdBaseCampagna',
+                title: 'Prox. Gestión',
+                sortable: true,
+                formatter: function (value, row, index) {
+                    return value > 0 ? row.UltimaGestion.GestionBase.FechaCompromete.toFecha() === '01-01-1753' ? '-' : row.UltimaGestion.GestionBase.FechaCompromete.toFecha() : 'N/A';
+                }
+            },
+            {
+                field: 'UltimaGestion.EstadoGestion.eges_id',
+                title: 'Estado',
+                sortable: false,
+                formatter: function (value, row, index) {
+                    return value > 0 ? row.UltimaGestion.EstadoGestion.eges_nombre : 'Sin Gestión';
+                }
+            },
+            {
+                field: 'UltimaGestion.SubEstadoGestion.eges_id',
+                title: 'Sub Estado',
+                sortable: false,
+                formatter: function (value, row, index) {
+                    return value > 0 ? row.UltimaGestion.SubEstadoGestion.eges_nombre : 'Sin Gestión';
+                }
+            },
         ]
     });
 
@@ -1069,11 +968,11 @@ $(function () {
             $("#afi_oficina_preferencia").append($("<option>").attr("value", e.Id).html(e.Nombre))
         });
     });
-    
+
 
     $('#mdl_data').on('show.bs.modal', function (e) {
 
-        
+
         var trutAfiliado = $(e.relatedTarget).data("rut")
         var tperiodo = $(e.relatedTarget).data("periodo")
         var tipoCamp = $(e.relatedTarget).data("tipo")
@@ -1146,7 +1045,7 @@ $(function () {
 
                 //NOTIFICACIONES
                 var sx = false;
-                
+
                 if (typeof Asignacion.Notificaciones != "undefined" && Asignacion.Notificaciones != null && Asignacion.Notificaciones.length > 0) {
                     var text = "";
                     $(".charlyNTFContainer").html("");
@@ -1194,7 +1093,7 @@ $(function () {
                     info_xxx = ("Filtros Riesgo " + Asignacion.FiltrosRSG).toEtiquetaSuperior('x');
                 }
 
-                
+
 
                 if (tipoCamp === 1 || tipoCamp === 5) {
                     render.HistorialGestion(gesList);
@@ -1251,7 +1150,7 @@ $(function () {
                 });
             }
         });
-        
+
 
         //Evento de Estado maestro Pre Aprobados
         $("#ges_estado").on("change", function () {
@@ -1464,7 +1363,7 @@ $(function () {
 
         //RECUPERACIONES
         if (tipoCamp === 2) {
-            
+
             $('#datos-gestion_normalizacion').show();
 
             $('#demo-dp-component_normalizacion .input-group.date').datepicker({ autoclose: true, format: 'dd-mm-yyyy', startDate: "0d", language: "es", daysOfWeekDisabled: [6, 0], todayHighlight: true }).on('show.bs.modal hide.bs.modal', function (event) {
@@ -1737,11 +1636,11 @@ $(function () {
                 $("#morf_cnvs").removeClass("col-sm-3").addClass("col-sm-6")
                 $("#labelempresa").text("Empresa");
                 $("#labelrutempresa").text("Rut Empresa");
-                
+
 
                 break;
-            
-                
+
+
         }
 
 
@@ -1761,13 +1660,13 @@ $(function () {
 
             $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-preferencia-afiliado", WebPreferencia, function (respuesta) {
                 if (respuesta.Estado === "OK") {
-                        $.niftyNoty({
-                            type: 'success',
-                            container: 'floating',
-                            html: '<strong>OK</strong> Oficina asignada con éxito!',
-                            focus: false,
-                            timer: 3000
-                        });
+                    $.niftyNoty({
+                        type: 'success',
+                        container: 'floating',
+                        html: '<strong>OK</strong> Oficina asignada con éxito!',
+                        focus: false,
+                        timer: 3000
+                    });
                 }
             });
         }
@@ -1787,8 +1686,8 @@ $(function () {
 
             $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-preferencia-afiliado", WebPreferencia, function (respuesta) {
                 if (respuesta.Estado === "OK") {
-                   ///Variables.Afiliado_Current.data("afiliado").HorarioPreferencia = respuesta.Objeto;
-                   ///console.log(Variables.Afiliado_Current.data("afiliado"))
+                    ///Variables.Afiliado_Current.data("afiliado").HorarioPreferencia = respuesta.Objeto;
+                    ///console.log(Variables.Afiliado_Current.data("afiliado"))
                 }
             });
         }
@@ -2195,7 +2094,13 @@ $(function () {
         $("#tab_preaprobados").trigger("shown.bs.tab");
     }
 
-
-
+    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-empresas", function (datos) {
+        $("#demo-chosen-select").html("");
+        $("#demo-chosen-select").append($("<option>").text("Seleccione").val(""));
+        $.each(datos, function (i, e) {
+            $("#demo-chosen-select").append($("<option>").val(e.NonEmpresa).html(e.NonEmpresa));
+        });
+        $('#demo-chosen-select').chosen();
+    });
 
 });

@@ -39,6 +39,10 @@ function setCookie(c_name, value, exdays) {
     document.cookie = c_name + "=" + c_value + "; path=/";
 }
 
+function delCookie(c_name) {
+    document.cookie = c_name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/";
+}
+
 function objectifyForm(formArray) {//serialize data function
 
     var returnArray = {};

@@ -70,6 +70,7 @@
     <Compile Include="FFVVBaseDataAccess.cs" />
     <Compile Include="FidelizacionDataAccess.cs" />
     <Compile Include="FiltrosrsgDataAccess.cs" />
+    <Compile Include="DotacionAgenteDataAccess.cs" />
     <Compile Include="GestionDataAccess.cs" />
     <Compile Include="InformesDataAccess.cs" />
     <Compile Include="IngresoCarteraEmpresaDataAccess.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="LicenciaDataAccess.cs" />
     <Compile Include="Log\LogcalculadoraDataAccess.cs" />
     <Compile Include="Maestros\EmpresasDataAccess.cs" />
+    <Compile Include="Mail\DbMailDataAccess.cs" />
     <Compile Include="NoticiaDataAccess.cs" />
     <Compile Include="NotificacionAsignacionDataAccess.cs" />
     <Compile Include="NuberespuestasDataAccess.cs" />

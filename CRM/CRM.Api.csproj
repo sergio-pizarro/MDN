@@ -262,6 +262,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AfiliadosController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\ContrasenaController.cs" />
     <Compile Include="Controllers\CallCenterController.cs" />
     <Compile Include="Controllers\BuscarController.cs" />
     <Compile Include="Controllers\CarteraEmpresasController.cs" />
@@ -319,6 +320,7 @@
     <Content Include="Assets\css\nifty.min.css" />
     <Content Include="Assets\img\favicon.ico" />
     <Content Include="Assets\img\M.png" />
+    <Content Include="Assets\img\mail_motor.png" />
     <Content Include="Assets\js.App\Conf.js" />
     <Content Include="Assets\js.App\Ext.js" />
     <Content Include="Assets\js.App\gestion\BuscadorGrilla.js" />
@@ -1846,6 +1848,7 @@
     <Content Include="Views\Shared\Alternativo.cshtml" />
     <None Include="Service References\WSFonasaCajas\WSFonaCajas.wsdl" />
     <Content Include="Views\Home\Instalador.cshtml" />
+    <Content Include="Views\Home\RecuperarPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1857,7 +1860,11 @@
     <Folder Include="Views\Buscar\" />
     <Folder Include="Views\CarteraEmpresas\" />
     <Folder Include="Views\Configuracion\" />
+
+    <Folder Include="Views\Contrasenas\" />
+
     <Folder Include="Views\Contactabilidad\" />
+
     <Folder Include="Views\Empresa\" />
     <Folder Include="Views\FFVVBase\" />
     <Folder Include="Views\Informes\" />

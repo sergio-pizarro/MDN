@@ -196,7 +196,7 @@ namespace CRM.Business.Entity
         public int Periodo { get; set; }
         public string Actualizacion { get; set; }
         public string diaHabilActual { get; set; }
-        public string nombreEjecutivo {get;set;}
+        public string nombreEjecutivo { get; set; }
         public int CodOficina { get; set; }
         public string Oficina { get; set; }
         public int SumaAsignadosWidEjec { get; set; }
@@ -243,8 +243,8 @@ namespace CRM.Business.Entity
     }
     public class TrackingComboCargo
     {
-      public int Periodo { get; set; }
-      public string EjecutivoCargo { get; set; }
+        public int Periodo { get; set; }
+        public string EjecutivoCargo { get; set; }
     }
     public class TrackingComboCargoNormalizacion
     {
@@ -267,7 +267,7 @@ namespace CRM.Business.Entity
         public int SumPresentado { get; set; }
         public float PorcentajePresentado { get; set; }
         public int SumAprobado { get; set; }
-        public float PorcentajeAprobado { get; set; } 
+        public float PorcentajeAprobado { get; set; }
         public int SumCursado { get; set; }
         public float PorcentajeCursado { get; set; }
         public Int64 SumBruto { get; set; }
@@ -281,7 +281,7 @@ namespace CRM.Business.Entity
     }
     public class TrackingWidgetsZonal
     {
-        
+
         public int Periodo { get; set; }
         public string FechaActualizacion { get; set; }
         public string DiaHabil { get; set; }
@@ -446,6 +446,23 @@ namespace CRM.Business.Entity
         public int VenceProx { get; set; }
     }
 
+
+    public class TrackEjecutivoGestionNormalizacion
+    {
+        public int AsignadosNorm { get; set; }
+        public int GestionadosNorm { get; set; }
+        public int ContactadosNorm { get; set; }
+        public int InteresadosNorm { get; set; }
+        public int CursadosNorm { get; set; }
+        public float SumaPorcentajeCurNorm { get; set; }
+    }
+
+    public class TrackVencimientosGesNormalizacion
+    {
+        public int VencidosNorm { get; set; }
+        public int VenceHoyNorm { get; set; }
+        public int VenceProxNorm { get; set; }
+    }
 
 
 

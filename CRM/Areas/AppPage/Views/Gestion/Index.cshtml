@@ -1,26 +1,20 @@
-﻿@{
+@{
     Layout = "~/Areas/AppPage/Views/Shared/_Layout.cshtml";
 }
-
-
-
 
 <link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
 <!--Bootstrap Select [ OPTIONAL ]-->
 <link href="~/Assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
-
-
 <link href="~/Assets/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
+
+
 
 <!--Page content-->
 <!--===================================================-->
 <div id="page-content">
-
-
     <div class="row">
         <div class="col-lg-12">
-
-
             <div class="tab-base">
 
                 <!--Nav Tabs-->
@@ -43,7 +37,6 @@
                 <!--Tabs Content-->
                 <div class="tab-content">
 
-
                     <div id="demo-lft-tab-1" class="tab-pane fade active in">
                         <div class="panel-body">
 
@@ -51,15 +44,6 @@
                             <div class="pad-btm">
                                 <div class="row">
 
-                                    <div class="col-sm-1 text-xs-center">
-                                        <div class="form-group">
-                                            <label class="control-label">Periodo</label>
-                                            <select id="slPeriodo" class="form-control">
-                                                <option value="201705">Mayo 2017</option>
-                                                <option value="201704">Abril 2017</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="col-sm-2 text-xs-center">
                                         <div class="form-group">
                                             <label class="control-label">Estado</label>
@@ -76,6 +60,18 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="col-sm-1 text-xs-center" style="width: 130px;">
+                                        <div class="form-group">
+                                            <label class="control-label">Marcas</label>
+                                            <select id="demo-foo-filter-statusMarca" class="form-control">
+                                                <option value="">Seleccione</option>
+                                                <option value="Pensionados">Pensionados Nuevos</option>
+                                                <option value="Cumpleanos">Cumpleaños</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <div class="col-sm-1 text-xs-center">
                                         <div class="form-group">
                                             <label class="control-label">Prioridad</label>
@@ -114,56 +110,56 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Vencimiento</label>
+                                            <select id="flt_vencidos" class="form-control">
+                                                <option value="">Todos</option>
+                                                <option value="AYER">Vencidos</option>
+                                                <option value="HOY">Vence Hoy</option>
+                                                <option value="PROX5DIAS">Prox. 5 días</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-                                    <div class="col-sm-3 text-xs-center">
+                                    <div class="col-sm-2 text-xs-center" style="width: 358px;">
+                                        <div class="form-group">
+                                            <label class="control-label">Busqueda por Empresa</label>
+                                            <select id="demo-chosen-select" tabindex="2"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 text-xs-center">
                                         <label class="control-label">Rut</label>
                                         <div class="input-group mar-btm">
                                             <input id="demo-foo-search" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
+                                            @*<input id="filtrar" type="text" class="form-control" placeholder="Buscar...">*@
                                             <div class="input-group-btn">
                                                 <button data-target="#demo-lg-modal-search" data-toggle="modal" class="btn btn-primary" type="button">
                                                     <i class="pli-search-on-cloud"></i>
                                                 </button>
                                             </div>
                                         </div>
-
-
                                     </div>
-
-
-
 
                                 </div>
                                 <div class="row">
-                                     <div class="col-sm-3">
-                                         <button id="button" class="btn btn-default">Filtrar</button>
-                                     </div>
+                                    <div class="col-sm-1">
+                                        <button id="button" class="btn btn-default">Filtrar</button>
+                                    </div>
                                     <div class="col-sm-6">
                                         <h4>Para visualizar datos debe presionar el botón filtrar.</h4>
                                     </div>
                                 </div>
                             </div>
-                            
                             <table class="table table-bordered table-hover toggle-circle" id="tabla_comercial"></table>
-
-
                         </div>
                     </div>
-                   
-                    
                     <div id="demo-lft-tab-2" class="tab-pane fade">
                         <div class="panel-body">
 
                             <div class="pad-btm">
                                 <div class="row">
 
-                                    <div class="col-sm-2 text-xs-center">
-                                        <div class="form-group">
-                                            <label class="control-label">Periodo</label>
-                                            <select id="slPeriodo_normalizacion" class="form-control">
-                                                <option value="201705">Mayo 2017</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="col-sm-2 text-xs-center">
                                         <div class="form-group">
                                             <label class="control-label">Causa</label>
@@ -206,7 +202,17 @@
                                         </div>
                                     </div>
 
-
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Vencimiento</label>
+                                            <select id="flt_vencidos_normalizacion" class="form-control">
+                                                <option value="">Todos</option>
+                                                <option value="AYER">Vencidos</option>
+                                                <option value="HOY">Vence Hoy</option>
+                                                <option value="PROX5DIAS">Prox. 5 días</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-3 text-xs-center">
                                         <label class="control-label">Rut</label>
                                         <div class="input-group mar-btm">
@@ -217,15 +223,7 @@
                                                 </button>
                                             </div>
                                         </div>
-
-
                                     </div>
-
-
-
-
-
-
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-3">
@@ -236,27 +234,14 @@
                                     </div>
                                 </div>
                             </div>
-
                             <table class="table table-bordered table-hover toggle-circle" id="tabla_recuperaciones"></table>
-
                         </div>
                     </div>
-                    
-
                     <div id="demo-lft-tab-4" class="tab-pane fade">
                         <div class="panel-body">
-
                             <div class="pad-btm">
                                 <div class="row">
 
-                                    <div class="col-sm-1 text-xs-center">
-                                        <div class="form-group">
-                                            <label class="control-label">Periodo</label>
-                                            <select id="flt_periodo_sc" class="form-control">
-                                                <option value="201805">Mayo 2018</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="col-sm-2 text-xs-center">
                                         <div class="form-group">
                                             <label class="control-label">Estado</label>
@@ -274,7 +259,17 @@
                                         </div>
                                     </div>
 
-
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Vencimiento</label>
+                                            <select id="flt_vencidos_sc" class="form-control">
+                                                <option value="">Todos</option>
+                                                <option value="AYER">Vencidos</option>
+                                                <option value="HOY">Vence Hoy</option>
+                                                <option value="PROX5DIAS">Prox. 5 días</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="col-sm-3 text-xs-center">
                                         <label class="control-label">Rut</label>
@@ -286,11 +281,7 @@
                                                 </button>
                                             </div>
                                         </div>
-
-
                                     </div>
-
-
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-3">
@@ -301,29 +292,15 @@
                                     </div>
                                 </div>
                             </div>
-
                             <table class="table table-bordered table-hover toggle-circle" id="tabla_seguro_cesantia"></table>
-                            
                         </div>
-
                     </div>
-
-
                     <div id="demo-lft-tab-5" class="tab-pane fade">
                         <div class="panel-body">
-                            
+
                             <div class="pad-btm">
                                 <div class="row">
 
-                                    <div class="col-sm-1 text-xs-center">
-                                        <div class="form-group">
-                                            <label class="control-label">Periodo</label>
-                                            <select id="slPeriodoDR" class="form-control">
-                                                <option value="201705">Mayo 2017</option>
-                                                <option value="201704">Abril 2017</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="col-sm-2 text-xs-center">
                                         <div class="form-group">
                                             <label class="control-label">Estado</label>
@@ -377,9 +354,19 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Vencimiento</label>
+                                            <select id="flt_vencidos_dr" class="form-control">
+                                                <option value="">Todos</option>
+                                                <option value="AYER">Vencidos</option>
+                                                <option value="HOY">Vence Hoy</option>
+                                                <option value="PROX5DIAS">Prox. 5 días</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-
-                                    <div class="col-sm-3 text-xs-center">
+                                    <div class="col-sm-2 text-xs-center">
                                         <label class="control-label">Rut</label>
                                         <input id="demo-foo-searchDR" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
                                     </div>
@@ -397,8 +384,6 @@
                             <table class="table table-bordered table-hover toggle-circle" id="tabla_derivaciones"></table>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -421,16 +406,12 @@
                                     <input class="form-control" id="afi_rut_busc" type="text">
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                     <!--Modal footer-->
                     <div class="modal-footer">
-
                         <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
                         <button class="btn btn-primary" id="btn_buscar_otr" type="submit">Buscar</button>
-
                     </div>
                 </div>
             </div>
@@ -440,7 +421,7 @@
         <!--===================================================-->
         <!--End Large Bootstrap Modal-->
 
-        
+
         <div id="mdl_data" class="modal fade" tabindex="-1">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -512,8 +493,6 @@
                                                     <input class="form-control" type="text" id="afi_empresa_nombre" value="La Araucana C.C.A.F." readonly="readonly">
                                                 </div>
                                             </div>
-
-
                                             <div class="col-sm-3">
                                                 <div class="form-group has-success">
                                                     <label class="control-label" id="morfeable_monto">Monto Pre Aprobado</label>
@@ -521,8 +500,6 @@
                                                         <span class="input-group-addon"><i class="demo-pli-wallet-2"></i></span>
                                                         <input class="form-control text-lg-right" id="afi_preaprobado" type="text" value="4.300.000" readonly="readonly">
                                                     </div>
-
-
                                                 </div>
                                             </div>
                                         </div>
@@ -544,9 +521,7 @@
                                                             </ul>
                                                         </div>
                                                         <select class="form-control" id="afi_correos" readonly="readonly"></select>
-
                                                     </div>
-
                                                 </div>
                                             </div>
 
@@ -586,8 +561,6 @@
                                                                 <li class="forma-dos"><a href="#" id="telefonos_Nuevo">Agregar Nuevo</a></li>
                                                             </ul>
                                                         </div>
-
-
                                                         <select class="form-control" id="afi_telefonos" readonly="readonly"></select>
                                                     </div>
                                                 </div>
@@ -608,18 +581,24 @@
                                                     <div class="input-group mar-btm">
                                                         <select class="form-control" id="afi_horario_preferencia" readonly="readonly">
                                                             <option value="">Seleccione</option>
-                                                            <option>09:00-11:00</option>
-                                                            <option>11:00-13:00</option>
-                                                            <option>13:00-15:00</option>
-                                                            <option>15:00-17:00</option>
-                                                            <option>17:00-19:00</option>
+                                                            <optgroup label="Generales">
+                                                                <option>Durante la Mañana</option>
+                                                                <option>Durante la Tarde</option>
+                                                                <option>Cualquier Horario</option>
+                                                            </optgroup>
+                                                            <optgroup label="Especificas">
+                                                                <option>09:00-11:00</option>
+                                                                <option>11:00-13:00</option>
+                                                                <option>13:00-15:00</option>
+                                                                <option>15:00-17:00</option>
+                                                                <option>17:00-19:00</option>
+                                                            </optgroup>
+
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-
                                         <div class="row charlyNTF" style="display:none;">
                                             <div class="col-sm-12 charlyNTFContainer">
 
@@ -629,8 +608,6 @@
                                 </div>
                                 <div id="tab-gestion-2" class="tab-pane fade">
                                     <div class="list-group" id="gestiones_realizadas" style="min-height:290px;">
-
-
                                     </div>
                                 </div>
                                 <div id="tab-gestion-3" class="tab-pane fade">
@@ -803,14 +780,12 @@
                             <input type="hidden" id="ges_id_asignacionSC" name="ges_id_asignacionSC" value="" />
 
                             <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                            <button class="btn btn-primary esconder" id="btn_savear" type="submit">Guardar</button>
+                            <button class="btn btn-primary esconder" id="btn_savear_sc" type="submit">Guardar</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
-
         <input type="hidden" id="PrincipalTabActivo" value="1" />
     </div>
 
@@ -819,20 +794,16 @@
 </div>
 <!--===================================================-->
 <!--End page content-->
-
+<link href="~/Assets/plugins/chosen/chosen.css" rel="stylesheet" />
 @section script{
 
     <script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
     <!--Bootstrap Select [ OPTIONAL ]-->
     <script src="~/Assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
-
-
+    <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
-
-
     <script src="~/Assets/js.App/gestion/index.js?v=@Html.Raw(ViewBag.hash)"></script>
-    
 
 }
