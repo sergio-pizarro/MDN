@@ -19,6 +19,12 @@ namespace CRM.Business.Data.ContactabilidadDataAccess
 
             return DBHelper.InstanceCRM.ObtenerColeccion("scafi.spMotor_ContactibilidadListarRut", parametros, ConstructorEntidad);
         }
+
+        public static List<Entity.Contactibilidad.IndiceContactabilidad> ListarIndice()
+        {
+            return DBHelper.InstanceCRM.ObtenerColeccion("scafi.sp_Motor_ListarIndiceContacto", IndContacto);
+        }
+
         private static Entity.Contactibilidad.ContactabilidadEntity ConstructorEntidad(DataRow row)
         {
             return new Entity.Contactibilidad.ContactabilidadEntity
@@ -43,6 +49,14 @@ namespace CRM.Business.Data.ContactabilidadDataAccess
                 Oficina =  row["Oficina"] != DBNull.Value ? Convert.ToInt32(row["Oficina"]) : 0,
                 IndiceContactabilidad = row["IndiceContactab"] != DBNull.Value ? Convert.ToInt32(row["IndiceContactab"]) : 0,
                 Ocultar = row["Ocultar"] != DBNull.Value ? Convert.ToInt32(row["Ocultar"]) : 0,
+            };
+        }
+        private static Entity.Contactibilidad.IndiceContactabilidad IndContacto(DataRow row)
+        {
+            return new Entity.Contactibilidad.IndiceContactabilidad
+            {
+                IdEstado = row["IdEstado"] != DBNull.Value ? Convert.ToInt32(row["IdEstado"]) : 0,
+                Descripcion = row["Descripcion"] != DBNull.Value ? row["Descripcion"].ToString() : string.Empty,
             };
         }
     }
