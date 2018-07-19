@@ -47,6 +47,8 @@ namespace CRM.Business.Entity
     {
         public int codOficina { get; set; }
         public string DescOficina { get; set; }
+        public int codOficinaCompin { get; set; }
+        public string OficinaCompin { get; set; }
     }
    
     

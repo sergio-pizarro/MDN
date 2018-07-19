@@ -66,7 +66,7 @@ namespace CRM.Business.Data
         public static List<OficinaDerivacionEntity>ListaOficinaDerivacion()
         {
             //return DBHelper.InstanceReportes.ObtenerColeccion("negocios.spReporte_ListaPeriodos", ConstructorEntidad);
-            return DBHelper.InstanceCRM.ObtenerColeccion("licencias.sp_Lic_Ingresolicencia_ListaOficina", ConstructorOfiDerivacion);
+            return DBHelper.InstanceCRM.ObtenerColeccion("licencias.sp_Lic_Ingresolicencia_ListaOficinaMaestra", ConstructorOfiDerivacion);
         }
 
         
@@ -112,6 +112,8 @@ namespace CRM.Business.Data
             {
                 codOficina= row["Cod_Oficina"] != DBNull.Value ? Convert.ToInt32(row["Cod_Oficina"]) : 0,
                 DescOficina= row["Oficina"] != DBNull.Value ? row["Oficina"].ToString() : string.Empty,
+                codOficinaCompin = row["CodOficinaCompin"] != DBNull.Value ? Convert.ToInt32(row["CodOficinaCompin"]) : 0,
+                OficinaCompin = row["OficinaCompin"] != DBNull.Value ? row["OficinaCompin"].ToString() : string.Empty,
 
             };
         }

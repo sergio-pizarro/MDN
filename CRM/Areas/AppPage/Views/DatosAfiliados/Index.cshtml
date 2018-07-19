@@ -147,7 +147,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 @*<h5>$<label class="control-label" id="RentaAfiliado">Sin Información</label>&nbsp;(<label class="control-label" id="RentaAfiPeriodo"></label>&nbsp;Última Informada)</h5>*@
-                                <span class="control-label text-dark" style="font-weight: bold;">$</span><input type="text" class="control-label text-dark" name="RentaAfiliado" id="RentaAfiliado" readonly="readonly" style="font-weight: bold;" />&nbsp;<span class="control-label text-dark" style="font-weight: bold;">(</span><label class="control-label text-dark" style="font-weight: bold;" id="RentaAfiPeriodo"></label>&nbsp;<span class="control-label text-dark" style="font-weight: bold;">&Uacute;ltima Informada)</span>
+                                <span class="control-label text-dark" style="font-weight: bold;">$</span><input type="text" class="control-label text-dark" name="RentaAfiliado" id="RentaAfiliado" readonly="readonly" style="font-weight: bold;" />&nbsp;<span class="control-label text-dark" style="font-weight: bold;">(</span><label class="control-label text-dark" style="font-weight: bold;" id="RentaAfiPeriodo"></label>&nbsp;<span class="control-label text-dark" style="font-weight: bold;">Última Informada)</span>
                             </div>
                         </div>
                     </div>
@@ -207,14 +207,14 @@
                     <div class="panel-control" style="float:left;">
                         <ul class="nav nav-tabs tabs-left">
                             <li class="active">
-                                <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" class="tab-principal" style="font-weight: bold;">Campa&ntilde;as <span class="badge badge-success" id="cantCamp"></span></a>
+                                <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" class="tab-principal" style="font-weight: bold;">Campañas <span class="badge badge-success" id="cantCamp"></span></a>
                             </li>
                             <li class="">
                                 <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_alertas" class="tab-principal" style="font-weight: bold;">Alertas<span class="badge badge-success" id="cantAlertas"></span></a>
                             </li>
-                            @*<li class="">
-                                    <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_alertas" class="tab-principal" style="font-weight: bold;">Contactibilidad<span class="badge badge-success" id="cantAlertas"></span></a>
-                                </li>*@
+                            <li class="">
+                                <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_alertas" class="tab-principal" style="font-weight: bold;">Contactibilidad<span class="badge badge-success" id="cantAlertas"></span></a>
+                            </li>
                         </ul>
                     </div>
                     <h3 class="panel-title" style="color:white">.</h3>
@@ -229,7 +229,7 @@
                                     <table class="table table-hover table-vcenter">
                                         <thead>
                                             <tr>
-                                                <th>Tipo Campa&ntilde;a</th>
+                                                <th>Tipo Campaña</th>
                                                 <th>Monto </th>
                                                 <th>Estado</th>
                                                 <th>Sub Estado</th>
@@ -252,7 +252,7 @@
                                         <thead>
                                             <tr>
 
-                                                <th>Descripci&oacute;n</th>
+                                                <th>Descripción</th>
                                                 <th>Valor</th>
                                             </tr>
                                         </thead>
@@ -262,51 +262,30 @@
                             </div>
                         </div>
 
-                        @*<div id="demo-lft-tab-3" class="tab-pane fade">
+                        <div id="demo-lft-tab-3" class="tab-pane fade">
+                          
                             <div class="panel-body">
-                                <div class="col-lg-6">
-                                    <div id="demo-carousel" class="carousel slide" data-ride="carousel">
+                                <div class="row">
+                                    <table class="table table-hover table-vcenter">
+                                        <thead>
+                                            <tr>
 
-                                        <!--Indicators-->
-                                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                                        <ol class="carousel-indicators out">
-                                            <li class="" data-slide-to="0" data-target="#demo-carousel"></li>
-                                            <li data-slide-to="1" data-target="#demo-carousel" class=""></li>
-                                            <li data-slide-to="2" data-target="#demo-carousel" class="active"></li>
-                                        </ol>
-                                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-
-                                        <div class="carousel-inner text-center">
-
-                                            <!--Item 1-->
-                                            <div class="item">
-                                                <h4 class="text-main">First slide label</h4>
-                                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                                            </div>
-
-                                            <!--Item 2-->
-                                            <div class="item">
-                                                <h4 class="text-main">Second slide label</h4>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                            </div>
-
-                                            <!--Item 3-->
-                                            <div class="item active">
-                                                <h4 class="text-main">Third slide label</h4>
-                                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                                            </div>
-                                        </div>
-
-                                        <!--carousel-control-->
-                                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                                        <a class="carousel-control left" data-slide="prev" href="#demo-carousel"><i class="demo-pli-arrow-left icon-2x"></i></a>
-                                        <a class="carousel-control right" data-slide="next" href="#demo-carousel"><i class="demo-pli-arrow-right icon-2x"></i></a>
-                                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-
-                                    </div>
+                                                <th data-toggle="true">Opciones</th>
+                                                <th data-toggle="true">Contacto</th>
+                                                <th data-toggle="true">Tipo</th>
+                                                <th data-toggle="true">Clasicacion</th>
+                                                <th data-toggle="true">Fec. Creacion</th>
+                                                <th data-toggle="true">Fec. Intento</th>
+                                                <th data-toggle="true">Fec. Contacto</th>
+                                                <th data-toggle="true">Fec. Baja</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bdy_datosContactibilidad"></tbody>
+                                    </table>
                                 </div>
-                                </div>
-                            </div>*@
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -334,7 +313,7 @@
 
                         </ul>
                         <div class="tab-content" style="box-shadow: 0 0 0 !important;">
-                            <div id="tab-gestion-2"  class="tab-pane  fade active in">
+                            <div id="tab-gestion-2" class="tab-pane  fade active in">
                                 <div class="list-group" id="gestiones_realizadas">
 
 
@@ -820,6 +799,41 @@
                         $("#cantAlertas").html(i + 1)
                     });
                 });
+            },
+
+            CargaContactibilidad: function (p_rutContacto) {
+                $("#bdy_datosContactibilidad").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/Contactos/lista-contactos-afi", { RutAfiliado: p_rutContacto }, function (menus) {
+                    $.each(menus, function (i, e) {
+
+                        var _divContainer = $('<div>').addClass('btn-group');
+                        var _button = $('<button>').data({ toggle: 'dropdown' }).addClass('btn btn-default dropdown-toggle').prop({ 'aria-expanded': 'false' }).append($('<i>').addClass('demo-pli-gear')).append($('<span>').addClass('caret'));
+                        var _ulDropDown = $('<ul>').addClass('dropdown-menu dropdown-menu-right').prop({role:'menu'});
+                        var _noContest = $('<li>').appned($('<a>').prop({ href: '#' }).text('No contesta'));
+                        var _equivocado = $('<li>').appned($('<a>').prop({ href: '#' }).text('Equivicado'));
+
+                        _ulDropDown.append(_noContest);
+                        _ulDropDown.append(_equivocado);
+
+                        _divContainer.append(_button);
+                        _divContainer.append(_ulDropDown);
+
+
+                        //$("<a>").addClass("btn").addClass("btn-danger").append($('<i>').addClass("ion-trash-a")).prop({ "title": "Eliminar", "href": "javascript:eliminar(" +  + ")" }))
+                        $("#bdy_datosContactibilidad")
+                            .append(
+                                $("<tr>")
+                               .append($("<td>").append(_divContainer)
+                                   .append($("<td>").append(e.Valor))
+                                   .append($("<td>").append(e.tipoContacto))
+                                   .append($("<td>").append(e.ClasificacionContacto))
+                                   .append($("<td>").append(e.FechaCreacion.toFecha()))
+                                   .append($("<td>").append(e.FechaIntento.toFecha()))
+                                   .append($("<td>").append(e.FechaContacto.toFecha()))
+                                   .append($("<td>").append(e.FechaBaja.toFecha()))
+                            );
+                    });
+                });
             }
 
 
@@ -842,6 +856,7 @@
                     $("#ges_subestado").append($("<option>").attr("value", "").html("Seleccione"));
                     //  $('#datos-gestion').bootstrapValidator('updateStatus', 'ges_subestado', 'NOT_VALIDATED').bootstrapValidator('validateField', 'ges_subestado');
                     $.each(datos, function (i, e) {
+
                         $("#ges_subestado").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre))
                     });
                 });
@@ -1462,6 +1477,7 @@
         Cargador.CargaDatosCampaniasAfiliado(rutAf)
         Cargador.CargaDatosCumpleanos(rutAf)
         Cargador.CargaDatosAlertas(rutAf)
+        Cargador.CargaContactibilidad(rutAf)
 
         $("#ges_oficina").val(getCookie("Oficina"))
         $("#ges_token").val(getCookie("Token"))
