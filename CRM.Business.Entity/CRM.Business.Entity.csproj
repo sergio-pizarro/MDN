@@ -69,6 +69,7 @@
     <Compile Include="Clases\WebInstalador.cs" />
     <Compile Include="Clases\WebLicencia.cs" />
     <Compile Include="ConfirmDotacion.cs" />
+    <Compile Include="Contactabilidad\ContactabilidadEntity.cs" />
     <Compile Include="ContactoafiliadoEntity.cs" />
     <Compile Include="ContactoEntity.cs" />
     <Compile Include="Contracts\IResultado.cs" />

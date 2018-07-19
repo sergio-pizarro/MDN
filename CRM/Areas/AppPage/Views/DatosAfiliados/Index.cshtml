@@ -211,7 +211,7 @@
                     <div class="panel-control" style="float:left;">
                         <ul class="nav nav-tabs tabs-left">
                             <li class="active">
-                                <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" class="tab-principal" style="font-weight: bold;">Campa&ntilde;as <span class="badge badge-success" id="cantCamp"></span></a>
+                                <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" class="tab-principal" style="font-weight: bold;">Campañas <span class="badge badge-success" id="cantCamp"></span></a>
                             </li>
                             <li class="">
                                 <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_alertas" class="tab-principal" style="font-weight: bold;">Alertas<span class="badge badge-success" id="cantAlertas"></span></a>
@@ -236,7 +236,7 @@
                                     <table class="table table-hover table-vcenter">
                                         <thead>
                                             <tr>
-                                                <th>Tipo Campa&ntilde;a</th>
+                                                <th>Tipo Campaña</th>
                                                 <th>Monto </th>
                                                 <th>Estado</th>
                                                 <th>Sub Estado</th>
@@ -960,6 +960,41 @@
                         $("#cantAlertas").html(i + 1)
                     });
                 });
+            },
+
+            CargaContactibilidad: function (p_rutContacto) {
+                $("#bdy_datosContactibilidad").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/Contactos/lista-contactos-afi", { RutAfiliado: p_rutContacto }, function (menus) {
+                    $.each(menus, function (i, e) {
+
+                        var _divContainer = $('<div>').addClass('btn-group');
+                        var _button = $('<button>').data({ toggle: 'dropdown' }).addClass('btn btn-default dropdown-toggle').prop({ 'aria-expanded': 'false' }).append($('<i>').addClass('demo-pli-gear')).append($('<span>').addClass('caret'));
+                        var _ulDropDown = $('<ul>').addClass('dropdown-menu dropdown-menu-right').prop({role:'menu'});
+                        var _noContest = $('<li>').appned($('<a>').prop({ href: '#' }).text('No contesta'));
+                        var _equivocado = $('<li>').appned($('<a>').prop({ href: '#' }).text('Equivicado'));
+
+                        _ulDropDown.append(_noContest);
+                        _ulDropDown.append(_equivocado);
+
+                        _divContainer.append(_button);
+                        _divContainer.append(_ulDropDown);
+
+
+                        //$("<a>").addClass("btn").addClass("btn-danger").append($('<i>').addClass("ion-trash-a")).prop({ "title": "Eliminar", "href": "javascript:eliminar(" +  + ")" }))
+                        $("#bdy_datosContactibilidad")
+                            .append(
+                                $("<tr>")
+                               .append($("<td>").append(_divContainer)
+                                   .append($("<td>").append(e.Valor))
+                                   .append($("<td>").append(e.tipoContacto))
+                                   .append($("<td>").append(e.ClasificacionContacto))
+                                   .append($("<td>").append(e.FechaCreacion.toFecha()))
+                                   .append($("<td>").append(e.FechaIntento.toFecha()))
+                                   .append($("<td>").append(e.FechaContacto.toFecha()))
+                                   .append($("<td>").append(e.FechaBaja.toFecha()))
+                            );
+                    });
+                });
             }
 
 
@@ -982,6 +1017,7 @@
                     $("#ges_subestado").append($("<option>").attr("value", "").html("Seleccione"));
                     //  $('#datos-gestion').bootstrapValidator('updateStatus', 'ges_subestado', 'NOT_VALIDATED').bootstrapValidator('validateField', 'ges_subestado');
                     $.each(datos, function (i, e) {
+
                         $("#ges_subestado").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre))
                     });
                 });
@@ -1712,6 +1748,7 @@
         Cargador.CargaDatosCampaniasAfiliado(rutAf)
         Cargador.CargaDatosCumpleanos(rutAf)
         Cargador.CargaDatosAlertas(rutAf)
+        Cargador.CargaContactibilidad(rutAf)
 
         $("#ges_oficina").val(getCookie("Oficina"))
         $("#ges_token").val(getCookie("Token"))

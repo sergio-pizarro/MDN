@@ -1,4 +1,4 @@
-﻿
+
 
 var clipboard = new Clipboard("#btn_copiar", {
     container: document.getElementById('demo-lg-modal'),
@@ -2104,4 +2104,3 @@ $(function () {
     });
 
 });
-
