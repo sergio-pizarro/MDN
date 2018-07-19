@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using CRM.Business.Entity;
@@ -548,3 +548,4 @@ namespace CRM.Business.Data
         #endregion
     }
 }
+

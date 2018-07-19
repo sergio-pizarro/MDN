@@ -267,6 +267,7 @@
     <Compile Include="Controllers\BuscarController.cs" />
     <Compile Include="Controllers\CarteraEmpresasController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
+    <Compile Include="Controllers\ContactabilidadController.cs" />
     <Compile Include="Controllers\EmpresasController.cs" />
     <Compile Include="Controllers\FichaEmpresasController.cs" />
     <Compile Include="Controllers\InformeFFVVController.cs" />
@@ -1859,7 +1860,11 @@
     <Folder Include="Views\Buscar\" />
     <Folder Include="Views\CarteraEmpresas\" />
     <Folder Include="Views\Configuracion\" />
+
     <Folder Include="Views\Contrasenas\" />
+
+    <Folder Include="Views\Contactabilidad\" />
+
     <Folder Include="Views\Empresa\" />
     <Folder Include="Views\FFVVBase\" />
     <Folder Include="Views\Informes\" />

@@ -1,7 +1,9 @@
-﻿$(function () {
+﻿
+$(function () {
 
 
-    /*$("#bdy_datos").html("");
+    //Pre Aprobados
+    $("#bdy_datos").html("");
     $.getJSON(BASE_URL + "/motor/api/busqueda-dotacion/listar-ejecutivos", function (ejecutivos) {
 
         
@@ -26,20 +28,15 @@
             $('#demo-foo-filtering').data('footable').redraw();
         }
 
+    });
 
-        
+
+
+
+
     var filtering = $('#demo-foo-filtering');
 
-    filtering.footable({
-        "columns": [
-                    { "name": "Rut", "title": "Rut", "breakpoints": "xs sm" },
-                    { "name": "Nombres", "title": "Nombres" },
-                    { "name": "IdSucursal", "title": "Codigo Sucursal" },
-                    { "name": "Sucursal", "title": "Nombre Sucursal" },
-                    { "name": "Cargo", "title": "Cargo", "breakpoints": "xs sm" }
-        ],
-        "rows": $.get(BASE_URL + "/motor/api/busqueda-dotacion/listar-ejecutivos")
-    }).on('footable_filtering', function (e) {
+    filtering.footable().on('footable_filtering', function (e) {
         
         e.clear = !e.filter;
 
@@ -56,56 +53,6 @@
             filtering.trigger('footable_filter', { filter: $(this).val() });
         }
     });
-        
-
-
-    });*/
-
-
-
-    $("#tabla_dotacion").bootstrapTable({
-        url: BASE_URL + "/motor/api/busqueda-dotacion/listar-ejecutivos",
-        pagination: true,
-        locale: 'es-ES',
-        striped: true,
-        pageSize: 50,
-        pageList: [],
-        search: true,
-        showColumns: false,
-        showRefresh: false,
-        sortName: 'IdSucursal',
-        columns: [
-            {
-                field: 'Rut',
-                title: 'Rut',
-                sortable: true,
-                formatter: function (value, row, index) {
-                    return '<a href="AccesoAdmin?RE=' + value + '" class="btn-link">' + value + '</a>';
-                }
-            },
-            {
-                field: 'Nombres',
-                title: 'Nombres',
-                sortable: true
-            },
-            {
-                field: 'IdSucursal',
-                title: 'Codigo Sucursal',
-                sortable: true
-            },
-            {
-                field: 'Sucursal',
-                title: 'Nombre Sucursal',
-                sortable: true
-            },
-            {
-                field: 'Cargo',
-                title: 'Cargo',
-                sortable: true
-            }
-        ]
-    });
-
 
 
 

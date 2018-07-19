@@ -116,7 +116,11 @@
                                     <select class="form-control" id="sslOfiDerivacion" name="OfiDerivacion " disabled="disabled"></select>
                                 </div>
                             </div>
-
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="form-control alert-danger" id="lblmensajecompin" style="display:none;">Sucursal no tramita LM con compin, Derivada a:  <b><u><span id="lblCompin" style="display:none;"></span></u></b></label>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -298,13 +302,26 @@
             $.SecGetJSON(BASE_URL + "/motor/api/Licencias/listar-suc-derivacion", function (datos) {
                 $("#sslOfiDerivacion").html("");
                 $.each(datos, function (i, oficina) {
-                    $("#sslOfiDerivacion").append($("<option>").val(oficina.codOficina).html(oficina.DescOficina));
+                    $("#sslOfiDerivacion").append($("<option>").val(oficina.codOficina).html(oficina.DescOficina).data("id", oficina.codOficinaCompin).data("nombre", oficina.OficinaCompin));
                 });
             });
             $("#sslOfiDerivacion").on("change", function (e) {
 
-                $(this).val()
+                if ($(this).find(':selected').data('id')>0)
+                {
+                    $("#lblmensajecompin").show();
+                    $("#lblCompin").html($(this).find(':selected').data('nombre'));
+                    $("#lblCompin").show();
+               
 
+                }
+                else
+                {
+                    $("#lblmensajecompin").hide();
+                    $("#lblCompin").hide();
+                    $(this).val()
+                    
+                }
             });
 
 
@@ -363,7 +380,7 @@
                         FechaInicioLM: $("#FechaDesdeLM").val(),
                         FechaHastaLM: $("#FechaHastaLM").val(),
                         TipoLM: $("#TipoLM").val(),
-                        OfiDerivacion: $("#sslOfiDerivacion").val(),
+                        OfiDerivacion: parseInt($("#sslOfiDerivacion option:selected").data('id')) > 0 ? $("#sslOfiDerivacion option:selected").data('id') : $("#sslOfiDerivacion").val(),
                         //Los Documentos
                         DocumentacionLM: []
                         //
@@ -448,6 +465,7 @@
                                 });
 
                             }
+                         
                             //$.niftyNoty({
                             //    type: 'danger',
                             //    container: 'floating',
@@ -478,7 +496,7 @@
             //$('#FolioLic').mask('999999?9999*');
             $('#FolioLic').mask('99999999');
             $("#TipoLM").mask('~');
-
+            
             $('#frm-data-lc').bootstrapValidator({
                 excluded: [':disabled', ':not(:visible)'],
                 feedbackIcons: [],
@@ -609,6 +627,8 @@
                     $("#AfiNombres").val("");
                     $("#EmpresaRut").val("");
                     $("#EmpresaNombre").val("");
+                    $("#lblmensajecompin").hide();
+                    $("#lblCompin").hide();
                     $("#frm-data-lc").bootstrapValidator('resetForm', true);
                 }
             });
