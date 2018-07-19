@@ -11,6 +11,19 @@
 <link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
 <!--Bootstrap Select [ OPTIONAL ]-->
 <link href="~/Assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+
+
+
+<link href="~/Assets/plugins/x-editable/css/bootstrap-editable.css" rel="stylesheet">
+<!--TypeaheadJS [ OPTIONAL ]-->
+<link href="~/Assets/plugins/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js-bootstrap.css" rel="stylesheet">
+<!--Address [ OPTIONAL ]-->
+<link href="~/Assets/plugins/x-editable/inputs-ext/address/address.css" rel="stylesheet">
+
+
+<link href="~/Assets/css/demo/nifty-demo-icons.min.css" rel="stylesheet" />
+<link href="~/Assets/css/demo/nifty-demo.min.css" rel="stylesheet">
+
 <style>
     div.list-group {
         height: 150px;
@@ -25,181 +38,172 @@
 <!--Page content-->
 <!--===================================================-->
 <div id="page-content">
-
-
     <div class="row">
         <div class="col-lg-12">
-
             <div class="panel">
-                <div class="panel-heading">
-                    <div class="panel-control">
-                        <i class="fa fa-thumbs-o-up fa-lg fa-fw"></i>
-
-
-                    </div>
-                    <h3 class="panel-title">
-                        <label id="NombreAfiliado" style="font-weight:bold; color:#00bcd4"></label>&nbsp;&nbsp;<span class="label label-info" id="cumpleanos" style="display:none">Cumpleaños</span>&nbsp;&nbsp;<span class="label label-purple" id="afinuevo" style="display:none;">Afi Nuevo</span>&nbsp;&nbsp;<span class="label" id="afiVigente"></span>&nbsp;&nbsp;<span class="label" id="afiFallecido" style="display:none"></span>
-                    </h3>
-                </div>
-
                 <div class="panel-body">
+                    <h2 class="panel-title">
+                        <span class="pull-left badge badge-danger" style="border-radius: 4px; display: none;" id="msjNoMoles">No Molestar</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px; display:none" id="cumpleanos">Afiliado esta de Cumpleaños</span><span class="pull-left badge badge-warning" style="border-radius: 4px; margin-left: 5px; display:none" id="afinuevo">Afi Nuevo</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px;" id="afiVigente"></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display:none" id="afiFallecido "></span>
+                    </h2>
+                    <hr />
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div>
-                                <div class="col-sm-2">
-
-
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="panel pos-rel" style="border-radius: 5px;">
+                                    <div class="pad-all text-center">
+                                        <div class="widget-control" style="display: none;">
+                                            <div class="btn-group dropdown">
+                                                <a href="" class="dropdown-toggle btn btn-trans" data-toggle="dropdown" aria-expanded="false" style="margin-left: 167px; border-color: white;"><i class="demo-psi-dot-vertical icon-lg"></i></a>
+                                                <ul class="dropdown-menu dropdown-menu-right" style="">
+                                                    <li><a href=""><i class="icon-lg icon-fw demo-psi-pen-5"></i> Edit</a></li>
+                                                    <li><a href=""><i class="icon-lg icon-fw demo-pli-recycling"></i> Remove</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href=""><i class="icon-lg icon-fw demo-pli-mail"></i> Send a Message</a></li>
+                                                    <li><a href=""><i class="icon-lg icon-fw demo-pli-calendar-4"></i> View Details</a></li>
+                                                    <li><a href=""><i class="icon-lg icon-fw demo-pli-find-user"></i> Lock</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <img alt="Profile Picture" class="img-lg img-circle mar-ver" id="imGenero">
+                                        <p class="text-lg text-semibold mar-no text-main" id="NombreAfiliado" style="font-size: 11px;"></p>
+                                        <p class="text-sm" id="SegmentoAfi" name="SegmentoAfi" style="font-size: 15px;"></p>
+                                        <div class="pad-top btn-groups">
+                                            <span class="btn btn-icon ion-ios-chatbubble-outline icon-2x add-tooltip" data-original-title="Comentarios" data-container="body" data-type="textarea" id="EditComentarios" style="border-bottom: inherit; color: #7d8d9d;"></span>
+                                            @*<span id="EditNoMolestar" data-type="text" data-pk="1" data-placement="right" style="border-bottom: inherit; color: #7d8d9d;" class="btn btn-icon ion-ios-telephone-outline icon-2x add-tooltip" data-original-title="No Molestar" data-container="body"></span>*@
+                                            <a href="#" id="EditNoMolestar" data-type="select" data-pk="1" data-value="" data-title="Select sex" style="border-bottom: inherit; color: #7d8d9d;" class="btn btn-icon ion-ios-telephone-outline icon-2x add-tooltip" data-original-title="No Molestar" data-container="body"></a>
+                                            <span id="DesacNoMolestar" data-type="text" data-pk="1" data-placement="right" style="border-bottom: inherit; color: #7d8d9d;" class="btn btn-icon ion-ios-telephone-outline icon-2x add-tooltip" data-original-title="Desactivar No Molestar" data-container="body"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <h5><label class="control-label">RUT:</label></h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                @*   <h5><label class="control-label" id="RutAfiliado">Sin Información</label></h5>*@
-                                <input type="text" class="control-label text-dark" name="RutAfiliado" id="RutAfiliado" readonly="readonly" style="font-weight:bold" />
-
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <h5><label class="control-label">Empresa:</label></h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <select id="slRutEmpresa" name="slRutEmpresa" class="form-control text-dark" style="font-weight:bold"></select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <h5><label class="control-label">Fecha Nacimiento:</label></h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                @*<h5><label class="control-label" id="FDNAfiliado">Sin Información</label>&nbsp;(<label class="control-label" id="AniosAfiliado"></label>&nbsp;Años)</h5>*@
-                                <input type="text" class="control-label text-dark" name="FDNAfiliado" id="FDNAfiliado" readonly="readonly" style="font-weight: bold;" />
-                                <div class="label label-table label-success" style="display:none">Cumpleaños</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <h5><label class="control-label">Rut:</label></h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                @*  <h5><label class="control-label" id="NombreEmpresaAfi">Sin Información</label></h5>*@
-                                <input type="text" class="control-label text-dark" name="NombreEmpresaAfi" id="NombreEmpresaAfi" readonly="readonly" style="font-weight: bold;" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <h5><label class="control-label">Celular:</label></h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                @*<h5><label class="control-label" id="CelAfiliado">Sin Información</label></h5>*@
-                                <input type="text" class="control-label text-dark" name="CelAfiliado" id="CelAfiliado" readonly="readonly" style="font-weight: bold;" />
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <h5><label class="control-label">Segmento:</label></h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                @* <h5><label class="control-label" id="SegmentoAfi">Sin Información</label></h5>*@
-                                <input type="text" class="control-label text-dark" name="SegmentoAfi" id="SegmentoAfi" readonly="readonly" style="font-weight: bold;" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <h5><label class="control-label">Fono Fijo:</label></h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                @*<h5><label class="control-label" id="FonoAfiliado">Sin Información</label></h5>*@
-                                <input type="text" class="control-label text-dark" name="FonoAfiliado" id="FonoAfiliado" readonly="readonly" style="font-weight: bold;" />
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <h5><label class="control-label">Renta:</label></h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                @*<h5>$<label class="control-label" id="RentaAfiliado">Sin Información</label>&nbsp;(<label class="control-label" id="RentaAfiPeriodo"></label>&nbsp;Última Informada)</h5>*@
-                                <span class="control-label text-dark" style="font-weight: bold;">$</span><input type="text" class="control-label text-dark" name="RentaAfiliado" id="RentaAfiliado" readonly="readonly" style="font-weight: bold;" />&nbsp;<span class="control-label text-dark" style="font-weight: bold;">(</span><label class="control-label text-dark" style="font-weight: bold;" id="RentaAfiPeriodo"></label>&nbsp;<span class="control-label text-dark" style="font-weight: bold;">&Uacute;ltima Informada)</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <h5><label class="control-label">Email:</label></h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                @*<h5><label class="control-label" id="EmailAfiliado">Sin Información</label></h5>*@
-                                <input type="text" class="control-label text-dark" name="EmailAfiliado" id="EmailAfiliado" readonly="readonly" style="font-weight: bold;" />
-                            </div>
                         </div>
 
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">RUT:</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @*   <h5><label class="control-label" id="RutAfiliado">Sin Información</label></h5>*@
+                                            <input type="text" class="control-label text-dark" name="RutAfiliado" id="RutAfiliado" readonly="readonly" style="font-weight:bold" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Empresa:</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <select id="slRutEmpresa" name="slRutEmpresa" class="form-control text-dark" style="font-weight:bold"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Fecha Nacimiento:</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @*<h5><label class="control-label" id="FDNAfiliado">Sin Información</label>&nbsp;(<label class="control-label" id="AniosAfiliado"></label>&nbsp;Años)</h5>*@
+                                            <input type="text" class="control-label text-dark" name="FDNAfiliado" id="FDNAfiliado" readonly="readonly" style="font-weight: bold;" />
+                                            <div class="label label-table label-success" style="display:none">Cumpleaños</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Rut:</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @*  <h5><label class="control-label" id="NombreEmpresaAfi">Sin Información</label></h5>*@
+                                            <input type="text" class="control-label text-dark" name="NombreEmpresaAfi" id="NombreEmpresaAfi" readonly="readonly" style="font-weight: bold;" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Celular:</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @*<h5><label class="control-label" id="CelAfiliado">Sin Información</label></h5>*@
+                                            <input type="text" class="control-label text-dark" name="CelAfiliado" id="CelAfiliado" readonly="readonly" style="font-weight: bold;" />
+                                        </div>
+                                    </div>
 
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <h5><label class="control-label">Afiliado Desde:</label></h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                @*<h5><label class="control-label" id="OrigenAfiliado">Sin Información</label></h5>*@
-                                <input type="text" class="control-label text-dark" name="OrigenAfiliado" id="OrigenAfiliado" readonly="readonly" style="font-weight: bold;" />
+
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Fono Fijo:</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @*<h5><label class="control-label" id="FonoAfiliado">Sin Información</label></h5>*@
+                                            <input type="text" class="control-label text-dark" name="FonoAfiliado" id="FonoAfiliado" readonly="readonly" style="font-weight: bold;" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Email:</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @*<h5><label class="control-label" id="EmailAfiliado">Sin Información</label></h5>*@
+                                            <input type="text" class="control-label text-dark" name="EmailAfiliado" id="EmailAfiliado" readonly="readonly" style="font-weight: bold;" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Afiliado Desde:</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            @*<h5><label class="control-label" id="OrigenAfiliado">Sin Información</label></h5>*@
+                                            <input type="text" class="control-label text-dark" name="OrigenAfiliado" id="OrigenAfiliado" readonly="readonly" style="font-weight: bold;" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Renta:</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            @*<h5>$<label class="control-label" id="RentaAfiliado">Sin Información</label>&nbsp;(<label class="control-label" id="RentaAfiPeriodo"></label>&nbsp;Última Informada)</h5>*@
+                                            <span class="control-label text-dark" style="font-weight: bold;">$</span><input type="text" class="control-label text-dark" name="RentaAfiliado" id="RentaAfiliado" readonly="readonly" style="font-weight: bold;" /><br />&nbsp;&nbsp;<span class="control-label" style="font-size: 11px;">(</span><label class="control-label" id="RentaAfiPeriodo" style="font-size: 11px;"></label>&nbsp;<span class="control-label" style="font-size: 11px;">&Uacute;ltima Informada)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-
-                    </div>
-
                 </div>
-
-
-
             </div>
-
         </div>
-
-
-
     </div>
-
-
     <div class="row">
-
-
         <div class="col-sm-12">
-
-
             <div class="panel">
 
                 <!--Panel heading-->
@@ -212,9 +216,12 @@
                             <li class="">
                                 <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_alertas" class="tab-principal" style="font-weight: bold;">Alertas<span class="badge badge-success" id="cantAlertas"></span></a>
                             </li>
-                            @*<li class="">
-                                    <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_alertas" class="tab-principal" style="font-weight: bold;">Contactibilidad<span class="badge badge-success" id="cantAlertas"></span></a>
-                                </li>*@
+                            <li class="">
+                                <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_relacion" class="tab-principal" style="font-weight: bold;">Relacionamiento</a>
+                            </li>
+                            <li class="">
+                                    <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false" id="tab_alertas" class="tab-principal" style="font-weight: bold;">Contactibilidad<span class="badge badge-success" id="cantAlertas"></span></a>
+                                </li>
                         </ul>
                     </div>
                     <h3 class="panel-title" style="color:white">.</h3>
@@ -235,13 +242,11 @@
                                                 <th>Sub Estado</th>
                                                 <th>Fecha Compromete</th>
                                                 <th>Prioridad</th>
-
                                             </tr>
                                         </thead>
                                         <tbody id="bdy_datos"></tbody>
                                     </table>
                                 </div>
-
                             </div>
                         </div>
 
@@ -251,7 +256,6 @@
                                     <table class="table table-hover table-vcenter">
                                         <thead>
                                             <tr>
-
                                                 <th>Descripci&oacute;n</th>
                                                 <th>Valor</th>
                                             </tr>
@@ -262,51 +266,76 @@
                             </div>
                         </div>
 
+                        <div id="demo-lft-tab-3" class="tab-pane fade">
+                            <div class="btn-group bootstrap-select">
+                                <label class="control-label">Filtro por Estados</label>
+                                <select class="selectpicker" id="filtroEstado">
+                                    <option value="0">Todos..</option>
+                                    <option value="1">Gestion Motor</option>
+                                    <option value="2">Comentarios</option>
+                                    <option value="3">No Molestar</option>
+                                    <option value="4">Desbloqueo no Molestar</option>
+                                </select>
+                            </div>
+                            <div class="timeline two-column">
+                                <div class="timeline-header">
+                                    <div class="timeline-header-title bg-success">Gestiones</div>
+                                </div>
+                                <div id="AfiProyeccion"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        <div id="demo-lft-tab-4" class="tab-pane fade">
+                         prueba
+                        </div>
+
+
                         @*<div id="demo-lft-tab-3" class="tab-pane fade">
-                            <div class="panel-body">
-                                <div class="col-lg-6">
-                                    <div id="demo-carousel" class="carousel slide" data-ride="carousel">
+        <div class="panel-body">
+            <div class="col-lg-6">
+                <div id="demo-carousel" class="carousel slide" data-ride="carousel">
 
-                                        <!--Indicators-->
-                                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                                        <ol class="carousel-indicators out">
-                                            <li class="" data-slide-to="0" data-target="#demo-carousel"></li>
-                                            <li data-slide-to="1" data-target="#demo-carousel" class=""></li>
-                                            <li data-slide-to="2" data-target="#demo-carousel" class="active"></li>
-                                        </ol>
-                                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    <!--Indicators-->
+                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    <ol class="carousel-indicators out">
+                        <li class="" data-slide-to="0" data-target="#demo-carousel"></li>
+                        <li data-slide-to="1" data-target="#demo-carousel" class=""></li>
+                        <li data-slide-to="2" data-target="#demo-carousel" class="active"></li>
+                    </ol>
+                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-                                        <div class="carousel-inner text-center">
+                    <div class="carousel-inner text-center">
 
-                                            <!--Item 1-->
-                                            <div class="item">
-                                                <h4 class="text-main">First slide label</h4>
-                                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                                            </div>
+                        <!--Item 1-->
+                        <div class="item">
+                            <h4 class="text-main">First slide label</h4>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
 
-                                            <!--Item 2-->
-                                            <div class="item">
-                                                <h4 class="text-main">Second slide label</h4>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                            </div>
+                        <!--Item 2-->
+                        <div class="item">
+                            <h4 class="text-main">Second slide label</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
 
-                                            <!--Item 3-->
-                                            <div class="item active">
-                                                <h4 class="text-main">Third slide label</h4>
-                                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                                            </div>
-                                        </div>
+                        <!--Item 3-->
+                        <div class="item active">
+                            <h4 class="text-main">Third slide label</h4>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                        </div>
+                    </div>
 
-                                        <!--carousel-control-->
-                                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                                        <a class="carousel-control left" data-slide="prev" href="#demo-carousel"><i class="demo-pli-arrow-left icon-2x"></i></a>
-                                        <a class="carousel-control right" data-slide="next" href="#demo-carousel"><i class="demo-pli-arrow-right icon-2x"></i></a>
-                                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    <!--carousel-control-->
+                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    <a class="carousel-control left" data-slide="prev" href="#demo-carousel"><i class="demo-pli-arrow-left icon-2x"></i></a>
+                    <a class="carousel-control right" data-slide="next" href="#demo-carousel"><i class="demo-pli-arrow-right icon-2x"></i></a>
+                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-                                    </div>
-                                </div>
-                                </div>
-                            </div>*@
+                </div>
+            </div>
+            </div>
+        </div>*@
                     </div>
                 </div>
             </div>
@@ -331,13 +360,10 @@
                             <li class="">
                                 <a data-toggle="tab" href="#tab-gestion-4" aria-expanded="false">Filtros</a>
                             </li>
-
                         </ul>
                         <div class="tab-content" style="box-shadow: 0 0 0 !important;">
-                            <div id="tab-gestion-2"  class="tab-pane  fade active in">
+                            <div id="tab-gestion-2" class="tab-pane  fade active in">
                                 <div class="list-group" id="gestiones_realizadas">
-
-
                                 </div>
                             </div>
                             <div id="tab-gestion-4" class="tab-pane fade">
@@ -393,14 +419,10 @@
                             </div>
 
                         </div>
-
                         <input type="hidden" id="ges_id_asignacion" name="ges_id_asignacion" value="" />
-
                         <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
                         <button class="btn btn-primary esconder" id="btn_savear" type="submit">Guardar</button>
                     </form>
-
-
                 </div>
             </div>
         </div>
@@ -417,11 +439,9 @@
                     <div class="tab-base" style="margin-bottom: 0px !important;">
                         <!--Nav Tabs-->
                         <ul class="nav nav-tabs">
-
                             <li class="active">
                                 <a data-toggle="tab" href="#tab-gestionNor-2" aria-expanded="false">Historial de Gestión</a>
                             </li>
-
                         </ul>
                         <div class="tab-content" style="box-shadow: 0 0 0 !important;">
                             <div id="tab-gestionNor-2" class="tab-pane  fade active in">
@@ -481,15 +501,11 @@
                                     <textarea placeholder="Comentarios" rows="3" class="form-control" id="ges_comentarios_normalizacion" name="ges_comentarios_normalizacion"></textarea>
                                 </div>
                             </div>
-
                         </div>
 
                         <input type="hidden" id="ges_id_asignacion_normalizacion" name="ges_id_asignacion_normalizacion" value="" />
                         @* <label id="ges_id_asignacion_normalizacion" name="ges_id_asignacion_normalizacion" style="display:none;"></label>*@
-
-
                         <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-
                         <button class="btn btn-primary esconder" id="btn_savear_normalizacion" type="submit">Guardar</button>
                     </form>
                 </div>
@@ -568,9 +584,6 @@
                         </div>
 
                         <input type="hidden" id="ges_id_asignacionSC" name="ges_id_asignacionSC" value="" />
-
-
-
                         <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
                         <button class="btn btn-primary esconder" id="btn_savear" type="submit">Guardar</button>
                     </form>
@@ -660,6 +673,43 @@
         </div>
     </div>
 </div>
+
+
+<div class="col-sm-6 text-xs-left"> </div>
+
+
+
+
+
+
+
+@*<div class="timeline-entry">
+        <div class="timeline-stat">
+            <div class="timeline-icon">
+            </div>
+            <div class="timeline-time">
+            </div>
+        </div>
+        <div class="timeline-label" style="border-radius: 5px; background-color: rgb(227, 229, 230);">
+            <img src="../Assets/img/profile-photos/2.png">
+            <p class="mar-no pad-btm">
+                <a class="btn-link text-main text-bold"></a>
+                <a class="text-semibold">ingresado por: <i></i></a>
+                <a class="text-semibold">Sucursal: <i></i></a>
+            </p>
+            <blockquote class="bq-sm bq-open mar-no" style="border-left: 3px solid rgb(183, 183, 183);"></blockquote>
+        </div>
+    </div>*@
+
+
+
+
+
+
+
+
+
+
 <input type="hidden" id="temporalid" name="temporalid" value="" />
 <!--===================================================-->
 <!--End page content-->
@@ -676,14 +726,84 @@
     <script src="~/Assets/js/jquery.rut.chileno.min.js"></script>
     <script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
 
-    <!--Bootstrap Select [ OPTIONAL ]-->
+    <!--MomentJS [ OPTIONAL ]-->
+    <script src="~/Assets/plugins/momentjs/moment.min.js"></script>
+
+    <!--X-editable [ OPTIONAL ]-->
+    <script src="~/Assets/plugins/x-editable/js/bootstrap-editable.min.js"></script>
 
 
     <script type="text/javascript">
+
+
+
+        $(document).on('nifty.ready', function () {
+
+            $('#DesacNoMolestar').html('')
+            $('#EditComentarios').html('')
+
+            $('#DesacNoMolestar').editable('option', 'validate', function () {
+                $('#DesacNoMolestar').html('')
+                $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/quita-marcaNoMolestar-afiliado", { RutAfiliado: $('#RutAfiliado').val() }, function (datos) {
+                    $('#DesacNoMolestar').html('')
+                    $("#msjNoMoles").css({ 'display': 'none' })
+                    $('#DesacNoMolestar').hide()
+                    $('#EditNoMolestar').show()
+                });
+            });
+
+            $("#EditComentarios").editable({
+                showbuttons: "bottom",
+                validate: function (value) {
+                    if ($.trim(value) != "") {
+                        var _comentario = $.trim(value)
+                        $('#EditComentarios').html('')
+                        $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/guarda-comentario-afiliado", { RutAfiliado: $('#RutAfiliado').val(), Observacion: _comentario }, function (datos) {
+                            $('#EditComentarios').html('')
+                        });
+                    }
+                    else {
+                        return "Comentario Requerido..";
+                    }
+                },
+            });
+
+            // LEVANTA TOOLTIP  $('#EditNoMolestar').editable('toggle');
+            // sacao la informmacion al tootip $('#EditNoMolestar').editable('setValue', 'hola sergio');
+
+            $("#EditNoMolestar").editable({
+
+                source: [
+                    { value: 'Cliente Molesto', text: 'Cliente Molesto' },
+                    { value: 'Cliente Fallecido', text: 'Cliente Fallecido' },
+                    { value: 'Cliente no interezado', text: 'Cliente no interezado' },
+                    { value: 'Otros', text: 'Otros' }
+                ],
+                validate: function (value) {
+                    if ($.trim(value) != "") {
+                        var _motivo = $.trim(value)
+                        $('#EditNoMolestar').html('')
+                        $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/guarda-no-molestar", { RutAfiliado: $('#RutAfiliado').val(), Motivo: _motivo }, function (datos) {
+                            $('#EditNoMolestar').html('')
+                            $("#msjNoMoles").css({ 'display': 'block' })
+                            $('#EditNoMolestar').hide()
+                            $('#DesacNoMolestar').show()
+                        });
+                    }
+                    else {
+                        return "Ingrese un motivo..";
+                    }
+                }
+            });
+        });
+
         var _temoralid = 0;
         var Cargador = {
             CargaDatosAfiliados: function (p_rut) {
                 $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/obtener-info-afiliado", { RutAfiliado: p_rut }, function (e) {
+                    console.log($('.editable-input'))
+
+
                     if (e.RutAfiliado == null) {
                         $("#NombreAfiliado").html("Afiliado Sin Información");
                     }
@@ -699,6 +819,14 @@
 
                         $("#OrigenAfiliado").val(e.InicioValidezRol);
                     }
+
+                    if (e.Sexo == 'F') {
+                        $("#imGenero").attr('src', '../Assets/img/profile-photos/7.png');
+                    }
+                    else {
+                        $("#imGenero").attr('src', '../Assets/img/profile-photos/1.png');
+                    }
+
                     if (e.Vigente == 1) {
                         //$("#afiVigente").html("Afi Vigente").addClass("label-info label-info");
 
@@ -716,6 +844,22 @@
                     else {
                         $("#afiFallecido").hide();
                     }
+
+                    if (e.FlagNoMolestar == 1) {
+                        $("#msjNoMoles").css({ 'display': 'block' })
+                        $('#EditNoMolestar').hide()
+                        $('#DesacNoMolestar').show()
+                        $('#DesacNoMolestar').editable('setValue', e.MotivoNM);
+
+                    } else {
+                        $("#msjNoMoles").css({ 'display': 'none' })
+                        $('#DesacNoMolestar').hide()
+                        $('#EditNoMolestar').show()
+                    }
+                    $('#DesacNoMolestar').html('')
+                    $('#EditComentarios').html('')
+
+
                     $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/lista-rut-empresa", { RutAfiliado: p_rut }, function (datos) {
 
                         $("#slRutEmpresa").html("");
@@ -738,13 +882,9 @@
                             $("#afinuevo").show();
                             break;
                     }
-
-
-
-
-
                 });
             },
+
             CargaDatosCampaniasAfiliado: function (p_rutAfi) {
                 $("#bdy_datos").html("");
                 $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/lista-campanias-afiliado", { RutAfiliado: p_rutAfi }, function (camp) {
@@ -773,16 +913,16 @@
 
                         $("#bdy_datos")
                             .append(
-                                $("<tr>")
+                            $("<tr>")
 
-                                   // .append($("<td>").append(e.Campania))
-                                     .append($("<td>").append(link))
-                                     .append($("<td>").addClass("text-dark").addClass(clase).text('$' + e.Oferta.toMoney(0)))
-                                     .append($("<td>").append(e.Estado))
-                                     .append($("<td>").append(e.SubEstado))
-                                     .append($("<td>").append(e.FechaCompromete.toFecha() != '01-01-1753' && e.FechaCompromete.toFecha() != '01-01-0001' ? e.FechaCompromete.toFecha() : 'N/A'))
-                                     .append($("<td>").append(e.Prioridad.toString().toEtiquetaPrioridadScan()))
-                                    // .append($("<td>").append((e.HistorialGestion.length > 0 && e.HistorialGestion[0].GestionBase.FechaCompromete.toFecha() != '01-01-1753') ? e.HistorialGestion[0].GestionBase.FechaCompromete.toFecha() : 'N/A'))
+                                // .append($("<td>").append(e.Campania))
+                                .append($("<td>").append(link))
+                                .append($("<td>").addClass("text-dark").addClass(clase).text('$' + e.Oferta.toMoney(0)))
+                                .append($("<td>").append(e.Estado))
+                                .append($("<td>").append(e.SubEstado))
+                                .append($("<td>").append(e.FechaCompromete.toFecha() != '01-01-1753' && e.FechaCompromete.toFecha() != '01-01-0001' ? e.FechaCompromete.toFecha() : 'N/A'))
+                                .append($("<td>").append(e.Prioridad.toString().toEtiquetaPrioridadScan()))
+                            // .append($("<td>").append((e.HistorialGestion.length > 0 && e.HistorialGestion[0].GestionBase.FechaCompromete.toFecha() != '01-01-1753') ? e.HistorialGestion[0].GestionBase.FechaCompromete.toFecha() : 'N/A'))
 
 
                             );
@@ -813,9 +953,9 @@
 
                         $("#bdy_datosAlertas")
                             .append(
-                                $("<tr>")
-                                   .append($("<td>").append(e.Tipo))
-                                   .append($("<td>").addClass("text-dark").addClass(clase).text(valor))
+                            $("<tr>")
+                                .append($("<td>").append(e.Tipo))
+                                .append($("<td>").addClass("text-dark").addClass(clase).text(valor))
                             );
                         $("#cantAlertas").html(i + 1)
                     });
@@ -827,7 +967,7 @@
         $("#slRutEmpresa").on("change", function (e) {
             $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/obtener-info-empresa", { RutEmpresa: $("#slRutEmpresa").val(), RutAfiliado: rutAf }, function (datos) {
                 $("#NombreEmpresaAfi").val(datos.RutEmpresaDv);
-                $("#SegmentoAfi").val(datos.RolSegmentoAfiliado);
+                $("#SegmentoAfi").html(datos.RolSegmentoAfiliado);
                 $("#RentaAfiliado").val(datos.RentaUltimaInformada.toMoney(0));
                 $("#RentaAfiPeriodo").html(datos.PeriodoUltimaRenta);
             });
@@ -913,13 +1053,13 @@
             }
         });
         $('#demo-dp-componentSC .input-group.date').datepicker(
-               { autoclose: true, format: 'dd-mm-yyyy', startDate: "0d", language: "es", daysOfWeekDisabled: [6, 0], todayHighlight: true }
-         ).on('show.bs.modal hide.bs.modal', function (event) {
-             event.stopPropagation();
-         });
+            { autoclose: true, format: 'dd-mm-yyyy', startDate: "0d", language: "es", daysOfWeekDisabled: [6, 0], todayHighlight: true }
+        ).on('show.bs.modal hide.bs.modal', function (event) {
+            event.stopPropagation();
+        });
 
         $('#demo-dp-componentTMC .input-group.date').datepicker(
-              { autoclose: true, format: 'dd-mm-yyyy', startDate: "0d", language: "es", daysOfWeekDisabled: [6, 0], todayHighlight: true }
+            { autoclose: true, format: 'dd-mm-yyyy', startDate: "0d", language: "es", daysOfWeekDisabled: [6, 0], todayHighlight: true }
         ).on('show.bs.modal hide.bs.modal', function (event) {
             event.stopPropagation();
         });
@@ -944,13 +1084,13 @@
                 $("#gestiones_realizadas").html("");
                 $.each(gesList, function (i, e) {
                     $("#gestiones_realizadas")
-                         .append(
-                         $("<a>")
-                         .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ",<br/> <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
-                     );
+                        .append(
+                        $("<a>")
+                            .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ",<br/> <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
+                        );
                 });
                 if (gesList.length > 0 && gesList[0].EsTerminal === "CERRADOS") {
                     $(".esconder").hide();
@@ -969,11 +1109,11 @@
                 });
             });
             $('#demo-dp-component .input-group.date').datepicker(
-          { autoclose: true, format: 'dd-mm-yyyy', startDate: "0d", language: "es", daysOfWeekDisabled: [6, 0], todayHighlight: true })
-                        .on('show.bs.modal hide.bs.modal', function (event) {
-                            // prevent datepicker from firing bootstrap modal "show.bs.modal"
-                            event.stopPropagation();
-                        });
+                { autoclose: true, format: 'dd-mm-yyyy', startDate: "0d", language: "es", daysOfWeekDisabled: [6, 0], todayHighlight: true })
+                .on('show.bs.modal hide.bs.modal', function (event) {
+                    // prevent datepicker from firing bootstrap modal "show.bs.modal"
+                    event.stopPropagation();
+                });
 
         });
         $('#demo-lg-modal-Normalizacion').on('show.bs.modal', function (event) {
@@ -1013,21 +1153,21 @@
 
 
             $('#demo-dp-component_normalizacion .input-group.date').datepicker({ autoclose: true, format: 'dd-mm-yyyy', startDate: "0d", language: "es", daysOfWeekDisabled: [6, 0], todayHighlight: true })
-                   .on('show.bs.modal hide.bs.modal', function (event) {
-                       // prevent datepicker from firing bootstrap modal "show.bs.modal"
-                       event.stopPropagation();
-                   });
+                .on('show.bs.modal hide.bs.modal', function (event) {
+                    // prevent datepicker from firing bootstrap modal "show.bs.modal"
+                    event.stopPropagation();
+                });
             $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/obtener-hist-tipo-campana", { RutAfiliado: rutAf, TipoAsignacion: 2 }, function (gesListNor) {
                 $("#gestiones_realizadasNorm").html("");
                 $.each(gesListNor, function (i, e) {
                     $("#gestiones_realizadasNorm")
-                         .append(
-                         $("<a>")
-                         .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
-                     );
+                        .append(
+                        $("<a>")
+                            .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
+                        );
                 });
 
 
@@ -1054,13 +1194,13 @@
                 $("#gestiones_realizadasSC").html("");
                 $.each(gesListSC, function (i, e) {
                     $("#gestiones_realizadasSC")
-                         .append(
-                         $("<a>")
-                         .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
-                     );
+                        .append(
+                        $("<a>")
+                            .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
+                        );
                 });
 
 
@@ -1088,13 +1228,13 @@
                 $("#gestiones_realizadasTMC").html("");
                 $.each(gesListTMC, function (i, e) {
                     $("#gestiones_realizadasTMC")
-                         .append(
-                         $("<a>")
-                         .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
-                     );
+                        .append(
+                        $("<a>")
+                            .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
+                        );
                 });
 
 
@@ -1158,11 +1298,11 @@
                 $("#gestiones_realizadas").html("");
                 $.each(respuesta.Objeto, function (i, e) {
                     $("#gestiones_realizadas").append($("<a>").attr("href", '#')
-                         .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Gestor.EjecutivoData.Nombres))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.GestionBase.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.GestionBase.FechaCompromete.toFecha()))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.EstadoGestion.eges_nombre + ",  <strong>Sub Estado:</strong> " + e.SubEstadoGestion.eges_nombre))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.GestionBase.Descripcion))
-                     );
+                        .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Gestor.EjecutivoData.Nombres))
+                        .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.GestionBase.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.GestionBase.FechaCompromete.toFecha()))
+                        .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.EstadoGestion.eges_nombre + ",  <strong>Sub Estado:</strong> " + e.SubEstadoGestion.eges_nombre))
+                        .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.GestionBase.Descripcion))
+                    );
                 });
 
 
@@ -1182,10 +1322,6 @@
                         window.location.reload(true);
                     }
                 });
-
-
-
-
             });
         });
 
@@ -1244,11 +1380,11 @@
                 $("#gestiones_realizadasSC").html("");
                 $.each(respuesta.Objeto, function (i, e) {
                     $("#gestiones_realizadasSC").append($("<a>").attr("href", '#')
-                         .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Gestor.EjecutivoData.Nombres))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.GestionBase.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.GestionBase.FechaCompromete.toFecha()))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.EstadoGestion.eges_nombre + ",  <strong>Sub Estado:</strong> " + e.SubEstadoGestion.eges_nombre))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.GestionBase.Descripcion))
-                     );
+                        .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Gestor.EjecutivoData.Nombres))
+                        .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.GestionBase.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.GestionBase.FechaCompromete.toFecha()))
+                        .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.EstadoGestion.eges_nombre + ",  <strong>Sub Estado:</strong> " + e.SubEstadoGestion.eges_nombre))
+                        .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.GestionBase.Descripcion))
+                    );
                 });
 
                 //console.log(respuesta.Objeto)
@@ -1337,11 +1473,11 @@
                 $("#gestiones_realizadasNorm").html("");
                 $.each(respuesta.Objeto, function (i, e) {
                     $("#gestiones_realizadasNorm").append($("<a>").attr("href", '#')
-                         .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Gestor.EjecutivoData.Nombres))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.GestionBase.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.GestionBase.FechaCompromete.toFecha()))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Causa basal:</strong> " + e.CausaBasalGestion.eges_nombre + ",  <strong>Consecuencia:</strong> " + e.ConsecuenciaGestion.eges_nombre + ", <strong>Estado:</strong> " + e.EstadoGestion.eges_nombre))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.GestionBase.Descripcion))
-                     );
+                        .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Gestor.EjecutivoData.Nombres))
+                        .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.GestionBase.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.GestionBase.FechaCompromete.toFecha()))
+                        .append($("<p>").addClass("list-group-item-text").html("<strong>Causa basal:</strong> " + e.CausaBasalGestion.eges_nombre + ",  <strong>Consecuencia:</strong> " + e.ConsecuenciaGestion.eges_nombre + ", <strong>Estado:</strong> " + e.EstadoGestion.eges_nombre))
+                        .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.GestionBase.Descripcion))
+                    );
                 });
 
 
@@ -1428,11 +1564,11 @@
                 $("#gestiones_realizadasTMC").html("");
                 $.each(respuesta.Objeto, function (i, e) {
                     $("#gestiones_realizadasTMC").append($("<a>").attr("href", '#')
-                         .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.RutEjecutivo + "  " + e.NombreEjecutivo))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.Gestion.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.Gestion.FechaCompromiso.toFecha()))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.EstadoGestion.Nombre + ",  <strong>Sub Estado:</strong> " + e.SubEstadoGestion.Nombre))
-                         .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Gestion.NotaGestion))
-                     );
+                        .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.RutEjecutivo + "  " + e.NombreEjecutivo))
+                        .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.Gestion.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.Gestion.FechaCompromiso.toFecha()))
+                        .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.EstadoGestion.Nombre + ",  <strong>Sub Estado:</strong> " + e.SubEstadoGestion.Nombre))
+                        .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Gestion.NotaGestion))
+                    );
                 });
 
                 if (respuesta.Objeto != null && respuesta.Objeto.length > 0 && respuesta.Objeto[0].EstadoGestion.ejes_terminal === "CERRADOS") {
@@ -1453,7 +1589,121 @@
                     }
                 });
             });
+
         });
+
+
+        var rutAfilado = httpGet("RutBuscar");
+        $("#filtroEstado").change(function () {
+
+            $.getJSON(BASE_URL + "/motor/api/Afiliados/filtro-proyeccion", { RutAfiliado: rutAfilado, Estado: $("#filtroEstado").val() }, function (respuesta) {
+                $('#AfiProyeccion').html("");
+                $.each(respuesta, function (i, e) {
+                    var date = new Date(e.Fecha);
+                    var options = {
+                        year: "numeric", month: "long",
+                        day: "numeric", hour: "2-digit", minute: "2-digit"
+                    };
+                    var i_img;
+                    if (e.EstadoGestion == 1) {
+                        i_img = $('<img>').attr('src', '../Assets/img/M.png').attr('alt', 'Profile picture')
+
+                        var iB2_4 = $('<a>').html('   Motor')
+                        var aB2_5 = $('<a>').addClass('text-main text-bold').html('Gestion:  ').append(iB2_4).append('<br/>')
+
+                        var iB2_4_ = $('<a>').html(e.Estado + '  -  ' + e.SubEstado)
+                        var aB2_5_ = $('<a>').addClass('text-main text-bold').html('Motivo:  ').append(iB2_4_)
+                    }
+                    else {
+                        var iB2_4 = $('<a>').html(e.Estado + '        ')
+                        var aB2_5 = $('<a>').addClass('text-main text-bold').html('Gestion:  ').append(iB2_4).append('<br/>')
+                        var iB2_4_ = $('<a>').html(e.SubEstado)
+                        var aB2_5_ = $('<a>').addClass('text-main text-bold').html('Motivo:  ').append(iB2_4_)
+                    }
+
+                    if (e.EstadoGestion == 2) {
+                        i_img = $('<i>').addClass('demo-psi-speech-bubble-3 icon-lg')
+                    }
+                    if (e.EstadoGestion == 3) {
+                        i_img = $('<img>').attr('src', '../Assets/img/profile-photos/noFono.png').attr('alt', 'Profile picture')
+                    }
+                    if (e.EstadoGestion == 4) {
+                        i_img = $('<i>').addClass('pli-telephone icon-lg')
+                    }
+                    var divB1_1 = $('<div>').addClass('timeline-icon bg-success').append(i_img)
+                    var divB1_2 = $('<div>').addClass('timeline-time').html(date.toLocaleTimeString("es-ES", options))
+                    var divB1 = $('<div>').addClass('timeline-stat').append(divB1_1).append(divB1_2)
+                    var imgB2 = $('<img>').addClass('img-xs img-circle').attr('src', '../Assets/img/profile-photos/eje2.png').attr('alt', 'Profile picture')
+                    var _eje = $('<a>').html(e.Ejecutivo.OrdenaNombre() + '  -  ' + e.Sucursal)
+                    var aB2_1 = $('<a>').addClass('btn-link text-main text-bold').html('ingresado por:' + '  ').append(_eje).append('<br/>')
+                    var pB2 = $('<p>').addClass('mar-no pad-btm').append(aB2_1).append(aB2_5).append(aB2_5_)
+                    var divB2 = $('<div>').addClass('timeline-label').css('border-radius', '5px').css('background-color', '#e3e5e6').append(imgB2).append(pB2)
+                    var divPrin = $('<div>').addClass('timeline-entry').append(divB1).append(divB2)
+                    $('#AfiProyeccion').append(divPrin)
+                });
+            });
+        });
+
+
+
+        var rutAfilado = httpGet("RutBuscar");
+        $.getJSON(BASE_URL + "/motor/api/Afiliados/obtener-proyeccion", { RutAfiliado: rutAfilado }, function (respuesta) {
+            $.each(respuesta, function (i, e) {
+                var date = new Date(e.Fecha);
+                var options = {
+                    year: "numeric", month: "long",
+                    day: "numeric", hour: "2-digit", minute: "2-digit"
+                };
+                var i_img;
+                if (e.EstadoGestion == 1) {
+                    i_img = $('<img>').attr('src', '../Assets/img/M.png').attr('alt', 'Profile picture')
+
+                    var iB2_4 = $('<a>').html('   Motor')
+                    var aB2_5 = $('<a>').addClass('text-main text-bold').html('Gestion:  ').append(iB2_4).append('<br/>')
+
+                    var iB2_4_ = $('<a>').html(e.Estado + '  -  ' + e.SubEstado)
+                    var aB2_5_ = $('<a>').addClass('text-main text-bold').html('Motivo:  ').append(iB2_4_)
+                }
+                else {
+                    var iB2_4 = $('<a>').html(e.Estado + '        ')
+                    var aB2_5 = $('<a>').addClass('text-main text-bold').html('Gestion:  ').append(iB2_4).append('<br/>')
+                    var iB2_4_ = $('<a>').html(e.SubEstado)
+                    var aB2_5_ = $('<a>').addClass('text-main text-bold').html('Motivo:  ').append(iB2_4_)
+                }
+
+                if (e.EstadoGestion == 2) {
+                    i_img = $('<i>').addClass('demo-psi-speech-bubble-3 icon-lg')
+                }
+                if (e.EstadoGestion == 3) {
+                    i_img = $('<img>').attr('src', '../Assets/img/profile-photos/noFono.png').attr('alt', 'Profile picture')
+                }
+                if (e.EstadoGestion == 4) {
+                    i_img = $('<i>').addClass('pli-telephone icon-lg')
+                }
+
+                var divB1_1 = $('<div>').addClass('timeline-icon bg-success').append(i_img)
+                var divB1_2 = $('<div>').addClass('timeline-time').html(date.toLocaleTimeString("es-ES", options))
+                var divB1 = $('<div>').addClass('timeline-stat').append(divB1_1).append(divB1_2)
+
+                var imgB2 = $('<img>').addClass('img-xs img-circle').attr('src', '../Assets/img/profile-photos/eje2.png').attr('alt', 'Profile picture')
+
+                var _eje = $('<a>').html(e.Ejecutivo.OrdenaNombre() + '  -  ' + e.Sucursal)
+                var aB2_1 = $('<a>').addClass('btn-link text-main text-bold').html('ingresado por:' + '  ').append(_eje).append('<br/>')
+                //var iB2_1 = $('<i>').html(e.Ejecutivo)
+                //var aB2_2 = $('<a>').addClass('btn-link text-main text-bold').html('ingresado por: ').append(iB2_1).append('<br/>')
+                // var iB2_2 = $('<i>').html(e.Sucursal)
+                // var aB2_3 = $('<a>').addClass('text-semibold').append(iB2_2).append('<br/>')
+                var pB2 = $('<p>').addClass('mar-no pad-btm').append(aB2_1).append(aB2_5).append(aB2_5_)
+                // var blocq = $('<blockquote>').addClass('bq-sm bq-open mar-no').css('border-left', '3px solid #b7b7b7').html(e.SubEstado)
+                var divB2 = $('<div>').addClass('timeline-label').css('border-radius', '5px').css('background-color', '#e3e5e6').append(imgB2).append(pB2)
+                var divPrin = $('<div>').addClass('timeline-entry').append(divB1).append(divB2)
+
+                $('#AfiProyeccion').append(divPrin)
+            });
+        });
+
+
+
 
         var rutAf = httpGet("RutBuscar");
         rutAf = rutAf.replace(/\./g, '');

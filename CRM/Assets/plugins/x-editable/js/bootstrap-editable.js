@@ -2185,7 +2185,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
 
         @property emptytext 
         @type string
-        @default 'Empty'
+        @default ''
         **/         
         emptytext: 'Empty',
         /**
@@ -3981,12 +3981,12 @@ $(function(){
         init: function () {
             this.map = {
                 //key   regexp    moment.method
-                day:    ['D',    'date'], 
-                month:  ['M',    'month'], 
-                year:   ['Y',    'year'], 
-                hour:   ['[Hh]', 'hours'],
-                minute: ['m',    'minutes'], 
-                second: ['s',    'seconds'],
+                day:    ['D',    'dia'], 
+                month:  ['M',    'mes'], 
+                year:   ['Y',    'año'], 
+                hour:   ['[Hh]', 'hora'],
+                minute: ['m',    'minutos'], 
+                second: ['s',    'segundos'],
                 ampm:   ['[Aa]', ''] 
             };
             
