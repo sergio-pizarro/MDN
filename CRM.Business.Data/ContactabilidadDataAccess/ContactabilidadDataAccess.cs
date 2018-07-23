@@ -10,7 +10,7 @@ namespace CRM.Business.Data.ContactabilidadDataAccess
 {
     public class ContactabilidadDataAccess
     {
-        public static List<Entity.Contactibilidad.ContactabilidadEntity> ListarContacto (int RutAfiliado)
+        public static List<Entity.Contactibilidad.ContactabilidadEntity> ListarContacto(int RutAfiliado)
         {
             Parametros parametros = new Parametros
             {
@@ -24,6 +24,21 @@ namespace CRM.Business.Data.ContactabilidadDataAccess
         {
             return DBHelper.InstanceCRM.ObtenerColeccion("scafi.sp_Motor_ListarIndiceContacto", IndContacto);
         }
+
+        public static int ActualizarIndiceContacto(Entity.Contactibilidad.ContactabilidadEntity IndContacto)
+        {
+
+            Parametros parametros = new Parametros
+            {
+                 new Parametro("@Indice", IndContacto.IndiceContactabilidad),
+                 new Parametro("@RutAfiliado", IndContacto.RutAfiliado),
+                 new Parametro("@ValorDato", IndContacto.ValorDato),
+                 new Parametro("@Token", IndContacto.Token),
+                 new Parametro("@Oficina", IndContacto.Oficina)
+            };
+            return DBHelper.InstanceCRM.ObtenerEscalar<int>("scafi.spMotor_ActualizaContactosFecha", parametros);
+        }
+
 
         private static Entity.Contactibilidad.ContactabilidadEntity ConstructorEntidad(DataRow row)
         {
@@ -46,7 +61,7 @@ namespace CRM.Business.Data.ContactabilidadDataAccess
                 OrigenBaja = row["OrigenBaja"] != DBNull.Value ? row["OrigenBaja"].ToString() : string.Empty,
                 MotivoBaja = row["MotivoBaja"] != DBNull.Value ? row["MotivoBaja"].ToString() : string.Empty,
                 RutEjecGestion = row["RutEjecGestion"] != DBNull.Value ? row["RutEjecGestion"].ToString() : string.Empty,
-                Oficina =  row["Oficina"] != DBNull.Value ? Convert.ToInt32(row["Oficina"]) : 0,
+                Oficina = row["Oficina"] != DBNull.Value ? Convert.ToInt32(row["Oficina"]) : 0,
                 IndiceContactabilidad = row["IndiceContactab"] != DBNull.Value ? Convert.ToInt32(row["IndiceContactab"]) : 0,
                 Ocultar = row["Ocultar"] != DBNull.Value ? Convert.ToInt32(row["Ocultar"]) : 0,
             };
