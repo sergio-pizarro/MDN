@@ -28,6 +28,7 @@ namespace CRM.Business.Entity.Contactibilidad
         public int Oficina { get; set; }
         public int IndiceContactabilidad { get; set; }
         public int Ocultar { get; set; }
+        public string Token { get; set; }
 
 
 
