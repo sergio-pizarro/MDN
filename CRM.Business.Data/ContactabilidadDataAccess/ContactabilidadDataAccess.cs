@@ -10,7 +10,7 @@ namespace CRM.Business.Data.ContactabilidadDataAccess
 {
     public class ContactabilidadDataAccess
     {
-        public static List<Entity.Contactibilidad.ContactabilidadEntity> ListarContacto (int RutAfiliado)
+        public static List<Entity.Contactibilidad.ContactabilidadEntity> ListarContacto(int RutAfiliado)
         {
             Parametros parametros = new Parametros
             {
@@ -19,6 +19,39 @@ namespace CRM.Business.Data.ContactabilidadDataAccess
 
             return DBHelper.InstanceCRM.ObtenerColeccion("scafi.spMotor_ContactibilidadListarRut", parametros, ConstructorEntidad);
         }
+
+        public static List<Entity.Contactibilidad.IndiceContactabilidad> ListarIndice()
+        {
+            return DBHelper.InstanceCRM.ObtenerColeccion("scafi.sp_Motor_ListarIndiceContacto", IndContacto);
+        }
+
+        public static int ActualizarIndiceContacto(int Indice, int RutAfi, string ValorDato, string token, int Oficina)
+        {
+            Parametros parametros = new Parametros
+            {
+                 new Parametro("@Indice", Indice),
+                 new Parametro("@RutAfiliado", RutAfi),
+                 new Parametro("@ValorDato", ValorDato),
+                 new Parametro("@Token", token),
+                 new Parametro("@Oficina", Oficina),
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("scafi.spMotor_ActualizaContactosFecha", parametros);
+        }
+
+        public static int InsertaNuevoContacto(int RutAfiliado, int IdTipoContac, string GlosaTipoContac, int IdClasifContac, string GlosaClasifContac, string DatosContac)
+        {
+            Parametros parametros = new Parametros
+            {
+                 new Parametro("@RutAfiliado", RutAfiliado),
+                 new Parametro("@iTipoDato", IdTipoContac),
+                 new Parametro("@TipoDato", GlosaTipoContac),
+                 new Parametro("@iClasifDato", IdClasifContac),
+                 new Parametro("@ClasifDato", GlosaClasifContac),
+                 new Parametro("@ValorDato", DatosContac),
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("scafi.sp_MotorGuardarContactoNuevo", parametros);
+        }
+
         private static Entity.Contactibilidad.ContactabilidadEntity ConstructorEntidad(DataRow row)
         {
             return new Entity.Contactibilidad.ContactabilidadEntity
@@ -40,10 +73,24 @@ namespace CRM.Business.Data.ContactabilidadDataAccess
                 OrigenBaja = row["OrigenBaja"] != DBNull.Value ? row["OrigenBaja"].ToString() : string.Empty,
                 MotivoBaja = row["MotivoBaja"] != DBNull.Value ? row["MotivoBaja"].ToString() : string.Empty,
                 RutEjecGestion = row["RutEjecGestion"] != DBNull.Value ? row["RutEjecGestion"].ToString() : string.Empty,
-                Oficina =  row["Oficina"] != DBNull.Value ? Convert.ToInt32(row["Oficina"]) : 0,
+                Oficina = row["Oficina"] != DBNull.Value ? Convert.ToInt32(row["Oficina"]) : 0,
                 IndiceContactabilidad = row["IndiceContactab"] != DBNull.Value ? Convert.ToInt32(row["IndiceContactab"]) : 0,
                 Ocultar = row["Ocultar"] != DBNull.Value ? Convert.ToInt32(row["Ocultar"]) : 0,
+                PorcIndice = row["PorcIndice"] != DBNull.Value ? Convert.ToInt32(row["PorcIndice"]) : 0,
+                Descripcion = row["Descripcion"] != DBNull.Value ? row["Descripcion"].ToString() : string.Empty,
+            };
+        }
+        private static Entity.Contactibilidad.IndiceContactabilidad IndContacto(DataRow row)
+        {
+            return new Entity.Contactibilidad.IndiceContactabilidad
+            {
+                IdEstado = row["IdEstado"] != DBNull.Value ? Convert.ToInt32(row["IdEstado"]) : 0,
+                Descripcion = row["Descripcion"] != DBNull.Value ? row["Descripcion"].ToString() : string.Empty,
             };
         }
     }
 }
+
+
+
+

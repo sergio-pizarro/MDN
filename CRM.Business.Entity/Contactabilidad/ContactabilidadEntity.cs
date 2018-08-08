@@ -28,7 +28,9 @@ namespace CRM.Business.Entity.Contactibilidad
         public int Oficina { get; set; }
         public int IndiceContactabilidad { get; set; }
         public int Ocultar { get; set; }
-
+        public string Token { get; set; }
+        public int PorcIndice { get; set; }
+        public string Descripcion { get; set; }
 
 
         public ContactabilidadEntity()
@@ -53,12 +55,18 @@ namespace CRM.Business.Entity.Contactibilidad
             Oficina = 0;
             IndiceContactabilidad = 0;
             Ocultar = 0;
+            PorcIndice = 0;
+            Descripcion = string.Empty;
         }
+    }
 
-
-
-
-
-
+    public class IndiceContactabilidad
+    {
+        public int IdEstado { get; set; }
+        public string Descripcion { get; set; }
     }
 }
+
+
+
+

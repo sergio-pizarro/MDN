@@ -12,15 +12,11 @@
 <!--Bootstrap Select [ OPTIONAL ]-->
 <link href="~/Assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 
-
-
 <link href="~/Assets/plugins/x-editable/css/bootstrap-editable.css" rel="stylesheet">
 <!--TypeaheadJS [ OPTIONAL ]-->
 <link href="~/Assets/plugins/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js-bootstrap.css" rel="stylesheet">
 <!--Address [ OPTIONAL ]-->
 <link href="~/Assets/plugins/x-editable/inputs-ext/address/address.css" rel="stylesheet">
-
-
 <link href="~/Assets/css/demo/nifty-demo-icons.min.css" rel="stylesheet" />
 <link href="~/Assets/css/demo/nifty-demo.min.css" rel="stylesheet">
 
@@ -30,8 +26,8 @@
         overflow: scroll;
     }
 
-    .badge-success {
-        background-color: #00bcd4 !important;
+    /*.badge-success {
+        background-color: #00bcd4 !important;*/
     }
 </style>
 
@@ -43,7 +39,7 @@
             <div class="panel">
                 <div class="panel-body">
                     <h2 class="panel-title">
-                        <span class="pull-left badge badge-danger" style="border-radius: 4px; display: none;" id="msjNoMoles">No Molestar</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px; display:none" id="cumpleanos">Afiliado esta de Cumpleaños</span><span class="pull-left badge badge-warning" style="border-radius: 4px; margin-left: 5px; display:none" id="afinuevo">Afi Nuevo</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px;" id="afiVigente"></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display:none" id="afiFallecido "></span>
+                        <span class="pull-left badge badge-danger" style="border-radius: 4px; display: none;" id="msjNoMoles">No Molestar</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px; display:none" id="cumpleanos">Afiliado esta de Cumpleaños</span><span class="pull-left badge badge-warning" style="border-radius: 4px; margin-left: 5px; display:none" id="afinuevo">Afi Nuevo</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px;" id="afiVigente"></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display:none" id="afiFallecido "></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display:none" id="afiContac">Actualizar Contactos</span>
                     </h2>
                     <hr />
                     <div class="row">
@@ -211,7 +207,10 @@
                     <div class="panel-control" style="float:left;">
                         <ul class="nav nav-tabs tabs-left">
                             <li class="active">
-                                <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" class="tab-principal" style="font-weight: bold;">Campañas <span class="badge badge-success" id="cantCamp"></span></a>
+                                <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" class="tab-principal" style="font-weight: bold;">Campa&ntilde;as <span class="badge badge-success" id="cantCamp"></span></a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false" id="tab_contact" class="tab-principal" style="font-weight: bold;">Contactabilidad<span class="badge badge-success" id="cantAlertas"></span></a>
                             </li>
                             <li class="">
                                 <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_alertas" class="tab-principal" style="font-weight: bold;">Alertas<span class="badge badge-success" id="cantAlertas"></span></a>
@@ -219,9 +218,6 @@
                             <li class="">
                                 <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_relacion" class="tab-principal" style="font-weight: bold;">Relacionamiento</a>
                             </li>
-                            <li class="">
-                                    <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false" id="tab_alertas" class="tab-principal" style="font-weight: bold;">Contactibilidad<span class="badge badge-success" id="cantAlertas"></span></a>
-                                </li>
                         </ul>
                     </div>
                     <h3 class="panel-title" style="color:white">.</h3>
@@ -236,7 +232,7 @@
                                     <table class="table table-hover table-vcenter">
                                         <thead>
                                             <tr>
-                                                <th>Tipo Campaña</th>
+                                                <th>Tipo Campa&ntilde;a</th>
                                                 <th>Monto </th>
                                                 <th>Estado</th>
                                                 <th>Sub Estado</th>
@@ -287,60 +283,80 @@
                         </div>
 
                         <div id="demo-lft-tab-4" class="tab-pane fade">
-                         prueba
+                            <div class="panel-body">
+                                <div class="row">
+                                    <a data-target="#demo-lg-modal-new" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Nuevo contacto<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></a>
+                                    <hr />
+                                    <table class="table table-hover table-vcenter" style="font-size: 11px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Gestión</th>
+                                                <th>Datos Contacto</th>
+                                                <th>Tipo contacto</th>
+                                                <th>Índice</th>
+                                                <th>Ultimo intento</th>
+                                                <th>Descripción</th>
+                                                <th>Canal Ult. intento</th>
+                                                <th>Ultimo Contacto Valido</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bdy_datos_contactos"></tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-
-
-                        @*<div id="demo-lft-tab-3" class="tab-pane fade">
-        <div class="panel-body">
-            <div class="col-lg-6">
-                <div id="demo-carousel" class="carousel slide" data-ride="carousel">
-
-                    <!--Indicators-->
-                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                    <ol class="carousel-indicators out">
-                        <li class="" data-slide-to="0" data-target="#demo-carousel"></li>
-                        <li data-slide-to="1" data-target="#demo-carousel" class=""></li>
-                        <li data-slide-to="2" data-target="#demo-carousel" class="active"></li>
-                    </ol>
-                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-
-                    <div class="carousel-inner text-center">
-
-                        <!--Item 1-->
-                        <div class="item">
-                            <h4 class="text-main">First slide label</h4>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </div>
-
-                        <!--Item 2-->
-                        <div class="item">
-                            <h4 class="text-main">Second slide label</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-
-                        <!--Item 3-->
-                        <div class="item active">
-                            <h4 class="text-main">Third slide label</h4>
-                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                        </div>
-                    </div>
-
-                    <!--carousel-control-->
-                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                    <a class="carousel-control left" data-slide="prev" href="#demo-carousel"><i class="demo-pli-arrow-left icon-2x"></i></a>
-                    <a class="carousel-control right" data-slide="next" href="#demo-carousel"><i class="demo-pli-arrow-right icon-2x"></i></a>
-                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-
-                </div>
-            </div>
-            </div>
-        </div>*@
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div id="demo-lg-modal-new" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="width: 500px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                    <h4 class="modal-title"><img class="img-xs img-circle" src="../Assets/img/profile-photos/eje2.png" alt="Profile picture">Nuevo Contacto</h4>
+                </div>
+                <form id="form-registro-contacto" action="#" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="btn-group bootstrap-select">
+                                <label class="control-label">Tipo de Contacto</label>
+                                <select class="selectpicker" id="cbtippContac" name="cbtippContac">
+                                    <option value=" ">Seleccione..</option>
+                                    <option value="1">Celular</option>
+                                    <option value="2">Teléfono</option>
+                                    <option value="3">Mail</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="btn-group bootstrap-select">
+                                <label class="control-label">Clasificación de Contacto</label>
+                                <select class="selectpicker" id="cbClasificacionConctac" name="cbClasificacionConctac">
+                                    <option value=" ">Seleccione..</option>
+                                    <option value="1">Personal</option>
+                                    <option value="2">Comercial</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="control-label">Datos de Contacto</label>
+                                <input class="form-control" id="afi_NewContacto" type="text" value="" maxlength="150" name="afi_NewContacto">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                        <button class="btn btn-primary" id="btGuardaContacto" type="submit">Guardar Contacto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div id="demo-lg-modal" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -521,7 +537,6 @@
                     <h4 class="modal-title" id="myLargeModalLabel">Gestión SC</h4>
                 </div>
                 <div class="modal-body">
-
                     <div class="tab-base" style="margin-bottom: 0px !important;">
                         <!--Nav Tabs-->
                         <ul class="nav nav-tabs">
@@ -673,43 +688,7 @@
         </div>
     </div>
 </div>
-
-
 <div class="col-sm-6 text-xs-left"> </div>
-
-
-
-
-
-
-
-@*<div class="timeline-entry">
-        <div class="timeline-stat">
-            <div class="timeline-icon">
-            </div>
-            <div class="timeline-time">
-            </div>
-        </div>
-        <div class="timeline-label" style="border-radius: 5px; background-color: rgb(227, 229, 230);">
-            <img src="../Assets/img/profile-photos/2.png">
-            <p class="mar-no pad-btm">
-                <a class="btn-link text-main text-bold"></a>
-                <a class="text-semibold">ingresado por: <i></i></a>
-                <a class="text-semibold">Sucursal: <i></i></a>
-            </p>
-            <blockquote class="bq-sm bq-open mar-no" style="border-left: 3px solid rgb(183, 183, 183);"></blockquote>
-        </div>
-    </div>*@
-
-
-
-
-
-
-
-
-
-
 <input type="hidden" id="temporalid" name="temporalid" value="" />
 <!--===================================================-->
 <!--End page content-->
@@ -731,14 +710,31 @@
 
     <!--X-editable [ OPTIONAL ]-->
     <script src="~/Assets/plugins/x-editable/js/bootstrap-editable.min.js"></script>
+    <script src="~/Assets/plugins/x-editable/inputs-ext/address/address.js"></script>
 
 
     <script type="text/javascript">
 
-
-
         $(document).on('nifty.ready', function () {
+            $("#demo-editable-sex").editable({
+                prepend: "not selected",
+                source: [
+                    { value: 1, text: "Male" },
+                    { value: 2, text: "Female" }
+                ],
+                text: "hola",
 
+                display: function (value, sourceData) {
+                    var colors = { "": "gray", 1: "green", 2: "blue" },
+                        elem = $.grep(sourceData, function (o) { return o.value == value; });
+
+                    if (elem.length) {
+                        $(this).text(elem[0].text).css("color", colors[value]);
+                    } else {
+                        $(this).empty();
+                    }
+                }
+            });
             $('#DesacNoMolestar').html('')
             $('#EditComentarios').html('')
 
@@ -749,6 +745,14 @@
                     $("#msjNoMoles").css({ 'display': 'none' })
                     $('#DesacNoMolestar').hide()
                     $('#EditNoMolestar').show()
+                    Cargador.CargaProyeccion()
+                    $.niftyNoty({
+                        type: 'success',
+                        icon: 'pli-like-2 icon-2x',
+                        message: 'Se quito marca No Molestar correctamente.',
+                        container: 'floating',
+                        timer: 5000
+                    });
                 });
             });
 
@@ -760,6 +764,14 @@
                         $('#EditComentarios').html('')
                         $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/guarda-comentario-afiliado", { RutAfiliado: $('#RutAfiliado').val(), Observacion: _comentario }, function (datos) {
                             $('#EditComentarios').html('')
+                            Cargador.CargaProyeccion()
+                            $.niftyNoty({
+                                type: 'success',
+                                icon: 'pli-like-2 icon-2x',
+                                message: 'Se agrego Comentario correctamente.',
+                                container: 'floating',
+                                timer: 5000
+                            });
                         });
                     }
                     else {
@@ -767,12 +779,7 @@
                     }
                 },
             });
-
-            // LEVANTA TOOLTIP  $('#EditNoMolestar').editable('toggle');
-            // sacao la informmacion al tootip $('#EditNoMolestar').editable('setValue', 'hola sergio');
-
             $("#EditNoMolestar").editable({
-
                 source: [
                     { value: 'Cliente Molesto', text: 'Cliente Molesto' },
                     { value: 'Cliente Fallecido', text: 'Cliente Fallecido' },
@@ -788,6 +795,14 @@
                             $("#msjNoMoles").css({ 'display': 'block' })
                             $('#EditNoMolestar').hide()
                             $('#DesacNoMolestar').show()
+                            Cargador.CargaProyeccion()
+                            $.niftyNoty({
+                                type: 'success',
+                                icon: 'pli-like-2 icon-2x',
+                                message: 'Se Activo No Molestar correctamente.',
+                                container: 'floating',
+                                timer: 5000
+                            });
                         });
                     }
                     else {
@@ -807,7 +822,6 @@
                     if (e.RutAfiliado == null) {
                         $("#NombreAfiliado").html("Afiliado Sin Información");
                     }
-
                     else {
                         $("#RutAfiliado").val(e.RutAfiliado);
                         $("#NombreAfiliado").html(e.Nombres);
@@ -910,26 +924,20 @@
                                 link = '<a href="#" class="btn-link" data-target="#demo-lg-modal-tmc" data-toggle="modal" data-asignacion="' + e.id_Asginacion + '">' + e.Campania + '</a>';
                                 break;
                         }
-
                         $("#bdy_datos")
                             .append(
-                            $("<tr>")
-
-                                // .append($("<td>").append(e.Campania))
-                                .append($("<td>").append(link))
-                                .append($("<td>").addClass("text-dark").addClass(clase).text('$' + e.Oferta.toMoney(0)))
-                                .append($("<td>").append(e.Estado))
-                                .append($("<td>").append(e.SubEstado))
-                                .append($("<td>").append(e.FechaCompromete.toFecha() != '01-01-1753' && e.FechaCompromete.toFecha() != '01-01-0001' ? e.FechaCompromete.toFecha() : 'N/A'))
-                                .append($("<td>").append(e.Prioridad.toString().toEtiquetaPrioridadScan()))
-                            // .append($("<td>").append((e.HistorialGestion.length > 0 && e.HistorialGestion[0].GestionBase.FechaCompromete.toFecha() != '01-01-1753') ? e.HistorialGestion[0].GestionBase.FechaCompromete.toFecha() : 'N/A'))
-
-
+                                $("<tr>")
+                                    // .append($("<td>").append(e.Campania))
+                                    .append($("<td>").append(link))
+                                    .append($("<td>").addClass("text-dark").addClass(clase).text('$' + e.Oferta.toMoney(0)))
+                                    .append($("<td>").append(e.Estado))
+                                    .append($("<td>").append(e.SubEstado))
+                                    .append($("<td>").append(e.FechaCompromete.toFecha() != '01-01-1753' && e.FechaCompromete.toFecha() != '01-01-0001' ? e.FechaCompromete.toFecha() : 'N/A'))
+                                    .append($("<td>").append(e.Prioridad.toString().toEtiquetaPrioridadScan()))
+                                // .append($("<td>").append((e.HistorialGestion.length > 0 && e.HistorialGestion[0].GestionBase.FechaCompromete.toFecha() != '01-01-1753') ? e.HistorialGestion[0].GestionBase.FechaCompromete.toFecha() : 'N/A'))
                             );
                         $("#cantCamp").html(i + 1)
                     });
-
-
                 });
             },
             CargaDatosAlertas: function (p_rutAlertas) {
@@ -948,56 +956,129 @@
                                 clase = 'text-bold';
                                 valor = e.Valor;
                                 break;
-
                         }
 
                         $("#bdy_datosAlertas")
                             .append(
-                            $("<tr>")
-                                .append($("<td>").append(e.Tipo))
-                                .append($("<td>").addClass("text-dark").addClass(clase).text(valor))
+                                $("<tr>")
+                                    .append($("<td>").append(e.Tipo))
+                                    .append($("<td>").addClass("text-dark").addClass(clase).text(valor))
                             );
                         $("#cantAlertas").html(i + 1)
                     });
                 });
             },
 
-            CargaContactibilidad: function (p_rutContacto) {
-                $("#bdy_datosContactibilidad").html("");
-                $.SecGetJSON(BASE_URL + "/motor/api/Contactos/lista-contactos-afi", { RutAfiliado: p_rutContacto }, function (menus) {
-                    $.each(menus, function (i, e) {
-
-                        var _divContainer = $('<div>').addClass('btn-group');
-                        var _button = $('<button>').data({ toggle: 'dropdown' }).addClass('btn btn-default dropdown-toggle').prop({ 'aria-expanded': 'false' }).append($('<i>').addClass('demo-pli-gear')).append($('<span>').addClass('caret'));
-                        var _ulDropDown = $('<ul>').addClass('dropdown-menu dropdown-menu-right').prop({role:'menu'});
-                        var _noContest = $('<li>').appned($('<a>').prop({ href: '#' }).text('No contesta'));
-                        var _equivocado = $('<li>').appned($('<a>').prop({ href: '#' }).text('Equivicado'));
-
-                        _ulDropDown.append(_noContest);
-                        _ulDropDown.append(_equivocado);
-
-                        _divContainer.append(_button);
-                        _divContainer.append(_ulDropDown);
-
-
-                        //$("<a>").addClass("btn").addClass("btn-danger").append($('<i>').addClass("ion-trash-a")).prop({ "title": "Eliminar", "href": "javascript:eliminar(" +  + ")" }))
-                        $("#bdy_datosContactibilidad")
+            CargaDatosContactos: function (p_rutAfi) {
+                $("#bdy_datos_contactos").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/Contactos/lista-contactos-afi", { RutAfiliado: p_rutAfi }, function (contac) {
+                    $.each(contac, function (i, e) {
+                        var colorPorc = '';
+                        var alertFecha = '';
+                        if (e.PorcIndice > 70) {
+                            var colorPorc = 'pull-left badge badge-success'
+                        }
+                        if (e.PorcIndice > 40 && e.PorcIndice < 69) {
+                            var colorPorc = 'pull-left badge badge-warning'
+                        }
+                        if (e.PorcIndice < 39) {
+                            var colorPorc = 'pull-left badge badge-danger'
+                        }
+                        if (e.FechaContacto.toFecha() === "01-01-1900") {
+                            alertFecha = e.FechaContacto.toFecha() + '<i class="badge badge-danger badge-stat badge-icon pull-right add-tooltip" style="position: static; data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="Se debe Actualizar Contacto">!</i>'
+                            $("#afiContac").css({ 'display': 'block' })
+                        }
+                        else { alertFecha = e.FechaContacto.toFecha() }
+                        $("#bdy_datos_contactos")
                             .append(
                                 $("<tr>")
-                               .append($("<td>").append(_divContainer)
-                                   .append($("<td>").append(e.Valor))
-                                   .append($("<td>").append(e.tipoContacto))
-                                   .append($("<td>").append(e.ClasificacionContacto))
-                                   .append($("<td>").append(e.FechaCreacion.toFecha()))
-                                   .append($("<td>").append(e.FechaIntento.toFecha()))
-                                   .append($("<td>").append(e.FechaContacto.toFecha()))
-                                   .append($("<td>").append(e.FechaBaja.toFecha()))
+                                    .append($("<td>").append(
+                                        $("<select>").addClass('dropdown-caret').css('width', '88px').css('border-radius', '6px').append(
+                                            $('<option data-icon="fa fa-paint-brush">').val('Seleccione').text("Seleccione..."),
+                                            $('<option>').val(1).text("Valido Presencial"),
+                                            $('<option>').val(2).text("Contacto Valido"),
+                                            $('<option>').val(3).text("Tercero Valido"),
+                                            $('<option>').val(4).text("No Contesta"),
+                                            $('<option>').val(5).text("Buzon de voz"),
+                                            $('<option>').val(6).text("Apagado"),
+                                            $('<option>').val(7).text("Equivocado"),
+                                            $('<option>').val(8).text("No Existe")
+                                        ).on('change', function () {
+                                            console.log($(this).val(), e.ValorDato, p_rutAfi)
+                                            var indice = $(this).val();
+                                            var valorD = e.ValorDato;
+                                            var rutAfi = p_rutAfi;
+                                            var ofici = getCookie("Oficina");
+                                            $.SecGetJSON(BASE_URL + "/motor/api/Contactos/actualiza-indice-contacto", { Indice: indice, RutAfi: rutAfi, ValorDato: valorD, Oficina: ofici }, function (datos) {
+                                                Cargador.CargaDatosContactos(rutAf)
+                                                $.niftyNoty({
+                                                    type: 'success',
+                                                    icon: 'pli-like-2 icon-2x',
+                                                    message: 'Gestión Guardada correctamente.',
+                                                    container: 'floating',
+                                                    timer: 5000
+                                                });
+                                            });
+                                        })
+                                    ))
+                                    .append($("<td>").append(e.ValorDato))
+                                    .append($("<td>").append(e.TipoDato))
+                                    .append($("<td>").append('<span class="' + colorPorc + '">' + e.PorcIndice + '</span>'))
+                                    .append($("<td>").append(e.FechaIntento.toFecha()))
+                                    .append($("<td>").append(e.Descripcion))
+                                    .append($("<td>").append(e.OrigenCreacion))
+                                    .append($("<td>").append(alertFecha))
+                                //.append($("<td>").append(e.FechaContacto.toFecha()))
                             );
                     });
                 });
+            },
+            CargaProyeccion: function () {
+                var rutAfilado = httpGet("RutBuscar").replace('.', '');
+                $('#AfiProyeccion').html('')
+                $.getJSON(BASE_URL + "/motor/api/Afiliados/obtener-proyeccion", { RutAfiliado: rutAfilado.replace('.', '') }, function (respuesta) {
+                    $.each(respuesta, function (i, e) {
+                        var date = new Date(e.Fecha);
+                        var options = {
+                            year: "numeric", month: "long",
+                            day: "numeric", hour: "2-digit", minute: "2-digit"
+                        };
+                        var i_img;
+                        if (e.EstadoGestion == 1) {
+                            i_img = $('<img>').attr('src', '../Assets/img/M.png').attr('alt', 'Profile picture')
+                            var iB2_4 = $('<a>').html('   Motor')
+                            var aB2_5 = $('<a>').addClass('text-main text-bold').html('Gestion:  ').append(iB2_4).append('<br/>')
+                            var iB2_4_ = $('<a>').html(e.Estado + '  -  ' + e.SubEstado)
+                            var aB2_5_ = $('<a>').addClass('text-main text-bold').html('Motivo:  ').append(iB2_4_)
+                        }
+                        else {
+                            var iB2_4 = $('<a>').html(e.Estado + '        ')
+                            var aB2_5 = $('<a>').addClass('text-main text-bold').html('Gestion:  ').append(iB2_4).append('<br/>')
+                            var iB2_4_ = $('<a>').html(e.SubEstado)
+                            var aB2_5_ = $('<a>').addClass('text-main text-bold').html('Motivo:  ').append(iB2_4_)
+                        }
+                        if (e.EstadoGestion == 2) {
+                            i_img = $('<i>').addClass('demo-psi-speech-bubble-3 icon-lg')
+                        }
+                        if (e.EstadoGestion == 3) {
+                            i_img = $('<img>').attr('src', '../Assets/img/profile-photos/noFono.png').attr('alt', 'Profile picture')
+                        }
+                        if (e.EstadoGestion == 4) {
+                            i_img = $('<i>').addClass('pli-telephone icon-lg')
+                        }
+                        var divB1_1 = $('<div>').addClass('timeline-icon bg-success').append(i_img)
+                        var divB1_2 = $('<div>').addClass('timeline-time').html(date.toLocaleTimeString("es-ES", options))
+                        var divB1 = $('<div>').addClass('timeline-stat').append(divB1_1).append(divB1_2)
+                        var imgB2 = $('<img>').addClass('img-xs img-circle').attr('src', '../Assets/img/profile-photos/eje2.png').attr('alt', 'Profile picture')
+                        var _eje = $('<a>').html(e.Ejecutivo.OrdenaNombre() + '  -  ' + e.Sucursal)
+                        var aB2_1 = $('<a>').addClass('btn-link text-main text-bold').html('ingresado por:' + '  ').append(_eje).append('<br/>')
+                        var pB2 = $('<p>').addClass('mar-no pad-btm').append(aB2_1).append(aB2_5).append(aB2_5_)
+                        var divB2 = $('<div>').addClass('timeline-label').css('border-radius', '5px').css('background-color', '#e3e5e6').append(imgB2).append(pB2)
+                        var divPrin = $('<div>').addClass('timeline-entry').append(divB1).append(divB2)
+                        $('#AfiProyeccion').append(divPrin)
+                    });
+                });
             }
-
-
         }
         $("#slRutEmpresa").on("change", function (e) {
             $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/obtener-info-empresa", { RutEmpresa: $("#slRutEmpresa").val(), RutAfiliado: rutAf }, function (datos) {
@@ -1017,7 +1098,6 @@
                     $("#ges_subestado").append($("<option>").attr("value", "").html("Seleccione"));
                     //  $('#datos-gestion').bootstrapValidator('updateStatus', 'ges_subestado', 'NOT_VALIDATED').bootstrapValidator('validateField', 'ges_subestado');
                     $.each(datos, function (i, e) {
-
                         $("#ges_subestado").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre))
                     });
                 });
@@ -1045,18 +1125,14 @@
                         if (e.ejes_terminal != "SISTEMA") {
                             $("#ges_subestadoSC").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre))
                         }
-
                     });
                 });
-
-
                 if ($(this).find("option:selected").data("terminal") == "CERRADOS" || $(this).find("option:selected").data("terminal") == "PENDIENTESNOCAL") {
                     $("#fpgSC").hide();
                 }
                 else {
                     $("#fpgSC").show();
                 }
-
             }
             else {
                 $("#ges_subestadoSC").html("");
@@ -1121,11 +1197,11 @@
                 $.each(gesList, function (i, e) {
                     $("#gestiones_realizadas")
                         .append(
-                        $("<a>")
-                            .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
-                            .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ",<br/> <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
-                            .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
-                            .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
+                            $("<a>")
+                                .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
+                                .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ",<br/> <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
+                                .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
+                                .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
                         );
                 });
                 if (gesList.length > 0 && gesList[0].EsTerminal === "CERRADOS") {
@@ -1133,10 +1209,7 @@
                 } else {
                     $(".esconder").show();
                 }
-
-
             });
-
             $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-rechazos-rsg", { Periodo: 201805, RutEmpresa: $("#slRutEmpresa").val(), RutAfiliado: rutAf }, function (datos) {
 
                 $("#letable").html("");
@@ -1187,7 +1260,6 @@
                 });
             });
 
-
             $('#demo-dp-component_normalizacion .input-group.date').datepicker({ autoclose: true, format: 'dd-mm-yyyy', startDate: "0d", language: "es", daysOfWeekDisabled: [6, 0], todayHighlight: true })
                 .on('show.bs.modal hide.bs.modal', function (event) {
                     // prevent datepicker from firing bootstrap modal "show.bs.modal"
@@ -1198,15 +1270,13 @@
                 $.each(gesListNor, function (i, e) {
                     $("#gestiones_realizadasNorm")
                         .append(
-                        $("<a>")
-                            .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
-                            .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
-                            .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
-                            .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
+                            $("<a>")
+                                .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
+                                .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
+                                .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
+                                .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
                         );
                 });
-
-
             });
         });
         $('#demo-lg-modal-sc').on('show.bs.modal', function (event) {
@@ -1231,15 +1301,13 @@
                 $.each(gesListSC, function (i, e) {
                     $("#gestiones_realizadasSC")
                         .append(
-                        $("<a>")
-                            .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
-                            .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
-                            .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
-                            .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
+                            $("<a>")
+                                .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
+                                .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
+                                .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
+                                .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
                         );
                 });
-
-
             });
 
         });
@@ -1265,15 +1333,13 @@
                 $.each(gesListTMC, function (i, e) {
                     $("#gestiones_realizadasTMC")
                         .append(
-                        $("<a>")
-                            .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
-                            .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
-                            .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
-                            .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
+                            $("<a>")
+                                .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Nombres))
+                                .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.FechaAccion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.FechaCompromete.toFecha()))
+                                .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.Estado + ",  <strong>Sub Estado:</strong> " + e.SubEstado))
+                                .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.Descripcion))
                         );
                 });
-
-
             });
 
         });
@@ -1320,9 +1386,6 @@
                         }
                     }
                 },
-
-
-
             }
         }).on('success.form.bv', function (e) {
             // Prevén que se mande el formulario
@@ -1340,7 +1403,6 @@
                         .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.GestionBase.Descripcion))
                     );
                 });
-
 
                 if (respuesta.Objeto.length > 0 && respuesta.Objeto[0].EstadoGestion.ejes_terminal === "CERRADOS") {
                     $(".esconder").hide();
@@ -1402,9 +1464,6 @@
                         }
                     }
                 },
-
-
-
             }
         }).on('success.form.bv', function (e) {
             // Prevén que se mande el formulario
@@ -1576,9 +1635,6 @@
                         }
                     }
                 },
-
-
-
             }
         }).on('success.form.bv', function (e) {
             // Prevén que se mande el formulario
@@ -1628,11 +1684,10 @@
 
         });
 
-
-        var rutAfilado = httpGet("RutBuscar");
+        var rutAfilado = httpGet("RutBuscar").replace('.', '');
         $("#filtroEstado").change(function () {
 
-            $.getJSON(BASE_URL + "/motor/api/Afiliados/filtro-proyeccion", { RutAfiliado: rutAfilado, Estado: $("#filtroEstado").val() }, function (respuesta) {
+            $.getJSON(BASE_URL + "/motor/api/Afiliados/filtro-proyeccion", { RutAfiliado: rutAfilado.replace('.', ''), Estado: $("#filtroEstado").val() }, function (respuesta) {
                 $('#AfiProyeccion').html("");
                 $.each(respuesta, function (i, e) {
                     var date = new Date(e.Fecha);
@@ -1682,73 +1737,77 @@
 
 
 
-        var rutAfilado = httpGet("RutBuscar");
-        $.getJSON(BASE_URL + "/motor/api/Afiliados/obtener-proyeccion", { RutAfiliado: rutAfilado }, function (respuesta) {
-            $.each(respuesta, function (i, e) {
-                var date = new Date(e.Fecha);
-                var options = {
-                    year: "numeric", month: "long",
-                    day: "numeric", hour: "2-digit", minute: "2-digit"
-                };
-                var i_img;
-                if (e.EstadoGestion == 1) {
-                    i_img = $('<img>').attr('src', '../Assets/img/M.png').attr('alt', 'Profile picture')
 
-                    var iB2_4 = $('<a>').html('   Motor')
-                    var aB2_5 = $('<a>').addClass('text-main text-bold').html('Gestion:  ').append(iB2_4).append('<br/>')
-
-                    var iB2_4_ = $('<a>').html(e.Estado + '  -  ' + e.SubEstado)
-                    var aB2_5_ = $('<a>').addClass('text-main text-bold').html('Motivo:  ').append(iB2_4_)
+        $('#form-registro-contacto').bootstrapValidator({
+            excluded: [':disabled', ':not(:visible)'],
+            feedbackIcons: [],
+            fields: {
+                cbtippContac: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar un tipo de Contacto'
+                        }
+                    }
+                },
+                cbClasificacionConctac: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar una clasificación de contacto'
+                        }
+                    }
+                },
+                afi_NewContacto: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar un contacto'
+                        },
+                        stringLength: {
+                            message: 'No pueden ser mas de 100 caracteres',
+                            max: function (value, validator, $field) {
+                                return 150 - (value.match(/\r/g) || []).length;
+                            }
+                        }
+                    }
                 }
-                else {
-                    var iB2_4 = $('<a>').html(e.Estado + '        ')
-                    var aB2_5 = $('<a>').addClass('text-main text-bold').html('Gestion:  ').append(iB2_4).append('<br/>')
-                    var iB2_4_ = $('<a>').html(e.SubEstado)
-                    var aB2_5_ = $('<a>').addClass('text-main text-bold').html('Motivo:  ').append(iB2_4_)
-                }
+            }
+        }).on('success.form.bv', function (e) {
+            // Prevén que se mande el formulario
+            e.preventDefault();
+            var $form = $(e.target);
 
-                if (e.EstadoGestion == 2) {
-                    i_img = $('<i>').addClass('demo-psi-speech-bubble-3 icon-lg')
-                }
-                if (e.EstadoGestion == 3) {
-                    i_img = $('<img>').attr('src', '../Assets/img/profile-photos/noFono.png').attr('alt', 'Profile picture')
-                }
-                if (e.EstadoGestion == 4) {
-                    i_img = $('<i>').addClass('pli-telephone icon-lg')
-                }
-
-                var divB1_1 = $('<div>').addClass('timeline-icon bg-success').append(i_img)
-                var divB1_2 = $('<div>').addClass('timeline-time').html(date.toLocaleTimeString("es-ES", options))
-                var divB1 = $('<div>').addClass('timeline-stat').append(divB1_1).append(divB1_2)
-
-                var imgB2 = $('<img>').addClass('img-xs img-circle').attr('src', '../Assets/img/profile-photos/eje2.png').attr('alt', 'Profile picture')
-
-                var _eje = $('<a>').html(e.Ejecutivo.OrdenaNombre() + '  -  ' + e.Sucursal)
-                var aB2_1 = $('<a>').addClass('btn-link text-main text-bold').html('ingresado por:' + '  ').append(_eje).append('<br/>')
-                //var iB2_1 = $('<i>').html(e.Ejecutivo)
-                //var aB2_2 = $('<a>').addClass('btn-link text-main text-bold').html('ingresado por: ').append(iB2_1).append('<br/>')
-                // var iB2_2 = $('<i>').html(e.Sucursal)
-                // var aB2_3 = $('<a>').addClass('text-semibold').append(iB2_2).append('<br/>')
-                var pB2 = $('<p>').addClass('mar-no pad-btm').append(aB2_1).append(aB2_5).append(aB2_5_)
-                // var blocq = $('<blockquote>').addClass('bq-sm bq-open mar-no').css('border-left', '3px solid #b7b7b7').html(e.SubEstado)
-                var divB2 = $('<div>').addClass('timeline-label').css('border-radius', '5px').css('background-color', '#e3e5e6').append(imgB2).append(pB2)
-                var divPrin = $('<div>').addClass('timeline-entry').append(divB1).append(divB2)
-
-                $('#AfiProyeccion').append(divPrin)
+            var objeto_envio_contacto = {
+                RutAfiliado: rutAf,
+                IdTipoContac: $('#cbtippContac').val(),
+                GlosaTipoContac: $('select[name="cbtippContac"] option:selected').text(),
+                IdClasifContac: $('#cbClasificacionConctac').val(),
+                GlosaClasifContac: $('select[name="cbClasificacionConctac"] option:selected').text(),
+                DatosContac: $('#afi_NewContacto').val()
+            }
+            $.SecGetJSON(BASE_URL + "/motor/api/Contactos/ingresa-nuevo-contacto", objeto_envio_contacto, function (datos) {
+                $("#form-registro-contacto").bootstrapValidator('resetForm', true);
+                $('#demo-lg-modal-new').modal('hide');
+                Cargador.CargaDatosContactos(rutAf)
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'pli-like-2 icon-2x',
+                    message: 'Contacto Guardado correctamente.',
+                    container: 'floating',
+                    timer: 5000
+                });
             });
+
         });
-
-
-
 
         var rutAf = httpGet("RutBuscar");
         rutAf = rutAf.replace(/\./g, '');
         rutAf = rutAf.substring(0, rutAf.indexOf('-'));
         Cargador.CargaDatosAfiliados(rutAf)
+        Cargador.CargaDatosContactos(rutAf)
         Cargador.CargaDatosCampaniasAfiliado(rutAf)
         Cargador.CargaDatosCumpleanos(rutAf)
         Cargador.CargaDatosAlertas(rutAf)
-        Cargador.CargaContactibilidad(rutAf)
+        Cargador.CargaProyeccion()
+
 
         $("#ges_oficina").val(getCookie("Oficina"))
         $("#ges_token").val(getCookie("Token"))

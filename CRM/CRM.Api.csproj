@@ -1969,11 +1969,8 @@
     <Folder Include="Views\Buscar\" />
     <Folder Include="Views\CarteraEmpresas\" />
     <Folder Include="Views\Configuracion\" />
-
-    <Folder Include="Views\Contrasenas\" />
-
     <Folder Include="Views\Contactabilidad\" />
-
+    <Folder Include="Views\Contrasenas\" />
     <Folder Include="Views\Empresa\" />
     <Folder Include="Views\FFVVBase\" />
     <Folder Include="Views\Informes\" />
