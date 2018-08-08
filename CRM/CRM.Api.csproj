@@ -1745,6 +1745,7 @@
     <Content Include="Areas\AppPage\Views\HerramientasGestion\CalculadoraCredito.cshtml" />
     <Content Include="Areas\AppPage\Views\Gestion\Oferta.cshtml" />
     <Content Include="Areas\AppPage\Views\Licencias\Ingreso.cshtml" />
+    <Content Include="Areas\AppPage\Views\CarteraEmpresas\Admin.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1860,11 +1861,8 @@
     <Folder Include="Views\Buscar\" />
     <Folder Include="Views\CarteraEmpresas\" />
     <Folder Include="Views\Configuracion\" />
-
-    <Folder Include="Views\Contrasenas\" />
-
     <Folder Include="Views\Contactabilidad\" />
-
+    <Folder Include="Views\Contrasenas\" />
     <Folder Include="Views\Empresa\" />
     <Folder Include="Views\FFVVBase\" />
     <Folder Include="Views\Informes\" />
