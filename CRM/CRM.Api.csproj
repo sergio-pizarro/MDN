@@ -1852,8 +1852,12 @@
     <Content Include="Areas\AppPage\Views\HerramientasGestion\CalculadoraCredito.cshtml" />
     <Content Include="Areas\AppPage\Views\Gestion\Oferta.cshtml" />
     <Content Include="Areas\AppPage\Views\Licencias\Ingreso.cshtml" />
+
     <Content Include="Assets\css\demo\fonts\nifty-demo-icons.ttf" />
     <Content Include="Assets\css\demo\fonts\nifty-demo-icons.woff" />
+
+    <Content Include="Areas\AppPage\Views\CarteraEmpresas\Admin.cshtml" />
+
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

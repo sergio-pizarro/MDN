@@ -118,7 +118,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label class="form-control alert-danger" id="lblmensajecompin" style="display:none;">Sucursal no tramita LM con compin, Derivada a:  <b><u><span id="lblCompin" style="display:none;"></span></u></b></label>
+                                    <label class="form-control alert-danger" id="lblmensajecompin" style="display:none;">Sucursal no cuenta con COMPIN directa para tramitación, LM será enviada a sucursal: <b><u><span id="lblCompin" style="display:none;"></span></u></b></label>
                                 </div>
                             </div>
                         </div>
@@ -140,6 +140,16 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <input type="text" class="form-control validatore" id="FormLM" name="FormLM" tabindex="7" readonly="readonly" value="Manual" style="display:none;">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                   
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="form-control alert-danger" id="lblmensajecompin1" style="display:none;">NOTA INTERNA debe ser dirigida a:<b><u><span id="lblCompin1" style="display:none;"></span></u></b></label>
                                 </div>
                             </div>
                         </div>
@@ -310,15 +320,20 @@
                 if ($(this).find(':selected').data('id')>0)
                 {
                     $("#lblmensajecompin").show();
+                    $("#lblmensajecompin1").show();
                     $("#lblCompin").html($(this).find(':selected').data('nombre'));
                     $("#lblCompin").show();
+                    $("#lblCompin1").html($(this).find(':selected').data('nombre'));
+                    $("#lblCompin1").show();
                
 
                 }
                 else
                 {
                     $("#lblmensajecompin").hide();
+                    $("#lblmensajecompin1").hide();
                     $("#lblCompin").hide();
+                    $("#lblCompin1").hide();
                     $(this).val()
                     
                 }
@@ -628,7 +643,11 @@
                     $("#EmpresaRut").val("");
                     $("#EmpresaNombre").val("");
                     $("#lblmensajecompin").hide();
+                    $("#lblmensajecompin1").hide();
                     $("#lblCompin").hide();
+                    $("#DerivarLM").prop("checked", false);
+                    $("#sslOfiDerivacion").val('');
+                    $("#sslOfiDerivacion").prop('disabled', true);
                     $("#frm-data-lc").bootstrapValidator('resetForm', true);
                 }
             });

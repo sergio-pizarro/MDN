@@ -24,6 +24,7 @@ namespace CRM.Areas.AppPage.Controllers
             return Business.Data.ContactabilidadDataAccess.ContactabilidadDataAccess.ListarContacto(RutAfiliado);
         }
 
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("actualiza-indice-contacto")]
@@ -41,5 +42,14 @@ namespace CRM.Areas.AppPage.Controllers
             return Business.Data.ContactabilidadDataAccess.ContactabilidadDataAccess.InsertaNuevoContacto(RutAfiliado, idTipoContac, GlosaTipoContac, IdClasifContac, GlosaClasifContac, DatosContac);
         }
     }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-indice-contacto")]
+        public IEnumerable<Business.Entity.Contactibilidad.IndiceContactabilidad> ListarIndiceContacto()
+        {
+            return Business.Data.ContactabilidadDataAccess.ContactabilidadDataAccess.ListarIndice();
+        }
+    } 
 
 }
