@@ -29,6 +29,7 @@ namespace CRM.Business.Entity.Contactibilidad
         public int IndiceContactabilidad { get; set; }
         public int Ocultar { get; set; }
         public string Token { get; set; }
+
         public int PorcIndice { get; set; }
         public string Descripcion { get; set; }
 
@@ -69,4 +70,11 @@ namespace CRM.Business.Entity.Contactibilidad
 
 
 
+
+
+
+    }
+
+    
+}
 

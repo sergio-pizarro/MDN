@@ -4428,6 +4428,7 @@
     <Content Include="Areas\AppPage\Views\HerramientasGestion\CalculadoraCredito.cshtml" />
     <Content Include="Areas\AppPage\Views\Gestion\Oferta.cshtml" />
     <Content Include="Areas\AppPage\Views\Licencias\Ingreso.cshtml" />
+
     <Content Include="Assets\css\demo\fonts\nifty-demo-icons.ttf" />
     <Content Include="Assets\css\demo\fonts\nifty-demo-icons.woff" />
     <Content Include="Areas\EmpresasPage\Views\_ViewStart.cshtml" />

@@ -25,4 +25,33 @@ namespace CRM.Business.Entity
             NombreEjecutivo = string.Empty;
         }
     }
+
+    public class IngresoCarteraEmpresaAdmin
+    {
+        public int CodIngresoEmpresa { get; set; }
+        public string RutEmpresa { get; set; }
+        public string NombreEmpresa { get; set; }
+        public int nTrabajador { get; set; }
+        public IEnumerable<string> EjecAsignado { get; set; }
+        public int esHolding { get; set; }
+        public string Comentarios { get; set; }
+
+        public IngresoCarteraEmpresaAdmin()
+        {
+            CodIngresoEmpresa = 0;
+            RutEmpresa = string.Empty;
+            NombreEmpresa = string.Empty;
+            nTrabajador = 0;
+            EjecAsignado = new List<string>();
+            esHolding = 0;
+            Comentarios = string.Empty;
+        }
+
+
+    }
+    public class IngresoEjecutivoAsignacion
+    {
+        public int IdSucursal { get; set; }
+        public string RutEjecutivo { get; set; }
+    }
 }

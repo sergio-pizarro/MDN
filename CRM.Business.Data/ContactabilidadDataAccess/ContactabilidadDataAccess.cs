@@ -52,6 +52,8 @@ namespace CRM.Business.Data.ContactabilidadDataAccess
             return DBHelper.InstanceCRM.EjecutarProcedimiento("scafi.sp_MotorGuardarContactoNuevo", parametros);
         }
 
+
+   
         private static Entity.Contactibilidad.ContactabilidadEntity ConstructorEntidad(DataRow row)
         {
             return new Entity.Contactibilidad.ContactabilidadEntity
@@ -77,6 +79,14 @@ namespace CRM.Business.Data.ContactabilidadDataAccess
                 IndiceContactabilidad = row["IndiceContactab"] != DBNull.Value ? Convert.ToInt32(row["IndiceContactab"]) : 0,
                 Ocultar = row["Ocultar"] != DBNull.Value ? Convert.ToInt32(row["Ocultar"]) : 0,
                 PorcIndice = row["PorcIndice"] != DBNull.Value ? Convert.ToInt32(row["PorcIndice"]) : 0,
+                Descripcion = row["Descripcion"] != DBNull.Value ? row["Descripcion"].ToString() : string.Empty,
+            };
+        }
+        private static Entity.Contactibilidad.IndiceContactabilidad IndContacto(DataRow row)
+        {
+            return new Entity.Contactibilidad.IndiceContactabilidad
+            {
+                IdEstado = row["IdEstado"] != DBNull.Value ? Convert.ToInt32(row["IdEstado"]) : 0,
                 Descripcion = row["Descripcion"] != DBNull.Value ? row["Descripcion"].ToString() : string.Empty,
             };
         }
