@@ -1,0 +1,397 @@
+﻿
+
+@{
+    Layout = "~/Areas/EmpresasPage/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Assets/nifty-v2/plugins/fooTable/css/footable.core.css" rel="stylesheet">
+<link href="~/Assets/nifty-v2/plugins/dropzone/dropzone.min.css" rel="stylesheet">
+<link href="~/Assets/nifty-v2/plugins/chosen/chosen.min.css" rel="stylesheet">
+<link href="~/Assets/nifty-v2/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet" />
+<link href="~/Assets/nifty-v2/treegrid/jquery.treegrid.css" rel="stylesheet" />
+
+<link href="~/Assets/nifty-v2/plugins/chosen/chosen.min.css" rel="stylesheet">
+
+<h1 id="titulo">Cartera Empresas</h1>
+
+<div class="panel">
+    <div class="panel-heading">
+        <h2 class="panel-title">Empresas Asignadas</h2>
+    </div>
+
+    <div class="panel-body">
+        <div class="panel panel-bordered-primary" style="border: 1px solid #ddd;">
+            <div class="panel-heading">
+                <h3 class="panel-title">Asignar Empresas</h3>
+            </div>
+            <div class="panel-body">
+                <label for="demo-inline-inputmail" class="sr-only">Asignar Empresas</label>
+                <select id="demo-cs-multiselect" data-placeholder="Seleccione a los ejecutivos.." multiple tabindex="4"></select>
+                <button class="btn btn-primary" type="submit">Asignar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <table id="tablatree" class="table tree-2 table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th data-field="state" data-checkbox="true"></th>
+                    <th>Rut Emp.</th>
+                    <th>Nombre Emp.</th>
+                    <th>N° Trabajadores</th>
+                    <th>Holding</th>
+                    <th style="width: 106px;">Nuevo Anexo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="bdy_datos"></tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="demo-lg-modal-new" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title">    Nuevo anexo</h4>
+            </div>
+            <form id="form_registro_anexo" action="#" method="post">
+                <div class="panel-body">
+                    <div class="panel panel-bordered-primary" style="border-color: #e6e6e6;">
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Rut Empresa</label>
+                                        <input type="text" class="form-control" id="txRutEmp" disabled name="txRutEmp">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre Empresa</label>
+                                        <select class="form-control" id="slEmperesa_multiselect" disabled tabindex="2" name="slEmperesa-multiselect" required>
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Anexo</label>
+                                        <input type="text" id="anexo" class="form-control" name="anexo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">N° de Trabajadores</label>
+                                        <input type="text" class="form-control" id="nTrajadores" name="nTrajadores">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Dirección</label>
+                                        <input type="text" class="form-control" id="direccionAnexo" name="direccionAnexo">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Comuna</label>
+                                        <select class="form-control" id="slComuna_multiselect" tabindex="2" name="slComuna-multiselect" required>
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="checkbox">
+                                        <input id="ckCargaAfi" class="magic-checkbox" type="checkbox" name="ckCargaAfi">
+                                        <label for="ckCargaAfi">Cargar archivo con Afiliados</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="demo-dropzone" action="#" class="dropzone" style="display: none">
+                    <div class="dz-default dz-message">
+                        <div class="dz-icon">
+                            <i class="demo-pli-upload-to-cloud icon-5x"></i>
+                        </div>
+                        <div>
+                            <span class="dz-text">
+                                Haga click para seleccionar manualmente
+                            </span>
+                        </div>
+                    </div>
+                    <div class="progress"><div style="width: 100%;" class="progress-bar progress-bar-info">0%</div></div>
+                    <div class="fallback">
+                        <input name="file" type="file" multiple>
+                    </div>
+                </div>
+                <div class="panel-footer text-right" style="background-color: #fff;">
+                    <button class="btn btn-success" id="btGuardaEmpresa">Guardar datos empresa</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section script{
+
+    <script src="~/Assets/nifty-v2/plugins/dropzone/dropzone.min.js"></script>
+    <script src="~/Assets/nifty-v2/plugins/fooTable/dist/footable.all.min.js"></script>
+    <script src="~/Assets/nifty-v2/js/demo/tables-footable.js"></script>
+    <script src="~/Assets/nifty-v2/plugins/chosen/chosen.jquery.min.js"></script>
+    <script src="~/Assets/nifty-v2/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+    <script src="~/Assets/nifty-v2/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="~/Assets/nifty-v2/treegrid/jquery.treegrid.js"></script>
+    <script src="~/Assets/nifty-v2/treegrid/jquery.treegrid.bootstrap3.js"></script>
+
+    <script type="text/javascript">
+
+        var cargador = {
+            CargaDatosCateraAgente: function () {
+                $("#bdy_datos").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/obtener-cartera-agente", function (menus) {
+                    var iterador = ""
+                    $.each(menus, function (i, e) {
+                        var NomHolding = ""
+                        if (e.Holding == 0) {
+                            NomHolding = $('<div>').addClass('label label-table label-warning').append('Sin Holding')
+                        }
+                        else {
+                            NomHolding = $('<div>').addClass('label label-table label-success').append(e.NombreHolding)
+                        }
+                        if (e.Tipo != "FAnexo") {
+                            $("#bdy_datos")
+                                .append($("<tr>").addClass('treegrid-' + i)
+                                    .append($("<td>").append())
+                                    .append($("<td>").append(''))
+                                    .append($("<td>").append(e.RutEmpresa))
+                                    .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(NomHolding))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append('<i data-target="#demo-lg-modal-new" data-toggle="modal" data-seleccion="' + e.RutEmpresa + '" class="btn btn-sm demo-psi-add icon-lg" style="margin-left: 10px;"></i>'))
+                                    .append($("<td>").append(e.Id + '-' + e.Tipo).hide())
+                                )
+                            iterador = i
+                        } else {
+                            $("#bdy_datos")
+                                .append($("<tr>").addClass('treegrid-' + i + ' treegrid-parent-' + iterador).addClass(' colorAnexo')
+                                    .append($("<td>").append())
+                                    .append($("<td>").append(''))
+                                    .append($("<td>").append(e.RutEmpresa)).addClass('data')
+                                    .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NombreHolding))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(''))
+                                    .append($("<td>").append(e.Id +'-'+ e.Tipo).hide())
+                                )
+                        }
+                    });
+                    $(document).ready(function () {
+                        $('.tree-2').treegrid({
+                            initialState: 'collapsed',
+                            saveState: null,
+                            expanderExpandedClass: 'glyphicon glyphicon-minus',
+                            expanderCollapsedClass: 'glyphicon glyphicon-plus',
+                        });
+                        $('.colorAnexo').css('background', '#ffeeba')
+                    });
+
+                    $("#tablatree").bootstrapTable({
+                        striped: true,
+                        pageSize: 10,
+                        pageList: [],
+
+                    });
+
+                    $("#slEmperesa_multiselect").html("");
+                    $("#slEmperesa_multiselect").append($("<option>").attr("value", "").html("Seleccione"));
+                    $.each(menus, function (i, e) {
+                        $("#slEmperesa_multiselect").append($("<option>").attr("value", e.RutEmpresa).html(e.NombreEmpresa))
+                    });
+                    // $('#slEmperesa_multiselect').chosen({ width: '100%' });
+                });
+            },
+            CargaDatosComunas: function () {
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-comunas-empresa", function (menus) {
+                    $("#slComuna_multiselect").html("");
+                    $("#slComuna_multiselect").append($("<option>").attr("value", "").html("Seleccione"));
+                    $.each(menus, function (i, e) {
+                        $("#slComuna_multiselect").append($("<option>").attr("value", e.IdComuna).html(e.NombreComuna))
+                    });
+                    $('#slComuna_multiselect').chosen({ width: '100%' });
+                });
+            }
+        }
+
+        $('#form_registro_anexo').bootstrapValidator({
+            excluded: [':disabled', ':not(:visible)'],
+            feedbackIcons: [],
+            fields: {
+                txRutEmp: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar rut'
+                        }
+                    }
+                },
+                slEmperesa_multiselect: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar una empresa'
+                        }
+                    }
+                },
+                anexo: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar un anexo'
+                        }
+                    }
+                },
+                nTrajadores: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar N° trabajadores'
+                        }
+                    }
+                },
+                slComuna_multiselect: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar una comuna'
+                        }
+                    }
+                },
+                direccionAnexo: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar una dirección'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+
+            e.preventDefault();
+            var $form = $(e.target);
+            var idcomuna = 0;
+            var objeto_envio_anexo = {
+                RutEmpresa: $('#txRutEmp').val(),
+                NombreEmpresa: $('select[id="slEmperesa_multiselect"] option:selected').text(),
+                Anexo: $('#anexo').val(),
+                NumTrabajadores: $('#nTrajadores').val(),
+                IdComuna: $('select[id="slComuna_multiselect"] option:selected').val(),
+                NombreComuna: $('select[id="slComuna_multiselect"] option:selected').text(),
+                Direccion: $('#direccionAnexo').val()
+            }
+            $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/ingresa-nuevo-anexo", objeto_envio_anexo, function (datos) {
+                cargador.CargaDatosCateraAgente();
+                $("#form_registro_anexo").bootstrapValidator('resetForm', true);
+                $('#demo-lg-modal-new').modal('hide');
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'pli-like-2 icon-2x',
+                    message: 'Nuevo Anexo Creado Correctamente.',
+                    container: 'floating',
+                    timer: 5000
+                });
+
+            });
+        });
+        var result = [];
+        $('#tablatree').on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function (e, row) {
+            //result[0]
+            result.length = 0;
+            var i = 0;
+            $("input[type=checkbox]:checked").each(function () {
+                if ($(this).parent().parent().find('td').eq(7).text() != "") {
+                    result[i] = $(this).parent().parent().find('td').eq(7).text();
+                    // $("#selecAfiliados").tagsinput(result[i])
+                    ++i;
+                }
+            });
+            // $("#cantAfiScheck").html(result['length'])
+
+            console.log(result);
+        });
+
+        $(function () {
+
+            $.SecGetJSON(BASE_URL + "/motor/api/Config/dotacion-oficina", function (menus) {
+                $("#demo-cs-multiselect").html("");
+                $.each(menus, function (i, e) {
+                    $("#demo-cs-multiselect").append($("<option>").attr("value", e.Rut).html(e.Nombre))
+                });
+                $('#demo-chosen-select').chosen();
+                $('#demo-cs-multiselect').chosen({ width: '70%' });
+            });
+
+            $("#titulo").css('font-size', '30px').css('color', '#b3b3b3')
+            $('#ckCargaAfi').on('change', function () {
+                if ($(this).is(':checked')) {
+                    $('#demo-dropzone').css('display', 'block')
+                }
+                else {
+                    $('#demo-dropzone').css('display', 'none')
+                }
+            });
+
+            $('#slEmperesa_multiselect').on('change', function () {
+                $('#txRutEmp').val($("#slEmperesa_multiselect").val())
+            });
+
+            $('#demo-lg-modal-new').on('show.bs.modal', function (event) {
+
+                var rutEmp = $(event.relatedTarget);
+                var RutEmpA = rutEmp.data('seleccion')
+                $("#slEmperesa_multiselect").val(RutEmpA);
+                $('#txRutEmp').val(RutEmpA)
+
+            })
+
+
+
+            //$('#modal-actualiza-ejec').on('show.bs.modal', function (event) {
+
+
+            //    var rutEjec = $(event.relatedTarget); // Button that triggered the modal
+            //    var RutEA = rutEjec.data('seleccion')
+
+            //    $.SecGetJSON(BASE_URL + "/motor/api/Config/obtiene-datos-ejecutivos", { rut: RutEA }, function (respuesta) {
+            //        $("#tbRutAct").val(respuesta.Rut);
+            //        $("#tbNombreAct").val(respuesta.Nombre);
+            //        $("#slCargosAct").val(respuesta.Cargo);
+            //        $("#slTipoContratoAct").val(respuesta.TipoContrato);
+            //        $("#tbFechaIngresoAct").val(respuesta.FechaIngreso.toFecha());
+            //        $("#tbFechaFinalAct").val(respuesta.FechaFinal.toFecha());
+            //        $("#tbEmailAct").val(respuesta.Correo);
+            //        $("#slSexoAct").val(respuesta.Sexo);
+            //        if (respuesta.TipoContrato === 'P') { $(".rge-esconderAct").show(); } else { $(".rge-esconderAct").hide(); }
+            //    });
+
+            //});
+
+
+
+            cargador.CargaDatosCateraAgente();
+            cargador.CargaDatosComunas();
+        });
+
+    </script>
+
+}
