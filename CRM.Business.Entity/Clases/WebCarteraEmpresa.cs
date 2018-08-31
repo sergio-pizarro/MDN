@@ -15,4 +15,11 @@ namespace CRM.Business.Entity.Clases
         public string webRutEjecutivo { get; set; }
         public string webNombreEjecutivo { get; set; }
     }
+    public class WebCarteraEmpresaAdmin
+    {
+        public int webCodIngreso { get; set; }
+        public string webRutEmpresa { get; set; }
+        public string webNombreEmpresa { get; set; }
+        public int webNTrabajador { get; set; }
+    }
 }
