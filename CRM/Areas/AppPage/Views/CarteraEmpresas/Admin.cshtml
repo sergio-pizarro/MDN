@@ -240,10 +240,7 @@
                                 focus: false,
                                 timer: 2000,
                                 onHidden: function () {
-
-                                    if (typeof volver != "undefined") {
                                         location.href = BASE_URL + "/motor/App/CarteraEmpresas/Admin"
-                                    }
                                 }
                             });
                         } else {
@@ -463,7 +460,11 @@
                 $("#bdy_datosRecepcion")
                     .append(
                         $("<tr>")
-                            .append($("<td>").append($("<a>").addClass("btn").addClass("btn-danger").append($('<i>').addClass("ion-trash-a")).prop({ "title": "Eliminar", "href": "javascript:eliminar(" + e.IdSucursalEmpresa + ")" })))
+                         .append($("<td>").append($("<a>").addClass("btn").addClass("btn-danger").append($('<i>').addClass("ion-trash-a")).prop({ "title": "Eliminar", "href": "javascript:eliminar(" + e.IdSucursalEmpresa + ")" })
+                                                    ).append($("<a>").addClass("btn").addClass("btn-primary").addClass("mar-lft").append($('<i>').addClass("ion-edit")).prop({ "title": "Editar", "href": "/motor/App/CarteraEmpresas?ci=" + e.IdEmpresaIngreso })
+                    ))
+
+                           // .append($("<td>").append($("<a>").addClass("btn").addClass("btn-danger").append($('<i>').addClass("ion-trash-a")).prop({ "title": "Eliminar", "href": "javascript:eliminar(" + e.IdSucursalEmpresa + ")" })))
                             .append($("<td>").append(e.RutEmpresa))
                             .append($("<td>").append(e.NombreEmpresa))
                     );
