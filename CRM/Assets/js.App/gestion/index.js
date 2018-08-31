@@ -719,8 +719,6 @@ $(function () {
                     return value > 0 ? mostrar : '<div class="label label-table label-default">Sin Gestión</div>';
                 }
             },
-
-
         ]
     });
 

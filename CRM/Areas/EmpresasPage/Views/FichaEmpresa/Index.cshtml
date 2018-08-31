@@ -1,0 +1,662 @@
+﻿
+@{
+    Layout = "~/Areas/EmpresasPage/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Assets/nifty-v2/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+<link href="~/Assets/nifty-v2/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.css" rel="stylesheet">
+<link href="~/Assets/nifty-v2/plugins/switchery/switchery.min.css" rel="stylesheet">
+<link href="~/Assets/nifty-v2/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet" />
+<h1 id="tituloEmp">Ficha de Empresa</h1>
+<div id="page-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel">
+                <div class="panel-body">
+                    <h2 class="panel-title">
+                        <span class="pull-left badge badge-danger" style="border-radius: 4px; display: none;" id="msjNoMoles">No Molestar</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px; display:none" id="cumpleanos">Afiliado esta de Cumpleaños</span><span class="pull-left badge badge-warning" style="border-radius: 4px; margin-left: 5px; display:none" id="afinuevo">Afi Nuevo</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px;" id="afiVigente"></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display:none" id="afiFallecido "></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display:none" id="afiContac">Actualizar Contactos</span>
+                    </h2>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="panel pos-rel" style="border-radius: 5px;">
+                                    <div class="pad-all text-center">
+                                        <img alt="Profile Picture" class="img-lg img-circle mar-ver" src="~/Assets/img/imgEmpresas.png" />
+                                        <p class="text-lg text-semibold mar-no text-main" id="NombreEmpresaPer" style="font-size: 12px;"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Rut</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="RutEmp" id="RutEmp" readonly="readonly" style="font-weight:bold" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3" style="margin-left: 30px;">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Antiguedad años</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="AntiguedadA" id="AntiguedadA" readonly="readonly" style="font-weight:bold" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Segmento</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="SegmentoEmp" id="SegmentoEmp" readonly="readonly" style="font-weight: bold;" />
+                                            <div class="label label-table label-success" style="display:none">Cumpleaños</div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3" style="margin-left: 30px;">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">N° Trabajadores</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="nTrabajadores" id="nTrabajadores" readonly="readonly" style="font-weight:bold" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Holding</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="HoldingEmp" id="HoldingEmp" readonly="readonly" style="font-weight: bold;" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel">
+
+                <!--Panel heading-->
+                <div class="panel-heading">
+                    <div class="panel-control" style="float:left;">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" style="font-weight: bold;">Visitas<span class="badge badge-success" id="cantCamp">0</span></a>
+                            </li>
+                            <li class="" style="display:none;">
+                                <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false" id="tab_contact" style="font-weight: bold;">Alertas<span class="badge badge-success" id="cantAlertas">0</span></a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_alertas" style="font-weight: bold;">Oportunidades<span class="badge badge-success" id="cantAlertas"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <h3 class="panel-title" style="color:white">.</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div id="demo-lft-tab-1" class="tab-pane fade active in">
+
+
+                            <div class="well well-lg">
+
+                                <div class="tab-base tab-stacked-left">
+
+                                    <!--Nav tabs-->
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#demo-stk-lft-tab-1" aria-expanded="true">Gestion</a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#demo-stk-lft-tab-2" aria-expanded="false">Relacionamiento</a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#demo-stk-lft-tab-3" aria-expanded="false">General</a>
+                                        </li>
+
+                                    </ul>
+
+                                    <!--Tabs Content-->
+                                    <div class="tab-content">
+                                        <div id="demo-stk-lft-tab-1" class="tab-pane fade active in">
+
+                                            <div class="form-horizontal">
+                                                <div class="row">
+                                                    <div class="col-md-4 mar-btm">
+                                                        <label class="control-label">Nombre Empresa o Alias</label>
+                                                        <input type="text" id="nombEmpresa" name="nombEmpresa" class="form-control" placeholder="nombre empresa">
+                                                    </div>
+                                                    <div class="col-md-4 mar-btm">
+                                                        <label class="control-label">Fecha y hora visita</label>
+                                                        <div id="demo-dp-component">
+                                                            <div class="input-group date">
+                                                                <input class="form-control" type="text" id="FechaGest" name="FechaGest">
+                                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 mar-btm">
+                                                        <label class="control-label">Tipo</label>
+                                                        <select id="slTipo" class="form-control" name="slTipo">
+                                                            <option value="">Seleccione</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4 mar-btm">
+                                                        <label class="control-label">Estamento</label>
+                                                        <select id="slEstamento" class="form-control" name="slEstamento">
+                                                            <option value="">Seleccione</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4 mar-btm">
+                                                        <label class="control-label">Nombre Contacto</label>
+                                                        <input type="text" id="nombContacto" name="nombContacto" class="form-control" placeholder="nombre contacto">
+                                                    </div>
+                                                    <div class="col-md-4 mar-btm">
+                                                        <label class="control-label">Cargo</label>
+                                                        <input type="text" id="txtCargo" name="txtCargo" class="form-control" placeholder="Cargo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="demo-stk-lft-tab-2" class="tab-pane fade">
+
+                                            <div class="row">
+                                                <div class="col-md-4 mar-btm">
+                                                    <label class="control-label">Tema</label>
+                                                    <select id="slTema" class="form-control" name="slTema">
+                                                        <option value="">Seleccione</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 mar-btm">
+                                                    <label class="control-label">Sub-Tema</label>
+                                                    <select id="slSubTema" class="form-control" name="slSubTema">
+                                                        <option value="">Seleccione</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 mar-btm">
+                                                    <label class="control-label">Semaforo Relación</label>
+                                                    <div class="btn-group bootstrap-select form-control">
+                                                        <select id="selectCargo" class="form-control selectpicker" tabindex="-98">
+                                                            <option value="">Seleccione</option>
+                                                            <option data-content="<span class=&quot;badge badge-success&quot; style='width: 100%; background-color: #8bc34a;'>Verde</span>">Verde</option>
+                                                            <option data-content="<span class=&quot;badge badge-warning&quot; style='width: 100%; background-color: #ffb300;'>Amarillo</span>">Amarillo</option>
+                                                            <option data-content="<span class=&quot;badge badge-danger&quot; style='width: 100%; background-color: #f44336;'>Rojo</span>">Rojo</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4 mar-btm">
+                                                    <label class="control-label">Alerta</label>
+                                                    <div class="radio">
+                                                        <input id="ckAlertaSI" class="magic-radio" type="radio" name="groupCkeckAlerta" value='SI'>
+                                                        <label for="ckAlertaSI">SI</label>
+                                                        <input id="ckAlertaNO" class="magic-radio" type="radio" name="groupCkeckAlerta" value='NO' checked>
+                                                        <label for="ckAlertaNO">NO</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mar-btm" style="display: none" id="divFechaResul">
+                                                    <label class="control-label">Fecha de Resolución</label>
+                                                    <div id="demo-dp-component">
+                                                        <div class="input-group date">
+                                                            <input class="form-control" type="text" id="FechaResultado" name="FechaResultado">
+                                                            <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioResultado" name="comentarioResultado" style="display: none"></textarea>
+                                        </div>
+
+                                        <div id="demo-stk-lft-tab-3" class="tab-pane fade">
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="demo-lft-tab-2" class="tab-pane fade">
+                            <div class="panel-body">
+                                @* <a data-parent="#accordion" id="btGestion" data-toggle="collapse" href="#collapseOne" class="btn btn-sm btn-primary btn-icon btn-rounded">Nueva Gestion<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></a>*@
+                                <a data-target="#demo-lg-modal-new" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Nueva Gestion<i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i></a>
+                                <div class="panel-group accordion" id="accordion">
+                                    <div class="panel">
+                                        <div class="panel-collapse collapse" id="collapseOne">
+                                            <br />
+                                            <div class="well well-lg">
+                                                <div class="tab-base tab-stacked-left">
+                                                    <ul class="nav nav-tabs">
+                                                        <li class="active">
+                                                            <a data-toggle="tab" href="#demo-stk-lft-tab-1" aria-expanded="true">Gestion</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="tab-content">
+                                                        <div id="demo-stk-lft-tab-1" class="tab-pane fade active in">
+                                                            <p class="text-main text-semibold">Ingreso de Gestion </p>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <table style="font-size: 12px;" id="tblAsigEmp">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="state" data-checkbox="true"></th>
+                                            <th hidden></th>
+                                            <th>Rut</th>
+                                            <th>Nombres</th>
+                                            <th>Oferta</th>
+                                            <th>Tipo Oferta</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="buscar" id="tbOportunidad"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="demo-lft-tab-4" class="tab-pane fade">
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <table class="table table-hover table-vcenter" style="font-size: 11px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Gestión</th>
+                                                <th>Datos Contacto</th>
+                                                <th>Tipo contacto</th>
+                                                <th>Índice</th>
+                                                <th>Ultimo intento</th>
+                                                <th>Descripción</th>
+                                                <th>Canal Ult. intento</th>
+                                                <th>Ultimo Contacto Valido</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bdy_datos_contactos"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="demo-lg-modal-new" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title"><i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i>    Nueva Gestion</h4>
+                <i style="float: right; margin-right: 80px; font-style: normal;"><i class="demo-pli-checked-user icon-lg icon-fw"></i> <span class="label label-info" id="cantAfiScheck" style="margin-right: 15px;">0</span>    Afiliados seleccionados</i>
+            </div>
+            <form id="form-registro-gestion" action="#" method="post">
+                <div class="panel-body">
+                    <div class="panel panel-bordered-primary" style="border-color: #e6e6e6;">
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+
+                                <div class="row">
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Estado</label>
+                                        <select id="selecEstado" class="form-control" name="selecEstado">
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Sub-Estado</label>
+                                        <select id="selecSubEstado" class="form-control" name="selecSubEstado">
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Fecha de compromete</label>
+
+                                        <div id="demo-dp-component">
+                                            <div class="input-group date">
+                                                <input class="form-control" type="text" id="FechaGest" name="FechaGest">
+                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioGest" name="comentarioGest"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right" style="background-color: #fff;">
+                    <button class="btn btn-success" id="btGuardaGestion">Guardar Gestion</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section script{
+
+    <script src="~/Assets/nifty-v2/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="~/Assets/nifty-v2/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="~/Assets/nifty-v2/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+    <script src="~/Assets/nifty-v2/plugins/switchery/switchery.min.js"></script>
+    <script src="~/Assets/nifty-v2/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+
+
+    <script type="text/javascript">
+        var rutE = httpGet('rutEmp');
+        var idEmpresa = httpGet('rutEmpA');
+
+
+        $('#demo-dp-component .input-group.date').datepicker({
+            format: "dd/mm/yyyy",
+            autoclose: true,
+            language: "es"
+        });
+
+        $("#tblAsigEmp").bootstrapTable({
+            striped: true,
+            pagination: true,
+            pageSize: 10,
+            pageList: [],
+            search: true,
+            showColumns: false,
+            showRefresh: true,
+        });
+
+        if (rutE != "" && rutE != 'undefined' && rutE != null) {
+
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresa", { RutEmpresa: rutE }, function (result) {
+                var NomHolding = ""
+                if (result.Holding == 0) {
+                    NomHolding = 'Sin Holding'
+                }
+                else {
+                    NomHolding = result.NombreHolding
+                }
+                $("#tituloEmp").css('font-size', '22px').css('color', '#b3b3b3')
+                $("#tituloEmp").html(result.NombreEmpresa)
+                $("#RutEmp").val(result.RutEmpresa)
+                $("#NombreEmpresaPer").html(result.NombreEmpresa)
+                $("#nTrabajadores").val(result.NTrabajador)
+                $("#SegmentoEmp").val(result.Segmento)
+                $("#AntiguedadA").val(result.FechaAntiguedad)
+                $("#HoldingEmp").val(NomHolding)
+            });
+        }
+        else {
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresaAnexo", { IdEmpresaA: idEmpresa }, function (result) {
+                var NomHolding = ""
+                if (result.Holding == 0) {
+                    NomHolding = 'Sin Holding'
+                }
+                else {
+                    NomHolding = result.NombreHolding
+                }
+                $("#tituloEmp").css('font-size', '22px').css('color', '#b3b3b3')
+                $("#tituloEmp").html(result.Anexo)
+                $("#RutEmp").val(result.RutEmpresa)
+                $("#NombreEmpresaPer").html(result.NombreEmpresa)
+                $("#nTrabajadores").val(result.NumTrabajadores)
+                $("#SegmentoEmp").val(result.Segmento)
+                $("#AntiguedadA").val(result.FechaAntiguedad)
+                $("#HoldingEmp").val(NomHolding)
+            });
+        }
+
+        var rutEmp = rutE.substring(0, rutE.lastIndexOf('-'));
+        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-asignados-empresa", { RutEmpresa: rutEmp }, function (menus) {
+            $.each(menus, function (i, e) {
+                $("#tbOportunidad")
+                    .append(
+                        $("<tr>")
+                            .append($("<td>").append(''))
+                            .append($("<td>").append(e.Id_Asign)).hide()
+                            .append($("<td>").append(e.Afiliado_Rut + '-' + e.Afiliado_Dv))
+                            .append($("<td>").append(e.Nombre + ' ' + e.Apellido))
+                            .append($("<td>").append(e.PreAprobadoFinal.toMoney() + '<span class="badge badge-success" style="float: right;">' + e.Prioridad + '</span>'))
+                            .append($("<td>").append(e.TipoCampania))
+                            .append($("<td>").append(''))
+                    )
+            });
+            $("#tblAsigEmp").bootstrapTable({
+                striped: true,
+                pagination: true,
+                pageSize: 10,
+                pageList: [],
+                search: true,
+                showColumns: false,
+                showRefresh: true,
+            });
+        });
+
+        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: 0 }, function (datos) {
+
+            $("#selecEstado").html("");
+            $("#selecEstado").append($("<option>").attr("value", "").html("Seleccione"));
+            $("#selecEstado").append($("<option>").attr("value", "-1").html("Sin Gestion"));
+            $.each(datos, function (i, e) {
+                $("#selecEstado").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre).data("terminal", e.ejes_terminal))
+            });
+        });
+
+        $('#selecEstado').change(function (e) {
+            e.preventDefault();
+
+            if ($(this).val() != '') {
+                $("#selecSubEstado").attr("disabled", false);
+                $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: $(this).val() }, function (datos) {
+                    $("#selecSubEstado").html("");
+                    $("#selecSubEstado").append($("<option>").attr("value", "").html("Seleccione"));
+                    $("#selecSubEstado").append($("<option>").attr("value", "-1").html("Sin Gestión"));
+                    $.each(datos, function (i, e) {
+                        $("#selecSubEstado").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre))
+                    });
+                });
+            }
+            else {
+                $("#selecSubEstado").html("");
+                $("#selecSubEstado").attr("disabled", true);
+            }
+        });
+        var result = [];
+        $('#btGestion').click(function () {
+            //result[0]
+            result.length = 0;
+            var i = 0;
+            $("input[type=checkbox]:checked").each(function () {
+                if ($(this).parent().parent().find('td').eq(1).text() != "") {
+                    result[i] = $(this).parent().parent().find('td').eq(1).text();
+                    ++i;
+                }
+            });
+            $("#cantAfiScheck").html(result['length'])
+            console.log(result);
+        });
+
+        $('#tblAsigEmp').on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function (e, row) {
+            result.length = 0;
+            var i = 0;
+            $("input[type=checkbox]:checked").each(function () {
+                if ($(this).parent().parent().find('td').eq(1).text() != "") {
+                    result[i] = $(this).parent().parent().find('td').eq(1).text();
+                    ++i;
+                }
+            });
+            $("#cantAfiScheck").html(result['length'])
+
+            console.log(result);
+        });
+
+        $('#form-registro-gestion').bootstrapValidator({
+            excluded: [':disabled', ':not(:visible)'],
+            feedbackIcons: [],
+            fields: {
+                selecEstado: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar un Estado'
+                        }
+                    }
+                },
+                selecSubEstado: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar una sub-estado'
+                        }
+                    }
+                },
+                FehaGest: {
+                    validators: {
+                        notEmpty: {
+                            message: 'La fecha compromete no puede ser vacia'
+                        },
+                        date: {
+                            format: 'dd/mm/yyyy"',
+                            message: 'La fecha de compromete no es valida'
+                        }
+                    }
+                },
+                comentarioGest: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar un comentario'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            // Prevén que se mande el formulario
+            //e.preventDefault();
+            //var $form = $(e.target);
+
+
+            //$.SecGetJSON(BASE_URL + "/motor/api/Contactos/ingresa-nuevo-contacto", objeto_envio_gestion, function (datos) {
+            //    $("#form-registro-contacto").bootstrapValidator('resetForm', true);
+            //    $('#demo-lg-modal-new').modal('hide');
+            //    Cargador.CargaDatosContactos(rutAf)
+
+
+
+            //           public int ges_estado { get; set;
+            //    }
+            //public int ges_subestado { get; set; }
+            //public string ges_prox_gestion { get; set; }
+            //public string ges_comentarios { get; set; }
+            //public int ges_id_asignacion { get; set; }
+
+
+            //  $.each(datos, function (i, e)
+
+            $.each(result, function (i, e) {
+
+                var objeto_envio_gestion = {
+                    RutAfiliado: result[e],
+                    Estado: $('select[name="selecEstado"] option:selected').text(),
+                    Subestado: $('select[name="selecSubEstado"] option:selected').text(),
+                    Comentario: $('#comentarioGest').val()
+
+                }
+
+                $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-gestion", objeto_envio_gestion, function (respuesta) {
+
+                    if (respuesta.Estado === 'OK') {
+
+                        $.niftyNoty({
+                            type: 'success',
+                            container: '#mensahes-must',
+                            html: '<strong>OK</strong> Gestion guardada exitosamente.',
+                            focus: false,
+                            timer: 3000
+                        });
+
+                    } else {
+                        $.niftyNoty({
+                            type: 'danger',
+                            container: '#mensahes-must',
+                            html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                            focus: false,
+                            timer: 3000
+                        });
+                    }
+
+                });
+            });
+
+
+
+
+
+
+
+            $('#btGestion').click()
+            $.niftyNoty({
+                type: 'success',
+                icon: 'pli-like-2 icon-2x',
+                message: result['length'] + '  Gestiones Guardas correctamente.',
+                container: 'floating',
+                timer: 5000
+            });
+            //});
+
+        });
+
+        $("input:radio[name=groupCkeckAlerta]").click(function () {
+            switch (this.value) {
+                case "SI":
+                    //alert(this.value);
+                    $("#divFechaResul").css('display', 'block')
+                    $("#comentarioResultado").css('display', 'block')
+                    break;
+                case "NO":
+                    //alert(this.value);
+                    $("#divFechaResul").css('display', 'none')
+                    $("#comentarioResultado").css('display', 'none')
+                    break;
+            }
+        })
+    </script>
+
+}

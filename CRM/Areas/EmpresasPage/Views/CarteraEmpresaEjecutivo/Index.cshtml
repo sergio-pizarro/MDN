@@ -1,0 +1,123 @@
+﻿
+@{
+    Layout = "~/Areas/EmpresasPage/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Assets/nifty-v2/plugins/fooTable/css/footable.core.css" rel="stylesheet">
+<link href="~/Assets/nifty-v2/plugins/dropzone/dropzone.min.css" rel="stylesheet">
+<link href="~/Assets/nifty-v2/plugins/chosen/chosen.min.css" rel="stylesheet">
+<link href="~/Assets/nifty-v2/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet" />
+<link href="~/Assets/nifty-v2/treegrid/jquery.treegrid.css" rel="stylesheet" />
+
+<link href="~/Assets/nifty-v2/plugins/chosen/chosen.min.css" rel="stylesheet">
+
+<h1 id="titulo">Cartera Empresas Asignadas</h1>
+
+<div class="panel">
+    <div class="panel-heading">
+        <h2 class="panel-title">Empresas Asignadas</h2>
+    </div>
+
+    <div class="panel-body">
+        <table id="tablatree" class="table tree-2 table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Rut Emp.</th>
+                    <th>Nombre Emp.</th>
+                    <th>N° Trabajadores</th>
+                    <th>Holding</th>
+
+                </tr>
+            </thead>
+            <tbody id="bdy_datos"></tbody>
+        </table>
+    </div>
+</div>
+
+@section script{
+
+    <script src="~/Assets/nifty-v2/plugins/dropzone/dropzone.min.js"></script>
+    <script src="~/Assets/nifty-v2/plugins/fooTable/dist/footable.all.min.js"></script>
+    <script src="~/Assets/nifty-v2/js/demo/tables-footable.js"></script>
+    <script src="~/Assets/nifty-v2/plugins/chosen/chosen.jquery.min.js"></script>
+    <script src="~/Assets/nifty-v2/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+    <script src="~/Assets/nifty-v2/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="~/Assets/nifty-v2/treegrid/jquery.treegrid.js"></script>
+    <script src="~/Assets/nifty-v2/treegrid/jquery.treegrid.bootstrap3.js"></script>
+
+    <script type="text/javascript">
+
+        var cargador = {
+            CargaDatosCateraAgente: function () {
+                $("#bdy_datos").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/obtener-cartera-empresa", function (menus) {
+                    var iterador = ""
+                    $.each(menus, function (i, e) {
+                        var NomHolding = ""
+                        if (e.Holding == 0) {
+                            NomHolding = $('<div>').addClass('label label-table label-warning').append('Sin Holding')
+                        }
+                        else {
+                            NomHolding = $('<div>').addClass('label label-table label-success').append(e.NombreHolding)
+                        }
+                        if (e.Tipo != "FAnexo") {
+                            $("#bdy_datos")
+                                .append($("<tr>").addClass('treegrid-' + i)
+                                    .append($("<td>").append())
+                                    .append($("<td>").append(e.RutEmpresa))
+                                    .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(NomHolding))
+
+                                )
+                            iterador = i
+                        } else {
+                            $("#bdy_datos")
+                                .append($("<tr>").addClass('treegrid-' + i + ' treegrid-parent-' + iterador).addClass(' colorAnexo')
+                                    .append($("<td>").append())
+                                    .append($("<td>").append(e.RutEmpresa))
+                                    .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NombreHolding))
+                                )
+                        }
+                    });
+                    $(document).ready(function () {
+                        $('.tree-2').treegrid({
+                            initialState: 'collapsed',
+                            saveState: null,
+                            expanderExpandedClass: 'glyphicon glyphicon-minus',
+                            expanderCollapsedClass: 'glyphicon glyphicon-plus',
+                        });
+                        $('.colorAnexo').css('background', '#ffeeba')
+                    });
+
+                    $("#tablatree").bootstrapTable({
+                        striped: true,
+                        pageSize: 10,
+                        pageList: [],
+
+                    });
+                });
+            },
+        }
+
+        $(function () {
+
+            $("#titulo").css('font-size', '30px').css('color', '#b3b3b3')
+            $('#ckCargaAfi').on('change', function () {
+                if ($(this).is(':checked')) {
+                    $('#demo-dropzone').css('display', 'block')
+                }
+                else {
+                    $('#demo-dropzone').css('display', 'none')
+                }
+            });
+
+            cargador.CargaDatosCateraAgente();
+        });
+
+    </script>
+
+}
