@@ -50,8 +50,9 @@
                                                                 <th style="text-align:center">Perm. Legales</th>
                                                                 <th style="text-align:center">Vacaciones</th>
                                                                 <th style="text-align:center">Capacitaciones</th>
-                                                                <th style="text-align:center">Comision de Servicio</th>
+                                                                <th style="text-align:center">Com. de Servicio</th>
                                                                 <th style="text-align:center">Desvinculaciones</th>
+                                                                <th style="text-align:center">Falt. Injustificadas</th>
                                                                 <th style="text-align:center">Total</th>
                                                             </tr>
                                                         </thead>
@@ -63,6 +64,7 @@
                                                                 <td><label style="font-weight:bold;text-align:center" id="n_capacitaciones">0</label> - <label style="font-weight:bold;" id="p_capacitaciones">0%</label></td>
                                                                 <td><label style="font-weight:bold;text-align:center" id="n_comision">0</label> - <label style="font-weight:bold;" id="p_comision">0%</label></td>
                                                                 <td><label style="font-weight:bold;text-align:center" id="n_desvinculaciones">0</label> - <label style="font-weight:bold;" id="p_desvinculaciones">0%</label></td>
+                                                                <td><label style="font-weight:bold;text-align:center" id="n_injustificadas">0</label> - <label style="font-weight:bold;" id="p_injustificadas">0%</label></td>
                                                                 <td><label style="font-weight:bold;text-align:center" id="n_total">2</label> - <label style="font-weight:bold;" id="p_total">20%</label></td>
                                                             </tr>
                                                         </tbody>
@@ -325,13 +327,13 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Rut</label>
+                                    <label>Rut Titular</label>
                                     <input type="text" class="form-control" id="tbRutAct" name="rutAct" disabled />
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Nombres</label>
+                                    <label>Nombres Titular</label>
                                     <input type="text" class="form-control" id="tbNombreAct" name="nombreAct" disabled />
                                 </div>
                             </div>
@@ -340,10 +342,18 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Cargo / Perfil</label>
-                                    <select type="text" class="form-control" id="slCargosAct" name="cargoAct"></select>
+                                    <select type="text" class="form-control" id="slCargosAct" name="cargoAct" disabled></select>
                                 </div>
                             </div>
+
                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" id="tbEmailAct" name="emailAct" disabled />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 hidden">
                                 <div class="form-group">
                                     <label>Tipo de Contrato</label>
                                     <select type="text" class="form-control" id="slTipoContratoAct" name="tipocontratoAct">
@@ -354,7 +364,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row hidden">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Fecha Ingreso</label>
@@ -381,14 +391,8 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" class="form-control" id="tbEmailAct" name="emailAct" disabled />
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Sexo</label>
-                                    <select type="text" class="form-control" id="slSexoAct" name="sexoAct">
+                                    <label>Ejecutivo Reemplazante</label>
+                                    <select type="text" class="form-control" id="slEjecutivoReemplazo" name="slEjecutivoReemplazo">
                                         <option value="">Seleccione</option>
                                         <option value="M">Masculino</option>
                                         <option value="F">Femenino</option>
@@ -396,6 +400,9 @@
                                 </div>
                             </div>
                         </div>
+
+                        
+
                         <div id="dvMensajes_e"></div>
                     </div>
                     <div class="panel-footer text-right">
@@ -558,6 +565,10 @@
             background-color: #f8a206;
         }
 
+        .ausencia-injustificada {
+            background-color: orangered;
+        }
+
         .ausencia-licencia {
             background-color: #f8a206;
         }
@@ -635,6 +646,7 @@
                         //RESUMENES
                         var ResumenesAusencia = []
                         $(obj.ResumenAusencias).map(function () {
+                            console.log('Ausencia',this);
                             ResumenesAusencia[this.ClaseAusencia] = this
                             return this.ClaseAusencia
                         }).get();
@@ -659,6 +671,9 @@
 
                         $("#n_desvinculaciones").html(ResumenesAusencia['desvinculacion'].Numero)
                         $("#p_desvinculaciones").html(ResumenesAusencia['desvinculacion'].Porcentaje + "%")
+
+                        $("#n_injustificadas").html(ResumenesAusencia['injustificada'].Numero)
+                        $("#p_injustificadas").html(ResumenesAusencia['injustificada'].Porcentaje + "%")
 
                         $("#n_total").html(ResumenesAusencia['ausentes'].Numero)
                         $("#p_total").html(ResumenesAusencia['ausentes'].Porcentaje + "%")
@@ -769,7 +784,7 @@
                         $("#slMotivo").append($("<option>").text("Seleccione").val(""));
                         $.each(obj.TiposAusencia, function (ita, tpausen) {
                             $("#slMotivo").append($("<option>").text(tpausen.taus_nombre).val(tpausen.taus_id).data({ "esRango": tpausen.taus_es_rango_fechas, "color": tpausen.taus_clase_color, "esDiasCorridos": tpausen.taus_es_dias_corridos }));
-                        });
+                        }) ;
 
                         $("#slMotivo").on("change", function (e) {
 
@@ -1297,25 +1312,34 @@
             showRefresh: false,
             sortName: 'IdSucursal',
             columns: [
-                {
-                    field: 'Rut',
-                    title: 'Rut',
-                    sortable: true,
-                },
-                {
-                    field: 'Nombre',
-                    title: 'Nombre',
-                    sortable: true
-                },
+
                 {
                     field: 'Cargo',
                     title: 'Cargo',
                     sortable: true
-                }
-                ,
+                },
+
                 {
                     field: 'Rut',
-                    title: '',
+                    title: 'Ejecutivo Titular',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        return '<span>' + row.Nombre + '</span><br/><small>' + row.Rut + (row.TitularAusente > 0 ? '<span style="color:red;"> (AUSENTE)</span>' : '') + '</small>'
+                    }
+                },
+
+                {
+                    field: 'Rut',
+                    title: 'Ejecutivo Reemplazo',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        return '<span>' + row.NombreReemplazo + '</span><br/><small>' + row.RutReemplazo + '</small>'
+                    }
+                },
+                
+                {
+                    field: 'Rut',
+                    title: 'Acción',
                     sortable: true,
                     formatter: function (value, row, index) {
                         return '<button class= "btn btn-primary btn-icon btn-circle" data-target="#modal-actualiza-ejec" data-toggle="modal" data-seleccion="' + value + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos del Ejecutivo"></i></button>'
