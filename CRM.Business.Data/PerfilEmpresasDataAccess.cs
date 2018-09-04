@@ -51,7 +51,7 @@ namespace CRM.Business.Data
         }
 
 
-        public static List<AsigandosEjecutivoEmpresaEntity> ObtieneAsignacionEjeEmp(string token, int rutEmpresa)
+        public static List<AsigandosEjecutivoEmpresaEntity> ObtieneAsignacionEjeEmp(string token, string rutEmpresa)
         {
             Parametros pram = new Parametros
             {
@@ -78,6 +78,17 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_ListaComunas", ListaComunaEmpresa);
         }
 
+        public static List<EjecutivosAsignadosEntity> ObtieneEjeAsignados(int IdEmpresa)
+        {
+            Parametros parametros = new Parametros
+            {
+                new Parametro("@ID_EMPRESA", IdEmpresa),
+            };
+
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_EjecutivoAsigEmpresa", parametros, ListaEjecutivosAsigEmp);
+        }
+
+
         public static int InsertaNuevoAnexo(string Token, string RutEmpresa, string NombreEmpresa, string Anexo, int NumTrabajadores, int IdComuna, string NombreComuna, string Direccion)
         {
             Parametros parametros = new Parametros
@@ -93,6 +104,18 @@ namespace CRM.Business.Data
             };
             return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.sp_MotorCartera_GuardaAnexo", parametros);
         }
+        public static long GuardarAsignacionEmpAnexo(string tipo, string rut, long id)
+        {
+            Parametros parametros = new Parametros
+            {
+                new Parametro("@Tipo", tipo ),
+                new Parametro("@id", id ),
+                new Parametro("@RutEjecutivo", rut),
+
+            };
+
+            return DBHelper.InstanceCRM.ObtenerEscalar<long>("carteras.spMotorCartera_IngresoAsignacionEmpAnexo", parametros);
+        }
 
         private static CarteraEmpresasEntity ListaCarteraEmpresa(DataRow row)
         {
@@ -103,12 +126,12 @@ namespace CRM.Business.Data
                 NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
                 Segmento = row["TipoEmpresa"] != DBNull.Value ? row["TipoEmpresa"].ToString() : string.Empty,
                 IdSucursalEmpresa = row["IdSucursalEmpresa"] != DBNull.Value ? Convert.ToInt32(row["IdSucursalEmpresa"]) : 0,
-                SucursalEmpresa = row["SucursalEmpresa"] != DBNull.Value ? row["SucursalEmpresa"].ToString() : string.Empty,
+                // SucursalEmpresa = row["SucursalEmpresa"] != DBNull.Value ? row["SucursalEmpresa"].ToString() : string.Empty,
                 CodOficina = row["CodOficina"] != DBNull.Value ? Convert.ToInt32(row["CodOficina"]) : 0,
                 NTrabajador = row["NTrabajador"] != DBNull.Value ? Convert.ToInt32(row["NTrabajador"]) : 0,
                 Holding = row["Holding"] != DBNull.Value ? Convert.ToInt32(row["Holding"]) : 0,
-                Comentarios = row["Comentarios"] != DBNull.Value ? row["Comentarios"].ToString() : string.Empty,
-                FechaIngreso = row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]) : DateTime.MinValue,
+                //Comentarios = row["Comentarios"] != DBNull.Value ? row["Comentarios"].ToString() : string.Empty,
+                //FechaIngreso = row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]) : DateTime.MinValue,
                 NombreHolding = row["NombreHolding"] != DBNull.Value ? row["NombreHolding"].ToString() : string.Empty,
                 Tipo = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty,
                 IdEmpresa = row["IdEmpresa"] != DBNull.Value ? Convert.ToInt32(row["IdEmpresa"]) : 0,
@@ -165,5 +188,14 @@ namespace CRM.Business.Data
                 NombreComuna = row["COMUNA_NOMBRESIAGF"] != DBNull.Value ? row["COMUNA_NOMBRESIAGF"].ToString() : string.Empty,
             };
         }
+
+        private static EjecutivosAsignadosEntity ListaEjecutivosAsigEmp(DataRow row)
+        {
+            return new EjecutivosAsignadosEntity
+            {
+                RutEjecutivoAsignado = row["RutEjectAsignado"] != DBNull.Value ? row["RutEjectAsignado"].ToString() : string.Empty,
+            };
+        }
+
     }
 }

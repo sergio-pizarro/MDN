@@ -72,9 +72,3 @@ namespace CRM.Business.Entity.Contactibilidad
 
 
 
-
-    }
-
-    
-}
-

@@ -48,28 +48,11 @@ namespace CRM.Controllers
 
         [HttpGet]
         [Route("lista-asignados-empresa")]
-        public ICollection<AsigandosEjecutivoEmpresaEntity> ObtenerAsignadosEjeEmpresa( int RutEmpresa)
+        public ICollection<AsigandosEjecutivoEmpresaEntity> ObtenerAsignadosEjeEmpresa(string RutEmpresa)
         {
             string token = ActionContext.Request.Headers.GetValues("Token").First();
             return PerfilEmpresasDataAccess.ObtieneAsignacionEjeEmp(token, RutEmpresa);
         }
-
-        //[AuthorizationRequired]
-        //[HttpGet]
-        //[Route("guardar-gestion")]
-        //public ResultadoBase GuardaGestionEmp(int CodIngreso)
-        //{
-        //    try
-        //    {
-        //        string token = ActionContext.Request.Headers.GetValues("Token").First();
-        //        PerfilEmpresasDataAccess.GuardaGestion(CodIngreso, token);
-        //        return new ResultadoBase() { Estado = "OK", Mensaje = "Gestion guardada con exito", Objeto = CodIngreso };
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new ResultadoBase() { Estado = "ERR", Mensaje = "Error al guardar gestion: " + ex.Message, Objeto = ex };
-        //    }
-        //}
 
         [AuthorizationRequired]
         [HttpPost]
@@ -87,13 +70,28 @@ namespace CRM.Controllers
             return PerfilEmpresasDataAccess.ObtieneComunaEmp();
         }
 
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("guardar-asignacion-empresa-anexo")]
+        public ResultadoBase GuardarCarteraEmpAnexo(AsignacionAnexoEmpresa asignacionEmpresa)
+        {
+            try
+            {
+                PerfilEmpresasDataAccess.GuardarAsignacionEmpAnexo(asignacionEmpresa.Tipo, asignacionEmpresa.EjecAsignado, asignacionEmpresa.id);
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Ingreso Correcto" };
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoBase() { Estado = "ERR", Mensaje = "Error en el ingreso: " + ex.Message, Objeto = ex };
+            }
+        }
 
-      
-
-
-
-
-
+        [HttpGet]
+        [Route("lista-ejecutivo-asignado")]
+        public ICollection<EjecutivosAsignadosEntity> ObtenerEjesAsig(int IdEmpresa)
+        {
+            return PerfilEmpresasDataAccess.ObtieneEjeAsignados(IdEmpresa);
+        }
 
 
 

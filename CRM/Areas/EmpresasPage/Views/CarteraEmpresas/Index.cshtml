@@ -4,57 +4,58 @@
     Layout = "~/Areas/EmpresasPage/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Assets/nifty-v2/plugins/fooTable/css/footable.core.css" rel="stylesheet">
-<link href="~/Assets/nifty-v2/plugins/dropzone/dropzone.min.css" rel="stylesheet">
-<link href="~/Assets/nifty-v2/plugins/chosen/chosen.min.css" rel="stylesheet">
-<link href="~/Assets/nifty-v2/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet" />
+<link href="~/Assets/plugins/dropzone/dropzone.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet" />
 <link href="~/Assets/nifty-v2/treegrid/jquery.treegrid.css" rel="stylesheet" />
+<link href="~/Assets/plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
 
-<link href="~/Assets/nifty-v2/plugins/chosen/chosen.min.css" rel="stylesheet">
+
+<link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
 
 <h1 id="titulo">Cartera Empresas</h1>
-
-<div class="panel">
-    <div class="panel-heading">
-        <h2 class="panel-title">Empresas Asignadas</h2>
-    </div>
-
-    <div class="panel-body">
-        <div class="panel panel-bordered-primary" style="border: 1px solid #ddd;">
+<div id="page-content">
+    <div class="row">
+        <div class="panel panel-bordered-primary" style="border: 1px solid #ddd; border-radius: 6px;">
             <div class="panel-heading">
-                <h3 class="panel-title">Asignar Empresas</h3>
+                <h3 class="panel-title" style="font-size: 14px;">Asignar Empresas a ejecutivos</h3>
             </div>
             <div class="panel-body">
                 <label for="demo-inline-inputmail" class="sr-only">Asignar Empresas</label>
                 <select id="demo-cs-multiselect" data-placeholder="Seleccione a los ejecutivos.." multiple tabindex="4"></select>
-                <button class="btn btn-primary" type="submit">Asignar</button>
+                <button class="btn btn-primary" id="btAsigna" type="submit">Asignar</button>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="panel" style="border-radius: 6px;">
+            <div class="panel-heading">
+                <h2 class="panel-title">Empresas Asignadas</h2>
+            </div>
 
-    <div class="panel-body">
-        <table id="tablatree" class="table tree-2 table-bordered table-striped table-condensed">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th data-field="state" data-checkbox="true"></th>
-                    <th>Rut Emp.</th>
-                    <th>Nombre Emp.</th>
-                    <th>N° Trabajadores</th>
-                    <th>Holding</th>
-                    <th style="width: 106px;">Nuevo Anexo</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="bdy_datos"></tbody>
-        </table>
+            <div class="panel-body">
+                <table id="tablatree" class="table tree-2 table-bordered table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th>Rut Emp.</th>
+                            <th>Nombre Emp.</th>
+                            <th>N° Trabajadores</th>
+                            <th>Holding</th>
+                            <th style="width: 106px;">Nuevo Anexo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bdy_datos"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
-
 <div id="demo-lg-modal-new" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="border-radius: 6px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
                 <h4 class="modal-title">    Nuevo anexo</h4>
@@ -150,12 +151,9 @@
 
 @section script{
 
-    <script src="~/Assets/nifty-v2/plugins/dropzone/dropzone.min.js"></script>
-    <script src="~/Assets/nifty-v2/plugins/fooTable/dist/footable.all.min.js"></script>
-    <script src="~/Assets/nifty-v2/js/demo/tables-footable.js"></script>
-    <script src="~/Assets/nifty-v2/plugins/chosen/chosen.jquery.min.js"></script>
-    <script src="~/Assets/nifty-v2/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
-    <script src="~/Assets/nifty-v2/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="~/Assets/plugins/dropzone/dropzone.min.js"></script>
+    <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
     <script src="~/Assets/nifty-v2/treegrid/jquery.treegrid.js"></script>
     <script src="~/Assets/nifty-v2/treegrid/jquery.treegrid.bootstrap3.js"></script>
 
@@ -176,7 +174,7 @@
                         }
                         if (e.Tipo != "FAnexo") {
                             $("#bdy_datos")
-                                .append($("<tr>").addClass('treegrid-' + i)
+                                .append($("<tr>").addClass('treegrid-' + i).data({ id: e.Id, tipo: e.Tipo })
                                     .append($("<td>").append())
                                     .append($("<td>").append(''))
                                     .append($("<td>").append(e.RutEmpresa))
@@ -184,12 +182,11 @@
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(NomHolding))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append('<i data-target="#demo-lg-modal-new" data-toggle="modal" data-seleccion="' + e.RutEmpresa + '" class="btn btn-sm demo-psi-add icon-lg" style="margin-left: 10px;"></i>'))
-                                    .append($("<td>").append(e.Id + '-' + e.Tipo).hide())
                                 )
                             iterador = i
                         } else {
                             $("#bdy_datos")
-                                .append($("<tr>").addClass('treegrid-' + i + ' treegrid-parent-' + iterador).addClass(' colorAnexo')
+                                .append($("<tr>").addClass('treegrid-' + i + ' treegrid-parent-' + iterador).addClass(' colorAnexo').data({ id: e.Id, tipo: e.Tipo })
                                     .append($("<td>").append())
                                     .append($("<td>").append(''))
                                     .append($("<td>").append(e.RutEmpresa)).addClass('data')
@@ -197,7 +194,6 @@
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NombreHolding))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(''))
-                                    .append($("<td>").append(e.Id +'-'+ e.Tipo).hide())
                                 )
                         }
                     });
@@ -215,7 +211,6 @@
                         striped: true,
                         pageSize: 10,
                         pageList: [],
-
                     });
 
                     $("#slEmperesa_multiselect").html("");
@@ -223,7 +218,6 @@
                     $.each(menus, function (i, e) {
                         $("#slEmperesa_multiselect").append($("<option>").attr("value", e.RutEmpresa).html(e.NombreEmpresa))
                     });
-                    // $('#slEmperesa_multiselect').chosen({ width: '100%' });
                 });
             },
             CargaDatosComunas: function () {
@@ -286,7 +280,6 @@
                 }
             }
         }).on('success.form.bv', function (e) {
-
             e.preventDefault();
             var $form = $(e.target);
             var idcomuna = 0;
@@ -310,24 +303,7 @@
                     container: 'floating',
                     timer: 5000
                 });
-
             });
-        });
-        var result = [];
-        $('#tablatree').on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function (e, row) {
-            //result[0]
-            result.length = 0;
-            var i = 0;
-            $("input[type=checkbox]:checked").each(function () {
-                if ($(this).parent().parent().find('td').eq(7).text() != "") {
-                    result[i] = $(this).parent().parent().find('td').eq(7).text();
-                    // $("#selecAfiliados").tagsinput(result[i])
-                    ++i;
-                }
-            });
-            // $("#cantAfiScheck").html(result['length'])
-
-            console.log(result);
         });
 
         $(function () {
@@ -341,7 +317,7 @@
                 $('#demo-cs-multiselect').chosen({ width: '70%' });
             });
 
-            $("#titulo").css('font-size', '30px').css('color', '#b3b3b3')
+            $("#titulo").css('font-size', '22px').css('color', '#b3b3b3').css('margin-left', '20px')
             $('#ckCargaAfi').on('change', function () {
                 if ($(this).is(':checked')) {
                     $('#demo-dropzone').css('display', 'block')
@@ -356,38 +332,76 @@
             });
 
             $('#demo-lg-modal-new').on('show.bs.modal', function (event) {
-
                 var rutEmp = $(event.relatedTarget);
                 var RutEmpA = rutEmp.data('seleccion')
                 $("#slEmperesa_multiselect").val(RutEmpA);
                 $('#txRutEmp').val(RutEmpA)
-
             })
+            var ejeAsig = [];
+            var result = [];
+            var rutAsig = [];
+            $('#tablatree').on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function (e, row) {
+                result.length = 0;
 
 
+                $("input[type=checkbox]:checked").each(function (i, e) {
+                    var datos = $(this).parent().parent().data();
+                    result[i] = datos;
+                    var idAsig = result[i].id;
 
-            //$('#modal-actualiza-ejec').on('show.bs.modal', function (event) {
+                    //console.log(idAsig);
 
+                    $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-ejecutivo-asignado", { IdEmpresa: idAsig }, function (respuesta) {
+                        rutAsig.length = 0;
 
-            //    var rutEjec = $(event.relatedTarget); // Button that triggered the modal
-            //    var RutEA = rutEjec.data('seleccion')
+                        $.each(respuesta, function (ix, ex) {
+                            rutAsig[ix] = ex.RutEjecutivoAsignado
+                            $('#demo-cs-multiselect').val(rutAsig).trigger('chosen:updated');
 
-            //    $.SecGetJSON(BASE_URL + "/motor/api/Config/obtiene-datos-ejecutivos", { rut: RutEA }, function (respuesta) {
-            //        $("#tbRutAct").val(respuesta.Rut);
-            //        $("#tbNombreAct").val(respuesta.Nombre);
-            //        $("#slCargosAct").val(respuesta.Cargo);
-            //        $("#slTipoContratoAct").val(respuesta.TipoContrato);
-            //        $("#tbFechaIngresoAct").val(respuesta.FechaIngreso.toFecha());
-            //        $("#tbFechaFinalAct").val(respuesta.FechaFinal.toFecha());
-            //        $("#tbEmailAct").val(respuesta.Correo);
-            //        $("#slSexoAct").val(respuesta.Sexo);
-            //        if (respuesta.TipoContrato === 'P') { $(".rge-esconderAct").show(); } else { $(".rge-esconderAct").hide(); }
-            //    });
+                            console.log(rutAsig);
+                        });
+                    });
 
-            //});
+                });
 
+            });
 
+            $("#btAsigna").on("click", function () {
+                $('#demo-cs-multiselect :selected').each(function () {
+                    ejeAsig.push($(this).val())
+                });
+                $.each(ejeAsig, function (i, e) {
+                    $.each(result, function (ix, ex) {
+                        var WebCarteraEmpresaAsig = {
+                            Tipo: result[ix].tipo,
+                            Id: result[ix].id,
+                            EjecAsignado: ejeAsig[i]
+                        }
+                        $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/guardar-asignacion-empresa-anexo", WebCarteraEmpresaAsig, function (respuesta) {
+                            if (respuesta.Estado === "OK") {
+                                $.niftyNoty({
+                                    type: 'success',
+                                    container: 'floating',
+                                    html: '<strong>OK</strong> ' + respuesta.Mensaje,
+                                    focus: false,
+                                    timer: 2000
+                                });
+                            } else {
+                                $.niftyNoty({
+                                    type: 'danger',
+                                    container: 'floating',
+                                    html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                                    timer: 5000
+                                });
+                            }
+                        });
 
+                        console.log(WebCarteraEmpresaAsig);
+                    });
+                });
+                result.length = 0;
+                ejeAsig.length = 0;
+            })
             cargador.CargaDatosCateraAgente();
             cargador.CargaDatosComunas();
         });

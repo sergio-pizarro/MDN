@@ -43,13 +43,12 @@ namespace CRM.Areas.AppPage.Controllers
         }
     }
 
-        [AuthorizationRequired]
-        [HttpGet]
-        [Route("lista-indice-contacto")]
-        public IEnumerable<Business.Entity.Contactibilidad.IndiceContactabilidad> ListarIndiceContacto()
-        {
-            return Business.Data.ContactabilidadDataAccess.ContactabilidadDataAccess.ListarIndice();
-        }
-    } 
-
+    //[AuthorizationRequired]
+    //[HttpGet]
+    //[Route("lista-indice-contacto")]
+    //public IEnumerable<Business.Entity.Contactibilidad.IndiceContactabilidad> ListarIndiceContacto()
+    //{
+    //    return Business.Data.ContactabilidadDataAccess.ContactabilidadDataAccess.ListarIndice();
+    //}
 }
+
