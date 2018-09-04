@@ -68,6 +68,11 @@ namespace CRM.Business.Entity
         public int IdComuna { get; set; }
     }
 
+    public class EjecutivosAsignadosEntity
+    {
+        public string RutEjecutivoAsignado { get; set; }
+    }
+
     public class AnexoEmpresaEntity
     {
         public string RutEmpresa { get; set; }
@@ -77,5 +82,24 @@ namespace CRM.Business.Entity
         public int IdComuna { get; set; }
         public string NombreComuna { get; set; }
         public string Direccion { get; set; }
+    }
+
+    public class AsignacionAnexoEmpresa
+    {
+        //public IEnumerable<string> Tipo { get; set; }
+        //public IEnumerable<int> id { get; set; }
+        //public IEnumerable<string>  EjecAsignado { get; set; }
+
+        public string Tipo { get; set; }
+        public int id { get; set; }
+        public string EjecAsignado { get; set; }
+
+        //public AsignacionAnexoEmpresa()
+        //{
+        //    Tipo = new List<string>();
+        //   // id = new List<int>();
+        //    EjecAsignado = new List<string>();
+            
+        //}
     }
 }

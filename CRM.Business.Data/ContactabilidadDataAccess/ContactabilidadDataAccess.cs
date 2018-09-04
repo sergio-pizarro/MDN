@@ -90,14 +90,14 @@ namespace CRM.Business.Data.ContactabilidadDataAccess
                 Descripcion = row["Descripcion"] != DBNull.Value ? row["Descripcion"].ToString() : string.Empty,
             };
         }
-        private static Entity.Contactibilidad.IndiceContactabilidad IndContacto(DataRow row)
-        {
-            return new Entity.Contactibilidad.IndiceContactabilidad
-            {
-                IdEstado = row["IdEstado"] != DBNull.Value ? Convert.ToInt32(row["IdEstado"]) : 0,
-                Descripcion = row["Descripcion"] != DBNull.Value ? row["Descripcion"].ToString() : string.Empty,
-            };
-        }
+        //private static Entity.Contactibilidad.IndiceContactabilidad IndContacto(DataRow row)
+        //{
+        //    return new Entity.Contactibilidad.IndiceContactabilidad
+        //    {
+        //        IdEstado = row["IdEstado"] != DBNull.Value ? Convert.ToInt32(row["IdEstado"]) : 0,
+        //        Descripcion = row["Descripcion"] != DBNull.Value ? row["Descripcion"].ToString() : string.Empty,
+        //    };
+        //}
     }
 }
 

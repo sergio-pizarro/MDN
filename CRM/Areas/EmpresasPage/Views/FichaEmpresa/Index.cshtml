@@ -3,15 +3,17 @@
     Layout = "~/Areas/EmpresasPage/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Assets/nifty-v2/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
-<link href="~/Assets/nifty-v2/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.css" rel="stylesheet">
-<link href="~/Assets/nifty-v2/plugins/switchery/switchery.min.css" rel="stylesheet">
-<link href="~/Assets/nifty-v2/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet" />
+<link href="~/Assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/switchery/switchery.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
+
+
 <h1 id="tituloEmp">Ficha de Empresa</h1>
 <div id="page-content">
     <div class="row">
         <div class="col-lg-12">
-            <div class="panel">
+            <div class="panel" style="border-radius: 6px;">
                 <div class="panel-body">
                     <h2 class="panel-title">
                         <span class="pull-left badge badge-danger" style="border-radius: 4px; display: none;" id="msjNoMoles">No Molestar</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px; display:none" id="cumpleanos">Afiliado esta de Cumpleaños</span><span class="pull-left badge badge-warning" style="border-radius: 4px; margin-left: 5px; display:none" id="afinuevo">Afi Nuevo</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px;" id="afiVigente"></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display:none" id="afiFallecido "></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display:none" id="afiContac">Actualizar Contactos</span>
@@ -91,7 +93,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="row">
                                 </div>
                             </div>
@@ -103,19 +104,19 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <div class="panel">
+            <div class="panel" style="border-radius: 6px;" ">
 
                 <!--Panel heading-->
                 <div class="panel-heading">
                     <div class="panel-control" style="float:left;">
                         <ul class="nav nav-tabs">
-                            <li class="active">
+                            <li class="" style="display:none;">
                                 <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" style="font-weight: bold;">Visitas<span class="badge badge-success" id="cantCamp">0</span></a>
                             </li>
                             <li class="" style="display:none;">
                                 <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false" id="tab_contact" style="font-weight: bold;">Alertas<span class="badge badge-success" id="cantAlertas">0</span></a>
                             </li>
-                            <li class="">
+                            <li class="active">
                                 <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_alertas" style="font-weight: bold;">Oportunidades<span class="badge badge-success" id="cantAlertas"></span></a>
                             </li>
                         </ul>
@@ -124,7 +125,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="tab-content">
-                        <div id="demo-lft-tab-1" class="tab-pane fade active in">
+                        <div id="demo-lft-tab-1" class="tab-pane fade">
 
 
                             <div class="well well-lg">
@@ -159,7 +160,7 @@
                                                         <label class="control-label">Fecha y hora visita</label>
                                                         <div id="demo-dp-component">
                                                             <div class="input-group date">
-                                                                <input class="form-control" type="text" id="FechaGest" name="FechaGest">
+                                                                <input class="form-control" type="text" id="FechaGestges" name="FechaGestges">
                                                                 <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
                                                             </div>
                                                         </div>
@@ -252,33 +253,10 @@
                             </div>
                         </div>
 
-                        <div id="demo-lft-tab-2" class="tab-pane fade">
+                        <div id="demo-lft-tab-2" class="tab-pane fade active in">
                             <div class="panel-body">
                                 @* <a data-parent="#accordion" id="btGestion" data-toggle="collapse" href="#collapseOne" class="btn btn-sm btn-primary btn-icon btn-rounded">Nueva Gestion<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></a>*@
                                 <a data-target="#demo-lg-modal-new" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Nueva Gestion<i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i></a>
-                                <div class="panel-group accordion" id="accordion">
-                                    <div class="panel">
-                                        <div class="panel-collapse collapse" id="collapseOne">
-                                            <br />
-                                            <div class="well well-lg">
-                                                <div class="tab-base tab-stacked-left">
-                                                    <ul class="nav nav-tabs">
-                                                        <li class="active">
-                                                            <a data-toggle="tab" href="#demo-stk-lft-tab-1" aria-expanded="true">Gestion</a>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="tab-content">
-                                                        <div id="demo-stk-lft-tab-1" class="tab-pane fade active in">
-                                                            <p class="text-main text-semibold">Ingreso de Gestion </p>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <hr />
                                 <table style="font-size: 12px;" id="tblAsigEmp">
                                     <thead>
@@ -327,11 +305,11 @@
 
 <div id="demo-lg-modal-new" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="border-radius: 13px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
                 <h4 class="modal-title"><i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i>    Nueva Gestion</h4>
-                <i style="float: right; margin-right: 80px; font-style: normal;"><i class="demo-pli-checked-user icon-lg icon-fw"></i> <span class="label label-info" id="cantAfiScheck" style="margin-right: 15px;">0</span>    Afiliados seleccionados</i>
+                <i style="float: right; margin-right: 80px; font-style: normal;  margin-top: -18px;"><i class="demo-pli-checked-user icon-lg icon-fw"></i> <span class="label label-info" id="cantAfiScheck" style="margin-right: 15px;">0</span>    Afiliados seleccionados</i>
             </div>
             <form id="form-registro-gestion" action="#" method="post">
                 <div class="panel-body">
@@ -378,12 +356,10 @@
 
 @section script{
 
-    <script src="~/Assets/nifty-v2/plugins/bootstrap-select/bootstrap-select.min.js"></script>
-    <script src="~/Assets/nifty-v2/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-    <script src="~/Assets/nifty-v2/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
-    <script src="~/Assets/nifty-v2/plugins/switchery/switchery.min.js"></script>
-    <script src="~/Assets/nifty-v2/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
-
+    <script src="~/Assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+    <script src="~/Assets/plugins/switchery/switchery.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
 
     <script type="text/javascript">
         var rutE = httpGet('rutEmp');
@@ -396,58 +372,7 @@
             language: "es"
         });
 
-        $("#tblAsigEmp").bootstrapTable({
-            striped: true,
-            pagination: true,
-            pageSize: 10,
-            pageList: [],
-            search: true,
-            showColumns: false,
-            showRefresh: true,
-        });
-
-        if (rutE != "" && rutE != 'undefined' && rutE != null) {
-
-            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresa", { RutEmpresa: rutE }, function (result) {
-                var NomHolding = ""
-                if (result.Holding == 0) {
-                    NomHolding = 'Sin Holding'
-                }
-                else {
-                    NomHolding = result.NombreHolding
-                }
-                $("#tituloEmp").css('font-size', '22px').css('color', '#b3b3b3')
-                $("#tituloEmp").html(result.NombreEmpresa)
-                $("#RutEmp").val(result.RutEmpresa)
-                $("#NombreEmpresaPer").html(result.NombreEmpresa)
-                $("#nTrabajadores").val(result.NTrabajador)
-                $("#SegmentoEmp").val(result.Segmento)
-                $("#AntiguedadA").val(result.FechaAntiguedad)
-                $("#HoldingEmp").val(NomHolding)
-            });
-        }
-        else {
-            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresaAnexo", { IdEmpresaA: idEmpresa }, function (result) {
-                var NomHolding = ""
-                if (result.Holding == 0) {
-                    NomHolding = 'Sin Holding'
-                }
-                else {
-                    NomHolding = result.NombreHolding
-                }
-                $("#tituloEmp").css('font-size', '22px').css('color', '#b3b3b3')
-                $("#tituloEmp").html(result.Anexo)
-                $("#RutEmp").val(result.RutEmpresa)
-                $("#NombreEmpresaPer").html(result.NombreEmpresa)
-                $("#nTrabajadores").val(result.NumTrabajadores)
-                $("#SegmentoEmp").val(result.Segmento)
-                $("#AntiguedadA").val(result.FechaAntiguedad)
-                $("#HoldingEmp").val(NomHolding)
-            });
-        }
-
-        var rutEmp = rutE.substring(0, rutE.lastIndexOf('-'));
-        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-asignados-empresa", { RutEmpresa: rutEmp }, function (menus) {
+        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-asignados-empresa", { RutEmpresa: rutE }, function (menus) {
             $.each(menus, function (i, e) {
                 $("#tbOportunidad")
                     .append(
@@ -471,6 +396,48 @@
                 showRefresh: true,
             });
         });
+
+        if (rutE != "" && rutE != 'undefined' && rutE != null) {
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresa", { RutEmpresa: rutE }, function (result) {
+                var NomHolding = ""
+                if (result.Holding == 0) {
+                    NomHolding = 'Sin Holding'
+                }
+                else {
+                    NomHolding = result.NombreHolding
+                }
+                $("#tituloEmp").css('font-size', '20px').css('color', '#b3b3b3').css('margin-left', '20px')
+                $("#tituloEmp").html(result.NombreEmpresa)
+                $("#RutEmp").val(result.RutEmpresa)
+                $("#NombreEmpresaPer").html(result.NombreEmpresa)
+                $("#nTrabajadores").val(result.NTrabajador)
+                $("#SegmentoEmp").val(result.Segmento)
+                $("#AntiguedadA").val(result.FechaAntiguedad)
+                $("#HoldingEmp").val(NomHolding)
+            });
+        }
+        else {
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresaAnexo", { IdEmpresaA: idEmpresa }, function (result) {
+                var NomHolding = ""
+                if (result.Holding == 0) {
+                    NomHolding = 'Sin Holding'
+                }
+                else {
+                    NomHolding = result.NombreHolding
+                }
+                $("#tituloEmp").css('font-size', '20px').css('color', '#b3b3b3').css('margin-left', '20px')
+                $("#tituloEmp").html(result.Anexo)
+                $("#RutEmp").val(result.RutEmpresa)
+                $("#NombreEmpresaPer").html(result.NombreEmpresa)
+                $("#nTrabajadores").val(result.NumTrabajadores)
+                $("#SegmentoEmp").val(result.Segmento)
+                $("#AntiguedadA").val(result.FechaAntiguedad)
+                $("#HoldingEmp").val(NomHolding)
+            });
+        }
+
+        //var rutEmp = rutE.substring(0, rutE.lastIndexOf('-'));
+
 
         $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: 0 }, function (datos) {
 
@@ -624,12 +591,6 @@
 
                 });
             });
-
-
-
-
-
-
 
             $('#btGestion').click()
             $.niftyNoty({

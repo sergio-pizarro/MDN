@@ -3,46 +3,45 @@
     Layout = "~/Areas/EmpresasPage/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Assets/nifty-v2/plugins/fooTable/css/footable.core.css" rel="stylesheet">
-<link href="~/Assets/nifty-v2/plugins/dropzone/dropzone.min.css" rel="stylesheet">
-<link href="~/Assets/nifty-v2/plugins/chosen/chosen.min.css" rel="stylesheet">
-<link href="~/Assets/nifty-v2/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet" />
+<link href="~/Assets/plugins/fooTable/css/footable.core.css" rel="stylesheet">
+<link href="~/Assets/plugins/dropzone/dropzone.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet" />
 <link href="~/Assets/nifty-v2/treegrid/jquery.treegrid.css" rel="stylesheet" />
 
-<link href="~/Assets/nifty-v2/plugins/chosen/chosen.min.css" rel="stylesheet">
-
 <h1 id="titulo">Cartera Empresas Asignadas</h1>
+<div id="page-content">
+    <div class="row">
+        <div class="panel" style="border-radius: 6px;"">
+            <div class="panel-heading">
+                <h2 class="panel-title">Empresas Asignadas</h2>
+            </div>
 
-<div class="panel">
-    <div class="panel-heading">
-        <h2 class="panel-title">Empresas Asignadas</h2>
-    </div>
-
-    <div class="panel-body">
-        <table id="tablatree" class="table tree-2 table-bordered table-striped table-condensed">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Rut Emp.</th>
-                    <th>Nombre Emp.</th>
-                    <th>N° Trabajadores</th>
-                    <th>Holding</th>
-
-                </tr>
-            </thead>
-            <tbody id="bdy_datos"></tbody>
-        </table>
+            <div class="panel-body">
+                <table id="tablatree" class="table tree-2 table-bordered table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Rut Emp.</th>
+                            <th>Nombre Emp.</th>
+                            <th>N° Trabajadores</th>
+                            <th>Holding</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bdy_datos"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
 @section script{
 
-    <script src="~/Assets/nifty-v2/plugins/dropzone/dropzone.min.js"></script>
-    <script src="~/Assets/nifty-v2/plugins/fooTable/dist/footable.all.min.js"></script>
-    <script src="~/Assets/nifty-v2/js/demo/tables-footable.js"></script>
-    <script src="~/Assets/nifty-v2/plugins/chosen/chosen.jquery.min.js"></script>
-    <script src="~/Assets/nifty-v2/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
-    <script src="~/Assets/nifty-v2/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="~/Assets/plugins/dropzone/dropzone.min.js"></script>
+    <script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
+    <script src="~/Assets/js/demo/tables-footable.js"></script>
+    <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
     <script src="~/Assets/nifty-v2/treegrid/jquery.treegrid.js"></script>
     <script src="~/Assets/nifty-v2/treegrid/jquery.treegrid.bootstrap3.js"></script>
 
@@ -105,7 +104,7 @@
 
         $(function () {
 
-            $("#titulo").css('font-size', '30px').css('color', '#b3b3b3')
+            $("#titulo").css('font-size', '22px').css('color', '#b3b3b3').css('margin-left', '20px')
             $('#ckCargaAfi').on('change', function () {
                 if ($(this).is(':checked')) {
                     $('#demo-dropzone').css('display', 'block')
