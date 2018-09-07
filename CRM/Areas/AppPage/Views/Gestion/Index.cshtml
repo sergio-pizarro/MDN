@@ -440,8 +440,8 @@
                                 <li class="">
                                     <a data-toggle="tab" href="#tab-gestion-2" aria-expanded="false">Historial de Gestión</a>
                                 </li>
-                                <li class="" style="display:none;">
-                                    <a data-toggle="tab" href="#tab-gestion-3" aria-expanded="false">Créditos</a>
+                                <li class="">
+                                    <a data-toggle="tab" href="#tab-gestion-3" aria-expanded="false">Contactabilidad</a>
                                 </li>
                                 <li class="">
                                     <a data-toggle="tab" href="#tab-gestion-4" aria-expanded="false">Filtros</a>
@@ -611,13 +611,69 @@
                                     </div>
                                 </div>
                                 <div id="tab-gestion-3" class="tab-pane fade">
-                                    <div class="list-group">
-                                        <a href="#" class="list-group-item">
-                                            <h4 class="list-group-item-heading">Posee Crédito Social por $950.00</h4>
-                                            <p class="list-group-item-text">4 cuotas de 60</p>
-                                            <p class="list-group-item-text">Cada cuota es de $56.700</p>
-                                        </a>
+                                    <div class="row">
+                                        <button type="button" id="btn-add-contac" class="btn btn-primary btn-xs">+</button>
                                     </div>
+                                    <div class="row" style="display: none;" id="formulario-contac">
+                                        <form id="form-registro-contacto" action="#" method="post">
+                                            
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <div class="btn-group bootstrap-select">
+                                                        <label class="control-label">Tipo de Contacto</label>
+                                                        <select class="selectpicker" id="cbtippContac" name="cbtippContac">
+                                                            <option value="">Seleccione..</option>
+                                                            <option value="1">Celular</option>
+                                                            <option value="2">Teléfono</option>
+                                                            <option value="3">Mail</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="btn-group bootstrap-select">
+                                                        <label class="control-label">Clasificación de Contacto</label>
+                                                        <select class="selectpicker" id="cbClasificacionConctac" name="cbClasificacionConctac">
+                                                            <option value="">Seleccione..</option>
+                                                            <option value="1">Personal</option>
+                                                            <option value="2">Comercial</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label class="control-label">Datos de Contacto</label>
+                                                    <input class="form-control" id="afi_NewContacto" type="text" value="" maxlength="150" name="afi_NewContacto">
+                                                </div>
+                                            </div>
+                                               
+                                            <button class="btn btn-primary" id="btGuardaContacto" type="submit">Guardar Contacto</button>
+                                            
+                                        </form>
+                                    </div>
+                                    
+                                    <div class="row">
+                                                                                
+                                        
+                                        <table class="table table-hover table-vcenter" style="font-size: 11px;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Gestión</th>
+                                                    <th>Datos Contacto</th>
+                                                    <th>Tipo contacto</th>
+                                                    <th>Índice</th>
+                                                    <th>Ultimo intento</th>
+                                                    <th>Descripción</th>
+                                                    <th>Canal Ult. intento</th>
+                                                    <th>Ultimo Contacto Valido</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bdy_datos_contactos"></tbody>
+                                        </table>
+                                    </div>
+
+                                    
+
                                 </div>
                                 <div id="tab-gestion-4" class="tab-pane fade">
                                     <div class="table-responsive" style="overflow:scroll; height:350px;">

@@ -2101,4 +2101,20 @@ $(function () {
         $('#demo-chosen-select').chosen();
     });
 
+
+
+    $('#btn-add-contac').on('click', function () {
+
+        console.log('Visibiliadad', $('#formulario-contac').is(':visible'));
+        if ($('#formulario-contac').is(':visible'))
+        {
+            $('#formulario-contac').hide('slow');
+        }
+        else
+        {
+            $('#formulario-contac').show('slow');
+        }
+
+    });
+
 });
