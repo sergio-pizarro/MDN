@@ -93,10 +93,10 @@
                         </div>
                     </div>
                     <div id="demo-lft-tab-2" class="tab-pane fade">
-                        <br />
+                        @*<br />
                         <button class="btn btn-primary btn-labeled demo-pli-male ic-user" data-target="#modal-add-ejec" data-toggle="modal">Agregar Ejecutivo</button>
                         <br />
-                        <br />
+                        <br />*@
                         <table class="table table-bordered table-hover toggle-circle" id="tabla_dotacion_agente"></table>
                     </div>
                     <div id="demo-lft-tab-3" class="tab-pane fade">
@@ -1335,16 +1335,8 @@
                     formatter: function (value, row, index) {
                         return '<span>' + row.NombreReemplazo + '</span><br/><small>' + row.RutReemplazo + '</small>'
                     }
-                },
-                
-                {
-                    field: 'Rut',
-                    title: 'Acción',
-                    sortable: true,
-                    formatter: function (value, row, index) {
-                        return '<button class= "btn btn-primary btn-icon btn-circle" data-target="#modal-actualiza-ejec" data-toggle="modal" data-seleccion="' + value + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos del Ejecutivo"></i></button>'
-                    }
                 }
+                
             ]
         });
     </script>
