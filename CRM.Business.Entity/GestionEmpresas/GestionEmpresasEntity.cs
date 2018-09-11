@@ -73,8 +73,18 @@ namespace CRM.Business.Entity
         public string RutEjecutivoAsignado { get; set; }
     }
 
+    public class ContadorAsignadosEntity
+    {
+        public int TotalAsignados { get; set; }
+    }
+    public class ContadorAnexoEntity
+    {
+        public int TotalAnexos { get; set; }
+    }
+
     public class AnexoEmpresaEntity
     {
+        public int IdEmpresaAnexo { get; set; }
         public string RutEmpresa { get; set; }
         public string NombreEmpresa { get; set; }
         public string Anexo { get; set; }
@@ -99,7 +109,9 @@ namespace CRM.Business.Entity
         //    Tipo = new List<string>();
         //   // id = new List<int>();
         //    EjecAsignado = new List<string>();
-            
+
         //}
     }
+
+
 }

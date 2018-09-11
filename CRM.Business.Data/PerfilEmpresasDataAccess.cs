@@ -88,6 +88,25 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_EjecutivoAsigEmpresa", parametros, ListaEjecutivosAsigEmp);
         }
 
+        public static List<AnexoEmpresaEntity> ObtieneAnexoEmp(string RutEmpresa, string token)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@RUT_EMPRESA", RutEmpresa),
+                new Parametro("@Token", token),
+            };
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Anexo", pram, ListaAnexoEmp);
+        }
+
+        public static Entity.AnexoEmpresaEntity ObtieneDatosAnexo(int IdEmpresa)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@IdEmpresaAnexo", IdEmpresa),
+            };
+            return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Lista_datos_anexo", pram, ListaAnexoEmp);
+        }
+
 
         public static int InsertaNuevoAnexo(string Token, string RutEmpresa, string NombreEmpresa, string Anexo, int NumTrabajadores, int IdComuna, string NombreComuna, string Direccion)
         {
@@ -113,9 +132,42 @@ namespace CRM.Business.Data
                 new Parametro("@RutEjecutivo", rut),
 
             };
-
             return DBHelper.InstanceCRM.ObtenerEscalar<long>("carteras.spMotorCartera_IngresoAsignacionEmpAnexo", parametros);
         }
+
+        public static int ActualizaAnexo(int IdEmpresaAnexo, string Anexo, int NumTrabajadores, int IdComuna, string NombreComuna, string Direccion)
+        {
+            Parametros parametros = new Parametros
+            {
+                 new Parametro("@IdEmpresaAnexo", IdEmpresaAnexo),
+                 new Parametro("@Anexo", Anexo),
+                 new Parametro("@NumTrabajadores", NumTrabajadores),
+                 new Parametro("@IdComuna", IdComuna),
+                 new Parametro("@NombreComuna", NombreComuna),
+                 new Parametro("@Direccion", Direccion),
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Actualiza_datos_anexo", parametros);
+        }
+
+        public static ContadorAsignadosEntity ObtieneContadorAsig(int IdEmpresa)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@IdEmpresaAnexo", IdEmpresa),
+            };
+            return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Contador_Asignados", pram, ListaContAsig);
+        }
+
+        public static ContadorAnexoEntity ObtieneContadorAnexo(string RutEmpresa)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@RutEmpresa", RutEmpresa),
+            };
+            return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Contador_Anexos", pram, ListaContAnexos);
+        }
+
+
 
         private static CarteraEmpresasEntity ListaCarteraEmpresa(DataRow row)
         {
@@ -197,5 +249,36 @@ namespace CRM.Business.Data
             };
         }
 
+        private static ContadorAsignadosEntity ListaContAsig(DataRow row)
+        {
+            return new ContadorAsignadosEntity
+            {
+                TotalAsignados = row["TotalAsignados"] != DBNull.Value ? Convert.ToInt32(row["TotalAsignados"]) : 0,
+            };
+        }
+
+        private static ContadorAnexoEntity ListaContAnexos(DataRow row)
+        {
+            return new ContadorAnexoEntity
+            {
+                TotalAnexos = row["TotalAnexos"] != DBNull.Value ? Convert.ToInt32(row["TotalAnexos"]) : 0,
+            };
+        }
+
+        private static AnexoEmpresaEntity ListaAnexoEmp(DataRow row)
+        {
+            return new AnexoEmpresaEntity
+            {
+                IdEmpresaAnexo = row["IdEmpresaAnexo"] != DBNull.Value ? Convert.ToInt32(row["IdEmpresaAnexo"]) : 0,
+                RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
+                NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
+                Anexo = row["Anexo"] != DBNull.Value ? row["Anexo"].ToString() : string.Empty,
+                NumTrabajadores = row["NumTrabajadores"] != DBNull.Value ? Convert.ToInt32(row["NumTrabajadores"]) : 0,
+                Direccion = row["Direccion"] != DBNull.Value ? row["Direccion"].ToString() : string.Empty,
+                IdComuna = row["IdComuna"] != DBNull.Value ? Convert.ToInt32(row["IdComuna"]) : 0,
+            };
+        }
+
     }
 }
+

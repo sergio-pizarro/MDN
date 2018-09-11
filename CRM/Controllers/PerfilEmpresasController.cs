@@ -9,6 +9,11 @@ using CRM.Business.Entity;
 using CRM.Business.Entity.Clases;
 using CRM.Business.Data;
 using CRM.ActionFilters;
+using System.IO;
+using Excel = Microsoft.Office.Interop;
+using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
+using System.Web;
 
 namespace CRM.Controllers
 {
@@ -93,6 +98,94 @@ namespace CRM.Controllers
             return PerfilEmpresasDataAccess.ObtieneEjeAsignados(IdEmpresa);
         }
 
+        [HttpGet]
+        [Route("lista-cartera-anexo")]
+        public ICollection<AnexoEmpresaEntity> ObtenerAnexos(string RutEmpresa)
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return PerfilEmpresasDataAccess.ObtieneAnexoEmp(RutEmpresa, token);
+        }
+
+        [HttpGet]
+        [Route("lista-datos-anexo")]
+        public Business.Entity.AnexoEmpresaEntity ListadatosAnexos(int IdEmpresa)
+        {
+            return PerfilEmpresasDataAccess.ObtieneDatosAnexo(IdEmpresa);
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("actualiza-nuevo-anexo")]
+        public int ActualizaAnexoEmp(AnexoEmpresaEntity actualiza)
+        {
+            return Business.Data.PerfilEmpresasDataAccess.ActualizaAnexo(actualiza.IdEmpresaAnexo, actualiza.Anexo, actualiza.NumTrabajadores, actualiza.IdComuna, actualiza.NombreComuna, actualiza.Direccion);
+        }
+
+        [HttpGet]
+        [Route("lista-contador-asignado")]
+        public Business.Entity.ContadorAsignadosEntity ContadorAsig(int IdEmpresa)
+        {
+            return PerfilEmpresasDataAccess.ObtieneContadorAsig(IdEmpresa);
+        }
+
+        [HttpGet]
+        [Route("lista-contador-anexos")]
+        public Business.Entity.ContadorAnexoEntity ContadorAnexos(string RutEmpresa)
+        {
+            return PerfilEmpresasDataAccess.ObtieneContadorAnexo(RutEmpresa);
+        }
+
+        //[HttpPost]
+        //public IHttpActionResult CargaAfiliados(HttpPostedFileBase archivoExcel)
+        //{
+        //    Excel.Excel.Application application = new Excel.Excel.Application();
+        //    try
+        //    {
+        //        if (archivoExcel.ContentLength == 0 || archivoExcel == null)
+        //        {
+        //            return BadRequest("Por favor seleccione un archivo.<br>");
+        //        }
+        //        else
+        //        {
+        //            if (archivoExcel.FileName.EndsWith("xls") || archivoExcel.FileName.EndsWith("xlsx"))
+        //            {
+        //                string path = System.Web.Hosting.HostingEnvironment.MapPath("../Uploads/");
+        //                if (!Directory.Exists(path))
+        //                {
+        //                    Directory.CreateDirectory(path);
+        //                }
+        //                String filepath = path + Path.GetFileName(archivoExcel.FileName);
+        //                string extension = Path.GetExtension(archivoExcel.FileName);
+        //                archivoExcel.SaveAs(filepath);
+        //                Excel.Excel.Workbook workbook = application.Workbooks.Open(filepath);
+        //                //Excel.Excel.Worksheet worksheet = workbook.ActiveSheet;
+        //                Excel.Excel.Worksheet worksheet = ((Excel.Excel.Worksheet)application.ActiveWorkbook.Worksheets[1]);
+        //                Excel.Excel.Range range = worksheet.UsedRange;
+
+        //                for (int row = 2; row < range.Rows.Count + 1; row++)
+        //                {
+        //                    //ArchivoModel a = new ArchivoModel();
+        //                    //a.rut = Convert.ToInt32(((Excel.Excel.Range)range.Cells[row, 1]).Text);
+        //                    //a.dv = Convert.ToInt32(((Excel.Excel.Range)range.Cells[row, 2]).Text);
+        //                    //a.procesaDatos();
+        //                }
+        //                application.Workbooks.Close();
+        //                application.Quit();
+        //                return Ok("Index");
+        //            }
+        //            else
+        //            {
+        //                return BadRequest("Extensión del archivo es incorrecta");
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        application.Workbooks.Close();
+        //        application.Quit();
+        //        return Ok("Index");
+        //    }
+        //}
 
 
 

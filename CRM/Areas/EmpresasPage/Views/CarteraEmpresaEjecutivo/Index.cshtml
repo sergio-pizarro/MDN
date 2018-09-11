@@ -21,9 +21,8 @@
                 <table id="tablatree" class="table tree-2 table-bordered table-striped table-condensed">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Rut Emp.</th>
-                            <th>Nombre Emp.</th>
+                            <th>Rut Empresa</th>
+                            <th>Nombre Empresa</th>
                             <th>N° Trabajadores</th>
                             <th>Holding</th>
                         </tr>
@@ -63,18 +62,15 @@
                         if (e.Tipo != "FAnexo") {
                             $("#bdy_datos")
                                 .append($("<tr>").addClass('treegrid-' + i)
-                                    .append($("<td>").append())
                                     .append($("<td>").append(e.RutEmpresa))
                                     .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(NomHolding))
-
                                 )
                             iterador = i
                         } else {
                             $("#bdy_datos")
                                 .append($("<tr>").addClass('treegrid-' + i + ' treegrid-parent-' + iterador).addClass(' colorAnexo')
-                                    .append($("<td>").append())
                                     .append($("<td>").append(e.RutEmpresa))
                                     .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
