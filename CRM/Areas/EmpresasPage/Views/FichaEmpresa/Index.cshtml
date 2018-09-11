@@ -2,11 +2,12 @@
 @{
     Layout = "~/Areas/EmpresasPage/Views/Shared/_Layout.cshtml";
 }
-
+<link href="~/Assets/plugins/dropzone/dropzone.min.css" rel="stylesheet">
 <link href="~/Assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
 <link href="~/Assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.css" rel="stylesheet">
 <link href="~/Assets/plugins/switchery/switchery.min.css" rel="stylesheet">
-<link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
 
 
 <h1 id="tituloEmp">Ficha de Empresa</h1>
@@ -110,13 +111,15 @@
                 <div class="panel-heading">
                     <div class="panel-control" style="float:left;">
                         <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_alertas" style="font-weight: bold;">Anexos</a>
+                            </li>
+
                             <li class="" style="display:none;">
                                 <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" style="font-weight: bold;">Visitas<span class="badge badge-success" id="cantCamp">0</span></a>
                             </li>
-                            <li class="" style="display:none;">
-                                <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false" id="tab_contact" style="font-weight: bold;">Alertas<span class="badge badge-success" id="cantAlertas">0</span></a>
-                            </li>
-                            <li class="active">
+
+                            <li class="">
                                 <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_alertas" style="font-weight: bold;">Oportunidades<span class="badge badge-success" id="cantAlertas"></span></a>
                             </li>
                         </ul>
@@ -125,11 +128,71 @@
                 </div>
                 <div class="panel-body">
                     <div class="tab-content">
+                        <div id="demo-lft-tab-3" class="tab-pane fade active in">
+                            <div class="panel-body">
+
+                                <div id="radioValidador" style="display:none;">
+                                    <p class="text-main text-bold">¿Desea Asignar una Empresa o Anexo?</p>
+                                    <div class="radio">
+                                        <input id="radioEmpresa" class="magic-radio" type="radio" name="inline-form-radio">
+                                        <label for="radioEmpresa">Empresa</label>
+                                        <input id="radioAnexo" class="magic-radio" type="radio" name="inline-form-radio">
+                                        <label for="radioAnexo">Anexo</label>
+                                    </div>
+                                    <hr />
+                                </div>
+                                <div class="panel panel-bordered-primary" style="border-color: #e6e6e6; display: none; border-radius: 5px;" id="tipoAsignacionEmpresa">
+
+                                    <div class="panel-body">
+                                        <div class="row">
+
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title" style="font-size: 14px;">Asignar Empresas a ejecutivos</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <label for="demo-cs-multiselectEjeEmpresa" class="sr-only">Asignar Empresas</label>
+                                                <select id="demo-cs-multiselectEjeEmpresa" data-placeholder="Seleccione a los ejecutivos.." multiple tabindex="4"></select>
+                                                <button class="btn btn-primary" id="btAsignaEmpresa" type="submit">Asignar</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                                <div id="tipoAsignacionAnexo" style="display: none">
+                                    @*Anexo*@
+                                    <a data-target="#demo-lg-modal-newAnexo" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Crear Nuevo Anexo<i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i></a>
+                                    <hr />
+                                    <table style="font-size: 12px;" id="tblAnexos" class="table table-hover table-vcenter">
+                                        <thead>
+                                            <tr>
+                                                <th>Rut Empresa</th>
+                                                <th>Nombre Anexo</th>
+                                                <th>N° Trabajadores</th>
+                                                <th>Editar</th>
+                                                <th>Asignar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="buscar" id="tbdyAnexo"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
                         <div id="demo-lft-tab-1" class="tab-pane fade">
-
-
                             <div class="well well-lg">
-
                                 <div class="tab-base tab-stacked-left">
 
                                     <!--Nav tabs-->
@@ -243,22 +306,17 @@
 
                                         <div id="demo-stk-lft-tab-3" class="tab-pane fade">
 
-
-
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div id="demo-lft-tab-2" class="tab-pane fade active in">
+                        <div id="demo-lft-tab-2" class="tab-pane fade">
                             <div class="panel-body">
-                                @* <a data-parent="#accordion" id="btGestion" data-toggle="collapse" href="#collapseOne" class="btn btn-sm btn-primary btn-icon btn-rounded">Nueva Gestion<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></a>*@
                                 <a data-target="#demo-lg-modal-new" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Nueva Gestion<i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i></a>
                                 <hr />
-                                <table style="font-size: 12px;" id="tblAsigEmp">
+                                <table style="font-size: 12px;" id="tblAsigEmp" class="table table-hover table-vcenter">
                                     <thead>
                                         <tr>
                                             <th data-field="state" data-checkbox="true"></th>
@@ -272,28 +330,6 @@
                                     </thead>
                                     <tbody class="buscar" id="tbOportunidad"></tbody>
                                 </table>
-                            </div>
-                        </div>
-                        <div id="demo-lft-tab-4" class="tab-pane fade">
-                            <div class="panel-body">
-                                <div class="row">
-
-                                    <table class="table table-hover table-vcenter" style="font-size: 11px;">
-                                        <thead>
-                                            <tr>
-                                                <th>Gestión</th>
-                                                <th>Datos Contacto</th>
-                                                <th>Tipo contacto</th>
-                                                <th>Índice</th>
-                                                <th>Ultimo intento</th>
-                                                <th>Descripción</th>
-                                                <th>Canal Ult. intento</th>
-                                                <th>Ultimo Contacto Valido</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="bdy_datos_contactos"></tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -354,17 +390,321 @@
     </div>
 </div>
 
-@section script{
 
+
+<div id="demo-lg-modal-newAnexo" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 6px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title">    Nuevo anexo</h4>
+            </div>
+            <form id="form_registro_anexo" action="#" method="post">
+                <div class="panel-body">
+                    <div class="panel panel-bordered-primary" style="border-color: #e6e6e6;">
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Rut Empresa</label>
+                                        <input type="text" class="form-control" id="txRutEmp" disabled name="txRutEmp">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre Empresa</label>
+                                        <input type="text" class="form-control" id="slEmperesa_multiselect" disabled name="slEmperesa_multiselect">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Anexo</label>
+                                        <input type="text" id="anexo" class="form-control" name="anexo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">N° de Trabajadores</label>
+                                        <input type="text" class="form-control" id="nTrajadores" name="nTrajadores">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Dirección</label>
+                                        <input type="text" class="form-control" id="direccionAnexo" name="direccionAnexo">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Comuna</label>
+                                        <select class="form-control" id="slComuna_multiselect" tabindex="2" name="slComuna-multiselect" required>
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right" style="background-color: #fff;">
+                    <button class="btn btn-success" id="btGuardaEmpresa">Guardar datos empresa</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div id="demo-lg-modal-updateAnexo" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 6px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title">    Actualizar anexo</h4>
+            </div>
+            <form id="form_registro_anexoUp" action="#" method="post">
+                <div class="panel-body">
+                    <div class="panel panel-bordered-primary" style="border-color: #e6e6e6;">
+                        <div class="panel-body">
+                            <input type="text" class="form-control" id="ISeMPup" disabled name="ISeMPup" style="display: none;">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Rut Empresa</label>
+                                        <input type="text" class="form-control" id="txRutEmpUp" disabled name="txRutEmpUp">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre Empresa</label>
+                                        <input type="text" class="form-control" id="slEmperesa_multiselectUp" disabled name="slEmperesa_multiselectUp">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Anexo</label>
+                                        <input type="text" id="anexoUp" class="form-control" name="anexoUp">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">N° de Trabajadores</label>
+                                        <input type="text" class="form-control" id="nTrajadoresUp" name="nTrajadoresUp">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Dirección</label>
+                                        <input type="text" class="form-control" id="direccionAnexoUp" name="direccionAnexoUp">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Comuna</label>
+                                        <select class="form-control" id="slComuna_multiselectUp" tabindex="2" name="slComuna-multiselectUp" required>
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="checkbox">
+                                        <input id="ckCargaAfi" class="magic-checkbox" type="checkbox" name="ckCargaAfi">
+                                        <label for="ckCargaAfi">Cargar archivo con Afiliados</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="demo-dropzone" action="#" class="dropzone" style="display: none">
+                    <div class="dz-default dz-message">
+                        <div class="dz-icon">
+                            <i class="demo-pli-upload-to-cloud icon-5x"></i>
+                        </div>
+                        <div>
+                            <span class="dz-text">
+                                Haga click para seleccionar manualmente
+                            </span>
+                        </div>
+                    </div>
+                    <div class="progress"><div style="width: 100%;" class="progress-bar progress-bar-info">0%</div></div>
+                    <div class="fallback">
+                        <input name="file" type="file" multiple>
+                    </div>
+                </div>
+
+                <div class="panel-footer text-right" style="background-color: #fff;">
+                    <button class="btn btn-success" id="btGuardaEmpresaUp">Actualizar datos de Anexo</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div id="demo-lg-modal-AsigEmp" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 6px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title">    Asignación Anexo</h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="panel panel-bordered-primary" style="border-color: #e6e6e6;">
+
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="panel-heading">
+                                <h3 class="panel-title" style="font-size: 14px;">Asignar Empresas a ejecutivos</h3>
+                            </div>
+                            <div class="panel-body">
+                                <label for="demo-inline-inputmail" class="sr-only">Asignar Empresas</label>
+                                <select id="demo-cs-multiselectEje" data-placeholder="Seleccione a los ejecutivos.." multiple tabindex="4"></select>
+                                <button class="btn btn-primary" id="btAsigna" type="submit">Asignar</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section script{
+    <script src="~/Assets/plugins/dropzone/dropzone.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
     <script src="~/Assets/plugins/switchery/switchery.min.js"></script>
-    <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+
 
     <script type="text/javascript">
         var rutE = httpGet('rutEmp');
+        var valida = httpGet('validador');
+        var ID = httpGet('Id');
         var idEmpresa = httpGet('rutEmpA');
+        var result = [];
+        var rutAsig = []
+        var idEmp = '';
+        $("#tblAnexos").bootstrapTable({
+            striped: true,
+            pagination: true,
+            pageSize: 10,
+            pageList: [],
+            search: true,
+            showColumns: false,
+            showRefresh: true,
+        });
 
+        $('#demo-lg-modal-AsigEmp').on('show.bs.modal', function (events) {
+            var Anexosss = $(events.relatedTarget);
+            idEmp = Anexosss.data('idemp')
+            console.log(idEmp);
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-ejecutivo-asignado", { IdEmpresa: idEmp }, function (respuesta) {
+                rutAsig.length = 0;
+                $.each(respuesta, function (ix, ex) {
+                    rutAsig[ix] = ex.RutEjecutivoAsignado
+                    $('#demo-cs-multiselectEje').val(rutAsig).trigger('chosen:updated');
+                });
+            });
+        });
+
+
+        $("#btAsignaEmpresa").on("click", function () {
+            var ejeAsig = [];
+            $('#demo-cs-multiselectEjeEmpresa :selected').each(function () {
+                ejeAsig.push($(this).val())
+            });
+            $.each(ejeAsig, function (i, e) {
+                var WebCarteraEmpresaAsig = {
+                    Tipo: 'Empresas',
+                    Id: ID,
+                    EjecAsignado: ejeAsig[i]
+                }
+                $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/guardar-asignacion-empresa-anexo", WebCarteraEmpresaAsig, function (respuesta) {
+                    if (respuesta.Estado === "OK") {
+                        $.niftyNoty({
+                            type: 'success',
+                            container: 'floating',
+                            html: '<strong>OK</strong> ' + respuesta.Mensaje,
+                            focus: false,
+                            timer: 2000
+                        });
+
+                    } else {
+                        $.niftyNoty({
+                            type: 'danger',
+                            container: 'floating',
+                            html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                            timer: 5000
+                        });
+                    }
+                    $('#demo-lg-modal-AsigEmp').modal('hide');
+                });
+            });
+            cargador.CargaDatosAnexos();
+            console.log(WebCarteraEmpresaAsig);
+            ejeAsig.length = 0;
+        });
+
+
+
+        $("#btAsigna").on("click", function () {
+            var ejeAsig = [];
+            $('#demo-cs-multiselectEje :selected').each(function () {
+                ejeAsig.push($(this).val())
+            });
+            $.each(ejeAsig, function (i, e) {
+                var WebCarteraEmpresaAsig = {
+                    Tipo: 'FAnexo',
+                    Id: idEmp,
+                    EjecAsignado: ejeAsig[i]
+                }
+                $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/guardar-asignacion-empresa-anexo", WebCarteraEmpresaAsig, function (respuesta) {
+                    if (respuesta.Estado === "OK") {
+                        $.niftyNoty({
+                            type: 'success',
+                            container: 'floating',
+                            html: '<strong>OK</strong> ' + respuesta.Mensaje,
+                            focus: false,
+                            timer: 2000
+                        });
+
+                    } else {
+                        $.niftyNoty({
+                            type: 'danger',
+                            container: 'floating',
+                            html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                            timer: 5000
+                        });
+                    }
+                    $('#demo-lg-modal-AsigEmp').modal('hide');
+                });
+            });
+            cargador.CargaDatosAnexos();
+            console.log(WebCarteraEmpresaAsig);
+            ejeAsig.length = 0;
+        });
 
         $('#demo-dp-component .input-group.date').datepicker({
             format: "dd/mm/yyyy",
@@ -372,30 +712,198 @@
             language: "es"
         });
 
-        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-asignados-empresa", { RutEmpresa: rutE }, function (menus) {
-            $.each(menus, function (i, e) {
-                $("#tbOportunidad")
-                    .append(
-                        $("<tr>")
-                            .append($("<td>").append(''))
-                            .append($("<td>").append(e.Id_Asign)).hide()
-                            .append($("<td>").append(e.Afiliado_Rut + '-' + e.Afiliado_Dv))
-                            .append($("<td>").append(e.Nombre + ' ' + e.Apellido))
-                            .append($("<td>").append(e.PreAprobadoFinal.toMoney() + '<span class="badge badge-success" style="float: right;">' + e.Prioridad + '</span>'))
-                            .append($("<td>").append(e.TipoCampania))
-                            .append($("<td>").append(''))
-                    )
-            });
-            $("#tblAsigEmp").bootstrapTable({
-                striped: true,
-                pagination: true,
-                pageSize: 10,
-                pageList: [],
-                search: true,
-                showColumns: false,
-                showRefresh: true,
+
+        $('#form_registro_anexo').bootstrapValidator({
+            excluded: [':disabled', ':not(:visible)'],
+            feedbackIcons: [],
+            fields: {
+                txRutEmp: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar rut'
+                        }
+                    }
+                },
+                slEmperesa_multiselect: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar una empresa'
+                        }
+                    }
+                },
+                anexo: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar un anexo'
+                        }
+                    }
+                },
+                nTrajadores: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar N° trabajadores'
+                        }
+                    }
+                },
+                slComuna_multiselect: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar una comuna'
+                        }
+                    }
+                },
+                direccionAnexo: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar una dirección'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var idcomuna = 0;
+            var objeto_envio_anexo = {
+                RutEmpresa: $('#txRutEmp').val(),
+                NombreEmpresa: $("#slEmperesa_multiselect").val(),
+                Anexo: $('#anexo').val(),
+                NumTrabajadores: $('#nTrajadores').val(),
+                IdComuna: $('select[id="slComuna_multiselect"] option:selected').val(),
+                NombreComuna: $('select[id="slComuna_multiselect"] option:selected').text(),
+                Direccion: $('#direccionAnexo').val()
+            }
+            $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/ingresa-nuevo-anexo", objeto_envio_anexo, function (datos) {
+                $("#form_registro_anexo").bootstrapValidator('resetForm', true);
+                $('#demo-lg-modal-newAnexo').modal('hide');
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'pli-like-2 icon-2x',
+                    message: 'Nuevo Anexo Creado Correctamente.',
+                    container: 'floating',
+                    timer: 5000
+                });
+                cargador.CargaDatosAnexos();
             });
         });
+
+        $('#form_registro_anexoUp').bootstrapValidator({
+            excluded: [':disabled', ':not(:visible)'],
+            feedbackIcons: [],
+            fields: {
+                anexoUp: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar un anexo'
+                        }
+                    }
+                },
+                nTrajadoresUp: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar N° trabajadores'
+                        }
+                    }
+                },
+                slComuna_multiselectUp: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar una comuna'
+                        }
+                    }
+                },
+                direccionAnexoUp: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar una dirección'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var idcomuna = 0;
+            var objeto_envio_anexoUp = {
+                IdEmpresaAnexo: $('#ISeMPup').val(),
+                Anexo: $('#anexoUp').val(),
+                NumTrabajadores: $('#nTrajadoresUp').val(),
+                IdComuna: $('select[id="slComuna_multiselectUp"] option:selected').val(),
+                NombreComuna: $('select[id="slComuna_multiselectUp"] option:selected').text(),
+                Direccion: $('#direccionAnexoUp').val()
+            }
+            $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/actualiza-nuevo-anexo", objeto_envio_anexoUp, function (datos) {
+                $("#form_registro_anexoUp").bootstrapValidator('resetForm', true);
+                $('#demo-lg-modal-updateAnexo').modal('hide');
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'pli-like-2 icon-2x',
+                    message: 'Anexo Actualizado Correctamente.',
+                    container: 'floating',
+                    timer: 5000
+                });
+                cargador.CargaDatosAnexos();
+            });
+        });
+
+
+
+        var cargador = {
+            CargaDatosAsignadosEmp: function () {
+                $("#tbOportunidad").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-asignados-empresa", { RutEmpresa: rutE }, function (menus) {
+                    $.each(menus, function (i, e) {
+                        $("#tbOportunidad")
+                            .append(
+                                $("<tr>")
+                                    .append($("<td>").append(''))
+                                    .append($("<td>").append(e.Id_Asign)).hide()
+                                    .append($("<td>").append(e.Afiliado_Rut + '-' + e.Afiliado_Dv))
+                                    .append($("<td>").append(e.Nombre + ' ' + e.Apellido))
+                                    .append($("<td>").append(e.PreAprobadoFinal.toMoney() + '<span class="badge badge-success" style="float: right;">' + e.Prioridad + '</span>'))
+                                    .append($("<td>").append(e.TipoCampania))
+                                    .append($("<td>").append(''))
+                            )
+                    });
+                    $("#tblAsigEmp").bootstrapTable({
+                        striped: true,
+                        pagination: true,
+                        pageSize: 10,
+                        pageList: [],
+                        search: true,
+                        showColumns: false,
+                        showRefresh: true,
+                    });
+                });
+            },
+            CargaDatosAnexos: function () {
+                $("#tbdyAnexo").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-cartera-anexo", { RutEmpresa: rutE }, function (menus) {
+                    var contador = 0;
+                    $.each(menus, function (i, e) {
+                        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-contador-asignado", { IdEmpresa: e.IdEmpresaAnexo }, function (respuesta) {
+                            contador = respuesta.TotalAsignados;
+                            $("#tbdyAnexo")
+                                .append(
+                                    $("<tr>")
+                                        .append($("<td>").append(e.RutEmpresa))
+                                        .append($("<td>").append(e.Anexo))
+                                        .append($("<td>").append('<div class="media-left pos-rel"><img class="img-circle img-sm" src="../Assets/img/profile-photos/2.png" alt="Profile Picture"><i class="badge badge-success badge-stat badge-icon pull-left">' + e.NumTrabajadores + '</i></div>'))
+                                        .append($("<td>").append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.IdEmpresaAnexo + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
+                                        .append($("<td>").append('<i href="#" data-toggle="modal" data-target="#demo-lg-modal-AsigEmp" data-idEmp="' + e.IdEmpresaAnexo + '"><i class="btn btn-sm demo-psi-add icon-lg" style="font-size: 31px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + contador + '</span></i>'))
+                                )
+                        });
+                    });
+                });
+                $("#tblAnexos").bootstrapTable({
+                    striped: true,
+                    showColumns: false,
+                    showRefresh: true,
+                });
+            }
+        }
+        cargador.CargaDatosAsignadosEmp();
+        cargador.CargaDatosAnexos();
 
         if (rutE != "" && rutE != 'undefined' && rutE != null) {
             $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresa", { RutEmpresa: rutE }, function (result) {
@@ -414,6 +922,8 @@
                 $("#SegmentoEmp").val(result.Segmento)
                 $("#AntiguedadA").val(result.FechaAntiguedad)
                 $("#HoldingEmp").val(NomHolding)
+                $("#slEmperesa_multiselect").val(result.NombreEmpresa)
+                $("#txRutEmp").val(result.RutEmpresa)
             });
         }
         else {
@@ -433,191 +943,297 @@
                 $("#SegmentoEmp").val(result.Segmento)
                 $("#AntiguedadA").val(result.FechaAntiguedad)
                 $("#HoldingEmp").val(NomHolding)
+                $("#slEmperesa_multiselect").val(result.NombreEmpresa)
+                $("#txRutEmp").val(result.RutEmpresa)
             });
         }
 
-        //var rutEmp = rutE.substring(0, rutE.lastIndexOf('-'));
-
-
-        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: 0 }, function (datos) {
-
-            $("#selecEstado").html("");
-            $("#selecEstado").append($("<option>").attr("value", "").html("Seleccione"));
-            $("#selecEstado").append($("<option>").attr("value", "-1").html("Sin Gestion"));
-            $.each(datos, function (i, e) {
-                $("#selecEstado").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre).data("terminal", e.ejes_terminal))
+        $(function () {
+            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: 0 }, function (datos) {
+                $("#selecEstado").html("");
+                $("#selecEstado").append($("<option>").attr("value", "").html("Seleccione"));
+                $("#selecEstado").append($("<option>").attr("value", "-1").html("Sin Gestion"));
+                $.each(datos, function (i, e) {
+                    $("#selecEstado").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre).data("terminal", e.ejes_terminal))
+                });
             });
-        });
 
-        $('#selecEstado').change(function (e) {
-            e.preventDefault();
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-comunas-empresa", function (menus) {
+                $("#slComuna_multiselect").html("");
+                $("#slComuna_multiselectUp").html("");
+                $("#slComuna_multiselect").append($("<option>").attr("value", "").html("Seleccione"));
+                $("#slComuna_multiselectUp").append($("<option>").attr("value", "").html("Seleccione"));
+                $.each(menus, function (i, e) {
+                    $("#slComuna_multiselect").append($("<option>").attr("value", e.IdComuna).html(e.NombreComuna))
+                    $("#slComuna_multiselectUp").append($("<option>").attr("value", e.IdComuna).html(e.NombreComuna))
+                });
+                $('#slComuna_multiselect').chosen({ width: '100%' });
+                $('#slComuna_multiselectUp').chosen({ width: '100%' });
+            });
 
-            if ($(this).val() != '') {
-                $("#selecSubEstado").attr("disabled", false);
-                $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: $(this).val() }, function (datos) {
+            $.SecGetJSON(BASE_URL + "/motor/api/Config/dotacion-oficina", function (menus) {
+                $("#demo-cs-multiselectEje").html("");
+                $("#demo-cs-multiselectEjeEmpresa").html("");
+                $.each(menus, function (i, e) {
+                    $("#demo-cs-multiselectEje").append($("<option>").attr("value", e.Rut).html(e.Nombre))
+                    $("#demo-cs-multiselectEjeEmpresa").append($("<option>").attr("value", e.Rut).html(e.Nombre))
+                });
+                $('#demo-chosen-select').chosen();
+                $('#demo-cs-multiselectEje').chosen({ width: '70%' });
+                $('#demo-cs-multiselectEjeEmpresa').chosen({ width: '80%' });
+            });
+
+            $('#demo-lg-modal-updateAnexo').on('show.bs.modal', function (event) {
+                var Anexo = $(event.relatedTarget);
+                var idAnexo = Anexo.data('idanexo')
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-datos-anexo", { IdEmpresa: idAnexo }, function (respuesta) {
+                    $("#txRutEmpUp").val(respuesta.RutEmpresa)
+                    $("#slEmperesa_multiselectUp").val(respuesta.NombreEmpresa)
+                    $('#anexoUp').val(respuesta.Anexo)
+                    $('#nTrajadoresUp').val(respuesta.NumTrabajadores)
+                    $('#direccionAnexoUp').val(respuesta.Direccion)
+                    $('#slComuna_multiselectUp').val(respuesta.IdComuna).trigger('chosen:updated');
+                    $('#ISeMPup').val(idAnexo)
+                });
+            });
+
+            $('#selecEstado').change(function (e) {
+                e.preventDefault();
+
+                if ($(this).val() != '') {
+                    $("#selecSubEstado").attr("disabled", false);
+                    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: $(this).val() }, function (datos) {
+                        $("#selecSubEstado").html("");
+                        $("#selecSubEstado").append($("<option>").attr("value", "").html("Seleccione"));
+                        $("#selecSubEstado").append($("<option>").attr("value", "-1").html("Sin Gestión"));
+                        $.each(datos, function (i, e) {
+                            $("#selecSubEstado").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre))
+                        });
+                    });
+                }
+                else {
                     $("#selecSubEstado").html("");
-                    $("#selecSubEstado").append($("<option>").attr("value", "").html("Seleccione"));
-                    $("#selecSubEstado").append($("<option>").attr("value", "-1").html("Sin Gestión"));
-                    $.each(datos, function (i, e) {
-                        $("#selecSubEstado").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre))
+                    $("#selecSubEstado").attr("disabled", true);
+                }
+            });
+
+            var result = [];
+            $('#btGestion').click(function () {
+                //result[0]
+                result.length = 0;
+                var i = 0;
+                $("input[type=checkbox]:checked").each(function () {
+                    if ($(this).parent().parent().find('td').eq(1).text() != "") {
+                        result[i] = $(this).parent().parent().find('td').eq(1).text();
+                        ++i;
+                    }
+                });
+                $("#cantAfiScheck").html(result['length'])
+                console.log(result);
+            });
+
+            $('#tblAsigEmp').on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function (e, row) {
+                result.length = 0;
+                var i = 0;
+                $("input[type=checkbox]:checked").each(function () {
+                    if ($(this).parent().parent().find('td').eq(1).text() != "") {
+                        result[i] = $(this).parent().parent().find('td').eq(1).text();
+                        ++i;
+                    }
+                });
+                $("#cantAfiScheck").html(result['length'])
+                console.log(result);
+            });
+
+            $('#radioEmpresa').on("click", function () {
+                $('#tipoAsignacionAnexo').css('display', 'none')
+                $('#tipoAsignacionEmpresa').css('display', 'block')
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-ejecutivo-asignado", { IdEmpresa: ID }, function (result) {
+                    rutAsig.length = 0;
+                    $.each(result, function (i, e) {
+                        rutAsig[i] = e.RutEjecutivoAsignado
+                        $('#demo-cs-multiselectEjeEmpresa').val(rutAsig).trigger('chosen:updated');
                     });
                 });
-            }
-            else {
-                $("#selecSubEstado").html("");
-                $("#selecSubEstado").attr("disabled", true);
-            }
-        });
-        var result = [];
-        $('#btGestion').click(function () {
-            //result[0]
-            result.length = 0;
-            var i = 0;
-            $("input[type=checkbox]:checked").each(function () {
-                if ($(this).parent().parent().find('td').eq(1).text() != "") {
-                    result[i] = $(this).parent().parent().find('td').eq(1).text();
-                    ++i;
+            });
+
+            $('#radioAnexo').on("click", function () {
+                $('#tipoAsignacionEmpresa').css('display', 'none')
+                $('#tipoAsignacionAnexo').css('display', 'block')
+            });
+
+            $('#ckCargaAfi').on('change', function () {
+                if ($(this).is(':checked')) {
+                    $('#demo-dropzone').css('display', 'block')
+                }
+                else {
+                    $('#demo-dropzone').css('display', 'none')
                 }
             });
-            $("#cantAfiScheck").html(result['length'])
-            console.log(result);
-        });
 
-        $('#tblAsigEmp').on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function (e, row) {
-            result.length = 0;
-            var i = 0;
-            $("input[type=checkbox]:checked").each(function () {
-                if ($(this).parent().parent().find('td').eq(1).text() != "") {
-                    result[i] = $(this).parent().parent().find('td').eq(1).text();
-                    ++i;
-                }
-            });
-            $("#cantAfiScheck").html(result['length'])
-
-            console.log(result);
-        });
-
-        $('#form-registro-gestion').bootstrapValidator({
-            excluded: [':disabled', ':not(:visible)'],
-            feedbackIcons: [],
-            fields: {
-                selecEstado: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Debe seleccionar un Estado'
-                        }
-                    }
-                },
-                selecSubEstado: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Debe seleccionar una sub-estado'
-                        }
-                    }
-                },
-                FehaGest: {
-                    validators: {
-                        notEmpty: {
-                            message: 'La fecha compromete no puede ser vacia'
-                        },
-                        date: {
-                            format: 'dd/mm/yyyy"',
-                            message: 'La fecha de compromete no es valida'
-                        }
-                    }
-                },
-                comentarioGest: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Debe ingresar un comentario'
-                        }
-                    }
-                }
+            if (valida == 0) {
+                $("#radioValidador").css('display', 'block')
             }
-        }).on('success.form.bv', function (e) {
-            // Prevén que se mande el formulario
-            //e.preventDefault();
-            //var $form = $(e.target);
-
-
-            //$.SecGetJSON(BASE_URL + "/motor/api/Contactos/ingresa-nuevo-contacto", objeto_envio_gestion, function (datos) {
-            //    $("#form-registro-contacto").bootstrapValidator('resetForm', true);
-            //    $('#demo-lg-modal-new').modal('hide');
-            //    Cargador.CargaDatosContactos(rutAf)
+            else if (valida == 1) {
+                $("#tipoAsignacionEmpresa").css('display', 'block')
+                $('#radioEmpresa').click()
+            }
+            else if (valida == 2) {
+                $("#tipoAsignacionAnexo").css('display', 'block')
+            }
 
 
 
-            //           public int ges_estado { get; set;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //$('#form-registro-gestion').bootstrapValidator({
+            //    excluded: [':disabled', ':not(:visible)'],
+            //    feedbackIcons: [],
+            //    fields: {
+            //        selecEstado: {
+            //            validators: {
+            //                notEmpty: {
+            //                    message: 'Debe seleccionar un Estado'
+            //                }
+            //            }
+            //        },
+            //        selecSubEstado: {
+            //            validators: {
+            //                notEmpty: {
+            //                    message: 'Debe seleccionar una sub-estado'
+            //                }
+            //            }
+            //        },
+            //        FehaGest: {
+            //            validators: {
+            //                notEmpty: {
+            //                    message: 'La fecha compromete no puede ser vacia'
+            //                },
+            //                date: {
+            //                    format: 'dd/mm/yyyy"',
+            //                    message: 'La fecha de compromete no es valida'
+            //                }
+            //            }
+            //        },
+            //        comentarioGest: {
+            //            validators: {
+            //                notEmpty: {
+            //                    message: 'Debe ingresar un comentario'
+            //                }
+            //            }
+            //        }
             //    }
-            //public int ges_subestado { get; set; }
-            //public string ges_prox_gestion { get; set; }
-            //public string ges_comentarios { get; set; }
-            //public int ges_id_asignacion { get; set; }
+            //}).on('success.form.bv', function (e) {
+            //    // Prevén que se mande el formulario
+            //    //e.preventDefault();
+            //    //var $form = $(e.target);
 
 
-            //  $.each(datos, function (i, e)
+            //    //$.SecGetJSON(BASE_URL + "/motor/api/Contactos/ingresa-nuevo-contacto", objeto_envio_gestion, function (datos) {
+            //    //    $("#form-registro-contacto").bootstrapValidator('resetForm', true);
+            //    //    $('#demo-lg-modal-new').modal('hide');
+            //    //    Cargador.CargaDatosContactos(rutAf)
 
-            $.each(result, function (i, e) {
 
-                var objeto_envio_gestion = {
-                    RutAfiliado: result[e],
-                    Estado: $('select[name="selecEstado"] option:selected').text(),
-                    Subestado: $('select[name="selecSubEstado"] option:selected').text(),
-                    Comentario: $('#comentarioGest').val()
 
-                }
+            //    //           public int ges_estado { get; set;
+            //    //    }
+            //    //public int ges_subestado { get; set; }
+            //    //public string ges_prox_gestion { get; set; }
+            //    //public string ges_comentarios { get; set; }
+            //    //public int ges_id_asignacion { get; set; }
 
-                $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-gestion", objeto_envio_gestion, function (respuesta) {
 
-                    if (respuesta.Estado === 'OK') {
+            //    //  $.each(datos, function (i, e)
 
-                        $.niftyNoty({
-                            type: 'success',
-                            container: '#mensahes-must',
-                            html: '<strong>OK</strong> Gestion guardada exitosamente.',
-                            focus: false,
-                            timer: 3000
-                        });
+            //    $.each(result, function (i, e) {
+            //        var objeto_envio_gestion = {
+            //            RutAfiliado: result[e],
+            //            Estado: $('select[name="selecEstado"] option:selected').text(),
+            //            Subestado: $('select[name="selecSubEstado"] option:selected').text(),
+            //            Comentario: $('#comentarioGest').val()
+            //        }
+            //        $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-gestion", objeto_envio_gestion, function (respuesta) {
 
-                    } else {
-                        $.niftyNoty({
-                            type: 'danger',
-                            container: '#mensahes-must',
-                            html: '<strong>Error</strong> ' + respuesta.Mensaje,
-                            focus: false,
-                            timer: 3000
-                        });
-                    }
+            //            if (respuesta.Estado === 'OK') {
 
-                });
-            });
+            //                $.niftyNoty({
+            //                    type: 'success',
+            //                    container: '#mensahes-must',
+            //                    html: '<strong>OK</strong> Gestion guardada exitosamente.',
+            //                    focus: false,
+            //                    timer: 3000
+            //                });
+            //            } else {
+            //                $.niftyNoty({
+            //                    type: 'danger',
+            //                    container: '#mensahes-must',
+            //                    html: '<strong>Error</strong> ' + respuesta.Mensaje,
+            //                    focus: false,
+            //                    timer: 3000
+            //                });
+            //            }
+            //        });
+            //    });
 
-            $('#btGestion').click()
-            $.niftyNoty({
-                type: 'success',
-                icon: 'pli-like-2 icon-2x',
-                message: result['length'] + '  Gestiones Guardas correctamente.',
-                container: 'floating',
-                timer: 5000
-            });
+            //    $('#btGestion').click()
+            //    $.niftyNoty({
+            //        type: 'success',
+            //        icon: 'pli-like-2 icon-2x',
+            //        message: result['length'] + '  Gestiones Guardas correctamente.',
+            //        container: 'floating',
+            //        timer: 5000
+            //    });
+            //    //});
+
             //});
 
+
+
+            $("input:radio[name=groupCkeckAlerta]").click(function () {
+                switch (this.value) {
+                    case "SI":
+                        //alert(this.value);
+                        $("#divFechaResul").css('display', 'block')
+                        $("#comentarioResultado").css('display', 'block')
+                        break;
+                    case "NO":
+                        //alert(this.value);
+                        $("#divFechaResul").css('display', 'none')
+                        $("#comentarioResultado").css('display', 'none')
+                        break;
+                }
+            });
+
+
         });
 
-        $("input:radio[name=groupCkeckAlerta]").click(function () {
-            switch (this.value) {
-                case "SI":
-                    //alert(this.value);
-                    $("#divFechaResul").css('display', 'block')
-                    $("#comentarioResultado").css('display', 'block')
-                    break;
-                case "NO":
-                    //alert(this.value);
-                    $("#divFechaResul").css('display', 'none')
-                    $("#comentarioResultado").css('display', 'none')
-                    break;
-            }
-        })
+
+
+
     </script>
 
 }
