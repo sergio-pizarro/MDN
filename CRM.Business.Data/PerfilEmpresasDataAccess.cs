@@ -28,7 +28,7 @@ namespace CRM.Business.Data
             {
                 new Parametro("@Token", token),
             };
-            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_ListaCarteraAgente", pram, ListaCarteraEmpresa);
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_ListaCarteraAgente", pram, ListaCarteraEmpresaAgente);
         }
 
         public static Entity.GestionEmpresasEntity ObtienePerfilEmp(string RutEmpresa)
@@ -187,6 +187,26 @@ namespace CRM.Business.Data
                 NombreHolding = row["NombreHolding"] != DBNull.Value ? row["NombreHolding"].ToString() : string.Empty,
                 Tipo = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty,
                 IdEmpresa = row["IdEmpresa"] != DBNull.Value ? Convert.ToInt32(row["IdEmpresa"]) : 0,
+            };
+        }
+
+        private static CarteraEmpresasEntity ListaCarteraEmpresaAgente(DataRow row)
+        {
+            return new CarteraEmpresasEntity
+            {
+                Id = row["ID"] != DBNull.Value ? Convert.ToInt32(row["ID"]) : 0,
+                RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
+                NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
+                Segmento = row["TipoEmpresa"] != DBNull.Value ? row["TipoEmpresa"].ToString() : string.Empty,
+                IdSucursalEmpresa = row["IdSucursalEmpresa"] != DBNull.Value ? Convert.ToInt32(row["IdSucursalEmpresa"]) : 0,
+                CodOficina = row["CodOficina"] != DBNull.Value ? Convert.ToInt32(row["CodOficina"]) : 0,
+                NTrabajador = row["NTrabajador"] != DBNull.Value ? Convert.ToInt32(row["NTrabajador"]) : 0,
+                Holding = row["Holding"] != DBNull.Value ? Convert.ToInt32(row["Holding"]) : 0,
+                NombreHolding = row["NombreHolding"] != DBNull.Value ? row["NombreHolding"].ToString() : string.Empty,
+                Tipo = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty,
+               // IdEmpresa = row["IdEmpresa"] != DBNull.Value ? Convert.ToInt32(row["IdEmpresa"]) : 0,
+                CountAnexo = row["CountAnexo"] != DBNull.Value ? Convert.ToInt32(row["CountAnexo"]) : 0,
+                CountEmp = row["CountEmp"] != DBNull.Value ? Convert.ToInt32(row["CountEmp"]) : 0,
             };
         }
 

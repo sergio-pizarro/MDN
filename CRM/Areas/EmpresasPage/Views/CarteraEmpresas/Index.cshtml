@@ -17,7 +17,7 @@
             </div>
 
             <div class="panel-body">
-                <table id="tabla" class="table table-hover table-vcenter">
+                <table id="tabla" class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Rut Empresa</th>
@@ -34,34 +34,23 @@
         </div>
     </div>
 
-
-    @*<a href="#popover" class="demo-psi-male icon-lg add-popover" data-original-title="Ejecutivos Asignados" data-content="its so simple to create a tooltop for my website!" data-placement="top" data-trigger="focus" data-toggle="popover"></a>*@
-
+    @*<a class="btn btn-default add-tooltip" data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="Tooltip on top">Tooltip on top</a>
+        <a class="demo-psi-male icon-lg add-tooltip" data-container="body" data-original-title="Ejecutivos Asignados" data-content='prueba de datros' data-placement="top" data-toggle="tooltip"></a>
+        <a href="#popover" class="demo-psi-male icon-lg add-popover" data-original-title="Ejecutivos Asignados" data-content='prueba de datros' data-placement="top" data-trigger="focus" data-toggle="popover"></a>*@
 </div>
 
 
 @section script{
 
     <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
-
-
     <script type="text/javascript">
 
         $(function () {
-             $("#tabla").bootstrapTable({
-                 striped: true,
-                 pagination: true,
-                 pageSize: 10,
-                 pageList: [],
-                 search: true,
-                 showColumns: false,
-                 showRefresh: true,
-             });
+
             $("#titulo").css('font-size', '27px').css('color', '#b3b3b3').css('margin-left', '20px')
             cargador.CargaDatosCateraAgente();
 
         });
-
 
         var cargador = {
             CargaDatosCateraAgente: function () {
@@ -72,38 +61,35 @@
                         var NomHolding = ""
                         var Asignados = "";
                         var Anexo = "";
-                        var contador = 0;
                         var validador = 0;
-                        if (e.Holding == 0 || e.NombreHolding =="") {
+                        if (e.Holding == 0 || e.NombreHolding == "") {
                             NomHolding = $('<div>').addClass('label label-table label-warning').append('Sin Holding')
                         }
                         else {
                             NomHolding = $('<div>').addClass('label label-table label-success').append(e.NombreHolding)
                         }
-                        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-ejecutivo-asignado", { IdEmpresa: e.Id }, function (result) {
 
-                            $.each(result, function (ix, ex) {
-                                Asignados = '<a href="#popover" class="demo-psi-male icon-lg add-popover" data-original-title="Ejecutivos Asignados" data-content="its so simple to create a tooltop for my website!" data-placement="top" data-trigger="focus" data-toggle="popover"></a>'
-                                validador = 1
-                            });
-                        });
-                        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-contador-anexos", { RutEmpresa: e.RutEmpresa }, function (respuesta) {
-                            contador = respuesta.TotalAnexos;
-                            if (contador > 0) { validador = 2 }
-                            Anexo = '<a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true"><i class="ion-clipboard" style="font-size: 22px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + contador + '</span></a>'
-                            if (contador == 0) { Anexo = "" }
+                        if (e.CountEmp > 0) {
+                            Asignados = ' <a class="demo-psi-male icon-lg add-tooltip" data-container="body" data-original-title="Ejecutivos Asignados" data-content="prueba de datros" data-placement="top" data-toggle="tooltip"></a>'
+                            validador = 1
+                        }
+                        else { Anexo = "" }
 
-                            $("#bdy_datos")
-                                .append($("<tr>")
-                                    .append($("<td>").append(e.RutEmpresa))
-                                    .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '&validador=' + validador + '&Id=' + e.Id + ' " class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
-                                    .append($("<td>").append(e.NTrabajador))
-                                    .append($("<td>").append(NomHolding))
-                                    .append($("<td>").append(Asignados))
-                                    .append($("<td>").append(Anexo))
-                                )
-                        });
+                        if (e.CountAnexo > 0) {
+                            Anexo = '<a data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true"><i class="ion-clipboard" style="font-size: 22px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + e.CountAnexo + '</span></a>'
+                            validador = 2
+                        }
+                        else { Anexo = "" }
 
+                        $("#bdy_datos")
+                            .append($("<tr>")
+                                .append($("<td>").append(e.RutEmpresa))
+                                .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '&validador=' + validador + '&Id=' + e.Id + ' " class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
+                                .append($("<td>").append(e.NTrabajador))
+                                .append($("<td>").append(NomHolding))
+                                .append($("<td>").append(Asignados))
+                                .append($("<td>").append(Anexo))
+                            )
                     });
                     $("#tabla").bootstrapTable({
                         striped: true,
