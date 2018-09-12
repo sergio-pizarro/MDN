@@ -112,15 +112,15 @@
                     <div class="panel-control" style="float:left;">
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_alertas" style="font-weight: bold;">Anexos</a>
+                                <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_anexos" style="font-weight: bold;">Anexos</a>
                             </li>
 
                             <li class="" style="display:none;">
                                 <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" style="font-weight: bold;">Visitas<span class="badge badge-success" id="cantCamp">0</span></a>
                             </li>
 
-                            <li class="">
-                                <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_alertas" style="font-weight: bold;">Oportunidades<span class="badge badge-success" id="cantAlertas"></span></a>
+                            <li id="liOport" class="">
+                                <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_oportunidad" style="font-weight: bold;">Oportunidades<span class="badge badge-success" id="cantAlertas"></span></a>
                             </li>
                         </ul>
                     </div>
@@ -158,12 +158,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
-
-
                                 <div id="tipoAsignacionAnexo" style="display: none">
                                     @*Anexo*@
                                     <a data-target="#demo-lg-modal-newAnexo" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Crear Nuevo Anexo<i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i></a>
@@ -183,14 +177,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
-
-
-
                         <div id="demo-lft-tab-1" class="tab-pane fade">
                             <div class="well well-lg">
                                 <div class="tab-base tab-stacked-left">
@@ -603,9 +589,15 @@
         var valida = httpGet('validador');
         var ID = httpGet('Id');
         var idEmpresa = httpGet('rutEmpA');
+        var IJ = httpGet('IJ');
         var result = [];
         var rutAsig = []
         var idEmp = '';
+        if (IJ == 0) {
+            $("#tab_anexos").css('display', 'none')
+            $("#liOport").addClass('active')
+            $("#demo-lft-tab-2").addClass('active in')
+        }
         $("#tblAnexos").bootstrapTable({
             striped: true,
             pagination: true,
@@ -666,8 +658,6 @@
             console.log(WebCarteraEmpresaAsig);
             ejeAsig.length = 0;
         });
-
-
 
         $("#btAsigna").on("click", function () {
             var ejeAsig = [];
@@ -887,7 +877,7 @@
                                 .append(
                                     $("<tr>")
                                         .append($("<td>").append(e.RutEmpresa))
-                                        .append($("<td>").append(e.Anexo))
+                                    .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresaAnexo + '&IJ=0' + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.Anexo + '</a>'))
                                         .append($("<td>").append('<div class="media-left pos-rel"><img class="img-circle img-sm" src="../Assets/img/profile-photos/2.png" alt="Profile Picture"><i class="badge badge-success badge-stat badge-icon pull-left">' + e.NumTrabajadores + '</i></div>'))
                                         .append($("<td>").append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.IdEmpresaAnexo + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
                                         .append($("<td>").append('<i href="#" data-toggle="modal" data-target="#demo-lg-modal-AsigEmp" data-idEmp="' + e.IdEmpresaAnexo + '"><i class="btn btn-sm demo-psi-add icon-lg" style="font-size: 31px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + contador + '</span></i>'))
@@ -975,8 +965,8 @@
                 $("#demo-cs-multiselectEje").html("");
                 $("#demo-cs-multiselectEjeEmpresa").html("");
                 $.each(menus, function (i, e) {
-                    $("#demo-cs-multiselectEje").append($("<option>").attr("value", e.Rut).html(e.Nombre))
-                    $("#demo-cs-multiselectEjeEmpresa").append($("<option>").attr("value", e.Rut).html(e.Nombre))
+                    $("#demo-cs-multiselectEje").append($("<option>").attr("value", e.Rut).html(e.Nombre + " - ( " + e.Cargo + " )"))
+                    $("#demo-cs-multiselectEjeEmpresa").append($("<option>").attr("value", e.Rut).html(e.Nombre + " - ( " + e.Cargo + " )"))
                 });
                 $('#demo-chosen-select').chosen();
                 $('#demo-cs-multiselectEje').chosen({ width: '70%' });

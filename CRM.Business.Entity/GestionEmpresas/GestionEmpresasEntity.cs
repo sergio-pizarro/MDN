@@ -43,6 +43,9 @@ namespace CRM.Business.Entity
         public string NombreHolding { get; set; }
         public string Tipo { get; set; }
         public int IdEmpresa { get; set; }
+
+        public int CountAnexo { get; set; }
+        public int CountEmp { get; set; }
     }
 
     public class AsigandosEjecutivoEmpresaEntity
