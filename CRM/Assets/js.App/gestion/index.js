@@ -1661,6 +1661,67 @@ $(function () {
             });
         });
 
+
+        $('#form-registro-contacto').bootstrapValidator({
+            excluded: [':disabled', ':not(:visible)'],
+            feedbackIcons: [],
+            fields: {
+                cbtippContac: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar un tipo de Contacto'
+                        }
+                    }
+                },
+                cbClasificacionConctac: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar una clasificación de contacto'
+                        }
+                    }
+                },
+                afi_NewContacto: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar un contacto'
+                        },
+                        stringLength: {
+                            message: 'No pueden ser mas de 100 caracteres',
+                            max: function (value, validator, $field) {
+                                return 150 - (value.match(/\r/g) || []).length;
+                            }
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            // Prevén que se mande el formulario
+            e.preventDefault();
+            var $form = $(e.target);
+
+            var objeto_envio_contacto = {
+                RutAfiliado: rutAf,
+                IdTipoContac: $('#cbtippContac').val(),
+                GlosaTipoContac: $('select[name="cbtippContac"] option:selected').text(),
+                IdClasifContac: $('#cbClasificacionConctac').val(),
+                GlosaClasifContac: $('select[name="cbClasificacionConctac"] option:selected').text(),
+                DatosContac: $('#afi_NewContacto').val()
+            }
+            $.SecGetJSON(BASE_URL + "/motor/api/Contactos/ingresa-nuevo-contacto", objeto_envio_contacto, function (datos) {
+                $("#form-registro-contacto").bootstrapValidator('resetForm', true);
+                $('#demo-lg-modal-new').modal('hide');
+                //Cargador.CargaDatosContactos(rutAf)
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'pli-like-2 icon-2x',
+                    message: 'Contacto Guardado correctamente.',
+                    container: 'floating',
+                    timer: 5000
+                });
+            });
+
+        });
+
     });
 
 
