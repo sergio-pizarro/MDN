@@ -132,12 +132,14 @@
                             <div class="panel-body">
 
                                 <div id="radioValidador" style="display:none;">
-                                    <p class="text-main text-bold">¿Desea Asignar una Empresa o Anexo?</p>
+
                                     <div class="radio">
-                                        <input id="radioEmpresa" class="magic-radio" type="radio" name="inline-form-radio">
-                                        <label for="radioEmpresa">Empresa</label>
                                         <input id="radioAnexo" class="magic-radio" type="radio" name="inline-form-radio">
-                                        <label for="radioAnexo">Anexo</label>
+                                        <label for="radioAnexo">¿Desea crear un Anexo?</label>
+                                        <br />
+                                        <br />
+                                        <input id="radioEmpresa" class="magic-radio" type="radio" name="inline-form-radio">
+                                        <label for="radioEmpresa">¿Desea Asignar una Empresa?</label>
                                     </div>
                                     <hr />
                                 </div>
@@ -297,7 +299,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div id="demo-lft-tab-2" class="tab-pane fade">
                             <div class="panel-body">
                                 <a data-target="#demo-lg-modal-new" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Nueva Gestion<i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i></a>
@@ -376,8 +377,6 @@
     </div>
 </div>
 
-
-
 <div id="demo-lg-modal-newAnexo" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="border-radius: 6px;">
@@ -443,7 +442,6 @@
                     <button class="btn btn-success" id="btGuardaEmpresa">Guardar datos empresa</button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
@@ -514,31 +512,27 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="dzMain" class="dropzone demo-dropzone" style="display:none;">
+                                <div class="dz-default dz-message">
+                                    <div class="dz-icon">
+                                        <i class="demo-pli-upload-to-cloud icon-5x"></i>
+                                    </div>
+                                    <div>
+                                        <span class="dz-text">
+                                            Haga click para seleccionar manualmente
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div id="demo-dropzone" action="#" class="dropzone" style="display: none">
-                    <div class="dz-default dz-message">
-                        <div class="dz-icon">
-                            <i class="demo-pli-upload-to-cloud icon-5x"></i>
-                        </div>
-                        <div>
-                            <span class="dz-text">
-                                Haga click para seleccionar manualmente
-                            </span>
-                        </div>
-                    </div>
-                    <div class="progress"><div style="width: 100%;" class="progress-bar progress-bar-info">0%</div></div>
-                    <div class="fallback">
-                        <input name="file" type="file" multiple>
-                    </div>
-                </div>
-
                 <div class="panel-footer text-right" style="background-color: #fff;">
                     <button class="btn btn-success" id="btGuardaEmpresaUp">Actualizar datos de Anexo</button>
                 </div>
             </form>
+
+
 
         </div>
     </div>
@@ -559,7 +553,7 @@
                         <div class="row">
 
                             <div class="panel-heading">
-                                <h3 class="panel-title" style="font-size: 14px;">Asignar Empresas a ejecutivos</h3>
+                                <h3 class="panel-title" style="font-size: 14px;">Asignar Anexos a ejecutivos</h3>
                             </div>
                             <div class="panel-body">
                                 <label for="demo-inline-inputmail" class="sr-only">Asignar Empresas</label>
@@ -574,8 +568,38 @@
         </div>
     </div>
 </div>
+<div id="overlay">
+    <div id="text">Cargando Documento, por favor espera...</div>
+</div>
+
+<style>
 
 
+    #overlay {
+        position: fixed; /* Sit on top of the page content */
+        display: none; /* Hidden by default */
+        width: 100%; /* Full width (cover the whole page) */
+        height: 100%; /* Full height (cover the whole page) */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+        z-index: 9999; /* Specify a stack order in case you're using a different order for other elements */
+        cursor: pointer; /* Add a pointer on hover */
+    }
+
+
+    #text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 50px;
+        color: white;
+        transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+    }
+</style>
 @section script{
     <script src="~/Assets/plugins/dropzone/dropzone.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
@@ -589,10 +613,40 @@
         var valida = httpGet('validador');
         var ID = httpGet('Id');
         var idEmpresa = httpGet('rutEmpA');
+        var RutEmpAnexo = httpGet('rutEmpA');
         var IJ = httpGet('IJ');
         var result = [];
         var rutAsig = []
         var idEmp = '';
+
+
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("div#dzMain", {
+            url: "#",
+            maxFiles: 1,
+            uploadMultiple: false,
+            maxFilesize: 15,
+            acceptedFiles: '.csv'
+        });
+        myDropzone.on("addedfile", function (file) {
+            document.getElementById("overlay").style.display = "block";
+        });
+
+        myDropzone.on("complete", function (file) {
+
+            document.getElementById("overlay").style.display = "none";
+            myDropzone.removeFile(file);
+        });
+
+
+        //$(document).ready(function () {
+        //
+
+
+        //    console.log(Dropzone.options.dropzoneForm);
+        //});
+
+
         if (IJ == 0) {
             $("#tab_anexos").css('display', 'none')
             $("#liOport").addClass('active')
@@ -836,8 +890,6 @@
             });
         });
 
-
-
         var cargador = {
             CargaDatosAsignadosEmp: function () {
                 $("#tbOportunidad").html("");
@@ -866,6 +918,35 @@
                     });
                 });
             },
+
+            CargaDatosAsignadosAnexo: function () {
+                $("#tbOportunidad").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-preaprobado-anexo", { idAnexo: idEmpresa, RutEmpresa: RutEmpAnexo }, function (menus) {
+                    $.each(menus, function (i, e) {
+                        $("#tbOportunidad")
+                            .append(
+                                $("<tr>")
+                                    .append($("<td>").append(''))
+                                    .append($("<td>").append(e.Id_Asign)).hide()
+                                    .append($("<td>").append(e.Afiliado_Rut + '-' + e.Afiliado_Dv))
+                                    .append($("<td>").append(e.Nombre + ' ' + e.Apellido))
+                                    .append($("<td>").append(e.PreAprobadoFinal.toMoney() + '<span class="badge badge-success" style="float: right;">' + e.Prioridad + '</span>'))
+                                    .append($("<td>").append(e.TipoCampania))
+                                    .append($("<td>").append(''))
+                            )
+                    })
+                    $("#tblAsigEmp").bootstrapTable({
+                        striped: true,
+                        pagination: true,
+                        pageSize: 10,
+                        pageList: [],
+                        search: true,
+                        showColumns: false,
+                        showRefresh: true,
+                    });;
+                });
+            },
+
             CargaDatosAnexos: function () {
                 $("#tbdyAnexo").html("");
                 $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-cartera-anexo", { RutEmpresa: rutE }, function (menus) {
@@ -877,7 +958,7 @@
                                 .append(
                                     $("<tr>")
                                         .append($("<td>").append(e.RutEmpresa))
-                                    .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresaAnexo + '&IJ=0' + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.Anexo + '</a>'))
+                                        .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresaAnexo + '&IJ=0' + '&rutEmAnexo=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.Anexo + '</a>'))
                                         .append($("<td>").append('<div class="media-left pos-rel"><img class="img-circle img-sm" src="../Assets/img/profile-photos/2.png" alt="Profile Picture"><i class="badge badge-success badge-stat badge-icon pull-left">' + e.NumTrabajadores + '</i></div>'))
                                         .append($("<td>").append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.IdEmpresaAnexo + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
                                         .append($("<td>").append('<i href="#" data-toggle="modal" data-target="#demo-lg-modal-AsigEmp" data-idEmp="' + e.IdEmpresaAnexo + '"><i class="btn btn-sm demo-psi-add icon-lg" style="font-size: 31px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + contador + '</span></i>'))
@@ -892,8 +973,6 @@
                 });
             }
         }
-        cargador.CargaDatosAsignadosEmp();
-        cargador.CargaDatosAnexos();
 
         if (rutE != "" && rutE != 'undefined' && rutE != null) {
             $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresa", { RutEmpresa: rutE }, function (result) {
@@ -914,6 +993,9 @@
                 $("#HoldingEmp").val(NomHolding)
                 $("#slEmperesa_multiselect").val(result.NombreEmpresa)
                 $("#txRutEmp").val(result.RutEmpresa)
+
+                cargador.CargaDatosAsignadosEmp();
+                cargador.CargaDatosAnexos();
             });
         }
         else {
@@ -936,7 +1018,10 @@
                 $("#slEmperesa_multiselect").val(result.NombreEmpresa)
                 $("#txRutEmp").val(result.RutEmpresa)
             });
+            cargador.CargaDatosAsignadosAnexo();
         }
+
+
 
         $(function () {
             $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: 0 }, function (datos) {
@@ -985,6 +1070,33 @@
                     $('#slComuna_multiselectUp').val(respuesta.IdComuna).trigger('chosen:updated');
                     $('#ISeMPup').val(idAnexo)
                 });
+
+                myDropzone.options.url = "/motor/api/perfil-empresas/carga-afiliados-dropzone/" + idAnexo;
+
+                //$("div#dzMain").dropzone({ url: "/motor/api/perfil-empresas/carga-afiliados-dropzone/" + idAnexo });
+                //$("div#dzMain").dropzone().destroy();
+
+                //Dropzone.options.dropzoneForm = {
+                //maxFiles: 1,
+                //uploadMultiple: false,
+                //maxFilesize: 15,
+                //acceptedFiles: '.csv',
+                //accept: function (file, done) {
+
+                //        console.log('Accept', file)
+
+                //        if (file.name == "justinbieber.jpg") {
+                //            done("Naha, you don't.");
+                //        }
+                //        else { done(); }
+                //    }
+                //};
+                //$("#dropzone-form").prop("action", "/motor/api/perfil-empresas/carga-afiliados-dropzone/" + idAnexo)
+            });
+
+
+            $('#demo-lg-modal-updateAnexo').on('hidden.bs.modal', function (event) {
+                location.reload();
             });
 
             $('#selecEstado').change(function (e) {
@@ -1054,10 +1166,10 @@
 
             $('#ckCargaAfi').on('change', function () {
                 if ($(this).is(':checked')) {
-                    $('#demo-dropzone').css('display', 'block')
+                    $('.demo-dropzone').css('display', 'block')
                 }
                 else {
-                    $('#demo-dropzone').css('display', 'none')
+                    $('.demo-dropzone').css('display', 'none')
                 }
             });
 
@@ -1065,23 +1177,14 @@
                 $("#radioValidador").css('display', 'block')
             }
             else if (valida == 1) {
+                $("#radioEmpresa").click();
                 $("#tipoAsignacionEmpresa").css('display', 'block')
-                $('#radioEmpresa').click()
+                $("#radioEmpresa").click();
+
             }
             else if (valida == 2) {
                 $("#tipoAsignacionAnexo").css('display', 'block')
             }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

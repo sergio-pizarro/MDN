@@ -4,9 +4,7 @@
 
 
 <link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
-
 <link href="~/Assets/plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
-<link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
 
 <h1 id="titulo">Cartera Empresas</h1>
 <div id="page-content">
@@ -23,7 +21,7 @@
                             <th>Rut Empresa</th>
                             <th>Nombre Empresa</th>
                             <th>N° Trabajadores</th>
-                            <th>Holding</th>
+                            <th>Clasificación Empresa</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -33,12 +31,7 @@
             </div>
         </div>
     </div>
-
-    @*<a class="btn btn-default add-tooltip" data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="Tooltip on top">Tooltip on top</a>
-        <a class="demo-psi-male icon-lg add-tooltip" data-container="body" data-original-title="Ejecutivos Asignados" data-content='prueba de datros' data-placement="top" data-toggle="tooltip"></a>
-        <a href="#popover" class="demo-psi-male icon-lg add-popover" data-original-title="Ejecutivos Asignados" data-content='prueba de datros' data-placement="top" data-trigger="focus" data-toggle="popover"></a>*@
 </div>
-
 
 @section script{
 
@@ -48,8 +41,8 @@
         $(function () {
 
             $("#titulo").css('font-size', '27px').css('color', '#b3b3b3').css('margin-left', '20px')
+            $('[data-toggle="popover"]').popover();
             cargador.CargaDatosCateraAgente();
-
         });
 
         var cargador = {
@@ -70,7 +63,12 @@
                         }
 
                         if (e.CountEmp > 0) {
-                            Asignados = ' <a class="demo-psi-male icon-lg add-tooltip" data-container="body" data-original-title="Ejecutivos Asignados" data-content="prueba de datros" data-placement="top" data-toggle="tooltip"></a>'
+                            Asignados = $('<a>').attr('href', '#popover')
+                                .addClass('demo-psi-male icon-lg add-popover').attr('data-original-title', 'Ejecutivos Asignados')
+                                .attr('data-content', 'prueba de datos')
+                                .attr('data-placement', 'top')
+                                .attr('data-trigger', 'focus')
+                                .attr('data-toggle', 'popover')
                             validador = 1
                         }
                         else { Anexo = "" }
@@ -80,7 +78,6 @@
                             validador = 2
                         }
                         else { Anexo = "" }
-
                         $("#bdy_datos")
                             .append($("<tr>")
                                 .append($("<td>").append(e.RutEmpresa))
@@ -91,6 +88,7 @@
                                 .append($("<td>").append(Anexo))
                             )
                     });
+
                     $("#tabla").bootstrapTable({
                         striped: true,
                         pagination: true,
@@ -98,11 +96,22 @@
                         pageList: [],
                         search: true,
                         showColumns: false,
-                        showRefresh: true,
+                        showRefresh: false,
                     });
+                    $('.add-popover').popover();
+                });
+            },
+            CargaDatosAsignados: function () {
+                $.SecGetJSON(BASE_URL + "/motor/api/Config/dotacion-oficina", function (menus) {
+  
                 });
             }
         }
+
+        $('#tabla .page-number').on("click", function () {
+       
+            $('.add-popover').popover();
+        });
 
     </script>
 

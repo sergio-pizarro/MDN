@@ -4825,6 +4825,7 @@
     <Folder Include="Areas\EmpresasPage\ModelDescriptions\" />
     <Folder Include="Areas\EmpresasPage\Models\" />
     <Folder Include="Areas\EmpresasPage\SampleGeneration\" />
+    <Folder Include="Assets\AfiliadoExcel\" />
     <Folder Include="Assets\css-preprocessors\" />
     <Folder Include="Assets\fonts\" />
     <Folder Include="Assets\nifty-v2\plugins\flot-charts\examples\gauge\" />
