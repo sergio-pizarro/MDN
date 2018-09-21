@@ -168,6 +168,27 @@ namespace CRM.Business.Data
         }
 
 
+        public static int InsertaAfiliadoAnexo(int anexo, string rutAfiliado)
+        {
+            Parametros parametros = new Parametros
+            {
+                 new Parametro("@RUT_AFILIADO", rutAfiliado),
+                 new Parametro("@ID_ANEXO", anexo),
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_GuardaAfiliadosAnexos", parametros);
+        }
+
+
+        public static List<AsigandosEjecutivoEmpresaEntity> ObtienePreAprobasoAnex(int idAnexo, string rutEmpresa)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@ID_ANEXO", idAnexo),
+                new Parametro("@RUT_EMPRESA", rutEmpresa),
+            };
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_ListaPreAprobadoAnexo", pram, AsigEjeEmpresa);
+        }
+
 
         private static CarteraEmpresasEntity ListaCarteraEmpresa(DataRow row)
         {

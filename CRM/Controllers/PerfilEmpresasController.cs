@@ -10,10 +10,11 @@ using CRM.Business.Entity.Clases;
 using CRM.Business.Data;
 using CRM.ActionFilters;
 using System.IO;
-using Excel = Microsoft.Office.Interop;
+using Interop = Microsoft.Office.Interop;
 using Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace CRM.Controllers
 {
@@ -135,60 +136,74 @@ namespace CRM.Controllers
             return PerfilEmpresasDataAccess.ObtieneContadorAnexo(RutEmpresa);
         }
 
-        //[HttpPost]
-        //public IHttpActionResult CargaAfiliados(HttpPostedFileBase archivoExcel)
-        //{
-        //    Excel.Excel.Application application = new Excel.Excel.Application();
-        //    try
-        //    {
-        //        if (archivoExcel.ContentLength == 0 || archivoExcel == null)
-        //        {
-        //            return BadRequest("Por favor seleccione un archivo.<br>");
-        //        }
-        //        else
-        //        {
-        //            if (archivoExcel.FileName.EndsWith("xls") || archivoExcel.FileName.EndsWith("xlsx"))
-        //            {
-        //                string path = System.Web.Hosting.HostingEnvironment.MapPath("../Uploads/");
-        //                if (!Directory.Exists(path))
-        //                {
-        //                    Directory.CreateDirectory(path);
-        //                }
-        //                String filepath = path + Path.GetFileName(archivoExcel.FileName);
-        //                string extension = Path.GetExtension(archivoExcel.FileName);
-        //                archivoExcel.SaveAs(filepath);
-        //                Excel.Excel.Workbook workbook = application.Workbooks.Open(filepath);
-        //                //Excel.Excel.Worksheet worksheet = workbook.ActiveSheet;
-        //                Excel.Excel.Worksheet worksheet = ((Excel.Excel.Worksheet)application.ActiveWorkbook.Worksheets[1]);
-        //                Excel.Excel.Range range = worksheet.UsedRange;
+        [HttpPost]
+        [Route("carga-afiliados-dropzone/{anexo}")]
+        public async Task<IHttpActionResult> SaveUploadedFile([FromUri] string anexo = "")
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            try
+            {
+                var lista = new List<string>();
+                string imprimir = "";
+                var provider = new MultipartMemoryStreamProvider();
+                await Request.Content.ReadAsMultipartAsync(provider);
 
-        //                for (int row = 2; row < range.Rows.Count + 1; row++)
-        //                {
-        //                    //ArchivoModel a = new ArchivoModel();
-        //                    //a.rut = Convert.ToInt32(((Excel.Excel.Range)range.Cells[row, 1]).Text);
-        //                    //a.dv = Convert.ToInt32(((Excel.Excel.Range)range.Cells[row, 2]).Text);
-        //                    //a.procesaDatos();
-        //                }
-        //                application.Workbooks.Close();
-        //                application.Quit();
-        //                return Ok("Index");
-        //            }
-        //            else
-        //            {
-        //                return BadRequest("Extensión del archivo es incorrecta");
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        application.Workbooks.Close();
-        //        application.Quit();
-        //        return Ok("Index");
-        //    }
-        //}
+                var baseUploadPath = @"C:\uploads\excel\";
+                foreach (var file in provider.Contents)
+                {
+                    if (file.Headers.ContentLength > 0)
+                    {
+                        var fileName = file.Headers.ContentDisposition.FileName.Trim('\"');
+                        if (fileName.EndsWith("csv") || fileName.EndsWith("CSV"))
+                        {
+                            var nombreFinal = "R" + anexo + DateTime.Now.ToString("yyyyMMddHHmmssFFF") + ".csv";
+                            var filePath = Path.Combine(baseUploadPath, nombreFinal);
+                            var buffer = await file.ReadAsByteArrayAsync();
+                            File.WriteAllBytes(filePath, buffer);
 
+                            using (var files = new StreamReader(filePath))
+                            {
+                                string line; int i = 0;
+                                while ((line = files.ReadLine()) != null)
+                                {
+                                    if (i > 0)
+                                    {
+                                        string rut = line.Split(';')[0];
+                                        string dv = line.Split(';')[1];
+                                        string final = rut + "-" + dv;
+                                        imprimir = imprimir + "ANEXO[" + anexo + "] RUT[" + final + "]";
 
+                                        PerfilEmpresasDataAccess.InsertaAfiliadoAnexo(Convert.ToInt32(anexo), final);
+                                        //return new ResultadoBase() { Estado = "OK", Mensaje = "Ingreso Correcto" };
+                                    }
+                                    i++;
+                                }
+                            }
+                            File.Delete(filePath);
+                        }
+                        else
+                        {
+                            return BadRequest("El archivo debe ser csv " + imprimir);
+                        }
+                    }
+                }
 
+                return Ok("Datos procesados " + imprimir);
+            }
+            catch (Exception ex)
+            {
+                var response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+                throw new HttpResponseException(response);
+            }
+        }
+
+        [HttpGet]
+        [Route("lista-preaprobado-anexo")]
+        public ICollection<AsigandosEjecutivoEmpresaEntity> ObtenerPreAprobadosAnexo(int idAnexo, string RutEmpresa)
+        {
+            return PerfilEmpresasDataAccess.ObtienePreAprobasoAnex(idAnexo, RutEmpresa);
+        }
     }
 
 }
