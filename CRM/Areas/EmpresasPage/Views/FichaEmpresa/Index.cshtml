@@ -115,7 +115,7 @@
                                 <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_anexos" style="font-weight: bold;">Anexos</a>
                             </li>
 
-                            <li class="" style="display:none;">
+                            <li class="" style="display:block;">
                                 <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" style="font-weight: bold;">Visitas<span class="badge badge-success" id="cantCamp">0</span></a>
                             </li>
 
@@ -594,7 +594,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        font-size: 50px;
+        font-size: 40px;
         color: white;
         transform: translate(-50%,-50%);
         -ms-transform: translate(-50%,-50%);
@@ -613,7 +613,7 @@
         var valida = httpGet('validador');
         var ID = httpGet('Id');
         var idEmpresa = httpGet('rutEmpA');
-        var RutEmpAnexo = httpGet('rutEmpA');
+        var RutEmpAnexo = httpGet('rutEmAnexo');
         var IJ = httpGet('IJ');
         var result = [];
         var rutAsig = []
@@ -666,6 +666,7 @@
             var Anexosss = $(events.relatedTarget);
             idEmp = Anexosss.data('idemp')
             console.log(idEmp);
+            $("#demo-cs-multiselectEje").val(' -').trigger("chosen:updated");
             $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-ejecutivo-asignado", { IdEmpresa: idEmp }, function (respuesta) {
                 rutAsig.length = 0;
                 $.each(respuesta, function (ix, ex) {
@@ -678,6 +679,7 @@
 
         $("#btAsignaEmpresa").on("click", function () {
             var ejeAsig = [];
+            $('#demo-cs-multiselectEjeEmpresa').chosen({ width: '80%' });
             $('#demo-cs-multiselectEjeEmpresa :selected').each(function () {
                 ejeAsig.push($(this).val())
             });
@@ -709,7 +711,7 @@
                 });
             });
             cargador.CargaDatosAnexos();
-            console.log(WebCarteraEmpresaAsig);
+            //console.log(WebCarteraEmpresaAsig);
             ejeAsig.length = 0;
         });
 
@@ -1021,8 +1023,6 @@
             cargador.CargaDatosAsignadosAnexo();
         }
 
-
-
         $(function () {
             $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: 0 }, function (datos) {
                 $("#selecEstado").html("");
@@ -1047,8 +1047,6 @@
             });
 
             $.SecGetJSON(BASE_URL + "/motor/api/Config/dotacion-oficina", function (menus) {
-                $("#demo-cs-multiselectEje").html("");
-                $("#demo-cs-multiselectEjeEmpresa").html("");
                 $.each(menus, function (i, e) {
                     $("#demo-cs-multiselectEje").append($("<option>").attr("value", e.Rut).html(e.Nombre + " - ( " + e.Cargo + " )"))
                     $("#demo-cs-multiselectEjeEmpresa").append($("<option>").attr("value", e.Rut).html(e.Nombre + " - ( " + e.Cargo + " )"))
@@ -1187,21 +1185,6 @@
             }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             //$('#form-registro-gestion').bootstrapValidator({
             //    excluded: [':disabled', ':not(:visible)'],
             //    feedbackIcons: [],
@@ -1305,7 +1288,6 @@
             //});
 
 
-
             $("input:radio[name=groupCkeckAlerta]").click(function () {
                 switch (this.value) {
                     case "SI":
@@ -1320,12 +1302,7 @@
                         break;
                 }
             });
-
-
         });
-
-
-
 
     </script>
 
