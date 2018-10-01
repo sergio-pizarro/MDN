@@ -22,6 +22,7 @@ namespace CRM.Business.Entity.Clases
     {
         public DotacionEntity Ejecutivo { get; set; }
         public List<AusenciaEntity> PeriodoAusencia { get; set; }
+        public bool RegistraAusencia { get; set; }
     }
     
      

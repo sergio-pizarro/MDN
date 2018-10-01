@@ -36,6 +36,14 @@ namespace CRM.Controllers
             string token = ActionContext.Request.Headers.GetValues("Token").First();
             return CarteraEmpresaDataAccess.ListarEjecutivoCargo(token, CodTipo);
         }
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-ejecutivo-admin")]
+        public List<EjecutivoCarteraEntity> ListarEjecutivoAdmin()
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return CarteraEmpresaDataAccess.ListarEjecutivoAdmin(token);
+        }
 
         [AuthorizationRequired]
         [HttpGet]
@@ -46,13 +54,24 @@ namespace CRM.Controllers
             return CarteraEmpresaDataAccess.ListaEmpresaEjecutivo(token);
         }
 
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-empresa-total")]
+        public BootstrapTableResult<CarteraEmpresaTotal> ListarEmpresaEjecutivoTotal(int offset, int limit, string search = "")
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            var resultado = new BootstrapTableResult<CarteraEmpresaTotal>();
+            resultado.rows = CarteraEmpresaDataAccess.ListarEmpresaTotal(limit, offset, search,token);
+            resultado.total = CarteraEmpresaDataAccess.CountEmpresaTotal(search,token);
+            
+            return resultado;
+        }
 
         [AuthorizationRequired]
         [HttpPost]
         [Route("guardar-cartera-empresa")]
         public ResultadoBase GuardarCartera(WebCarteraEmpresa entrada)
         {
-
 
             try
             {
@@ -85,6 +104,7 @@ namespace CRM.Controllers
             return IngresoCarteraEmpresaDataAccess.ObtenerPorID(codIngreso);
             
         }
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("eliminar-cartera-empresa")]
@@ -101,7 +121,79 @@ namespace CRM.Controllers
             }
         }
 
+        ///Admin
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("listar-empresa-admin")]
+        public IEnumerable<CarteraEmpresaAdmin> ListarEmpresaAdmin()
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return CarteraEmpresaDataAccess.ListarEmpresaAdmin(token);
+        }
 
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("guardar-cartera-empresa-admin")]
+        public ResultadoBase GuardarCarteraAdmin([FromBody] IngresoCarteraEmpresaAdmin entrada)
+        {
+            try
+            {
+                string token = ActionContext.Request.Headers.GetValues("Token").First();
+                long id = IngresoCarteraEmpresaAdminDataAccess.Guardar(entrada, token);
+
+                foreach (var item in entrada.EjecAsignado)
+                {
+                    IngresoCarteraEmpresaAdminDataAccess.GuardarAsignacion(item, id);
+                } 
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Ingreso Correcto", Objeto = entrada };
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoBase() { Estado = "ERR", Mensaje = "Error en el ingreso: " + ex.Message, Objeto = ex };
+            }
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("eliminar-cartera-empresa-admin")]
+        public ResultadoBase EliminarCarteraEmpresaAdmin(int CodIngreso)
+        {
+            try
+            {
+                IngresoCarteraEmpresaAdminDataAccess.Eliminar(CodIngreso);
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Registro Eliminado con éxito", Objeto = CodIngreso };
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoBase() { Estado = "ERR", Mensaje = "Error al eliminar " + ex.Message, Objeto = ex };
+            }
+        }
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("actualiza-validacion")]
+        public ResultadoBase ActualizaValidacion(int CodIngreso)
+        {
+            try
+            {
+                IngresoCarteraEmpresaAdminDataAccess.Actualizar(CodIngreso);
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Registro Actualizado con éxito", Objeto = CodIngreso };
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoBase() { Estado = "ERR", Mensaje = "Error al Actualizar " + ex.Message, Objeto = ex };
+            }
+        }
+
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("cartera-data-admin")]
+        public IngresoCarteraEmpresaAdmin DatoCarteraEmpresaAdmin(int codIngreso)
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return IngresoCarteraEmpresaAdminDataAccess.ObtenerPorID(codIngreso);
+
+        }
 
     }
 }

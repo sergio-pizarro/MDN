@@ -1,0 +1,118 @@
+﻿@{
+    Layout = "~/Areas/EmpresasPage/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
+
+<h1 id="titulo">Cartera Empresas</h1>
+<div id="page-content">
+    <div class="row">
+        <div class="panel" style="border-radius: 6px;">
+            <div class="panel-heading">
+                <h2 class="panel-title">Empresas Asignadas</h2>
+            </div>
+
+            <div class="panel-body">
+                <table id="tabla" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Rut Empresa</th>
+                            <th>Nombre Empresa</th>
+                            <th>N° Trabajadores</th>
+                            <th>Clasificación Empresa</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="bdy_datos"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+
+    <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#titulo").css('font-size', '27px').css('color', '#b3b3b3').css('margin-left', '20px')
+            $('[data-toggle="popover"]').popover();
+            cargador.CargaDatosCateraAgente();
+        });
+
+        var cargador = {
+            CargaDatosCateraAgente: function () {
+                $("#bdy_datos").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/obtener-cartera-agente", function (menus) {
+                    var iterador = ""
+                    $.each(menus, function (i, e) {
+                        var NomHolding = ""
+                        var Asignados = "";
+                        var Anexo = "";
+                        var validador = 0;
+                        if (e.Holding == 0 || e.NombreHolding == "") {
+                            NomHolding = $('<div>').addClass('label label-table label-warning').append('Sin Holding')
+                        }
+                        else {
+                            NomHolding = $('<div>').addClass('label label-table label-success').append(e.NombreHolding)
+                        }
+
+                        if (e.CountEmp > 0) {
+                            Asignados = $('<a>').attr('href', '#popover')
+                                .addClass('demo-psi-male icon-lg add-popover').attr('data-original-title', 'Ejecutivos Asignados')
+                                .attr('data-content', 'prueba de datos')
+                                .attr('data-placement', 'top')
+                                .attr('data-trigger', 'focus')
+                                .attr('data-toggle', 'popover')
+                            validador = 1
+                        }
+                        else { Anexo = "" }
+
+                        if (e.CountAnexo > 0) {
+                            Anexo = '<a data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true"><i class="ion-clipboard" style="font-size: 22px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + e.CountAnexo + '</span></a>'
+                            validador = 2
+                        }
+                        else { Anexo = "" }
+                        $("#bdy_datos")
+                            .append($("<tr>")
+                                .append($("<td>").append(e.RutEmpresa))
+                                .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '&validador=' + validador + '&Id=' + e.Id + ' " class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
+                                .append($("<td>").append(e.NTrabajador))
+                                .append($("<td>").append(NomHolding))
+                                .append($("<td>").append(Asignados))
+                                .append($("<td>").append(Anexo))
+                            )
+                    });
+
+                    $("#tabla").bootstrapTable({
+                        striped: true,
+                        pagination: true,
+                        pageSize: 10,
+                        pageList: [],
+                        search: true,
+                        showColumns: false,
+                        showRefresh: false,
+                    });
+                    $('.add-popover').popover();
+                });
+            },
+            CargaDatosAsignados: function () {
+                $.SecGetJSON(BASE_URL + "/motor/api/Config/dotacion-oficina", function (menus) {
+  
+                });
+            }
+        }
+
+        $('#tabla .page-number').on("click", function () {
+       
+            $('.add-popover').popover();
+        });
+
+    </script>
+
+}

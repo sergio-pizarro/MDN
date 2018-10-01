@@ -1,0 +1,118 @@
+﻿
+@{
+    Layout = "~/Areas/EmpresasPage/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Assets/plugins/fooTable/css/footable.core.css" rel="stylesheet">
+<link href="~/Assets/plugins/dropzone/dropzone.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet" />
+<link href="~/Assets/nifty-v2/treegrid/jquery.treegrid.css" rel="stylesheet" />
+
+<h1 id="titulo">Cartera Empresas Asignadas</h1>
+<div id="page-content">
+    <div class="row">
+        <div class="panel" style="border-radius: 6px;"">
+            <div class="panel-heading">
+                <h2 class="panel-title">Empresas Asignadas</h2>
+            </div>
+
+            <div class="panel-body">
+                <table id="tablatree" class="table tree-2 table-bordered table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Rut Empresa</th>
+                            <th>Nombre Empresa</th>
+                            <th>N° Trabajadores</th>
+                            <th>Holding</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bdy_datos"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+
+    <script src="~/Assets/plugins/dropzone/dropzone.min.js"></script>
+    <script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
+    <script src="~/Assets/js/demo/tables-footable.js"></script>
+    <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+    <script src="~/Assets/nifty-v2/treegrid/jquery.treegrid.js"></script>
+    <script src="~/Assets/nifty-v2/treegrid/jquery.treegrid.bootstrap3.js"></script>
+
+    <script type="text/javascript">
+
+        var cargador = {
+            CargaDatosCateraAgente: function () {
+                $("#bdy_datos").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/obtener-cartera-empresa", function (menus) {
+                    var iterador = ""
+                    $.each(menus, function (i, e) {
+                        var NomHolding = ""
+                        if (e.Holding == 0) {
+                            NomHolding = $('<div>').addClass('label label-table label-warning').append('Sin Holding')
+                        }
+                        else {
+                            NomHolding = $('<div>').addClass('label label-table label-success').append(e.NombreHolding)
+                        }
+                        if (e.Tipo != "FAnexo") {
+                            $("#bdy_datos")
+                                .append($("<tr>").addClass('treegrid-' + i)
+                                    .append($("<td>").append(e.RutEmpresa))
+                                    .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '&IJ=0' + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(NomHolding))
+                                )
+                            iterador = i
+                        } else {
+                            $("#bdy_datos")
+                                .append($("<tr>").addClass('treegrid-' + i + ' treegrid-parent-' + iterador).addClass(' colorAnexo')
+                                    .append($("<td>").append(e.RutEmpresa))
+                                    .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresa + '&IJ=0' + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NombreHolding))
+                                )
+                        }
+                    });
+                    $(document).ready(function () {
+                        $('.tree-2').treegrid({
+                            initialState: 'collapsed',
+                            saveState: null,
+                            expanderExpandedClass: 'glyphicon glyphicon-minus',
+                            expanderCollapsedClass: 'glyphicon glyphicon-plus',
+                        });
+                        $('.colorAnexo').css('background', '#ffeeba')
+                    });
+
+                    $("#tablatree").bootstrapTable({
+                        striped: true,
+                        pageSize: 10,
+                        pageList: [],
+
+                    });
+                });
+            },
+        }
+
+        $(function () {
+
+            $("#titulo").css('font-size', '22px').css('color', '#b3b3b3').css('margin-left', '20px')
+            $('#ckCargaAfi').on('change', function () {
+                if ($(this).is(':checked')) {
+                    $('#demo-dropzone').css('display', 'block')
+                }
+                else {
+                    $('#demo-dropzone').css('display', 'none')
+                }
+            });
+
+            cargador.CargaDatosCateraAgente();
+        });
+
+    </script>
+
+}

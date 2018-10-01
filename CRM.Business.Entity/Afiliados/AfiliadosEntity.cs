@@ -33,6 +33,9 @@ namespace CRM.Business.Entity.Afiliados
         public string Mail { get; set; }
         public int Vigente { get; set; }
         public int Fallecido { get; set; }
+        public int FlagNoMolestar { get; set; }
+        public string MotivoNM { get; set; }
+
 
     }
     public class AfiliadoEmpresaEntity
@@ -66,12 +69,12 @@ namespace CRM.Business.Entity.Afiliados
         public int TipoAsignacion { get; set; }
         public string Estado { get; set; }
         public string SubEstado { get; set; }
-        public DateTime FechaCompromete { get; set; } 
+        public DateTime FechaCompromete { get; set; }
         public DateTime FechaAccion { get; set; }
         public string Nombres { get; set; }
         public string Descripcion { get; set; }
         public string EsTerminal { get; set; }
-        
+
     }
     public class AfiliadoDatosCumpleanios
     {
@@ -88,5 +91,45 @@ namespace CRM.Business.Entity.Afiliados
         public string Valor { get; set; }
         public string TipoValor { get; set; }
     }
+
+    public class NoMolestarAfiliado
+    {
+        public string RutAfiliado { get; set; }
+        public string Motivo { get; set; }
+        public DateTime Fecha_incio { get; set; }
+        public string RutEjecutivoIni { get; set; }
+        public int CodOficinaIni { get; set; }
+        public DateTime Fecha_fin { get; set; }
+        public string RutEjecutivoFin { get; set; }
+        public int CodOficinaFin { get; set; }
+        public int FlagEstado { get; set; }
+    }
+
+    public class ObservacionAfiliado
+    {
+        public string RutAfiliado { get; set; }
+        public DateTime Fecha_obs { get; set; }
+        public string Observacion { get; set; }
+        public string RutEjecutivo { get; set; }
+        public int CodOficina { get; set; }
+
+    }
+
+    public class AfiliadoProyeccion
+    {
+        public string RutAfiliado { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Estado { get; set; }
+        public string SubEstado { get; set; }
+        public string Afiliado { get; set; }
+        public string Ejecutivo { get; set; }
+        public string Sucursal { get; set; }
+        public int PreAprobadoFinal { get; set; }
+        public string Periodo { get; set; }
+        public int EstadoGestion { get; set; }
+
+    }
+
+
 
 }

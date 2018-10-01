@@ -5549,7 +5549,8 @@ blockquote {
 }
 
 .bq-open:before, .bq-close:after {
-    color: #cbd6e3;
+    /* color: #cbd6e3;*/
+    color: #b7b7b7;
     content: '\201C';
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 5em;

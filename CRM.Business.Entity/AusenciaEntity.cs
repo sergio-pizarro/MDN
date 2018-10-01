@@ -58,7 +58,12 @@ namespace CRM.Business.Entity
         /// </summary>
         public string aus_comentarios { get; set; }
 
-        
+        /// <summary>
+        /// aus_marca_ausencia
+        /// </summary>
+        public bool aus_marca_ausencia { get; set; }
+
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="AusenciaEntity"/>.
         /// </summary>
@@ -71,6 +76,7 @@ namespace CRM.Business.Entity
             tipo_ausencia_id = 0;
             aus_cantidad_dias = 0;
             aus_comentarios = string.Empty;
+            aus_marca_ausencia = false;
         }
     }
 }

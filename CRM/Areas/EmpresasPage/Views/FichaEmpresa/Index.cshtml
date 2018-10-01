@@ -1,0 +1,1332 @@
+﻿
+@{
+    Layout = "~/Areas/EmpresasPage/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Assets/plugins/dropzone/dropzone.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/switchery/switchery.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
+
+
+<h1 id="tituloEmp">Ficha de Empresa</h1>
+<div id="page-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel" style="border-radius: 6px;">
+                <div class="panel-body">
+                    <h2 class="panel-title">
+                        <span class="pull-left badge badge-danger" style="border-radius: 4px; display: none;" id="msjNoMoles">No Molestar</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px; display:none" id="cumpleanos">Afiliado esta de Cumpleaños</span><span class="pull-left badge badge-warning" style="border-radius: 4px; margin-left: 5px; display:none" id="afinuevo">Afi Nuevo</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px;" id="afiVigente"></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display:none" id="afiFallecido "></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display:none" id="afiContac">Actualizar Contactos</span>
+                    </h2>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="panel pos-rel" style="border-radius: 5px;">
+                                    <div class="pad-all text-center">
+                                        <img alt="Profile Picture" class="img-lg img-circle mar-ver" src="~/Assets/img/imgEmpresas.png" />
+                                        <p class="text-lg text-semibold mar-no text-main" id="NombreEmpresaPer" style="font-size: 12px;"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Rut</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="RutEmp" id="RutEmp" readonly="readonly" style="font-weight:bold" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3" style="margin-left: 30px;">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Antiguedad años</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="AntiguedadA" id="AntiguedadA" readonly="readonly" style="font-weight:bold" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Segmento</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="SegmentoEmp" id="SegmentoEmp" readonly="readonly" style="font-weight: bold;" />
+                                            <div class="label label-table label-success" style="display:none">Cumpleaños</div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3" style="margin-left: 30px;">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">N° Trabajadores</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="nTrabajadores" id="nTrabajadores" readonly="readonly" style="font-weight:bold" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <h5><label class="control-label">Holding</label></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="HoldingEmp" id="HoldingEmp" readonly="readonly" style="font-weight: bold;" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel" style="border-radius: 6px;" ">
+
+                <!--Panel heading-->
+                <div class="panel-heading">
+                    <div class="panel-control" style="float:left;">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_anexos" style="font-weight: bold;">Anexos</a>
+                            </li>
+
+                            <li class="" style="display:none;">
+                                <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" style="font-weight: bold;">Visitas<span class="badge badge-success" id="cantCamp">0</span></a>
+                            </li>
+
+                            <li id="liOport" class="">
+                                <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_oportunidad" style="font-weight: bold;">Oportunidades<span class="badge badge-success" id="cantAlertas"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <h3 class="panel-title" style="color:white">.</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div id="demo-lft-tab-3" class="tab-pane fade active in">
+                            <div class="panel-body">
+
+                                <div id="radioValidador" style="display:none;">
+
+                                    <div class="radio">
+                                        <input id="radioAnexo" class="magic-radio" type="radio" name="inline-form-radio">
+                                        <label for="radioAnexo">¿Desea crear un Anexo?</label>
+                                        <br />
+                                        <br />
+                                        <input id="radioEmpresa" class="magic-radio" type="radio" name="inline-form-radio">
+                                        <label for="radioEmpresa">¿Desea Asignar una Empresa?</label>
+                                    </div>
+                                    <hr />
+                                </div>
+                                <div class="panel panel-bordered-primary" style="border-color: #e6e6e6; display: none; border-radius: 5px;" id="tipoAsignacionEmpresa">
+
+                                    <div class="panel-body">
+                                        <div class="row">
+
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title" style="font-size: 14px;">Asignar Empresas a ejecutivos</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <label for="demo-cs-multiselectEjeEmpresa" class="sr-only">Asignar Empresas</label>
+                                                <select id="demo-cs-multiselectEjeEmpresa" data-placeholder="Seleccione a los ejecutivos.." multiple tabindex="4"></select>
+                                                <button class="btn btn-primary" id="btAsignaEmpresa" type="submit">Asignar</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tipoAsignacionAnexo" style="display: none">
+                                    @*Anexo*@
+                                    <a data-target="#demo-lg-modal-newAnexo" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Crear Nuevo Anexo<i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i></a>
+                                    <hr />
+                                    <table style="font-size: 12px;" id="tblAnexos" class="table table-hover table-vcenter">
+                                        <thead>
+                                            <tr>
+                                                <th>Rut Empresa</th>
+                                                <th>Nombre Anexo</th>
+                                                <th>N° Trabajadores</th>
+                                                <th>Editar</th>
+                                                <th>Asignar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="buscar" id="tbdyAnexo"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="demo-lft-tab-1" class="tab-pane fade">
+                            <div class="well well-lg">
+                                <div class="tab-base tab-stacked-left">
+
+                                    <!--Nav tabs-->
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#demo-stk-lft-tab-1" aria-expanded="true">Gestion</a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#demo-stk-lft-tab-2" aria-expanded="false">Relacionamiento</a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#demo-stk-lft-tab-3" aria-expanded="false">General</a>
+                                        </li>
+
+                                    </ul>
+
+                                    <!--Tabs Content-->
+                                    <div class="tab-content">
+                                        <div id="demo-stk-lft-tab-1" class="tab-pane fade active in">
+
+                                            <div class="form-horizontal">
+                                                <div class="row">
+                                                    <div class="col-md-4 mar-btm">
+                                                        <label class="control-label">Nombre Empresa o Alias</label>
+                                                        <input type="text" id="nombEmpresa" name="nombEmpresa" class="form-control" placeholder="nombre empresa">
+                                                    </div>
+                                                    <div class="col-md-4 mar-btm">
+                                                        <label class="control-label">Fecha y hora visita</label>
+                                                        <div id="demo-dp-component">
+                                                            <div class="input-group date">
+                                                                <input class="form-control" type="text" id="FechaGestges" name="FechaGestges">
+                                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 mar-btm">
+                                                        <label class="control-label">Tipo</label>
+                                                        <select id="slTipo" class="form-control" name="slTipo">
+                                                            <option value="">Seleccione</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4 mar-btm">
+                                                        <label class="control-label">Estamento</label>
+                                                        <select id="slEstamento" class="form-control" name="slEstamento">
+                                                            <option value="">Seleccione</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4 mar-btm">
+                                                        <label class="control-label">Nombre Contacto</label>
+                                                        <input type="text" id="nombContacto" name="nombContacto" class="form-control" placeholder="nombre contacto">
+                                                    </div>
+                                                    <div class="col-md-4 mar-btm">
+                                                        <label class="control-label">Cargo</label>
+                                                        <input type="text" id="txtCargo" name="txtCargo" class="form-control" placeholder="Cargo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="demo-stk-lft-tab-2" class="tab-pane fade">
+
+                                            <div class="row">
+                                                <div class="col-md-4 mar-btm">
+                                                    <label class="control-label">Tema</label>
+                                                    <select id="slTema" class="form-control" name="slTema">
+                                                        <option value="">Seleccione</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 mar-btm">
+                                                    <label class="control-label">Sub-Tema</label>
+                                                    <select id="slSubTema" class="form-control" name="slSubTema">
+                                                        <option value="">Seleccione</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 mar-btm">
+                                                    <label class="control-label">Semaforo Relación</label>
+                                                    <div class="btn-group bootstrap-select form-control">
+                                                        <select id="selectCargo" class="form-control selectpicker" tabindex="-98">
+                                                            <option value="">Seleccione</option>
+                                                            <option data-content="<span class=&quot;badge badge-success&quot; style='width: 100%; background-color: #8bc34a;'>Verde</span>">Verde</option>
+                                                            <option data-content="<span class=&quot;badge badge-warning&quot; style='width: 100%; background-color: #ffb300;'>Amarillo</span>">Amarillo</option>
+                                                            <option data-content="<span class=&quot;badge badge-danger&quot; style='width: 100%; background-color: #f44336;'>Rojo</span>">Rojo</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4 mar-btm">
+                                                    <label class="control-label">Alerta</label>
+                                                    <div class="radio">
+                                                        <input id="ckAlertaSI" class="magic-radio" type="radio" name="groupCkeckAlerta" value='SI'>
+                                                        <label for="ckAlertaSI">SI</label>
+                                                        <input id="ckAlertaNO" class="magic-radio" type="radio" name="groupCkeckAlerta" value='NO' checked>
+                                                        <label for="ckAlertaNO">NO</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mar-btm" style="display: none" id="divFechaResul">
+                                                    <label class="control-label">Fecha de Resolución</label>
+                                                    <div id="demo-dp-component">
+                                                        <div class="input-group date">
+                                                            <input class="form-control" type="text" id="FechaResultado" name="FechaResultado">
+                                                            <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioResultado" name="comentarioResultado" style="display: none"></textarea>
+                                        </div>
+
+                                        <div id="demo-stk-lft-tab-3" class="tab-pane fade">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="demo-lft-tab-2" class="tab-pane fade">
+                            <div class="panel-body">
+                                <a data-target="#demo-lg-modal-new" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Nueva Gestion<i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i></a>
+                                <hr />
+                                <table style="font-size: 12px;" id="tblAsigEmp" class="table table-hover table-vcenter">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="state" data-checkbox="true"></th>
+                                            <th hidden></th>
+                                            <th>Rut</th>
+                                            <th>Nombres</th>
+                                            <th>Oferta</th>
+                                            <th>Tipo Oferta</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="buscar" id="tbOportunidad"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="demo-lg-modal-new" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 13px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title"><i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i>    Nueva Gestion</h4>
+                <i style="float: right; margin-right: 80px; font-style: normal;  margin-top: -18px;"><i class="demo-pli-checked-user icon-lg icon-fw"></i> <span class="label label-info" id="cantAfiScheck" style="margin-right: 15px;">0</span>    Afiliados seleccionados</i>
+            </div>
+            <form id="form-registro-gestion" action="#" method="post">
+                <div class="panel-body">
+                    <div class="panel panel-bordered-primary" style="border-color: #e6e6e6;">
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+
+                                <div class="row">
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Estado</label>
+                                        <select id="selecEstado" class="form-control" name="selecEstado">
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Sub-Estado</label>
+                                        <select id="selecSubEstado" class="form-control" name="selecSubEstado">
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Fecha de compromete</label>
+
+                                        <div id="demo-dp-component">
+                                            <div class="input-group date">
+                                                <input class="form-control" type="text" id="FechaGest" name="FechaGest">
+                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioGest" name="comentarioGest"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right" style="background-color: #fff;">
+                    <button class="btn btn-success" id="btGuardaGestion">Guardar Gestion</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="demo-lg-modal-newAnexo" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 6px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title">    Nuevo anexo</h4>
+            </div>
+            <form id="form_registro_anexo" action="#" method="post">
+                <div class="panel-body">
+                    <div class="panel panel-bordered-primary" style="border-color: #e6e6e6;">
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Rut Empresa</label>
+                                        <input type="text" class="form-control" id="txRutEmp" disabled name="txRutEmp">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre Empresa</label>
+                                        <input type="text" class="form-control" id="slEmperesa_multiselect" disabled name="slEmperesa_multiselect">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Anexo</label>
+                                        <input type="text" id="anexo" class="form-control" name="anexo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">N° de Trabajadores</label>
+                                        <input type="text" class="form-control" id="nTrajadores" name="nTrajadores">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Dirección</label>
+                                        <input type="text" class="form-control" id="direccionAnexo" name="direccionAnexo">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Comuna</label>
+                                        <select class="form-control" id="slComuna_multiselect" tabindex="2" name="slComuna-multiselect" required>
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right" style="background-color: #fff;">
+                    <button class="btn btn-success" id="btGuardaEmpresa">Guardar datos empresa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="demo-lg-modal-updateAnexo" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 6px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title">    Actualizar anexo</h4>
+            </div>
+            <form id="form_registro_anexoUp" action="#" method="post">
+                <div class="panel-body">
+                    <div class="panel panel-bordered-primary" style="border-color: #e6e6e6;">
+                        <div class="panel-body">
+                            <input type="text" class="form-control" id="ISeMPup" disabled name="ISeMPup" style="display: none;">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Rut Empresa</label>
+                                        <input type="text" class="form-control" id="txRutEmpUp" disabled name="txRutEmpUp">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre Empresa</label>
+                                        <input type="text" class="form-control" id="slEmperesa_multiselectUp" disabled name="slEmperesa_multiselectUp">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Anexo</label>
+                                        <input type="text" id="anexoUp" class="form-control" name="anexoUp">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">N° de Trabajadores</label>
+                                        <input type="text" class="form-control" id="nTrajadoresUp" name="nTrajadoresUp">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Dirección</label>
+                                        <input type="text" class="form-control" id="direccionAnexoUp" name="direccionAnexoUp">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Comuna</label>
+                                        <select class="form-control" id="slComuna_multiselectUp" tabindex="2" name="slComuna-multiselectUp" required>
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="checkbox">
+                                        <input id="ckCargaAfi" class="magic-checkbox" type="checkbox" name="ckCargaAfi">
+                                        <label for="ckCargaAfi">Cargar archivo con Afiliados</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="dzMain" class="dropzone demo-dropzone" style="display:none;">
+                                <div class="dz-default dz-message">
+                                    <div class="dz-icon">
+                                        <i class="demo-pli-upload-to-cloud icon-5x"></i>
+                                    </div>
+                                    <div>
+                                        <span class="dz-text">
+                                            Haga click para seleccionar manualmente
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right" style="background-color: #fff;">
+                    <button class="btn btn-success" id="btGuardaEmpresaUp">Actualizar datos de Anexo</button>
+                </div>
+            </form>
+
+
+
+        </div>
+    </div>
+</div>
+
+<div id="demo-lg-modal-AsigEmp" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 6px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title">    Asignación Anexo</h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="panel panel-bordered-primary" style="border-color: #e6e6e6;">
+
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="panel-heading">
+                                <h3 class="panel-title" style="font-size: 14px;">Asignar Anexos a ejecutivos</h3>
+                            </div>
+                            <div class="panel-body">
+                                <label for="demo-inline-inputmail" class="sr-only">Asignar Empresas</label>
+                                <select id="demo-cs-multiselectEje" data-placeholder="Seleccione a los ejecutivos.." multiple tabindex="4"></select>
+                                <button class="btn btn-primary" id="btAsigna" type="submit">Asignar</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="overlay">
+    <div id="text">Cargando Documento, por favor espera...</div>
+</div>
+
+<style>
+
+
+    #overlay {
+        position: fixed; /* Sit on top of the page content */
+        display: none; /* Hidden by default */
+        width: 100%; /* Full width (cover the whole page) */
+        height: 100%; /* Full height (cover the whole page) */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+        z-index: 9999; /* Specify a stack order in case you're using a different order for other elements */
+        cursor: pointer; /* Add a pointer on hover */
+    }
+
+
+    #text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 50px;
+        color: white;
+        transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+    }
+</style>
+@section script{
+    <script src="~/Assets/plugins/dropzone/dropzone.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+    <script src="~/Assets/plugins/switchery/switchery.min.js"></script>
+
+
+    <script type="text/javascript">
+        var rutE = httpGet('rutEmp');
+        var valida = httpGet('validador');
+        var ID = httpGet('Id');
+        var idEmpresa = httpGet('rutEmpA');
+        var RutEmpAnexo = httpGet('rutEmpA');
+        var IJ = httpGet('IJ');
+        var result = [];
+        var rutAsig = []
+        var idEmp = '';
+
+
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("div#dzMain", {
+            url: "#",
+            maxFiles: 1,
+            uploadMultiple: false,
+            maxFilesize: 15,
+            acceptedFiles: '.csv'
+        });
+        myDropzone.on("addedfile", function (file) {
+            document.getElementById("overlay").style.display = "block";
+        });
+
+        myDropzone.on("complete", function (file) {
+
+            document.getElementById("overlay").style.display = "none";
+            myDropzone.removeFile(file);
+        });
+
+
+        //$(document).ready(function () {
+        //
+
+
+        //    console.log(Dropzone.options.dropzoneForm);
+        //});
+
+
+        if (IJ == 0) {
+            $("#tab_anexos").css('display', 'none')
+            $("#liOport").addClass('active')
+            $("#demo-lft-tab-2").addClass('active in')
+        }
+        $("#tblAnexos").bootstrapTable({
+            striped: true,
+            pagination: true,
+            pageSize: 10,
+            pageList: [],
+            search: true,
+            showColumns: false,
+            showRefresh: true,
+        });
+
+        $('#demo-lg-modal-AsigEmp').on('show.bs.modal', function (events) {
+            var Anexosss = $(events.relatedTarget);
+            idEmp = Anexosss.data('idemp')
+            console.log(idEmp);
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-ejecutivo-asignado", { IdEmpresa: idEmp }, function (respuesta) {
+                rutAsig.length = 0;
+                $.each(respuesta, function (ix, ex) {
+                    rutAsig[ix] = ex.RutEjecutivoAsignado
+                    $('#demo-cs-multiselectEje').val(rutAsig).trigger('chosen:updated');
+                });
+            });
+        });
+
+
+        $("#btAsignaEmpresa").on("click", function () {
+            var ejeAsig = [];
+            $('#demo-cs-multiselectEjeEmpresa :selected').each(function () {
+                ejeAsig.push($(this).val())
+            });
+            $.each(ejeAsig, function (i, e) {
+                var WebCarteraEmpresaAsig = {
+                    Tipo: 'Empresas',
+                    Id: ID,
+                    EjecAsignado: ejeAsig[i]
+                }
+                $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/guardar-asignacion-empresa-anexo", WebCarteraEmpresaAsig, function (respuesta) {
+                    if (respuesta.Estado === "OK") {
+                        $.niftyNoty({
+                            type: 'success',
+                            container: 'floating',
+                            html: '<strong>OK</strong> ' + respuesta.Mensaje,
+                            focus: false,
+                            timer: 2000
+                        });
+
+                    } else {
+                        $.niftyNoty({
+                            type: 'danger',
+                            container: 'floating',
+                            html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                            timer: 5000
+                        });
+                    }
+                    $('#demo-lg-modal-AsigEmp').modal('hide');
+                });
+            });
+            cargador.CargaDatosAnexos();
+            console.log(WebCarteraEmpresaAsig);
+            ejeAsig.length = 0;
+        });
+
+        $("#btAsigna").on("click", function () {
+            var ejeAsig = [];
+            $('#demo-cs-multiselectEje :selected').each(function () {
+                ejeAsig.push($(this).val())
+            });
+            $.each(ejeAsig, function (i, e) {
+                var WebCarteraEmpresaAsig = {
+                    Tipo: 'FAnexo',
+                    Id: idEmp,
+                    EjecAsignado: ejeAsig[i]
+                }
+                $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/guardar-asignacion-empresa-anexo", WebCarteraEmpresaAsig, function (respuesta) {
+                    if (respuesta.Estado === "OK") {
+                        $.niftyNoty({
+                            type: 'success',
+                            container: 'floating',
+                            html: '<strong>OK</strong> ' + respuesta.Mensaje,
+                            focus: false,
+                            timer: 2000
+                        });
+
+                    } else {
+                        $.niftyNoty({
+                            type: 'danger',
+                            container: 'floating',
+                            html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                            timer: 5000
+                        });
+                    }
+                    $('#demo-lg-modal-AsigEmp').modal('hide');
+                });
+            });
+            cargador.CargaDatosAnexos();
+            console.log(WebCarteraEmpresaAsig);
+            ejeAsig.length = 0;
+        });
+
+        $('#demo-dp-component .input-group.date').datepicker({
+            format: "dd/mm/yyyy",
+            autoclose: true,
+            language: "es"
+        });
+
+
+        $('#form_registro_anexo').bootstrapValidator({
+            excluded: [':disabled', ':not(:visible)'],
+            feedbackIcons: [],
+            fields: {
+                txRutEmp: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar rut'
+                        }
+                    }
+                },
+                slEmperesa_multiselect: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar una empresa'
+                        }
+                    }
+                },
+                anexo: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar un anexo'
+                        }
+                    }
+                },
+                nTrajadores: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar N° trabajadores'
+                        }
+                    }
+                },
+                slComuna_multiselect: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar una comuna'
+                        }
+                    }
+                },
+                direccionAnexo: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar una dirección'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var idcomuna = 0;
+            var objeto_envio_anexo = {
+                RutEmpresa: $('#txRutEmp').val(),
+                NombreEmpresa: $("#slEmperesa_multiselect").val(),
+                Anexo: $('#anexo').val(),
+                NumTrabajadores: $('#nTrajadores').val(),
+                IdComuna: $('select[id="slComuna_multiselect"] option:selected').val(),
+                NombreComuna: $('select[id="slComuna_multiselect"] option:selected').text(),
+                Direccion: $('#direccionAnexo').val()
+            }
+            $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/ingresa-nuevo-anexo", objeto_envio_anexo, function (datos) {
+                $("#form_registro_anexo").bootstrapValidator('resetForm', true);
+                $('#demo-lg-modal-newAnexo').modal('hide');
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'pli-like-2 icon-2x',
+                    message: 'Nuevo Anexo Creado Correctamente.',
+                    container: 'floating',
+                    timer: 5000
+                });
+                cargador.CargaDatosAnexos();
+            });
+        });
+
+        $('#form_registro_anexoUp').bootstrapValidator({
+            excluded: [':disabled', ':not(:visible)'],
+            feedbackIcons: [],
+            fields: {
+                anexoUp: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar un anexo'
+                        }
+                    }
+                },
+                nTrajadoresUp: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar N° trabajadores'
+                        }
+                    }
+                },
+                slComuna_multiselectUp: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar una comuna'
+                        }
+                    }
+                },
+                direccionAnexoUp: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar una dirección'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var idcomuna = 0;
+            var objeto_envio_anexoUp = {
+                IdEmpresaAnexo: $('#ISeMPup').val(),
+                Anexo: $('#anexoUp').val(),
+                NumTrabajadores: $('#nTrajadoresUp').val(),
+                IdComuna: $('select[id="slComuna_multiselectUp"] option:selected').val(),
+                NombreComuna: $('select[id="slComuna_multiselectUp"] option:selected').text(),
+                Direccion: $('#direccionAnexoUp').val()
+            }
+            $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/actualiza-nuevo-anexo", objeto_envio_anexoUp, function (datos) {
+                $("#form_registro_anexoUp").bootstrapValidator('resetForm', true);
+                $('#demo-lg-modal-updateAnexo').modal('hide');
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'pli-like-2 icon-2x',
+                    message: 'Anexo Actualizado Correctamente.',
+                    container: 'floating',
+                    timer: 5000
+                });
+                cargador.CargaDatosAnexos();
+            });
+        });
+
+        var cargador = {
+            CargaDatosAsignadosEmp: function () {
+                $("#tbOportunidad").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-asignados-empresa", { RutEmpresa: rutE }, function (menus) {
+                    $.each(menus, function (i, e) {
+                        $("#tbOportunidad")
+                            .append(
+                                $("<tr>")
+                                    .append($("<td>").append(''))
+                                    .append($("<td>").append(e.Id_Asign)).hide()
+                                    .append($("<td>").append(e.Afiliado_Rut + '-' + e.Afiliado_Dv))
+                                    .append($("<td>").append(e.Nombre + ' ' + e.Apellido))
+                                    .append($("<td>").append(e.PreAprobadoFinal.toMoney() + '<span class="badge badge-success" style="float: right;">' + e.Prioridad + '</span>'))
+                                    .append($("<td>").append(e.TipoCampania))
+                                    .append($("<td>").append(''))
+                            )
+                    });
+                    $("#tblAsigEmp").bootstrapTable({
+                        striped: true,
+                        pagination: true,
+                        pageSize: 10,
+                        pageList: [],
+                        search: true,
+                        showColumns: false,
+                        showRefresh: true,
+                    });
+                });
+            },
+
+            CargaDatosAsignadosAnexo: function () {
+                $("#tbOportunidad").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-preaprobado-anexo", { idAnexo: idEmpresa, RutEmpresa: RutEmpAnexo }, function (menus) {
+                    $.each(menus, function (i, e) {
+                        $("#tbOportunidad")
+                            .append(
+                                $("<tr>")
+                                    .append($("<td>").append(''))
+                                    .append($("<td>").append(e.Id_Asign)).hide()
+                                    .append($("<td>").append(e.Afiliado_Rut + '-' + e.Afiliado_Dv))
+                                    .append($("<td>").append(e.Nombre + ' ' + e.Apellido))
+                                    .append($("<td>").append(e.PreAprobadoFinal.toMoney() + '<span class="badge badge-success" style="float: right;">' + e.Prioridad + '</span>'))
+                                    .append($("<td>").append(e.TipoCampania))
+                                    .append($("<td>").append(''))
+                            )
+                    })
+                    $("#tblAsigEmp").bootstrapTable({
+                        striped: true,
+                        pagination: true,
+                        pageSize: 10,
+                        pageList: [],
+                        search: true,
+                        showColumns: false,
+                        showRefresh: true,
+                    });;
+                });
+            },
+
+            CargaDatosAnexos: function () {
+                $("#tbdyAnexo").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-cartera-anexo", { RutEmpresa: rutE }, function (menus) {
+                    var contador = 0;
+                    $.each(menus, function (i, e) {
+                        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-contador-asignado", { IdEmpresa: e.IdEmpresaAnexo }, function (respuesta) {
+                            contador = respuesta.TotalAsignados;
+                            $("#tbdyAnexo")
+                                .append(
+                                    $("<tr>")
+                                        .append($("<td>").append(e.RutEmpresa))
+                                        .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresaAnexo + '&IJ=0' + '&rutEmAnexo=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.Anexo + '</a>'))
+                                        .append($("<td>").append('<div class="media-left pos-rel"><img class="img-circle img-sm" src="../Assets/img/profile-photos/2.png" alt="Profile Picture"><i class="badge badge-success badge-stat badge-icon pull-left">' + e.NumTrabajadores + '</i></div>'))
+                                        .append($("<td>").append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.IdEmpresaAnexo + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
+                                        .append($("<td>").append('<i href="#" data-toggle="modal" data-target="#demo-lg-modal-AsigEmp" data-idEmp="' + e.IdEmpresaAnexo + '"><i class="btn btn-sm demo-psi-add icon-lg" style="font-size: 31px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + contador + '</span></i>'))
+                                )
+                        });
+                    });
+                });
+                $("#tblAnexos").bootstrapTable({
+                    striped: true,
+                    showColumns: false,
+                    showRefresh: true,
+                });
+            }
+        }
+
+        if (rutE != "" && rutE != 'undefined' && rutE != null) {
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresa", { RutEmpresa: rutE }, function (result) {
+                var NomHolding = ""
+                if (result.Holding == 0) {
+                    NomHolding = 'Sin Holding'
+                }
+                else {
+                    NomHolding = result.NombreHolding
+                }
+                $("#tituloEmp").css('font-size', '20px').css('color', '#b3b3b3').css('margin-left', '20px')
+                $("#tituloEmp").html(result.NombreEmpresa)
+                $("#RutEmp").val(result.RutEmpresa)
+                $("#NombreEmpresaPer").html(result.NombreEmpresa)
+                $("#nTrabajadores").val(result.NTrabajador)
+                $("#SegmentoEmp").val(result.Segmento)
+                $("#AntiguedadA").val(result.FechaAntiguedad)
+                $("#HoldingEmp").val(NomHolding)
+                $("#slEmperesa_multiselect").val(result.NombreEmpresa)
+                $("#txRutEmp").val(result.RutEmpresa)
+
+                cargador.CargaDatosAsignadosEmp();
+                cargador.CargaDatosAnexos();
+            });
+        }
+        else {
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresaAnexo", { IdEmpresaA: idEmpresa }, function (result) {
+                var NomHolding = ""
+                if (result.Holding == 0) {
+                    NomHolding = 'Sin Holding'
+                }
+                else {
+                    NomHolding = result.NombreHolding
+                }
+                $("#tituloEmp").css('font-size', '20px').css('color', '#b3b3b3').css('margin-left', '20px')
+                $("#tituloEmp").html(result.Anexo)
+                $("#RutEmp").val(result.RutEmpresa)
+                $("#NombreEmpresaPer").html(result.NombreEmpresa)
+                $("#nTrabajadores").val(result.NumTrabajadores)
+                $("#SegmentoEmp").val(result.Segmento)
+                $("#AntiguedadA").val(result.FechaAntiguedad)
+                $("#HoldingEmp").val(NomHolding)
+                $("#slEmperesa_multiselect").val(result.NombreEmpresa)
+                $("#txRutEmp").val(result.RutEmpresa)
+            });
+            cargador.CargaDatosAsignadosAnexo();
+        }
+
+
+
+        $(function () {
+            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: 0 }, function (datos) {
+                $("#selecEstado").html("");
+                $("#selecEstado").append($("<option>").attr("value", "").html("Seleccione"));
+                $("#selecEstado").append($("<option>").attr("value", "-1").html("Sin Gestion"));
+                $.each(datos, function (i, e) {
+                    $("#selecEstado").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre).data("terminal", e.ejes_terminal))
+                });
+            });
+
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-comunas-empresa", function (menus) {
+                $("#slComuna_multiselect").html("");
+                $("#slComuna_multiselectUp").html("");
+                $("#slComuna_multiselect").append($("<option>").attr("value", "").html("Seleccione"));
+                $("#slComuna_multiselectUp").append($("<option>").attr("value", "").html("Seleccione"));
+                $.each(menus, function (i, e) {
+                    $("#slComuna_multiselect").append($("<option>").attr("value", e.IdComuna).html(e.NombreComuna))
+                    $("#slComuna_multiselectUp").append($("<option>").attr("value", e.IdComuna).html(e.NombreComuna))
+                });
+                $('#slComuna_multiselect').chosen({ width: '100%' });
+                $('#slComuna_multiselectUp').chosen({ width: '100%' });
+            });
+
+            $.SecGetJSON(BASE_URL + "/motor/api/Config/dotacion-oficina", function (menus) {
+                $("#demo-cs-multiselectEje").html("");
+                $("#demo-cs-multiselectEjeEmpresa").html("");
+                $.each(menus, function (i, e) {
+                    $("#demo-cs-multiselectEje").append($("<option>").attr("value", e.Rut).html(e.Nombre + " - ( " + e.Cargo + " )"))
+                    $("#demo-cs-multiselectEjeEmpresa").append($("<option>").attr("value", e.Rut).html(e.Nombre + " - ( " + e.Cargo + " )"))
+                });
+                $('#demo-chosen-select').chosen();
+                $('#demo-cs-multiselectEje').chosen({ width: '70%' });
+                $('#demo-cs-multiselectEjeEmpresa').chosen({ width: '80%' });
+            });
+
+            $('#demo-lg-modal-updateAnexo').on('show.bs.modal', function (event) {
+                var Anexo = $(event.relatedTarget);
+                var idAnexo = Anexo.data('idanexo')
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-datos-anexo", { IdEmpresa: idAnexo }, function (respuesta) {
+                    $("#txRutEmpUp").val(respuesta.RutEmpresa)
+                    $("#slEmperesa_multiselectUp").val(respuesta.NombreEmpresa)
+                    $('#anexoUp').val(respuesta.Anexo)
+                    $('#nTrajadoresUp').val(respuesta.NumTrabajadores)
+                    $('#direccionAnexoUp').val(respuesta.Direccion)
+                    $('#slComuna_multiselectUp').val(respuesta.IdComuna).trigger('chosen:updated');
+                    $('#ISeMPup').val(idAnexo)
+                });
+
+                myDropzone.options.url = "/motor/api/perfil-empresas/carga-afiliados-dropzone/" + idAnexo;
+
+                //$("div#dzMain").dropzone({ url: "/motor/api/perfil-empresas/carga-afiliados-dropzone/" + idAnexo });
+                //$("div#dzMain").dropzone().destroy();
+
+                //Dropzone.options.dropzoneForm = {
+                //maxFiles: 1,
+                //uploadMultiple: false,
+                //maxFilesize: 15,
+                //acceptedFiles: '.csv',
+                //accept: function (file, done) {
+
+                //        console.log('Accept', file)
+
+                //        if (file.name == "justinbieber.jpg") {
+                //            done("Naha, you don't.");
+                //        }
+                //        else { done(); }
+                //    }
+                //};
+                //$("#dropzone-form").prop("action", "/motor/api/perfil-empresas/carga-afiliados-dropzone/" + idAnexo)
+            });
+
+
+            $('#demo-lg-modal-updateAnexo').on('hidden.bs.modal', function (event) {
+                location.reload();
+            });
+
+            $('#selecEstado').change(function (e) {
+                e.preventDefault();
+
+                if ($(this).val() != '') {
+                    $("#selecSubEstado").attr("disabled", false);
+                    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: $(this).val() }, function (datos) {
+                        $("#selecSubEstado").html("");
+                        $("#selecSubEstado").append($("<option>").attr("value", "").html("Seleccione"));
+                        $("#selecSubEstado").append($("<option>").attr("value", "-1").html("Sin Gestión"));
+                        $.each(datos, function (i, e) {
+                            $("#selecSubEstado").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre))
+                        });
+                    });
+                }
+                else {
+                    $("#selecSubEstado").html("");
+                    $("#selecSubEstado").attr("disabled", true);
+                }
+            });
+
+            var result = [];
+            $('#btGestion').click(function () {
+                //result[0]
+                result.length = 0;
+                var i = 0;
+                $("input[type=checkbox]:checked").each(function () {
+                    if ($(this).parent().parent().find('td').eq(1).text() != "") {
+                        result[i] = $(this).parent().parent().find('td').eq(1).text();
+                        ++i;
+                    }
+                });
+                $("#cantAfiScheck").html(result['length'])
+                console.log(result);
+            });
+
+            $('#tblAsigEmp').on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function (e, row) {
+                result.length = 0;
+                var i = 0;
+                $("input[type=checkbox]:checked").each(function () {
+                    if ($(this).parent().parent().find('td').eq(1).text() != "") {
+                        result[i] = $(this).parent().parent().find('td').eq(1).text();
+                        ++i;
+                    }
+                });
+                $("#cantAfiScheck").html(result['length'])
+                console.log(result);
+            });
+
+            $('#radioEmpresa').on("click", function () {
+                $('#tipoAsignacionAnexo').css('display', 'none')
+                $('#tipoAsignacionEmpresa').css('display', 'block')
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-ejecutivo-asignado", { IdEmpresa: ID }, function (result) {
+                    rutAsig.length = 0;
+                    $.each(result, function (i, e) {
+                        rutAsig[i] = e.RutEjecutivoAsignado
+                        $('#demo-cs-multiselectEjeEmpresa').val(rutAsig).trigger('chosen:updated');
+                    });
+                });
+            });
+
+            $('#radioAnexo').on("click", function () {
+                $('#tipoAsignacionEmpresa').css('display', 'none')
+                $('#tipoAsignacionAnexo').css('display', 'block')
+            });
+
+            $('#ckCargaAfi').on('change', function () {
+                if ($(this).is(':checked')) {
+                    $('.demo-dropzone').css('display', 'block')
+                }
+                else {
+                    $('.demo-dropzone').css('display', 'none')
+                }
+            });
+
+            if (valida == 0) {
+                $("#radioValidador").css('display', 'block')
+            }
+            else if (valida == 1) {
+                $("#radioEmpresa").click();
+                $("#tipoAsignacionEmpresa").css('display', 'block')
+                $("#radioEmpresa").click();
+
+            }
+            else if (valida == 2) {
+                $("#tipoAsignacionAnexo").css('display', 'block')
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //$('#form-registro-gestion').bootstrapValidator({
+            //    excluded: [':disabled', ':not(:visible)'],
+            //    feedbackIcons: [],
+            //    fields: {
+            //        selecEstado: {
+            //            validators: {
+            //                notEmpty: {
+            //                    message: 'Debe seleccionar un Estado'
+            //                }
+            //            }
+            //        },
+            //        selecSubEstado: {
+            //            validators: {
+            //                notEmpty: {
+            //                    message: 'Debe seleccionar una sub-estado'
+            //                }
+            //            }
+            //        },
+            //        FehaGest: {
+            //            validators: {
+            //                notEmpty: {
+            //                    message: 'La fecha compromete no puede ser vacia'
+            //                },
+            //                date: {
+            //                    format: 'dd/mm/yyyy"',
+            //                    message: 'La fecha de compromete no es valida'
+            //                }
+            //            }
+            //        },
+            //        comentarioGest: {
+            //            validators: {
+            //                notEmpty: {
+            //                    message: 'Debe ingresar un comentario'
+            //                }
+            //            }
+            //        }
+            //    }
+            //}).on('success.form.bv', function (e) {
+            //    // Prevén que se mande el formulario
+            //    //e.preventDefault();
+            //    //var $form = $(e.target);
+
+
+            //    //$.SecGetJSON(BASE_URL + "/motor/api/Contactos/ingresa-nuevo-contacto", objeto_envio_gestion, function (datos) {
+            //    //    $("#form-registro-contacto").bootstrapValidator('resetForm', true);
+            //    //    $('#demo-lg-modal-new').modal('hide');
+            //    //    Cargador.CargaDatosContactos(rutAf)
+
+
+
+            //    //           public int ges_estado { get; set;
+            //    //    }
+            //    //public int ges_subestado { get; set; }
+            //    //public string ges_prox_gestion { get; set; }
+            //    //public string ges_comentarios { get; set; }
+            //    //public int ges_id_asignacion { get; set; }
+
+
+            //    //  $.each(datos, function (i, e)
+
+            //    $.each(result, function (i, e) {
+            //        var objeto_envio_gestion = {
+            //            RutAfiliado: result[e],
+            //            Estado: $('select[name="selecEstado"] option:selected').text(),
+            //            Subestado: $('select[name="selecSubEstado"] option:selected').text(),
+            //            Comentario: $('#comentarioGest').val()
+            //        }
+            //        $.SecPostJSON(BASE_URL + "/motor/api/Gestion/guardar-gestion", objeto_envio_gestion, function (respuesta) {
+
+            //            if (respuesta.Estado === 'OK') {
+
+            //                $.niftyNoty({
+            //                    type: 'success',
+            //                    container: '#mensahes-must',
+            //                    html: '<strong>OK</strong> Gestion guardada exitosamente.',
+            //                    focus: false,
+            //                    timer: 3000
+            //                });
+            //            } else {
+            //                $.niftyNoty({
+            //                    type: 'danger',
+            //                    container: '#mensahes-must',
+            //                    html: '<strong>Error</strong> ' + respuesta.Mensaje,
+            //                    focus: false,
+            //                    timer: 3000
+            //                });
+            //            }
+            //        });
+            //    });
+
+            //    $('#btGestion').click()
+            //    $.niftyNoty({
+            //        type: 'success',
+            //        icon: 'pli-like-2 icon-2x',
+            //        message: result['length'] + '  Gestiones Guardas correctamente.',
+            //        container: 'floating',
+            //        timer: 5000
+            //    });
+            //    //});
+
+            //});
+
+
+
+            $("input:radio[name=groupCkeckAlerta]").click(function () {
+                switch (this.value) {
+                    case "SI":
+                        //alert(this.value);
+                        $("#divFechaResul").css('display', 'block')
+                        $("#comentarioResultado").css('display', 'block')
+                        break;
+                    case "NO":
+                        //alert(this.value);
+                        $("#divFechaResul").css('display', 'none')
+                        $("#comentarioResultado").css('display', 'none')
+                        break;
+                }
+            });
+
+
+        });
+
+
+
+
+    </script>
+
+}

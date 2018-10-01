@@ -30,7 +30,7 @@ namespace CRM.Business.Data
             };
             return DBHelper.InstanceCRM.ObtenerColeccion("mae.spMotor_BuscarAfiliadoScan_ListaEmpresa", pram, ConstAfiliadoEmpresa);
         }
-        public static Entity.Afiliados.EmpresaAfiliadoEntity ObtenerDatosEmpresa(int RutEmpresa,int RutAfiliado)
+        public static Entity.Afiliados.EmpresaAfiliadoEntity ObtenerDatosEmpresa(int RutEmpresa, int RutAfiliado)
         {
             Parametros pram = new Parametros
             {
@@ -92,10 +92,10 @@ namespace CRM.Business.Data
 
             return new Entity.Afiliados.AfiliadoDatosCumpleanios
             {
-               Estado = row["Estado"] != DBNull.Value ? row["Estado"].ToString() : string.Empty,
-               FechaNacimiento = row["FechaNacimiento"] != DBNull.Value ? row["FechaNacimiento"].ToString() : string.Empty,
-               Edad = row["Edad"] != DBNull.Value ? Convert.ToInt32(row["Edad"]) : 0,
-               RutAfiliado = row["RutAfiliado"] != DBNull.Value ? Convert.ToInt32(row["RutAfiliado"]) : 0,
+                Estado = row["Estado"] != DBNull.Value ? row["Estado"].ToString() : string.Empty,
+                FechaNacimiento = row["FechaNacimiento"] != DBNull.Value ? row["FechaNacimiento"].ToString() : string.Empty,
+                Edad = row["Edad"] != DBNull.Value ? Convert.ToInt32(row["Edad"]) : 0,
+                RutAfiliado = row["RutAfiliado"] != DBNull.Value ? Convert.ToInt32(row["RutAfiliado"]) : 0,
 
             };
         }
@@ -105,7 +105,7 @@ namespace CRM.Business.Data
 
             return new Entity.Afiliados.AlertasAfiliados
             {
-                AfiliadoRut= row["RutAfiliado"] != DBNull.Value ? Convert.ToInt32(row["RutAfiliado"]) : 0,
+                AfiliadoRut = row["RutAfiliado"] != DBNull.Value ? Convert.ToInt32(row["RutAfiliado"]) : 0,
                 Tipo = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty,
                 Valor = row["valor"] != DBNull.Value ? row["valor"].ToString() : string.Empty,
                 TipoValor = row["TipoAlerta"] != DBNull.Value ? row["TipoAlerta"].ToString() : string.Empty,
@@ -123,7 +123,7 @@ namespace CRM.Business.Data
                 NombreEmpresa = row["nombreempresa"] != DBNull.Value ? row["nombreempresa"].ToString() : string.Empty,
                 PeriodoUltimaRenta = row["PeriodoUltimaRenta"] != DBNull.Value ? row["PeriodoUltimaRenta"].ToString() : string.Empty,
                 RentaUltimaInformada = row["RentaUltimaInformada"] != DBNull.Value ? Convert.ToInt32(row["RentaUltimaInformada"]) : 0,
-                RolSegmentoAfiliado= row["RolSegmentoAfiliado"] != DBNull.Value ? row["RolSegmentoAfiliado"].ToString() : string.Empty,
+                RolSegmentoAfiliado = row["RolSegmentoAfiliado"] != DBNull.Value ? row["RolSegmentoAfiliado"].ToString() : string.Empty,
 
 
             };
@@ -158,8 +158,8 @@ namespace CRM.Business.Data
                 Mail = row["Mail"] != DBNull.Value ? row["Mail"].ToString() : string.Empty,
                 Vigente = row["Vigente"] != DBNull.Value ? Convert.ToInt32(row["Vigente"]) : 0,
                 Fallecido = row["Fallecido"] != DBNull.Value ? Convert.ToInt32(row["Fallecido"]) : 0,
-
-
+                FlagNoMolestar = row["FlagNoMolestar"] != DBNull.Value ? Convert.ToInt32(row["FlagNoMolestar"]) : 0,
+                MotivoNM = row["MotivoNM"] != DBNull.Value ? row["MotivoNM"].ToString() : string.Empty,
             };
         }
         private static Entity.Afiliados.AfiliadoCampanas CampaniaAfiConst(DataRow row)
@@ -204,7 +204,102 @@ namespace CRM.Business.Data
             };
         }
 
+        public static Entity.Afiliados.NoMolestarAfiliado AfilidoNoMolestar(string RutAfiliado, string motivo, string token)
+        {
+            Parametros param = new Parametros
+            {
+                new Parametro("@RutAfiliado",RutAfiliado),
+                new Parametro("@Motivo",motivo),
+                new Parametro("@TokenEjecutivo",token),
+            };
+            return DBHelper.InstanceCRM.ObtenerEntidad("dbo.SpMotor_Guarda_NoMolestar", param, Afiliado_NoMolestar);
+        }
 
+
+        private static Entity.Afiliados.NoMolestarAfiliado Afiliado_NoMolestar(DataRow row)
+        {
+            return new Entity.Afiliados.NoMolestarAfiliado
+            {
+                RutAfiliado = row["RutAfiliado"] != DBNull.Value ? row["RutAfiliado"].ToString() : string.Empty,
+                Motivo = row["Motivo"] != DBNull.Value ? row["Motivo"].ToString() : string.Empty,
+            };
+        }
+
+        public static Entity.Afiliados.ObservacionAfiliado AfiliadoComentario(string RutAfiliado, string Observacion, string token)
+        {
+            Parametros param = new Parametros
+            {
+                new Parametro("@RutAfiliado",RutAfiliado),
+                new Parametro("@Observacion",Observacion),
+                new Parametro("@TokenEjecutivo",token),
+            };
+            return DBHelper.InstanceCRM.ObtenerEntidad("dbo.SpMotor_Guarda_AfiliadoComentario", param, Afiliado_Comentario);
+        }
+
+        private static Entity.Afiliados.ObservacionAfiliado Afiliado_Comentario(DataRow row)
+        {
+            return new Entity.Afiliados.ObservacionAfiliado
+            {
+                RutAfiliado = row["RutAfiliado"] != DBNull.Value ? row["RutAfiliado"].ToString() : string.Empty,
+                Observacion = row["Comentario"] != DBNull.Value ? row["Comentario"].ToString() : string.Empty,
+            };
+        }
+
+        public static Entity.Afiliados.NoMolestarAfiliado sacaMarcaNoMolestar(string RutAfiliado, string token)
+        {
+            Parametros param = new Parametros
+            {
+                new Parametro("@RutAfiliado",RutAfiliado),
+                new Parametro("@TokenEjecutivo",token),
+            };
+            return DBHelper.InstanceCRM.ObtenerEntidad("dbo.SpMotor_Saca_Marca_NoMolestar", param, sacaMarca_NoMolestar);
+        }
+
+        private static Entity.Afiliados.NoMolestarAfiliado sacaMarca_NoMolestar(DataRow row)
+        {
+            return new Entity.Afiliados.NoMolestarAfiliado
+            {
+                RutAfiliado = row["RutAfiliado"] != DBNull.Value ? row["RutAfiliado"].ToString() : string.Empty,
+            };
+        }
+
+
+        public static List<Entity.Afiliados.AfiliadoProyeccion> ObtieneProyeccionAfiliado(string RutAfiliado)
+        {
+            Parametros param = new Parametros
+            {
+                new Parametro("@RutAfiliado",RutAfiliado),
+            };
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.SpMotor_Lista_Gestion_lineaTiempo", param, ProyecAfiliado);
+        }
+
+
+        public static List<Entity.Afiliados.AfiliadoProyeccion> FiltroProyeccionAfiliado(string RutAfiliado, int Estado)
+        {
+            Parametros param = new Parametros
+            {
+                new Parametro("@RutAfiliado",RutAfiliado),
+                new Parametro("@Estado",Estado),
+            };
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.SpMotor_Filtro_Gestion_lineaTiempo", param, ProyecAfiliado);
+        }
+
+        private static Entity.Afiliados.AfiliadoProyeccion ProyecAfiliado(DataRow row)
+        {
+            return new Entity.Afiliados.AfiliadoProyeccion
+            {
+                RutAfiliado = row["RutAfiliado"] != DBNull.Value ? row["RutAfiliado"].ToString() : string.Empty,
+                Fecha = row["Fecha"] != DBNull.Value ? Convert.ToDateTime(row["Fecha"]) : DateTime.MinValue,
+                Estado = row["Estado"] != DBNull.Value ? row["Estado"].ToString() : string.Empty,
+                SubEstado = row["SubEstado"] != DBNull.Value ? row["SubEstado"].ToString() : string.Empty,
+                Afiliado = row["Afiliado"] != DBNull.Value ? row["Afiliado"].ToString() : string.Empty,
+                Ejecutivo = row["Ejecutivo"] != DBNull.Value ? row["Ejecutivo"].ToString() : string.Empty,
+                Sucursal = row["Sucursal"] != DBNull.Value ? row["Sucursal"].ToString() : string.Empty,
+                PreAprobadoFinal = row["PreAprobadoFinal"] != DBNull.Value ? Convert.ToInt32(row["PreAprobadoFinal"]) : 0,
+                Periodo = row["Periodo"] != DBNull.Value ? row["Periodo"].ToString() : string.Empty,
+                EstadoGestion = row["EstadoGestion"] != DBNull.Value ? Convert.ToInt32(row["EstadoGestion"]) : 0,
+            };
+        }
     }
 
 }

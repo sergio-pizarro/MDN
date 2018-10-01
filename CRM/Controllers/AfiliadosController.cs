@@ -64,8 +64,46 @@ namespace CRM.Areas.AppPage.Controllers
         {
             return AfiliadoDataAccess.ObtenerCumpleanos(RutAfiliado);
         }
-       
-       
 
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("guarda-no-molestar")]
+        public Business.Entity.Afiliados.NoMolestarAfiliado noMolestar(string RutAfiliado, string motivo)
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return AfiliadoDataAccess.AfilidoNoMolestar(RutAfiliado, motivo, token);
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("guarda-comentario-afiliado")]
+        public Business.Entity.Afiliados.ObservacionAfiliado guardaComentario(string RutAfiliado, string Observacion)
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return AfiliadoDataAccess.AfiliadoComentario(RutAfiliado, Observacion, token);
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("quita-marcaNoMolestar-afiliado")]
+        public Business.Entity.Afiliados.NoMolestarAfiliado SacaMarcaNM(string RutAfiliado)
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return AfiliadoDataAccess.sacaMarcaNoMolestar(RutAfiliado, token);
+        }
+
+        [HttpGet]
+        [Route("obtener-proyeccion")]
+        public IEnumerable<Business.Entity.Afiliados.AfiliadoProyeccion> ObtenerProyeccion(string RutAfiliado)
+        {
+            return AfiliadoDataAccess.ObtieneProyeccionAfiliado(RutAfiliado);
+        }
+
+        [HttpGet]
+        [Route("filtro-proyeccion")]
+        public IEnumerable<Business.Entity.Afiliados.AfiliadoProyeccion> FiltroProyeccion(string RutAfiliado, int Estado)
+        {
+            return AfiliadoDataAccess.FiltroProyeccionAfiliado(RutAfiliado, Estado);
+        }
     }
 }

@@ -93,6 +93,7 @@
     <Compile Include="Fidelizacion.cs" />
     <Compile Include="FidelizacionEntity.cs" />
     <Compile Include="FiltrosrsgEntity.cs" />
+    <Compile Include="GestionEmpresas\GestionEmpresasEntity.cs" />
     <Compile Include="GestionEntity.cs" />
     <Compile Include="IngresoCarteraEmpresa.cs" />
     <Compile Include="Ingresolicencia.cs" />
