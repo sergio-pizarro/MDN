@@ -115,7 +115,7 @@
                                 <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_anexos" style="font-weight: bold;">Anexos</a>
                             </li>
 
-                            <li class="" style="display:block;">
+                            <li class="" style="display:none;">
                                 <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" style="font-weight: bold;">Visitas<span class="badge badge-success" id="cantCamp">0</span></a>
                             </li>
 
@@ -130,9 +130,7 @@
                     <div class="tab-content">
                         <div id="demo-lft-tab-3" class="tab-pane fade active in">
                             <div class="panel-body">
-
                                 <div id="radioValidador" style="display:none;">
-
                                     <div class="radio">
                                         <input id="radioAnexo" class="magic-radio" type="radio" name="inline-form-radio">
                                         <label for="radioAnexo">¿Desea crear un Anexo?</label>
@@ -179,126 +177,219 @@
                                 </div>
                             </div>
                         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <!--VISITAS-->
                         <div id="demo-lft-tab-1" class="tab-pane fade">
-                            <div class="well well-lg">
-                                <div class="tab-base tab-stacked-left">
 
-                                    <!--Nav tabs-->
-                                    <ul class="nav nav-tabs">
-                                        <li class="active">
-                                            <a data-toggle="tab" href="#demo-stk-lft-tab-1" aria-expanded="true">Gestion</a>
-                                        </li>
-                                        <li class="">
-                                            <a data-toggle="tab" href="#demo-stk-lft-tab-2" aria-expanded="false">Relacionamiento</a>
-                                        </li>
-                                        <li class="">
-                                            <a data-toggle="tab" href="#demo-stk-lft-tab-3" aria-expanded="false">General</a>
-                                        </li>
 
-                                    </ul>
 
-                                    <!--Tabs Content-->
-                                    <div class="tab-content">
-                                        <div id="demo-stk-lft-tab-1" class="tab-pane fade active in">
 
-                                            <div class="form-horizontal">
-                                                <div class="row">
-                                                    <div class="col-md-4 mar-btm">
-                                                        <label class="control-label">Nombre Empresa o Alias</label>
-                                                        <input type="text" id="nombEmpresa" name="nombEmpresa" class="form-control" placeholder="nombre empresa">
-                                                    </div>
-                                                    <div class="col-md-4 mar-btm">
-                                                        <label class="control-label">Fecha y hora visita</label>
-                                                        <div id="demo-dp-component">
-                                                            <div class="input-group date">
-                                                                <input class="form-control" type="text" id="FechaGestges" name="FechaGestges">
-                                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 mar-btm">
-                                                        <label class="control-label">Tipo</label>
-                                                        <select id="slTipo" class="form-control" name="slTipo">
-                                                            <option value="">Seleccione</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4 mar-btm">
-                                                        <label class="control-label">Estamento</label>
-                                                        <select id="slEstamento" class="form-control" name="slEstamento">
-                                                            <option value="">Seleccione</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-4 mar-btm">
-                                                        <label class="control-label">Nombre Contacto</label>
-                                                        <input type="text" id="nombContacto" name="nombContacto" class="form-control" placeholder="nombre contacto">
-                                                    </div>
-                                                    <div class="col-md-4 mar-btm">
-                                                        <label class="control-label">Cargo</label>
-                                                        <input type="text" id="txtCargo" name="txtCargo" class="form-control" placeholder="Cargo">
-                                                    </div>
-                                                </div>
+                            <div id="radioVisitas">
+                                <div class="radio">
+                                    <input id="radioEntravista" class="magic-radio" type="radio" name="inline-form-radio">
+                                    <label for="radioEntravista">¿Desea gestionar una entrevista?</label>
+                                    <br />
+                                    <br />
+                                    <input id="radioVisita" class="magic-radio" type="radio" name="inline-form-radio">
+                                    <label for="radioVisita">¿Desea gestionar una vista?</label>
+                                </div>
+                                <hr />
+                            </div>
+
+
+
+                            <div class="form-horizontal" style="display: none;" id="divEntrevista">
+                                <div class="row">
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Fecha y hora visita</label>
+                                        <div id="demo-dp-component">
+                                            <div class="input-group date">
+                                                <input class="form-control" type="text" id="FechaGestges" name="FechaGestges">
+                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
                                             </div>
                                         </div>
-                                        <div id="demo-stk-lft-tab-2" class="tab-pane fade">
+                                    </div>
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Tipo</label>
+                                        <select id="slTipo" class="form-control" name="slTipo">
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Estamento</label>
+                                        <select id="slEstamento" class="form-control" name="slEstamento">
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Nombre Contacto</label>
+                                        <input type="text" id="nombContacto" name="nombContacto" class="form-control" placeholder="nombre contacto">
+                                    </div>
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Cargo</label>
+                                        <input type="text" id="txtCargo" name="txtCargo" class="form-control" placeholder="Cargo">
+                                    </div>
+                                </div>
 
-                                            <div class="row">
-                                                <div class="col-md-4 mar-btm">
-                                                    <label class="control-label">Tema</label>
-                                                    <select id="slTema" class="form-control" name="slTema">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4 mar-btm">
-                                                    <label class="control-label">Sub-Tema</label>
-                                                    <select id="slSubTema" class="form-control" name="slSubTema">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4 mar-btm">
-                                                    <label class="control-label">Semaforo Relación</label>
-                                                    <div class="btn-group bootstrap-select form-control">
-                                                        <select id="selectCargo" class="form-control selectpicker" tabindex="-98">
-                                                            <option value="">Seleccione</option>
-                                                            <option data-content="<span class=&quot;badge badge-success&quot; style='width: 100%; background-color: #8bc34a;'>Verde</span>">Verde</option>
-                                                            <option data-content="<span class=&quot;badge badge-warning&quot; style='width: 100%; background-color: #ffb300;'>Amarillo</span>">Amarillo</option>
-                                                            <option data-content="<span class=&quot;badge badge-danger&quot; style='width: 100%; background-color: #f44336;'>Rojo</span>">Rojo</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioEntrevista" name="comentarioResultado" style="display: block"></textarea>
 
-                                            <div class="row">
-                                                <div class="col-md-4 mar-btm">
-                                                    <label class="control-label">Alerta</label>
-                                                    <div class="radio">
-                                                        <input id="ckAlertaSI" class="magic-radio" type="radio" name="groupCkeckAlerta" value='SI'>
-                                                        <label for="ckAlertaSI">SI</label>
-                                                        <input id="ckAlertaNO" class="magic-radio" type="radio" name="groupCkeckAlerta" value='NO' checked>
-                                                        <label for="ckAlertaNO">NO</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 mar-btm" style="display: none" id="divFechaResul">
-                                                    <label class="control-label">Fecha de Resolución</label>
-                                                    <div id="demo-dp-component">
-                                                        <div class="input-group date">
-                                                            <input class="form-control" type="text" id="FechaResultado" name="FechaResultado">
-                                                            <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioResultado" name="comentarioResultado" style="display: none"></textarea>
+
+                                <hr />
+
+                                <h4 class="h3 mar-no">Entrevistas Realizadas</h4>
+
+                                <br />
+                                <div class="well well-sm" style="border-radius: 5px;">
+                                    <p class="text-bold text-main mar-no">Notes &amp; Information</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                                    <p>If you have any questions concerning this invoice, please contact <strong>billing[at]mycompany.com</strong></p>
+                                </div>
+
+                                <div class="well well-sm" style="border-radius: 5px;">
+                                    <p class="text-bold text-main mar-no">Fecha Entravista: 28/09/2018</p>
+                                    <br />
+                                    <div class="row">
+
+                                        <div class="col-md-6 mar-btm" style="padding-left: 70px;">
+                                            <p class="text-bold text-main mar-no">Tipo</p>
+                                            <label class="control-label">Tipo prueba</label>
+                                        </div>
+                                        <div class="col-md-6 mar-btm">
+                                            <p class="text-bold text-main mar-no">Estamento</p>
+                                            <label class="control-label">Estamento prueba</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mar-btm" style="padding-left: 70px;">
+                                            <p class="text-bold text-main mar-no">Nombre Contacto</p>
+                                            <label class="control-label">Nombre Contacto prueba</label>
+                                        </div>
+                                        <div class="col-md-6 mar-btm">
+                                            <p class="text-bold text-main mar-no">Cargo</p>
+                                            <label class="control-label">Cargo prueba</label>
                                         </div>
 
-                                        <div id="demo-stk-lft-tab-3" class="tab-pane fade">
+                                        <div class="col-md-10 mar-btm" style="padding-left: 70px;">
+                                            <p class="text-bold text-main mar-no">Comentarios</p>
+                                            <label class="control-label">Cargo prueba Cargo prueba Cargo prueba Cargo prueba Cargo prueba  Cargo prueba</label>
+                                        </div>
+                                    </div>
 
+
+                                   
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+                            <div class="form-horizontal" style="display: none;" id="divVisita">
+
+                                <div class="row">
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Tema</label>
+                                        <select id="slTema" class="form-control" name="slTema">
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Sub-Tema</label>
+                                        <select id="slSubTema" class="form-control" name="slSubTema">
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Semaforo Relación</label>
+                                        <div class="btn-group bootstrap-select form-control">
+                                            <select id="selectCargo" class="form-control selectpicker" tabindex="-98">
+                                                <option value="">Seleccione</option>
+                                                <option data-content="<span class=&quot;badge badge-success&quot; style='width: 100%; background-color: #8bc34a;'>Verde</span>">Verde</option>
+                                                <option data-content="<span class=&quot;badge badge-warning&quot; style='width: 100%; background-color: #ffb300;'>Amarillo</span>">Amarillo</option>
+                                                <option data-content="<span class=&quot;badge badge-danger&quot; style='width: 100%; background-color: #f44336;'>Rojo</span>">Rojo</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Alerta</label>
+                                        <div class="radio">
+                                            <input id="ckAlertaSI" class="magic-radio" type="radio" name="groupCkeckAlerta" value='SI'>
+                                            <label for="ckAlertaSI">SI</label>
+                                            <input id="ckAlertaNO" class="magic-radio" type="radio" name="groupCkeckAlerta" value='NO' checked>
+                                            <label for="ckAlertaNO">NO</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mar-btm" style="display: none" id="divFechaResul">
+                                        <label class="control-label">Fecha de Resolución</label>
+                                        <div id="demo-dp-component">
+                                            <div class="input-group date">
+                                                <input class="form-control" type="text" id="FechaResultado" name="FechaResultado">
+                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioResultado" name="comentarioResultado" style="display: none"></textarea>
                             </div>
+
+
+
+
+
+
+
+
+
+
+
                         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         <div id="demo-lft-tab-2" class="tab-pane fade">
                             <div class="panel-body">
                                 <a data-target="#demo-lg-modal-new" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Nueva Gestion<i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i></a>
@@ -661,6 +752,14 @@
             showColumns: false,
             showRefresh: true,
         });
+
+        $("#demo-cs-multiselectEje").on("change", function (event, params) {
+
+            if (typeof params.deselected != 'undefined')
+            {
+                console.log('no-selectionado', params.deselected)
+            }
+        })
 
         $('#demo-lg-modal-AsigEmp').on('show.bs.modal', function (events) {
             var Anexosss = $(events.relatedTarget);
@@ -1046,7 +1145,7 @@
                 $('#slComuna_multiselectUp').chosen({ width: '100%' });
             });
 
-            $.SecGetJSON(BASE_URL + "/motor/api/Config/dotacion-oficina", function (menus) {
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/dotacion-oficina", function (menus) {
                 $.each(menus, function (i, e) {
                     $("#demo-cs-multiselectEje").append($("<option>").attr("value", e.Rut).html(e.Nombre + " - ( " + e.Cargo + " )"))
                     $("#demo-cs-multiselectEjeEmpresa").append($("<option>").attr("value", e.Rut).html(e.Nombre + " - ( " + e.Cargo + " )"))
@@ -1183,6 +1282,17 @@
             else if (valida == 2) {
                 $("#tipoAsignacionAnexo").css('display', 'block')
             }
+
+
+            $('#radioEntravista').on("click", function () {
+                $('#divVisita').css('display', 'none')
+                $('#divEntrevista').css('display', 'block')
+            });
+            $('#radioVisita').on("click", function () {
+                $('#divEntrevista').css('display', 'none')
+                $('#divVisita').css('display', 'block')
+            });
+
 
 
             //$('#form-registro-gestion').bootstrapValidator({

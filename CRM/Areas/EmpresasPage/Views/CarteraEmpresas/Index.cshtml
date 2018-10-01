@@ -15,13 +15,13 @@
             </div>
 
             <div class="panel-body">
-                <table id="tabla" class="table table-bordered">
+                <table id="tabla" class="table table-bordered table-hover toggle-circle table-striped"> 
                     <thead>
                         <tr>
                             <th>Rut Empresa</th>
                             <th>Nombre Empresa</th>
-                            <th>N° Trabajadores</th>
-                            <th>Clasificación Empresa</th>
+                            <th data-align="center" data-sortable="true">N° Trabajadores</th>
+                            <th data-align="center" data-sortable="true">Clasificación Empresa</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -95,8 +95,9 @@
                         pageSize: 10,
                         pageList: [],
                         search: true,
-                        showColumns: false,
+                        showColumns: true,
                         showRefresh: false,
+                        sortable: true,
                     });
                     $('.add-popover').popover();
                 });
@@ -112,6 +113,18 @@
        
             $('.add-popover').popover();
         });
+
+
+        jQuery.fn.bootstrapTable.defaults.icons = {
+            paginationSwitchDown: 'demo-pli-arrow-down',
+            paginationSwitchUp: 'demo-pli-arrow-up',
+            refresh: 'demo-pli-repeat-2',
+            toggle: 'demo-pli-layout-grid',
+            columns: 'demo-pli-check',
+            detailOpen: 'demo-psi-add',
+            detailClose: 'demo-psi-remove'
+        }
+
 
     </script>
 

@@ -211,6 +211,25 @@ namespace CRM.Business.Data
             };
         }
 
+
+
+        public static List<EjecutivosOficina> ListarDotacionOficina(string token)
+        {
+            Parametro prm = new Parametro("@Token", token);
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_ListaDotacionOficina", prm, EntidadDotacionOficina);
+        }
+
+        private static EjecutivosOficina EntidadDotacionOficina(DataRow row)
+        {
+            return new EjecutivosOficina
+            {
+                Rut = row["Rut"] != DBNull.Value ? row["Rut"].ToString() : string.Empty,
+                Nombre = row["Nombre"] != DBNull.Value ? row["Nombre"].ToString() : string.Empty,
+                Cargo = row["Cargo"] != DBNull.Value ? row["Cargo"].ToString() : string.Empty,
+            };
+        }
+
+
         private static CarteraEmpresasEntity ListaCarteraEmpresaAgente(DataRow row)
         {
             return new CarteraEmpresasEntity
