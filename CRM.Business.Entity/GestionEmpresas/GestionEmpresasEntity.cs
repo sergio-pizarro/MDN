@@ -99,21 +99,17 @@ namespace CRM.Business.Entity
 
     public class AsignacionAnexoEmpresa
     {
-        //public IEnumerable<string> Tipo { get; set; }
-        //public IEnumerable<int> id { get; set; }
-        //public IEnumerable<string>  EjecAsignado { get; set; }
-
         public string Tipo { get; set; }
         public int id { get; set; }
         public string EjecAsignado { get; set; }
+    }
 
-        //public AsignacionAnexoEmpresa()
-        //{
-        //    Tipo = new List<string>();
-        //   // id = new List<int>();
-        //    EjecAsignado = new List<string>();
 
-        //}
+    public class EjecutivosOficina
+    {
+        public string Rut { get; set; }
+        public string Nombre { get; set; }
+        public string Cargo { get; set; }
     }
 
 

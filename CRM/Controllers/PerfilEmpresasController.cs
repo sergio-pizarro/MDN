@@ -204,6 +204,14 @@ namespace CRM.Controllers
         {
             return PerfilEmpresasDataAccess.ObtienePreAprobasoAnex(idAnexo, RutEmpresa);
         }
+
+        [HttpGet]
+        [Route("dotacion-oficina")]
+        public IEnumerable<EjecutivosOficina> DatosDotacionOficina()
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return PerfilEmpresasDataAccess.ListarDotacionOficina(token);
+        }
     }
 
 }
