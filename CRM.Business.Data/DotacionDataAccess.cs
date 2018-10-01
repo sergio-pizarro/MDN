@@ -144,6 +144,18 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Dotacion_ListarByPeriodo", p, ConstructorEntidad);
         }
 
+        public static int MarcarReemplazoRequerido(string rut, bool forzar = false)
+        {
+            Parametros p = new Parametros
+            {
+                new Parametro("@EjecutivoRut", rut),
+                new Parametro("@Forzar", forzar)
+            };
+             
+
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("dbo.spMotor_Dotacion_ProcesaReemplazoRequerido", p);
+        }
+        
         private static DotacionEntity ConstructorEntidad(DataRow row)
         {
             return new DotacionEntity

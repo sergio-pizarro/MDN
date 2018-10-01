@@ -57,6 +57,24 @@ namespace CRM.Controllers
 
         [AuthorizationRequired]
         [HttpGet]
+        [Route("reemplazo-requerido")]
+        public ResultadoBase ReemplazoRequerido(string rutEjecutivo, bool forzar = false)
+        {
+            try
+            {
+                string token = ActionContext.Request.Headers.GetValues("Token").First();
+                DotacionDataAccess.MarcarReemplazoRequerido(rutEjecutivo, forzar);
+                return new ResultadoBase() { Estado = "OK", Mensaje = "OK", Objeto = token };
+            }
+            catch (Exception exz)
+            {
+                return new ResultadoBase() { Estado = "ERR", Mensaje = exz.Message, Objeto = exz };
+            }
+        }
+
+
+        [AuthorizationRequired]
+        [HttpGet]
         [Route("proceso-dotacion-abierto")]
         public ResultadoBase ProcesoDotacionAbierto(int periodo)
         {
@@ -92,7 +110,11 @@ namespace CRM.Controllers
 
             DotacionDataAccess.ListarMiOficinaProyeccion(token, periodo).ForEach(ejecutivs =>
             {
-                LstEjecutivos.Add(new EjecutivosDotacion { Ejecutivo = ejecutivs, PeriodoAusencia = AusenciaDataAccess.ObtenerMensual(periodo, ejecutivs.Rut) });
+                LstEjecutivos.Add(new EjecutivosDotacion {
+                    Ejecutivo = ejecutivs,
+                    PeriodoAusencia = AusenciaDataAccess.ObtenerMensual(periodo, ejecutivs.Rut),
+                    RegistraAusencia = AusenciaDataAccess.RegistraReemplazo(ejecutivs.Rut)
+                });
             });
 
 

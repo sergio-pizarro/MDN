@@ -10,7 +10,10 @@ namespace CRM.Business.Entity
     {
         public string Rut { get; set; }
         public string Nombre { get; set; }
+        public string RutReemplazo { get; set; }
+        public string NombreReemplazo { get; set; }
         public string Cargo { get; set; }
+        public int TitularAusente { get; set; }
     }
 
     public class DatosEjecutivoEntity

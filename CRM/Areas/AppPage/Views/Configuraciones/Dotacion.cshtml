@@ -80,7 +80,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th rowspan="3">Ejecutivos</th>
+                                        <th rowspan="3" colspan="2">Ejecutivos</th>
                                         <th id="thCountDias"></th>
                                     </tr>
                                     <tr id="trDiasSemana"></tr>
@@ -91,10 +91,7 @@
                         </div>
                     </div>
                     <div id="demo-lft-tab-2" class="tab-pane fade">
-                        <br />
-                        <button class="btn btn-primary btn-labeled demo-pli-male ic-user" data-target="#modal-add-ejec" data-toggle="modal">Agregar Ejecutivo</button>
-                        <br />
-                        <br />
+                        
                         <table class="table table-bordered table-hover toggle-circle" id="tabla_dotacion_agente"></table>
                     </div>
                     <div id="demo-lft-tab-3" class="tab-pane fade">
@@ -607,7 +604,94 @@
 
     <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
     <script>
+
+        var elEditando = null;
+        
+        function do_force(rut)
+        {
+            console.log(elEditando)
+            var isEstadoInicial = elEditando.hasClass("btn-default");
+            $.SecGetJSON(BASE_URL + "/motor/api/Config/reemplazo-requerido", { rutEjecutivo: rut, forzar: true }, function (datos) {
+                if (isEstadoInicial) {
+                    if (datos.Estado == "OK") {
+                        $.niftyNoty({
+                            type: 'success',
+                            icon: 'pli-like-2 icon-2x',
+                            message: 'Ejecutivo Marcado para Reemplazado',
+                            container: 'floating',
+                            timer: 5000
+                        });
+                        elEditando.removeClass("btn-default").addClass("btn-danger");
+                        elEditando.text("Reemplazo (F)");
+                    } 
+                }
+            });
+        }
+
+
+        function RequiereReemplazo_Click(event) {
+            var $el = $(event.target);
+            var elRut = $el.data("value");
+            var isEstadoInicial = $el.hasClass("btn-default");
+            elEditando = $el;
+
+            $.SecGetJSON(BASE_URL + "/motor/api/Config/reemplazo-requerido", { rutEjecutivo: $el.data("value") }, function (datos) {
+
+               
+
+                if (isEstadoInicial)
+                {
+                    if (datos.Estado == "OK") {
+                        $.niftyNoty({
+                            type: 'success',
+                            icon: 'pli-like-2 icon-2x',
+                            message: 'Ejecutivo Marcado para Reemplazado',
+                            container: 'floating',
+                            timer: 5000
+                        });
+                        $el.text("Reemplazo").removeClass("btn-default").addClass("btn-danger");
+                    } else {
+                        $.niftyNoty({
+                            type: 'warning',
+                            icon: 'pli-like-2 icon-2x',
+                            //message: datos.Mensaje,
+                            html: '<h4 class="alert-title">Reemplazo Forzado!</h4><p class="alert-message">El ejecutivo no registra ausencias, ¿Desea forzar el Reemplazo?.</p><div class="mar-top"><button type="button" class="btn btn-info" data-dismiss="noty" onclick="do_force(\'' + elRut + '\')">Si</button> <button type="button" class="btn btn-danger" data-dismiss="noty">No</button></div>',
+                            container: 'floating'
+                        });
+                    }
+                    
+                }
+                else
+                {
+                    if (datos.Estado == "OK") {
+                        $.niftyNoty({
+                            type: 'success',
+                            icon: 'pli-like-2 icon-2x',
+                            message: 'Ejecutivo Des-Marcado para Reemplazado',
+                            container: 'floating',
+                            timer: 5000
+                        });
+
+                        $el.text("Reemplazar").removeClass("btn-danger").addClass("btn-default");
+                    } else {
+                        $.niftyNoty({
+                            type: 'warning',
+                            icon: 'pli-like-2 icon-2x',
+                            message: datos.Mensaje,
+                            container: 'floating',
+                            timer: 5000
+                        });
+                    }
+                    
+                }
+                
+            });
+
+
+        }
+
         $(function () {
+            
 
             //Funcionalidadaes de controlador
             var hoy = new Date();
@@ -690,9 +774,30 @@
                         //EJECUTIVOS
                         $.each(obj.Ejecutivos, function (inej, ejecutivo) {
 
+                            console.log(ejecutivo)
+                            var inticlass = "btn-default";
+                            var initext = "Reemplazar";
+                            if (ejecutivo.RegistraAusencia)
+                            {
+                                inticlass = "btn-danger";
+                                initext = "Reemplazo";
+                                if(ejecutivo.PeriodoAusencia.length == 0)
+                                {
+                                    initext = "Reemplazo (R)";
+                                }
+                            }
+
                             $("#bdy_ejecutivos").append(
                                 $("<tr>").prop({ "id": ejecutivo.Ejecutivo.Rut }).addClass("ejecutivo-diario")
-                                    .append($("<td>").append($('<a class="btn-link" data-target="#modal-ejecutivo-fault" data-toggle="modal" data-ejecutivo="' + ejecutivo.Ejecutivo.Rut + '">').prop({ "href": "#" }).html(ejecutivo.Ejecutivo.Nombres.OrdenaNombre())).append("<br> <small>" + ejecutivo.Ejecutivo.Cargo + "</small> ").addClass("charly-letra-chik-ejecutivo"))
+                                    .append(
+                                        $("<td>").append('<button type="button" id="RR-' + ejecutivo.Ejecutivo.Rut + '" class="btn ' + inticlass + ' btn-xs requiere-reemplazo" data-value="' + ejecutivo.Ejecutivo.Rut + '" style="margin-right:5px; font-weight: bold;" onclick="RequiereReemplazo_Click(event)">' + initext + '</button>')
+                                    )
+                                    .append(
+
+                                        $("<td>")
+                                            .append($('<a class="btn-link" data-target="#modal-ejecutivo-fault" data-toggle="modal" data-ejecutivo="' + ejecutivo.Ejecutivo.Rut + '">').prop({ "href": "#" }).html(ejecutivo.Ejecutivo.Nombres.OrdenaNombre()))
+                                            .append('<br> <small>' + ejecutivo.Ejecutivo.Cargo + '</small> ').addClass("charly-letra-chik-ejecutivo")
+                                    )
                             );
 
                             var daus = [];
@@ -928,7 +1033,6 @@
 
             //Funcionalidades de vista
             cargador.CargaMes(hoy);
-
 
             $('#modal-ejecutivo-fault').on('show.bs.modal', function (event) {
                 var link = $(event.relatedTarget);
@@ -1312,7 +1416,7 @@
                     title: 'Cargo',
                     sortable: true
                 }
-                ,
+                /*,
                 {
                     field: 'Rut',
                     title: '',
@@ -1320,7 +1424,7 @@
                     formatter: function (value, row, index) {
                         return '<button class= "btn btn-primary btn-icon btn-circle" data-target="#modal-actualiza-ejec" data-toggle="modal" data-seleccion="' + value + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos del Ejecutivo"></i></button>'
                     }
-                }
+                }*/
             ]
         });
     </script>

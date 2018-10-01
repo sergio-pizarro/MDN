@@ -25,6 +25,9 @@ namespace CRM.Business.Data
                 Rut = row["Rut"] != DBNull.Value ? row["Rut"].ToString() : string.Empty,
                 Nombre = row["Nombre"] != DBNull.Value ? row["Nombre"].ToString() : string.Empty,
                 Cargo = row["Cargo"] != DBNull.Value ? row["Cargo"].ToString() : string.Empty,
+                NombreReemplazo = row["NombreReemplazo"] != DBNull.Value ? row["NombreReemplazo"].ToString() : string.Empty,
+                RutReemplazo = row["RutReemplazo"] != DBNull.Value ? row["RutReemplazo"].ToString() : string.Empty,
+                TitularAusente = row["TitularAusente"] != DBNull.Value ? Convert.ToInt32(row["TitularAusente"]) : 0,
             };
         }
 
