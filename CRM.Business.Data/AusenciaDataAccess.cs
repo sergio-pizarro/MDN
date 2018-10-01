@@ -107,6 +107,15 @@ namespace CRM.Business.Data
             };
             return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Ausencia_ListarMes", par, ConstructorEntidad);
         }
+
+
+        public static bool RegistraReemplazo(string EjecutivoRut)
+        {
+            Parametro p = new Parametro("@RutE", EjecutivoRut);
+            string query = @"select count(*) existe from dbo.TabMotor_MarcaReemplazo where EjecutivoRut = @RutE";
+
+            return DBHelper.InstanceCRM.ObtenerEscalarFromSql<bool>(query, p);
+        }
         #endregion
 
         #region constructor
@@ -121,6 +130,8 @@ namespace CRM.Business.Data
                 tipo_ausencia_id = row["tipo_ausencia_id"] != DBNull.Value ? Convert.ToInt32(row["tipo_ausencia_id"]) : 0,
                 aus_cantidad_dias = row["aus_cantidad_dias"] != DBNull.Value ? Convert.ToInt32(row["aus_cantidad_dias"]) : 0,
                 aus_comentarios = row["aus_comentarios"] != DBNull.Value ? row["aus_comentarios"].ToString() : string.Empty,
+                aus_marca_ausencia = row["aus_marca_ausencia"] != DBNull.Value ? Convert.ToBoolean(row["aus_marca_ausencia"]) : false,
+
             };
         }
         #endregion
