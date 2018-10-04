@@ -135,6 +135,19 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerEscalar<long>("carteras.spMotorCartera_IngresoAsignacionEmpAnexo", parametros);
         }
 
+        public static long EliminaAsignacionEmpAnexo(string tipo, string rut, long id)
+        {
+            Parametros parametros = new Parametros
+            {
+                new Parametro("@Tipo", tipo ),
+                new Parametro("@id", id ),
+                new Parametro("@RutEjecutivo", rut),
+
+            };
+            return DBHelper.InstanceCRM.ObtenerEscalar<long>("carteras.spMotorCartera_EliminaAsignacionEmpAnexo", parametros);
+        }
+        
+
         public static int ActualizaAnexo(int IdEmpresaAnexo, string Anexo, int NumTrabajadores, int IdComuna, string NombreComuna, string Direccion)
         {
             Parametros parametros = new Parametros

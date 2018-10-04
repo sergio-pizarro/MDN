@@ -178,39 +178,100 @@
                             </div>
                         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
                         <!--VISITAS-->
                         <div id="demo-lft-tab-1" class="tab-pane fade">
 
+                            <h4 class="h3 mar-no">Entrevistas Realizadas</h4>
+                            <br />
+                            <a data-target="#demo-lg-modal-entrevista" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Nueva Gestion<i class="demo-psi-receipt-4 icon-lg" style="margin-left: 10px;"></i></a>
+                            <hr />
+                            <table style="font-size: 12px;" id="tblEntrevista" class="table table-hover table-vcenter">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha Entrevista</th>
+                                        <th>Nombre</th>
+                                        <th>Cargo</th>
+                                        <th>Tema</th>
+                                        <th>Estamento</th>
+                                        <th>Detalle</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="buscar" id="tbdyentrevista">
+                                    <tr>
+                                        <td>02-10-2018</td>
+                                        <td>Sergio Pizarro</td>
+                                        <td>Especialista</td>
+                                        <td>Creditos</td>
+                                        <td>Sindicato</td>
+                                        <td><button class="btn btn-primary btn-icon btn-circle"><i class="demo-psi-receipt-4 icon-xs"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>03-10-2018</td>
+                                        <td>Sergio Pizarro</td>
+                                        <td>Especialista</td>
+                                        <td>Creditos</td>
+                                        <td>Empresa</td>
+                                        <td><button class="btn btn-primary btn-icon btn-circle"><i class="demo-psi-receipt-4 icon-xs"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-
-
-                            <div id="radioVisitas">
-                                <div class="radio">
-                                    <input id="radioEntravista" class="magic-radio" type="radio" name="inline-form-radio">
-                                    <label for="radioEntravista">¿Desea gestionar una entrevista?</label>
-                                    <br />
-                                    <br />
-                                    <input id="radioVisita" class="magic-radio" type="radio" name="inline-form-radio">
-                                    <label for="radioVisita">¿Desea gestionar una vista?</label>
-                                </div>
+                        <div id="demo-lft-tab-2" class="tab-pane fade">
+                            <div class="panel-body">
+                                <a data-target="#demo-lg-modal-new" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Nueva Gestion<i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i></a>
                                 <hr />
+                                <table style="font-size: 12px;" id="tblAsigEmp" class="table table-hover table-vcenter">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="state" data-checkbox="true"></th>
+                                            <th hidden></th>
+                                            <th>Rut</th>
+                                            <th>Nombres</th>
+                                            <th>Oferta</th>
+                                            <th>Tipo Oferta</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="buscar" id="tbOportunidad"></tbody>
+                                </table>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
-                            <div class="form-horizontal" style="display: none;" id="divEntrevista">
+
+@*MODAL DE VISITAS*@
+<div id="demo-lg-modal-entrevista" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 13px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title"><i class="demo-psi-receipt-4 icon-lg" style="margin-left: 10px;"></i>    Ingreso Entrevista</h4>
+            </div>
+            <form id="form-registro-entrevista" action="#" method="post">
+                <div class="panel-body">
+                    <div id="radioVisitas">
+                        <div class="radio">
+                            <input id="radioEntravista" class="magic-radio" type="radio" name="inline-form-radio">
+                            <label for="radioEntravista">¿Desea gestionar una entrevista?</label>
+                            <br />
+                            <br />
+                            <input id="radioVisita" class="magic-radio" type="radio" name="inline-form-radio">
+                            <label for="radioVisita">¿Desea gestionar una vista?</label>
+                        </div>
+                        <hr />
+                    </div>
+
+                    <div class="form-horizontal" style="display: none;" id="divEntrevista">
+                        <div class="panel panel-bordered-dark" style="border-radius: 8px; border: 1px solid #e5e5e5;">
+                            <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-4 mar-btm">
                                         <label class="control-label">Fecha y hora visita</label>
@@ -222,98 +283,61 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4 mar-btm">
-                                        <label class="control-label">Tipo</label>
+                                        <label class="control-label">Tema</label>
                                         <select id="slTipo" class="form-control" name="slTipo">
                                             <option value="">Seleccione</option>
+                                            <option value="">Creditos</option>
+                                            <option value="">Licencia Medicas</option>
+                                            <option value="">Asig. Familiar</option>
+                                            <option value="">Seguros</option>
+                                            <option value="">Cheques</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4 mar-btm">
                                         <label class="control-label">Estamento</label>
                                         <select id="slEstamento" class="form-control" name="slEstamento">
                                             <option value="">Seleccione</option>
+                                            <option value="">Empresa</option>
+                                            <option value="">Sindicato</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 mar-btm">
                                         <label class="control-label">Nombre Contacto</label>
-                                        <input type="text" id="nombContacto" name="nombContacto" class="form-control" placeholder="nombre contacto">
+                                        <input type="text" id="nombContacto" name="nombContacto" class="form-control" placeholder="Nombre">
                                     </div>
                                     <div class="col-md-4 mar-btm">
                                         <label class="control-label">Cargo</label>
-                                        <input type="text" id="txtCargo" name="txtCargo" class="form-control" placeholder="Cargo">
+                                        <input type="text" id="txtCargo" name="txtCargo" class="form-control selectpicker" placeholder="Cargo">
+                                    </div>
+                                    <div class="col-md-4 mar-btm">
+                                        <a data-target="#demo-lg-modal-newAnexo" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded" style="margin-top: 31px;">Guardar Datos de Entrevista<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></a>
                                     </div>
                                 </div>
-
-                                <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioEntrevista" name="comentarioResultado" style="display: block"></textarea>
-
-
-                                <hr />
-
-                                <h4 class="h3 mar-no">Entrevistas Realizadas</h4>
-
-                                <br />
-                                <div class="well well-sm" style="border-radius: 5px;">
-                                    <p class="text-bold text-main mar-no">Notes &amp; Information</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-                                    <p>If you have any questions concerning this invoice, please contact <strong>billing[at]mycompany.com</strong></p>
-                                </div>
-
-                                <div class="well well-sm" style="border-radius: 5px;">
-                                    <p class="text-bold text-main mar-no">Fecha Entravista: 28/09/2018</p>
-                                    <br />
-                                    <div class="row">
-
-                                        <div class="col-md-6 mar-btm" style="padding-left: 70px;">
-                                            <p class="text-bold text-main mar-no">Tipo</p>
-                                            <label class="control-label">Tipo prueba</label>
-                                        </div>
-                                        <div class="col-md-6 mar-btm">
-                                            <p class="text-bold text-main mar-no">Estamento</p>
-                                            <label class="control-label">Estamento prueba</label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 mar-btm" style="padding-left: 70px;">
-                                            <p class="text-bold text-main mar-no">Nombre Contacto</p>
-                                            <label class="control-label">Nombre Contacto prueba</label>
-                                        </div>
-                                        <div class="col-md-6 mar-btm">
-                                            <p class="text-bold text-main mar-no">Cargo</p>
-                                            <label class="control-label">Cargo prueba</label>
-                                        </div>
-
-                                        <div class="col-md-10 mar-btm" style="padding-left: 70px;">
-                                            <p class="text-bold text-main mar-no">Comentarios</p>
-                                            <label class="control-label">Cargo prueba Cargo prueba Cargo prueba Cargo prueba Cargo prueba  Cargo prueba</label>
-                                        </div>
-                                    </div>
-
-
-                                   
-                                </div>
-
-
-
                             </div>
+                        </div>
 
-
-
-
-
-                            <div class="form-horizontal" style="display: none;" id="divVisita">
-
+                        <div class="panel panel-bordered-dark" style="border-radius: 8px; border: 1px solid #e5e5e5;">
+                            <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-4 mar-btm">
                                         <label class="control-label">Tema</label>
-                                        <select id="slTema" class="form-control" name="slTema">
+                                        <select id="slTipo" class="form-control" name="slTipo">
                                             <option value="">Seleccione</option>
+                                            <option value="">Creditos</option>
+                                            <option value="">Licencia Medicas</option>
+                                            <option value="">Asig. Familiar</option>
+                                            <option value="">Seguros</option>
+                                            <option value="">Cheques</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4 mar-btm">
                                         <label class="control-label">Sub-Tema</label>
-                                        <select id="slSubTema" class="form-control" name="slSubTema">
+                                        <select id="slEstamento" class="form-control" name="slEstamento">
                                             <option value="">Seleccione</option>
+                                            <option value="">Empresa</option>
+                                            <option value="">Sindicato</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4 mar-btm">
@@ -349,74 +373,46 @@
                                         </div>
                                     </div>
                                 </div>
-                                <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioResultado" name="comentarioResultado" style="display: none"></textarea>
-                            </div>
-
-
-
-
-
-
-
-
-
-
-
-                        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <div id="demo-lft-tab-2" class="tab-pane fade">
-                            <div class="panel-body">
-                                <a data-target="#demo-lg-modal-new" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Nueva Gestion<i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i></a>
-                                <hr />
-                                <table style="font-size: 12px;" id="tblAsigEmp" class="table table-hover table-vcenter">
-                                    <thead>
-                                        <tr>
-                                            <th data-field="state" data-checkbox="true"></th>
-                                            <th hidden></th>
-                                            <th>Rut</th>
-                                            <th>Nombres</th>
-                                            <th>Oferta</th>
-                                            <th>Tipo Oferta</th>
-                                            <th>Estado</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="buscar" id="tbOportunidad"></tbody>
-                                </table>
+                                <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioEntrevista" name="comentarioResultado" style="display: block"></textarea>
+                                <a data-target="#demo-lg-modal-newAnexo" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded" style="margin-top: 31px;">Guardar y Agregar<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></a>
                             </div>
                         </div>
                     </div>
+                    <div class="form-horizontal" style="display: none;" id="divVisita">
+                        <div class="row">
+                            <div class="col-md-4 mar-btm">
+                                <label class="control-label">Tema</label>
+                                <select id="slTema" class="form-control" name="slTema">
+                                    <option value="">Seleccione</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mar-btm">
+                                <label class="control-label">Sub-Tema</label>
+                                <select id="slSubTema" class="form-control" name="slSubTema">
+                                    <option value="">Seleccione</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mar-btm">
+                                <label class="control-label">Semaforo Relación</label>
+                                <div class="btn-group bootstrap-select form-control">
+                                    <select id="selectCargo" class="form-control selectpicker" tabindex="-98">
+                                        <option value="">Seleccione</option>
+                                        <option data-content="<span class=&quot;badge badge-success&quot; style='width: 100%; background-color: #8bc34a;'>Verde</span>">Verde</option>
+                                        <option data-content="<span class=&quot;badge badge-warning&quot; style='width: 100%; background-color: #ffb300;'>Amarillo</span>">Amarillo</option>
+                                        <option data-content="<span class=&quot;badge badge-danger&quot; style='width: 100%; background-color: #f44336;'>Rojo</span>">Rojo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioResultado" name="comentarioResultado" style="display: none"></textarea>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
 
+@*MODAL DE GESTION*@
 <div id="demo-lg-modal-new" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="border-radius: 13px;">
@@ -729,15 +725,6 @@
             myDropzone.removeFile(file);
         });
 
-
-        //$(document).ready(function () {
-        //
-
-
-        //    console.log(Dropzone.options.dropzoneForm);
-        //});
-
-
         if (IJ == 0) {
             $("#tab_anexos").css('display', 'none')
             $("#liOport").addClass('active')
@@ -752,14 +739,15 @@
             showColumns: false,
             showRefresh: true,
         });
-
-        $("#demo-cs-multiselectEje").on("change", function (event, params) {
-
-            if (typeof params.deselected != 'undefined')
-            {
-                console.log('no-selectionado', params.deselected)
-            }
-        })
+        $("#tblEntrevista").bootstrapTable({
+            striped: true,
+            pagination: true,
+            pageSize: 10,
+            pageList: [],
+            search: true,
+            showColumns: false,
+            showRefresh: true,
+        });
 
         $('#demo-lg-modal-AsigEmp').on('show.bs.modal', function (events) {
             var Anexosss = $(events.relatedTarget);
@@ -774,6 +762,69 @@
                 });
             });
         });
+
+
+        $("#demo-cs-multiselectEjeEmpresa").on("change", function (event, params) {
+            if (typeof params.deselected != 'undefined') {
+                // console.log('no-selectionado', params.deselected)
+                var WebCarteraEmpresaAsig = {
+                    Tipo: 'Empresas',
+                    Id: ID,
+                    EjecAsignado: params.deselected
+                }
+                $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/elimina-asignacion-empresa-anexo", WebCarteraEmpresaAsig, function (respuesta) {
+                    if (respuesta.Estado === "OK") {
+                        $.niftyNoty({
+                            type: 'success',
+                            container: 'floating',
+                            html: '<strong>OK</strong> ' + respuesta.Mensaje,
+                            focus: false,
+                            timer: 2000
+                        });
+                    } else {
+                        $.niftyNoty({
+                            type: 'danger',
+                            container: 'floating',
+                            html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                            timer: 5000
+                        });
+                    }
+                });
+            }
+        })
+
+        $("#demo-cs-multiselectEje").on("change", function (event, params) {
+            if (typeof params.deselected != 'undefined') {
+                //console.log('no-selectionado', params.deselected)
+                var WebCarteraEmpresaAsig = {
+                    Tipo: 'FAnexo',
+                    Id: idEmp,
+                    EjecAsignado: params.deselected
+                }
+
+                $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/elimina-asignacion-empresa-anexo", WebCarteraEmpresaAsig, function (respuesta) {
+                    if (respuesta.Estado === "OK") {
+                        $.niftyNoty({
+                            type: 'success',
+                            container: 'floating',
+                            html: '<strong>OK</strong> ' + respuesta.Mensaje,
+                            focus: false,
+                            timer: 2000
+                        });
+                    } else {
+                        $.niftyNoty({
+                            type: 'danger',
+                            container: 'floating',
+                            html: '<strong>Error</strong> ' + respuesta.Mensaje,
+                            timer: 5000
+                        });
+                    }
+                });
+                cargador.CargaDatosAnexos();
+            }
+        })
+
+
 
 
         $("#btAsignaEmpresa").on("click", function () {
@@ -810,7 +861,6 @@
                 });
             });
             cargador.CargaDatosAnexos();
-            //console.log(WebCarteraEmpresaAsig);
             ejeAsig.length = 0;
         });
 
@@ -847,7 +897,6 @@
                 });
             });
             cargador.CargaDatosAnexos();
-            console.log(WebCarteraEmpresaAsig);
             ejeAsig.length = 0;
         });
 
