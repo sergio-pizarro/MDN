@@ -92,6 +92,23 @@ namespace CRM.Controllers
             }
         }
 
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("elimina-asignacion-empresa-anexo")]
+        public ResultadoBase EliminaCarteraEmpAnexo(AsignacionAnexoEmpresa asignacionEmpresa)
+        {
+            try
+            {
+                PerfilEmpresasDataAccess.EliminaAsignacionEmpAnexo(asignacionEmpresa.Tipo, asignacionEmpresa.EjecAsignado, asignacionEmpresa.id);
+                return new ResultadoBase() { Estado = "OK", Mensaje = "Se desasigno Correctamente" };
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoBase() { Estado = "ERR", Mensaje = "Error al desasignar: " + ex.Message, Objeto = ex };
+            }
+        }
+
+
         [HttpGet]
         [Route("lista-ejecutivo-asignado")]
         public ICollection<EjecutivosAsignadosEntity> ObtenerEjesAsig(int IdEmpresa)
@@ -167,15 +184,24 @@ namespace CRM.Controllers
                                 string line; int i = 0;
                                 while ((line = files.ReadLine()) != null)
                                 {
-                                    if (i > 0)
+                                    if (i >= 0)
                                     {
-                                        string rut = line.Split(';')[0];
-                                        string dv = line.Split(';')[1];
-                                        string final = rut + "-" + dv;
-                                        imprimir = imprimir + "ANEXO[" + anexo + "] RUT[" + final + "]";
-
-                                        PerfilEmpresasDataAccess.InsertaAfiliadoAnexo(Convert.ToInt32(anexo), final);
-                                        //return new ResultadoBase() { Estado = "OK", Mensaje = "Ingreso Correcto" };
+                                        if (line.Contains(";"))
+                                        {
+                                            string rut = line.Split(';')[0];
+                                            string dv = line.Split(';')[1];
+                                            string final = rut + "-" + dv;
+                                            imprimir = imprimir + "ANEXO[" + anexo + "] RUT[" + final + "]";
+                                            PerfilEmpresasDataAccess.InsertaAfiliadoAnexo(Convert.ToInt32(anexo), final);
+                                        }
+                                        else if (line.Contains(","))
+                                        {
+                                            string rut = line.Split(',')[0];
+                                            string dv = line.Split(',')[1];
+                                            string final = rut + "-" + dv;
+                                            imprimir = imprimir + "ANEXO[" + anexo + "] RUT[" + final + "]";
+                                            PerfilEmpresasDataAccess.InsertaAfiliadoAnexo(Convert.ToInt32(anexo), final);
+                                        }
                                     }
                                     i++;
                                 }
