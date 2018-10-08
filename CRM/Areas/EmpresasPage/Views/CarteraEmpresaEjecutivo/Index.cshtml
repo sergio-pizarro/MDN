@@ -12,7 +12,7 @@
 <h1 id="titulo">Cartera Empresas Asignadas</h1>
 <div id="page-content">
     <div class="row">
-        <div class="panel" style="border-radius: 6px;"">
+        <div class="panel" style="border-radius: 6px;" ">
             <div class="panel-heading">
                 <h2 class="panel-title">Empresas Asignadas</h2>
             </div>
@@ -23,8 +23,8 @@
                         <tr>
                             <th>Rut Empresa</th>
                             <th>Nombre Empresa</th>
-                            <th>N° Trabajadores</th>
-                            <th>Holding</th>
+                            <th class="hidden-xs hidden-sm text-center">N° Trabajadores</th>
+                            <th class="hidden-xs hidden-sm text-center">Holding</th>
                         </tr>
                     </thead>
                     <tbody id="bdy_datos"></tbody>
@@ -50,7 +50,6 @@
             CargaDatosCateraAgente: function () {
                 $("#bdy_datos").html("");
                 $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/obtener-cartera-empresa", function (menus) {
-                    var iterador = ""
                     $.each(menus, function (i, e) {
                         var NomHolding = ""
                         if (e.Holding == 0) {
@@ -59,42 +58,44 @@
                         else {
                             NomHolding = $('<div>').addClass('label label-table label-success').append(e.NombreHolding)
                         }
+                        if (e.Tipo == "FAnexo") {
+                            NomHolding = $('<div>').addClass('label label-table label-info').append(e.NombreHolding)
+                        }
+
                         if (e.Tipo != "FAnexo") {
                             $("#bdy_datos")
-                                .append($("<tr>").addClass('treegrid-' + i)
+                                .append($("<tr>")
                                     .append($("<td>").append(e.RutEmpresa))
                                     .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '&IJ=0' + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(NomHolding))
                                 )
-                            iterador = i
-                        } else {
+                        }
+                        else {
                             $("#bdy_datos")
-                                .append($("<tr>").addClass('treegrid-' + i + ' treegrid-parent-' + iterador).addClass(' colorAnexo')
+                                .append($("<tr>").addClass('colorAnexo')
                                     .append($("<td>").append(e.RutEmpresa))
-                                    .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresa + '&IJ=0' + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
+                                    .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '&IJ=0' + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
-                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NombreHolding))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(NomHolding))
                                 )
                         }
-                    });
-                    $(document).ready(function () {
-                        $('.tree-2').treegrid({
-                            initialState: 'collapsed',
-                            saveState: null,
-                            expanderExpandedClass: 'glyphicon glyphicon-minus',
-                            expanderCollapsedClass: 'glyphicon glyphicon-plus',
-                        });
-                        $('.colorAnexo').css('background', '#ffeeba')
                     });
 
                     $("#tablatree").bootstrapTable({
                         striped: true,
-                        pageSize: 10,
+                        pagination: true,
+                        pageSize: 20,
                         pageList: [],
+                        search: true,
+                        showColumns: false,
+                        showRefresh: false,
+                        sortable: true,
 
                     });
+                  //  $('.colorAnexo').css('background', '#ffeeba')
                 });
+
             },
         }
 
@@ -111,6 +112,10 @@
             });
 
             cargador.CargaDatosCateraAgente();
+
+
+            
+
         });
 
     </script>
