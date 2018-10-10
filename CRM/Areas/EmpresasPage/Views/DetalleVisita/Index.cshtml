@@ -1,0 +1,195 @@
+﻿
+@{
+    Layout = "~/Areas/EmpresasPage/Views/Shared/_Layout.cshtml";
+}
+
+<h1 id="tituloEmp">Detalle de Entrevistas</h1>
+<div id="page-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel" style="border-radius: 6px;">
+                <div class="panel-body">
+                    <a href="javascript:history.back()" class="btn btn-default btn-rounded"><i class="ion-arrow-left-a"></i>  Volver a ficha empresa</a>
+                    <br />
+                    <br />
+
+                    <div class="well well-sm" style="border-radius: 6px;">
+                        <p class="text-bold text-main mar-no">Fecha: 08-10-2018 </p>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-3 mar-btm">
+                                <strong>Nombre Contacto</strong>
+                                <br />
+                                <label class="control-label">Sergio Pizarro</label>
+                            </div>
+
+                            <div class="col-md-3 mar-btm">
+                                <strong>Cargo</strong>
+                                <br />
+                                <label class="control-label">Especialista analitica</label>
+                            </div>
+                         
+
+                            <div class="col-md-3 mar-btm">
+                                <strong>Estamento</strong>
+                                <br />
+                                <label class="control-label">Empresa</label>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3 mar-btm">
+                                <strong>Tema</strong>
+                                <br />
+                                <label class="control-label">Licencias Medicas</label>
+                            </div>
+
+                            <div class="col-md-3 mar-btm">
+                                <strong>Sub-Tema</strong>
+                                <br />
+                                <label class="control-label">Sub-Tema - Sub-Tema</label>
+                            </div>
+                            <div class="col-md-3 mar-btm">
+                                <strong>Semaforo Relación</strong>
+                                <br />
+                                <label class="control-label"><span class="badge badge-success" style="width: 120px;">Verde</span></label>
+                            </div>
+
+                            <div class="col-md-3 mar-btm">
+                                <strong>Fecha Resolución</strong>
+                                <br />
+                                <label class="control-label">25-10-2018</label>
+                            </div>
+                        </div>
+                        <strong>Comentarios</strong>
+                        <br />
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
+                        <div class="text-right no-print">
+                            <a data-target="#demo-lg-modal-entrevista" data-toggle="modal" class="btn btn-default btn-rounded"><i class="demo-psi-receipt-4"></i> Editar Registro</a>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3 mar-btm">
+                                <strong>Tema</strong>
+                                <br />
+                                <label class="control-label">Creditos</label>
+                            </div>
+
+                            <div class="col-md-3 mar-btm">
+                                <strong>Sub-Tema</strong>
+                                <br />
+                                <label class="control-label">Sub-Tema - Sub-Tema</label>
+                            </div>
+                            <div class="col-md-3 mar-btm">
+                                <strong>Semaforo Relación</strong>
+                                <br />
+                                <label class="control-label"><span class="badge badge-danger" style="width: 120px;">Rojo</span></label>
+                            </div>
+
+                            <div class="col-md-3 mar-btm">
+                                <strong>Fecha Resolución</strong>
+                                <br />
+                                <label class="control-label">---</label>
+                            </div>
+                        </div>
+                        <strong>Comentarios</strong>
+                        <br />
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+
+                        <div class="text-right no-print">
+                            <a data-target="#demo-lg-modal-entrevista" data-toggle="modal" class="btn btn-default btn-rounded"><i class="demo-psi-receipt-4"></i> Editar Registro</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+@*MODAL DE ACTUALIZA VISITAS*@
+<div id="demo-lg-modal-entrevista" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 13px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title"><i class="demo-psi-receipt-4 icon-lg" style="margin-left: 10px;"></i>    Ingreso Entrevista</h4>
+            </div>
+            <form id="form-registro-entrevista" action="#" method="post">
+                <div class="panel-body">
+                    <div class="form-horizontal" style="display: block;" id="divEntrevista">
+                   
+
+                        <div class="panel panel-bordered-dark" style="border-radius: 8px; border: 1px solid #e5e5e5;">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Tema</label>
+                                        <select id="slTipo" class="form-control" name="slTipo">
+                                            <option value="">Seleccione</option>
+                                            <option value="">Creditos</option>
+                                            <option value="">Licencia Medicas</option>
+                                            <option value="">Asig. Familiar</option>
+                                            <option value="">Seguros</option>
+                                            <option value="">Cheques</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Sub-Tema</label>
+                                        <select id="slEstamento" class="form-control" name="slEstamento">
+                                            <option value="">Seleccione</option>
+                                            <option value="">Empresa</option>
+                                            <option value="">Sindicato</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mar-btm">
+                                        <label class="control-label">Semaforo Relación</label>
+                                        <div class="btn-group bootstrap-select form-control">
+                                            <select id="selectCargo" class="form-control selectpicker" tabindex="-98">
+                                                <option value="">Seleccione</option>
+                                                <option data-content="<span class=&quot;badge badge-success&quot; style='width: 100%; background-color: #8bc34a;'>Verde</span>">Verde</option>
+                                                <option data-content="<span class=&quot;badge badge-warning&quot; style='width: 100%; background-color: #ffb300;'>Amarillo</span>">Amarillo</option>
+                                                <option data-content="<span class=&quot;badge badge-danger&quot; style='width: 100%; background-color: #f44336;'>Rojo</span>">Rojo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                           
+                                    <div class="col-md-4 mar-btm" style="display: none" id="divFechaResul">
+                                        <label class="control-label">Fecha de Resolución</label>
+                                        <div id="demo-dp-component">
+                                            <div class="input-group date">
+                                                <input class="form-control" type="text" id="FechaResultado" name="FechaResultado">
+                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioEntrevista" name="comentarioResultado" style="display: block"></textarea>
+                                <a data-target="#demo-lg-modal-newAnexo" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded" style="margin-top: 31px;">Guardar<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section script{
+
+    <script type="text/javascript">
+        $("#tituloEmp").css('font-size', '20px').css('color', '#b3b3b3').css('margin-left', '20px')
+    </script>
+}
+
+

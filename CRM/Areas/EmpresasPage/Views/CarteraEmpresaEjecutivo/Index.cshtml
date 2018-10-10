@@ -75,7 +75,7 @@
                             $("#bdy_datos")
                                 .append($("<tr>").addClass('colorAnexo')
                                     .append($("<td>").append(e.RutEmpresa))
-                                    .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '&IJ=0' + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
+                                    .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresa + '&IJ=0' + '&rutEmAnexo=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(NomHolding))
                                 )
