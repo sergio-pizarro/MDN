@@ -100,7 +100,7 @@ namespace CRM.Business.Entity
     public class AsignacionAnexoEmpresa
     {
         public string Tipo { get; set; }
-        public int id { get; set; }
+        public int Id { get; set; }
         public string EjecAsignado { get; set; }
     }
 
@@ -112,5 +112,78 @@ namespace CRM.Business.Entity
         public string Cargo { get; set; }
     }
 
+    public class EntrevistaEntity
+    {
+        public int IdEntrevista { get; set; }
+        public string RutEmpresa { get; set; }
+        public string FechaEntrevista { get; set; }
+        public string NombreContacto { get; set; }
+        public string Estamento { get; set; }
+        public string Cargo { get; set; }
+        public string TelefonoContacto { get; set; }
+        public string CorreoContacto { get; set; }
+        public string Comentarios { get; set; }
+        public string Tipo { get; set; }
+        public string RutEjeIngreso { get; set; }
+        public DateTime FechaIngreso { get; set; }
+        public string NombreEjecutivo { get; set; }
+    }
+
+
+    public class DetalleEntrevistaEntity
+    {
+        public int IdDetalleEntrevista { get; set; }
+        public int IdEntrevista { get; set; }
+        public string Tema { get; set; }
+        public string SubTema { get; set; }
+        public string Semaforo { get; set; }
+        public int Alerta { get; set; }
+        public string FechaResolucion { get; set; }
+        public string Comentarios { get; set; }
+        public string RutEjeIngreso { get; set; }
+        public DateTime FechaIngreso { get; set; }
+        public string NombreEjecutivo { get; set; }
+        public int Compromiso { get; set; }
+        public int FlagActualizacion { get; set; }
+        public int IdDetalleOrigen { get; set; }
+    }
+    public class IdEntrevistaEntity
+    {
+        public int IdEntrevista { get; set; }
+    }
+
+
+    public class GestionMantencionEntity
+    {
+        public int IdGesMantencion { get; set; }
+        public string RutEmpresa { get; set; }
+        public string Tema { get; set; }
+        public string SubTema { get; set; }
+        public string Tipo { get; set; }
+        public string RutAfiliado { get; set; }
+        public string Comentarios { get; set; }
+        public string RutEjeIngreso { get; set; }
+        public string NombreEjecutivo { get; set; }
+        public DateTime FechaIngreso { get; set; }
+        public int Alerta { get; set; }
+    }
+
+    public class TipologiaGestionEntity
+    {
+        public int IdTema { get; set; }
+        public string GlosaGestion { get; set; }
+    }
+
+    public class TipologiaSubGestionEntity
+    {
+        public int IdSubTema { get; set; }
+        public string GlosaSubTema { get; set; }
+    }
+
+    public class AfiliadoOficinaEntity
+    {
+        public string RutAfiliado { get; set; }
+        public string NombreAfiliado { get; set; }
+    }
 
 }

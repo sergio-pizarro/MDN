@@ -1,0 +1,163 @@
+﻿
+
+@{
+    Layout = "~/Areas/EmpresasPage/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Assets/plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
+<h1 id="tituloEmp">Mantención Gestion </h1>
+<div id="page-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel" style="border-radius: 6px;">
+                <div class="panel-body">
+                    <a href="javascript:history.back()" class="btn btn-default btn-rounded"><i class="ion-arrow-left-a"></i>  Volver a ficha empresa</a>
+                    <br />
+                    <br />
+                    <h3 class="text-bold text-main mar-no" style="color: #b3b3b3">Detalle Mantención Gestion</h3>
+                    <br />
+                    <div id="divGestion">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section script{
+
+    <script type="text/javascript">
+        var IdGest = httpGet('IdGestion');
+        $("#tituloEmp").css('font-size', '20px').css('color', '#b3b3b3').css('margin-left', '20px')
+
+
+
+        var cargador = {
+            CargaDetalleEntrevista: function () {
+                $("#divGestion").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-detalle-mantencion-gestion", { IdGesMantencion: IdGest }, function (menus) {
+                    $.each(menus, function (i, e) {
+                        //if (e.FlagActualizacion == 0) {
+
+                        var aler = 0;
+                        if (e.Alerta == 1) {
+                            aler = 'SI'
+                        }
+                        else {
+                            aler = 'NO'
+                        }
+
+                        $("#divGestion").addClass('panel panel-bordered-dark').css('border-radius', '6px').css('border', '1px solid #b3b3b3')//.append($("<div>").addClass('panel-body'))//.append("<hr />")
+                            .append(
+                                $("<div>").addClass('row panel-body')
+                                    .append(
+                                        $("<div>").addClass('row')
+                                            .append($("<div class='col-md-8 mar-btm'><strong>Fecha: </strong><label class='control-label'>" + e.FechaIngreso.toFechaHoraPrueba() + "</label></div>"))
+                                            .append($("<div class='col-md-4 mar-btm'><strong>Ingresado por: </strong><label class='control-label'>" + e.NombreEjecutivo.OrdenaNombreCompleto() + "</label></div>"))
+                                    ).append("<hr style='margin-top: 0px;'/>")
+                                    .append($("<div class='col-md-2 mar-btm'><strong>Tema</strong> <br /><label class='control-label'>" + e.Tema + "</label></div>"))
+                                    .append($("<div class='col-md-2 mar-btm'><strong>Sub-Tema</strong><br /><label class='control-label'>" + e.SubTema + "</label></div>"))
+                                    .append($("<div class='col-md-2 mar-btm'><strong>Tipo</strong> <br /><label class='control-label'>" + e.Tipo + "</label></div>"))
+                                    .append($("<div class='col-md-2 mar-btm'> <strong>Afiliados</strong><br /><label class='control-label addFecha'>" + e.RutAfiliado + "</label></div>"))
+                                    .append($("<div class='col-md-2 mar-btm'> <strong>Alerta</strong><br /><label class='control-label'>" + aler + "</label></div>"))
+                                    .append($("<div class='col-md-2 mar-btm'><a data-target='#demo-lg-modal-entrevista_actualiza' data-idDetalleEnt=" + e.IdDetalleEntrevista + " data-toggle='modal' class='btn btn-default btn-rounded'><i class='demo-psi-receipt-4'></i> Editar Mant. Gestion</a></div>"))
+                                    .append($("<div class='col-md-12 mar-btm'> <strong>Comentarios</strong><br /><p>" + e.Comentarios + "</p></div>"))
+                            ).append("<hr style='border-color: rgb(179, 179, 179); margin-top: 1px'/>")
+                        //}
+                    })
+                });
+            }
+        }
+
+        cargador.CargaDetalleEntrevista();
+
+        $('#demo-lg-modal-entrevista_actualiza').on('show.bs.modal', function (events) {
+            var idEntrDet = $(events.relatedTarget);
+            idDEnt = idEntrDet.data('iddetalleent')
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/obtiene-detalle-entrev", { idDetalleEntrevista: IdGest }, function (result) {
+                var compromiso = 0;
+                var alerta = 0;
+                $("#slTema_actualiza").find('option:contains("' + result.Tema + '")').prop('selected', true);
+                $('#slTema_actualiza').trigger('change');
+                $("#slSubTema_actualiza").find('option:contains("' + result.SubTema + '")').prop('selected', true);
+                $("#slSemaforo_actualiza").val(result.Semaforo)
+                $("#FechaResolucion_actualiza").val(result.FechaResolucion)
+                $("#comentarioDetalle_actualiza").val(result.Comentarios)
+                if (result.Compromiso == 1) {
+                    $("#ckCompromisoSI_actualiza").attr('checked', 'checked');
+                    $("#divFechaResul_actualiza").css('display', 'block')
+                }
+                else {
+                    $("#ckCompromisoNO_actualiza").attr('checked', 'checked');
+                    $("#divFechaResul_actualiza").css('display', 'none')
+                }
+                if (result.Alerta == 1) {
+                    $("#ckAlertaSI_actualiza").attr('checked', 'checked');
+                }
+                else {
+                    $("#ckAlertaNO_actualiza").attr('checked', 'checked');
+                }
+
+
+            });
+
+        });
+
+
+
+
+
+
+
+
+        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-tipologia-gestion", { tipoCampagna: 1, padre: 0 }, function (datos) {
+            $("#slTema_actualiza").html("");
+            $("#slTema_actualiza").append($("<option>").attr("value", "").html("Seleccione"));
+            $("#slTema").html("");
+            $("#slTema").append($("<option>").attr("value", "").html("Seleccione"));
+            $.each(datos, function (i, e) {
+                $("#slTema_actualiza").append($("<option>").attr("value", e.IdTema).html(e.GlosaGestion))
+                $("#slTema").append($("<option>").attr("value", e.IdTema).html(e.GlosaGestion))
+            });
+        });
+
+        $('#slTema_actualiza').change(function (e) {
+            e.preventDefault();
+            if ($(this).val() != '') {
+                $("#slSubTema_actualiza").attr("disabled", false);
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-tipologia-Subgestion", { IdTema: $(this).val() }, function (datos) {
+                    $("#slSubTema_actualiza").html("");
+                    $("#slSubTema_actualiza").append($("<option>").attr("value", "").html("Seleccione"));
+                    $.each(datos, function (i, e) {
+                        $("#slSubTema_actualiza").append($("<option>").attr("value", e.IdSubTema).html(e.GlosaSubTema))
+                    });
+                });
+            }
+            else {
+                $("#slSubTema_actualiza").html("");
+                $("#slSubTema_actualiza").attr("disabled", true);
+            }
+        });
+
+        $('#slTema').change(function (e) {
+            e.preventDefault();
+            if ($(this).val() != '') {
+                $("#slSubTema").attr("disabled", false);
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-tipologia-Subgestion", { IdTema: $(this).val() }, function (datos) {
+                    $("#slSubTema").html("");
+                    $("#slSubTema").append($("<option>").attr("value", "").html("Seleccione"));
+                    $.each(datos, function (i, e) {
+                        $("#slSubTema").append($("<option>").attr("value", e.IdSubTema).html(e.GlosaSubTema))
+                    });
+                });
+            }
+            else {
+                $("#slSubTema").html("");
+                $("#slSubTema").attr("disabled", true);
+            }
+        });
+
+    </script>
+}
+
+
