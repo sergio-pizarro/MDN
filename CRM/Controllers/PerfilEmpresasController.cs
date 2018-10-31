@@ -298,14 +298,26 @@ namespace CRM.Controllers
             return PerfilEmpresasDataAccess.ObtieneDetalleEntr(idDetalleEntrevista);
         }
 
+        //SE CAMBIA POR NUEVO DETALLE DE GESTION 
+        //[AuthorizationRequired]
+        //[HttpPost]
+        //[Route("ingresa-gestion-mantencion")]
+        //public int NuevaGestionMantencion(GestionMantencionEntity GestionMant)
+        //{
+        //    string Token = ActionContext.Request.Headers.GetValues("Token").First();
+        //    return Business.Data.PerfilEmpresasDataAccess.InsertaGestionMantencion(Token, GestionMant.RutEmpresa, GestionMant.Tema, GestionMant.SubTema, GestionMant.Tipo, GestionMant.RutAfiliado, GestionMant.Comentarios, GestionMant.Alerta);
+        //}
+
         [AuthorizationRequired]
         [HttpPost]
         [Route("ingresa-gestion-mantencion")]
         public int NuevaGestionMantencion(GestionMantencionEntity GestionMant)
         {
             string Token = ActionContext.Request.Headers.GetValues("Token").First();
-            return Business.Data.PerfilEmpresasDataAccess.InsertaGestionMantencion(Token, GestionMant.RutEmpresa, GestionMant.Tema, GestionMant.SubTema, GestionMant.Tipo, GestionMant.RutAfiliado, GestionMant.Comentarios, GestionMant.Alerta);
+            return Business.Data.PerfilEmpresasDataAccess.InsertaGestionMantencion(Token, GestionMant.IdCabGesMantencion, GestionMant.RutEmpresa, GestionMant.Tema, GestionMant.SubTema, GestionMant.RutAfiliado, GestionMant.Comentarios, GestionMant.Alerta);
         }
+
+
 
         [AuthorizationRequired]
         [HttpPost]
@@ -332,20 +344,25 @@ namespace CRM.Controllers
             return Business.Data.PerfilEmpresasDataAccess.ObtieneSubTemaoGestion(IdTema);
         }
 
-        [HttpGet]
-        [Route("lista-mantencion-gestion")]
-        public ICollection<GestionMantencionEntity> ObtenerMantencionGestion(string RutEmpresa)
-        {
-            return PerfilEmpresasDataAccess.ObtenerMantencionGest(RutEmpresa);
-        }
+        //SE CAMBIA POR VISTA CABECERA MANTENCION
+        //[HttpGet]
+        //[Route("lista-mantencion-gestion")]
+        //public ICollection<GestionMantencionEntity> ObtenerMantencionGestion(string RutEmpresa)
+        //{
+        //    return PerfilEmpresasDataAccess.ObtenerMantencionGest(RutEmpresa);
+        //}
+      
 
-        [AuthorizationRequired]
-        [HttpGet]
-        [Route("lista-detalle-mantencion-gestion")]
-        public ICollection<GestionMantencionEntity> VistaDetalleGestion(int IdGesMantencion)
-        {
-            return Business.Data.PerfilEmpresasDataAccess.ObtieneDetalleMantGestion(IdGesMantencion);
-        }
+        //SE CAMBIA POR VISTA CABECERA  detalle MANTENCION
+        //[AuthorizationRequired]
+        //[HttpGet]
+        //[Route("lista-detalle-mantencion-gestion")]
+        //public ICollection<GestionMantencionEntity> VistaDetalleGestion(int IdGesMantencion)
+        //{
+        //    return Business.Data.PerfilEmpresasDataAccess.ObtieneDetalleMantGestion(IdGesMantencion);
+        //}
+
+     
 
         [AuthorizationRequired]
         [HttpGet]
@@ -354,6 +371,72 @@ namespace CRM.Controllers
         {
             return Business.Data.PerfilEmpresasDataAccess.ObtieneAfiliadoSuc(RutEmpresa);
         }
+
+        [HttpGet]
+        [Route("lista-detalle-mantencion-gestion-update")]
+        public Business.Entity.GestionMantencionEntity VistaDetalleGestionUpdate(int IdGesMantencion)
+        {
+            return PerfilEmpresasDataAccess.ObtieneDetalleMantUp(IdGesMantencion);
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("actualiza-detalle-mantencion-gestion")]
+        public int ActualizaDetalleMantencionGestion(GestionMantencionEntity GestionMantUp)
+        {
+            string Token = ActionContext.Request.Headers.GetValues("Token").First();
+            return Business.Data.PerfilEmpresasDataAccess.ModificaGestionMantencion(Token, GestionMantUp.IdGesMantencion, GestionMantUp.RutEmpresa, GestionMantUp.Tema, GestionMantUp.SubTema, GestionMantUp.RutAfiliado, GestionMantUp.Comentarios);
+        }
+
+        [HttpGet]
+        [Route("lista-mantencion-gestion-historial")]
+        public ICollection<GestionMantencionEntity> ObtenerMantencionGestionHistorial(int IdGesMantencion)
+        {
+            return PerfilEmpresasDataAccess.ObtenerMantencionGestHistorial(IdGesMantencion);
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("ingresa-cabecera-mant-gestion")]
+        public Business.Entity.CabGestionMantencionEntity NuevaCabeceraGestionMan(CabGestionMantencionEntity cabecera)
+        {
+            string Token = ActionContext.Request.Headers.GetValues("Token").First(); 
+            return Business.Data.PerfilEmpresasDataAccess.InsertaNuevoCabDetalleGestion(Token, cabecera.RutEmpresa, cabecera.FechaIngreso, cabecera.Tipo, cabecera.Comentarios);
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-cabecera-gestion-mant")]
+        public Business.Entity.CabGestionMantencionEntity ObtieneCabeceraGestion(int IdCabGesMantencion)
+        {
+            return PerfilEmpresasDataAccess.ObtieneCabGestionMantenedor(IdCabGesMantencion);
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-mantencion-gestion")]
+        public ICollection<CabGestionMantencionEntity> ObtenerMantencionGestion(string RutEmpresa)
+        {
+            return PerfilEmpresasDataAccess.ObtenerMantencionGest(RutEmpresa);
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-detalle-mantencion-gestion")]
+        public ICollection<GestionMantencionEntity> VistaDetalleGestion(int IdCabGesMantencion)
+        {
+            return Business.Data.PerfilEmpresasDataAccess.ObtieneDetalleMantGestion(IdCabGesMantencion);
+        }
+
+
+
+        [HttpGet]
+        [Route("lista-detalle-entrevista-historial")]
+        public ICollection<DetalleEntrevistaEntity> ObtenerDetalleEntreviHistorial(int IdDetalleEntrevista)
+        {
+            return PerfilEmpresasDataAccess.ObtenerDetalleEntrevistaHistorial(IdDetalleEntrevista);
+        }
+
 
     }
 

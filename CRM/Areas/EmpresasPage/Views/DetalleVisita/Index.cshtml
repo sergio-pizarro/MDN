@@ -123,7 +123,7 @@
                                 <div class="row">
                                     <div class="col-md-4 mar-btm">
                                         <label class="control-label">Tema</label>
-                                        <select id="slTema_actualiza" class="form-control" name="slTema">
+                                        <select id="slTema_actualiza" class="form-control" name="slTema_actualiza">
                                             <option value="">Seleccione</option>
                                             <option value="Creditos">Creditos</option>
                                             <option value="Licencia Medicas">Licencia Medicas</option>
@@ -134,11 +134,11 @@
                                     </div>
                                     <div class="col-md-4 mar-btm">
                                         <label class="control-label">Sub-Tema</label>
-                                        <select id="slSubTema_actualiza" class="form-control" name="slSubTema"></select>
+                                        <select id="slSubTema_actualiza" class="form-control" name="slSubTema_actualiza"></select>
                                     </div>
                                     <div class="col-md-4 mar-btm">
                                         <label class="control-label">Semaforo Relación</label>
-                                        <select id="slSemaforo_actualiza" name="slSemaforo" class="form-control" tabindex="-98">
+                                        <select id="slSemaforo_actualiza" name="slSemaforo_actualiza" class="form-control" tabindex="-98">
                                             <option value="">Seleccione</option>
                                             <option data-content="<span class=&quot;badge badge-success&quot; style='width: 100%; background-color: #8bc34a;'>Verde</span>" value="Verde">Verde</option>
                                             <option data-content="<span class=&quot;badge badge-warning&quot; style='width: 100%; background-color: #ffb300;'>Amarillo</span>" value="Amarillo">Amarillo</option>
@@ -232,6 +232,10 @@
 
         var cargador = {
             CargaDetalleEntrevista: function () {
+
+                $.ajaxSetup({
+                    async: false
+                });
                 $("#divDetalleEntrevista").html("");
                 $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-detalle-cabecera-vista", { IdEntrevista: IdEtvta }, function (menus) {
                     $.each(menus, function (i, e) {
@@ -239,6 +243,10 @@
                             var semaforo = "";
                             var comp = 0;
                             var aler = 0;
+                            var historial = "";
+                            var headTable = "";
+                            var TablaHist = "";
+                            var bodyHist = "";
                             var fechaCompromiso = e.FechaResolucion
                             if (e.Semaforo == 'Verde') {
                                 semaforo = "<div class='col-md-4 mar-btm'><strong>Semaforo Relación: </strong><label class='control-label'><span class='badge badge-success' style='width: 120px;'>" + e.Semaforo + "</span></label> </div>"
@@ -258,13 +266,54 @@
                                 fechaCompromiso = '----------------------------'
                             }
                             if (e.Alerta == 1) {
-                                aler = 'SI'
+                                aler = "<span class='pull-center badge badge-success' style='width: 40px;'>SI</span>"
                             }
                             else {
-                                aler = 'NO'
+                                aler = "<span class='pull-center badge badge-warning' style='width: 40px;'>NO</span>"
                             }
 
-                            $("#divDetalleEntrevista").addClass('panel panel-bordered-dark').css('border-radius', '6px').css('border', '1px solid #b3b3b3')//.append($("<div>").addClass('panel-body'))//.append("<hr />")
+
+                            headTable = $('<thead>').append($('<tr>')
+                                .append($('<th>').append('Tema'))
+                                .append($('<th>').append('Sub-Tema'))
+                                .append($('<th>').append('Compromiso'))
+                                .append($('<th>').append('F. Resolución'))
+                                .append($('<th>').append('Alerta'))
+                                .append($('<th>').append('Comentarios'))
+                                .append($('<th>').append('Ejecutivo Modificante'))
+                                .append($('<th>').append('Fecha Modificación')))
+
+                            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-detalle-entrevista-historial", { IdDetalleEntrevista: e.IdDetalleEntrevista }, function (menusX) {
+                                $.each(menusX, function (ix, ex) {
+                                    var alert = 0;
+                                    var compX = 0;
+                                    var fechaCompromiso = ex.FechaResolucion.toFecha()
+                                    if (ex.Compromiso == 1) {
+                                        compX = 'SI'
+                                    }
+                                    else {
+                                        compX = 'NO'
+                                        fechaCompromiso = '------'
+                                    }
+
+                                    if (ex.Alerta == 1) {
+                                        alert = "<span class='pull-center badge badge-success' style='width: 40px;'>SI</span>"
+                                    }
+                                    else {
+                                        alert = "<span class='pull-center badge badge-warning' style='width: 40px;'>NO</span>"
+                                    }
+
+                                    bodyHist += "<tr><td>" + ex.Tema + "</td><td>" + ex.SubTema + "</td><td>" + compX + "</td><td>" + fechaCompromiso + "</td><td>" + alert + "</td><td>" + ex.Comentarios + "</td><td>" + ex.NombreEjecutivo.OrdenaNombreCompleto() + "</td><td>" + ex.FechaIngreso.toFechaHoraPrueba() + "</td></tr>'"
+                                });
+
+                            });
+
+                            TablaHist = $("<table style='margin-top: 30px; font-size: 10px;'>").addClass('table table-bordered table-hover toggle-circle table-striped').append(headTable).append($('<tbody>').append(bodyHist))
+
+                            historial = $('<div>').addClass('panel panel-bordered-dark col-md-12 mar-btm').css('border-radius', '6px').css('border', '1px solid #b3b3b3').append(
+                                $('<dl>').append($('<dt>').css('margin-top', '9px').append('Desplegar Historial de Modificación')).append($('<dd>').append(TablaHist)))
+
+                            $("#divDetalleEntrevista").addClass('panel panel-bordered-dark').css('border-radius', '6px').css('border', '1px solid #b3b3b3')
                                 .append(
                                     $("<div>").addClass('row panel-body')
                                         .append(
@@ -280,9 +329,8 @@
                                         .append($("<div class='col-md-2 mar-btm'> <strong>Alerta</strong><br /><label class='control-label'>" + aler + "</label></div>"))
                                         .append($("<div class='col-md-2 mar-btm'><a data-target='#demo-lg-modal-entrevista_actualiza' data-idDetalleEnt=" + e.IdDetalleEntrevista + " data-toggle='modal' class='btn btn-default btn-rounded'><i class='demo-psi-receipt-4'></i> Editar Registro</a></div>"))
                                         .append($("<div class='col-md-12 mar-btm'> <strong>Comentarios</strong><br /><p>" + e.Comentarios + "</p></div>"))
+                                        .append(historial)
                                 ).append("<hr style='border-color: rgb(179, 179, 179); margin-top: 1px'/>")
-
-
                         }
                     })
                 });
@@ -318,7 +366,7 @@
                     $("#ckAlertaNO_actualiza").attr('checked', 'checked');
                 }
 
-               
+
             });
 
         });
@@ -446,6 +494,20 @@
                     timer: 5000
                 });
             });
+
+            $(document).ready(function () {
+                $("dd").hide();
+                $("dt").click(function (event) {
+                    var desplegable = $(this).next();
+                    $('dd').not(desplegable).slideUp('fast');
+                    desplegable.slideToggle('fast');
+                    event.preventDefault();
+                })
+                $("dt").css({
+                    'cursor': 'pointer'
+                });
+            });
+
         });
 
 
@@ -572,6 +634,19 @@
 
                     break;
             }
+        });
+
+        $(document).ready(function () {
+            $("dd").hide();
+            $("dt").click(function (event) {
+                var desplegable = $(this).next();
+                $('dd').not(desplegable).slideUp('fast');
+                desplegable.slideToggle('fast');
+                event.preventDefault();
+            })
+            $("dt").css({
+                'cursor': 'pointer'
+            });
         });
 
 

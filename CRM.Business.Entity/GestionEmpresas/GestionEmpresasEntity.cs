@@ -152,20 +152,21 @@ namespace CRM.Business.Entity
         public int IdEntrevista { get; set; }
     }
 
-
     public class GestionMantencionEntity
     {
         public int IdGesMantencion { get; set; }
+        public int IdCabGesMantencion { get; set; }
         public string RutEmpresa { get; set; }
         public string Tema { get; set; }
         public string SubTema { get; set; }
-        public string Tipo { get; set; }
         public string RutAfiliado { get; set; }
         public string Comentarios { get; set; }
         public string RutEjeIngreso { get; set; }
         public string NombreEjecutivo { get; set; }
         public DateTime FechaIngreso { get; set; }
         public int Alerta { get; set; }
+        public int FlagActualizacion { get; set; }
+        public int IdDetalleOrigen { get; set; }
     }
 
     public class TipologiaGestionEntity
@@ -184,6 +185,17 @@ namespace CRM.Business.Entity
     {
         public string RutAfiliado { get; set; }
         public string NombreAfiliado { get; set; }
+    }
+
+    public class CabGestionMantencionEntity
+    {
+        public int IdCabGesMantencion { get; set; }
+        public string RutEmpresa { get; set; }
+        public string Tipo { get; set; }
+        public string Comentarios { get; set; }
+        public string RutEjeIngreso { get; set; }
+        public string FechaIngreso { get; set; }
+        public string NombreEjecutivo { get; set; }
     }
 
 }
