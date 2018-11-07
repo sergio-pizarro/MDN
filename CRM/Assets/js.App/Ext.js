@@ -237,6 +237,16 @@ String.prototype.toFechaHora = function () {
 
 }
 
+String.prototype.toFechaHoraPrueba = function () {
+    var x = this.split("T")
+    var fec = x[0]
+    var hor = x[1]
+    var x = hor.split(".")
+
+    var y = fec.split("-")
+    return y[2] + '-' + y[1] + '-' + y[0] + '  ' + "( " + x[0] + " Hrs. " + ")";
+}
+
 String.prototype.toFecha = function () {
 
     if (this == "N/A")
@@ -265,6 +275,23 @@ String.prototype.OrdenaNombre = function () {
         var EjecAP = EjecApellidos.trim().split(" ")
 
         return EjecNN[0]+ ' ' +EjecAP[0];
+    } else {
+        return this;
+    }
+}
+
+String.prototype.OrdenaNombreCompleto = function () {
+
+    if (this.indexOf(",") > -1) {
+        var EjecName = this.split(',');
+        var EjecApellidos = EjecName[0];
+        var EjecNombres = EjecName[1];
+
+        var EjecNN = EjecNombres.trim().split(" ")
+        var EjecAP = EjecApellidos.trim().split(" ")
+        var EjecMA = EjecApellidos.trim().split(" ")
+
+        return EjecNN[0] + ' ' + EjecAP[0] + ' ' + EjecMA[1];
     } else {
         return this;
     }
