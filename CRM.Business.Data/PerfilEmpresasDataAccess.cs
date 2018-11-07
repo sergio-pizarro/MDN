@@ -123,12 +123,12 @@ namespace CRM.Business.Data
             };
             return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.sp_MotorCartera_GuardaAnexo", parametros);
         }
-        public static long GuardarAsignacionEmpAnexo(string tipo, string rut, long id)
+        public static long GuardarAsignacionEmpAnexo(string tipo, string rut, long Id)
         {
             Parametros parametros = new Parametros
             {
                 new Parametro("@Tipo", tipo ),
-                new Parametro("@id", id ),
+                new Parametro("@id", Id ),
                 new Parametro("@RutEjecutivo", rut),
 
             };
@@ -146,7 +146,7 @@ namespace CRM.Business.Data
             };
             return DBHelper.InstanceCRM.ObtenerEscalar<long>("carteras.spMotorCartera_EliminaAsignacionEmpAnexo", parametros);
         }
-        
+
 
         public static int ActualizaAnexo(int IdEmpresaAnexo, string Anexo, int NumTrabajadores, int IdComuna, string NombreComuna, string Direccion)
         {
@@ -201,6 +201,148 @@ namespace CRM.Business.Data
             };
             return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_ListaPreAprobadoAnexo", pram, AsigEjeEmpresa);
         }
+        //static Entity.GestionEmpresasEntity
+        //public static int InsertaNuevoCabEntrevista(string Token, string RutEmpresa, string FechaEntrevista, string NombreContacto, string Estamento, string Cargo, string Comentarios)
+        public static EntrevistaEntity InsertaNuevoCabEntrevista(string Token, string RutEmpresa, string FechaEntrevista, string NombreContacto, string Estamento, string Cargo, string Comentarios, string TelefonoContacto, string CorreoContacto)
+        {
+            Parametros parametros = new Parametros
+            {
+                 new Parametro("@TOKEN", Token),
+                 new Parametro("@RUT_EMPRESA", RutEmpresa),
+                 new Parametro("@FECHA_ENTREVISTA", FechaEntrevista),
+                 new Parametro("@CONTACTO", NombreContacto),
+                 new Parametro("@ESTAMENTO", Estamento),
+                 new Parametro("@CARGO", Cargo),
+                 new Parametro("@TELEFONO", TelefonoContacto),
+                 new Parametro("@CORREO", CorreoContacto),
+                 new Parametro("@COMENTARIO", Comentarios),
+            };
+            return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Guarda_CabeceraEntrevista", parametros, ListaIdEntravista);
+        }
+
+        public static CabGestionMantencionEntity InsertaNuevoCabDetalleGestion(string Token, string RutEmpresa, string FechaIngreso, string Tipo, string Comentarios)
+        {
+            Parametros parametros = new Parametros
+            {
+                 new Parametro("@TOKEN", Token),
+                 new Parametro("@RUT_EMPRESA", RutEmpresa),
+                 new Parametro("@FECHA_INGRESO", FechaIngreso),
+                 new Parametro("@TIPO", Tipo),
+                 new Parametro("@COMENTARIO", Comentarios),
+
+            };
+            return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Guarda_Cabecera_ManGestion", parametros, ListaIdManGestion);
+        }
+
+        public static int InsertaDetalleEntrevista(string Token, int IdEntrevista, string Tema, string SubTema, string Semaforo, int Alerta, string FechaResolucion, string Comentarios, int Compromiso)
+        {
+            Parametros parametros = new Parametros
+            {
+                 new Parametro("@TOKEN", Token),
+                 new Parametro("@ID_ENTREVISTA", IdEntrevista),
+                 new Parametro("@TEMA", Tema),
+                 new Parametro("@SUBTEMA", SubTema),
+                 new Parametro("@SEMAFORO", Semaforo),
+                 new Parametro("@ALERTA", Alerta),
+                 new Parametro("@FECHA_RESOLUCION", FechaResolucion),
+                 new Parametro("@COMENTARIOS", Comentarios),
+                 new Parametro("@COMPROMISO", Compromiso),
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Guarda_DetalleEntrevista", parametros);
+        }
+
+        public static int ActualizaDetalleEntrevista(string Token, int IdDetalleEntrevista, int IdEntrevista, string Tema, string SubTema, string Semaforo, int Alerta, string FechaResolucion, string Comentarios, int Compromiso)
+        {
+            Parametros parametros = new Parametros
+            {
+                 new Parametro("@TOKEN", Token),
+                 new Parametro("@ID_ENTREVISTA_DETALLE", IdDetalleEntrevista),
+                 new Parametro("@ID_ENTREVISTA", IdEntrevista),
+                 new Parametro("@TEMA", Tema),
+                 new Parametro("@SUBTEMA", SubTema),
+                 new Parametro("@SEMAFORO", Semaforo),
+                 new Parametro("@ALERTA", Alerta),
+                 new Parametro("@FECHA_RESOLUCION", FechaResolucion),
+                 new Parametro("@COMENTARIOS", Comentarios),
+                 new Parametro("@COMPROMISO", Compromiso),
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Actualiza_DetalleEntrevista", parametros);
+        }
+
+        public static Entity.DetalleEntrevistaEntity ObtieneDetalleEntr(int idDetalleEntrevista)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@ID_DETALLE_ENT", idDetalleEntrevista),
+            };
+            return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Obtiene_Detalle_Ent", pram, ListaDetalleEntrevistaEmp);
+        }
+
+
+        private static EntrevistaEntity ListaIdEntravista(DataRow row)
+        {
+            return new EntrevistaEntity
+            {
+                IdEntrevista = row["IdEntrevista"] != DBNull.Value ? Convert.ToInt32(row["IdEntrevista"]) : 0,
+            };
+        }
+
+        private static CabGestionMantencionEntity ListaIdManGestion(DataRow row)
+        {
+            return new CabGestionMantencionEntity
+            {
+                IdCabGesMantencion = row["IdCabGesMantencion"] != DBNull.Value ? Convert.ToInt32(row["IdCabGesMantencion"]) : 0,
+            };
+        }
+
+        //SE CAMBIA POR NUEVO SP DE GRADO DETALLE GESTION MANTENCION
+        //public static int InsertaGestionMantencion(string Token, string RutEmpresa, string Tema, string SubTema, string Tipo, string RutAfiliado, string Comentarios, int Alerta)
+        //{
+        //    Parametros parametros = new Parametros
+        //    {
+        //         new Parametro("@TOKEN", Token),
+        //         new Parametro("@RUT_EMPRESA", RutEmpresa),
+        //         new Parametro("@TEMA", Tema),
+        //         new Parametro("@SUBTEMA", SubTema),
+        //         new Parametro("@TIPO", Tipo),
+        //         new Parametro("@RUT_AFILIADO", RutAfiliado),
+        //         new Parametro("@COMENTARIOS", Comentarios),
+        //         new Parametro("@ALERTA", Alerta),
+        //    };
+        //    return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Guarda_GestionMantencion", parametros);
+        //}
+
+        public static int InsertaGestionMantencion(string Token, int IdCabGesMantencion, string RutEmpresa, string Tema, string SubTema, string RutAfiliado, string Comentarios, int Alerta)
+        {
+            Parametros parametros = new Parametros
+            {
+                 new Parametro("@TOKEN", Token),
+                 new Parametro("@ID_CAB_GES_MANTENCION", IdCabGesMantencion),
+                 new Parametro("@RUT_EMPRESA", RutEmpresa),
+                 new Parametro("@TEMA", Tema),
+                 new Parametro("@SUBTEMA", SubTema),
+                 new Parametro("@RUT_AFILIADO", RutAfiliado),
+                 new Parametro("@COMENTARIOS", Comentarios),
+                 new Parametro("@ALERTA", Alerta),
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Guarda_Detalle_GestionMantencion", parametros);
+        }
+
+        public static int ModificaGestionMantencion(string Token, int IdGesMantencion, string RutEmpresa, string Tema, string SubTema, string RutAfiliado, string Comentarios)
+        {
+            Parametros parametros = new Parametros
+            {
+                 new Parametro("@TOKEN", Token),
+                 new Parametro("@ID_GEST_MANTENCION", IdGesMantencion),
+                 new Parametro("@RUT_EMPRESA", RutEmpresa),
+                 new Parametro("@TEMA", Tema),
+                 new Parametro("@SUBTEMA", SubTema),
+                 new Parametro("@RUT_AFILIADO", RutAfiliado),
+                 new Parametro("@COMENTARIOS", Comentarios),
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Actualiza_GestionMantencion", parametros);
+        }
+
 
 
         private static CarteraEmpresasEntity ListaCarteraEmpresa(DataRow row)
@@ -242,6 +384,93 @@ namespace CRM.Business.Data
             };
         }
 
+        public static List<EntrevistaEntity> ObtieneEntrevista(string RutEmpresa)
+        {
+            Parametro prm = new Parametro("@RUT_EMPRESA", RutEmpresa);
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Entrevista", prm, ListaEntrevistaEmp);
+        }
+
+
+        public static List<EntrevistaEntity> ObtieneVistaEntrevista(int IdEntrevista)
+        {
+            Parametro prm = new Parametro("@ID_ENTREVISTA", IdEntrevista);
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Entrevista_id", prm, ListaEntrevistaEmp);
+        }
+
+        public static List<DetalleEntrevistaEntity> ObtieneDetalleVistaEntrevista(int IdEntrevista)
+        {
+            Parametro prm = new Parametro("@ID_ENTREVISTA", IdEntrevista);
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Detalle_Entrevista", prm, ListaDetalleEntrevistaEmp);
+        }
+
+        public static List<TipologiaGestionEntity> ObtieneTipoGestion()
+        {
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Obtiene_TipologiaGestion", ListaTemaGestion);
+        }
+
+        public static List<TipologiaSubGestionEntity> ObtieneSubTemaoGestion(int IdTema)
+        {
+            Parametro prm = new Parametro("@ID_TEMA", IdTema);
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Obtiene_TipologiaSubGestion", prm, ListaSubTemaGestion);
+        }
+
+
+        //SE CAMBIA POR VISTA CEBECERA
+        //public static List<GestionMantencionEntity> ObtenerMantencionGest(string RutEmpresa)
+        //{
+        //    Parametro prm = new Parametro("@RUT_EMPRESA", RutEmpresa);
+        //    return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_MantencionGestion", prm, ListaMantGestion);
+        //}
+
+        public static List<CabGestionMantencionEntity> ObtenerMantencionGest(string RutEmpresa)
+        {
+            Parametro prm = new Parametro("@RUT_EMPRESA", RutEmpresa);
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_MantencionGestion_Cabecera", prm, ListaCabeceraMantGestion);
+        }
+
+        public static List<GestionMantencionEntity> ObtieneDetalleMantGestion(int IdCabGesMantencion)
+        {
+            Parametro prm = new Parametro("@ID_CAB_GES_MANTENCION", IdCabGesMantencion);
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Detalle_Mantencion_Gestion", prm, ListaMantGestionDetalle);
+        }
+
+
+        public static Entity.GestionMantencionEntity ObtieneDetalleMantUp(int IdGesMantencion)
+        {
+            Parametro prm = new Parametro("@ID_GES_MANTENCION", IdGesMantencion);
+            return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Lista_Detalle_Mantencion_Gestion_idGestion", prm, ListaMantGestionDetalle);
+
+        }
+
+
+        public static List<AfiliadoOficinaEntity> ObtieneAfiliadoSuc(string RutEmpresa)
+        {
+            Parametro prm = new Parametro("@RUT_EMPRESA", RutEmpresa);
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_afiliados_empresa", prm, ListaAfiliadoSucursal);
+        }
+
+        public static List<GestionMantencionEntity> ObtenerMantencionGestHistorial(int IdGesMantencion)
+        {
+            Parametro prm = new Parametro("@ID_GEST_MANTENCION", IdGesMantencion);
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_MantencionGestion_Historial", prm, ListaMantGestion);
+        }
+
+        public static CabGestionMantencionEntity ObtieneCabGestionMantenedor(int IdCabGesMantencion)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@ID_CAB_GES_MANTENCION", IdCabGesMantencion),
+            };
+            return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Lista_Cabecera_Mantencion_Gest", pram, ListaCabeceraMantGestion);
+        }
+
+
+        public static List<DetalleEntrevistaEntity> ObtenerDetalleEntrevistaHistorial(int IdDetalleEntrevista)
+        {
+            Parametro prm = new Parametro("@ID_DETALLE_ENTREVISTA", IdDetalleEntrevista);
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_DetalleEntrevista_Historial", prm, ListaDetalleEntrevistaEmp);
+        }
+
 
         private static CarteraEmpresasEntity ListaCarteraEmpresaAgente(DataRow row)
         {
@@ -257,7 +486,7 @@ namespace CRM.Business.Data
                 Holding = row["Holding"] != DBNull.Value ? Convert.ToInt32(row["Holding"]) : 0,
                 NombreHolding = row["NombreHolding"] != DBNull.Value ? row["NombreHolding"].ToString() : string.Empty,
                 Tipo = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty,
-               // IdEmpresa = row["IdEmpresa"] != DBNull.Value ? Convert.ToInt32(row["IdEmpresa"]) : 0,
+                // IdEmpresa = row["IdEmpresa"] != DBNull.Value ? Convert.ToInt32(row["IdEmpresa"]) : 0,
                 CountAnexo = row["CountAnexo"] != DBNull.Value ? Convert.ToInt32(row["CountAnexo"]) : 0,
                 CountEmp = row["CountEmp"] != DBNull.Value ? Convert.ToInt32(row["CountEmp"]) : 0,
             };
@@ -349,6 +578,127 @@ namespace CRM.Business.Data
                 NumTrabajadores = row["NumTrabajadores"] != DBNull.Value ? Convert.ToInt32(row["NumTrabajadores"]) : 0,
                 Direccion = row["Direccion"] != DBNull.Value ? row["Direccion"].ToString() : string.Empty,
                 IdComuna = row["IdComuna"] != DBNull.Value ? Convert.ToInt32(row["IdComuna"]) : 0,
+            };
+        }
+
+        private static EntrevistaEntity ListaEntrevistaEmp(DataRow row)
+        {
+            return new EntrevistaEntity
+            {
+                IdEntrevista = row["IdEntrevista"] != DBNull.Value ? Convert.ToInt32(row["IdEntrevista"]) : 0,
+                RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
+                FechaEntrevista = row["FechaEntrevista"] != DBNull.Value ? row["FechaEntrevista"].ToString() : string.Empty,
+                Tipo = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty,
+                NombreContacto = row["NombreContacto"] != DBNull.Value ? row["NombreContacto"].ToString() : string.Empty,
+                Cargo = row["Cargo"] != DBNull.Value ? row["Cargo"].ToString() : string.Empty,
+                Estamento = row["Estamento"] != DBNull.Value ? row["Estamento"].ToString() : string.Empty,
+                Comentarios = row["Comentarios"] != DBNull.Value ? row["Comentarios"].ToString() : string.Empty,
+                RutEjeIngreso = row["RutEjeIngreso"] != DBNull.Value ? row["RutEjeIngreso"].ToString() : string.Empty,
+                FechaIngreso = row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]) : DateTime.MinValue,
+                NombreEjecutivo = row["NombreEjecutivo"] != DBNull.Value ? row["NombreEjecutivo"].ToString() : string.Empty,
+            };
+        }
+
+        private static GestionMantencionEntity ListaMantGestion(DataRow row)
+        {
+            return new GestionMantencionEntity
+            {
+                IdGesMantencion = row["IdGesMantencion"] != DBNull.Value ? Convert.ToInt32(row["IdGesMantencion"]) : 0,
+                RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
+                Tema = row["Tema"] != DBNull.Value ? row["Tema"].ToString() : string.Empty,
+                SubTema = row["SubTema"] != DBNull.Value ? row["SubTema"].ToString() : string.Empty,
+                //Tipo = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty,
+                Comentarios = row["Comentarios"] != DBNull.Value ? row["Comentarios"].ToString() : string.Empty,
+                RutEjeIngreso = row["RutEjeIngreso"] != DBNull.Value ? row["RutEjeIngreso"].ToString() : string.Empty,
+                FechaIngreso = row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]) : DateTime.MinValue,
+                NombreEjecutivo = row["NombreEjecutivo"] != DBNull.Value ? row["NombreEjecutivo"].ToString() : string.Empty,
+                FlagActualizacion = row["FlagActualizacion"] != DBNull.Value ? Convert.ToInt32(row["FlagActualizacion"]) : 0,
+                Alerta = row["Alerta"] != DBNull.Value ? Convert.ToInt32(row["Alerta"]) : 0,
+            };
+        }
+
+        private static CabGestionMantencionEntity ListaCabeceraMantGestion(DataRow row)
+        {
+            return new CabGestionMantencionEntity
+            {
+                IdCabGesMantencion = row["IdCabGesMantencion"] != DBNull.Value ? Convert.ToInt32(row["IdCabGesMantencion"]) : 0,
+                RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
+                Tipo = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty,
+                Comentarios = row["Comentarios"] != DBNull.Value ? row["Comentarios"].ToString() : string.Empty,
+                RutEjeIngreso = row["RutEjeIngreso"] != DBNull.Value ? row["RutEjeIngreso"].ToString() : string.Empty,
+                FechaIngreso = row["FechaIngreso"] != DBNull.Value ? row["FechaIngreso"].ToString() : string.Empty,
+                NombreEjecutivo = row["NombreEjecutivo"] != DBNull.Value ? row["NombreEjecutivo"].ToString() : string.Empty,
+            };
+        }
+
+
+
+        private static GestionMantencionEntity ListaMantGestionDetalle(DataRow row)
+        {
+            return new GestionMantencionEntity
+            {
+                IdGesMantencion = row["IdGesMantencion"] != DBNull.Value ? Convert.ToInt32(row["IdGesMantencion"]) : 0,
+                IdCabGesMantencion = row["IdCabGesMantencion"] != DBNull.Value ? Convert.ToInt32(row["IdCabGesMantencion"]) : 0,
+                RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
+                Tema = row["Tema"] != DBNull.Value ? row["Tema"].ToString() : string.Empty,
+                SubTema = row["SubTema"] != DBNull.Value ? row["SubTema"].ToString() : string.Empty,
+                //Tipo = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty,
+                Comentarios = row["Comentarios"] != DBNull.Value ? row["Comentarios"].ToString() : string.Empty,
+                RutEjeIngreso = row["RutEjeIngreso"] != DBNull.Value ? row["RutEjeIngreso"].ToString() : string.Empty,
+                FechaIngreso = row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]) : DateTime.MinValue,
+                NombreEjecutivo = row["NombreEjecutivo"] != DBNull.Value ? row["NombreEjecutivo"].ToString() : string.Empty,
+                RutAfiliado = row["RutAfiliado"] != DBNull.Value ? row["RutAfiliado"].ToString() : string.Empty,
+                Alerta = row["Alerta"] != DBNull.Value ? Convert.ToInt32(row["Alerta"]) : 0,
+                FlagActualizacion = row["FlagActualizacion"] != DBNull.Value ? Convert.ToInt32(row["FlagActualizacion"]) : 0,
+            };
+        }
+
+
+        private static DetalleEntrevistaEntity ListaDetalleEntrevistaEmp(DataRow row)
+        {
+            return new DetalleEntrevistaEntity
+            {
+                IdDetalleEntrevista = row["IdDetalleEntrevista"] != DBNull.Value ? Convert.ToInt32(row["IdDetalleEntrevista"]) : 0,
+                IdEntrevista = row["IdEntrevista"] != DBNull.Value ? Convert.ToInt32(row["IdEntrevista"]) : 0,
+                Tema = row["Tema"] != DBNull.Value ? row["Tema"].ToString() : string.Empty,
+                SubTema = row["SubTema"] != DBNull.Value ? row["SubTema"].ToString() : string.Empty,
+                Semaforo = row["Semaforo"] != DBNull.Value ? row["Semaforo"].ToString() : string.Empty,
+                Alerta = row["Alerta"] != DBNull.Value ? Convert.ToInt32(row["Alerta"]) : 0,
+                FechaResolucion = row["FechaResolucion"] != DBNull.Value ? row["FechaResolucion"].ToString() : string.Empty,
+                Comentarios = row["Comentarios"] != DBNull.Value ? row["Comentarios"].ToString() : string.Empty,
+                RutEjeIngreso = row["RutEjeIngreso"] != DBNull.Value ? row["RutEjeIngreso"].ToString() : string.Empty,
+                FechaIngreso = row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]) : DateTime.MinValue,
+                NombreEjecutivo = row["NombreEjecutivo"] != DBNull.Value ? row["NombreEjecutivo"].ToString() : string.Empty,
+                Compromiso = row["Compromiso"] != DBNull.Value ? Convert.ToInt32(row["Compromiso"]) : 0,
+                FlagActualizacion = row["FlagActualizacion"] != DBNull.Value ? Convert.ToInt32(row["FlagActualizacion"]) : 0,
+                IdDetalleOrigen = row["IdDetalleOrigen"] != DBNull.Value ? Convert.ToInt32(row["IdDetalleOrigen"]) : 0,
+            };
+        }
+
+        private static TipologiaGestionEntity ListaTemaGestion(DataRow row)
+        {
+            return new TipologiaGestionEntity
+            {
+                IdTema = row["IdTema"] != DBNull.Value ? Convert.ToInt32(row["IdTema"]) : 0,
+                GlosaGestion = row["GlosaGestion"] != DBNull.Value ? row["GlosaGestion"].ToString() : string.Empty,
+            };
+        }
+
+        private static AfiliadoOficinaEntity ListaAfiliadoSucursal(DataRow row)
+        {
+            return new AfiliadoOficinaEntity
+            {
+                RutAfiliado = row["RutAfiliado"] != DBNull.Value ? row["RutAfiliado"].ToString() : string.Empty,
+                NombreAfiliado = row["NombreAfiliado"] != DBNull.Value ? row["NombreAfiliado"].ToString() : string.Empty,
+            };
+        }
+
+        private static TipologiaSubGestionEntity ListaSubTemaGestion(DataRow row)
+        {
+            return new TipologiaSubGestionEntity
+            {
+                IdSubTema = row["IdSubTema"] != DBNull.Value ? Convert.ToInt32(row["IdSubTema"]) : 0,
+                GlosaSubTema = row["GlosaSubTema"] != DBNull.Value ? row["GlosaSubTema"].ToString() : string.Empty,
             };
         }
 
