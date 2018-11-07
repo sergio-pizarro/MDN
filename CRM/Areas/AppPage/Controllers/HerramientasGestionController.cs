@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CRM.Business.Data;
 
 namespace CRM.Areas.AppPage.Controllers
 {
@@ -18,6 +19,18 @@ namespace CRM.Areas.AppPage.Controllers
         // GET: AppPage/HerramientasGestion/CalculadoraCredito
         public ActionResult CalculadoraCredito()
         {
+            return View();
+        }
+
+        public ActionResult Falabella()
+        {
+            return View();
+        }
+
+        public ActionResult DetalleFalabella()
+        {
+            int oficina = Convert.ToInt32(Request.Cookies["Oficina"].Value);
+            ViewBag.ListaGestiones  = AfiliadoDataAccess.ListarGestionFalabella(oficina);
             return View();
         }
 

@@ -7,6 +7,7 @@ using CRM.Business.Entity;
 using System.Data;
 using CDK.Data;
 using CDK.Integration;
+using CRM.Business.Entity.Afiliados;
 
 namespace CRM.Business.Data
 {
@@ -298,6 +299,68 @@ namespace CRM.Business.Data
                 PreAprobadoFinal = row["PreAprobadoFinal"] != DBNull.Value ? Convert.ToInt32(row["PreAprobadoFinal"]) : 0,
                 Periodo = row["Periodo"] != DBNull.Value ? row["Periodo"].ToString() : string.Empty,
                 EstadoGestion = row["EstadoGestion"] != DBNull.Value ? Convert.ToInt32(row["EstadoGestion"]) : 0,
+            };
+        }
+        //
+
+
+        public static Entity.Afiliados.AfiliadosEntity BuscarAfiliadoFalabella(string RutAfiliado)
+        {
+            Parametros param = new Parametros
+            {
+                new Parametro("@RutAfiliado",RutAfiliado)
+            };
+            return DBHelper.InstanceCRM.ObtenerEntidad("proceso.sp_AfiliadosFalabella", param, rsFalabella);
+        }
+
+        public static void GuardarGestionFalabella(GestionAfiliadoFalabella entrada, string token)
+        {
+            Parametros param = new Parametros
+            {
+                new Parametro("@Ticket",entrada.TicketGestion.ToString()),
+                new Parametro("@RutAfiliado",entrada.RutAfiliado),
+                new Parametro("@Beneficios",entrada.Beneficios),
+                new Parametro("@Correo",entrada.Correo),
+                new Parametro("@MontoRef",entrada.MontoRef),
+                new Parametro("@Observacion",entrada.Observacion),
+                new Parametro("@Telefono",entrada.Telefono),
+                new Parametro("@TipoGestion",entrada.TipoGestion),
+                new Parametro("@Token",token)
+            };
+            DBHelper.InstanceCRM.EjecutarProcedimiento("proceso.sp_GuardaGestionFalabella", param);
+        }
+
+
+        public static List<GestionAfiliadoFalabella> ListarGestionFalabella(int oficina)
+        {
+            Parametro p = new Parametro("@Oficina", oficina);
+            return DBHelper.InstanceCRM.ObtenerColeccion("proceso.sp_ListaGestionFalabella", p, rsFalabellaGestion);
+        }
+
+        
+
+        private static GestionAfiliadoFalabella rsFalabellaGestion(DataRow row)
+        {
+            return new GestionAfiliadoFalabella
+            {
+                RutAfiliado = row["RutAfiliado"] != DBNull.Value ? row["RutAfiliado"].ToString() : string.Empty,
+                Beneficios = row["Beneficios"] != DBNull.Value ? row["Beneficios"].ToString() : string.Empty,
+                Correo = row["Correo"] != DBNull.Value ? row["Correo"].ToString() : string.Empty,
+                TipoGestion = row["TipoGestion"] != DBNull.Value ? row["TipoGestion"].ToString() : string.Empty,
+                Telefono = row["Telefono"] != DBNull.Value ? row["Telefono"].ToString() : string.Empty,
+                Ejecutivo = row["Ejecutivo"] != DBNull.Value ? row["Ejecutivo"].ToString() : string.Empty,
+                MontoRef = row["MontoRef"] != DBNull.Value ? row["MontoRef"].ToString() : string.Empty,
+                Observacion = row["Observacion"] != DBNull.Value ? row["Observacion"].ToString() : string.Empty,
+                TicketGestion = row["TicketGestion"] != DBNull.Value ? Guid.Parse(row["TicketGestion"].ToString()) : Guid.Empty
+            };
+        }
+
+        private static Entity.Afiliados.AfiliadosEntity rsFalabella(DataRow row)
+        {
+            return new Entity.Afiliados.AfiliadosEntity
+            {
+                RutAfiliado = row["RutAfiliado"] != DBNull.Value ? row["RutAfiliado"].ToString() : string.Empty,
+                Nombres = row["Nombres"] != DBNull.Value ? row["Nombres"].ToString() : string.Empty
             };
         }
     }

@@ -10,7 +10,7 @@ using CRM.Business.Entity.Contracts;
 using CRM.Business.Data;
 using CRM.ActionFilters;
 using CRM.Filters;
-
+using CRM.Business.Entity.Afiliados;
 
 namespace CRM.Areas.AppPage.Controllers
 {
@@ -104,6 +104,41 @@ namespace CRM.Areas.AppPage.Controllers
         public IEnumerable<Business.Entity.Afiliados.AfiliadoProyeccion> FiltroProyeccion(string RutAfiliado, int Estado)
         {
             return AfiliadoDataAccess.FiltroProyeccionAfiliado(RutAfiliado, Estado);
+        }
+
+        [HttpGet]
+        [Route("afiliado-falabella/{RutAfiliado}")]
+        public IHttpActionResult afiliadoFalabella(string RutAfiliado)
+        {
+            var el = AfiliadoDataAccess.BuscarAfiliadoFalabella(RutAfiliado);
+            if(!string.IsNullOrEmpty(el.RutAfiliado))
+            {
+                return Ok(el);
+            }
+            else
+            {
+                return BadRequest();
+            }
+            
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("afiliado-falabella/{RutAfiliado}/add-gestion")]
+        public IHttpActionResult gestionAfiliadoFalabella([FromBody] GestionAfiliadoFalabella entrada, [FromUri] string RutAfiliado)
+        {
+            /*Valido La solicitud*/
+            if(RutAfiliado != entrada.RutAfiliado)
+            {
+                return BadRequest("Datos Inconsistentes");
+            }
+
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            entrada.TicketGestion = Guid.NewGuid();
+
+            AfiliadoDataAccess.GuardarGestionFalabella(entrada, token);
+
+            return Ok();
         }
     }
 }
