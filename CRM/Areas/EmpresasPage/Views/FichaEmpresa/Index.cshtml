@@ -115,7 +115,7 @@
                                 <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_anexos" style="font-weight: bold;">Anexos</a>
                             </li>
 
-                            <li class="" style="display:none;">
+                            <li class="" style="display:block;">
                                 <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" style="font-weight: bold;">Visitas<span class="badge badge-success" id="cantCamp">0</span></a>
                             </li>
 
@@ -189,9 +189,9 @@
                                 <thead>
                                     <tr>
                                         <th>Fecha Entrevista</th>
+                                        <th>Tipo</th>
                                         <th>Nombre</th>
                                         <th>Cargo</th>
-                                        <th>Tema</th>
                                         <th>Estamento</th>
                                         <th>Detalle</th>
                                     </tr>
@@ -199,19 +199,19 @@
                                 <tbody class="buscar" id="tbdyentrevista">
                                     <tr>
                                         <td>02-10-2018</td>
+                                        <td>Entrevista</td>
                                         <td>Sergio Pizarro</td>
                                         <td>Especialista</td>
-                                        <td>Creditos</td>
                                         <td>Sindicato</td>
-                                        <td><button class="btn btn-primary btn-icon btn-circle"><i class="demo-psi-receipt-4 icon-xs"></i></button></td>
+                                        <td><a href="/motor/Emp/DetalleVisita" class="btn btn-primary btn-icon btn-circle"><i class="demo-psi-receipt-4 icon-xs"></i></a></td>
                                     </tr>
                                     <tr>
                                         <td>03-10-2018</td>
+                                        <td>Entrevista</td>
                                         <td>Sergio Pizarro</td>
                                         <td>Especialista</td>
-                                        <td>Creditos</td>
                                         <td>Empresa</td>
-                                        <td><button class="btn btn-primary btn-icon btn-circle"><i class="demo-psi-receipt-4 icon-xs"></i></button></td>
+                                        <td><a href="/motor/Emp/DetalleVisita" class="btn btn-primary btn-icon btn-circle"><i class="demo-psi-receipt-4 icon-xs"></i></a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -274,7 +274,7 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-4 mar-btm">
-                                        <label class="control-label">Fecha y hora visita</label>
+                                        <label class="control-label">Fecha</label>
                                         <div id="demo-dp-component">
                                             <div class="input-group date">
                                                 <input class="form-control" type="text" id="FechaGestges" name="FechaGestges">
@@ -282,16 +282,11 @@
                                             </div>
                                         </div>
                                     </div>
+
+
                                     <div class="col-md-4 mar-btm">
-                                        <label class="control-label">Tema</label>
-                                        <select id="slTipo" class="form-control" name="slTipo">
-                                            <option value="">Seleccione</option>
-                                            <option value="">Creditos</option>
-                                            <option value="">Licencia Medicas</option>
-                                            <option value="">Asig. Familiar</option>
-                                            <option value="">Seguros</option>
-                                            <option value="">Cheques</option>
-                                        </select>
+                                        <label class="control-label">Nombre Contacto</label>
+                                        <input type="text" id="nombContacto" name="nombContacto" class="form-control" placeholder="Nombre">
                                     </div>
                                     <div class="col-md-4 mar-btm">
                                         <label class="control-label">Estamento</label>
@@ -303,10 +298,6 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4 mar-btm">
-                                        <label class="control-label">Nombre Contacto</label>
-                                        <input type="text" id="nombContacto" name="nombContacto" class="form-control" placeholder="Nombre">
-                                    </div>
                                     <div class="col-md-4 mar-btm">
                                         <label class="control-label">Cargo</label>
                                         <input type="text" id="txtCargo" name="txtCargo" class="form-control selectpicker" placeholder="Cargo">
@@ -334,7 +325,7 @@
                                     </div>
                                     <div class="col-md-4 mar-btm">
                                         <label class="control-label">Sub-Tema</label>
-                                        <select id="slEstamento" class="form-control" name="slEstamento">
+                                        <select id="slSubTema" class="form-control" name="slSubTema">
                                             <option value="">Seleccione</option>
                                             <option value="">Empresa</option>
                                             <option value="">Sindicato</option>
@@ -384,27 +375,32 @@
                                 <label class="control-label">Tema</label>
                                 <select id="slTema" class="form-control" name="slTema">
                                     <option value="">Seleccione</option>
+                                    <option value="">Seleccione</option>
+                                    <option value="">Creditos</option>
+                                    <option value="">Licencia Medicas</option>
+                                    <option value="">Asig. Familiar</option>
+                                    <option value="">Seguros</option>
+                                    <option value="">Cheques</option>
                                 </select>
                             </div>
                             <div class="col-md-4 mar-btm">
                                 <label class="control-label">Sub-Tema</label>
-                                <select id="slSubTema" class="form-control" name="slSubTema">
+                                <select id="slSubTemavisita" class="form-control" name="slSubTemavisita">
                                     <option value="">Seleccione</option>
                                 </select>
                             </div>
                             <div class="col-md-4 mar-btm">
-                                <label class="control-label">Semaforo Relación</label>
+                                <label class="control-label">Afiliado Gestionado</label>
                                 <div class="btn-group bootstrap-select form-control">
-                                    <select id="selectCargo" class="form-control selectpicker" tabindex="-98">
+                                    <select id="slAfiliadoSelect" class="form-control selectpicker" tabindex="-98">
                                         <option value="">Seleccione</option>
-                                        <option data-content="<span class=&quot;badge badge-success&quot; style='width: 100%; background-color: #8bc34a;'>Verde</span>">Verde</option>
-                                        <option data-content="<span class=&quot;badge badge-warning&quot; style='width: 100%; background-color: #ffb300;'>Amarillo</span>">Amarillo</option>
-                                        <option data-content="<span class=&quot;badge badge-danger&quot; style='width: 100%; background-color: #f44336;'>Rojo</span>">Rojo</option>
+
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioResultado" name="comentarioResultado" style="display: none"></textarea>
+                        <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioResultado" name="comentarioResultado" style="display: block"></textarea>
+                        <a data-target="#demo-lg-modal-newAnexo" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded" style="margin-top: 31px;">Guardar Datos de Visitas<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></a>
                     </div>
                 </div>
             </form>
@@ -1324,6 +1320,7 @@
             }
             else if (valida == 1) {
                 $("#radioEmpresa").click();
+                $("#tab_anexos").html("Asignación Empresa")
                 $("#tipoAsignacionEmpresa").css('display', 'block')
                 $("#radioEmpresa").click();
 
