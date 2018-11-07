@@ -130,6 +130,32 @@ namespace CRM.Business.Entity.Afiliados
 
     }
 
+    public class GestionAfiliadoFalabella
+    {
+        public Guid TicketGestion { get; set; }
+        public string RutAfiliado { get; set; }
+        public string TipoGestion { get; set; }
+        public string Observacion { get; set; }
+        public string MontoRef { get; set; }
+        public string Beneficios { get; set; }
+        public string Ejecutivo { get; set; }
+        public string Telefono { get; set; }
+        public string Correo { get; set; }
+
+        public GestionAfiliadoFalabella()
+        {
+            TicketGestion = Guid.Empty;
+            RutAfiliado = string.Empty;
+            TipoGestion = string.Empty;
+            Observacion = string.Empty;
+            MontoRef = string.Empty;
+            Beneficios = string.Empty;
+            Ejecutivo = string.Empty;
+            Telefono = string.Empty;
+            Correo = string.Empty;   
+        }
+    }
+
 
 
 }

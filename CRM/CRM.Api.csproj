@@ -4715,6 +4715,8 @@
     <Content Include="Areas\EmpresasPage\Views\FichaEmpresa\Index.cshtml" />
     <Content Include="Areas\EmpresasPage\Views\CarteraEmpresaEjecutivo\Index.cshtml" />
     <Content Include="Areas\AppPage\Views\CarteraEmpresas\Admin.cshtml" />
+    <Content Include="Areas\AppPage\Views\HerramientasGestion\Falabella.cshtml" />
+    <Content Include="Areas\AppPage\Views\HerramientasGestion\DetalleFalabella.cshtml" />
     <Content Include="Areas\EmpresasPage\Views\DetalleVisita\Index.cshtml" />
     <Content Include="Areas\EmpresasPage\Views\DetalleGestion\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
