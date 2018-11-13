@@ -422,10 +422,14 @@ namespace CRM.Business.Data
         //    return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_MantencionGestion", prm, ListaMantGestion);
         //}
 
-        public static List<CabGestionMantencionEntity> ObtenerMantencionGest(string RutEmpresa)
+        public static List<CabGestionMantencionEntity> ObtenerMantencionGest(string Token, string RutEmpresa)
         {
-            Parametro prm = new Parametro("@RUT_EMPRESA", RutEmpresa);
-            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_MantencionGestion_Cabecera", prm, ListaCabeceraMantGestion);
+            Parametros pram = new Parametros
+            {
+                new Parametro("@TOKEN", Token),
+                new Parametro("@RUT_EMPRESA", RutEmpresa),
+            };
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_MantencionGestion_Cabecera", pram, ListaCabeceraMantGestion);
         }
 
         public static List<GestionMantencionEntity> ObtieneDetalleMantGestion(int IdCabGesMantencion)
