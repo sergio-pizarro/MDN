@@ -417,7 +417,8 @@ namespace CRM.Controllers
         [Route("lista-mantencion-gestion")]
         public ICollection<CabGestionMantencionEntity> ObtenerMantencionGestion(string RutEmpresa)
         {
-            return PerfilEmpresasDataAccess.ObtenerMantencionGest(RutEmpresa);
+            string Token = ActionContext.Request.Headers.GetValues("Token").First();
+            return PerfilEmpresasDataAccess.ObtenerMantencionGest(Token, RutEmpresa);
         }
 
         [AuthorizationRequired]
