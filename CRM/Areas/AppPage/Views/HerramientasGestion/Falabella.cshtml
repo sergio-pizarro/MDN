@@ -242,6 +242,7 @@
                 $(".ref-asfam").hide();
                 $(".ref-bene").hide();
                 $(".ref-otros").hide();
+                $('#formulario-falabella').bootstrapValidator('enableFieldValidators', 'Telefono', true, 'notEmpty');
             }
 
             $("#option-credito").on("click", function (event) {
@@ -255,6 +256,7 @@
                 resetear()
                 if ($(this).is(':checked')) {
                     $(".ref-sil").show();
+                    $('#formulario-falabella').bootstrapValidator('enableFieldValidators', 'Telefono', false, 'notEmpty');
                 } 
             });
 
