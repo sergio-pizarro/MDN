@@ -4133,6 +4133,12 @@
     <Content Include="Assets\plugins\transactional-email-templates\templates\inlined\alert.html" />
     <Content Include="Assets\plugins\transactional-email-templates\templates\inlined\billing.html" />
     <Content Include="Assets\plugins\transactional-email-templates\templates\styles.css" />
+    <Content Include="Assets\plugins\typeahead\bloodhound.js" />
+    <Content Include="Assets\plugins\typeahead\bloodhound.min.js" />
+    <Content Include="Assets\plugins\typeahead\typeahead.bundle.js" />
+    <Content Include="Assets\plugins\typeahead\typeahead.bundle.min.js" />
+    <Content Include="Assets\plugins\typeahead\typeahead.jquery.js" />
+    <Content Include="Assets\plugins\typeahead\typeahead.jquery.min.js" />
     <Content Include="Assets\plugins\x-editable\CHANGELOG.txt" />
     <Content Include="Assets\plugins\x-editable\css\bootstrap-editable.css" />
     <Content Include="Assets\plugins\x-editable\img\clear.png" />
@@ -4145,6 +4151,8 @@
     <Content Include="Assets\plugins\x-editable\inputs-ext\typeaheadjs\typeaheadjs.js" />
     <Content Include="Assets\plugins\x-editable\js\bootstrap-editable.js" />
     <Content Include="Assets\plugins\x-editable\js\bootstrap-editable.min.js" />
+    <Content Include="Assets\plugins\xde\bootstrap-tagsinput.css" />
+    <Content Include="Assets\plugins\xde\bootstrap-tagsinput.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -4719,6 +4727,7 @@
     <Content Include="Areas\AppPage\Views\HerramientasGestion\DetalleFalabella.cshtml" />
     <Content Include="Areas\EmpresasPage\Views\DetalleVisita\Index.cshtml" />
     <Content Include="Areas\EmpresasPage\Views\DetalleGestion\Index.cshtml" />
+    <Content Include="Areas\AppPage\Views\HerramientasGestion\EncuestaEmpresa.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
