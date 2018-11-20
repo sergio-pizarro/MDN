@@ -1,4 +1,4 @@
-
+﻿
 @{
     Layout = "~/Areas/AppPage/Views/Shared/_Layout.cshtml";
 }
@@ -10,7 +10,7 @@
 <!--Page content-->
 <!--===================================================-->
 <div id="page-content">
-    <div class="row">
+    <div class="row no-admin" style="display:none;">
         <div class="col-lg-12">
             <div class="tab-base">
                 <!--Nav Tabs-->
@@ -419,6 +419,52 @@
         </div>
         <input type="hidden" id="PrincipalTabActivo" value="1" />
     </div>
+
+    <div class="row yes-admin" style="display:none;">
+        <div class="col-lg-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="pad-lft">
+                        <h3 class="title">Área Administrador</h3>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <!--Grilla-->
+                    <table id="demo-foo-filtering" class="table table-bordered table-hover toggle-circle" data-page-size="50">
+                        <thead>
+                            <tr>
+                                <th data-toggle="true">Rut</th>
+                                <th>Nombre</th>
+                                <th data-hide="phone, tablet">Codigo Sucursal</th>
+                                <th data-hide="phone, tablet">Sucursal</th>
+                                <th data-hide="phone, tablet">Cargo</th>
+                            </tr>
+                        </thead>
+                        <div class="pad-btm">
+                            <div class="row">
+                                <div class="col-sm-3 text-xs-center">
+                                    <label class="control-label">Búsqueda</label>
+                                    <input id="demo-foo-search" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
+                                </div>
+
+                            </div>
+                        </div>
+                        <tbody id="bdy_datos"></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="10">
+                                    <div class="text-right">
+                                        <ul class="pagination"></ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 <!--===================================================-->
 <!--End page content-->
@@ -431,10 +477,24 @@
     <script src="~/Assets/plugins/masked-input/jquery.maskedinput.min.js"></script>
     <script src="~/Assets/js/jquery.rut.chileno.min.js"></script>
     <script src="~/Assets/plugins/gauge-js/gauge.min.js"></script>
+    <script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
+    <script src="~/Assets/js.App/gestion/BuscadorGrilla.js?v=@(Guid.NewGuid())"></script>
 
     <script>
 
         $(function () {
+
+            
+            if (getCookie("Cargo") == 'Administrador Sistema' || getCookie("Cargo") == 'Usuario Avanzado') {
+                $('.no-admin').hide();
+                $('.yes-admin').show();
+            } else {
+                $('.no-admin').show();
+                $('.yes-admin').hide();
+            }
+
+
+
 
             var today = new Date()
             var tperiodo = today.getFullYear().toString() + (today.getMonth() + 1).toString().paddingLeft("00");
@@ -442,7 +502,7 @@
             $.SecGetJSON(BASE_URL + "/motor/api/Informes/lista-traking-totalEjecutivo2", { Periodo: tperiodo }, function (menus) {
 
 
-                if (getCookie("Cargo") == "Ejecutivo NormalizaciÃ³n" || getCookie("Cargo") == "Ejecutivo GestiÃ³n de NÃ³mina") {
+                if (getCookie("Cargo") == "Ejecutivo Normalización" || getCookie("Cargo") == "Ejecutivo Gestión de Nómina") {
                     $("#demo-lft-tab-1").hide();
                     //$("#totales").show();
                     return false;
@@ -450,22 +510,6 @@
                 }
 
                 if (menus.SumaAsignadosWidEjec != 0) { $("#bdy_Brutas").css('display', 'block') }
-
-                //$("#MI_idTotalAsignados").html(menus.SumaAsignadosWidEjec.toMoney());
-                //$("#MI_idTotalGestionados").text(menus.SumaGestionadosWidEjec);
-                //$("#MI_idNombreEjecutivo").text(menus.nombreEjecutivo);
-                //$("#MI_idFechaActualizacion").text(menus.ActualizacionEjec);
-                //$("#MI_idPorcentajeGestionados").text((menus.SumaPorcentajeGestionadoWidEjec).toMoney(0) + '%');
-                //$("#MI_idPorcentajeGestionados2").text((menus.SumaPorcentajeGestionadoWidEjec).toMoney(0) + '%');
-                //$("#MI_idTotalContactados").text(menus.SumaContactadosWidEjec);
-                //$("#MI_idPorcentajeContactados").text((menus.SumaPorcentajeContactadosWidEjec).toMoney(0) + '%');
-                //$("#MI_idTotalPresentados").text(menus.SumaPresentadosWidEjec);
-                //$("#MI_idPorcentajePresentados").text((menus.SumaPorcentajePresentadosWidEjec).toMoney(0) + '%');
-                //$("#MI_idTotalAprobados").text(menus.SumaAprobadosWidEjec);
-                //$("#MI_idPorcentajeAprobados").text((menus.SumaPorcentajeAprobadosWidEjec).toMoney(0) + '%');
-                //$("#MI_idTotalCursados").text(menus.SumaCursadosWidEjec);
-                //$("#MI_idPorcentajeCursados").text((menus.SumaPorcentajeCursadosWidEjec).toMoney(0) + '%');
-                //$("#MI_idPromedioNeto").text(menus.MontoNetoPromWidEjec.toMoney());
 
                 var opts = {
                     lines: 10, // The number of lines to draw
@@ -495,30 +539,6 @@
                 gauge.setTextField(document.getElementById("demo-gauge-text"));
 
             });
-
-
-            //$.SecGetJSON(BASE_URL + "/motor/api/Informes/lista-traking-total", { periodo: tperiodo }, function (menus) {
-
-            //    $("#idTotalAsignados").html(menus.SumaAsignadosWid.toMoney());
-            //    $("#idTotalGestionados").text(menus.SumaGestionadosWid);
-            //    $("#IdDiaHAbil").text(menus.diaHabilActual);
-            //    $("#idFechaActualizacion").text(menus.Actualizacion);
-            //    $("#idSucursal").text(menus.Oficina);
-            //    $("#idPorcentajeGestionados2").text((menus.SumaPorcentajeGestionadoWid).toMoney(0) + '%');
-            //    $("#idPorcentajeGestionados").text((menus.SumaPorcentajeGestionadoWid).toMoney(0) + '%');
-            //    $("#idTotalContactados").text(menus.SumaContactadosWid);
-            //    $("#idPorcentajeContactados").text((menus.SumaPorcentajeContactadosWid).toMoney(0) + '%');
-            //    $("#idTotalPresentados").text(menus.SumaPresentadosWid);
-            //    $("#idPorcentajePresentados").text((menus.SumaPorcentajePresentadosWid).toMoney(0) + '%');
-            //    $("#idTotalAprobados").text(menus.SumaAprobadosWid);
-            //    $("#idPorcentajeAprobados").text((menus.SumaPorcentajeAprobadosWid).toMoney(0) + '%');
-            //    $("#idTotalCursados").text(menus.SumaCursadosWid);
-            //    $("#idPorcentajeCursados").text((menus.SumaPorcentajeCursadosWid).toMoney(0) + '%');
-            //    $("#idPromedioNeto").text(menus.MontoNetoPromWid.toMoney());
-
-
-
-            //});
 
             $.SecGetJSON(BASE_URL + "/motor/api/Informes/obtener-gestion-comercial", function (menus) {
 

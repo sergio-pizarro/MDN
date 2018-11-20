@@ -34,5 +34,10 @@ namespace CRM.Areas.AppPage.Controllers
             return View();
         }
 
+        public ActionResult EncuestaEmpresa()
+        {
+            return View();
+        }
+
     }
 }
