@@ -203,7 +203,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li id="dropdown-user" class="dropdown" style="display:block; float: right;">
+                        <li id="dropdown-user" class="dropdown" style="display:none; float: right;">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
                                 <span class="pull-right">
                                     <i class="demo-pli-gear icon-2x icon-fw" style="line-height: 1.7em; font-size: 1.8em; font-style: inherit;"></i>
@@ -217,7 +217,7 @@
                                 <ul class="head-list usuario-soporte" style="display:none;">
                                     <li>
                                         <a href="#" id="btVolverListado">
-                                            <i class="demo-pli-computer-secure icon-lg icon-fw"></i> Volver a listado de Usuarios
+                                            <i class="demo-pli-computer-secure icon-lg icon-fw"></i> Volver a mi Cuenta
                                         </a>
                                     </li>
                                 </ul>
@@ -229,7 +229,7 @@
                                     </li>
                                 </ul>
                                 <!-- Dropdown footer -->
-                                <div class="pad-all text-right">
+                                <div class="pad-all text-right hidden">
                                     <a href="#" class="btn btn-primary" id="btCerSesion">
                                         <i class="demo-pli-unlock"></i> Cerrar Sesión
                                     </a>
@@ -343,7 +343,7 @@
                                                     oficinas[172] = "Huechuraba"
                                                     oficinas[174] = "Estación Central"
 
-                                                    if (getCookie("Usuario") == "Vega Salgado, M.Eugenia" | getCookie("Usuario") == "Garcia Gonzalez,Alejandra") {
+                                                    if (getCookie("Usuario") == "Vega Salgado, M.Eugenia" || getCookie("Usuario") == "Garcia Gonzalez,Alejandra") {
                                                         $("#nombre_usuario").html(getCookie("Usuario").OrdenaNombre() + '<br/><small>' + '</small><br/><small>' + "Gerencia de Personas" + '</small>')
                                                     }
                                                     else {
@@ -401,58 +401,6 @@
                 </div>
             </div>
         </div>
-        <!--===================================================-->
-        <!--End Large Bootstrap Modal-->
-        <!--===================================================-->
-        <!--CONTRASEÑA Modal-->
-        <div class="modal fade" id="demo-default-modal" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <!--Modal header-->
-                    <div class="modal-header" style="background: #42a5f5;">
-                        <h4 class="modal-title" style="color: #ffffff;"><i class="demo-pli-unlock"> </i>  Cambio de Contraseña</h4>
-                    </div>
-                    <!--Modal body-->
-                    <div class="modal-body">
-                        <p class="text-semibold text-main">Ingrese una nueva contraseña entre 4 y 8 dígitos.</p>
-                        <form class="form-horizontal">
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="demo-hor-inputemail">Nueva Contraseña</label>
-                                    <div class="col-sm-9">
-                                        <input type="password" placeholder="Contraseña" id="inpPass" class="form-control" maxlength="8" style="width:300px" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="demo-hor-inputpass">Repetita nueva contraseña</label>
-                                    <div class="col-sm-9">
-                                        <input type="password" placeholder="Repita contraseña" id="inpRepPass" class="form-control" maxlength="8" style="width:300px" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-
-                        <div class="alert alert-danger" id="passError" style="display:none">
-                            <button class="close" data-dismiss="alert"><i class="pci-cross pci-circle"></i></button>
-                            <strong>Error!</strong> Las contraseñas deben coincidir
-                        </div>
-                        <div class="alert alert-primary" id="passOk" style="display:none">
-                            <button class="close" data-dismiss="alert"><i class="pci-cross pci-circle"></i></button>
-                            <strong>Correcto!</strong> Se actualizo la contraseña exitosamente.
-                        </div>
-                        <div class="alert alert-danger" id="passDig" style="display:none">
-                            <button class="close" data-dismiss="alert"><i class="pci-cross pci-circle"></i></button>
-                            <strong>Error!</strong> La contraseña debe tener minimo 4 digitos.
-                        </div>
-                    </div>
-                    <!--Modal footer-->
-                    <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button" id="btMCerrar">Cerrar</button>
-                        <button class="btn btn-primary" id="btActulizaPass">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <!--===================================================-->
     <!-- END OF CONTAINER -->
@@ -465,62 +413,12 @@
         $(function () {
 
 
-            $.SecGetJSON(BASE_URL + "/motor/api/Contrasena/consulta-estado-pass", function (respuesta) {
-
-                if (respuesta.estadoClave === 1) {
-                    $('#demo-default-modal').modal({ backdrop: 'static', keyboard: false })
-                    $('#btMCerrar').attr("disabled", true);
-                }
-            });
-
             var support = getCookie('X-Support-Token');
-            if (support != null) {
+            var token = getCookie('Token');
+            if (support != null && support != '' && support != token) {
+                $('#dropdown-user').show();
                 $('.usuario-soporte').show();
             }
-            else {
-                $('.usuario-comun').show();
-            }
-
-
-            $('#btActulizaPass').on('click', function () {
-                var pass1 = $('#inpPass').val();
-                var pass2 = $('#inpRepPass').val();
-                if (pass1 === pass2) {
-
-                    if ($('#inpPass').val().length > 3) {
-
-                        $.SecGetJSON(BASE_URL + "/motor/api/Contrasena/actualiza-contrasena", { passs: pass1 }, function (respuesta) {
-                            $('#passError').css('display', 'none')
-                            $('#passOk').css('display', 'block')
-                            setTimeout('window.location.reload(true)', 3000);
-                        });
-                    }
-                    else {
-                        $('#passError').css('display', 'none')
-                        $('#passDig').css('display', 'block')
-                    }
-
-                } else {
-                    $('#passError').css('display', 'block')
-                }
-            });
-
-            $('#btCerSesion').on('click', function () {
-                //Kill sesion y salir
-                $.SecGetJSON(BASE_URL + "/motor/api/Auth/kill", function (respuesta) {
-                    //Limpiar cookies y variables locales y de sesion
-                    var cookies = document.cookie.split(";");
-                    for (var i = 0; i < cookies.length; i++) {
-                        var cookie = cookies[i];
-                        var eqPos = cookie.indexOf("=");
-                        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-                        delCookie(name);
-                    }
-                    localStorage.clear();
-                    sessionStorage.clear();
-                    setTimeout("location.href = '/motor/home/Acceso'", 1000);
-                });
-            });
 
             $('#btVolverListado').on('click', function (e) {
                 //Kill sesion e ir a inicio soporte
@@ -531,13 +429,10 @@
                         var cookie = cookies[i];
                         var eqPos = cookie.indexOf("=");
                         var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-                        if (name != "X-Support-Token") {
-                            delCookie(name);
-                        }
                     }
                     localStorage.clear();
                     sessionStorage.clear();
-                    setTimeout("location.href = '/motor/home/AccesoAdmin'", 1000);
+                    setTimeout("location.href = '/motor/App/Inicio'", 1000);
                 });
             });
         });

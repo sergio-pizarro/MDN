@@ -26,6 +26,8 @@ namespace CRM.Controllers
             }
         }
 
+        /*
+         * 
         public ActionResult Acceso(string RutEjecutivo, string ClaveEjecutivo)
         {
             if (!Request.Browser.Type.ToUpper().Contains("IE"))
@@ -209,7 +211,102 @@ namespace CRM.Controllers
             }
         }
 
-        public ActionResult AccesoAdmin(string RE)
+        */
+
+
+        //Este es para acceso desde Login Dominio
+        public ActionResult Acceso(string RE)
+        {
+            if (!Request.Browser.Type.ToUpper().Contains("IE"))
+            {
+                if (RE != null)
+                {
+                    var client = new RestClient(baseUrl + "/motor/api");
+                    var request = new RestRequest("Auth/authenticate", Method.GET);
+                    request.AddQueryParameter("re", RE);
+                    IRestResponse response = client.Execute(request);
+
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        dynamic respuesta = SimpleJson.DeserializeObject(response.Content);
+
+
+                        System.Web.HttpCookie myCookie = new System.Web.HttpCookie("Token");
+                        myCookie.Value = response.Headers.Where(x => x.Name == "Token").FirstOrDefault().Value.ToString();
+                        myCookie.Expires = DateTime.Now.AddDays(5);
+                        Response.Cookies.Add(myCookie);
+
+                        System.Web.HttpCookie usuarioCookie = new System.Web.HttpCookie("Usuario");
+                        usuarioCookie.Value = respuesta.Usuario;
+                        usuarioCookie.Expires = DateTime.Now.AddDays(5);
+                        Response.Cookies.Add(usuarioCookie);
+
+                        System.Web.HttpCookie cargoCookie = new System.Web.HttpCookie("Cargo");
+                        cargoCookie.Value = respuesta.Cargo;
+                        cargoCookie.Expires = DateTime.Now.AddDays(5);
+                        Response.Cookies.Add(cargoCookie);
+
+                        if (respuesta.Cargo.Equals("Administrador Sistema") || respuesta.Cargo.Equals("Usuario Avanzado"))
+                        {
+                            System.Web.HttpCookie myCookieAdmi = new System.Web.HttpCookie("X-Support-Token");
+                            myCookieAdmi.Value = response.Headers.Where(x => x.Name == "Token").FirstOrDefault().Value.ToString();
+                            myCookieAdmi.Expires = DateTime.Now.AddDays(1);
+                            Response.Cookies.Add(myCookieAdmi);
+                        }
+
+                        System.Web.HttpCookie notiniCookie = new System.Web.HttpCookie("Noticia");
+                        notiniCookie.Value = respuesta.Noticia;
+                        notiniCookie.Expires = DateTime.Now.AddDays(1);
+                        Response.Cookies.Add(notiniCookie);
+
+                        System.Web.HttpCookie ofiCookie = new System.Web.HttpCookie("Oficina");
+                        ofiCookie.Value = respuesta.Oficina;
+                        ofiCookie.Expires = DateTime.Now.AddDays(5);
+                        Response.Cookies.Add(ofiCookie);
+
+                        int install = Convert.ToInt32(respuesta.Instalar);
+                        int multi = Convert.ToInt32(respuesta.Multi);
+
+                        if (install > 0)
+                        {
+                            return Redirect("../Home/Instalador?i=" + install.ToString());
+                        }
+                        else
+                        {
+                            if (multi > 1)
+                            {
+                                ViewBag.Modo = "MULTISELECT";
+                                ViewBag.Logins = CRM.Business.Data.DotacionDataAccess.MultiLoginByRut(RE);
+                                return View("Acceso");
+                            }
+                            else
+                            {
+                                return Redirect(response.Headers.Where(x => x.Name == "Location").FirstOrDefault().Value.ToString());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return Redirect("/motor/home/SinAcceso");
+                    }
+
+                    
+                }
+                else
+                {
+                    string urlEnvio = ConfigurationManager.AppSettings["UrlAutorizacion"].ToString() + "?code=" + ConfigurationManager.AppSettings["SiteCode"].ToString();
+                    return Redirect(urlEnvio);
+
+                }
+            }
+            else
+            {
+                return Redirect("/motor/Home/");
+            }
+
+        }
+
+        /*public ActionResult AccesoAdmin(string RE)
         {
             
             if (RE != null)
@@ -284,9 +381,11 @@ namespace CRM.Controllers
                     return Redirect("/motor/home/Acceso");
                 }
             }
-        }
+        }*/
 
-        public RedirectResult AccesoAdminInforme(string RE)
+
+
+        /*public RedirectResult AccesoAdminInforme(string RE)
         {
             var client = new RestClient(baseUrl + "/motor/api");
             var request = new RestRequest("Auth/authenticate", Method.GET);
@@ -328,6 +427,7 @@ namespace CRM.Controllers
 
             return Redirect("/motor/home/Acceso");
         }
+        */
 
         public ActionResult Instalador()
         {
@@ -337,6 +437,11 @@ namespace CRM.Controllers
         public ActionResult RecuperarPassword()
         {
            return View();
+        }
+
+        public ActionResult SinAcceso()
+        {
+            return View();
         }
 
 

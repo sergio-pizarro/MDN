@@ -4833,6 +4833,7 @@
     <None Include="Service References\WSFonasaCajas\WSFonaCajas.wsdl" />
     <Content Include="Views\Home\Instalador.cshtml" />
     <Content Include="Views\Home\RecuperarPassword.cshtml" />
+    <Content Include="Views\Home\SinAcceso.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
