@@ -5,7 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using CRM.Business.Data;
+using CRM.Business.Data.ContactabilidadDataAccess;
 using CRM.Business.Entity;
+using CRM.Business.Entity.Contactibilidad;
 using CRM.Business.Entity.Clases;
 
 namespace CRM.Controllers
@@ -19,8 +21,11 @@ namespace CRM.Controllers
         {
             int periodo = Convert.ToInt32(DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2,'0'));
             var AsgDataBrut = AsignacionDataAccess.ListarByAfiRut(periodo, AfiliadoRut).Where(asg => asg.TipoAsignacion == 5 || asg.TipoAsignacion == 1).FirstOrDefault();
-            List<ContactoafiliadoEntity> telefonos = ContactoafiliadoDataAccess.ObtenerPorRutAfiliadoYTipo(Convert.ToInt32(AsgDataBrut.Afiliado_Rut), "TELEFONO");
-            telefonos.AddRange(ContactoafiliadoDataAccess.ObtenerPorRutAfiliadoYTipo(Convert.ToInt32(AsgDataBrut.Afiliado_Rut), "CELULAR"));
+            //List<ContactoafiliadoEntity> telefonos = ContactoafiliadoDataAccess.ObtenerPorRutAfiliadoYTipo(Convert.ToInt32(AsgDataBrut.Afiliado_Rut), "TELEFONO");
+            //telefonos.AddRange(ContactoafiliadoDataAccess.ObtenerPorRutAfiliadoYTipo(Convert.ToInt32(AsgDataBrut.Afiliado_Rut), "CELULAR"));
+
+            List<ContactabilidadEntity> telefonos = ContactabilidadDataAccess.ListarContacto(Convert.ToInt32(AsgDataBrut.Afiliado_Rut)).Where(cnt => cnt.iTipoDato == 1 || cnt.iTipoDato == 2).ToList();
+
 
             return new AsignacionCallBase
             {
@@ -156,24 +161,16 @@ namespace CRM.Controllers
 
                 if(entrada.FonoContact != "OTR")
                 {
-                    var contc = ContactoafiliadoDataAccess.Obtener(Convert.ToInt32(entrada.RutAfiliado), entrada.FonoContact.Replace("+",string.Empty));
-                    ContactoafiliadoDataAccess.Guardar(contc);
+                    ContactabilidadDataAccess.ActualizarIndiceContacto(1, Convert.ToInt32(entrada.RutAfiliado), entrada.FonoContact.Replace("+", string.Empty), entrada.RutEjecutivo, 555);
                 }
                 else
                 {
                     //si no se valida dispara exception
                     int validaFono = Convert.ToInt32(entrada.NuevoFono);
 
-                    ContactoafiliadoEntity cn = new ContactoafiliadoEntity
-                    {
-                        Afiliado_rut = Convert.ToInt32(entrada.RutAfiliado),
-                        Fecha_accion = DateTime.Now,
-                        Fecha_contacto = DateTime.Now,
-                        Tipo_contacto = "CELULAR",
-                        Valido = 1,
-                        Valor_contacto = prefijo_numero + entrada.NuevoFono
-                    };
-                    ContactoafiliadoDataAccess.Guardar(cn);
+                    string datocontacto = prefijo_numero + entrada.NuevoFono;
+                    ContactabilidadDataAccess.InsertaNuevoContacto(Convert.ToInt32(entrada.RutAfiliado), 1, "Celular", 1, "Personal", datocontacto);
+                    ContactabilidadDataAccess.ActualizarIndiceContacto(1, Convert.ToInt32(entrada.RutAfiliado), datocontacto, entrada.RutEjecutivo, 555);
                 }
                     
                 return new ResultadoBase
