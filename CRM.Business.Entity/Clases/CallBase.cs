@@ -14,6 +14,7 @@ namespace CRM.Business.Entity.Clases
         public string OficinaAsinacion { get; set; }
         public long PreAprobado { get; set; }
         public List<Contactibilidad.ContactabilidadEntity> Fonos { get; set; }
+        public List<GestionEntity> Gestiones { get; set; }
 
         public AsignacionCallBase()
         {

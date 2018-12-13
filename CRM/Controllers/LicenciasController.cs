@@ -477,6 +477,8 @@ namespace CRM.Controllers
                 return new ResultadoBase() { Estado = "ERR", Mensaje = "Error al consultar a Servicio Fonasa", Objeto = ex };
             }
         }
+
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("datos-encabezado-lic")]

@@ -23,6 +23,7 @@ namespace CRM.Controllers
             var AsgDataBrut = AsignacionDataAccess.ListarByAfiRut(periodo, AfiliadoRut).Where(asg => asg.TipoAsignacion == 5 || asg.TipoAsignacion == 1).FirstOrDefault();
             //List<ContactoafiliadoEntity> telefonos = ContactoafiliadoDataAccess.ObtenerPorRutAfiliadoYTipo(Convert.ToInt32(AsgDataBrut.Afiliado_Rut), "TELEFONO");
             //telefonos.AddRange(ContactoafiliadoDataAccess.ObtenerPorRutAfiliadoYTipo(Convert.ToInt32(AsgDataBrut.Afiliado_Rut), "CELULAR"));
+            var gestiones = GestionDataAccess.ListarGestion(AsgDataBrut.id_Asign).OrderByDescending(ord => ord.FechaAccion).ToList();
 
             List<ContactabilidadEntity> telefonos = ContactabilidadDataAccess.ListarContacto(Convert.ToInt32(AsgDataBrut.Afiliado_Rut)).Where(cnt => cnt.iTipoDato == 1 || cnt.iTipoDato == 2).ToList();
 
@@ -44,7 +45,8 @@ namespace CRM.Controllers
                 },
                 OficinaAsinacion = SucursalDataAccess.ObtenerSucursal(AsgDataBrut.Oficina).Nombre,
                 PreAprobado = AsgDataBrut.PreAprobadoFinal,
-                Fonos = telefonos
+                Fonos = telefonos,
+                Gestiones = gestiones
             };
         }
 
@@ -169,8 +171,19 @@ namespace CRM.Controllers
                     int validaFono = Convert.ToInt32(entrada.NuevoFono);
 
                     string datocontacto = prefijo_numero + entrada.NuevoFono;
-                    ContactabilidadDataAccess.InsertaNuevoContacto(Convert.ToInt32(entrada.RutAfiliado), 1, "Celular", 1, "Personal", datocontacto);
-                    ContactabilidadDataAccess.ActualizarIndiceContacto(1, Convert.ToInt32(entrada.RutAfiliado), datocontacto, entrada.RutEjecutivo, 555);
+                    var existe = ContactabilidadDataAccess.ListarContacto(Convert.ToInt32(entrada.RutAfiliado)).FirstOrDefault(contc => contc.ValorDato == datocontacto);
+
+                    if(existe != null)
+                    {
+                        throw new Exception("El dato de contacto ya existe en la base de datos.");
+                    }
+                    else
+                    {
+                        ContactabilidadDataAccess.InsertaNuevoContacto(Convert.ToInt32(entrada.RutAfiliado), 1, "Celular", 1, "Personal", datocontacto);
+                        ContactabilidadDataAccess.ActualizarIndiceContacto(1, Convert.ToInt32(entrada.RutAfiliado), datocontacto, entrada.RutEjecutivo, 555);
+                    }
+
+                    
                 }
                     
                 return new ResultadoBase

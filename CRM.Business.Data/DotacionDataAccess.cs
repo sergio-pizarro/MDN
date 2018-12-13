@@ -60,6 +60,7 @@ namespace CRM.Business.Data
 
             return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_ObtenerEjecutivosOficinaByTokenProyeccion", prms, ConstructorEntidad);
         }
+
         public static List<DotacionEntity> ListarMiOficinaProyeccionAdmin(int Periodo,int CodSucursal)
         {
             Parametros prms = new Parametros()
