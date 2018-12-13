@@ -90,7 +90,7 @@
                             @foreach (var lg in ViewBag.Logins)
                             {
 
-                                <a href="@(lg.Rut.IndexOf("I") > -1 ? "/motor/Home/AccesoAdmin?RE="+ lg.Rut : "/motor/App/Inicio" )" class="list-group-item">
+                                <a href="@(lg.Rut.IndexOf("I") > -1 ? "/motor/Home/Acceso?RE="+ lg.Rut : "/motor/App/Inicio" )" class="list-group-item">
                                     <h4 class="list-group-item-heading">@Html.Raw(lg.Sucursal)</h4>
                                     <p class="list-group-item-text">@Html.Raw(lg.Cargo + "  " + (lg.Rut.IndexOf("I") > -1 ? "(I)" : ""))  </p>
                                 </a>

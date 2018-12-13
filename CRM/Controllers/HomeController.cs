@@ -246,7 +246,7 @@ namespace CRM.Controllers
                         cargoCookie.Expires = DateTime.Now.AddDays(5);
                         Response.Cookies.Add(cargoCookie);
 
-                        if (respuesta.Cargo.Equals("Administrador Sistema") || respuesta.Cargo.Equals("Usuario Avanzado"))
+                        if (respuesta.Cargo.Equals("Administrador Sistema") || respuesta.Cargo.Equals("Usuario Avanzado") || respuesta.Cargo.Equals("Zonal"))
                         {
                             System.Web.HttpCookie myCookieAdmi = new System.Web.HttpCookie("X-Support-Token");
                             myCookieAdmi.Value = response.Headers.Where(x => x.Name == "Token").FirstOrDefault().Value.ToString();
@@ -276,7 +276,7 @@ namespace CRM.Controllers
                             if (multi > 1)
                             {
                                 ViewBag.Modo = "MULTISELECT";
-                                ViewBag.Logins = CRM.Business.Data.DotacionDataAccess.MultiLoginByRut(RE);
+                                ViewBag.Logins = Business.Data.DotacionDataAccess.MultiLoginByRut(RE);
                                 return View("Acceso");
                             }
                             else
