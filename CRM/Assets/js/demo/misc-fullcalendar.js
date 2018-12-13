@@ -46,7 +46,8 @@ $(document).ready(function() {
 			left: 'prev,next today',
 			center: 'title',
 			right: 'month,agendaWeek,agendaDay'
-		},
+        },
+        
 		editable: true,
 		droppable: true, // this allows things to be dropped onto the calendar
 		drop: function() {
@@ -55,7 +56,8 @@ $(document).ready(function() {
 				// if so, remove the element from the "Draggable Events" list
 				$(this).remove();
 			}
-		},
+        },
+        lang: 'es',
 		defaultDate: '2015-01-12',
 		eventLimit: true, // allow "more" link when too many events
 		events: [

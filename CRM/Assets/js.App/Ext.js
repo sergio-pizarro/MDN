@@ -276,6 +276,8 @@ String.prototype.toFecha = function () {
     return y[2] + '-' + y[1] + '-' + y[0];
 }
 
+
+
 String.prototype.addSlashes = function()
 {
     //return this.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
