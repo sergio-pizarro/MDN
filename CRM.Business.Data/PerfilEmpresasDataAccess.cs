@@ -344,6 +344,96 @@ namespace CRM.Business.Data
         }
 
 
+        public static int IngresaCitaAgenda(string Token, string RutEmpresa, string NombreEmpresa, string Glosa,
+                                                            DateTime FechaInico, DateTime FechaFin, string HoraInicio, string HoraFin,
+                                                            string Frecuencia, string Dias, string TipoVisita,
+                                                            int IdAnexo, int DiasSucede)
+        {
+            Parametros parametros = new Parametros
+            {
+                new Parametro("@TOKEN", Token),
+                new Parametro("@RUT_EMPRESA", RutEmpresa),
+                new Parametro("@NOMBRE_EMPRESA", NombreEmpresa),
+                new Parametro("@GLOSA", Glosa),
+                new Parametro("@FECHA_INICO", FechaInico),
+                new Parametro("@FECHA_FIN", FechaFin),
+                new Parametro("@HORA_INICIO", HoraInicio),
+                new Parametro("@HORA_FIN", HoraFin),
+                new Parametro("@FRECUENCIA", Frecuencia),
+                new Parametro("@DIAS", Dias),
+                new Parametro("@TIPO_VISITA", TipoVisita),
+                new Parametro("@ID_ANEXO", IdAnexo),
+                new Parametro("@DIA_SUCEDE", DiasSucede),
+
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Guarda_Cita_Agenda_Empresa", parametros);
+        }
+
+
+
+
+        public static int IngresaCitaAgendaAgente(string Token, string RutEmpresa, string RutEjecutivo, string NombreEmpresa, string Glosa,
+                                                            DateTime FechaInico, DateTime FechaFin, string HoraInicio, string HoraFin,
+                                                            string Frecuencia, string Dias, string TipoVisita,
+                                                            int IdAnexo, int DiasSucede)
+        {
+            Parametros parametros = new Parametros
+            {
+                new Parametro("@TOKEN", Token),
+                new Parametro("@RUT_EMPRESA", RutEmpresa),
+                new Parametro("@RUT_EJECUTIVO", RutEjecutivo),
+                new Parametro("@NOMBRE_EMPRESA", NombreEmpresa),
+                new Parametro("@GLOSA", Glosa),
+                new Parametro("@FECHA_INICO", FechaInico),
+                new Parametro("@FECHA_FIN", FechaFin),
+                new Parametro("@HORA_INICIO", HoraInicio),
+                new Parametro("@HORA_FIN", HoraFin),
+                new Parametro("@FRECUENCIA", Frecuencia),
+                new Parametro("@DIAS", Dias),
+                new Parametro("@TIPO_VISITA", TipoVisita),
+                new Parametro("@ID_ANEXO", IdAnexo),
+                new Parametro("@DIA_SUCEDE", DiasSucede),
+
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Guarda_Cita_Agenda_Empresa_Agente", parametros);
+        }
+
+
+
+        public static int ActulizaCitaAgenda(string Token, int IdAgenda, string RutEmpresa, string Glosa,
+                                                         DateTime FechaInico, DateTime FechaFin, string HoraInicio, string HoraFin, string TipoVisita)
+        {
+            Parametros parametros = new Parametros
+            {
+                new Parametro("@TOKEN", Token),
+                new Parametro("@ID_AGENDA", IdAgenda),
+               // new Parametro("@ID_REGISTRO", IdRegistro),
+                new Parametro("@RUT_EMPRESA", RutEmpresa),
+                new Parametro("@GLOSA", Glosa),
+                new Parametro("@FECHA_INICO", FechaInico),
+                new Parametro("@FECHA_FIN", FechaFin),
+                new Parametro("@HORA_INICIO", HoraInicio),
+                new Parametro("@HORA_FIN", HoraFin),
+               // new Parametro("@FRECUENCIA", Frecuencia),
+               // new Parametro("@DIAS", Dias),
+                new Parametro("@TIPO_VISITA", TipoVisita),
+               // new Parametro("@DIA_SUCEDE", DiasSucede),
+
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Actualiza_Cita_Agenda_Empresa", parametros);
+        }
+
+        public static int EliminaCitaAgenda(string Token, int IdAgenda, int IdRegistro, string RutEmpresa)
+        {
+            Parametros parametros = new Parametros
+            {
+                new Parametro("@TOKEN", Token),
+                new Parametro("@ID_AGENDA", IdAgenda),
+                new Parametro("@ID_REGISTRO", IdRegistro),
+                new Parametro("@RUT_EMPRESA", RutEmpresa),
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Elimina_Cita_Agenda_Empresa", parametros);
+        }
 
         private static CarteraEmpresasEntity ListaCarteraEmpresa(DataRow row)
         {
@@ -384,10 +474,14 @@ namespace CRM.Business.Data
             };
         }
 
-        public static List<EntrevistaEntity> ObtieneEntrevista(string RutEmpresa)
+        public static List<EntrevistaEntity> ObtieneEntrevista(string Token, string RutEmpresa)
         {
-            Parametro prm = new Parametro("@RUT_EMPRESA", RutEmpresa);
-            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Entrevista", prm, ListaEntrevistaEmp);
+            Parametros pram = new Parametros
+            {
+                new Parametro("@TOKEN", Token),
+                new Parametro("@RUT_EMPRESA", RutEmpresa),
+            };
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Entrevista", pram, ListaEntrevistaEmp);
         }
 
 
@@ -473,6 +567,44 @@ namespace CRM.Business.Data
         {
             Parametro prm = new Parametro("@ID_DETALLE_ENTREVISTA", IdDetalleEntrevista);
             return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_DetalleEntrevista_Historial", prm, ListaDetalleEntrevistaEmp);
+        }
+
+
+        public static List<AgendaEmpresaEntity> ObtenerCitaCartera(string RutEmpresa, string RutEjecutivo, int IdAnexo, string Token)
+        {
+            Parametros prm = new Parametros
+            {
+                new Parametro("@RUT_EMPRESA", RutEmpresa),
+                new Parametro("@RUT_EJECUTIVO", RutEjecutivo),
+                new Parametro("@ID_ANEXO", IdAnexo),
+                 new Parametro("@TOKEN", Token),
+            };
+
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Cita_Agenda_Empresa_Cartera", prm, ListaCitaAgendaEmp);
+        }
+
+
+        public static List<AgendaEmpresaEntity> ObtenerCitaCarteraAnexo(string RutEmpresa, int IdAnexo)
+        {
+            Parametros prm = new Parametros
+            {
+                new Parametro("@RUT_EMPRESA", RutEmpresa),
+                new Parametro("@ID_ANEXO", IdAnexo),
+            };
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Cita_Agenda_Empresa_Cartera_Anexo", prm, ListaCitaAgendaEmp);
+        }
+
+
+        public static List<AgendaEmpresaEntity> ObtenerCitaCarteraEjecutivo(string RutEmpresa, string Token, int IdAnexo)
+        {
+            Parametros prm = new Parametros
+            {
+                new Parametro("@TOKEN", Token),
+                new Parametro("@RUT_EMPRESA", RutEmpresa),
+                new Parametro("@ID_ANEXO", IdAnexo),
+            };
+
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Cita_Agenda_Empresa_Ejecutivo", prm, ListaCitaAgendaEmp);
         }
 
 
@@ -570,6 +702,15 @@ namespace CRM.Business.Data
                 TotalAnexos = row["TotalAnexos"] != DBNull.Value ? Convert.ToInt32(row["TotalAnexos"]) : 0,
             };
         }
+
+
+        public static List<GestionEmpresasEntity> ObtieneEmpEjecutivoAsignado(string RutEjecutivo)
+        {
+            Parametro prm = new Parametro("@RUT_EJECUTIVO", RutEjecutivo);
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Empresa_Ejecutivo", prm, ListaEmpresaEjecutivoAsig);
+        }
+
+
 
         private static AnexoEmpresaEntity ListaAnexoEmp(DataRow row)
         {
@@ -679,6 +820,29 @@ namespace CRM.Business.Data
             };
         }
 
+        private static AgendaEmpresaEntity ListaCitaAgendaEmp(DataRow row)
+        {
+            return new AgendaEmpresaEntity
+            {
+                IdAgenda = row["IdAgenda"] != DBNull.Value ? Convert.ToInt32(row["IdAgenda"]) : 0,
+                IdRegistro = row["IdRegistro"] != DBNull.Value ? Convert.ToInt32(row["IdRegistro"]) : 0,
+                RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
+                NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
+                RutEjecutivo = row["RutEjecutivo"] != DBNull.Value ? row["RutEjecutivo"].ToString() : string.Empty,
+                Glosa = row["Glosa"] != DBNull.Value ? row["Glosa"].ToString() : string.Empty,
+                FechaInico = row["FechaInico"] != DBNull.Value ? Convert.ToDateTime(row["FechaInico"]) : DateTime.MinValue,
+                FechaFin = row["FechaFin"] != DBNull.Value ? Convert.ToDateTime(row["FechaFin"]) : DateTime.MinValue,
+                Frecuencia = row["Frecuencia"] != DBNull.Value ? row["Frecuencia"].ToString() : string.Empty,
+                Dias = row["Dias"] != DBNull.Value ? row["Dias"].ToString() : string.Empty,
+                DiasSucede = row["DiasSucede"] != DBNull.Value ? Convert.ToInt32(row["DiasSucede"]) : 0,
+                TipoVisita = row["TipoVisita"] != DBNull.Value ? row["TipoVisita"].ToString() : string.Empty,
+                IdAnexo = row["IdAnexo"] != DBNull.Value ? Convert.ToInt32(row["IdAnexo"]) : 0,
+                HoraInicio = row["HoraInicio"] != DBNull.Value ? row["HoraInicio"].ToString() : string.Empty,
+                HoraFin = row["HoraFin"] != DBNull.Value ? row["HoraFin"].ToString() : string.Empty,
+                NCitas = row["NCitas"] != DBNull.Value ? Convert.ToInt32(row["NCitas"]) : 0,
+            };
+        }
+
         private static TipologiaGestionEntity ListaTemaGestion(DataRow row)
         {
             return new TipologiaGestionEntity
@@ -705,6 +869,17 @@ namespace CRM.Business.Data
                 GlosaSubTema = row["GlosaSubTema"] != DBNull.Value ? row["GlosaSubTema"].ToString() : string.Empty,
             };
         }
+
+        private static GestionEmpresasEntity ListaEmpresaEjecutivoAsig(DataRow row)
+        {
+            return new GestionEmpresasEntity
+            {
+                RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
+                NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
+            };
+        }
+
+        
 
     }
 }
