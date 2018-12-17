@@ -704,7 +704,7 @@ namespace CRM.Business.Data
         }
 
 
-        public static List<GestionEmpresasEntity> ObtieneEmpEjecutivoAsignado(string RutEjecutivo)
+        public static List<CarteraEmpresasEntity> ObtieneEmpEjecutivoAsignado(string RutEjecutivo)
         {
             Parametro prm = new Parametro("@RUT_EJECUTIVO", RutEjecutivo);
             return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Empresa_Ejecutivo", prm, ListaEmpresaEjecutivoAsig);
@@ -870,12 +870,14 @@ namespace CRM.Business.Data
             };
         }
 
-        private static GestionEmpresasEntity ListaEmpresaEjecutivoAsig(DataRow row)
+        private static CarteraEmpresasEntity ListaEmpresaEjecutivoAsig(DataRow row)
         {
-            return new GestionEmpresasEntity
+            return new CarteraEmpresasEntity
             {
                 RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
                 NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
+                IdEmpresa = row["IdEmpresa"] != DBNull.Value ? Convert.ToInt32(row["IdEmpresa"]) : 0,
+
             };
         }
 

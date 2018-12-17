@@ -638,7 +638,7 @@ namespace CRM.Controllers
         [AuthorizationRequired]
         [HttpGet]
         [Route("lista-empresa-ejecutivo")]
-        public ICollection<GestionEmpresasEntity> ObtieneEmpresaEjecutivo(string RutEjecutivo)
+        public ICollection<CarteraEmpresasEntity> ObtieneEmpresaEjecutivo(string RutEjecutivo)
         {
             return Business.Data.PerfilEmpresasDataAccess.ObtieneEmpEjecutivoAsignado(RutEjecutivo);
         }

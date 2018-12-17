@@ -923,12 +923,12 @@
 
                     $("#slEmpresaAgendas").html("");
                     $("#slEmpresaAgendas").append($("<option>").attr("value", "0").html("TODO...."));
-                   // $("#slEmpresaAgendasIng").html("");
-                    //$("#slEmpresaAgendasIng").append($("<option>").attr("value", "0").html("Seleccione"));
+                    $("#slEmpresaAgendasIng").html("");
+                    // $("#slEmpresaAgendasIng").append($("<option>").attr("value", "0").html("Seleccione"));
 
                     $.each(menus, function (i, e) {
                         $("#slEmpresaAgendas").append($("<option>").attr("value", e.RutEmpresa).html(e.NombreEmpresa))
-                       // $("#slEmpresaAgendasIng").append($("<option>").attr("value", e.RutEmpresa).html(e.NombreEmpresa))
+                        //$("#slEmpresaAgendasIng").append($("<option>").attr("value", e.RutEmpresa).html(e.NombreEmpresa))
                     });
                     $('#slEmpresaAgendas').chosen();
 
@@ -1027,7 +1027,7 @@
                             $('#txtFechacita').val(moment(start).format('DD-MM-YYYY'))
                             fechaPop = (moment(start).format('YYYY-MM-DD'))
                             $('#slEjecutivoAgendaIng').chosen({ width: '100%' });
-                            //$('#slEmpresaAgendasIng').chosen({ width: '100%' });
+                            // $('#slEmpresaAgendasIng').chosen({ width: '100%' });
                             $('#slEjecutivoAgendaIng').val($("#slEjecutivoAgenda").val()).trigger('chosen:updated');
                             $('#slEmpresaAgendasIng').val($("#slEmpresaAgendas").val()).trigger('chosen:updated');
                             $('#demo-lg-modal-agenda').modal('show');
@@ -1223,24 +1223,20 @@
         $('#slEjecutivoAgendaIng').change(function (e) {
             e.preventDefault();
             if ($(this).val() != '') {
-               // $("#slEmpresaAgendasIng").attr("disabled", false);
                 $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-empresa-ejecutivo", { RutEjecutivo: $(this).val() }, function (datos) {
                     $("#slEmpresaAgendasIng").html("");
                     $("#slEmpresaAgendasIng").append($("<option>").attr("value", "").html("Seleccione"));
                     $.each(datos, function (i, e) {
-                        $("#slEmpresaAgendasIng").append($("<option>").attr("value", e.RutEmpresa).html(e.NombreEmpresa))
+                        $("#slEmpresaAgendasIng").append($("<option>").attr("value", e.RutEmpresa).html(e.NombreEmpresa).data('idanexo', e.IdEmpresa)).trigger('chosen:updated')
                     });
                 });
+                $('#slEmpresaAgendasIng').chosen({ width: '100%' });
             }
             else {
                 $("#slEmpresaAgendasIng").html("");
                 $("#slEmpresaAgendasIng").attr("disabled", true);
             }
-            //$('#slEmpresaAgendasIng').chosen({ width: '100%' });
         });
-
-
-
 
         $('#slDuracionDia').change(function (e) {
             e.preventDefault();
@@ -1425,7 +1421,7 @@
                 Frecuencia: $('#slFrecuencia').val(),
                 Dias: results,
                 TipoVisita: $('#slTipoVisita').val(),
-                IdAnexo: 0,
+                IdAnexo: $('#slEmpresaAgendasIng option:selected').data('idanexo'),
                 DiasSucede: $('#slSucedeDia').val(),
             }
 
