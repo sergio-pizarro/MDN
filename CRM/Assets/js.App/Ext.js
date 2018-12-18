@@ -806,14 +806,6 @@ $(function () {
         $.niftyNav('bind')
     }
 
-   
-
-
-
-
-
-
-
 
 
 
@@ -840,3 +832,113 @@ $(function () {
     }
 
 })
+
+
+
+
+$(function () {
+
+    var oficinas = [];
+    oficinas[0] = "Sin Información"
+    oficinas[1] = "Huérfanos"
+    oficinas[3] = "San Bernardo"
+    oficinas[4] = "Talagante"
+    oficinas[5] = "Melipilla"
+    oficinas[6] = "Metropolitana"
+    oficinas[8] = "Gran Avenida"
+    oficinas[11] = "Arica"
+    oficinas[13] = "Iquique"
+    oficinas[21] = "Tocopilla"
+    oficinas[22] = "Antofagasta"
+    oficinas[23] = "Calama"
+    oficinas[24] = "María Elena"
+    oficinas[31] = "Copiapó"
+    oficinas[32] = "Vallenar"
+    oficinas[41] = "Ovalle"
+    oficinas[42] = "La Serena"
+    oficinas[43] = "Coquimbo"
+    oficinas[44] = "Illapel"
+    oficinas[45] = "Vicuña"
+    oficinas[51] = "Viña del Mar"
+    oficinas[52] = "San Antonio"
+    oficinas[53] = "Quillota"
+    oficinas[54] = "Valparaíso"
+    oficinas[56] = "Los Andes"
+    oficinas[57] = "La Calera"
+    oficinas[58] = "Quilpué"
+    oficinas[59] = "Casablanca"
+    oficinas[61] = "Rancagua"
+    oficinas[62] = "San Fernando"
+    oficinas[71] = "Curicó"
+    oficinas[72] = "Talca"
+    oficinas[73] = "Linares"
+    oficinas[74] = "Constitución"
+    oficinas[81] = "Chillán"
+    oficinas[82] = "Concepción"
+    oficinas[84] = "Los Ángeles"
+    oficinas[85] = "Talcahuano"
+    oficinas[86] = "San Carlos"
+    oficinas[87] = "Cañete"
+    oficinas[88] = "Coronel"
+    oficinas[89] = "Mulchen"
+    oficinas[92] = "Temuco"
+    oficinas[93] = "Angol"
+    oficinas[97] = "Victoria"
+    oficinas[101] = "Valdivia"
+    oficinas[102] = "Osorno"
+    oficinas[103] = "Puerto Montt"
+    oficinas[104] = "Castro"
+    oficinas[105] = "Puerto Varas"
+    oficinas[106] = "La Unión"
+    oficinas[107] = "Ancud"
+    oficinas[108] = "Quellón"
+    oficinas[109] = "Calbuco"
+    oficinas[110] = "Puerto Aysén"
+    oficinas[111] = "Coyhaique"
+    oficinas[121] = "Puerto Natales"
+    oficinas[122] = "Punta Arenas"
+    oficinas[130] = "La Florida"
+    oficinas[133] = "Puente Alto"
+    oficinas[134] = "Independencia"
+    oficinas[135] = "Maipú"
+    oficinas[136] = "Quilicura"
+    oficinas[137] = "Centro Cívico"
+    oficinas[138] = "Providencia"
+    oficinas[170] = "Las Condes"
+    oficinas[171] = "Ñuñoa"
+    oficinas[172] = "Huechuraba"
+    oficinas[174] = "Estación Central"
+
+    if (getCookie("Usuario") == "Vega Salgado, M.Eugenia" || getCookie("Usuario") == "Garcia Gonzalez,Alejandra") {
+        $("#nombre_usuario").html(getCookie("Usuario").OrdenaNombre() + '<br/><small>' + '</small><br/><small>' + "Gerencia de Personas" + '</small>')
+    } else {
+        $("#nombre_usuario").html(getCookie("Usuario").OrdenaNombre() + '<br/><small>' + getCookie("Cargo") + '</small><br/><small>' + oficinas[getCookie("Oficina")] + '</small>')
+    }
+});
+
+
+
+$(function () {
+    var support = getCookie('X-Support-Token');
+    var token = getCookie('Token');
+    if (support != null && support != '' && support != token) {
+        $('#dropdown-user').show();
+        $('.usuario-soporte').show();
+    }
+
+    $('#btVolverListado').on('click', function (e) {
+        //Kill sesion e ir a inicio soporte
+        $.SecGetJSON(BASE_URL + "/motor/api/Auth/kill", function (respuesta) {
+            //Limpiar cookies y variables locales y de sesion
+            var cookies = document.cookie.split(";");
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i];
+                var eqPos = cookie.indexOf("=");
+                var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            }
+            localStorage.clear();
+            sessionStorage.clear();
+            setTimeout("location.href = '/motor/App/Inicio'", 1000);
+        });
+    });
+});
