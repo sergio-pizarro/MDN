@@ -140,13 +140,6 @@ namespace CRM.Controllers
         }
 
         [HttpGet]
-        [Route("lista-contador-asignado")]
-        public Business.Entity.ContadorAsignadosEntity ContadorAsig(int IdEmpresa)
-        {
-            return PerfilEmpresasDataAccess.ObtieneContadorAsig(IdEmpresa);
-        }
-
-        [HttpGet]
         [Route("lista-contador-anexos")]
         public Business.Entity.ContadorAnexoEntity ContadorAnexos(string RutEmpresa)
         {
@@ -638,7 +631,7 @@ namespace CRM.Controllers
         [AuthorizationRequired]
         [HttpGet]
         [Route("lista-empresa-ejecutivo")]
-        public ICollection<GestionEmpresasEntity> ObtieneEmpresaEjecutivo(string RutEjecutivo)
+        public ICollection<CarteraEmpresasEntity> ObtieneEmpresaEjecutivo(string RutEjecutivo)
         {
             return Business.Data.PerfilEmpresasDataAccess.ObtieneEmpEjecutivoAsignado(RutEjecutivo);
         }

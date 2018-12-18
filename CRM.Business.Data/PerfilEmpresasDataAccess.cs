@@ -162,15 +162,6 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Actualiza_datos_anexo", parametros);
         }
 
-        public static ContadorAsignadosEntity ObtieneContadorAsig(int IdEmpresa)
-        {
-            Parametros pram = new Parametros
-            {
-                new Parametro("@IdEmpresaAnexo", IdEmpresa),
-            };
-            return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Contador_Asignados", pram, ListaContAsig);
-        }
-
         public static ContadorAnexoEntity ObtieneContadorAnexo(string RutEmpresa)
         {
             Parametros pram = new Parametros
@@ -687,13 +678,7 @@ namespace CRM.Business.Data
             };
         }
 
-        private static ContadorAsignadosEntity ListaContAsig(DataRow row)
-        {
-            return new ContadorAsignadosEntity
-            {
-                TotalAsignados = row["TotalAsignados"] != DBNull.Value ? Convert.ToInt32(row["TotalAsignados"]) : 0,
-            };
-        }
+
 
         private static ContadorAnexoEntity ListaContAnexos(DataRow row)
         {
@@ -704,7 +689,7 @@ namespace CRM.Business.Data
         }
 
 
-        public static List<GestionEmpresasEntity> ObtieneEmpEjecutivoAsignado(string RutEjecutivo)
+        public static List<CarteraEmpresasEntity> ObtieneEmpEjecutivoAsignado(string RutEjecutivo)
         {
             Parametro prm = new Parametro("@RUT_EJECUTIVO", RutEjecutivo);
             return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Empresa_Ejecutivo", prm, ListaEmpresaEjecutivoAsig);
@@ -723,6 +708,8 @@ namespace CRM.Business.Data
                 NumTrabajadores = row["NumTrabajadores"] != DBNull.Value ? Convert.ToInt32(row["NumTrabajadores"]) : 0,
                 Direccion = row["Direccion"] != DBNull.Value ? row["Direccion"].ToString() : string.Empty,
                 IdComuna = row["IdComuna"] != DBNull.Value ? Convert.ToInt32(row["IdComuna"]) : 0,
+                TotalAsignados = row["TotalAsignados"] != DBNull.Value ? Convert.ToInt32(row["TotalAsignados"]) : 0,
+
             };
         }
 
@@ -870,12 +857,14 @@ namespace CRM.Business.Data
             };
         }
 
-        private static GestionEmpresasEntity ListaEmpresaEjecutivoAsig(DataRow row)
+        private static CarteraEmpresasEntity ListaEmpresaEjecutivoAsig(DataRow row)
         {
-            return new GestionEmpresasEntity
+            return new CarteraEmpresasEntity
             {
                 RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
                 NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
+                IdEmpresa = row["IdEmpresa"] != DBNull.Value ? Convert.ToInt32(row["IdEmpresa"]) : 0,
+
             };
         }
 

@@ -117,7 +117,7 @@
                     <div class="panel-control" style="float:left;">
                         <ul class="nav nav-tabs">
                             <li id="liPlanif" class="active">
-                                <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="true" id="tab_Planificacion" style="font-weight: bold;">Planificación <span id="ncitas" class="pull-right badge badge-danger" style="margin-top: 12px;">0</span></a>   
+                                <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="true" id="tab_Planificacion" style="font-weight: bold;">Planificación <span id="ncitas" class="pull-right badge badge-danger" style="margin-top: 12px;">0</span></a>
                             </li>
                             <li class="">
                                 <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_anexos" style="font-weight: bold;">Anexos</a>
@@ -1924,18 +1924,15 @@
                 $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-cartera-anexo", { RutEmpresa: rutE }, function (menus) {
                     var contador = 0;
                     $.each(menus, function (i, e) {
-                        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-contador-asignado", { IdEmpresa: e.IdEmpresaAnexo }, function (respuesta) {
-                            contador = respuesta.TotalAsignados;
-                            $("#tbdyAnexo")
-                                .append(
-                                    $("<tr>")
-                                        .append($("<td>").append(e.RutEmpresa))
-                                        .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresaAnexo + '&IJ=0' + '&rutEmAnexo=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.Anexo + '</a>'))
-                                        .append($("<td>").append('<div class="media-left pos-rel"><img class="img-circle img-sm" src="../Assets/img/profile-photos/2.png" alt="Profile Picture"><i class="badge badge-success badge-stat badge-icon pull-left">' + e.NumTrabajadores + '</i></div>'))
-                                        .append($("<td>").append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.IdEmpresaAnexo + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
-                                        .append($("<td>").append('<i href="#" data-toggle="modal" data-target="#demo-lg-modal-AsigEmp" data-idEmp="' + e.IdEmpresaAnexo + '"><i class="btn btn-sm demo-psi-add icon-lg" style="font-size: 31px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + contador + '</span></i>'))
-                                )
-                        });
+                        $("#tbdyAnexo")
+                            .append(
+                                $("<tr>")
+                                    .append($("<td>").append(e.RutEmpresa))
+                                    .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresaAnexo + '&IJ=0' + '&rutEmAnexo=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.Anexo + '</a>'))
+                                    .append($("<td>").append('<div class="media-left pos-rel"><img class="img-circle img-sm" src="../Assets/img/profile-photos/2.png" alt="Profile Picture"><i class="badge badge-success badge-stat badge-icon pull-left">' + e.NumTrabajadores + '</i></div>'))
+                                    .append($("<td>").append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.IdEmpresaAnexo + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
+                                    .append($("<td>").append('<i href="#" data-toggle="modal" data-target="#demo-lg-modal-AsigEmp" data-idEmp="' + e.IdEmpresaAnexo + '"><i class="btn btn-sm demo-psi-add icon-lg" style="font-size: 31px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + e.TotalAsignados + '</span></i>'))
+                            )
                     });
                 });
 
