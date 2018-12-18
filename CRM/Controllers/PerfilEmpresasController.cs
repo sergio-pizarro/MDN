@@ -140,13 +140,6 @@ namespace CRM.Controllers
         }
 
         [HttpGet]
-        [Route("lista-contador-asignado")]
-        public Business.Entity.ContadorAsignadosEntity ContadorAsig(int IdEmpresa)
-        {
-            return PerfilEmpresasDataAccess.ObtieneContadorAsig(IdEmpresa);
-        }
-
-        [HttpGet]
         [Route("lista-contador-anexos")]
         public Business.Entity.ContadorAnexoEntity ContadorAnexos(string RutEmpresa)
         {

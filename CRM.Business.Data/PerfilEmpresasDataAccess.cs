@@ -162,15 +162,6 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Actualiza_datos_anexo", parametros);
         }
 
-        public static ContadorAsignadosEntity ObtieneContadorAsig(int IdEmpresa)
-        {
-            Parametros pram = new Parametros
-            {
-                new Parametro("@IdEmpresaAnexo", IdEmpresa),
-            };
-            return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Contador_Asignados", pram, ListaContAsig);
-        }
-
         public static ContadorAnexoEntity ObtieneContadorAnexo(string RutEmpresa)
         {
             Parametros pram = new Parametros
@@ -687,13 +678,7 @@ namespace CRM.Business.Data
             };
         }
 
-        private static ContadorAsignadosEntity ListaContAsig(DataRow row)
-        {
-            return new ContadorAsignadosEntity
-            {
-                TotalAsignados = row["TotalAsignados"] != DBNull.Value ? Convert.ToInt32(row["TotalAsignados"]) : 0,
-            };
-        }
+
 
         private static ContadorAnexoEntity ListaContAnexos(DataRow row)
         {
@@ -723,6 +708,8 @@ namespace CRM.Business.Data
                 NumTrabajadores = row["NumTrabajadores"] != DBNull.Value ? Convert.ToInt32(row["NumTrabajadores"]) : 0,
                 Direccion = row["Direccion"] != DBNull.Value ? row["Direccion"].ToString() : string.Empty,
                 IdComuna = row["IdComuna"] != DBNull.Value ? Convert.ToInt32(row["IdComuna"]) : 0,
+                TotalAsignados = row["TotalAsignados"] != DBNull.Value ? Convert.ToInt32(row["TotalAsignados"]) : 0,
+
             };
         }
 
