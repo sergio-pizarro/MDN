@@ -766,7 +766,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
     font-weight: normal;
     text-align: center;
     vertical-align: middle;
-    background-color: ;
     border: solid #E1E5EA;
     border-width: 1px 0;
 }

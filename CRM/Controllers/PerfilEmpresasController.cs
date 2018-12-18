@@ -140,13 +140,6 @@ namespace CRM.Controllers
         }
 
         [HttpGet]
-        [Route("lista-contador-asignado")]
-        public Business.Entity.ContadorAsignadosEntity ContadorAsig(int IdEmpresa)
-        {
-            return PerfilEmpresasDataAccess.ObtieneContadorAsig(IdEmpresa);
-        }
-
-        [HttpGet]
         [Route("lista-contador-anexos")]
         public Business.Entity.ContadorAnexoEntity ContadorAnexos(string RutEmpresa)
         {
@@ -243,7 +236,8 @@ namespace CRM.Controllers
         [Route("lista-entrevista")]
         public ICollection<EntrevistaEntity> ObtenerEntrevistas(string RutEmpresa)
         {
-            return PerfilEmpresasDataAccess.ObtieneEntrevista(RutEmpresa);
+            string Token = ActionContext.Request.Headers.GetValues("Token").First();
+            return PerfilEmpresasDataAccess.ObtieneEntrevista(Token, RutEmpresa);
         }
 
         //[AuthorizationRequired]
@@ -351,7 +345,7 @@ namespace CRM.Controllers
         //{
         //    return PerfilEmpresasDataAccess.ObtenerMantencionGest(RutEmpresa);
         //}
-      
+
 
         //SE CAMBIA POR VISTA CABECERA  detalle MANTENCION
         //[AuthorizationRequired]
@@ -362,7 +356,7 @@ namespace CRM.Controllers
         //    return Business.Data.PerfilEmpresasDataAccess.ObtieneDetalleMantGestion(IdGesMantencion);
         //}
 
-     
+
 
         [AuthorizationRequired]
         [HttpGet]
@@ -400,7 +394,7 @@ namespace CRM.Controllers
         [Route("ingresa-cabecera-mant-gestion")]
         public Business.Entity.CabGestionMantencionEntity NuevaCabeceraGestionMan(CabGestionMantencionEntity cabecera)
         {
-            string Token = ActionContext.Request.Headers.GetValues("Token").First(); 
+            string Token = ActionContext.Request.Headers.GetValues("Token").First();
             return Business.Data.PerfilEmpresasDataAccess.InsertaNuevoCabDetalleGestion(Token, cabecera.RutEmpresa, cabecera.FechaIngreso, cabecera.Tipo, cabecera.Comentarios);
         }
 
@@ -429,8 +423,6 @@ namespace CRM.Controllers
             return Business.Data.PerfilEmpresasDataAccess.ObtieneDetalleMantGestion(IdCabGesMantencion);
         }
 
-
-
         [HttpGet]
         [Route("lista-detalle-entrevista-historial")]
         public ICollection<DetalleEntrevistaEntity> ObtenerDetalleEntreviHistorial(int IdDetalleEntrevista)
@@ -438,6 +430,211 @@ namespace CRM.Controllers
             return PerfilEmpresasDataAccess.ObtenerDetalleEntrevistaHistorial(IdDetalleEntrevista);
         }
 
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("ingresa-cita-agenda-empresa")]
+        public int GuardaCitaAgendaEmp(AgendaEmpresaEntity AgendaCita)
+        {
+            string Token = ActionContext.Request.Headers.GetValues("Token").First();
+            return Business.Data.PerfilEmpresasDataAccess.IngresaCitaAgenda(Token, AgendaCita.RutEmpresa, AgendaCita.NombreEmpresa, AgendaCita.Glosa,
+                                                                                    AgendaCita.FechaInico, AgendaCita.FechaFin, AgendaCita.HoraInicio, AgendaCita.HoraFin,
+                                                                                    AgendaCita.Frecuencia, AgendaCita.Dias, AgendaCita.TipoVisita,
+                                                                                    AgendaCita.IdAnexo, AgendaCita.DiasSucede);
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("ingresa-cita-agenda-empresa-agente")]
+        public int GuardaCitaAgendaEmpAgente(AgendaEmpresaEntity AgendaCita)
+        {
+            string Token = ActionContext.Request.Headers.GetValues("Token").First();
+            return Business.Data.PerfilEmpresasDataAccess.IngresaCitaAgendaAgente(Token, AgendaCita.RutEmpresa, AgendaCita.RutEjecutivo, AgendaCita.NombreEmpresa, AgendaCita.Glosa,
+                                                                                    AgendaCita.FechaInico, AgendaCita.FechaFin, AgendaCita.HoraInicio, AgendaCita.HoraFin,
+                                                                                    AgendaCita.Frecuencia, AgendaCita.Dias, AgendaCita.TipoVisita,
+                                                                                    AgendaCita.IdAnexo, AgendaCita.DiasSucede);
+        }
+
+
+        // [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-cita-agenda-cartera/{RutEmpresa}/{RutEjecutivo}/{IdAnexo}")]
+        public IHttpActionResult ListarMisEventosFC(string RutEmpresa, string RutEjecutivo, int IdAnexo)
+        {
+            string Token = ActionContext.Request.Headers.GetValues("Token").First();
+            var data = PerfilEmpresasDataAccess.ObtenerCitaCartera(RutEmpresa, RutEjecutivo, IdAnexo, Token);
+            var salida = new List<dynamic>();
+
+            data.ForEach(cita =>
+            {
+                var clase = "warning";
+                switch (cita.TipoVisita)
+                {
+                    case "Terreno":
+                        clase = "primary";
+                        break;
+                    case "Telefono":
+                        clase = "warning";
+                        break;
+                    case "Mail":
+                        clase = "success";
+                        break;
+                }
+                var evt = new
+                {
+                    title = cita.NombreEmpresa,
+                    start = cita.FechaInico,
+                    end = cita.FechaFin,
+                    IdAgenda = cita.IdAgenda,
+                    IdRegistro = cita.IdRegistro,
+                    RutEmpresa = cita.RutEmpresa,
+                    NombreEmpresa = cita.NombreEmpresa,
+                    Frecuencia = cita.Frecuencia,
+                    Dias = cita.Dias,
+                    DiasSucede = cita.DiasSucede,
+                    TipoVisita = cita.TipoVisita,
+                    IdAnexo = cita.IdAnexo,
+                    HoraInicio = cita.HoraInicio,
+                    HoraFin =cita.HoraFin,
+                    Ncitas = cita.NCitas,
+                    Glosa = cita.Glosa,
+                    className = clase
+                };
+                salida.Add(evt);
+            });
+
+            return Json(salida);
+        }
+
+        [HttpGet]
+        [Route("lista-cita-agenda-cartera-anexo/{RutEmpresa}/{RutEjecutivo}/{IdAnexo}")]
+        public IHttpActionResult ListarMisEventosFC(string RutEmpresa, int IdAnexo)
+        {
+            var data = PerfilEmpresasDataAccess.ObtenerCitaCarteraAnexo(RutEmpresa, IdAnexo);
+
+            var salida = new List<dynamic>();
+
+            data.ForEach(cita =>
+            {
+                var clase = "warning";
+                switch (cita.TipoVisita)
+                {
+                    case "Terreno":
+                        clase = "primary";
+                        break;
+                    case "Telefono":
+                        clase = "warning";
+                        break;
+                    case "Mail":
+                        clase = "success";
+                        break;
+                }
+                var evt = new
+                {
+                    title = cita.NombreEmpresa,
+                    start = cita.FechaInico,
+                    end = cita.FechaFin,
+                    IdAgenda = cita.IdAgenda,
+                    IdRegistro = cita.IdRegistro,
+                    RutEmpresa = cita.RutEmpresa,
+                    NombreEmpresa = cita.NombreEmpresa,
+                    Frecuencia = cita.Frecuencia,
+                    Dias = cita.Dias,
+                    DiasSucede = cita.DiasSucede,
+                    TipoVisita = cita.TipoVisita,
+                    IdAnexo = cita.IdAnexo,
+                    HoraInicio = cita.HoraInicio,
+                    HoraFin = cita.HoraFin,
+                    Ncitas = cita.NCitas,
+                    Glosa = cita.Glosa,
+                    className = clase
+                };
+
+                salida.Add(evt);
+            });
+
+            return Json(salida);
+        }
+
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-cita-agenda-cartera-ejecutivo/{RutEmpresa}/{IdAnexo}")]
+        public IHttpActionResult ListarMisEventosFCejecutivo(string RutEmpresa, int IdAnexo)
+        {
+            string Token = ActionContext.Request.Headers.GetValues("Token").First();
+            var data = PerfilEmpresasDataAccess.ObtenerCitaCarteraEjecutivo(RutEmpresa, Token, IdAnexo);
+
+            var salida = new List<dynamic>();
+
+            data.ForEach(cita =>
+            {
+                var clase = "warning";
+                switch (cita.TipoVisita)
+                {
+                    case "Terreno":
+                        clase = "primary";
+                        break;
+                    case "Telefono":
+                        clase = "warning";
+                        break;
+                    case "Mail":
+                        clase = "success";
+                        break;
+                }
+                var evt = new
+                {
+                    title = cita.NombreEmpresa,
+                    start = cita.FechaInico,
+                    end = cita.FechaFin,
+                    IdAgenda = cita.IdAgenda,
+                    IdRegistro = cita.IdRegistro,
+                    RutEmpresa = cita.RutEmpresa,
+                    NombreEmpresa = cita.NombreEmpresa,
+                    Frecuencia = cita.Frecuencia,
+                    Dias = cita.Dias,
+                    DiasSucede = cita.DiasSucede,
+                    TipoVisita = cita.TipoVisita,
+                    IdAnexo = cita.IdAnexo,
+                    HoraInicio = cita.HoraInicio,
+                    HoraFin = cita.HoraFin,
+                    Ncitas = cita.NCitas,
+                    Glosa = cita.Glosa,
+                    className = clase
+                };
+
+                salida.Add(evt);
+            });
+
+            return Json(salida);
+        }
+
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("actualiza-cita-agenda-empresa")]
+        public int ActualizaCitaAgendaEmp(AgendaEmpresaEntity AgendaCita)
+        {
+            string Token = ActionContext.Request.Headers.GetValues("Token").First();
+            return Business.Data.PerfilEmpresasDataAccess.ActulizaCitaAgenda(Token, AgendaCita.IdAgenda, AgendaCita.RutEmpresa, AgendaCita.Glosa,
+                                                                                    AgendaCita.FechaInico, AgendaCita.FechaFin, AgendaCita.HoraInicio, AgendaCita.HoraFin, AgendaCita.TipoVisita );
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("elimina-cita-agenda-empresa")]
+        public int EliminaCitaAgendaEmp(AgendaEmpresaEntity AgendaCita)
+        {
+            string Token = ActionContext.Request.Headers.GetValues("Token").First();
+            return Business.Data.PerfilEmpresasDataAccess.EliminaCitaAgenda(Token, AgendaCita.IdAgenda, AgendaCita.IdRegistro, AgendaCita.RutEmpresa);
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-empresa-ejecutivo")]
+        public ICollection<CarteraEmpresasEntity> ObtieneEmpresaEjecutivo(string RutEjecutivo)
+        {
+            return Business.Data.PerfilEmpresasDataAccess.ObtieneEmpEjecutivoAsignado(RutEjecutivo);
+        }
 
     }
 

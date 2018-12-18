@@ -76,10 +76,6 @@ namespace CRM.Business.Entity
         public string RutEjecutivoAsignado { get; set; }
     }
 
-    public class ContadorAsignadosEntity
-    {
-        public int TotalAsignados { get; set; }
-    }
     public class ContadorAnexoEntity
     {
         public int TotalAnexos { get; set; }
@@ -95,6 +91,8 @@ namespace CRM.Business.Entity
         public int IdComuna { get; set; }
         public string NombreComuna { get; set; }
         public string Direccion { get; set; }
+        public int TotalAsignados { get; set; }
+        
     }
 
     public class AsignacionAnexoEmpresa
@@ -198,4 +196,26 @@ namespace CRM.Business.Entity
         public string NombreEjecutivo { get; set; }
     }
 
+
+    public class AgendaEmpresaEntity
+    {
+        public int IdAgenda { get; set; }
+        public int IdRegistro { get; set; }
+        public string RutEmpresa { get; set; }
+        public string NombreEmpresa { get; set; }
+        public string RutEjecutivo { get; set; }
+        public string Glosa { get; set; }
+        public DateTime FechaInico { get; set; }
+        public DateTime FechaFin { get; set; }
+        public string HoraInicio { get; set; }
+        public string HoraFin { get; set; }
+        public string Frecuencia { get; set; }
+        public string Dias { get; set; }
+        public int DiasSucede { get; set; }
+        public string TipoVisita { get; set; }
+        public int CodOficina { get; set; }
+        public int IdAnexo { get; set; }
+        public int NCitas { get; set; }
+
+    }
 }

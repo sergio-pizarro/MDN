@@ -9,6 +9,11 @@
 <link href="~/Assets/plugins/switchery/switchery.min.css" rel="stylesheet">
 <link href="~/Assets/plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
 
+<link href="~/Assets/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/fullcalendar/nifty-skin/fullcalendar-nifty.min.css" rel="stylesheet">
+
+<link href="~/Assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+
 
 <h1 id="tituloEmp">Ficha de Empresa</h1>
 <div id="page-content">
@@ -105,30 +110,32 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <div class="panel" style="border-radius: 6px;" ">
+            <div class="panel" style="border-radius: 6px;">
 
                 <!--Panel heading-->
                 <div class="panel-heading">
                     <div class="panel-control" style="float:left;">
                         <ul class="nav nav-tabs">
-                            <li class="active">
+                            <li id="liPlanif" class="active">
+                                <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="true" id="tab_Planificacion" style="font-weight: bold;">Planificación <span id="ncitas" class="pull-right badge badge-danger" style="margin-top: 12px;">0</span></a>
+                            </li>
+                            <li class="">
                                 <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_anexos" style="font-weight: bold;">Anexos</a>
                             </li>
-
-                            <li class="" style="display:block;">
+                            <li id="liPlanif" class="" style="display:block;">
                                 <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_comercial" style="font-weight: bold;">Visitas</a>
                             </li>
-
-                            <li id="liOport" class="">
+                            <li class="">
                                 <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_oportunidad" style="font-weight: bold;">Oportunidades<span class="badge badge-success" id="cantAlertas"></span></a>
                             </li>
+
                         </ul>
                     </div>
                     <h3 class="panel-title" style="color:white">.</h3>
                 </div>
                 <div class="panel-body">
                     <div class="tab-content">
-                        <div id="demo-lft-tab-3" class="tab-pane fade active in">
+                        <div id="demo-lft-tab-3" class="tab-pane fade">
                             <div class="panel-body">
                                 <div id="radioValidador" style="display:none;">
                                     <div class="radio">
@@ -263,6 +270,39 @@
                                 </table>
                             </div>
                         </div>
+
+                        <div id="demo-lft-tab-4" class="tab-pane fade active in">
+                            <div id="page-content">
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-3">
+                                        <div class="panel" style="border-radius: 9px; border: 1px solid #d8dce0;">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Tipos de Gestion</h3>
+                                            </div>
+                                            <div class="panel-body">
+
+                                                <div id="demo-external-events">
+                                                    <div class="fc-event fc-list">Terreno</div>
+                                                    <div class="fc-event fc-list" data-class="warning">Telefono</div>
+                                                    <div class="fc-event fc-list" data-class="success">Mail</div>
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-lg-9">
+                                        <div class="panel" style="border-radius: 9px; border: 1px solid #d8dce0;">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Calendario</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div id='demo-calendar'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -278,6 +318,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
                 <h4 class="modal-title"><i class="demo-psi-receipt-4 icon-lg" style="margin-left: 10px;"></i>    Ingreso Visita</h4>
+
             </div>
             <div class="panel-body">
                 <div id="radioVisitas">
@@ -291,6 +332,7 @@
                     </div>
                     <hr />
                 </div>
+
 
                 <div class="form-horizontal" style="display: none;" id="divEntrevista">
                     <h4>Datos de Entrevista</h4>
@@ -343,14 +385,15 @@
                                         <button class="btn btn-sm btn-primary btn-icon btn-rounded" id="btGuardaCabecera" style="margin-top: 31px;">Guardar Datos de Entrevista<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></button>
                                     </div>
                                 </div>
-
-
+                                <div id="msjEntrevistaCab"></div>
                             </div>
+
                         </div>
                     </form>
 
-                    <h4>Detalle Entrevista</h4>
-                    <form id="form_entrevista_detalle" action="#" method="post">
+
+                    <form id="form_entrevista_detalle" action="#" method="post" style="display:none">
+                        <h4>Detalle Entrevista</h4>
                         <div class="panel panel-bordered-dark" style="border-radius: 8px; border: 1px solid #e5e5e5;">
                             <div class="panel-body">
                                 <div class="row">
@@ -408,6 +451,8 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-sm btn-primary btn-icon btn-rounded" id="btGuardaDetalleEntrevista" disabled>Guardar y Agregar<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></button>
+
+                                <div id="msjEntrevistaDet"></div>
                             </div>
 
                         </div>
@@ -450,10 +495,12 @@
                                         <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioCabeceraGestion" name="comentarioCabeceraGestion" style="display: block"></textarea>
                                     </div>
                                 </div>
+
+                                <div id="msjMantGestCab"></div>
                             </div>
                         </div>
                     </form>
-                    <form id="form_gestion_mantencion_detalle" action="#" method="post">
+                    <form id="form_gestion_mantencion_detalle" action="#" method="post" style="display:none">
                         <div class="panel panel-bordered-dark" style="border-radius: 8px; border: 1px solid #e5e5e5;">
                             <div class="panel-body">
 
@@ -495,6 +542,9 @@
                                         <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioGestion" name="comentarioGestion" style="display: block"></textarea>
                                     </div>
                                 </div>
+
+                                <div id="msjMantGestDet"></div>
+
                             </div>
                         </div>
                         <button class="btn btn-sm btn-primary btn-icon btn-rounded" id="btGuardaDetalleGestionMan" disabled>Guardar Detalle de gestion mantención<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></button>
@@ -505,6 +555,8 @@
         </div>
     </div>
 </div>
+
+
 
 @*MODAL DE GESTION*@
 <div id="demo-lg-modal-new" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
@@ -749,6 +801,389 @@
     <div id="text">Cargando Documento, por favor espera...</div>
 </div>
 
+
+<div id="demo-lg-modal-agenda" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 6px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title"><i class="demo-pli-calendar-4 icon-lg" style="margin-left: 10px; margin-top: -2px;"></i>   Ingreso de Citas</h4>
+            </div>
+            <form id="form_registro_agendaEmpresa" action="#" method="post">
+                <div class="panel-body">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha</label>
+                                        <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">Tipo de Visita</label>
+                                        <select id="slTipoVisita" name="slTipoVisita" class="form-control" tabindex="-98">
+                                            <option value="">Seleccione</option>
+                                            <option value="Terreno">Terreno</option>
+                                            <option value="Telefono">Telefono</option>
+                                            <option value="Mail">Mail</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea placeholder="Observación" style="height: 80px;" rows="13" id="txtObsCita" name="txtObsCita" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div id="divPeriodico" style="display: block;">
+                                <h4 id="tituloFecuencia">Frecuencia</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Sucede</label>
+                                            <select id="slFrecuencia" name="slFrecuencia" class="form-control" tabindex="-98">
+                                                <option value="">Seleccione</option>
+                                                <option value="Diaria">Diaria</option>
+                                                <option value="Semanal">Semanal</option>
+                                                <option value="Quincenal">Quincenal</option>
+                                                <option value="Mensual">Mensual</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <hr style="margin-top: 1px;" />
+
+                                <div style="display:block;">
+                                    <div class="panel panel-bordered-info" id="divSemanal" style="display:none;">
+                                        <div class="panel-body">
+                                            <div class="form-group pad-ver">
+                                                <label class="col-md-2 control-label" style="margin-top: 10px;  color: black;">Seleccione los dias</label>
+                                                <div class="col-md-9">
+                                                    <div class="checkbox">
+                                                        <input id="checkbox-lunes" class="magic-checkbox" type="checkbox" name="groupCkeckDias[]" value='Lunes'>
+                                                        <label for="checkbox-lunes">Lunes</label>
+
+                                                        <input id="checkbox-martes" class="magic-checkbox" type="checkbox" name="groupCkeckDias[]" value='Martes'>
+                                                        <label for="checkbox-martes">Martes</label>
+
+                                                        <input id="checkbox-miercoles" class="magic-checkbox" type="checkbox" name="groupCkeckDias[]" value='Miércoles'>
+                                                        <label for="checkbox-miercoles">Miercoles</label>
+
+                                                        <input id="checkbox-jueves" class="magic-checkbox" type="checkbox" name="groupCkeckDias[]" value='Jueves'>
+                                                        <label for="checkbox-jueves">Jueves</label>
+
+                                                        <input id="checkbox-viernes" class="magic-checkbox" type="checkbox" name="groupCkeckDias[]" value='Viernes'>
+                                                        <label for="checkbox-viernes">Viernes</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3" style="display:none;" id="divMensual">
+                                            <div class="form-group">
+                                                <label class="control-label">Dia</label>
+                                                <select id="slDiasMensual" name="slDiasMensual" class="form-control" tabindex="-98">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="Lunes">Lunes</option>
+                                                    <option value="Martes">Martes</option>
+                                                    <option value="Miércoles">Miércoles</option>
+                                                    <option value="Jueves">Jueves</option>
+                                                    <option value="Viernes">Viernes</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" style="display: none;" id="divDiario">
+                                            <div class="form-group">
+                                                <label class="control-label">Repetir Cada</label>
+                                                <select id="slSucedeDia" name="slSucedeDia" class="form-control" tabindex="-98">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="0">Solo una vez</option>
+                                                    <option value="2">Cada 2 Dias</option>
+                                                    <option value="3">Cada 3 Dias</option>
+                                                    <option value="4">Cada 4 Dias</option>
+                                                    <option value="1">Todos los Dias laborales</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Comienza</label>
+                                                <div class="input-group date">
+                                                    <select id="slComienzaDia" name="slComienzaDia" class="form-control" tabindex="-98">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="09:00">9:00 hrs.</option>
+                                                        <option value="09:30">9:30 hrs.</option>
+                                                        <option value="10:00">10:00 hrs.</option>
+                                                        <option value="10:30">10:30 hrs.</option>
+                                                        <option value="11:00">11:00 hrs.</option>
+                                                        <option value="11:30">11:30 hrs.</option>
+                                                        <option value="12:00">12:00 hrs.</option>
+                                                        <option value="12:30">12:30 hrs.</option>
+                                                        <option value="13:00">13:00 hrs.</option>
+                                                        <option value="13:30">13:30 hrs.</option>
+                                                        <option value="14:00">14:00 hrs.</option>
+                                                        <option value="14:30">14:30 hrs.</option>
+                                                        <option value="15:00">15:00 hrs.</option>
+                                                        <option value="15:30">15:30 hrs.</option>
+                                                        <option value="16:00">16:00 hrs.</option>
+                                                        <option value="16:30">16:30 hrs.</option>
+                                                        <option value="17:00">17:00 hrs.</option>
+                                                        <option value="17:30">17:30 hrs.</option>
+                                                        <option value="18:00">18:00 hrs.</option>
+                                                        <option value="18:30">18:30 hrs.</option>
+                                                        <option value="19:00">19:00 hrs.</option>
+                                                        <option value="19:30">19:30 hrs.</option>
+                                                        <option value="20:00">20:00 hrs.</option>
+                                                        <option value="20:30">20:30 hrs.</option>
+                                                        <option value="21:00">21:00 hrs.</option>
+                                                    </select>
+                                                    <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Duración</label>
+                                                <div class="input-group date">
+                                                    <select id="slDuracionDia" name="slDuracionDia" class="form-control" tabindex="-98">
+                                                        <option value="00:30">30 Minutos</option>
+                                                        <option value="01:00">1 Hora</option>
+                                                        <option value="02:00">2 Horas</option>
+                                                        <option value="03:00">3 Horas</option>
+                                                        <option value="04:00">4 Horas</option>
+                                                    </select>
+                                                    <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Hora finalización</label>
+                                                <input type="text" class="form-control" id="txtHoraFin" name="txtHoraFin" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-footer text-right" style="background-color: #fff;">
+                            <button class="btn btn-success" id="btGuardaCita">Agendar Cita</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="demo-lg-modal-agenda_update" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 6px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title" id="nomEmpCita"><i class="demo-pli-calendar-4 icon-lg" style="margin-left: 10px; margin-top: -2px;"></i></h4>
+            </div>
+            <form id="form_registro_agendaEmpresa_update" action="#" method="post">
+                <div class="panel-body">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha</label>
+                                        <div id="demo-dp-component">
+                                            <div class="input-group date">
+                                                <input class="form-control input-group date" type="text" id="txtFechacita_update" name="txtFechacita_update">
+                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">Tipo de Visita</label>
+                                        <select id="slTipoVisita_update" name="slTipoVisita_update" class="form-control" tabindex="-98">
+                                            <option value="">Seleccione</option>
+                                            <option value="Terreno">Terreno</option>
+                                            <option value="Telefono">Telefono</option>
+                                            <option value="Mail">Mail</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea placeholder="Observación" style="height: 80px;" rows="13" id="txtObsCita_update" name="txtObsCita_update" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div id="divPeriodico_update" style="display: block;">
+                                <h4 id="tituloFecuencia_update">Frecuencia</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Sucede</label>
+                                            <select id="slFrecuencia_update" name="slFrecuencia_update" class="form-control" tabindex="-98" disabled>
+                                                <option value="">Seleccione</option>
+                                                <option value="Diaria">Diaria</option>
+                                                <option value="Semanal">Semanal</option>
+                                                <option value="Quincenal">Quincenal</option>
+                                                <option value="Mensual">Mensual</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <hr style="margin-top: 1px;" />
+
+                                <div style="display:block;">
+                                    <div class="panel panel-bordered-info" id="divSemanal_update" style="display:none;">
+                                        <div class="panel-body">
+                                            <div class="form-group pad-ver">
+                                                <label class="col-md-2 control-label" style="margin-top: 10px;  color: black;">Seleccione los dias</label>
+                                                <div class="col-md-9">
+                                                    <div class="checkbox">
+                                                        <input id="checkbox-lunes_update" class="magic-checkbox" type="checkbox" name="groupCkeckDias_update[]" value='Lunes' disabled>
+                                                        <label for="checkbox-lunes_update">Lunes</label>
+
+                                                        <input id="checkbox-martes_update" class="magic-checkbox" type="checkbox" name="groupCkeckDias_update[]" value='Martes' disabled>
+                                                        <label for="checkbox-martes_update">Martes</label>
+
+                                                        <input id="checkbox-miercoles_update" class="magic-checkbox" type="checkbox" name="groupCkeckDias_update[]" value='Miércoles' disabled>
+                                                        <label for="checkbox-miercoles_update">Miercoles</label>
+
+                                                        <input id="checkbox-jueves_update" class="magic-checkbox" type="checkbox" name="groupCkeckDias_update[]" value='Jueves' disabled>
+                                                        <label for="checkbox-jueves_update">Jueves</label>
+
+                                                        <input id="checkbox-viernes_update" class="magic-checkbox" type="checkbox" name="groupCkeckDias_update[]" value='Viernes' disabled>
+                                                        <label for="checkbox-viernes_update">Viernes</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3" style="display:none;" id="divMensual_update">
+                                            <div class="form-group">
+                                                <label class="control-label">Dia</label>
+                                                <select id="slDiasMensual_update" name="slDiasMensual_update" class="form-control" tabindex="-98">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="Lunes">Lunes</option>
+                                                    <option value="Martes">Martes</option>
+                                                    <option value="Miércoles">Miércoles</option>
+                                                    <option value="Jueves">Jueves</option>
+                                                    <option value="Viernes">Viernes</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" style="display: none;" id="divDiario_update">
+                                            <div class="form-group">
+                                                <label class="control-label">Repetir Cada</label>
+                                                <select id="slSucedeDia_update" name="slSucedeDia_update" class="form-control" tabindex="-98" disabled>
+                                                    <option value="">Seleccione</option>
+                                                    <option value="0">Solo una vez</option>
+                                                    <option value="2">Cada 2 Dias</option>
+                                                    <option value="3">Cada 3 Dias</option>
+                                                    <option value="4">Cada 4 Dias</option>
+                                                    <option value="1">Todos los Dias laborales</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Comienza</label>
+                                                <div class="input-group date">
+                                                    <select id="slComienzaDia_update" name="slComienzaDia_update" class="form-control" tabindex="-98">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="09:00">9:00 hrs.</option>
+                                                        <option value="09:30">9:30 hrs.</option>
+                                                        <option value="10:00">10:00 hrs.</option>
+                                                        <option value="10:30">10:30 hrs.</option>
+                                                        <option value="11:00">11:00 hrs.</option>
+                                                        <option value="11:30">11:30 hrs.</option>
+                                                        <option value="12:00">12:00 hrs.</option>
+                                                        <option value="12:30">12:30 hrs.</option>
+                                                        <option value="13:00">13:00 hrs.</option>
+                                                        <option value="13:30">13:30 hrs.</option>
+                                                        <option value="14:00">14:00 hrs.</option>
+                                                        <option value="14:30">14:30 hrs.</option>
+                                                        <option value="15:00">15:00 hrs.</option>
+                                                        <option value="15:30">15:30 hrs.</option>
+                                                        <option value="16:00">16:00 hrs.</option>
+                                                        <option value="16:30">16:30 hrs.</option>
+                                                        <option value="17:00">17:00 hrs.</option>
+                                                        <option value="17:30">17:30 hrs.</option>
+                                                        <option value="18:00">18:00 hrs.</option>
+                                                        <option value="18:30">18:30 hrs.</option>
+                                                        <option value="19:00">19:00 hrs.</option>
+                                                        <option value="19:30">19:30 hrs.</option>
+                                                        <option value="20:00">20:00 hrs.</option>
+                                                        <option value="20:30">20:30 hrs.</option>
+                                                        <option value="21:00">21:00 hrs.</option>
+                                                    </select>
+                                                    <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Duración</label>
+                                                <div class="input-group date">
+                                                    <select id="slDuracionDia_update" name="slDuracionDia_update" class="form-control" tabindex="-98">
+                                                        <option value="00:30">30 Minutos</option>
+                                                        <option value="01:00">1 Hora</option>
+                                                        <option value="02:00">2 Horas</option>
+                                                        <option value="03:00">3 Horas</option>
+                                                        <option value="04:00">4 Horas</option>
+                                                    </select>
+                                                    <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Hora finalización</label>
+                                                <input type="text" class="form-control" id="txtHoraFin_update" name="txtHoraFin_update" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-footer text-right" style="background-color: #fff;">
+                            <button class="btn btn-success" name="btCita_update" id="btCita_update">Modificar Cita</button>
+                            <button class="btn btn-danger" name="btCita_elimina" id="btCita_elimina" type="button"> Eliminar</button>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
 <style>
 
 
@@ -784,6 +1219,16 @@
     <script src="~/Assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
     <script src="~/Assets/plugins/switchery/switchery.min.js"></script>
 
+    <script src="~/Assets/plugins/fullcalendar/lib/moment.min.js"></script>
+    <script src="~/Assets/plugins/fullcalendar/lib/jquery-ui.custom.min.js"></script>
+    <script src="~/Assets/plugins/fullcalendar/fullcalendar.min.js"></script>
+    <script src='~/Assets/plugins/fullcalendar/lang-all.js'></script>
+    <script src="~/Assets/plugins/bootbox/bootbox.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
+
+
+    @*<script src="~/Assets/plugins/fullcalendar/lang/es.js"></script>*@
+
 
     <script type="text/javascript">
         var rutE = httpGet('rutEmp');
@@ -800,6 +1245,17 @@
         var compromiso = 0;
         var alerta = 0;
         var alertaGestion = 0;
+
+
+        $('#dateTimepk').timepicker();
+        $('#dateTimeDiaria').timepicker();
+        $('#dateTimeSemanal').timepicker();
+        $('#dateTimeMensual').timepicker();
+        $('#demo-dp-component .input-group.date').datepicker({
+            format: "dd-mm-yyyy",
+            autoclose: true,
+            language: "es"
+        }).datepicker("setDate", new Date());
 
         Dropzone.autoDiscover = false;
         var myDropzone = new Dropzone("div#dzMain", {
@@ -821,8 +1277,8 @@
 
         if (IJ == 0) {
             $("#tab_anexos").css('display', 'none')
-            $("#liOport").addClass('active')
-            $("#demo-lft-tab-2").addClass('active in')
+            //$("#liPlanif").addClass('active')
+            //$("#demo-lft-tab-1").addClass('active in')
         }
 
 
@@ -988,20 +1444,6 @@
             excluded: [':disabled', ':not(:visible)'],
             feedbackIcons: [],
             fields: {
-                txRutEmp: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Debe ingresar rut'
-                        }
-                    }
-                },
-                slEmperesa_multiselect: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Debe seleccionar una empresa'
-                        }
-                    }
-                },
                 anexo: {
                     validators: {
                         notEmpty: {
@@ -1122,16 +1564,6 @@
             excluded: [':disabled', ':not(:visible)'],
             feedbackIcons: [],
             fields: {
-                //FechaGestges: {
-                //    validators: {
-                //        notEmpty: {
-                //            message: 'Debe ingresar una Fecha'
-                //        }, date: {
-                //            format: 'MM/DD/YYYY',
-                //            message: 'The format is MM/DD/YYYY'
-                //        }
-                //    }
-                //},
                 nombContacto: {
                     validators: {
                         notEmpty: {
@@ -1178,8 +1610,15 @@
         }).on('success.form.bv', function (e) {
             e.preventDefault();
             var $form = $(e.target);
+
+            var rutEmpresa = 0;
+            if (rutE != "" && rutE != 'undefined' && rutE != null) {
+                rutEmpresa = rutE;
+            }
+            else { rutEmpresa = RutEmpAnexo }
+
             var objeto_envio_entrevista = {
-                RutEmpresa: rutE,
+                RutEmpresa: rutEmpresa,
                 FechaEntrevista: $('#FechaGestges').val(),
                 NombreContacto: $("#nombContacto").val(),
                 Estamento: $('#slEstamento').val(),
@@ -1192,13 +1631,13 @@
             $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/ingresa-cabecera-entrevista", objeto_envio_entrevista, function (datos) {
                 $('#btGuardaCabecera').css('display', 'none')
                 $('#btGuardaDetalleEntrevista').attr('disabled', false);
-                // console.log(datos.IdEntrevista)
+                $('#form_entrevista_detalle').css('display', 'block')
                 idEnvta = datos.IdEntrevista
                 $.niftyNoty({
                     type: 'success',
                     icon: 'pli-like-2 icon-2x',
                     message: 'Entrevista Creada Correctamente.',
-                    container: 'floating',
+                    container: '#msjEntrevistaCab',
                     timer: 5000
                 });
                 cargador.CargaDatosEntrevista();
@@ -1265,11 +1704,13 @@
                 $("#divFechaResul").css('display', 'none')
                 $('#FechaResolucion').val('01-01-1900')
 
+
+
                 $.niftyNoty({
                     type: 'success',
                     icon: 'pli-like-2 icon-2x',
                     message: 'Detalle Entrevista Guardada Correctamente.',
-                    container: 'floating',
+                    container: '#msjEntrevistaDet',
                     timer: 5000
                 });
             });
@@ -1305,8 +1746,15 @@
         }).on('success.form.bv', function (e) {
             e.preventDefault();
             var $form = $(e.target);
+
+            var rutEmpresa = 0;
+            if (rutE != "" && rutE != 'undefined' && rutE != null) {
+                rutEmpresa = rutE;
+            }
+            else { rutEmpresa = RutEmpAnexo }
+
             var objeto_envio_cab_gestion_man = {
-                RutEmpresa: rutE,
+                RutEmpresa: rutEmpresa,
                 FechaIngreso: $('#FechaCabeceraGest').val(),
                 Tipo: $("#slTipoGestion").val(),
                 Comentarios: $('#comentarioCabeceraGestion').val(),
@@ -1314,12 +1762,13 @@
             $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/ingresa-cabecera-mant-gestion", objeto_envio_cab_gestion_man, function (datos) {
                 $('#btGuardaGestionMan').css('display', 'none')
                 $('#btGuardaDetalleGestionMan').attr('disabled', false);
+                $('#form_gestion_mantencion_detalle').css('display', 'block')
                 idCabManGest = datos.IdCabGesMantencion
                 $.niftyNoty({
                     type: 'success',
                     icon: 'pli-like-2 icon-2x',
                     message: 'Mantencion Gestion Creada Correctamente.',
-                    container: 'floating',
+                    container: '#msjMantGestCab',
                     timer: 5000
                 });
                 cargador.CargaDatosGestionMan();
@@ -1382,7 +1831,7 @@
                 Alerta: alertaGestion,
             }
             $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/ingresa-gestion-mantencion", objeto_envio_gestion_mantencion, function (datos) {
-                $("#form_gestion_mantencion").bootstrapValidator('resetForm', true);
+                $("#form_gestion_mantencion_detalle").bootstrapValidator('resetForm', true);
 
                 $("#slTemaGestion").val('')
                 $("#slSubTemavisita").val("")
@@ -1394,13 +1843,24 @@
                 $.niftyNoty({
                     type: 'success',
                     icon: 'pli-like-2 icon-2x',
-                    message: 'Nuevo mantencion de gestion Creado Correctamente.',
-                    container: 'floating',
+                    message: 'Nuevo detalle de gestion Creado Correctamente.',
+                    container: '#msjMantGestDet',
                     timer: 5000
                 });
             });
         });
-
+        $('#demo-lg-modal-entrevista').on('hidden.bs.modal', function (event) {
+            $('#btGuardaCabecera').css('display', 'block')
+            $('#btGuardaGestionMan').css('display', 'block')
+            $("#form_gestion_mantencion").bootstrapValidator('resetForm', true);
+            $("#form_gestion_mantencion_detalle").bootstrapValidator('resetForm', true);
+            $("#form-registro-entrevista").bootstrapValidator('resetForm', true);
+            $("#form_entrevista_detalle").bootstrapValidator('resetForm', true);
+            $("#slAfiliadoSelect").val('').trigger("chosen:updated");
+            $("#ckAlertaNOGestion").prop("checked", true);
+            $('#form_gestion_mantencion_detalle').css('display', 'none')
+            $('#form_entrevista_detalle').css('display', 'none')
+        });
 
         var cargador = {
             CargaDatosAsignadosEmp: function () {
@@ -1464,25 +1924,29 @@
                 $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-cartera-anexo", { RutEmpresa: rutE }, function (menus) {
                     var contador = 0;
                     $.each(menus, function (i, e) {
-                        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-contador-asignado", { IdEmpresa: e.IdEmpresaAnexo }, function (respuesta) {
-                            contador = respuesta.TotalAsignados;
-                            $("#tbdyAnexo")
-                                .append(
-                                    $("<tr>")
-                                        .append($("<td>").append(e.RutEmpresa))
-                                        .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresaAnexo + '&IJ=0' + '&rutEmAnexo=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.Anexo + '</a>'))
-                                        .append($("<td>").append('<div class="media-left pos-rel"><img class="img-circle img-sm" src="../Assets/img/profile-photos/2.png" alt="Profile Picture"><i class="badge badge-success badge-stat badge-icon pull-left">' + e.NumTrabajadores + '</i></div>'))
-                                        .append($("<td>").append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.IdEmpresaAnexo + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
-                                        .append($("<td>").append('<i href="#" data-toggle="modal" data-target="#demo-lg-modal-AsigEmp" data-idEmp="' + e.IdEmpresaAnexo + '"><i class="btn btn-sm demo-psi-add icon-lg" style="font-size: 31px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + contador + '</span></i>'))
-                                )
-                        });
+                        $("#tbdyAnexo")
+                            .append(
+                                $("<tr>")
+                                    .append($("<td>").append(e.RutEmpresa))
+                                    .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresaAnexo + '&IJ=0' + '&rutEmAnexo=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.Anexo + '</a>'))
+                                    .append($("<td>").append('<div class="media-left pos-rel"><img class="img-circle img-sm" src="../Assets/img/profile-photos/2.png" alt="Profile Picture"><i class="badge badge-success badge-stat badge-icon pull-left">' + e.NumTrabajadores + '</i></div>'))
+                                    .append($("<td>").append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.IdEmpresaAnexo + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
+                                    .append($("<td>").append('<i href="#" data-toggle="modal" data-target="#demo-lg-modal-AsigEmp" data-idEmp="' + e.IdEmpresaAnexo + '"><i class="btn btn-sm demo-psi-add icon-lg" style="font-size: 31px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + e.TotalAsignados + '</span></i>'))
+                            )
                     });
                 });
 
             },
             CargaDatosEntrevista: function () {
                 $("#tbdyentrevista").html("");
-                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-entrevista", { RutEmpresa: rutE }, function (menus) {
+
+                var rutEmpresa = 0;
+                if (rutE != "" && rutE != 'undefined' && rutE != null) {
+                    rutEmpresa = rutE;
+                }
+                else { rutEmpresa = RutEmpAnexo }
+
+                $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-entrevista", { RutEmpresa: rutEmpresa }, function (menus) {
                     $.each(menus, function (i, e) {
                         $("#tbdyentrevista")
                             .append(
@@ -1521,8 +1985,122 @@
                     });
                 });
 
-            }
+            },
+            CargaAgenda: function (rutEmp, rutEje, idAnexo) {
+                //var idEmp = 0
+                //if (IJ == 0) {
+                //    rutEmp = RutEmpAnexo
+                //    idEmp = idAnexo
+                //}
 
+                var rutEmp = 0;
+                var idEmp = 0;
+                if (rutE != "" && rutE != 'undefined' && rutE != null) {
+                    rutEmp = rutE;
+                }
+                else {
+                    rutEmp = RutEmpAnexo;
+                    idEmp = idEmpresa;
+                }
+
+
+                $('#demo-calendar').fullCalendar('destroy');
+                $('#demo-calendar').fullCalendar({
+                    lang: 'es',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    defaultView: 'month',
+                    weekends: false,
+                    defaultDate: moment(),
+                    eventLimit: false,
+                    selectable: true,
+                    selectHelper: true,
+                    editable: false,
+                    eventClick: function (event) {
+
+                        $('#txtFechacita_update').val(event.start._i.toFecha())
+                        $('#slTipoVisita_update').val(event.TipoVisita)
+                        $('#txtObsCita_update').val(event.Glosa)
+                        $('#slFrecuencia_update').val(event.Frecuencia)
+                        $('#slSucedeDia_update').val(event.DiasSucede)
+                        $('#slComienzaDia_update').val(event.HoraInicio)
+                        $('#slDiasMensual_update').val(event.Dias)
+                        $('#txtHoraFin_update').val(event.HoraFin)
+                        $('#nomEmpCita').html(' Cita de Empresa:  ' + event.NombreEmpresa)
+
+                        $("#btCita_update").data("idagenda", event.IdAgenda).data("idregistro", event.IdRegistro)
+                        $("#btCita_elimina").data("idregistro", event.IdRegistro).data("idagenda", event.IdAgenda)
+
+                        if (event.Frecuencia == 'Diaria') {
+                            $("#divMensual_update").css('display', 'none')
+                            $("#divSemanal_update").css('display', 'none')
+                            $("#divDiario_update").css('display', 'block')
+                        }
+                        else if (event.Frecuencia == 'Semanal') {
+                            $("#divDiario_update").css('display', 'none')
+                            $("#divMensual_update").css('display', 'none')
+                            $("#divSemanal_update").css('display', 'block')
+                        }
+                        else if (event.Frecuencia == 'Quincenal') {
+                            $("#divDiario_update").css('display', 'none')
+                            $("#divMensual_update").css('display', 'none')
+                            $("#divSemanal_update").css('display', 'block')
+                        }
+                        else if (event.Frecuencia == 'Mensual') {
+                            $("#divDiario_update").css('display', 'none')
+                            $("#divSemanal_update").css('display', 'none')
+                            $("#divMensual_update").css('display', 'block')
+                        }
+                        $('#demo-lg-modal-agenda_update').modal('show');
+
+                        return false;
+                    },
+                    select: function (start, end) {
+                        var check = moment(start).format('YYYY-MM-DD');
+                        var today = moment(new Date()).format('YYYY-MM-DD');
+                        if (check >= today) {
+                            $("#lbEmpresaAgenda").html('Empresa : ' + $("#NombreEmpresaPer").html())
+                            $('#txtFechacita').val(moment(start).format('DD-MM-YYYY'))
+                            fechaPop = (moment(start).format('YYYY-MM-DD'))
+                            $('#demo-lg-modal-agenda').modal('show');
+                        }
+                        else {
+
+                            $.niftyNoty({
+                                type: 'danger',
+                                container: 'floating',
+                                title: 'Error',
+                                message: 'NO SE PUEDE CREAR EVENTOS ANTES DE LA FECHA ACTUAL!...',
+                                closeBtn: false,
+                                timer: 2800,
+                            });
+                        }
+                    },
+                    //events: '/motor/api/perfil-empresas/lista-cita-agenda-cartera/' + rutEmp + '/' + rutEje //idEmpresa
+                    eventSources: [
+                        {
+                            url: '/motor/api/perfil-empresas/lista-cita-agenda-cartera/' + rutEmp + '/' + rutEje + '/' + idEmp,
+                            type: 'GET',
+                            headers: {
+                                'Token': getCookie('Token')
+                            },
+                            success: function (i, e) {
+                                if (i.length != 0) {
+                                    $('#ncitas').html(i[0].Ncitas)
+                                }
+                                else {
+                                    $('#ncitas').html('0')
+                                }
+                            }
+                        }
+                    ]
+                });
+                $('#demo-calendar').fullCalendar("refetchEvents");
+                $('#demo-calendar').fullCalendar('render');
+            }
         }
 
         if (rutE != "" && rutE != 'undefined' && rutE != null) {
@@ -1554,6 +2132,7 @@
                 cargador.CargaDatosAnexos();
                 cargador.CargaDatosEntrevista();
                 cargador.CargaDatosGestionMan();
+                cargador.CargaAgenda(rutEmpresa, '0', 0);
             });
         }
         else {
@@ -1579,6 +2158,7 @@
             cargador.CargaDatosAsignadosAnexo();
             cargador.CargaDatosEntrevista();
             cargador.CargaDatosGestionMan();
+            cargador.CargaAgenda(rutEmpresa, '0', idEmpresa);
         }
 
         $(function () {
@@ -1746,9 +2326,84 @@
                 }
             });
 
+
+            $('#slPeriodicidad').change(function (e) {
+                e.preventDefault();
+                if ($(this).val() == 0) {
+                    $("#divUnaVez").css('display', 'block')
+                    $("#divPeriodico").css('display', 'none')
+                }
+                else {
+
+                    $("#divPeriodico").css('display', 'block')
+                    $("#divUnaVez").css('display', 'none')
+                }
+            });
+
+            $('#slFrecuencia').change(function (e) {
+                e.preventDefault();
+                if ($(this).val() == 'Diaria') {
+
+                    $("#divSemanal").css('display', 'none')
+                    $("#divMensual").css('display', 'none')
+                    $("#tituloFecuencia").html('Frecuencia Diaria')
+                    $("#divDiario").css('display', 'block')
+                }
+                else if ($(this).val() == 'Semanal') {
+
+                    $("#divDiario").css('display', 'none')
+                    $("#divMensual").css('display', 'none')
+                    $("#tituloFecuencia").html('Frecuencia Semanal')
+                    $("#divSemanal").css('display', 'block')
+                }
+                else if ($(this).val() == 'Quincenal') {
+
+                    $("#divDiario").css('display', 'none')
+                    $("#divMensual").css('display', 'none')
+                    $("#tituloFecuencia").html('Frecuencia Quicenal')
+                    $("#divSemanal").css('display', 'block')
+                }
+                else if ($(this).val() == 'Mensual') {
+                    $("#divSemanal").css('display', 'none')
+                    $("#divDiario").css('display', 'none')
+                    $("#tituloFecuencia").html('Frecuencia Mensual')
+                    $("#divMensual").css('display', 'block')
+                }
+            });
+
+            $('#slFrecuencia_update').change(function (e) {
+                e.preventDefault();
+                if ($(this).val() == 'Diaria') {
+
+                    $("#divSemanal_update").css('display', 'none')
+                    $("#divMensual_update").css('display', 'none')
+                    $("#tituloFecuencia_update").html('Frecuencia Diaria')
+                    $("#divDiario_update").css('display', 'block')
+                }
+                else if ($(this).val() == 'Semanal') {
+
+                    $("#divDiario_update").css('display', 'none')
+                    $("#divMensual_update").css('display', 'none')
+                    $("#tituloFecuencia_update").html('Frecuencia Semanal')
+                    $("#divSemanal_update").css('display', 'block')
+                }
+                else if ($(this).val() == 'Quincenal') {
+
+                    $("#divDiario_update").css('display', 'none')
+                    $("#divMensual_update").css('display', 'none')
+                    $("#tituloFecuencia_update").html('Frecuencia Quicenal')
+                    $("#divSemanal_update").css('display', 'block')
+                }
+                else if ($(this).val() == 'Mensual') {
+                    $("#divSemanal_update").css('display', 'none')
+                    $("#divDiario_update").css('display', 'none')
+                    $("#tituloFecuencia_update").html('Frecuencia Mensual')
+                    $("#divMensual_update").css('display', 'block')
+                }
+            });
+
             var result = [];
             $('#btGestion').click(function () {
-                //result[0]
                 result.length = 0;
                 var i = 0;
                 $("input[type=checkbox]:checked").each(function () {
@@ -1994,6 +2649,343 @@
                     break;
             }
         });
+        $('#slDuracionDia').change(function (e) {
+            e.preventDefault();
+            if ($(this).val() != '') {
+
+                var Hrini = $('#slComienzaDia').val()
+                var Hrfin = $('#slDuracionDia').val()
+                var HriniSpl = Hrini.split(':');
+                var HrfinSpl = Hrfin.split(':');
+                var hora
+                var minutos;
+                if ((parseInt(HriniSpl[1]) + parseInt(HrfinSpl[1])) < 59) {
+                    hora = parseInt(HriniSpl[0]) + parseInt(HrfinSpl[0]);
+                    minutos = parseInt(HriniSpl[1]) + parseInt(HrfinSpl[1])
+                    if (minutos == 0) {
+                        minutos = '00'
+                    }
+                }
+                else {
+                    hora = (parseInt(HriniSpl[0]) + parseInt(HrfinSpl[0])) + 1;
+                    minutos = '00'
+                }
+                var valor = hora + ':' + minutos
+                $('#txtHoraFin').val(valor)
+            }
+        });
+
+        $('#slComienzaDia').change(function (e) {
+            e.preventDefault();
+            if ($(this).val() != '') {
+
+                var Hrini = $('#slComienzaDia').val()
+                var Hrfin = $('#slDuracionDia').val()
+                var HriniSpl = Hrini.split(':');
+                var HrfinSpl = Hrfin.split(':');
+                var hora
+                var minutos;
+                if ((parseInt(HriniSpl[1]) + parseInt(HrfinSpl[1])) < 59) {
+                    hora = parseInt(HriniSpl[0]) + parseInt(HrfinSpl[0]);
+                    minutos = parseInt(HriniSpl[1]) + parseInt(HrfinSpl[1])
+                    if (minutos == 0) {
+                        minutos = '00'
+                    }
+                }
+                else {
+                    hora = (parseInt(HriniSpl[0]) + parseInt(HrfinSpl[0])) + 1;
+                    minutos = '00'
+                }
+                var valor = hora + ':' + minutos
+                $('#txtHoraFin').val(valor)
+            }
+        });
+
+        $('#slDuracionDia_update').change(function (e) {
+            e.preventDefault();
+            if ($(this).val() != '') {
+
+                var Hrini = $('#slComienzaDia_update').val()
+                var Hrfin = $('#slDuracionDia_update').val()
+                var HriniSpl = Hrini.split(':');
+                var HrfinSpl = Hrfin.split(':');
+                var hora
+                var minutos;
+                if ((parseInt(HriniSpl[1]) + parseInt(HrfinSpl[1])) < 59) {
+                    hora = parseInt(HriniSpl[0]) + parseInt(HrfinSpl[0]);
+                    minutos = parseInt(HriniSpl[1]) + parseInt(HrfinSpl[1])
+                    if (minutos == 0) {
+                        minutos = '00'
+                    }
+                }
+                else {
+                    hora = (parseInt(HriniSpl[0]) + parseInt(HrfinSpl[0])) + 1;
+                    minutos = '00'
+                }
+                var valor = hora + ':' + minutos
+                $('#txtHoraFin_update').val(valor)
+            }
+        });
+
+        $('#slComienzaDia_update').change(function (e) {
+            e.preventDefault();
+            if ($(this).val() != '') {
+
+                var Hrini = $('#slComienzaDia_update').val()
+                var Hrfin = $('#slDuracionDia_update').val()
+                var HriniSpl = Hrini.split(':');
+                var HrfinSpl = Hrfin.split(':');
+                var hora
+                var minutos;
+                if ((parseInt(HriniSpl[1]) + parseInt(HrfinSpl[1])) < 59) {
+                    hora = parseInt(HriniSpl[0]) + parseInt(HrfinSpl[0]);
+                    minutos = parseInt(HriniSpl[1]) + parseInt(HrfinSpl[1])
+                    if (minutos == 0) {
+                        minutos = '00'
+                    }
+                }
+                else {
+                    hora = (parseInt(HriniSpl[0]) + parseInt(HrfinSpl[0])) + 1;
+                    minutos = '00'
+                }
+                var valor = hora + ':' + minutos
+                $('#txtHoraFin_update').val(valor)
+            }
+        });
+
+
+        $('#form_registro_agendaEmpresa').bootstrapValidator({
+            excluded: [':disabled', ':not(:visible)'],
+            feedbackIcons: [],
+            fields: {
+                slTipoVisita: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar un tipo de visita'
+                        }
+                    }
+                },
+                txtObsCita: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar glosa de la cita'
+                        }
+                    }
+                },
+                slFrecuencia: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar una frecuencia'
+                        }
+                    }
+                },
+                slComienzaDia: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar una hora'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var rutEmpresa = 0;
+            var IDAnexo = 0;
+            if (rutE != "" && rutE != 'undefined' && rutE != null) {
+                rutEmpresa = rutE;
+            }
+            else {
+                rutEmpresa = RutEmpAnexo;
+                IDAnexo = idEmpresa;
+            }
+            var $form = $(e.target);
+            var results = new Array();
+
+            results.length = 0;
+            var i = 0;
+            if ($('#slFrecuencia').val() == 'Semanal' || $('#slFrecuencia').val() == 'Quincenal') {
+                $("input[name='groupCkeckDias[]']:checked").each(function () {
+                    results[i] = '"' + $(this).val() + '"'
+                    i++
+                });
+                results = '[' + results + ']'
+            }
+            else if ($('#slFrecuencia').val() == 'Mensual') {
+                results = $('#slDiasMensual').val()
+            }
+            else if ($('#slFrecuencia').val() == 'Diaria') {
+                results = "Null"
+            }
+
+            var objeto_envio_agenda_empresa = {
+                RutEmpresa: rutEmpresa,
+                NombreEmpresa: $('#NombreEmpresaPer').html(),
+                Glosa: $('#txtObsCita').val(),
+                FechaInico: fechaPop + ' ' + $('#slComienzaDia').val(),
+                FechaFin: fechaPop + ' ' + $('#txtHoraFin').val(),
+                HoraInicio: $('#slComienzaDia').val(),
+                HoraFin: $('#txtHoraFin').val(),
+                Frecuencia: $('#slFrecuencia').val(),
+                Dias: results,
+                TipoVisita: $('#slTipoVisita').val(),
+                IdAnexo: IDAnexo,
+                DiasSucede: $('#slSucedeDia').val(),
+            }
+
+            $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/ingresa-cita-agenda-empresa", objeto_envio_agenda_empresa, function (datos) {
+                $("#form_registro_agendaEmpresa").bootstrapValidator('resetForm', true);
+                $('#demo-lg-modal-agenda').modal('hide');
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'pli-like-2 icon-2x',
+                    message: 'Se agendo la cita correctamente.',
+                    container: 'floating',
+                    timer: 5000
+                });
+                $('#demo-calendar').fullCalendar('refetchEvents');
+            });
+        });
+
+
+
+
+        $('#form_registro_agendaEmpresa_update').bootstrapValidator({
+            excluded: [':disabled', ':not(:visible)'],
+            feedbackIcons: [],
+            fields: {
+                slTipoVisita_update: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar un tipo de visita'
+                        }
+                    }
+                },
+                txtObsCita_update: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar glosa de la cita'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var rutEmpresa = 0;
+            if (rutE != "" && rutE != 'undefined' && rutE != null) {
+                rutEmpresa = rutE;
+            }
+            else { rutEmpresa = RutEmpAnexo }
+
+            var $form = $(e.target);
+            var results = new Array();
+            results.length = 0;
+            var i = 0;
+            if ($('#slFrecuencia_update').val() == 'Semanal' || $('#slFrecuencia_update').val() == 'Quincenal') {
+                $("input[name='groupCkeckDias_update[]']:checked").each(function () {
+                    results[i] = '"' + $(this).val() + '"'
+                    i++
+                });
+                results = '[' + results + ']'
+            }
+            else if ($('#slFrecuencia_update').val() == 'Mensual') {
+                results = $('#slDiasMensual_update').val()
+            }
+            else if ($('#slFrecuencia_update').val() == 'Diaria') {
+                results = "Null"
+            }
+
+            var objeto_envio_agenda_empresa_update = {
+                IdAgenda: $("#btCita_update").data("idagenda"),
+                RutEmpresa: rutEmpresa,
+                Glosa: $('#txtObsCita_update').val(),
+                FechaInico: $('#txtFechacita_update').val().toFecha() + ' ' + $('#slComienzaDia_update').val(),
+                FechaFin: $('#txtFechacita_update').val().toFecha() + ' ' + $('#txtHoraFin_update').val(),
+                HoraInicio: $('#slComienzaDia_update').val(),
+                HoraFin: $('#txtHoraFin_update').val(),
+                TipoVisita: $('#slTipoVisita_update').val(),
+            }
+            $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/actualiza-cita-agenda-empresa", objeto_envio_agenda_empresa_update, function (datos) {
+                $("#form_registro_agendaEmpresa_update").bootstrapValidator('resetForm', true);
+                $('#demo-lg-modal-agenda_update').modal('hide');
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'pli-like-2 icon-2x',
+                    message: 'SE MODIFICO LA CITA DEL DIA CORRECTAMENTE !.',
+                    container: 'floating',
+                    timer: 5000
+                });
+                $('#demo-calendar').fullCalendar('refetchEvents');
+            });
+        });
+
+
+        $('#btCita_elimina').on('click', function () {
+
+            var rutEmpresa = 0;
+            if (rutE != "" && rutE != 'undefined' && rutE != null) {
+                rutEmpresa = rutE;
+            }
+            else { rutEmpresa = RutEmpAnexo }
+
+            bootbox.dialog({
+                message: "<h1 class='page-header text-overflow pad-btm'>Puede eliminar la cita del dia o la cita frecuente !</h1>",
+                title: "ELIMINAR CITA",
+                buttons: {
+                    success: {
+                        label: "Eliminar Cita del Dia",
+                        className: "btn-success",
+                        callback: function () {
+                            var objeto_envio_agenda_empresa_eliminar = {
+                                IdAgenda: $("#btCita_elimina").data("idagenda"),
+                                IdRegistro: 0,
+                                RutEmpresa: rutEmpresa,
+                            }
+                            $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/elimina-cita-agenda-empresa", objeto_envio_agenda_empresa_eliminar, function (datos) {
+                                $("#form_registro_agendaEmpresa_update").bootstrapValidator('resetForm', true);
+                                $('#demo-lg-modal-agenda_update').modal('hide');
+                                $.niftyNoty({
+                                    type: 'success',
+                                    icon: 'pli-like-2 icon-2x',
+                                    message: 'SE ELIMINO LA CITA DEL DIA CORRECTAMENTE.',
+                                    container: 'floating',
+                                    timer: 5000
+                                });
+                                $('#demo-calendar').fullCalendar('refetchEvents');
+                            });
+                        }
+                    },
+
+                    danger: {
+                        label: "Eliminar Cita Frecuente",
+                        className: "btn-danger",
+                        callback: function () {
+                            var objeto_envio_agenda_empresa_eliminar = {
+                                IdAgenda: 0,
+                                IdRegistro: $("#btCita_elimina").data("idregistro"),
+                                RutEmpresa: rutEmpresa,
+                            }
+                            $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/elimina-cita-agenda-empresa", objeto_envio_agenda_empresa_eliminar, function (datos) {
+                                $("#form_registro_agendaEmpresa_update").bootstrapValidator('resetForm', true);
+                                $('#demo-lg-modal-agenda_update').modal('hide');
+                                $.niftyNoty({
+                                    type: 'success',
+                                    icon: 'pli-like-2 icon-2x',
+                                    message: 'SE ELIMINO LA CITA FRECUENTE CORRECTAMENTE.',
+                                    container: 'floating',
+                                    timer: 5000
+                                });
+                                $('#demo-calendar').fullCalendar('refetchEvents');
+                            });
+                        }
+                    },
+                    main: {
+                        label: "Cancelar",
+                        className: "btn-primary",
+                    }
+                }
+            })
+        });
+
 
     </script>
 

@@ -79,9 +79,9 @@
   margin-bottom: 5px;
 }
 #container .fc-view-container .fc-event {
-  padding: 2px 5px;
-  margin-bottom: 0;
-  font-size: .85em;
+    padding: 2px 5px;
+    margin-bottom: 0;
+    font-size: .85em;
 }
 #container .fc-event {
   background-color: #42A5F5;
