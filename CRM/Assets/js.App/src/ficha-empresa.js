@@ -33,13 +33,11 @@ myDropzone.on("complete", function (file) {
 
 if (IJ == 0) {
     $("#tab_anexos").css('display', 'none')
-    //$("#liPlanif").addClass('active')
-    //$("#demo-lft-tab-1").addClass('active in')
 }
 
 
 
-$(function(){
+$(function () {
     $('#dateTimepk').timepicker();
     $('#dateTimeDiaria').timepicker();
     $('#dateTimeSemanal').timepicker();
@@ -320,8 +318,8 @@ $('#form_registro_anexoUp').bootstrapValidator({
         IdEmpresaAnexo: $('#ISeMPup').val(),
         Anexo: $('#anexoUp').val(),
         NumTrabajadores: $('#nTrajadoresUp').val(),
-        IdComuna: $('select[id="slComuna_multiselectUp"] option:selected').val(),
-        NombreComuna: $('select[id="slComuna_multiselectUp"] option:selected').text(),
+        IdComuna: $('#slComuna_multiselectUp option:selected').val(),
+        NombreComuna: $('#slComuna_multiselectUp option:selected').text(),
         Direccion: $('#direccionAnexoUp').val()
     }
     $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/actualiza-nuevo-anexo", objeto_envio_anexoUp, function (datos) {
@@ -654,13 +652,13 @@ var cargador = {
                 $("#tbOportunidad")
                     .append(
                         $("<tr>")
-                        .append($("<td>").append(''))
-                        .append($("<td>").append(e.Id_Asign)).hide()
-                        .append($("<td>").append(e.Afiliado_Rut + '-' + e.Afiliado_Dv))
-                        .append($("<td>").append(e.Nombre + ' ' + e.Apellido))
-                        .append($("<td>").append(e.PreAprobadoFinal.toMoney() + '<span class="badge badge-success" style="float: right;">' + e.Prioridad + '</span>'))
-                        .append($("<td>").append(e.TipoCampania))
-                        .append($("<td>").append(''))
+                            .append($("<td>").append(''))
+                            .append($("<td>").append(e.Id_Asign)).hide()
+                            .append($("<td>").append(e.Afiliado_Rut + '-' + e.Afiliado_Dv))
+                            .append($("<td>").append(e.Nombre + ' ' + e.Apellido))
+                            .append($("<td>").append(e.PreAprobadoFinal.toMoney() + '<span class="badge badge-success" style="float: right;">' + e.Prioridad + '</span>'))
+                            .append($("<td>").append(e.TipoCampania))
+                            .append($("<td>").append(''))
                     )
             });
             $("#tblAsigEmp").bootstrapTable({
@@ -685,13 +683,13 @@ var cargador = {
                 $("#tbOportunidad")
                     .append(
                         $("<tr>")
-                        .append($("<td>").append(''))
-                        .append($("<td>").append(e.Id_Asign)).hide()
-                        .append($("<td>").append(e.Afiliado_Rut + '-' + e.Afiliado_Dv))
-                        .append($("<td>").append(e.Nombre + ' ' + e.Apellido))
-                        .append($("<td>").append(e.PreAprobadoFinal.toMoney() + '<span class="badge badge-success" style="float: right;">' + e.Prioridad + '</span>'))
-                        .append($("<td>").append(e.TipoCampania))
-                        .append($("<td>").append(''))
+                            .append($("<td>").append(''))
+                            .append($("<td>").append(e.Id_Asign)).hide()
+                            .append($("<td>").append(e.Afiliado_Rut + '-' + e.Afiliado_Dv))
+                            .append($("<td>").append(e.Nombre + ' ' + e.Apellido))
+                            .append($("<td>").append(e.PreAprobadoFinal.toMoney() + '<span class="badge badge-success" style="float: right;">' + e.Prioridad + '</span>'))
+                            .append($("<td>").append(e.TipoCampania))
+                            .append($("<td>").append(''))
                     )
             })
             $("#tblAsigEmp").bootstrapTable({
@@ -716,11 +714,11 @@ var cargador = {
                 $("#tbdyAnexo")
                     .append(
                         $("<tr>")
-                        .append($("<td>").append(e.RutEmpresa))
-                        .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresaAnexo + '&IJ=0' + '&rutEmAnexo=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.Anexo + '</a>'))
-                        .append($("<td>").append('<div class="media-left pos-rel"><img class="img-circle img-sm" src="../Assets/img/profile-photos/2.png" alt="Profile Picture"><i class="badge badge-success badge-stat badge-icon pull-left">' + e.NumTrabajadores + '</i></div>'))
-                        .append($("<td>").append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.IdEmpresaAnexo + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
-                        .append($("<td>").append('<i href="#" data-toggle="modal" data-target="#demo-lg-modal-AsigEmp" data-idEmp="' + e.IdEmpresaAnexo + '"><i class="btn btn-sm demo-psi-add icon-lg" style="font-size: 31px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + e.TotalAsignados + '</span></i>'))
+                            .append($("<td>").append(e.RutEmpresa))
+                            .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresaAnexo + '&IJ=0' + '&rutEmAnexo=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.Anexo + '</a>'))
+                            .append($("<td>").append('<div class="media-left pos-rel"><img class="img-circle img-sm" src="../Assets/img/profile-photos/2.png" alt="Profile Picture"><i class="badge badge-success badge-stat badge-icon pull-left">' + e.NumTrabajadores + '</i></div>'))
+                            .append($("<td>").append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.IdEmpresaAnexo + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
+                            .append($("<td>").append('<i href="#" data-toggle="modal" data-target="#demo-lg-modal-AsigEmp" data-idEmp="' + e.IdEmpresaAnexo + '"><i class="btn btn-sm demo-psi-add icon-lg" style="font-size: 31px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + e.TotalAsignados + '</span></i>'))
                     )
             });
         });
@@ -743,12 +741,12 @@ var cargador = {
                 $("#tbdyentrevista")
                     .append(
                         $("<tr>")
-                        .append($("<td>").append(e.FechaEntrevista))
-                        .append($("<td>").append("<span class='pull-center badge badge-success'>" + e.Tipo + "</span>"))
-                        .append($("<td>").append(e.NombreContacto))
-                        .append($("<td>").append(e.Cargo))
-                        .append($("<td>").append(e.Estamento))
-                        .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/DetalleVisita?IdEntrevista=' + e.IdEntrevista + '" class="btn btn-primary btn-icon btn-circle"><i class="demo-psi-receipt-4 icon-xs"></i></a>'))
+                            .append($("<td>").append(e.FechaEntrevista))
+                            .append($("<td>").append("<span class='pull-center badge badge-success'>" + e.Tipo + "</span>"))
+                            .append($("<td>").append(e.NombreContacto))
+                            .append($("<td>").append(e.Cargo))
+                            .append($("<td>").append(e.Estamento))
+                            .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/DetalleVisita?IdEntrevista=' + e.IdEntrevista + '" class="btn btn-primary btn-icon btn-circle"><i class="demo-psi-receipt-4 icon-xs"></i></a>'))
                     )
             });
 
@@ -770,24 +768,17 @@ var cargador = {
                 $("#tbdyGestMan")
                     .append(
                         $("<tr>")
-                        .append($("<td>").append(e.FechaIngreso.toFecha()))
-                        .append($("<td>").append("<span class='pull-center badge badge-success' style='width: 62px;'>" + e.Tipo + "</span>"))
-                        .append($("<td>").append(e.Comentarios))
-                        .append($("<td>").append(e.NombreEjecutivo.OrdenaNombreCompleto()))
-                        .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/DetalleGestion?IdCabGestion=' + e.IdCabGesMantencion + '&RutEmp=' + e.RutEmpresa + '" class="btn btn-primary btn-icon btn-circle"><i class="demo-psi-receipt-4 icon-xs"></i></a>'))
+                            .append($("<td>").append(e.FechaIngreso.toFecha()))
+                            .append($("<td>").append("<span class='pull-center badge badge-success' style='width: 62px;'>" + e.Tipo + "</span>"))
+                            .append($("<td>").append(e.Comentarios))
+                            .append($("<td>").append(e.NombreEjecutivo.OrdenaNombreCompleto()))
+                            .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/DetalleGestion?IdCabGestion=' + e.IdCabGesMantencion + '&RutEmp=' + e.RutEmpresa + '" class="btn btn-primary btn-icon btn-circle"><i class="demo-psi-receipt-4 icon-xs"></i></a>'))
                     )
-
             });
         });
 
     },
     CargaAgenda: function (rutEmp, rutEje, idAnexo) {
-        //var idEmp = 0
-        //if (IJ == 0) {
-        //    rutEmp = RutEmpAnexo
-        //    idEmp = idAnexo
-        //}
-
         var rutEmp = 0;
         var idEmp = 0;
         if (rutE != "" && rutE != 'undefined' && rutE != null) {
@@ -869,7 +860,6 @@ var cargador = {
                     });
                 }
             },
-            //events: '/motor/api/perfil-empresas/lista-cita-agenda-cartera/' + rutEmp + '/' + rutEje //idEmpresa
             eventSources: [{
                 url: '/motor/api/perfil-empresas/lista-cita-agenda-cartera/' + rutEmp + '/' + rutEje + '/' + idEmp,
                 type: 'GET',
@@ -951,8 +941,6 @@ if (rutE != "" && rutE != 'undefined' && rutE != null) {
 }
 
 $(function () {
-
-
     $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-tipologia-gestion", {
         tipoCampagna: 1,
         padre: 0
@@ -966,8 +954,6 @@ $(function () {
             $("#slTema").append($("<option>").attr("value", e.IdTema).html(e.GlosaGestion))
         });
     });
-
-
 
     $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", {
         tipoCampagna: 1,
@@ -997,7 +983,7 @@ $(function () {
             width: '100%'
         });
     });
-    //RutEmpAnexo
+
     if (rutE != "" && rutE != 'undefined' && rutE != null) {
         $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-afiliado-oficina", {
             RutEmpresa: rutE
@@ -1023,7 +1009,6 @@ $(function () {
             });
         });
     }
-
 
     $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/dotacion-oficina", function (menus) {
         $.each(menus, function (i, e) {
@@ -1053,28 +1038,7 @@ $(function () {
             $('#slComuna_multiselectUp').val(respuesta.IdComuna).trigger('chosen:updated');
             $('#ISeMPup').val(idAnexo)
         });
-
         myDropzone.options.url = "/motor/api/perfil-empresas/carga-afiliados-dropzone/" + idAnexo;
-
-        //$("div#dzMain").dropzone({ url: "/motor/api/perfil-empresas/carga-afiliados-dropzone/" + idAnexo });
-        //$("div#dzMain").dropzone().destroy();
-
-        //Dropzone.options.dropzoneForm = {
-        //maxFiles: 1,
-        //uploadMultiple: false,
-        //maxFilesize: 15,
-        //acceptedFiles: '.csv',
-        //accept: function (file, done) {
-
-        //        console.log('Accept', file)
-
-        //        if (file.name == "justinbieber.jpg") {
-        //            done("Naha, you don't.");
-        //        }
-        //        else { done(); }
-        //    }
-        //};
-        //$("#dropzone-form").prop("action", "/motor/api/perfil-empresas/carga-afiliados-dropzone/" + idAnexo)
     });
 
 
@@ -1122,7 +1086,6 @@ $(function () {
 
     $('#selecEstado').change(function (e) {
         e.preventDefault();
-
         if ($(this).val() != '') {
             $("#selecSubEstado").attr("disabled", false);
             $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", {
@@ -1141,7 +1104,6 @@ $(function () {
             $("#selecSubEstado").attr("disabled", true);
         }
     });
-
 
     $('#slPeriodicidad').change(function (e) {
         e.preventDefault();
@@ -1176,6 +1138,7 @@ $(function () {
             $("#tituloFecuencia").html('Frecuencia Quicenal')
             $("#divSemanal").css('display', 'block')
         } else if ($(this).val() == 'Mensual') {
+
             $("#divSemanal").css('display', 'none')
             $("#divDiario").css('display', 'none')
             $("#tituloFecuencia").html('Frecuencia Mensual')
@@ -1204,6 +1167,7 @@ $(function () {
             $("#tituloFecuencia_update").html('Frecuencia Quicenal')
             $("#divSemanal_update").css('display', 'block')
         } else if ($(this).val() == 'Mensual') {
+
             $("#divSemanal_update").css('display', 'none')
             $("#divDiario_update").css('display', 'none')
             $("#tituloFecuencia_update").html('Frecuencia Mensual')
@@ -1276,7 +1240,6 @@ $(function () {
     } else if (valida == 2) {
         $("#tipoAsignacionAnexo").css('display', 'block')
     }
-
 
     $('#radioEntravista').on("click", function () {
         $('#divVisita').css('display', 'none')
@@ -1394,30 +1357,21 @@ $(function () {
     $("input:radio[name=groupCkeckAlertaGestion]").click(function () {
         switch (this.value) {
             case "SI":
-                //alert(this.value);
                 alertaGestion = 1;
                 break;
             case "NO":
-                //alert(this.value);
                 alertaGestion = 0;
                 break;
         }
     });
 
-
     $("input:radio[name=groupCkeckAlerta]").click(function () {
         switch (this.value) {
             case "SI":
-                //alert(this.value);
                 alerta = 1;
-                //$("#divFechaResul").css('display', 'block')
-                //$("#comentarioResultado").css('display', 'block')
                 break;
             case "NO":
-                //alert(this.value);
                 alerta = 0;
-                //$("#divFechaResul").css('display', 'none')
-                //$("#comentarioResultado").css('display', 'none')
                 break;
         }
     });
@@ -1425,13 +1379,11 @@ $(function () {
     $("input:radio[name=groupCkeckCompromiso]").click(function () {
         switch (this.value) {
             case "SI":
-                //alert(this.value);
                 compromiso = 1;
                 $("#divFechaResul").css('display', 'block')
                 $("#comentarioResultado").css('display', 'block')
                 break;
             case "NO":
-                //alert(this.value);
                 compromiso = 0;
                 $("#divFechaResul").css('display', 'none')
                 $("#comentarioResultado").css('display', 'none')
@@ -1440,8 +1392,6 @@ $(function () {
         }
     });
 });
-
-
 
 $("input:radio[name=groupCkeckAlerta_visitas]").click(function () {
     switch (this.value) {
@@ -1460,7 +1410,6 @@ $("input:radio[name=groupCkeckAlerta_visitas]").click(function () {
 $('#slDuracionDia').change(function (e) {
     e.preventDefault();
     if ($(this).val() != '') {
-
         var Hrini = $('#slComienzaDia').val()
         var Hrfin = $('#slDuracionDia').val()
         var HriniSpl = Hrini.split(':');
@@ -1485,7 +1434,6 @@ $('#slDuracionDia').change(function (e) {
 $('#slComienzaDia').change(function (e) {
     e.preventDefault();
     if ($(this).val() != '') {
-
         var Hrini = $('#slComienzaDia').val()
         var Hrfin = $('#slDuracionDia').val()
         var HriniSpl = Hrini.split(':');
@@ -1510,7 +1458,6 @@ $('#slComienzaDia').change(function (e) {
 $('#slDuracionDia_update').change(function (e) {
     e.preventDefault();
     if ($(this).val() != '') {
-
         var Hrini = $('#slComienzaDia_update').val()
         var Hrfin = $('#slDuracionDia_update').val()
         var HriniSpl = Hrini.split(':');
@@ -1535,7 +1482,6 @@ $('#slDuracionDia_update').change(function (e) {
 $('#slComienzaDia_update').change(function (e) {
     e.preventDefault();
     if ($(this).val() != '') {
-
         var Hrini = $('#slComienzaDia_update').val()
         var Hrfin = $('#slDuracionDia_update').val()
         var HriniSpl = Hrini.split(':');
@@ -1647,9 +1593,6 @@ $('#form_registro_agendaEmpresa').bootstrapValidator({
     });
 });
 
-
-
-
 $('#form_registro_agendaEmpresa_update').bootstrapValidator({
     excluded: [':disabled', ':not(:visible)'],
     feedbackIcons: [],
@@ -1717,7 +1660,6 @@ $('#form_registro_agendaEmpresa_update').bootstrapValidator({
         $('#demo-calendar').fullCalendar('refetchEvents');
     });
 });
-
 
 $('#btCita_elimina').on('click', function () {
 
