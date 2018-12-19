@@ -2,16 +2,11 @@
     Layout = "~/Areas/EmpresasPage/Views/Shared/_Layout.cshtml";
 }
 
-
 <link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
 <link href="~/Assets/plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
-
-
 <link href="~/Assets/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet">
 <link href="~/Assets/plugins/fullcalendar/nifty-skin/fullcalendar-nifty.min.css" rel="stylesheet">
-
 <link href="~/Assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
-
 
 <h1 id="titulo">Cartera Empresas</h1>
 <div id="page-content">
@@ -49,7 +44,6 @@
                                     <tbody id="bdy_datos"></tbody>
                                 </table>
                             </div>
-
                         </div>
                         <div id="demo-lft-tab-2" class="tab-pane fade active in">
                             <div id="page-content">
@@ -103,7 +97,6 @@
     </div>
 </div>
 
-
 <div id="demo-lg-modal-agenda" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="border-radius: 6px;">
@@ -136,7 +129,6 @@
                                         <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha" disabled>
                                     </div>
                                 </div>
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Tipo de Visita</label>
@@ -175,7 +167,6 @@
 
                                 </div>
                                 <hr style="margin-top: 1px;" />
-
                                 <div style="display:block;">
                                     <div class="panel panel-bordered-info" id="divSemanal" style="display:none;">
                                         <div class="panel-body">
@@ -290,7 +281,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="panel-footer text-right" style="background-color: #fff;">
                             <button class="btn btn-success" id="btGuardaCita">Agendar Cita</button>
                         </div>
@@ -308,8 +298,6 @@
                 <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
                 <h4 class="modal-title" id="nomEmpCita"><i class="demo-pli-calendar-4 icon-lg" style="margin-left: 10px; margin-top: -2px;"></i></h4>
             </div>
-
-
             <div class="panel" style="border-radius: 6px;">
                 <div class="panel-heading">
                     <div class="panel-control" style="float:left;">
@@ -382,7 +370,6 @@
 
                                                 </div>
                                                 <hr style="margin-top: 1px;" />
-
                                                 <div style="display:block;">
                                                     <div class="panel panel-bordered-info" id="divSemanal_update" style="display:none;">
                                                         <div class="panel-body">
@@ -497,11 +484,9 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="panel-footer text-right" style="background-color: #fff;">
                                             <button class="btn btn-success" name="btCita_update" id="btCita_update">Modificar Cita</button>
                                             <button class="btn btn-danger" name="btCita_elimina" id="btCita_elimina" type="button"> Eliminar</button>
-
                                         </div>
                                     </div>
                                 </div>
@@ -509,12 +494,10 @@
                         </div>
 
                         <div id="demo-lft-tab-vs" class="tab-pane fade">
-
                             <br />
                             <a data-target="#demo-lg-modal-entrevista" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Nueva Gestion<i class="demo-psi-receipt-4 icon-lg" style="margin-left: 10px;"></i></a>
                             <br />
                             <br />
-
                             <div id="radioTablagestiones">
                                 <div class="radio">
                                     <input id="radioMantenedor" class="magic-radio " type="radio" name="groupCkeckAlerta_visitas" value='Mantenedor' checked>
@@ -600,8 +583,6 @@
                     </div>
                     <hr />
                 </div>
-
-
                 <div class="form-horizontal" style="display: none;" id="divEntrevista">
                     <h4>Datos de Entrevista</h4>
                     <form id="form-registro-entrevista" action="#" method="post">
@@ -658,8 +639,6 @@
 
                         </div>
                     </form>
-
-
                     <form id="form_entrevista_detalle" action="#" method="post" style="display:none">
                         <h4>Detalle Entrevista</h4>
                         <div class="panel panel-bordered-dark" style="border-radius: 8px; border: 1px solid #e5e5e5;">
@@ -683,7 +662,6 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-md-4 mar-btm">
                                         <label class="control-label">Compromiso</label>
@@ -719,10 +697,8 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-sm btn-primary btn-icon btn-rounded" id="btGuardaDetalleEntrevista" disabled>Guardar y Agregar<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></button>
-
                                 <div id="msjEntrevistaDet"></div>
                             </div>
-
                         </div>
                     </form>
                 </div>
@@ -761,7 +737,6 @@
                                         <textarea placeholder="Comentarios" rows="4" class="form-control" id="comentarioCabeceraGestion" name="comentarioCabeceraGestion" style="display: block"></textarea>
                                     </div>
                                 </div>
-
                                 <div id="msjMantGestCab"></div>
                             </div>
                         </div>
@@ -835,8 +810,6 @@
     <script src="~/Assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
     <script src="~/Assets/plugins/bootbox/bootbox.min.js"></script>
-
-
 
     <script type="text/javascript">
 
@@ -920,15 +893,11 @@
                     });
                     $('.add-popover').popover();
 
-
                     $("#slEmpresaAgendas").html("");
                     $("#slEmpresaAgendas").append($("<option>").attr("value", "0").html("TODO...."));
                     $("#slEmpresaAgendasIng").html("");
-                    // $("#slEmpresaAgendasIng").append($("<option>").attr("value", "0").html("Seleccione"));
-
                     $.each(menus, function (i, e) {
                         $("#slEmpresaAgendas").append($("<option>").attr("value", e.RutEmpresa).html(e.NombreEmpresa))
-                        //$("#slEmpresaAgendasIng").append($("<option>").attr("value", e.RutEmpresa).html(e.NombreEmpresa))
                     });
                     $('#slEmpresaAgendas').chosen();
 
@@ -1001,21 +970,10 @@
                             $("#divMensual_update").css('display', 'block')
                         }
 
-                        //var fechaInicio = new Date(event.start._i);
-                        //var fechaHoy = new Date();
-                        //console.log({
-                        //    fechaInicio,
-                        //    fechaHoy,
-                        //    compara: fechaHoy >= fechaInicio
-                        //})
-                        //if (fechaHoy >= fechaInicio) {
-                        //    $("#tab_visitas").css('display', 'none')
-                        //}
-                        //else {
                         cargador.CargaDatosEntrevista();
                         cargador.CargaDatosGestionMan();
                         cargador.AfiliadoOficina(event.RutEmpresa);
-                        //}
+
                         $('#demo-lg-modal-agenda_update').modal('show');
                         return false;
                     },
@@ -1027,7 +985,6 @@
                             $('#txtFechacita').val(moment(start).format('DD-MM-YYYY'))
                             fechaPop = (moment(start).format('YYYY-MM-DD'))
                             $('#slEjecutivoAgendaIng').chosen({ width: '100%' });
-                            // $('#slEmpresaAgendasIng').chosen({ width: '100%' });
                             $('#slEjecutivoAgendaIng').val($("#slEjecutivoAgenda").val()).trigger('chosen:updated');
                             $('#slEmpresaAgendasIng').val($("#slEmpresaAgendas").val()).trigger('chosen:updated');
                             $('#demo-lg-modal-agenda').modal('show');
@@ -1081,9 +1038,7 @@
                                     .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/DetalleVisita?IdEntrevista=' + e.IdEntrevista + '" class="btn btn-primary btn-icon btn-circle"><i class="demo-psi-receipt-4 icon-xs"></i></a>'))
                             )
                     });
-
                 });
-
             },
             CargaDatosGestionMan: function () {
                 var rutEmpresa = $("#btCita_update").data("rutempresa")
@@ -1099,32 +1054,10 @@
                                     .append($("<td>").append(e.NombreEjecutivo.OrdenaNombreCompleto()))
                                     .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/DetalleGestion?IdCabGestion=' + e.IdCabGesMantencion + '&RutEmp=' + e.RutEmpresa + '" class="btn btn-primary btn-icon btn-circle"><i class="demo-psi-receipt-4 icon-xs"></i></a>'))
                             )
-
                     });
                 });
-
             },
             AfiliadoOficina: function (RutEmpresa) {
-                //RutEmpAnexo
-                //if (rutE != "" && rutE != 'undefined' && rutE != null) {
-                //    $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-afiliado-oficina", { RutEmpresa: rutE }, function (menus) {
-                //        $.each(menus, function (i, e) {
-                //            $("#slAfiliadoSelect").append($("<option>").attr("value", e.RutAfiliado).html(e.NombreAfiliado))
-                //        });
-                //        $('#demo-chosen-select').chosen();
-                //        $('#slAfiliadoSelect').chosen({ width: '100%' });
-                //    });
-                //}
-                //else {
-                //    $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-afiliado-oficina", { RutEmpresa: RutEmpAnexo }, function (menus) {
-                //        $.each(menus, function (i, e) {
-                //            $("#slAfiliadoSelect").append($("<option>").attr("value", e.RutAfiliado).html(e.NombreAfiliado))
-                //        });
-                //        $('#demo-chosen-select').chosen();
-                //        $('#slAfiliadoSelect').chosen({ width: '100%' });
-                //    });
-                //}
-
                 $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-afiliado-oficina", { RutEmpresa: RutEmpresa }, function (menus) {
                     $.each(menus, function (i, e) {
                         $("#slAfiliadoSelect").append($("<option>").attr("value", e.RutAfiliado).html(e.NombreAfiliado))
@@ -1132,9 +1065,7 @@
                     $('#demo-chosen-select').chosen();
                     $('#slAfiliadoSelect').chosen({ width: '100%' });
                 });
-
             }
-
         }
 
         $('#tabla .page-number').on("click", function () {
@@ -1144,7 +1075,6 @@
         $('#tab_planificacion').on('click', function () {
             $('#demo-calendar').fullCalendar({});
         });
-
 
         jQuery.fn.bootstrapTable.defaults.icons = {
             paginationSwitchDown: 'demo-pli-arrow-down',
@@ -1408,11 +1338,11 @@
             else if ($('#slFrecuencia').val() == 'Diaria') {
                 results = "Null"
             }
-            //alert(results)
+
             var objeto_envio_agenda_empresa = {
                 RutEmpresa: $('#slEmpresaAgendasIng').val(),
                 RutEjecutivo: $('#slEjecutivoAgendaIng').val(),
-                NombreEmpresa: $('select[name="slEmpresaAgendasIng"] option:selected').text(),
+                NombreEmpresa: $('#slEmpresaAgendasIng option:selected').text(),
                 Glosa: $('#txtObsCita').val(),
                 FechaInico: fechaPop + ' ' + $('#slComienzaDia').val(),
                 FechaFin: fechaPop + ' ' + $('#txtHoraFin').val(),
@@ -1507,17 +1437,13 @@
 
             var objeto_envio_agenda_empresa_update = {
                 IdAgenda: $("#btCita_update").data("idagenda"),
-                // IdRegistro: 0,
                 RutEmpresa: $("#btCita_update").data("rutempresa"),
                 Glosa: $('#txtObsCita_update').val(),
                 FechaInico: $('#txtFechacita_update').val().toFecha() + ' ' + $('#slComienzaDia_update').val(),
                 FechaFin: $('#txtFechacita_update').val().toFecha() + ' ' + $('#txtHoraFin_update').val(),
                 HoraInicio: $('#slComienzaDia_update').val(),
                 HoraFin: $('#txtHoraFin_update').val(),
-                // Frecuencia: $('#slFrecuencia_update').val(),
-                // Dias: results,
                 TipoVisita: $('#slTipoVisita_update').val(),
-                // DiasSucede: $('#slSucedeDia_update').val(),
             }
             $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/actualiza-cita-agenda-empresa", objeto_envio_agenda_empresa_update, function (datos) {
                 $("#form_registro_agendaEmpresa_update").bootstrapValidator('resetForm', true);
@@ -1593,19 +1519,6 @@
             })
         });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-tipologia-gestion", { tipoCampagna: 1, padre: 0 }, function (datos) {
             $("#slTemaGestion").html("");
             $("#slTemaGestion").append($("<option>").attr("value", "").html("Seleccione"));
@@ -1616,8 +1529,6 @@
                 $("#slTema").append($("<option>").attr("value", e.IdTema).html(e.GlosaGestion))
             });
         });
-
-
 
         $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 1, padre: 0 }, function (datos) {
             $("#selecEstado").html("");
@@ -1690,13 +1601,11 @@
         $("input:radio[name=groupCkeckCompromiso]").click(function () {
             switch (this.value) {
                 case "SI":
-                    //alert(this.value);
                     compromiso = 1;
                     $("#divFechaResul").css('display', 'block')
                     $("#comentarioResultado").css('display', 'block')
                     break;
                 case "NO":
-                    //alert(this.value);
                     compromiso = 0;
                     $("#divFechaResul").css('display', 'none')
                     $("#comentarioResultado").css('display', 'none')
@@ -1708,7 +1617,6 @@
         $("input:radio[name=groupCkeckAlerta_visitas]").click(function () {
             switch (this.value) {
                 case "Mantenedor":
-                    //alert(this.value);
                     $('.colap2').collapse('hide')
                     $('.colap1').collapse('show')
 
@@ -1741,17 +1649,6 @@
             $('#form_gestion_mantencion_detalle').css('display', 'none')
             $('#form_entrevista_detalle').css('display', 'none')
         });
-
-
-
-
-
-
-
-
-
-
-
 
         $('#form-registro-entrevista').bootstrapValidator({
             excluded: [':disabled', ':not(:visible)'],
@@ -1832,7 +1729,6 @@
             });
         });
 
-
         $('#form_entrevista_detalle').bootstrapValidator({
             excluded: [':disabled', ':not(:visible)'],
             feedbackIcons: [],
@@ -1871,8 +1767,8 @@
             var $form = $(e.target);
             var objeto_detalle_entrevista = {
                 IdEntrevista: idEnvta,
-                Tema: $('select[id="slTema"] option:selected').text(),
-                SubTema: $('select[id="slSubTema"] option:selected').text(),
+                Tema: $('#slTema option:selected').text(),
+                SubTema: $('#slSubTema option:selected').text(),
                 Semaforo: $('#slSemaforo').val(),
                 Alerta: alerta,
                 FechaResolucion: $('#FechaResolucion').val(),
@@ -1903,7 +1799,6 @@
                 });
             });
         });
-
 
         $('#form_gestion_mantencion').bootstrapValidator({
             excluded: [':disabled', ':not(:visible)'],
@@ -1957,7 +1852,6 @@
             });
         });
 
-
         $('#form_gestion_mantencion_detalle').bootstrapValidator({
             excluded: [':disabled', ':not(:visible)'],
             feedbackIcons: [],
@@ -2001,8 +1895,8 @@
             var objeto_envio_gestion_mantencion = {
                 IdCabGesMantencion: idCabManGest,
                 RutEmpresa: $("#btCita_update").data("rutempresa"),
-                Tema: $('select[id="slTemaGestion"] option:selected').text(),
-                SubTema: $('select[id="slSubTemavisita"] option:selected').text(),
+                Tema: $('#slTemaGestion option:selected').text(),
+                SubTema: $('#slSubTemavisita option:selected').text(),
                 RutAfiliado: afi2,
                 Comentarios: $('#comentarioGestion').val(),
                 Alerta: alertaGestion,
@@ -2026,15 +1920,6 @@
                 });
             });
         });
-
-
-
-
-
-
-
-
-
 
     </script>
 
