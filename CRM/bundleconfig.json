@@ -67,5 +67,25 @@
     "minify": {
       "enabled": true
     }
+  },
+  {
+    "outputFileName": "Assets/js.App/ficha-empresa.min.js",
+    "inputFiles": [
+      "Assets/plugins/dropzone/dropzone.min.js",
+      "Assets/plugins/bootstrap-select/bootstrap-select.min.js",
+      "Assets/plugins/chosen/chosen.jquery.min.js",
+      "Assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js",
+      "Assets/plugins/switchery/switchery.min.js",
+      "Assets/plugins/fullcalendar/lib/moment.min.js",
+      "Assets/plugins/fullcalendar/lib/jquery-ui.custom.min.js",
+      "Assets/plugins/fullcalendar/fullcalendar.min.js",
+      "Assets/plugins/fullcalendar/lang-all.js",
+      "Assets/plugins/bootbox/bootbox.min.js",
+      "Assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js"
+    ],
+    "minify": {
+      "enabled": true
+    }
   }
+
 ]
