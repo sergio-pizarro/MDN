@@ -2,14 +2,6 @@
     Layout = "~/Areas/AppPage/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
-<!--Bootstrap Select [ OPTIONAL ]-->
-<link href="~/Assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
-<link href="~/Assets/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
-<link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
-
-
-
 <!--Page content-->
 <!--===================================================-->
 <div id="page-content">
@@ -850,17 +842,6 @@
 </div>
 <!--===================================================-->
 <!--End page content-->
-<link href="~/Assets/plugins/chosen/chosen.css" rel="stylesheet" />
 @section script{
-
-    <script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
-    <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
-    <!--Bootstrap Select [ OPTIONAL ]-->
-    <script src="~/Assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
-    <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
-    <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
-    <script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
-    <script src="~/Assets/js.App/gestion/index.js?v=@Html.Raw(ViewBag.hash)"></script>
-
-
+    <script src="~/Assets/js.App/gestion.min.js?g=@Guid.NewGuid().ToString()"></script>
 }

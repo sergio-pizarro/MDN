@@ -1,22 +1,3 @@
-
-
-var clipboard = new Clipboard("#btn_copiar", {
-    container: document.getElementById('demo-lg-modal'),
-    text: function () {
-        return $("#afi_correos").find(':selected').html();
-    }
-});
-var clipboard = new Clipboard("#btn_copiarTMC", {
-    container: document.getElementById('demo-lg-modal-tmc'),
-    text: function () {
-        return $("#afi_correosTMC").find(':selected').html();
-    }
-});
-
-clipboard.on("success", function (e) {
-    alert("Correo Copiado!!!!");
-});
-
 function cargaDatosDeContacto(rutAf) {
     
     $("#bdy_datos_contactos > tr").remove();
