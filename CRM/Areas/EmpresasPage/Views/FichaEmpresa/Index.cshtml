@@ -137,19 +137,7 @@
                     <div class="tab-content">
                         <div id="demo-lft-tab-3" class="tab-pane fade">
                             <div class="panel-body">
-                                <div id="radioValidador" style="display:none;">
-                                    <div class="radio">
-                                        <input id="radioAnexo" class="magic-radio" type="radio" name="inline-form-radio">
-                                        <label for="radioAnexo">¿Desea crear un Anexo?</label>
-                                        <br />
-                                        <br />
-                                        <input id="radioEmpresa" class="magic-radio" type="radio" name="inline-form-radio">
-                                        <label for="radioEmpresa">¿Desea Asignar una Empresa?</label>
-                                    </div>
-                                    <hr />
-                                </div>
                                 <div class="panel panel-bordered-primary" style="border-color: #e6e6e6; display: none; border-radius: 5px;" id="tipoAsignacionEmpresa">
-
                                     <div class="panel-body">
                                         <div class="row">
 
@@ -165,7 +153,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="tipoAsignacionAnexo" style="display: none">
+                                <div id="tipoAsignacionAnexo">
                                     @*Anexo*@
                                     <a data-target="#demo-lg-modal-newAnexo" data-toggle="modal" class="btn btn-sm btn-primary btn-icon btn-rounded">Crear Nuevo Anexo<i class="demo-psi-building icon-lg" style="margin-left: 10px;"></i></a>
                                     <hr />
@@ -382,6 +370,8 @@
                                         <textarea placeholder="Comentarios" rows="4" class="form-control" id="txtComentariosCab" name="txtComentariosCab" style="height: 62px;"></textarea>
                                     </div>
                                     <div class="col-md-4 mar-btm">
+                                        <input type="hidden" id="ent_oficina" name="ent_oficina" class="oficina" value="">
+                                        <input type="hidden" id="ent_anexo" name="ent_anexo" class="anexo" value="">
                                         <button class="btn btn-sm btn-primary btn-icon btn-rounded" id="btGuardaCabecera" style="margin-top: 31px;">Guardar Datos de Entrevista<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></button>
                                     </div>
                                 </div>
@@ -451,7 +441,7 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-sm btn-primary btn-icon btn-rounded" id="btGuardaDetalleEntrevista" disabled>Guardar y Agregar<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></button>
-
+                                        
                                 <div id="msjEntrevistaDet"></div>
                             </div>
 
@@ -487,6 +477,8 @@
                                     <div class="col-md-4 mar-btm">
                                         <br />
                                         <button class="btn btn-sm btn-primary btn-icon btn-rounded" id="btGuardaGestionMan" style="margin-top: 13px;">Guardar datos de gestion mantención<i class="demo-psi-add icon-lg" style="margin-left: 10px;"></i></button>
+                                        <input type="hidden" id="man_oficina" name="man_oficina" class="oficina" value="">
+                                        <input type="hidden" id="man_anexo" name="man_anexo" class="anexo" value="">
                                     </div>
                                 </div>
                                 <div class="row">

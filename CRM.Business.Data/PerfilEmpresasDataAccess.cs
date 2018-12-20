@@ -194,7 +194,7 @@ namespace CRM.Business.Data
         }
         //static Entity.GestionEmpresasEntity
         //public static int InsertaNuevoCabEntrevista(string Token, string RutEmpresa, string FechaEntrevista, string NombreContacto, string Estamento, string Cargo, string Comentarios)
-        public static EntrevistaEntity InsertaNuevoCabEntrevista(string Token, string RutEmpresa, string FechaEntrevista, string NombreContacto, string Estamento, string Cargo, string Comentarios, string TelefonoContacto, string CorreoContacto)
+        public static EntrevistaEntity InsertaNuevoCabEntrevista(string Token, string RutEmpresa, string FechaEntrevista, string NombreContacto, string Estamento, string Cargo, string Comentarios, string TelefonoContacto, string CorreoContacto, int Anexo)
         {
             Parametros parametros = new Parametros
             {
@@ -207,6 +207,7 @@ namespace CRM.Business.Data
                  new Parametro("@TELEFONO", TelefonoContacto),
                  new Parametro("@CORREO", CorreoContacto),
                  new Parametro("@COMENTARIO", Comentarios),
+                 new Parametro("@ANEXO", Anexo),
             };
             return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Guarda_CabeceraEntrevista", parametros, ListaIdEntravista);
         }
@@ -709,6 +710,7 @@ namespace CRM.Business.Data
                 Direccion = row["Direccion"] != DBNull.Value ? row["Direccion"].ToString() : string.Empty,
                 IdComuna = row["IdComuna"] != DBNull.Value ? Convert.ToInt32(row["IdComuna"]) : 0,
                 TotalAsignados = row["TotalAsignados"] != DBNull.Value ? Convert.ToInt32(row["TotalAsignados"]) : 0,
+                EsMatriz = row["EsMatriz"] != DBNull.Value ? Convert.ToInt32(row["EsMatriz"]) : 0,
 
             };
         }

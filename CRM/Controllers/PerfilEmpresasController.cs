@@ -256,7 +256,7 @@ namespace CRM.Controllers
         public Business.Entity.EntrevistaEntity NuevaCabeceraEntrevista(EntrevistaEntity cabecera)
         {
             string Token = ActionContext.Request.Headers.GetValues("Token").First();
-            return Business.Data.PerfilEmpresasDataAccess.InsertaNuevoCabEntrevista(Token, cabecera.RutEmpresa, cabecera.FechaEntrevista, cabecera.NombreContacto, cabecera.Estamento, cabecera.Cargo, cabecera.Comentarios, cabecera.TelefonoContacto, cabecera.CorreoContacto);
+            return Business.Data.PerfilEmpresasDataAccess.InsertaNuevoCabEntrevista(Token, cabecera.RutEmpresa, cabecera.FechaEntrevista, cabecera.NombreContacto, cabecera.Estamento, cabecera.Cargo, cabecera.Comentarios, cabecera.TelefonoContacto, cabecera.CorreoContacto, cabecera.IdAnexo);
         }
 
         [AuthorizationRequired]
