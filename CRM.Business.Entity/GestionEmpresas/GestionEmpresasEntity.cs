@@ -92,6 +92,7 @@ namespace CRM.Business.Entity
         public string NombreComuna { get; set; }
         public string Direccion { get; set; }
         public int TotalAsignados { get; set; }
+        public int EsMatriz { get; set; }
         
     }
 
@@ -125,6 +126,7 @@ namespace CRM.Business.Entity
         public string RutEjeIngreso { get; set; }
         public DateTime FechaIngreso { get; set; }
         public string NombreEjecutivo { get; set; }
+        public int IdAnexo { get; set; }
     }
 
 
@@ -194,6 +196,8 @@ namespace CRM.Business.Entity
         public string RutEjeIngreso { get; set; }
         public string FechaIngreso { get; set; }
         public string NombreEjecutivo { get; set; }
+        public int Oficna { get; set; }
+        public int Anexo { get; set; }
     }
 
 

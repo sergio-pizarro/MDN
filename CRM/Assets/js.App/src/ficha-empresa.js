@@ -13,6 +13,11 @@ var compromiso = 0;
 var alerta = 0;
 var alertaGestion = 0;
 
+var codOficina = getCookie("Oficina");
+
+
+
+
 Dropzone.autoDiscover = false;
 var myDropzone = new Dropzone("div#dzMain", {
     url: "#",
@@ -38,6 +43,10 @@ if (IJ == 0) {
 
 
 $(function () {
+
+    $(".anexo").val(idEmpresa);
+    $(".oficina").val(codOficina);
+
     $('#dateTimepk').timepicker();
     $('#dateTimeDiaria').timepicker();
     $('#dateTimeSemanal').timepicker();
@@ -404,6 +413,8 @@ $('#form-registro-entrevista').bootstrapValidator({
         Comentarios: $('#txtComentariosCab').val(),
         TelefonoContacto: $('#tefContacto').val(),
         CorreoContacto: $('#correoContacto').val(),
+        CodOficina: $('#ent_oficina').val(),
+        IdAnexo: $('#ent_anexo').val(),
 
     }
     $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/ingresa-cabecera-entrevista", objeto_envio_entrevista, function (datos) {
@@ -537,6 +548,8 @@ $('#form_gestion_mantencion').bootstrapValidator({
         FechaIngreso: $('#FechaCabeceraGest').val(),
         Tipo: $("#slTipoGestion").val(),
         Comentarios: $('#comentarioCabeceraGestion').val(),
+        Oficina: $('#man_oficina').val(),
+        Anexo: $('#man_anexo').val()
     }
     $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/ingresa-cabecera-mant-gestion", objeto_envio_cab_gestion_man, function (datos) {
         $('#btGuardaGestionMan').css('display', 'none')
@@ -640,6 +653,9 @@ $('#demo-lg-modal-entrevista').on('hidden.bs.modal', function (event) {
     $("#ckAlertaNOGestion").prop("checked", true);
     $('#form_gestion_mantencion_detalle').css('display', 'none')
     $('#form_entrevista_detalle').css('display', 'none')
+
+
+    
 });
 
 var cargador = {
@@ -1030,6 +1046,16 @@ $(function () {
         $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-datos-anexo", {
             IdEmpresa: idAnexo
         }, function (respuesta) {
+
+
+                console.log({
+                    respuesta
+                });
+            if(respuesta.EsMatriz == 1)
+            {
+                $('#anexoUp').prop('disabled', true);
+            }
+
             $("#txRutEmpUp").val(respuesta.RutEmpresa)
             $("#slEmperesa_multiselectUp").val(respuesta.NombreEmpresa)
             $('#anexoUp').val(respuesta.Anexo)
@@ -1228,18 +1254,6 @@ $(function () {
             $('.demo-dropzone').css('display', 'none')
         }
     });
-
-    if (valida == 0) {
-        $("#radioValidador").css('display', 'block')
-    } else if (valida == 1) {
-        $("#radioEmpresa").click();
-        $("#tab_anexos").html("Asignación Empresa")
-        $("#tipoAsignacionEmpresa").css('display', 'block')
-        $("#radioEmpresa").click();
-
-    } else if (valida == 2) {
-        $("#tipoAsignacionAnexo").css('display', 'block')
-    }
 
     $('#radioEntravista').on("click", function () {
         $('#divVisita').css('display', 'none')
