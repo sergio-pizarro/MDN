@@ -208,7 +208,7 @@
                         $(this).val(number);
                 }
             });
-            $('.es-rut').mask('99999999-*');
+            //$('.es-rut').mask('99999999-*');
             var CodIng = httpGet("ci");
             var cargador = {
                 saveCEI: function (volver) {
@@ -276,6 +276,12 @@
             if (typeof CodIng != "undefined") {
                 cargador.cargaCE(CodIng);
             }
+
+            $('#demo-lg-modal').on('hidden.bs.modal', function (event) {
+
+                $('#datos-empresa').bootstrapValidator("destroy");
+
+            });
             $('#demo-lg-modal').on('show.bs.modal', function (event) {
 
                 var link = $(event.relatedTarget); // Button that triggered the modal
