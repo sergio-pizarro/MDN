@@ -294,7 +294,7 @@
                             <li id="liPlanif" class="active">
                                 <a data-toggle="tab" href="#demo-lft-tab-Pln" aria-expanded="true" id="tab_panifi" style="font-weight: bold;">Mantención</a>
                             </li>
-                            <li class="">
+                            <li class="" style="display: none;">
                                 <a data-toggle="tab" href="#demo-lft-tab-vs" aria-expanded="false" id="tab_visitas" style="font-weight: bold;">Visitas</a>
                             </li>
                         </ul>
@@ -832,7 +832,7 @@
                             $("#bdy_datos")
                                 .append($("<tr>")
                                     .append($("<td>").append(e.RutEmpresa))
-                                    .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '&IJ=0' + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
+                                    .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '&IJ=0' + '&rutEmpA=0' + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(NomHolding))
                                 )

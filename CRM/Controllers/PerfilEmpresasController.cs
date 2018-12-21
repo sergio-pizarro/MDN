@@ -234,10 +234,10 @@ namespace CRM.Controllers
 
         [HttpGet]
         [Route("lista-entrevista")]
-        public ICollection<EntrevistaEntity> ObtenerEntrevistas(string RutEmpresa)
+        public ICollection<EntrevistaEntity> ObtenerEntrevistas(string RutEmpresa, int Anexo)
         {
             string Token = ActionContext.Request.Headers.GetValues("Token").First();
-            return PerfilEmpresasDataAccess.ObtieneEntrevista(Token, RutEmpresa);
+            return PerfilEmpresasDataAccess.ObtieneEntrevista(Token, RutEmpresa, Anexo);
         }
 
         //[AuthorizationRequired]
@@ -395,8 +395,9 @@ namespace CRM.Controllers
         public Business.Entity.CabGestionMantencionEntity NuevaCabeceraGestionMan(CabGestionMantencionEntity cabecera)
         {
             string Token = ActionContext.Request.Headers.GetValues("Token").First();
-            return Business.Data.PerfilEmpresasDataAccess.InsertaNuevoCabDetalleGestion(Token, cabecera.RutEmpresa, cabecera.FechaIngreso, cabecera.Tipo, cabecera.Comentarios);
+            return Business.Data.PerfilEmpresasDataAccess.InsertaNuevoCabDetalleGestion(Token, cabecera.RutEmpresa, cabecera.FechaIngreso, cabecera.Tipo, cabecera.Comentarios, cabecera.Anexo);
         }
+
 
         [AuthorizationRequired]
         [HttpGet]
@@ -409,10 +410,10 @@ namespace CRM.Controllers
         [AuthorizationRequired]
         [HttpGet]
         [Route("lista-mantencion-gestion")]
-        public ICollection<CabGestionMantencionEntity> ObtenerMantencionGestion(string RutEmpresa)
+        public ICollection<CabGestionMantencionEntity> ObtenerMantencionGestion(string RutEmpresa, int idAnexo)
         {
             string Token = ActionContext.Request.Headers.GetValues("Token").First();
-            return PerfilEmpresasDataAccess.ObtenerMantencionGest(Token, RutEmpresa);
+            return PerfilEmpresasDataAccess.ObtenerMantencionGest(Token, RutEmpresa, idAnexo);
         }
 
         [AuthorizationRequired]

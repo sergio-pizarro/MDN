@@ -212,7 +212,7 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Guarda_CabeceraEntrevista", parametros, ListaIdEntravista);
         }
 
-        public static CabGestionMantencionEntity InsertaNuevoCabDetalleGestion(string Token, string RutEmpresa, string FechaIngreso, string Tipo, string Comentarios)
+        public static CabGestionMantencionEntity InsertaNuevoCabDetalleGestion(string Token, string RutEmpresa, string FechaIngreso, string Tipo, string Comentarios, int Anexo)
         {
             Parametros parametros = new Parametros
             {
@@ -221,6 +221,7 @@ namespace CRM.Business.Data
                  new Parametro("@FECHA_INGRESO", FechaIngreso),
                  new Parametro("@TIPO", Tipo),
                  new Parametro("@COMENTARIO", Comentarios),
+                 new Parametro("@ANEXO", Anexo),
 
             };
             return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Guarda_Cabecera_ManGestion", parametros, ListaIdManGestion);
@@ -466,12 +467,13 @@ namespace CRM.Business.Data
             };
         }
 
-        public static List<EntrevistaEntity> ObtieneEntrevista(string Token, string RutEmpresa)
+        public static List<EntrevistaEntity> ObtieneEntrevista(string Token, string RutEmpresa, int Anexo)
         {
             Parametros pram = new Parametros
             {
                 new Parametro("@TOKEN", Token),
                 new Parametro("@RUT_EMPRESA", RutEmpresa),
+                new Parametro("@COD_ANEXO", Anexo),
             };
             return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Entrevista", pram, ListaEntrevistaEmp);
         }
@@ -508,12 +510,13 @@ namespace CRM.Business.Data
         //    return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_MantencionGestion", prm, ListaMantGestion);
         //}
 
-        public static List<CabGestionMantencionEntity> ObtenerMantencionGest(string Token, string RutEmpresa)
+        public static List<CabGestionMantencionEntity> ObtenerMantencionGest(string Token, string RutEmpresa, int idAnexo)
         {
             Parametros pram = new Parametros
             {
                 new Parametro("@TOKEN", Token),
                 new Parametro("@RUT_EMPRESA", RutEmpresa),
+                 new Parametro("@COD_ANEXO", idAnexo),
             };
             return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_MantencionGestion_Cabecera", pram, ListaCabeceraMantGestion);
         }
@@ -870,7 +873,7 @@ namespace CRM.Business.Data
             };
         }
 
-        
+
 
     }
 }
