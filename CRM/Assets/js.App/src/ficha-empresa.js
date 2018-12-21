@@ -14,7 +14,22 @@ var alerta = 0;
 var alertaGestion = 0;
 
 var codOficina = getCookie("Oficina");
+var cargo = getCookie("Cargo");
 
+if (cargo != 'Agente' && cargo != 'Jefe Servicio al Cliente') {
+    $('#btNewAnexo').css('display', 'none');
+}
+
+if (idEmpresa != 0) {
+    $("#tab_anexos").css('display', 'none')
+}
+
+if (idEmpresa == 0) {
+    $("#tab_comercial").css('display', 'none')
+    $("#tab_Planificacion").css('display', 'none')
+    $("#tab_anexos").tab('show');
+
+}
 
 
 
@@ -36,9 +51,9 @@ myDropzone.on("complete", function (file) {
     myDropzone.removeFile(file);
 });
 
-if (IJ == 0) {
-    $("#tab_anexos").css('display', 'none')
-}
+//if (IJ == 0) {
+//    $("#tab_anexos").css('display', 'none')
+//}
 
 
 
@@ -655,7 +670,7 @@ $('#demo-lg-modal-entrevista').on('hidden.bs.modal', function (event) {
     $('#form_entrevista_detalle').css('display', 'none')
 
 
-    
+
 });
 
 var cargador = {
@@ -751,7 +766,8 @@ var cargador = {
         }
 
         $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-entrevista", {
-            RutEmpresa: rutEmpresa
+            RutEmpresa: rutEmpresa,
+            Anexo: idEmpresa
         }, function (menus) {
             $.each(menus, function (i, e) {
                 $("#tbdyentrevista")
@@ -776,10 +792,11 @@ var cargador = {
         } else {
             rutEmpresa = RutEmpAnexo
         }
+
+
+        console.log({ rutEmpresa })
         $("#tbdyGestMan").html("");
-        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-mantencion-gestion", {
-            RutEmpresa: rutEmpresa
-        }, function (menus) {
+        $.SecGetJSON(BASE_URL + `/motor/api/perfil-empresas/lista-mantencion-gestion?RutEmpresa=${rutEmpresa}&idAnexo=${idEmpresa}`, function (menus) {
             $.each(menus, function (i, e) {
                 $("#tbdyGestMan")
                     .append(
@@ -896,41 +913,50 @@ var cargador = {
     }
 }
 
-if (rutE != "" && rutE != 'undefined' && rutE != null) {
-    var rutEmpresa = 0;
-    if (rutE != "" && rutE != 'undefined' && rutE != null) {
-        rutEmpresa = rutE;
-    } else {
-        rutEmpresa = RutEmpAnexo
-    }
-    $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresa", {
-        RutEmpresa: rutEmpresa
-    }, function (result) {
-        var NomHolding = ""
-        if (result.Holding == 0) {
-            NomHolding = 'Sin Holding'
-        } else {
-            NomHolding = result.NombreHolding
-        }
-        $("#tituloEmp").css('font-size', '20px').css('color', '#b3b3b3').css('margin-left', '20px')
-        $("#tituloEmp").html(result.NombreEmpresa)
-        $("#RutEmp").val(result.RutEmpresa)
-        $("#NombreEmpresaPer").html(result.NombreEmpresa)
-        $("#nTrabajadores").val(result.NTrabajador)
-        $("#SegmentoEmp").val(result.Segmento)
-        $("#AntiguedadA").val(result.FechaAntiguedad)
-        $("#HoldingEmp").val(NomHolding)
-        $("#slEmperesa_multiselect").val(result.NombreEmpresa)
-        $("#txRutEmp").val(result.RutEmpresa)
 
-        cargador.CargaDatosAsignadosEmp();
-        cargador.CargaDatosAnexos();
-        cargador.CargaDatosEntrevista();
-        cargador.CargaDatosGestionMan();
-        cargador.CargaAgenda(rutEmpresa, '0', 0);
-    });
+
+
+var rutEmpresa = 0;
+if (rutE != "" && rutE != 'undefined' && rutE != null) {
+    rutEmpresa = rutE;
 } else {
-    $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresaAnexo", {
+    rutEmpresa = RutEmpAnexo
+}
+
+$.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresa", {
+    RutEmpresa: rutEmpresa
+}, function (result) {
+    var NomHolding = ""
+    if (result.Holding == 0) {
+        NomHolding = 'Sin Holding'
+    } else {
+        NomHolding = result.NombreHolding
+    }
+    $("#tituloEmp").css('font-size', '20px').css('color', '#b3b3b3').css('margin-left', '20px')
+    $("#tituloEmp").html(result.NombreEmpresa)
+    $("#RutEmp").val(result.RutEmpresa)
+    $("#NombreEmpresaPer").html(result.NombreEmpresa)
+    $("#nTrabajadores").val(result.NTrabajador)
+    $("#SegmentoEmp").val(result.Segmento)
+    $("#AntiguedadA").val(result.FechaAntiguedad)
+    $("#HoldingEmp").val(NomHolding)
+    $("#slEmperesa_multiselect").val(result.NombreEmpresa)
+    $("#txRutEmp").val(result.RutEmpresa)
+
+
+});
+
+
+if (rutE != "" && rutE != 'undefined' && rutE != null) {
+
+
+    cargador.CargaDatosAsignadosEmp();
+    cargador.CargaDatosAnexos();
+    cargador.CargaDatosEntrevista();
+    cargador.CargaDatosGestionMan();
+    cargador.CargaAgenda(rutEmpresa, '0', 0);
+} else {
+    /*$.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresaAnexo", {
         IdEmpresaA: idEmpresa
     }, function (result) {
         var NomHolding = ""
@@ -949,7 +975,7 @@ if (rutE != "" && rutE != 'undefined' && rutE != null) {
         $("#HoldingEmp").val(NomHolding)
         $("#slEmperesa_multiselect").val(result.NombreEmpresa)
         $("#txRutEmp").val(result.RutEmpresa)
-    });
+    });*/
     cargador.CargaDatosAsignadosAnexo();
     cargador.CargaDatosEntrevista();
     cargador.CargaDatosGestionMan();
@@ -1048,11 +1074,10 @@ $(function () {
         }, function (respuesta) {
 
 
-                console.log({
-                    respuesta
-                });
-            if(respuesta.EsMatriz == 1)
-            {
+            console.log({
+                respuesta
+            });
+            if (respuesta.EsMatriz == 1) {
                 $('#anexoUp').prop('disabled', true);
             }
 
