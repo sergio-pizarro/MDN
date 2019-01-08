@@ -16,7 +16,7 @@ var alertaGestion = 0;
 var codOficina = getCookie("Oficina");
 var cargo = getCookie("Cargo");
 
-if (cargo != 'Agente' && cargo != 'Jefe Servicio al Cliente') {
+if (cargo != 'Agente' && cargo != 'Jefe Servicio al Cliente' && cargo != 'Jefe Empresas y Trabajadores') {
     $('#btNewAnexo').css('display', 'none');
 }
 
@@ -30,7 +30,6 @@ if (idEmpresa == 0) {
     $("#tab_anexos").tab('show');
 
 }
-
 
 
 Dropzone.autoDiscover = false;
@@ -71,6 +70,38 @@ $(function () {
         autoclose: true,
         language: "es"
     }).datepicker("setDate", new Date());
+});
+
+
+
+var rutEmpresa = 0;
+if (rutE != "" && rutE != 'undefined' && rutE != null) {
+    rutEmpresa = rutE;
+} else {
+    rutEmpresa = RutEmpAnexo
+}
+
+$.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresa", {
+    RutEmpresa: rutEmpresa
+}, function (result) {
+    var NomHolding = ""
+    if (result.Holding == 0) {
+        NomHolding = 'Sin Holding'
+    } else {
+        NomHolding = result.NombreHolding
+    }
+    $("#tituloEmp").css('font-size', '20px').css('color', '#b3b3b3').css('margin-left', '20px')
+    $("#tituloEmp").html(result.NombreEmpresa)
+    $("#RutEmp").val(result.RutEmpresa)
+    $("#NombreEmpresaPer").html(result.NombreEmpresa)
+    $("#nTrabajadores").val(result.NTrabajador)
+    $("#SegmentoEmp").val(result.Segmento)
+    $("#AntiguedadA").val(result.FechaAntiguedad)
+    $("#HoldingEmp").val(NomHolding)
+    $("#slEmperesa_multiselect").val(result.NombreEmpresa)
+    $("#txRutEmp").val(result.RutEmpresa)
+
+
 });
 
 
@@ -673,6 +704,8 @@ $('#demo-lg-modal-entrevista').on('hidden.bs.modal', function (event) {
 
 });
 
+
+
 var cargador = {
     CargaDatosAsignadosEmp: function () {
         $("#tbOportunidad").html("");
@@ -741,12 +774,19 @@ var cargador = {
             RutEmpresa: rutE
         }, function (menus) {
             var contador = 0;
+            var matriz = ''
             $.each(menus, function (i, e) {
+                if (e.Anexo == 'MATRIZ') {
+                    matriz = e.Anexo + '  (' + $('#tituloEmp').html() + ')'
+                }
+                else {
+                    matriz = e.Anexo
+                }
                 $("#tbdyAnexo")
                     .append(
                         $("<tr>")
                             .append($("<td>").append(e.RutEmpresa))
-                            .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresaAnexo + '&IJ=0' + '&rutEmAnexo=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.Anexo + '</a>'))
+                            .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresaAnexo + '&IJ=0' + '&rutEmAnexo=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + matriz + '</a>'))
                             .append($("<td>").append('<div class="media-left pos-rel"><img class="img-circle img-sm" src="../Assets/img/profile-photos/2.png" alt="Profile Picture"><i class="badge badge-success badge-stat badge-icon pull-left">' + e.NumTrabajadores + '</i></div>'))
                             .append($("<td>").append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.IdEmpresaAnexo + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
                             .append($("<td>").append('<i href="#" data-toggle="modal" data-target="#demo-lg-modal-AsigEmp" data-idEmp="' + e.IdEmpresaAnexo + '"><i class="btn btn-sm demo-psi-add icon-lg" style="font-size: 31px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + e.TotalAsignados + '</span></i>'))
@@ -908,7 +948,7 @@ var cargador = {
                 }
             }]
         });
-        $('#demo-calendar').fullCalendar("refetchEvents");
+        //$('#demo-calendar').fullCalendar("refetchEvents");
         $('#demo-calendar').fullCalendar('render');
     }
 }
@@ -916,35 +956,6 @@ var cargador = {
 
 
 
-var rutEmpresa = 0;
-if (rutE != "" && rutE != 'undefined' && rutE != null) {
-    rutEmpresa = rutE;
-} else {
-    rutEmpresa = RutEmpAnexo
-}
-
-$.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-perfil-empresa", {
-    RutEmpresa: rutEmpresa
-}, function (result) {
-    var NomHolding = ""
-    if (result.Holding == 0) {
-        NomHolding = 'Sin Holding'
-    } else {
-        NomHolding = result.NombreHolding
-    }
-    $("#tituloEmp").css('font-size', '20px').css('color', '#b3b3b3').css('margin-left', '20px')
-    $("#tituloEmp").html(result.NombreEmpresa)
-    $("#RutEmp").val(result.RutEmpresa)
-    $("#NombreEmpresaPer").html(result.NombreEmpresa)
-    $("#nTrabajadores").val(result.NTrabajador)
-    $("#SegmentoEmp").val(result.Segmento)
-    $("#AntiguedadA").val(result.FechaAntiguedad)
-    $("#HoldingEmp").val(NomHolding)
-    $("#slEmperesa_multiselect").val(result.NombreEmpresa)
-    $("#txRutEmp").val(result.RutEmpresa)
-
-
-});
 
 
 if (rutE != "" && rutE != 'undefined' && rutE != null) {
