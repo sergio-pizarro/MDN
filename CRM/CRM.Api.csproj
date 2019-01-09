@@ -330,6 +330,7 @@
     <Content Include="Assets\js.App\Conf.js" />
     <Content Include="Assets\js.App\Ext.js" />
     <Content Include="Assets\js.App\src\BuscadorGrilla.js" />
+    <Content Include="Assets\js.App\src\empresas-prospectos.js" />
     <Content Include="Assets\js.App\src\ficha-empresa.js" />
     <Content Include="Assets\js.App\src\index.js" />
     <Content Include="Assets\js.App\src\inicio.js" />
