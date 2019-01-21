@@ -428,6 +428,30 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Elimina_Cita_Agenda_Empresa", parametros);
         }
 
+
+        public static int EliminaEmpAsignada(string Token, int IdEmpresa, string RutEmpresa)
+        {
+            Parametros parametros = new Parametros
+            {
+                new Parametro("@IdSucursalEmpresa", IdEmpresa),
+                new Parametro("@RutEmpresa", RutEmpresa),
+                new Parametro("@Token", Token),
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Elimina_Empresa", parametros);
+        }
+
+        public static int EliminaAnexoAsignada(string Token, string RutEmpresa, int IdAnexo)
+        {
+            Parametros parametros = new Parametros
+            {
+                new Parametro("@RutEmpresa", RutEmpresa),
+                new Parametro("@IdEmpresaAnexo ", IdAnexo),
+                new Parametro("@Token", Token),
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_Elimina_Anexo", parametros);
+        }
+
+
         private static CarteraEmpresasEntity ListaCarteraEmpresa(DataRow row)
         {
             return new CarteraEmpresasEntity
