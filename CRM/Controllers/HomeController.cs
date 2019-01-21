@@ -236,6 +236,11 @@ namespace CRM.Controllers
                         myCookie.Expires = DateTime.Now.AddDays(5);
                         Response.Cookies.Add(myCookie);
 
+                        System.Web.HttpCookie rutCookie = new System.Web.HttpCookie("Rut");
+                        rutCookie.Value = RE;
+                        rutCookie.Expires = DateTime.Now.AddDays(5);
+                        Response.Cookies.Add(rutCookie);
+
                         System.Web.HttpCookie usuarioCookie = new System.Web.HttpCookie("Usuario");
                         usuarioCookie.Value = respuesta.Usuario;
                         usuarioCookie.Expires = DateTime.Now.AddDays(5);
