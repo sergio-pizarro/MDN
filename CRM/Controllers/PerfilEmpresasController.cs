@@ -637,6 +637,27 @@ namespace CRM.Controllers
             return Business.Data.PerfilEmpresasDataAccess.ObtieneEmpEjecutivoAsignado(RutEjecutivo);
         }
 
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("elimina-empresa-asignada/{IdEmpresa}/{RutEmpresa}")]
+        public int EliminaEmpresaAsignada([FromUri] int IdEmpresa, [FromUri] string RutEmpresa)
+        {
+            string Token = ActionContext.Request.Headers.GetValues("Token").First();
+            return Business.Data.PerfilEmpresasDataAccess.EliminaEmpAsignada(Token, IdEmpresa, RutEmpresa);
+        }
+
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("elimina-anexo-asignada/{RutEmpresa}")]
+        public int EliminaAnexoAsignada([FromUri] string RutEmpresa, [FromUri] int IdAnexo)
+        {
+            string Token = ActionContext.Request.Headers.GetValues("Token").First();
+            return Business.Data.PerfilEmpresasDataAccess.EliminaAnexoAsignada(Token, RutEmpresa, IdAnexo);
+        }
+
+
     }
 
 }

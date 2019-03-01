@@ -704,6 +704,24 @@ $('#demo-lg-modal-entrevista').on('hidden.bs.modal', function (event) {
 
 });
 
+$(document).on('click', '.elimination', function () {
+    // alert($(this).data("idanexo"))
+    var rut_empresa = $(this).data("erut")
+    var id_anexo = $(this).data("eanexo")
+
+    $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/elimina-anexo-asignada", { RutEmpresa: rut_empresa, IdAnexo: id_anexo }, function (datos) {
+        $.niftyNoty({
+            type: 'success',
+            icon: 'pli-like-2 icon-2x',
+            message: 'SE ELIMINO ANEXO CORRECTAMENTE !.',
+            container: 'floating',
+            timer: 5000
+        });
+        cargador.CargaDatosAnexos();
+    });
+
+});
+
 
 
 var cargador = {
@@ -770,6 +788,16 @@ var cargador = {
 
     CargaDatosAnexos: function () {
         $("#tbdyAnexo").html("");
+
+        var kuky = getCookie('X-Support-Token');
+        var vera = getCookie('Rut');
+
+        if (kuky === "" && vera != '12825688-1') {
+            console.log("deberia esconderse")
+            $(".sergio-esconder").hide();
+        }
+
+
         $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-cartera-anexo", {
             RutEmpresa: rutE
         }, function (menus) {
@@ -782,6 +810,16 @@ var cargador = {
                 else {
                     matriz = e.Anexo
                 }
+
+                var elim = ""
+                if (kuky === "" && vera != '12825688-1') {
+
+                    elim = "";
+                }
+                else {
+                    elim = '<a class="btn btn-danger btn-icon btn-circle elimination sergio-esconder" data-erut="' + e.RutEmpresa + '"  data-eanexo="' + e.IdEmpresaAnexo + '"  title="Eliminar" href="#"><i class="ion-trash-a"></i></a>';
+                }
+
                 $("#tbdyAnexo")
                     .append(
                         $("<tr>")
@@ -790,6 +828,7 @@ var cargador = {
                             .append($("<td>").append('<div class="media-left pos-rel"><img class="img-circle img-sm" src="../Assets/img/profile-photos/2.png" alt="Profile Picture"><i class="badge badge-success badge-stat badge-icon pull-left">' + e.NumTrabajadores + '</i></div>'))
                             .append($("<td>").append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.IdEmpresaAnexo + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
                             .append($("<td>").append('<i href="#" data-toggle="modal" data-target="#demo-lg-modal-AsigEmp" data-idEmp="' + e.IdEmpresaAnexo + '"><i class="btn btn-sm demo-psi-add icon-lg" style="font-size: 31px;"></i><span class="badge badge-header badge-danger" style="position: unset;">' + e.TotalAsignados + '</span></i>'))
+                            .append($("<td>").append(elim))
                     )
             });
         });

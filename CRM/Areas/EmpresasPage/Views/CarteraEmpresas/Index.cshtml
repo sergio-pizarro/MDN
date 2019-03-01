@@ -41,7 +41,7 @@
                                             <th data-align="center" data-sortable="true">N° Trabajadores</th>
                                             <th data-align="center" data-sortable="true">Clasificación Empresa</th>
                                             <th></th>
-                                            <th></th>
+                                            <th class="sergio-esconder"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="bdy_datos"></tbody>
@@ -1122,11 +1122,42 @@
             $("#titulo").css('font-size', '27px').css('color', '#b3b3b3').css('margin-left', '20px')
             $('[data-toggle="popover"]').popover();
             cargador.CargaDatosCateraAgente();
+
+            $(document).on('click', '.elimination', function () {
+                //alert($(this).data("eid") + '---' + $(this).data("erut"))
+                var idEmp = $(this).data("eid")
+                var RutEmp = $(this).data("erut")
+
+                $.SecGetJSON(BASE_URL + `/motor/api/perfil-empresas/elimina-empresa-asignada/${idEmp}/${RutEmp}`, function (datos) {
+                    $.niftyNoty({
+                        type: 'success',
+                        icon: 'pli-like-2 icon-2x',
+                        message: 'SE ELIMINO LA EMPRESA CORRECTAMENTE !.',
+                        container: 'floating',
+                        timer: 5000
+                    });
+                    cargador.CargaDatosCateraAgente();
+                    $('#demo-calendar').fullCalendar('refetchEvents');
+                });
+            });
+            var kuky = getCookie('X-Support-Token');
+            console.log({ kuky })
+            if (kuky === "") {
+                console.log("deberia esconderse")
+                $(".sergio-esconder").hide();
+            }
         });
 
         var cargador = {
             CargaDatosCateraAgente: function () {
                 $("#bdy_datos").html("");
+                var kuky = getCookie('X-Support-Token');
+                var vera = getCookie('Rut');
+
+                if (kuky === "" && vera != '12825688-1') {
+                    //console.log("deberia esconderse")
+                    $(".sergio-esconder").hide();
+                }
                 $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/obtener-cartera-agente", function (menus) {
                     var iterador = ""
                     $.each(menus, function (i, e) {
@@ -1157,14 +1188,28 @@
                             validador = 2
                         }
                         else { Anexo = "" }
+
+                        //var elim = kuky === '' ? '' : '<a class="btn btn-danger btn-icon btn-circle elimination sergio-esconder" data-eid="' + e.Id + '" data-erut="' + e.RutEmpresa + '" title="Eliminar" href="#"><i class="ion-trash-a"></i></a>';
+
+                        var elim = ""
+                        if (kuky === "" && vera != '12825688-1') {
+
+                            elim = "";
+                        }
+                        else {
+                            elim = '<a class="btn btn-danger btn-icon btn-circle elimination sergio-esconder" data-eid="' + e.Id + '" data-erut="' + e.RutEmpresa + '" title="Eliminar" href="#"><i class="ion-trash-a"></i></a>';
+                        }
+
+
+
                         $("#bdy_datos")
                             .append($("<tr>")
                                 .append($("<td>").append(e.RutEmpresa))
                                 .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '&validador=' + validador + '&Id=' + e.Id + '&rutEmpA=0' + ' " class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
                                 .append($("<td>").append(e.NTrabajador))
                                 .append($("<td>").append(NomHolding))
-                                .append($("<td>").append(Asignados))
                                 .append($("<td>").append(Anexo))
+                                .append($("<td>").append(elim))
                             )
                     });
 

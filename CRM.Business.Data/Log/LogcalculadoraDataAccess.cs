@@ -102,7 +102,7 @@ namespace CRM.Business.Data.Log
 
         #region metodos adicionales
 
-        
+
 
         /// <summary>
         /// Recupera todas las entidades <see cref="LogcalculadoraEntity"/> de la Base de Datos
@@ -112,7 +112,7 @@ namespace CRM.Business.Data.Log
         /// <returns>Lista con todas las entidades <see cref="LogcalculadoraEntity"/>.</returns>
         public static int ObtenerEmpresas15porc(string rut_empresa)
         {
-            return DBHelper.InstanceCRM.ObtenerEntidad("dbo.spMotor_EmpresasPublicas15porc", new Parametro("@emp_rut", rut_empresa),RenderExiste);
+            return DBHelper.InstanceCRM.ObtenerEntidad("dbo.spMotor_EmpresasPublicas15porc", new Parametro("@emp_rut", rut_empresa), RenderExiste);
         }
         #endregion
 
@@ -147,6 +147,24 @@ namespace CRM.Business.Data.Log
                 rut_empresa = row["rut_empresa"] != DBNull.Value ? row["rut_empresa"].ToString() : string.Empty,
             };
         }
+
+
+
+        public static List<MuniRolVerificadorEntity> ObtieneMunicipalidades()
+        {
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Lista_Municipalidades", EntidadMunicipalidades);
+        }
+
+        private static MuniRolVerificadorEntity EntidadMunicipalidades(DataRow row)
+        {
+            return new MuniRolVerificadorEntity
+            {
+                RutEmpresa = row["RutEmpresa"] != DBNull.Value ? Convert.ToInt32(row["RutEmpresa"]) : 0,
+                DvEmpresa = row["DvEmpresa"] != DBNull.Value ? row["DvEmpresa"].ToString() : string.Empty,
+                NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
+            };
+        }
+
         #endregion
     }
 }

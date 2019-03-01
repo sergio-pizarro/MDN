@@ -107,7 +107,7 @@ namespace CRM.Business.Entity.Log
         /// rut_empresa
         /// </summary>
         public string rut_empresa { get; set; }
-        
+
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="LogcalculadoraEntity"/>.
@@ -133,5 +133,12 @@ namespace CRM.Business.Entity.Log
             rut_empresa = string.Empty;
 
         }
+    }
+    public class MuniRolVerificadorEntity
+    {
+        public int RutEmpresa { get; set; }
+        public string DvEmpresa { get; set; }
+        public string NombreEmpresa { get; set; }
+
     }
 }

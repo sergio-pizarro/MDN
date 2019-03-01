@@ -7,6 +7,9 @@
 <link href="~/Assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 <!--Chosen [ OPTIONAL ]-->
 <link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/fullcalendar/nifty-skin/fullcalendar-nifty.min.css" rel="stylesheet">
+<link href="~/Assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
 
 <div id="page-content">
     <div class="row">
@@ -90,13 +93,224 @@
                             </table>
                         </div>
                     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <div id="demo-lft-tab-2" class="tab-pane fade">
-                        <br />
-                        <button class="btn btn-primary btn-labeled demo-pli-male ic-user" data-target="#modal-add-ejec" data-toggle="modal">Agregar Ejecutivo</button>
-                        <br />
-                        <br />
-                        <table class="table table-bordered table-hover toggle-circle" id="tabla_dotacion_agente"></table>
+
+                        <table class="table table-bordered table-hover toggle-circle" id="tabla_dotacion_agente" style="display:none"></table>
+                        <div class="panel-body">
+
+                            <br />
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-sm-7 col-lg-7">
+                                        <div class="panel panel-info panel-colorful" style="border-radius: 11px; background-color: #fff;  border-color: #e9e9e9;">
+                                            <div class="pad-all">
+                                                <p class="mar-no">
+                                                    <table class="table  table-condensed" style="font-size: 11px;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Cargo</th>
+                                                                <th>N°</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><a href="#" class="btn-link">Agente</a></td>
+                                                                <td><span class="label label-success" style="border-radius: 5px; font-size: 10px;">1</span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="#" class="btn-link">Ejecutivo Empresas y Trabajadores</a></td>
+                                                                <td><span class="label label-success" style="border-radius: 5px; font-size: 10px;">3</span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="#" class="btn-link">Ejecutivo movil</a></td>
+                                                                <td><span class="label label-success" style="border-radius: 5px; font-size: 10px;">2</span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="#" class="btn-link">Ejecutivo Normalizacion</a></td>
+                                                                <td><span class="label label-success" style="border-radius: 5px; font-size: 10px;">3</span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="#" class="btn-link">Ejecutivo Servicio al Cliente</a></td>
+                                                                <td><span class="label label-success" style="border-radius: 5px; font-size: 10px;">4</span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><a href="#" class="btn-link">Ejecutivo Servicio Integral</a></td>
+                                                                <td><span class="label label-success" style="border-radius: 5px; font-size: 10px;">5</span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="color: black; font-size: 13px;">Total General</td>
+                                                                <td><span class="label label-primary" style="border-radius: 5px; font-size: 10px;">18</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-3">
+                                        <div class="panel" style="border-radius: 9px; border: 1px solid #d8dce0;">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Tipos de Ausentismo</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div id="demo-external-events">
+                                                    <div class="fc-event fc-list" data-class="warning">LM Común</div>
+                                                    <div class="fc-event fc-list" data-class="success">Vacaciones</div>
+                                                    <div class="fc-event fc-list" data-class="warning">Administrativo</div>
+                                                    <div class="fc-event fc-list" data-class="danger">Vacante</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <hr />
+                                    <table class="table table-striped" style="font-size: 10px;">
+                                        <thead>
+                                            <tr>
+                                                <th style="background: #42a5f5a3; color: #f5f5f5; border-radius: 5px 0px 0 5px;"></th>
+                                                <th style="background: #42a5f5a3; color: #f5f5f5;">Cargo</th>
+                                                <th style="background: #42a5f5a3; color: #f5f5f5;">Nombre Titular</th>
+                                                <th style="background: #42a5f5a3; color: #f5f5f5;">Inicio</th>
+                                                <th style="background: #42a5f5a3; color: #f5f5f5;">Fin</th>
+                                                <th class="text-center" style="background: #42a5f5a3; color: #f5f5f5;">Estado Incorporación</th>
+                                                <th class="text-center" style="background: #42a5f5a3; color: #f5f5f5;">Fecha Estado</th>
+                                                <th style="background: #0261b3; color: #f5f5f5;">Cargo Reemplazo</th>
+                                                <th style="background: #0261b3; color: #f5f5f5;">Nombre Reemplazo</th>
+                                                <th class="text-center" style="background: #0261b3; color: #f5f5f5;">Fecha Desde</th>
+                                                <th class="text-center" style="background: #0261b3; color: #f5f5f5; border-radius: 0 5px 5px 0;">Fecha Hasta</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <button class="btn btn-xs btn-rounded btn-default" data-target="#modal-dotacion" data-toggle="modal" style="font-size: 10px;">Generar</button>
+
+
+                                                </td>
+                                                <td>Agente</td>
+                                                <td>Carlos Pradenas</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td class="text-center">
+                                                    <select class="form-control" style="font-size: 10px; height: 28px; border-radius: 10px; width: 98px;">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="1">Solicitud enviada a Personas</option>
+                                                        <option value="2">En Seleccion De CV.</option>
+                                                        <option value="3">En Entrevista</option>
+                                                        <option value="4">Con Carta de Oferta</option>
+                                                        <option value="4">Finalizado</option>
+                                                    </select>
+                                                </td>
+                                                <td class="text-center">--</td>
+                                                <td style="border-left: 1px solid #dddddd; background: #f8f9fa;">--</td>
+                                                <td style=" background: #f8f9fa;">--</td>
+                                                <td style=" background: #f8f9fa;" class="text-center">--</td>
+                                                <td style=" background: #f8f9fa;" class="text-center">--</td>
+                                            </tr>
+                                            <tr>
+                                                <td><button class="btn btn-xs btn-rounded btn-default" style="font-size: 10px;">Generar</button></td>
+                                                <td style="background: #8bc34ac7; color: white;">Ejecutivo Empresas y Trabajadores</td>
+                                                <td style="background: #8bc34ac7; color: white;">Manuel Monsalve</td>
+                                                <td style="background: #8bc34ac7; color: white;">15/01/2019</td>
+                                                <td style="background: #8bc34ac7; color: white;">15/02/2019</td>
+                                                <td class="text-center" style="background: #8bc34ac7; color: white;">
+                                                    <select class="form-control" style="font-size: 10px; height: 28px; border-radius: 10px; width: 98px;">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="1">Solicitud enviada a Personas</option>
+                                                        <option value="2">En Seleccion De CV.</option>
+                                                        <option value="3">En Entrevista</option>
+                                                        <option value="4">Con Carta de Oferta</option>
+                                                        <option value="4">Finalizado</option>
+                                                    </select>
+                                                </td>
+                                                <td class="text-center" style="background: #8bc34ac7; color: white;">--</td>
+                                                <td style="border-left: 1px solid #dddddd; background: #f8f9fa;"><span class="text-muted"><i class="fa fa-clock-o"></i>Ejecutivo Empresas y Trabajadores</span></td>
+                                                <td style=" background: #f8f9fa;">Manuel Vega</td>
+                                                <td style=" background: #f8f9fa;">15/01/2019</td>
+                                                <td style=" background: #f8f9fa;">15/02/2019</td>
+                                            </tr>
+                                            <tr>
+                                                <td><button class="btn btn-xs btn-rounded btn-default" style="font-size: 10px;">Generar</button></td>
+                                                <td>Ejecutivo Servicio Integral</td>
+                                                <td>Sergio Pizarro</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td class="text-center">
+                                                    <select class="form-control" style="font-size: 10px; height: 28px; border-radius: 10px; width: 98px;">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="1">Solicitud enviada a Personas</option>
+                                                        <option value="2">En Seleccion De CV.</option>
+                                                        <option value="3">En Entrevista</option>
+                                                        <option value="4">Con Carta de Oferta</option>
+                                                        <option value="4">Finalizado</option>
+                                                    </select>
+                                                </td>
+                                                <td class="text-center">--</td>
+                                                <td style="border-left: 1px solid #dddddd; background: #f8f9fa;">--</td>
+                                                <td style=" background: #f8f9fa;">--</td>
+                                                <td style=" background: #f8f9fa;" class="text-center"> -- </td>
+                                                <td style=" background: #f8f9fa;" class="text-center">--</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr />
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <div id="demo-lft-tab-3" class="tab-pane fade">
                         <div class="panel-body">
                             <form id="form-asignados" action="#" method="get">
@@ -408,6 +622,133 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+    <div class="modal fade" id="modal-dotacion" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!--Modal header-->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                    <h4 class="modal-title" id="Leyenda_ef">Ingreso</h4>
+                </div>
+                <form id="form-registro-ausencia">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Selección de Ingreso</label>
+                                    <select class="form-control" id="slIngreso">
+                                        <option value="">Seleccione</option>
+                                        <option value="1">Alta</option>
+                                        <option value="2">Baja</option>
+                                        <option value="3">Reemplazo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Sub Ingreso</label>
+                                    <select class="form-control" id="slSubIngreso" disabled>
+                                        <option value="">Seleccione</option>
+                                        <option value="1">Interno</option>
+                                        <option value="2">Externo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+
+
+                    <div id="dvFormularioDotacion" style="display:none">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Rut</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Correo</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Sucursal Origen</label>
+                                        <select class="form-control" id="sucursalOrigenDota" enabled></select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Cargo Origen</label>
+                                        <select class="form-control" id="cargoOrigenDota" enabled></select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha Inicio</label>
+                                        <div id="demo-dp-component">
+                                            <div class="input-group date">
+                                                <input class="form-control" type="text" id="FechaGest" name="fechaInicioDotacion">
+                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha Fin</label>
+                                        <div id="demo-dp-component">
+                                            <div class="input-group date">
+                                                <input class="form-control" type="text" id="FechaGest" name="fechaFinDotacion">
+                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group" id="TipoContratoDota" style="display: none">
+                                        <label class="control-label">Tipo de Contrato</label>
+                                        <select class="form-control" id="slTipoContratoDota"></select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group" id="motivoDesvinDota" style="display:none">
+                                        <label class="control-label">Motivo Desvinculanción</label>
+                                        <input class="form-control" type="text" id="slmotivoDesvinDota">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button class="btn btn-success" type="submit">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
 </div>
 @section script{
 
@@ -422,8 +763,64 @@
     <script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
 
 
+
     <script>
         $(document).ready(function () {
+            $("#slIngreso").on("change", function (event, params) {
+                switch (this.value) {
+                    case "1":
+                        $('#dvFormularioDotacion').css('display', 'none')
+                        $('#slSubIngreso').removeAttr('disabled');
+                        $("#slSubIngreso").val("")
+                        break;
+                    case "2":
+                       
+                        $('#dvFormularioDotacion').css('display', 'block')
+                        $('#slSubIngreso').prop('disabled', true);
+                        $('#motivoDesvinDota').css('display', 'block')
+                        
+                        break;
+                    case "3":
+                        $('#dvFormularioDotacion').css('display', 'none')
+                        $('#slSubIngreso').removeAttr('disabled');
+                        $("#slSubIngreso").val("")
+                        break;
+                }
+            });
+
+            $("#slSubIngreso").on("change", function (event, params) {
+                switch (this.value) {
+                    case "1":
+                        $('#dvFormularioDotacion').css('display', 'block')
+                        $('#slSubIngreso').removeAttr('disabled');
+                        $('#motivoDesvinDota').css('display', 'none')
+                        $('#TipoContratoDota').css('display', 'none')
+
+                        break;
+                    case "2":
+                        $('#dvFormularioDotacion').css('display', 'block')
+                        $('#slSubIngreso').removeAttr('disabled');
+                        $('#motivoDesvinDota').css('display', 'none')
+                        $('#TipoContratoDota').css('display', 'block')
+                        break;
+
+                }
+            });
+
+
+
+
+
+
+
+
+
+            $('#demo-dp-component .input-group.date').datepicker({
+                format: "dd-mm-yyyy",
+                autoclose: true,
+                language: "es"
+            }).datepicker("setDate", new Date());
+
 
             $("#oficina").val(getCookie("Oficina"))
 
@@ -437,21 +834,21 @@
                         $("#ejecutivos-oficina").append(
                             $("<tr>")
                                 .append(
-                                $("<td>").addClass("text-center")
-                                    .append(
-                                    $("<input>").prop({ "type": "checkbox", "value": e.EjecutivoData.Rut, "checked": (e.EjecutivoData.EsAsignable === 1) ? "checked" : "", "name": "ejecutivos" }).addClass("habilitado")
-                                    )
+                                    $("<td>").addClass("text-center")
+                                        .append(
+                                            $("<input>").prop({ "type": "checkbox", "value": e.EjecutivoData.Rut, "checked": (e.EjecutivoData.EsAsignable === 1) ? "checked" : "", "name": "ejecutivos" }).addClass("habilitado")
+                                        )
                                 ).append(
-                                $("<td>").append(
-                                    $("<span>").addClass("text-main").addClass("text-semibold").html(e.EjecutivoData.Nombres)
-                                ).append($("<br>"))
-                                    .append(
-                                    $("<small>").addClass("text-muted").html(e.EjecutivoData.Rut)
-                                    )
+                                    $("<td>").append(
+                                        $("<span>").addClass("text-main").addClass("text-semibold").html(e.EjecutivoData.Nombres)
+                                    ).append($("<br>"))
+                                        .append(
+                                            $("<small>").addClass("text-muted").html(e.EjecutivoData.Rut)
+                                        )
                                 ).append(
-                                $("<td>").append(
-                                    $("<span>").addClass("text-main").addClass("text-semibold").html(e.EjecutivoData.Cargo)
-                                ).addClass("busqueda-cargo")
+                                    $("<td>").append(
+                                        $("<span>").addClass("text-main").addClass("text-semibold").html(e.EjecutivoData.Cargo)
+                                    ).addClass("busqueda-cargo")
                                 )
                         );
 
@@ -609,9 +1006,8 @@
     <script>
 
         var elEditando = null;
-        
-        function do_force(rut)
-        {
+
+        function do_force(rut) {
             console.log(elEditando)
             var isEstadoInicial = elEditando.hasClass("btn-default");
             $.SecGetJSON(BASE_URL + "/motor/api/Config/reemplazo-requerido", { rutEjecutivo: rut, forzar: true }, function (datos) {
@@ -626,7 +1022,7 @@
                         });
                         elEditando.removeClass("btn-default").addClass("btn-danger");
                         elEditando.text("Reemplazo (F)");
-                    } 
+                    }
                 }
             });
         }
@@ -640,10 +1036,9 @@
 
             $.SecGetJSON(BASE_URL + "/motor/api/Config/reemplazo-requerido", { rutEjecutivo: $el.data("value") }, function (datos) {
 
-               
 
-                if (isEstadoInicial)
-                {
+
+                if (isEstadoInicial) {
                     if (datos.Estado == "OK") {
                         $.niftyNoty({
                             type: 'success',
@@ -662,10 +1057,9 @@
                             container: 'floating'
                         });
                     }
-                    
+
                 }
-                else
-                {
+                else {
                     if (datos.Estado == "OK") {
                         $.niftyNoty({
                             type: 'success',
@@ -685,16 +1079,16 @@
                             timer: 5000
                         });
                     }
-                    
+
                 }
-                
+
             });
 
 
         }
 
         $(function () {
-            
+
 
             //Funcionalidadaes de controlador
             var hoy = new Date();
@@ -780,12 +1174,10 @@
                             console.log(ejecutivo)
                             var inticlass = "btn-default";
                             var initext = "Reemplazar";
-                            if (ejecutivo.RegistraAusencia)
-                            {
+                            if (ejecutivo.RegistraAusencia) {
                                 inticlass = "btn-danger";
                                 initext = "Reemplazo";
-                                if(ejecutivo.PeriodoAusencia.length == 0)
-                                {
+                                if (ejecutivo.PeriodoAusencia.length == 0) {
                                     initext = "Reemplazo (R)";
                                 }
                             }
