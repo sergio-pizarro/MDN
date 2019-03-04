@@ -62,6 +62,42 @@ namespace CRM.Business.Data.Log
             return DBHelper.InstanceCRM.ObtenerEscalar<int>("dbo.spLog_Logcalculadora_Guardar", parametros);
         }
 
+
+
+        public static int GuardarRolVerificador(LogRolVerificadorEntity logcalculadora)
+        {
+            Parametros parametros = new Parametros
+            {
+                new Parametro("@lgc_id", logcalculadora.lgc_id),
+                new Parametro("@fecha_accion", logcalculadora.fecha_accion),
+                new Parametro("@ejecutivo", logcalculadora.ejecutivo),
+                new Parametro("@oficina", logcalculadora.oficina),
+                new Parametro("@rut_afiliado", logcalculadora.rut_afiliado),
+                new Parametro("@renta_depurada_crm", logcalculadora.renta_depurada_crm),
+                new Parametro("@descuento_legal", logcalculadora.descuento_legal),
+                new Parametro("@procentaje_descuento", logcalculadora.procentaje_descuento),
+                new Parametro("@total_descuentos_liquidacion", logcalculadora.total_descuentos_liquidacion),
+                new Parametro("@descuentos_legales_primer_mes", logcalculadora.descuentos_legales_primer_mes),
+                new Parametro("@descuentos_legales_segundo_mes", logcalculadora.descuentos_legales_segundo_mes),
+                new Parametro("@descuentos_legales_tercer_mes", logcalculadora.descuentos_legales_tercer_mes),
+                new Parametro("@descuentos_legales_promedio", logcalculadora.descuentos_legales_promedio),
+                new Parametro("@tiene_descuentos_planilla", logcalculadora.tiene_descuentos_planilla),
+                new Parametro("@descuentos_creditos_planilla", logcalculadora.descuentos_creditos_planilla),
+                new Parametro("@cuota_maxima_descontar_caja", logcalculadora.cuota_maxima_descontar_caja),
+                new Parametro("@rut_empresa", logcalculadora.rut_empresa),
+
+                new Parametro("@nombre_empresa", logcalculadora.nombre_empresa),
+                new Parametro("@departamento", logcalculadora.departamento),
+                new Parametro("@cotiza", logcalculadora.cotiza),
+                new Parametro("@grado", logcalculadora.grado),
+                new Parametro("@seguro_cesantia", logcalculadora.seguro_cesantia),
+
+            };
+
+            return DBHelper.InstanceCRM.ObtenerEscalar<int>("dbo.spLog_LogRolVerificador_Guardar", parametros);
+        }
+
+
         /// <summary>
         /// Recupera una entidad <see cref="LogcalculadoraEntity"/> de la Base de Datos dado un ID de LogcalculadoraEntity
         /// </summary>
@@ -164,6 +200,24 @@ namespace CRM.Business.Data.Log
                 NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
             };
         }
+
+        public static List<EmpresaRolVerificadorEntity> ObtieneEmpresaRol(int IdAnexo)
+        {
+            Parametro parametro = new Parametro("@IdAnexo", IdAnexo);
+
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Lista_Rol_Empresa", parametro, EntidadRolEmpresas);
+        }
+
+        private static EmpresaRolVerificadorEntity EntidadRolEmpresas(DataRow row)
+        {
+            return new EmpresaRolVerificadorEntity
+            {
+                IdAnexo = row["IdAnexo"] != DBNull.Value ? Convert.ToInt32(row["IdAnexo"]) : 0,
+                RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
+                NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
+            };
+        }
+
 
         #endregion
     }

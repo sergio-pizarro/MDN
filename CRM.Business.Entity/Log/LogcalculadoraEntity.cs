@@ -134,6 +134,63 @@ namespace CRM.Business.Entity.Log
 
         }
     }
+
+    // <ROL VERIFICADOR>
+
+    public class LogRolVerificadorEntity
+    {
+        public int lgc_id { get; set; }
+        public DateTime fecha_accion { get; set; }
+        public string ejecutivo { get; set; }
+        public int oficina { get; set; }
+        public string rut_afiliado { get; set; }
+        public long renta_depurada_crm { get; set; }
+        public long descuento_legal { get; set; }
+        public long procentaje_descuento { get; set; }
+        public long total_descuentos_liquidacion { get; set; }
+        public long descuentos_legales_primer_mes { get; set; }
+        public long descuentos_legales_segundo_mes { get; set; }
+        public long descuentos_legales_tercer_mes { get; set; }
+        public long descuentos_legales_promedio { get; set; }
+        public string tiene_descuentos_planilla { get; set; }
+        public long descuentos_creditos_planilla { get; set; }
+        public long cuota_maxima_descontar_caja { get; set; }
+        public string rut_empresa { get; set; }
+        public string nombre_empresa { get; set; }
+        public string departamento { get; set; }
+        public string cotiza { get; set; }
+        public string grado { get; set; }
+        public string seguro_cesantia { get; set; }
+
+        public LogRolVerificadorEntity()
+        {
+            lgc_id = 0;
+            fecha_accion = new DateTime(1900, 1, 1);
+            ejecutivo = string.Empty;
+            oficina = 0;
+            rut_afiliado = string.Empty;
+            renta_depurada_crm = 0;
+            descuento_legal = 0;
+            procentaje_descuento = 0;
+            total_descuentos_liquidacion = 0;
+            descuentos_legales_primer_mes = 0;
+            descuentos_legales_segundo_mes = 0;
+            descuentos_legales_tercer_mes = 0;
+            descuentos_legales_promedio = 0;
+            tiene_descuentos_planilla = string.Empty;
+            descuentos_creditos_planilla = 0;
+            cuota_maxima_descontar_caja = 0;
+            rut_empresa = string.Empty;
+            nombre_empresa = string.Empty;
+            departamento = string.Empty;
+            cotiza = string.Empty;
+            grado = string.Empty;
+            seguro_cesantia = string.Empty;
+
+        }
+    }
+
+
     public class MuniRolVerificadorEntity
     {
         public int RutEmpresa { get; set; }
@@ -141,4 +198,12 @@ namespace CRM.Business.Entity.Log
         public string NombreEmpresa { get; set; }
 
     }
+
+    public class EmpresaRolVerificadorEntity
+    {
+        public int IdAnexo { get; set; }
+        public string RutEmpresa { get; set; }
+        public string NombreEmpresa { get; set; }
+    }
+
 }
