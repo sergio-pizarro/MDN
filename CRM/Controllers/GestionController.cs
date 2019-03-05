@@ -1181,9 +1181,9 @@ namespace CRM.Controllers
             string _rut = Security.Data.UsuarioDataAccess.UsuarioData(_uid).RutUsuario;
             CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
             int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
-            entrada.fecha_accion = DateTime.Now;
-            entrada.ejecutivo = _rut;
-            entrada.oficina = codOficina;
+           // entrada.fecha_accion = DateTime.Now;
+            entrada.RutEjecutivo = _rut;
+            entrada.CodSucursal = codOficina;
 
             Business.Data.Log.LogcalculadoraDataAccess.GuardarRolVerificador(entrada);
             return new ResultadoBase()
@@ -1237,13 +1237,6 @@ namespace CRM.Controllers
             return AsignacionDataAccess.ListaEmpresaEje(token);
         }
 
-        [AuthorizationRequired]
-        [HttpGet]
-        [Route("lista-municipalidades")]
-        public ICollection<MuniRolVerificadorEntity> ObtenerComunasEmpresas()
-        {
-            return LogcalculadoraDataAccess.ObtieneMunicipalidades();
-        }
 
         [AuthorizationRequired]
         [HttpGet]

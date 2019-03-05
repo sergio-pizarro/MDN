@@ -558,8 +558,7 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_Lista_Detalle_Mantencion_Gestion_idGestion", prm, ListaMantGestionDetalle);
 
         }
-
-
+        
         public static List<AfiliadoOficinaEntity> ObtieneAfiliadoSuc(string RutEmpresa)
         {
             Parametro prm = new Parametro("@RUT_EMPRESA", RutEmpresa);

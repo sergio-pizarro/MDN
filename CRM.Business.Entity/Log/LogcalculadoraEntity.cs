@@ -139,57 +139,66 @@ namespace CRM.Business.Entity.Log
 
     public class LogRolVerificadorEntity
     {
-        public int lgc_id { get; set; }
-        public DateTime fecha_accion { get; set; }
-        public string ejecutivo { get; set; }
-        public int oficina { get; set; }
-        public string rut_afiliado { get; set; }
-        public long renta_depurada_crm { get; set; }
-        public long descuento_legal { get; set; }
-        public long procentaje_descuento { get; set; }
-        public long total_descuentos_liquidacion { get; set; }
-        public long descuentos_legales_primer_mes { get; set; }
-        public long descuentos_legales_segundo_mes { get; set; }
-        public long descuentos_legales_tercer_mes { get; set; }
-        public long descuentos_legales_promedio { get; set; }
-        public string tiene_descuentos_planilla { get; set; }
-        public long descuentos_creditos_planilla { get; set; }
-        public long cuota_maxima_descontar_caja { get; set; }
-        public string rut_empresa { get; set; }
-        public string nombre_empresa { get; set; }
-        public string departamento { get; set; }
-        public string cotiza { get; set; }
-        public string grado { get; set; }
-        public string seguro_cesantia { get; set; }
+        public string Id { get; set; }
+        public string RutEjecutivo { get; set; }
+        public int CodSucursal { get; set; }
+        public string RutAfiliado { get; set; }
+        public int Anexo { get; set; }
+        public string RutEmpresa { get; set; }
+        public string NombreEmpresa { get; set; }
+        public bool? Cotiza { get; set; }
+        public bool? Grado { get; set; }
+        public bool? SeguroCesantia { get; set; }
+        public bool? ProEmpleo { get; set; }
+        public bool? LeyEspecifica { get; set; }
+
+        public int TotalHaberes { get; set; }
+        public int BonosExtras { get; set; }
+        public int DescuentoLegalMes1 { get; set; }
+        public int DescuentoLegalMes2 { get; set; }
+        public int DescuentoLegalMes3 { get; set; }
+        public int Promedio { get; set; }
+        public int RentaDepurada { get; set; }
+        public int RentaDepuradaCMR { get; set; }
+        public int TotalDescuento { get; set; }
+        public int OtrosDescuentos { get; set; }
+        public int ValorCuotaCredito { get; set; }
+        public int ValorCuotaCreditoComp { get; set; }
+        public string Resultado1 { get; set; }
+        public string Resultado2 { get; set; }
 
         public LogRolVerificadorEntity()
         {
-            lgc_id = 0;
-            fecha_accion = new DateTime(1900, 1, 1);
-            ejecutivo = string.Empty;
-            oficina = 0;
-            rut_afiliado = string.Empty;
-            renta_depurada_crm = 0;
-            descuento_legal = 0;
-            procentaje_descuento = 0;
-            total_descuentos_liquidacion = 0;
-            descuentos_legales_primer_mes = 0;
-            descuentos_legales_segundo_mes = 0;
-            descuentos_legales_tercer_mes = 0;
-            descuentos_legales_promedio = 0;
-            tiene_descuentos_planilla = string.Empty;
-            descuentos_creditos_planilla = 0;
-            cuota_maxima_descontar_caja = 0;
-            rut_empresa = string.Empty;
-            nombre_empresa = string.Empty;
-            departamento = string.Empty;
-            cotiza = string.Empty;
-            grado = string.Empty;
-            seguro_cesantia = string.Empty;
+            Id = string.Empty;
+            RutEjecutivo = string.Empty;
+            CodSucursal = 0;
+            RutAfiliado = string.Empty;
+            Anexo = 0;
+            RutEmpresa = string.Empty;
+            NombreEmpresa = string.Empty;
+            Cotiza = null;
+            Grado = null;
+            SeguroCesantia = null;
+            ProEmpleo = null;
+            LeyEspecifica = null;
+
+            TotalHaberes = 0;
+            BonosExtras = 0;
+            DescuentoLegalMes1 = 0;
+            DescuentoLegalMes2 = 0;
+            DescuentoLegalMes3 = 0;
+            Promedio = 0;
+            RentaDepurada = 0;
+            RentaDepuradaCMR = 0;
+            TotalDescuento = 0;
+            OtrosDescuentos = 0;
+            ValorCuotaCredito = 0;
+            ValorCuotaCreditoComp = 0;
+            Resultado1 = string.Empty;
+            Resultado2 = string.Empty;
 
         }
     }
-
 
 
     public class MuniRolVerificadorEntity
@@ -200,13 +209,11 @@ namespace CRM.Business.Entity.Log
 
     }
 
-
     public class EmpresaRolVerificadorEntity
     {
         public int IdAnexo { get; set; }
         public string RutEmpresa { get; set; }
         public string NombreEmpresa { get; set; }
     }
-
 
 }
