@@ -195,5 +195,24 @@ namespace CRM.Controllers
 
         }
 
+
+        /*Nuevos metodos para Empresas
+         *
+         */
+
+
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("buscar-empresa")]
+        public IHttpActionResult BuscarEmpresa(string query)
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+
+
+            return Ok(CarteraEmpresaDataAccess.ObtenerEmpresaPorNombreRutOHolding(query));
+            
+        }
+
     }
 }

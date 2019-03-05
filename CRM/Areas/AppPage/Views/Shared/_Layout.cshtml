@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="~/Assets/img/favicon.ico" />
-    
+
     @*
         <meta http-equiv="cache-control" content="max-age=0" />
         <meta http-equiv="cache-control" content="no-cache" />
@@ -23,7 +23,8 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <!--App Styles & dependences [ REQUIRED ]-->
     <link href="~/Assets/css.App/bundle.min.css" rel="stylesheet">
-    
+    <link href="~/Assets/css.App/print.css" rel="stylesheet">
+
 </head>
 
 <!--TIPS-->
@@ -33,7 +34,7 @@
 
         <!--NAVBAR-->
         <!--===================================================-->
-        <header id="navbar">
+        <header id="navbar" class="no-print">
             <div id="navbar-container">
 
                 <!--Brand logo & name-->
@@ -201,7 +202,7 @@
             <!--END CONTENT CONTAINER-->
             <!--MAIN NAVIGATION-->
             <!--===================================================-->
-            <nav id="mainnav-container">
+            <nav id="mainnav-container" class="no-print">
                 <div id="mainnav">
                     <!--Menu-->
                     <!--================================-->

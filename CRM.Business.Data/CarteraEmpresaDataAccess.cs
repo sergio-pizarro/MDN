@@ -21,6 +21,15 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerEntidad("carteras.spMotorCartera_ListaEmpresaRut", pram, ConsCarteraEmpresa);
         }
 
+        public static List<CarteraEmpresaHolding> ObtenerEmpresaPorNombreRutOHolding(string busqueda)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@Entrada", busqueda)
+            };
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_ObtenerEmpresaPorNombreRutOHolding", pram, ConsCarteraEmpresaHolding);
+        }
+
         public static List<EjecutivoCarteraEntity> ListarEjecutivoCargo(string TokenEjecutivo, int CodTipo)
         {
             Parametros pram = new Parametros
@@ -94,6 +103,17 @@ namespace CRM.Business.Data
             };
         }
 
+        private static CarteraEmpresaHolding ConsCarteraEmpresaHolding(DataRow row)
+        {
+
+            return new CarteraEmpresaHolding
+            {
+                RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
+                NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
+                Holding = row["Holding"] != DBNull.Value ? row["Holding"].ToString() : string.Empty
+            };
+        }
+
         private static EjecutivoCarteraEntity ConstEjecutivoCargo(DataRow row)
         {
             return new EjecutivoCarteraEntity
@@ -125,8 +145,7 @@ namespace CRM.Business.Data
              
                 RutEmpresa = row["RutEmpresa"] != DBNull.Value ? row["RutEmpresa"].ToString() : string.Empty,
                 NombreEmpresa = row["EmpresaNombre"] != DBNull.Value ? row["EmpresaNombre"].ToString() : string.Empty,
-             
-
+               
             };
         }
         private static CarteraEmpresaAdmin ListadoEmpresaAsignada(DataRow row)

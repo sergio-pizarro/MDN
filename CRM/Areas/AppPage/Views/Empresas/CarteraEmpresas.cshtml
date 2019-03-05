@@ -89,6 +89,8 @@
     <script src="~/Assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
     <script src="~/Assets/plugins/bootbox/bootbox.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+
 
     <script type="text/javascript">
 
@@ -110,7 +112,7 @@
         var alertaGestion = 0;
 
         $(function () {
-
+            
             $("#titulo").css('font-size', '27px').css('color', '#b3b3b3').css('margin-left', '20px')
             $('[data-toggle="popover"]').popover();
             cargador.CargaDatosCateraAgente();
@@ -1207,7 +1209,299 @@
         });
 
 
+        // BUBBLE NUMBERS
+        // =================================================================
+        $('#demo-step-wz').bootstrapWizard({
+            tabClass: 'wz-steps',
+            nextSelector: '.next',
+            previousSelector: '.previous',
+            onTabClick: function (tab, navigation, index) {
+                return false;
+            },
+            onInit: function () {
+                $('#demo-step-wz').find('.finish').hide().prop('disabled', true);
+            },
+            onTabShow: function (tab, navigation, index) {
+                var $total = navigation.find('li').length;
+                var $current = index + 1;
+                var $percent = (index / $total) * 100;
+                var wdt = 100 / $total;
+                var lft = wdt * index;
+                var margin = (100 / $total) / 2;
+                $('#demo-step-wz').find('.progress-bar').css({ width: $percent + '%', 'margin': 0 + 'px ' + margin + '%' });
 
+
+                console.log({ tab, navigation, index });
+
+                if (index == 1) {
+                    $(document).trigger("charlie.events.onAsignarAnexos");
+                }
+
+                if (index == 2) {
+                    $(document).trigger("charlie.events.onAsignacionyCargaDeAfiliados");
+                }
+
+                // If it's the last tab then hide the last button and show the finish instead
+                if ($current >= $total) {
+                    $('#demo-step-wz').find('.next').hide();
+                    $('#demo-step-wz').find('.finish').show();
+                    $('#demo-step-wz').find('.finish').prop('disabled', false);
+                } else {
+                    $('#demo-step-wz').find('.next').show();
+                    $('#demo-step-wz').find('.finish').hide().prop('disabled', true);
+                }
+            }
+        });
+
+
+        $("#btn-add-new-enterprise").on('click', function () {
+            $("#add-enterprise").show();
+            $("#enterprises-added").hide();
+            $("#btn-add-new-enterprise").hide();
+            $("#btn-back").show();
+        });
+
+        $("#btn-back").on('click', function () {
+            $("#add-enterprise").hide();
+            $("#enterprises-added").show();
+            $("#btn-add-new-enterprise").show();
+            $("#btn-back").hide();
+            //resetear las etapas del wizard
+        });
+        
+
+        $('#bt-search-company').on('click', function () {
+            var query = $('#query-company').val();
+            $("#lading-indicator").show();
+            $('#search-results').html("");
+            $.SecGetJSON(BASE_URL + "/motor/api/CarteraEmpresas/buscar-empresa", { query }, function (response) {
+                
+                $.each(response, function (i, e) {
+                    var rendhtml = `<tr class="result-item">
+                                        <td>
+                                            <span class="text-semibold elnombre">${e.NombreEmpresa}</span>
+                                            <br>
+                                            <small class="elrut">${e.RutEmpresa}</small>
+                                        </td>
+                                        <td class="text-center"><span class="text-semibold elholding">${e.Holding}</span></td>
+                                    </tr>`;
+
+                    $('#search-results').append(rendhtml);
+                    
+                });
+
+                $("#lading-indicator").hide();
+                $("#table-results").show();
+
+            });
+        });
+
+        $(document).on("click", ".result-item", function () {
+
+            $(".result-item").removeClass("seleccionado");
+            $(this).addClass("seleccionado");
+        });
+
+        $('#es-sin-sucursal').on('click', function () {
+
+            charlie_listado_anexos.cleanData();
+            if ($(this).is(':checked')) {
+                $('.bloqueable').hide();
+            } else {
+                $('.bloqueable').show();
+            }
+        });
+
+        $('#bt-agregar-anexo').on('click', function () {
+
+
+            if (charlie_listado_anexos.state.editing !== null) {
+
+                let fnd = charlie_listado_anexos.data.find(elm => elm.guid === charlie_listado_anexos.state.editing);
+                let idx = charlie_listado_anexos.data.findIndex(elm => elm.guid === charlie_listado_anexos.state.editing);
+                
+                fnd.nombre = $('#nombre-anexo').val();
+                fnd.direccion = $('#direccion-anexo').val();
+                fnd.comuna = $('#comuna-anexo').val();
+                fnd.cantidadTrabajadores = parseInt($('#n-trabajadores-anexo').val());
+
+                charlie_listado_anexos.data[idx] = fnd;
+                $(this).text('Agregar Anexo');
+
+            } else {
+
+                charlie_listado_anexos.data.push({
+                    nombre: $('#nombre-anexo').val(),
+                    direccion: $('#direccion-anexo').val(),
+                    comuna: $('#comuna-anexo').val(),
+                    cantidadTrabajadores: parseInt($('#n-trabajadores-anexo').val()),
+                    guid: uuid4(),
+                    databaseId: 0
+                });
+            }
+            
+
+            $('#nombre-anexo').val("");
+            $('#direccion-anexo').val("");
+            $('#comuna-anexo').val("");
+            $('#n-trabajadores-anexo').val("");
+
+            charlie_listado_anexos.renderAll();
+
+        });
+
+
+
+        $(document).on("charlie.events.onAsignacionyCargaDeAfiliados", function (ev) {
+            if ($('#es-sin-sucursal').is(':checked') && charlie_listado_anexos.data.length == 0) {
+                charlie_listado_anexos.data.push({
+                    direccion: $('#direccion-anexo').val(),
+                    comuna: $('#comuna-anexo').val(),
+                    cantidadTrabajadores: parseInt($('#n-trabajadores-anexo').val()),
+                    guid: uuid4()
+                });
+                charlie_listado_anexos.renderListarAnexoCarga();
+                $('.bloqueable').hide();
+
+            }
+
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/dotacion-oficina", function (menus) {
+                $.each(menus, function (i, e) {
+                    $(".select-dotacion").append($("<option>").attr("value", e.Rut).html(e.Nombre + " - ( " + e.Cargo + " )"))
+                });
+                $('.select-dotacion').chosen({
+                    width: '80%'
+                });
+
+            });
+        });
+
+        $(document).on('charlie.events.onAsignarAnexos', function () {
+            charlie_listado_anexos.company = {
+                rut: $('.seleccionado').find('.elrut').text(),
+                nombre: $('.seleccionado').find('.elnombre').text(),
+                holding: $('.seleccionado').find('.elholding').text()
+            };
+
+            $.SecGetJSON('http://localhost/motor/api/perfil-empresas/lista-cartera-anexo', { RutEmpresa: charlie_listado_anexos.company.rut }, function (response) {
+                console.log({ response })
+                charlie_listado_anexos.import(response);
+            });
+        });
+
+        $(document).on('click', '.editar-anexo', function () {
+            let $t = $(this);
+            let finded = charlie_listado_anexos.data.find(elm => elm.guid == $t.data('guid'));
+
+            $('#direccion-anexo').val(finded.direccion);
+            $('#comuna-anexo').val(finded.comuna);
+            $('#n-trabajadores-anexo').val(finded.cantidadTrabajadores);
+            $('#nombre-anexo').val(finded.nombre);
+
+            $("#bt-agregar-anexo").text("Modificar Anexo");
+            charlie_listado_anexos.state = { editing: finded.guid };
+        });
+
+        //Controller & ViewModel
+
+        var charlie_listado_anexos = {
+            company: {},
+            data: [],
+            state: { editing: null },
+            bodySelectorAnexo: '#bdy-listado-anexos',
+            renderAgregarAnexo: function (data = []) {
+                data = data.length == 0 ? this.data : data;
+                $(this.bodySelectorAnexo).html("");
+                var html = ``;
+                $.each(data, function (i, e) {
+                    html += `
+                                <tr data-guid="${e.guid}">
+                                   <td>${e.nombre}</td>
+                                   <td>${e.direccion}</td>
+                                   <td>${e.comuna == null ? '' : e.comuna}</td>
+                                   <td>${e.cantidadTrabajadores}</td>
+                                   <td><button type="button" class="btn btn-warning btn-sm editar-anexo" data-guid="${e.guid}">Editar</button></td>
+                                </tr>
+                            `;
+                });
+                
+                $(this.bodySelectorAnexo).append(html);
+            },
+            bodySelectorAnexoCarga: '#bdy-listado-anexos-carga',
+            renderListarAnexoCarga: function (data = []) {
+                data = data.length == 0 ? this.data : data;
+                $(this.bodySelectorAnexoCarga).html("");
+                var html = ``;
+                $.each(data, function (i, e) {
+                    html += `
+                                <tr id="tr-${e.guid}">
+                                   <td class="bloqueable">${e.nombre}</td>
+                                   <td>${e.direccion}</td>
+                                   <td>${e.comuna}</td>
+                                   <td>${e.cantidadTrabajadores}</td>
+                                   <td class="bloqueable">
+                                        <span class="pull-left btn btn-primary btn-file">
+                                            Selecciona
+                                            <input type="file" name="archivafil[]" accept=".csv" class="archivos" id="file-${e.guid}" />
+                                        </span>
+                                    </td>
+                                   <td><select id="sel-${e.guid}" class="from-control select-dotacion" multiple ><option value=""><Seleccione/option></select></td>
+                                </tr>
+                            `;
+                });
+
+                $(this.bodySelectorAnexoCarga).append(html);
+            },
+            renderAll: function () {
+                this.renderAgregarAnexo();
+                this.renderListarAnexoCarga();
+            },
+            cleanData: function () {
+                this.data = [];
+                this.renderAgregarAnexo();
+                this.renderListarAnexoCarga();
+            },
+            export: function () {
+                return { };
+            },
+            import: function (input = []) {
+                input.forEach(function (e) {
+                    if (charlie_listado_anexos.data.findIndex(function (o) { return o.databaseId == e.IdEmpresaAnexo}) == -1) {
+                        charlie_listado_anexos.data.push({
+                            nombre: e.Anexo,
+                            direccion: e.Direccion,
+                            comuna: e.NombreComuna,
+                            cantidadTrabajadores: e.NumTrabajadores,
+                            guid: uuid4(),
+                            databaseId: e.IdEmpresaAnexo
+                        });
+                    }
+                });
+                this.renderAll();
+            }
+
+        }
+
+        
+        function uuid4() {
+            function hex(s, b) {
+                return s +
+                    (b >>> 4).toString(16) +  // high nibble
+                    (b & 0b1111).toString(16);   // low nibble
+            }
+
+            let r = crypto.getRandomValues(new Uint8Array(16));
+            
+            r[6] = r[6] >>> 4 | 0b01000000; // Set type 4: 0100
+            r[8] = r[8] >>> 3 | 0b10000000; // Set variant: 100
+
+            return r.slice(0, 4).reduce(hex, '') +
+                r.slice(4, 6).reduce(hex, '-') +
+                r.slice(6, 8).reduce(hex, '-') +
+                r.slice(8, 10).reduce(hex, '-') +
+                r.slice(10, 16).reduce(hex, '-');
+        }
+        
 
     </script>
 

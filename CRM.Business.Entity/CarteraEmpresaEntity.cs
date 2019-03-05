@@ -22,6 +22,13 @@ namespace CRM.Business.Entity
         public string NombreEmpresa { get; set; }
     }
 
+    public class CarteraEmpresaHolding
+    {
+        public string RutEmpresa { get; set; }
+        public string NombreEmpresa { get; set; }
+        public string Holding { get; set; }
+    }
+
 
     public class CarteraEmpresaAdmin
     {

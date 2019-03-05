@@ -59,6 +59,7 @@ function cargaDatosDeContacto(rutAf) {
                         ))
                         .append($("<td>").append(e.ValorDato))
                         .append($("<td>").append(e.TipoDato))
+                        .append($("<td>").append(e.PorcIndice))
                         .append($("<td>").append(alertFecha))
                 );
         });
@@ -1095,6 +1096,7 @@ $(function () {
 
                 if (typeof Asignacion.Notificaciones != "undefined" && Asignacion.Notificaciones != null && Asignacion.Notificaciones.length > 0) {
                     var text = "";
+                    var type = "success";
                     $(".charlyNTFContainer").html("");
                     $.each(Asignacion.Notificaciones, function (i, e) {
 
@@ -1110,12 +1112,17 @@ $(function () {
                             text += "<strong>Seguros: </strong> Afiliado cuenta con <strong>Seguro de Cesantía</strong>"
                         }
 
+                        if (e.Tipo == "MUNICIP") {
+                            text += "<strong>Afiliado Municipal, </strong> debe ser evaluado por comité de créditos.</strong>"
+                            type = "warning";
+                        }
+
                         if (e.Tipo == "ACUERPAG") {
                             sx = true;
                         }
                         else {
                             $.niftyNoty({
-                                type: 'success',
+                                type: type,
                                 container: '.charlyNTFContainer',
                                 html: text,
                                 focus: false,
