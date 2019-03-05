@@ -49,12 +49,15 @@
                                         <div class="row mar-top">
                                             <div class="col-lg-4">Municipalidad</div>
                                             <div class="col-lg-8">
-                                                <select id="slMunicipalidad" data-placeholder="Seleccione Municipalidad" name="nombre_empresa" class="form-control" tabindex="2"></select>
+
+                                                <select id="slMunicipalidad" data-placeholder="Seleccione Municipalidad" name="slMunicipalidad" class="form-control" tabindex="2"></select>
+
                                             </div>
                                         </div>
                                         <div class="row mar-top">
                                             <div class="col-lg-4">Departamento</div>
                                             <div class="col-lg-8">
+
                                                 <input type="text" class="form-control" name="departamento" id="txt_departamento" />
                                             </div>
                                         </div>
@@ -67,6 +70,7 @@
                                             <div class="col-lg-4">Cotiza</div>
                                             <div class="col-lg-8">
                                                 <select id="slCotiza" name="cotiza" class="form-control">
+
                                                     <option value="">SELECCIONE</option>
                                                 </select>
                                             </div>
@@ -74,13 +78,17 @@
                                         <div class="row mar-top">
                                             <div class="col-lg-4">Grado</div>
                                             <div class="col-lg-8">
+
                                                 <select id="slGrado" mane="grado" class="form-control" disabled></select>
+
                                             </div>
                                         </div>
                                         <div class="row mar-top">
                                             <div class="col-lg-4">Seguro Cesantía</div>
                                             <div class="col-lg-8">
+
                                                 <select id="slSeguro" mane="seguro_cesantia" class="form-control" disabled></select>
+
                                             </div>
                                         </div>
                                     </div>
@@ -299,12 +307,14 @@
                                 callback: function (value, validator, $field) {
                                     return $.rut.validar(value);
                                 }
+
                             }
                             //remote: {
                             //    message: 'El rut de la Empresa No corresponde a la publicas que operan con el 15%',
                             //    url: BASE_URL + "/Motor/api/Gestion/existe-empresas-15-porciento",
                             //    type: 'GET'
                             //}
+
                         }
                     },
                     renta_depurada_crm: {
@@ -421,8 +431,6 @@
                             }
                         }
                     },
-
-
 
                 }
 
@@ -588,10 +596,31 @@
                 $("#slMunicipalidad").html("");
                 $("#slMunicipalidad").append($("<option>").attr("value", "").html("Seleccione"));
                 $.each(datos, function (i, e) {
-                    $("#slMunicipalidad").append($("<option>").attr("value", e.NombreEmpresa).html(e.NombreEmpresa))
+
+                    $("#slMunicipalidad").append($("<option>").attr("value", e.RutEmpresa + '-' + e.DvEmpresa).html(e.NombreEmpresa))
                 });
                 $('#slMunicipalidad').chosen();
             });
+
+            //$('#slTema').change(function (e) {
+            //    e.preventDefault();
+            //    if ($(this).val() != '') {
+            //        $("#slSubTema").attr("disabled", false);
+            //        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-tipologia-Subgestion", { IdTema: $(this).val() }, function (datos) {
+            //            $("#slSubTema").html("");
+            //            $("#slSubTema").append($("<option>").attr("value", "").html("Seleccione"));
+            //            $.each(datos, function (i, e) {
+            //                $("#slSubTema").append($("<option>").attr("value", e.IdSubTema).html(e.GlosaSubTema))
+            //            });
+            //        });
+            //    }
+            //    else {
+            //        $("#slSubTema").html("");
+            //        $("#slSubTema").attr("disabled", true);
+            //    }lista-comunas-empresa
+            //});
+
+
         });
     </script>
 

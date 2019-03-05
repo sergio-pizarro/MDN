@@ -217,8 +217,7 @@ namespace CRM.Business.Data.Log
                 NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
             };
         }
-
-
+      
         #endregion
     }
 }

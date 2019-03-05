@@ -191,6 +191,7 @@ namespace CRM.Business.Entity.Log
     }
 
 
+
     public class MuniRolVerificadorEntity
     {
         public int RutEmpresa { get; set; }
@@ -199,11 +200,13 @@ namespace CRM.Business.Entity.Log
 
     }
 
+
     public class EmpresaRolVerificadorEntity
     {
         public int IdAnexo { get; set; }
         public string RutEmpresa { get; set; }
         public string NombreEmpresa { get; set; }
     }
+
 
 }
