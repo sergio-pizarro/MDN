@@ -1154,7 +1154,7 @@
                 var kuky = getCookie('X-Support-Token');
                 var vera = getCookie('Rut');
 
-                if (kuky === "" && vera != '12825688-1') {
+                if (kuky === "" || vera != '12825688-1') {
                     //console.log("deberia esconderse")
                     $(".sergio-esconder").hide();
                 }
@@ -1192,15 +1192,13 @@
                         //var elim = kuky === '' ? '' : '<a class="btn btn-danger btn-icon btn-circle elimination sergio-esconder" data-eid="' + e.Id + '" data-erut="' + e.RutEmpresa + '" title="Eliminar" href="#"><i class="ion-trash-a"></i></a>';
 
                         var elim = ""
-                        if (kuky === "" && vera != '12825688-1') {
+                        if (kuky === "" || vera != '12825688-1') {
 
                             elim = "";
                         }
                         else {
                             elim = '<a class="btn btn-danger btn-icon btn-circle elimination sergio-esconder" data-eid="' + e.Id + '" data-erut="' + e.RutEmpresa + '" title="Eliminar" href="#"><i class="ion-trash-a"></i></a>';
                         }
-
-
 
                         $("#bdy_datos")
                             .append($("<tr>")

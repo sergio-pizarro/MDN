@@ -18,10 +18,10 @@
                 <!--Nav Tabs-->
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_preaprobados">Ausentismo</a>
+                        <a data-toggle="tab" href="#demo-lft-tab-2" id="tab_preaprobados2">Colaboradores</a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="#demo-lft-tab-2" id="tab_preaprobados2">Colaboradores</a>
+                        <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_preaprobados">Ausentismo</a>
                     </li>
                     <li>
                         <a data-toggle="tab" href="#demo-lft-tab-3" id="tab_preaprobados3">Asignable</a>
@@ -29,7 +29,7 @@
                 </ul>
                 <!--Tabs Content-->
                 <div class="tab-content">
-                    <div id="demo-lft-tab-1" class="tab-pane fade active in">
+                    <div id="demo-lft-tab-1" class="tab-pane fade">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-12">
@@ -95,195 +95,551 @@
                     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div id="demo-lft-tab-2" class="tab-pane fade">
-
+                    <div id="demo-lft-tab-2" class="tab-pane fade  active in">
                         <table class="table table-bordered table-hover toggle-circle" id="tabla_dotacion_agente" style="display:none"></table>
+
                         <div class="panel-body">
-
-                            <br />
                             <div class="col-lg-12">
                                 <div class="row">
-                                    <div class="col-sm-7 col-lg-7">
-                                        <div class="panel panel-info panel-colorful" style="border-radius: 11px; background-color: #fff;  border-color: #e9e9e9;">
-                                            <div class="pad-all">
-                                                <p class="mar-no">
-                                                    <table class="table  table-condensed" style="font-size: 11px;">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Cargo</th>
-                                                                <th>N°</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td><a href="#" class="btn-link">Agente</a></td>
-                                                                <td><span class="label label-success" style="border-radius: 5px; font-size: 10px;">1</span></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="#" class="btn-link">Ejecutivo Empresas y Trabajadores</a></td>
-                                                                <td><span class="label label-success" style="border-radius: 5px; font-size: 10px;">3</span></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="#" class="btn-link">Ejecutivo movil</a></td>
-                                                                <td><span class="label label-success" style="border-radius: 5px; font-size: 10px;">2</span></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="#" class="btn-link">Ejecutivo Normalizacion</a></td>
-                                                                <td><span class="label label-success" style="border-radius: 5px; font-size: 10px;">3</span></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="#" class="btn-link">Ejecutivo Servicio al Cliente</a></td>
-                                                                <td><span class="label label-success" style="border-radius: 5px; font-size: 10px;">4</span></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><a href="#" class="btn-link">Ejecutivo Servicio Integral</a></td>
-                                                                <td><span class="label label-success" style="border-radius: 5px; font-size: 10px;">5</span></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="color: black; font-size: 13px;">Total General</td>
-                                                                <td><span class="label label-primary" style="border-radius: 5px; font-size: 10px;">18</span></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-lg-3">
-                                        <div class="panel" style="border-radius: 9px; border: 1px solid #d8dce0;">
-                                            <div class="panel-heading">
-                                                <h3 class="panel-title">Tipos de Ausentismo</h3>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div id="demo-external-events">
-                                                    <div class="fc-event fc-list" data-class="warning">LM Común</div>
-                                                    <div class="fc-event fc-list" data-class="success">Vacaciones</div>
-                                                    <div class="fc-event fc-list" data-class="warning">Administrativo</div>
-                                                    <div class="fc-event fc-list" data-class="danger">Vacante</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-12">
-                                <div class="row">
-                                    <hr />
-                                    <table class="table table-striped" style="font-size: 10px;">
+                                    <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th style="background: #42a5f5a3; color: #f5f5f5; border-radius: 5px 0px 0 5px;"></th>
-                                                <th style="background: #42a5f5a3; color: #f5f5f5;">Cargo</th>
-                                                <th style="background: #42a5f5a3; color: #f5f5f5;">Nombre Titular</th>
-                                                <th style="background: #42a5f5a3; color: #f5f5f5;">Inicio</th>
-                                                <th style="background: #42a5f5a3; color: #f5f5f5;">Fin</th>
-                                                <th class="text-center" style="background: #42a5f5a3; color: #f5f5f5;">Estado Incorporación</th>
-                                                <th class="text-center" style="background: #42a5f5a3; color: #f5f5f5;">Fecha Estado</th>
-                                                <th style="background: #0261b3; color: #f5f5f5;">Cargo Reemplazo</th>
-                                                <th style="background: #0261b3; color: #f5f5f5;">Nombre Reemplazo</th>
-                                                <th class="text-center" style="background: #0261b3; color: #f5f5f5;">Fecha Desde</th>
-                                                <th class="text-center" style="background: #0261b3; color: #f5f5f5; border-radius: 0 5px 5px 0;">Fecha Hasta</th>
+                                                <th rowspan="3" style="text-align: center; background: #f1f1f1; font-size: 12px;" nowrap></th>
+                                                <th rowspan="3" style="text-align: center; background: #f1f1f1; font-size: 12px;" nowrap>Cargo Cupo</th>
+                                                <th rowspan="3" style="text-align: center; background: #f1f1f1; font-size: 12px;" nowrap>Cargo Persona</th>
+                                                <th rowspan="3" style="text-align: center; background: #f1f1f1; font-size: 12px;" nowrap>Tipo</th>
+                                                <th rowspan="3" style="text-align: center; background: #f1f1f1; font-size: 12px;" nowrap>Rut</th>
+                                                <th rowspan="3" style="text-align: center; background: #f1f1f1; font-size: 12px;" nowrap>Nombre</th>
+                                                <th rowspan="3" style="text-align: center; background: #f1f1f1; font-size: 12px;" nowrap>Tipo Contrato</th>
+                                                <th id="thCountDias" colspan="28" style="text-align: center; background: #e3e7ec;"><button class="btn btn-primary" style="float:left;" id="btn_atras">&lt;</button>Febrero 2019<button style="float:right;" class="btn btn-primary" id="btn_adelante">&gt;</button></th>
+                                            </tr>
+                                            <tr id="trDiasSemana">
+                                              
+                                                <th class="charly-letra-chik" style="text-align: center;">Vi</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">Sa</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">Do</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Lu</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Ma</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Mi</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Ju</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Vi</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">Sa</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">Do</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Lu</th>
+                                                <th class="charly-letra-chik diactual" style="text-align: center;">Ma</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Mi</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Ju</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Vi</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">Sa</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">Do</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Lu</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Ma</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Mi</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Ju</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Vi</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">Sa</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">Do</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Lu</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Ma</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Mi</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">Ju</th>
+                                            </tr>
+                                            <tr id="trDiasMes">
+                                               
+                                                <th class="charly-letra-chik" style="text-align: center;">01</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">02</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">03</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">04</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">05</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">06</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">07</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">08</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">09</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">10</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">11</th>
+                                                <th class="charly-letra-chik diactual" style="text-align: center;">12</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">13</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">14</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">15</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">16</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">17</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">18</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">19</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">20</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">21</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">22</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">23</th>
+                                                <th class="chly-dia-inhabil charly-letra-chik" style="text-align: center; display: none;">24</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">25</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">26</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">27</th>
+                                                <th class="charly-letra-chik" style="text-align: center;">28</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bdy_ejecutivos">
+                                            <tr id="16460498-5" class="ejecutivo-diario">
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;" ><button class="btn btn-xs btn-rounded btn-default btReemplazo" style="font-size: 10px;">Reemplazo</button></td>
+                                                <td class="charly-letra-chik-ejecutivo" rowspan="2" style="text-align: center;">FFVV</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Ventas</td>
+                                                <td class="charly-letra-chik-ejecutivo">Titular</td>
+                                                <td class="charly-letra-chik-ejecutivo" nowrap>15473876-2</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="background: #8bc34a; color: white;">
+                                                    <a class="btn-link" style="color: white;" data-target="#modal-ejecutivo-fault" data-toggle="modal" href="#">Tapia Barra, Margarita de las Mer</a>
+                                                </td>
+                                                <td class="charly-letra-chik-ejecutivo">Indefinido</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="background: #8bc34a;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td:>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                                <td style="background: #8bc34a;"></td>
+                                            </tr>
+
+                                            <tr id="16460498-5" class="ejecutivo-diario">
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;"><button class="btn btn-xs btn-rounded btn-default btReemplazo" style="font-size: 10px;">Reemplazo</button></td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Ventas</td>
+                                                <td class="charly-letra-chik-ejecutivo">Reemplazo</td>
+                                                <td class="charly-letra-chik-ejecutivo" nowrap>18123936-0</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="background: #42a5f5; color: white;">Juan Perez</td>
+                                                <td class="charly-letra-chik-ejecutivo">Plazo Fijo</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="background: #42a5f5;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                            </tr>
+
+                                            <tr id="16460498-5" class="ejecutivo-diario">
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;"><button class="btn btn-xs btn-rounded btn-default btReemplazo" style="font-size: 10px;">Reemplazo</button></td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Servicio al Cliente</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Servicio al Cliente</td>
+                                                <td class="charly-letra-chik-ejecutivo">Titular</td>
+                                                <td class="charly-letra-chik-ejecutivo" nowrap>17052934-0</td>
+                                                <td class="charly-letra-chik-ejecutivo">Caballos Mella, Rosmery Soledad</td>
+                                                <td class="charly-letra-chik-ejecutivo">Indefinido</td>
+                                                <td class="charly-letra-chik-ejecutivo"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr id="16460498-5" class="ejecutivo-diario">
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;"><button class="btn btn-xs btn-rounded btn-default btReemplazo" style="font-size: 10px;">Reemplazo</button></td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Servicio al Cliente</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Servicio al Cliente</td>
+                                                <td class="charly-letra-chik-ejecutivo">Titular</td>
+                                                <td class="charly-letra-chik-ejecutivo" nowrap>18190335-K</td>
+                                                <td class="charly-letra-chik-ejecutivo">Fernandez Nuñez, Tayna Jasmin</td>
+                                                <td class="charly-letra-chik-ejecutivo">Indefinido</td>
+                                                <td class="charly-letra-chik-ejecutivo"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr id="16460498-5" class="ejecutivo-diario">
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;"><button class="btn btn-xs btn-rounded btn-default btReemplazo" style="font-size: 10px;">Reemplazo</button></td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Cajero</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Cajero</td>
+                                                <td class="charly-letra-chik-ejecutivo">Titular</td>
+                                                <td class="charly-letra-chik-ejecutivo" nowrap>19782136-1</td>
+                                                <td class="charly-letra-chik-ejecutivo">Olavarria Martinez, Jean Piere Matias</td>
+                                                <td class="charly-letra-chik-ejecutivo">Indefinido</td>
+                                                <td class="charly-letra-chik-ejecutivo"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr id="16460498-5" class="ejecutivo-diario">
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;"><button class="btn btn-xs btn-rounded btn-default btReemplazo" style="font-size: 10px;">Reemplazo</button></td>
+                                                <td class="charly-letra-chik-ejecutivo" rowspan="2" style="text-align: center;">FFVV</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Ventas</td>
+                                                <td class="charly-letra-chik-ejecutivo">Titular</td>
+                                                <td class="charly-letra-chik-ejecutivo" nowrap>8976177-8</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="background: #ffa726; color: white;">Velasquez Gonzalez, Gregoria Beatriz</td>
+                                                <td class="charly-letra-chik-ejecutivo">Indefinido</td>
+                                                <td class="charly-letra-chik-ejecutivo"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #ffa726;"></td>
+                                                <td style="background: #ffa726;"></td>
+                                                <td style="background: #ffa726;"></td>
+                                                <td style="background: #ffa726;"></td>
+                                                <td style="background: #ffa726;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #ffa726;"></td>
+                                                <td style="background: #ffa726;"></td>
+                                                <td style="background: #ffa726;"></td>
+                                                <td style="background: #ffa726;"></td>
+                                                <td style="background: #ffa726;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #ffa726;"></td>
+                                                <td style="background: #ffa726;"></td>
+                                                <td style="background: #ffa726;"></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr id="16460498-5" class="ejecutivo-diario">
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;"><button class="btn btn-xs btn-rounded btn-default btReemplazo" style="font-size: 10px;">Reemplazo</button></td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Ventas</td>
+                                                <td class="charly-letra-chik-ejecutivo">Reemplazo</td>
+                                                <td class="charly-letra-chik-ejecutivo" nowrap>17523644-2</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="background: #42a5f5; color: white;">Pedro Gonzalez</td>
+                                                <td class="charly-letra-chik-ejecutivo">Plazo Fijo</td>
+                                                <td class="charly-letra-chik-ejecutivo"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td style="background: #42a5f5;"></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr id="16460498-5" class="ejecutivo-diario">
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;"><button class="btn btn-xs btn-rounded btn-default btReemplazo" style="font-size: 10px;">Reemplazo</button></td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Servicio al Cliente</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Servicio al Cliente</td>
+                                                <td class="charly-letra-chik-ejecutivo">Titular</td>
+                                                <td class="charly-letra-chik-ejecutivo" nowrap>13272945-K</td>
+                                                <td class="charly-letra-chik-ejecutivo">Liberona Lillo, Claudio Andrés</td>
+                                                <td class="charly-letra-chik-ejecutivo">Indefinido</td>
+                                                <td class="charly-letra-chik-ejecutivo"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr id="16460498-5" class="ejecutivo-diario">
+                                                <td class="charly-letra-chik-ejecutivo"  style="text-align: center;"><button class="btn btn-xs btn-rounded btn-default btReemplazo" style="font-size: 10px;">Reemplazo</button></td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Servicio al Cliente</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Servicio al Cliente</td>
+                                                <td class="charly-letra-chik-ejecutivo">Titular</td>
+                                                <td class="charly-letra-chik-ejecutivo" nowrap>13473275-K</td>
+                                                <td class="charly-letra-chik-ejecutivo">Murcia Poblete, Daniela Carolina</td>
+                                                <td class="charly-letra-chik-ejecutivo">Indefinido</td>
+                                                <td class="charly-letra-chik-ejecutivo"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr id="16460498-5" class="ejecutivo-diario">
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;"><button class="btn btn-xs btn-rounded btn-default btAlta" style="font-size: 10px; width: 68px;">Alta</button></td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">FFVV / Interal</td>
+                                                <td class="charly-letra-chik-ejecutivo" style="text-align: center;">Servicio Integral</td>
+                                                <td class="charly-letra-chik-ejecutivo">Titular</td>
+                                                <td class="charly-letra-chik-ejecutivo" nowrap></td>
+                                                <td class="charly-letra-chik-ejecutivo" style="background: #ef5350;"></td>
+                                                <td class="charly-letra-chik-ejecutivo" style="background: #ef5350;"></td>
+                                                <td class="charly-letra-chik-ejecutivo" style="background: #ef5350;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td class="chly-dia-inhabil" style="display: none;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                                <td style="background: #ef5350;"></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    <table class="table table-bordered" style="font-size: 10px; display:none">
+                                        <thead>
+                                            <tr>
+                                                <th>CARGO CUPO</th>
+                                                <th>TIPO</th>
+                                                <th>RUT</th>
+                                                <th>NOMBRE</th>
+                                                <th>TIPO CONTRATO</th>
+                                                <th>Cargo Reemplazo</th>
+                                                <th>Nombre Reemplazo</th>
+                                                <th>Fecha Desde</th>
+                                                <th>Fecha Hasta</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
-                                                    <button class="btn btn-xs btn-rounded btn-default" data-target="#modal-dotacion" data-toggle="modal" style="font-size: 10px;">Generar</button>
-
-
-                                                </td>
-                                                <td>Agente</td>
-                                                <td>Carlos Pradenas</td>
-                                                <td>--</td>
-                                                <td>--</td>
-                                                <td class="text-center">
-                                                    <select class="form-control" style="font-size: 10px; height: 28px; border-radius: 10px; width: 98px;">
-                                                        <option value="">Seleccione</option>
-                                                        <option value="1">Solicitud enviada a Personas</option>
-                                                        <option value="2">En Seleccion De CV.</option>
-                                                        <option value="3">En Entrevista</option>
-                                                        <option value="4">Con Carta de Oferta</option>
-                                                        <option value="4">Finalizado</option>
-                                                    </select>
-                                                </td>
-                                                <td class="text-center">--</td>
-                                                <td style="border-left: 1px solid #dddddd; background: #f8f9fa;">--</td>
+                                                <td style="background: #f8f9fa;"><button class="btn btn-xs btn-rounded btn-default" data-target="#modal-ejecutivo-fault" data-toggle="modal" style="font-size: 10px;">Ausentismo</button></td>
+                                                <td style=" background: #f8f9fa;">Agente</td>
+                                                <td style=" background: #f8f9fa;">Carlos Pradenas</td>
                                                 <td style=" background: #f8f9fa;">--</td>
-                                                <td style=" background: #f8f9fa;" class="text-center">--</td>
+                                                <td style=" background: #f8f9fa;">--</td>
+                                                <td style="background: #f8f9fa; border-left: 1px solid #dddddd;"><button class="btn btn-xs btn-rounded btn-default btReemplazo" style="font-size: 10px;">Reemplazo</button></td>
+                                                <td style=" background: #f8f9fa;">--</td>
+                                                <td style=" background: #f8f9fa;">--</td>
                                                 <td style=" background: #f8f9fa;" class="text-center">--</td>
                                             </tr>
                                             <tr>
-                                                <td><button class="btn btn-xs btn-rounded btn-default" style="font-size: 10px;">Generar</button></td>
+                                                <td style="background: #f8f9fa;"></td>
                                                 <td style="background: #8bc34ac7; color: white;">Ejecutivo Empresas y Trabajadores</td>
                                                 <td style="background: #8bc34ac7; color: white;">Manuel Monsalve</td>
                                                 <td style="background: #8bc34ac7; color: white;">15/01/2019</td>
                                                 <td style="background: #8bc34ac7; color: white;">15/02/2019</td>
-                                                <td class="text-center" style="background: #8bc34ac7; color: white;">
-                                                    <select class="form-control" style="font-size: 10px; height: 28px; border-radius: 10px; width: 98px;">
-                                                        <option value="">Seleccione</option>
-                                                        <option value="1">Solicitud enviada a Personas</option>
-                                                        <option value="2">En Seleccion De CV.</option>
-                                                        <option value="3">En Entrevista</option>
-                                                        <option value="4">Con Carta de Oferta</option>
-                                                        <option value="4">Finalizado</option>
-                                                    </select>
-                                                </td>
-                                                <td class="text-center" style="background: #8bc34ac7; color: white;">--</td>
-                                                <td style="border-left: 1px solid #dddddd; background: #f8f9fa;"><span class="text-muted"><i class="fa fa-clock-o"></i>Ejecutivo Empresas y Trabajadores</span></td>
+                                                <td style="background: #f8f9fa; border-left: 1px solid #dddddd;"><button class="btn btn-xs btn-rounded btn-default btReemplazo" style="font-size: 10px;">Reemplazo</button></td>
+                                                <td style="background: #f8f9fa;">Ejecutivo Empresas y Trabajadores</td>
                                                 <td style=" background: #f8f9fa;">Manuel Vega</td>
                                                 <td style=" background: #f8f9fa;">15/01/2019</td>
-                                                <td style=" background: #f8f9fa;">15/02/2019</td>
                                             </tr>
                                             <tr>
-                                                <td><button class="btn btn-xs btn-rounded btn-default" style="font-size: 10px;">Generar</button></td>
-                                                <td>Ejecutivo Servicio Integral</td>
-                                                <td>Sergio Pizarro</td>
-                                                <td>--</td>
-                                                <td>--</td>
-                                                <td class="text-center">
-                                                    <select class="form-control" style="font-size: 10px; height: 28px; border-radius: 10px; width: 98px;">
-                                                        <option value="">Seleccione</option>
-                                                        <option value="1">Solicitud enviada a Personas</option>
-                                                        <option value="2">En Seleccion De CV.</option>
-                                                        <option value="3">En Entrevista</option>
-                                                        <option value="4">Con Carta de Oferta</option>
-                                                        <option value="4">Finalizado</option>
-                                                    </select>
-                                                </td>
-                                                <td class="text-center">--</td>
-                                                <td style="border-left: 1px solid #dddddd; background: #f8f9fa;">--</td>
+                                                <td style="background: #f8f9fa;"><button class="btn btn-xs btn-rounded btn-default btAlta" style="font-size: 10px; width: 68px;">Alta</button></td>
+                                                <td style=" background: #ef5350; color: white;">Ejecutivo Servicio Integral</td>
+                                                <td style=" background: #ef5350; color: white;">--</td>
+                                                <td style=" background: #ef5350; color: white;">--</td>
+                                                <td style=" background: #ef5350; color: white;">--</td>
+                                                <td style="border-left: 1px solid #dddddd; background: #f8f9fa"><button class="btn btn-xs btn-rounded btn-default btReemplazo" style="font-size: 10px;">Reemplazo</button></td>
+                                                <td style=" background: #f8f9fa;">--</td>
                                                 <td style=" background: #f8f9fa;">--</td>
                                                 <td style=" background: #f8f9fa;" class="text-center"> -- </td>
-                                                <td style=" background: #f8f9fa;" class="text-center">--</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                     <hr />
+
+                                    <div class="panel panel-bordered-info" style="border: 1px solid #e9e9e9; height: 70px; border-radius: 7px;">
+
+                                        <div class="panel-body">
+                                            <p class="fc-event fc-list col-lg-2" data-class="warning" style="background-color: #ffffff;">LM Común</p>
+                                            <p class="fc-event fc-list col-lg-2" data-class="success" style="background-color: #ffffff;">Vacaciones</p>
+                                            <p class="fc-event fc-list col-lg-2" data-class="primary" style="background-color: #ffffff;">Administrativo</p>
+                                            <p class="fc-event fc-list col-lg-2" data-class="danger" style="background-color: #ffffff;">Vacante</p>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
+
+
+
 
                         </div>
                     </div>
@@ -414,8 +770,6 @@
             </div>
         </div>
     </div>
-
-
 
 
     <div class="modal fade" id="modal-add-ejec" role="dialog" tabindex="-1" aria-hidden="true">
@@ -633,18 +987,15 @@
                 <!--Modal header-->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                    <h4 class="modal-title" id="Leyenda_ef">Ingreso</h4>
+                    <h4 class="modal-title" id="Leyenda_remm">Ingreso Reemplazo</h4>
                 </div>
                 <form id="form-registro-ausencia">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" id="tipoIngreso" style="display: block">
                                 <div class="form-group">
-                                    <label class="control-label">Selección de Ingreso</label>
-                                    <select class="form-control" id="slIngreso">
-                                        <option value="">Seleccione</option>
-                                        <option value="1">Alta</option>
-                                        <option value="2">Baja</option>
+                                    <label class="control-label">Tipo de Ingreso</label>
+                                    <select class="form-control" id="slIngreso" disabled>
                                         <option value="3">Reemplazo</option>
                                     </select>
                                 </div>
@@ -652,7 +1003,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="control-label">Sub Ingreso</label>
-                                    <select class="form-control" id="slSubIngreso" disabled>
+                                    <select class="form-control" id="slSubIngreso">
                                         <option value="">Seleccione</option>
                                         <option value="1">Interno</option>
                                         <option value="2">Externo</option>
@@ -667,38 +1018,87 @@
                     <div id="dvFormularioDotacion" style="display:none">
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-sm-4">
+
+
+                                <div class="col-sm-4" style="display: none;" id="dvSucurasalOr">
                                     <div class="form-group">
-                                        <label class="control-label">Rut</label>
-                                        <input type="text" class="form-control">
+                                        <label class="control-label">Sucursal Origen</label>
+                                        <select class="form-control" id="sucursalOrigenDota" enabled>
+                                            <option value="">Seleccione</option>
+                                            <option value="1">Suc. Huerfanos </option>
+                                            <option value="2">Suc. Castro</option>
+                                            <option value="3">Suc. Punta Arenas</option>
+                                            <option value="4">Suc. Temuco</option>
+                                        </select>
                                     </div>
                                 </div>
+
+
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="control-label">Nombre</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" id="txtNombreEje" style="display:none;">
+                                        <select class="form-control" id="dvSlNombreEje" style="display:none;"></select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label class="control-label">Correo</label>
-                                        <input type="text" class="form-control">
+                                        <label class="control-label">Rut</label>
+                                        <input type="text" class="form-control" id="txtRutEje">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
+
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label class="control-label">Sucursal Origen</label>
-                                        <select class="form-control" id="sucursalOrigenDota" enabled></select>
+                                        <label class="control-label">Correo</label>
+                                        <input type="text" class="form-control" id="txtCorreoEje">
                                     </div>
                                 </div>
+
+
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label class="control-label">Cargo Origen</label>
-                                        <select class="form-control" id="cargoOrigenDota" enabled></select>
+                                        <label class="control-label">Cargo</label>
+                                        <select class="form-control" id="cargoOrigenDota" enabled>
+                                            <option value="0">Seleccione</option>
+                                            <option value="1">Agente</option>
+                                            <option value="2">Jefe Servicio al Cliente</option>
+                                            <option value="3">Ejecutivo Servicio al Cliente</option>
+                                            <option value="4">Ejecutivo Movil</option>
+                                            <option value="5">Ejecutivo Normalización</option>
+                                            <option value="6">Ejecutivo Tiempo Pleno</option>
+                                        </select>
                                     </div>
                                 </div>
+                                <div class="col-sm-4" id="dvTipoRemplazo" style="display: none">
+                                    <div class="form-group">
+                                        <label class="control-label">Tipo Reemplazo</label>
+                                        <select class="form-control" id="slTipoReemplazo">
+                                            <option value="">Seleccione</option>
+                                            <option value="1">Comision de servicio</option>
+                                            <option value="2">Doble funsion</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-sm-4" id="TipoContratoDota" style="display: none">
+                                    <div class="form-group">
+                                        <label class="control-label">Tipo de Contrato</label>
+                                        <select class="form-control" id="slTipoContratoDota">
+                                            <option value="">Seleccione</option>
+                                            <option value="I">Indefinido</option>
+                                            <option value="P">Plazo Fijo</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="control-label">Fecha Inicio</label>
@@ -710,9 +1110,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-4">
+
+                                <div class="col-sm-4" id="dvDpFechaFin">
                                     <div class="form-group">
                                         <label class="control-label">Fecha Fin</label>
                                         <div id="demo-dp-component">
@@ -723,12 +1122,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group" id="TipoContratoDota" style="display: none">
-                                        <label class="control-label">Tipo de Contrato</label>
-                                        <select class="form-control" id="slTipoContratoDota"></select>
-                                    </div>
-                                </div>
+
                                 <div class="col-sm-4">
                                     <div class="form-group" id="motivoDesvinDota" style="display:none">
                                         <label class="control-label">Motivo Desvinculanción</label>
@@ -765,6 +1159,21 @@
 
 
     <script>
+
+        $(document).on('click', '.btReemplazo', function () {
+            //alert($(this).data("eid") + '---' + $(this).data("erut"))
+            $('#Leyenda_remm').html('Ingreso Reemplazo')
+            $('#tipoIngreso').css('display', 'block')
+            $('#modal-dotacion').modal('show');
+        });
+
+        $(document).on('click', '.btAlta', function () {
+            $('#Leyenda_remm').html('Ingreso de Alta')
+            $('#tipoIngreso').css('display', 'none')
+            $('#dvTipoRemplazo').css('display', 'none')
+            $('#modal-dotacion').modal('show');
+        });
+
         $(document).ready(function () {
             $("#slIngreso").on("change", function (event, params) {
                 switch (this.value) {
@@ -774,11 +1183,11 @@
                         $("#slSubIngreso").val("")
                         break;
                     case "2":
-                       
+
                         $('#dvFormularioDotacion').css('display', 'block')
                         $('#slSubIngreso').prop('disabled', true);
                         $('#motivoDesvinDota').css('display', 'block')
-                        
+
                         break;
                     case "3":
                         $('#dvFormularioDotacion').css('display', 'none')
@@ -795,20 +1204,110 @@
                         $('#slSubIngreso').removeAttr('disabled');
                         $('#motivoDesvinDota').css('display', 'none')
                         $('#TipoContratoDota').css('display', 'none')
+                        $('#txtNombreEje').css('display', 'none')
+                        $('#dvSucurasalOr').css('display', 'block')
+                        $('#dvSlNombreEje').css('display', 'block')
+                        $('#dvDpFechaFin').css('display', 'block')
 
+
+
+                        if ($('#Leyenda_remm').html() === 'Ingreso de Alta') {
+                            $('#dvTipoRemplazo').css('display', 'none')
+                        }
+                        else {
+                            $('#dvTipoRemplazo').css('display', 'block')
+                        }
                         break;
+
                     case "2":
                         $('#dvFormularioDotacion').css('display', 'block')
                         $('#slSubIngreso').removeAttr('disabled');
                         $('#motivoDesvinDota').css('display', 'none')
                         $('#TipoContratoDota').css('display', 'block')
-                        break;
+                        $('#dvTipoRemplazo').css('display', 'none')
+                        $('#dvSucurasalOr').css('display', 'none')
+                        $('#dvSlNombreEje').css('display', 'none')
+                        $('#txtNombreEje').css('display', 'block')
 
+                        break;
                 }
             });
 
+            $("#slTipoContratoDota").on("change", function (event, params) {
+                switch (this.value) {
+                    case "I":
+                        $('#dvDpFechaFin').css('display', 'none')
 
+                        break;
+                    case "P":
+                        $('#dvDpFechaFin').css('display', 'block')
+                        break;
+                }
+            });
 
+            $("#dvSlNombreEje").on("change", function (event, params) {
+                switch (this.value) {
+                    case "11111111-1":
+                        $('#dvDpFechaFin').css('display', 'none')
+                        $('#txtRutEje').val($('#dvSlNombreEje').val())
+                        $('#txtCorreoEje').val('mvegaa@laaraucana.cl')
+                        $('#cargoOrigenDota').val(1)
+
+                        break;
+                    case "17123456-6":
+                        $('#txtRutEje').val($('#dvSlNombreEje').val())
+                        $('#txtCorreoEje').val('cpradenasp@laaraucana.cl')
+                        $('#cargoOrigenDota').val(2)
+                        break;
+                    case "15473876-2":
+                        $('#txtRutEje').val($('#dvSlNombreEje').val())
+                        $('#txtCorreoEje').val('spizarroc@laaraucana.cl')
+                        $('#cargoOrigenDota').val(3)
+                        break;
+                    case "15423456-4":
+                        $('#txtRutEje').val($('#dvSlNombreEje').val())
+                        $('#txtCorreoEje').val('mmomsalvem@laaraucana.cl')
+                        $('#cargoOrigenDota').val(4)
+                        break;
+                }
+            });
+
+            $("#sucursalOrigenDota").on("change", function (event, params) {
+                switch (this.value) {
+                    case "1":
+                        $('#txtRutEje').val('')
+                        $('#txtCorreoEje').val('')
+                        $("#dvSlNombreEje").html("");
+                        $('#cargoOrigenDota').val(0)
+                        $("#dvSlNombreEje").append($("<option>").attr("value", "").html("Seleccione"));
+                        $("#dvSlNombreEje").append($("<option>").attr("value", '11111111-1').html('Manuel vega'))
+                        break;
+                    case "2":
+                        $('#txtRutEje').val('')
+                        $('#txtCorreoEje').val('')
+                        $("#dvSlNombreEje").html("");
+                        $('#cargoOrigenDota').val(0)
+                        $("#dvSlNombreEje").append($("<option>").attr("value", "").html("Seleccione"));
+                        $("#dvSlNombreEje").append($("<option>").attr("value", '17123456-6').html('Carlos Pradenas'))
+                        break;
+                    case "3":
+                        $('#txtRutEje').val('')
+                        $('#txtCorreoEje').val('')
+                        $("#dvSlNombreEje").html("");
+                        $('#cargoOrigenDota').val(0)
+                        $("#dvSlNombreEje").append($("<option>").attr("value", "").html("Seleccione"));
+                        $("#dvSlNombreEje").append($("<option>").attr("value", '15473876-2').html('Sergio Pizarro'))
+                        break;
+                    case "4":
+                        $('#txtRutEje').val('')
+                        $('#txtCorreoEje').val('')
+                        $("#dvSlNombreEje").html("");
+                        $('#cargoOrigenDota').val(0)
+                        $("#dvSlNombreEje").append($("<option>").attr("value", "").html("Seleccione"));
+                        $("#dvSlNombreEje").append($("<option>").attr("value", '15423456-4').html('Manuel Monsalve'))
+                        break;
+                }
+            });
 
 
 
