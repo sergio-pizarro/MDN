@@ -49,13 +49,16 @@
                                         <div class="row mar-top">
                                             <div class="col-lg-4">Municipalidad</div>
                                             <div class="col-lg-8">
+
                                                 <select id="slMunicipalidad" data-placeholder="Seleccione Municipalidad" name="slMunicipalidad" class="form-control" tabindex="2"></select>
+
                                             </div>
                                         </div>
                                         <div class="row mar-top">
                                             <div class="col-lg-4">Departamento</div>
                                             <div class="col-lg-8">
-                                                <input type="text" class="form-control" name="txt_departamento" id="txt_departamento" />
+
+                                                <input type="text" class="form-control" name="departamento" id="txt_departamento" />
                                             </div>
                                         </div>
                                     </div>
@@ -66,7 +69,8 @@
                                         <div class="row mar-top">
                                             <div class="col-lg-4">Cotiza</div>
                                             <div class="col-lg-8">
-                                                <select id="slCotiza" name="slCotiza" class="form-control">
+                                                <select id="slCotiza" name="cotiza" class="form-control">
+
                                                     <option value="">SELECCIONE</option>
                                                 </select>
                                             </div>
@@ -74,13 +78,17 @@
                                         <div class="row mar-top">
                                             <div class="col-lg-4">Grado</div>
                                             <div class="col-lg-8">
-                                                <select id="slGrado" mane="slGrado" class="form-control" disabled></select>
+
+                                                <select id="slGrado" mane="grado" class="form-control" disabled></select>
+
                                             </div>
                                         </div>
                                         <div class="row mar-top">
                                             <div class="col-lg-4">Seguro Cesantía</div>
                                             <div class="col-lg-8">
-                                                <select id="slSeguro" mane="slSeguro" class="form-control" disabled></select>
+
+                                                <select id="slSeguro" mane="seguro_cesantia" class="form-control" disabled></select>
+
                                             </div>
                                         </div>
                                     </div>
@@ -299,12 +307,14 @@
                                 callback: function (value, validator, $field) {
                                     return $.rut.validar(value);
                                 }
-                            },
-                            remote: {
-                                message: 'El rut de la Empresa No corresponde a la publicas que operan con el 15%',
-                                url: BASE_URL + "/Motor/api/Gestion/existe-empresas-15-porciento",
-                                type: 'GET'
+
                             }
+                            //remote: {
+                            //    message: 'El rut de la Empresa No corresponde a la publicas que operan con el 15%',
+                            //    url: BASE_URL + "/Motor/api/Gestion/existe-empresas-15-porciento",
+                            //    type: 'GET'
+                            //}
+
                         }
                     },
                     renta_depurada_crm: {
@@ -386,6 +396,42 @@
                         }
                     },
 
+                    nombre_empresa: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar una Municipalidad'
+                            }
+                        }
+                    },
+                    departamento: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe ingresar un departamento'
+                            }
+                        }
+                    },
+                    cotiza: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar cotiza'
+                            }
+                        }
+                    },
+                    grado: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar grado'
+                            }
+                        }
+                    },
+                    seguro_cesantia: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debe seleccionar seguro'
+                            }
+                        }
+                    },
+
                 }
 
             }).on('success.form.bv', function (e) {
@@ -414,7 +460,12 @@
                 }
 
                 const envio = objectifyForm($form.serializeArray())
-                $.SecPostJSON(BASE_URL + "/Motor/api/Gestion/logear-calculadora", envio, function (response) {
+                envio.cotiza = $('#slCotiza > option:selected').text();
+                envio.grado = $('#slGrado > option:selected').text();
+                envio.seguro_cesantia = $('#slSeguro > option:selected').text();
+                console.log(envio);
+
+                $.SecPostJSON(BASE_URL + "/Motor/api/Gestion/guarda-rol-verificador", envio, function (response) {
 
                 }).fail(function (jqxhr, textStatus, error) {
                     var x = 0;
@@ -545,6 +596,7 @@
                 $("#slMunicipalidad").html("");
                 $("#slMunicipalidad").append($("<option>").attr("value", "").html("Seleccione"));
                 $.each(datos, function (i, e) {
+
                     $("#slMunicipalidad").append($("<option>").attr("value", e.RutEmpresa + '-' + e.DvEmpresa).html(e.NombreEmpresa))
                 });
                 $('#slMunicipalidad').chosen();
@@ -567,10 +619,6 @@
             //        $("#slSubTema").attr("disabled", true);
             //    }lista-comunas-empresa
             //});
-
-
-
-
 
 
         });

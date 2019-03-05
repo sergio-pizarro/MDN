@@ -11,6 +11,8 @@ using CRM.Business.Data;
 using CRM.ActionFilters;
 using CRM.Filters;
 using System.Net.Http.Headers;
+using CRM.Business.Entity.Log;
+using CRM.Business.Data.Log;
 
 namespace CRM.Controllers
 {
@@ -30,7 +32,7 @@ namespace CRM.Controllers
                 CampagnasEjec = AsignacionDataAccess.ListarByOficina(periodo, token).Where(x => (x.TipoAsignacion == 5 || x.TipoAsignacion == 1) && x.TipoDerivacion == "CALL").ToList();
                 CampagnasEjec.AddRange(AsignacionDataAccess.ListarByOficina(periodo, token).Where(d => (d.TipoAsignacion == 1 || d.TipoAsignacion == 5) && d.TipoDerivacion == "WEB"));
             }
-            else if(tipoCampagna == 1)
+            else if (tipoCampagna == 1)
             {
                 CampagnasEjec = AsignacionDataAccess.ListarByEjecutivo(periodo, token).Where(x => x.TipoAsignacion == tipoCampagna && (x.TipoDerivacion == string.Empty || x.TipoDerivacion == "ESPONTANEA")).ToList();
                 CampagnasEjec.AddRange(AsignacionDataAccess.ListarByOficina(periodo, token).Where(x => x.TipoAsignacion == 5 && x.TipoDerivacion == "ESPONTANEA"));
@@ -39,8 +41,8 @@ namespace CRM.Controllers
             {
                 CampagnasEjec = AsignacionDataAccess.ListarByEjecutivo(periodo, token).Where(x => x.TipoAsignacion == tipoCampagna).ToList();
             }
-            
-            
+
+
 
             foreach (var item in CampagnasEjec)
             {
@@ -149,7 +151,7 @@ namespace CRM.Controllers
         [AuthorizationRequired]
         [HttpGet]
         [Route("v3/lista-seguimientos")]
-        public BootstrapTableResult<ContenedorCampaniaList> ListaSeguimientosv3(int tipoCampagna, int periodo, string estado="-1", string marca="", string subestado="-1", string causaBasal = "-1", string consecuencia = "-1", string prioridad="", string segmento="", string tipo="", string busEmpresa="", string rut="", int limit=30, int offset=0, string sort="asc", string order="", string vencimiento = "")
+        public BootstrapTableResult<ContenedorCampaniaList> ListaSeguimientosv3(int tipoCampagna, int periodo, string estado = "-1", string marca = "", string subestado = "-1", string causaBasal = "-1", string consecuencia = "-1", string prioridad = "", string segmento = "", string tipo = "", string busEmpresa = "", string rut = "", int limit = 30, int offset = 0, string sort = "asc", string order = "", string vencimiento = "")
         {
             string token = ActionContext.Request.Headers.GetValues("Token").First();
             List<ContenedorCampaniaList> res = new List<ContenedorCampaniaList>();
@@ -157,7 +159,7 @@ namespace CRM.Controllers
 
 
             sort = sort.Substring(sort.IndexOf(".") + 1);
-            sort = sort.IndexOf(".") >=0 ? sort.Substring(sort.IndexOf(".") + 1) : sort;
+            sort = sort.IndexOf(".") >= 0 ? sort.Substring(sort.IndexOf(".") + 1) : sort;
 
             if (tipoCampagna == 1 || tipoCampagna == 5)
             {
@@ -173,7 +175,7 @@ namespace CRM.Controllers
 
                 res = AsignacionDataAccess.ListarPaginado(periodo, tipoCampagna, token, estado_dos, causa_dos, consecuencia_dos, prioridad, rut, offset, limit, sort, order, vencimiento);
             }
-            else if(tipoCampagna == 4)
+            else if (tipoCampagna == 4)
             {
                 int estado_dos = estado == null ? 0 : Convert.ToInt32(estado);
                 int subestado_dos = subestado == null ? 0 : Convert.ToInt32(subestado);
@@ -186,7 +188,7 @@ namespace CRM.Controllers
             xd.total = res.Count > 0 ? res[0].TotalRegistros : 0;
 
             return xd;
-            
+
         }
 
 
@@ -197,7 +199,7 @@ namespace CRM.Controllers
         {
             string token = ActionContext.Request.Headers.GetValues("Token").First();
             int rutIn = Convert.ToInt32(rut);
-            
+
             return new ContactoBase
             {
                 Notificaciones = NotificacionAsignacionDataAccess.ObtenerSetNTF(rut),
@@ -224,7 +226,7 @@ namespace CRM.Controllers
                 //string rut_enviar = afiRut.Substring(0, afiRut.IndexOf("-"));
                 BaseCampagna x = new BaseCampagna();
                 List<AsignacionEntity> ordCmp = AsignacionDataAccess.ObtenerByAfiRut(periodo, afiRut);
-                    
+
                 if (tipoCampagna == 1)
                 {
                     ordCmp = ordCmp.Where(y => y.TipoAsignacion == 1 || y.TipoAsignacion == 5).ToList();
@@ -234,7 +236,7 @@ namespace CRM.Controllers
                     ordCmp = ordCmp.Where(y => y.TipoAsignacion == tipoCampagna).ToList();
                 }
 
-                
+
 
                 foreach (var item in ordCmp)
                 {
@@ -346,8 +348,8 @@ namespace CRM.Controllers
             {
                 //string rut_enviar = afiRut.Substring(0, afiRut.IndexOf("-"));
                 BaseCampagna x = new BaseCampagna();
-                AsignacionEntity item = AsignacionDataAccess.ObtenerByAfiRutTipo(periodo, afiRut,tipoCampagna);
-                
+                AsignacionEntity item = AsignacionDataAccess.ObtenerByAfiRutTipo(periodo, afiRut, tipoCampagna);
+
 
                 if (item == null)
                 {
@@ -421,7 +423,7 @@ namespace CRM.Controllers
             //tipoCampagna = tipoCampagna == 5 ? 1 : tipoCampagna;
             List<EstadogestionEntity> ret = new List<EstadogestionEntity>();
             List<EstadogestionEntity> dataList = EstadosyTiposDataAccess.ListarEstadosGestion();
-            if(tipoCampagna == 5)
+            if (tipoCampagna == 5)
             {
                 ret = dataList.Where(x => x.ejes_id_padre == padre && (x.ejes_tipo_campagna == 5 || x.ejes_tipo_campagna == 1)).ToList();
             }
@@ -429,7 +431,7 @@ namespace CRM.Controllers
             {
                 ret = dataList.Where(x => x.ejes_id_padre == padre && x.ejes_tipo_campagna == tipoCampagna).ToList();
             }
-            
+
             return ret;
         }
 
@@ -509,7 +511,7 @@ namespace CRM.Controllers
             {
 
                 string Estatus = entrada.ges_causa_basal_normalizacion.ToString() + entrada.ges_consecuencia_normalizacion.ToString() + entrada.ges_estado_normalizacion.ToString();
-                if(Estatus.Length < 9)
+                if (Estatus.Length < 9)
                 {
                     throw new Exception("Error al registrar la Gestión");
                 }
@@ -1165,7 +1167,29 @@ namespace CRM.Controllers
             return new ResultadoBase()
             {
                 Mensaje = "OK",
-                 Objeto = entrada
+                Objeto = entrada
+            };
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("guarda-rol-verificador")]
+        public ResultadoBase RolVerificador(Business.Entity.Log.LogRolVerificadorEntity entrada)
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            int _uid = Security.Data.TokenDataAccess.Obtener(token).FirstOrDefault().UserId;
+            string _rut = Security.Data.UsuarioDataAccess.UsuarioData(_uid).RutUsuario;
+            CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+            int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+            entrada.fecha_accion = DateTime.Now;
+            entrada.ejecutivo = _rut;
+            entrada.oficina = codOficina;
+
+            Business.Data.Log.LogcalculadoraDataAccess.GuardarRolVerificador(entrada);
+            return new ResultadoBase()
+            {
+                Mensaje = "OK",
+                Objeto = entrada
             };
         }
 
@@ -1196,7 +1220,8 @@ namespace CRM.Controllers
                 int existe = Business.Data.Log.LogcalculadoraDataAccess.ObtenerEmpresas15porc(rut);
                 dynamic d = new { valid = (existe == 1), data = rut };
                 return d;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 dynamic d = new { valid = false, data = ex };
                 return d;
@@ -1211,6 +1236,24 @@ namespace CRM.Controllers
             string token = ActionContext.Request.Headers.GetValues("Token").First();
             return AsignacionDataAccess.ListaEmpresaEje(token);
         }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-municipalidades")]
+        public ICollection<MuniRolVerificadorEntity> ObtenerComunasEmpresas()
+        {
+            return LogcalculadoraDataAccess.ObtieneMunicipalidades();
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-empresa-rol")]
+        public ICollection<EmpresaRolVerificadorEntity> ObtenerEmpresaRol(int IdAnexo)
+        {
+            return LogcalculadoraDataAccess.ObtieneEmpresaRol(IdAnexo);
+        }
+
+
     }
 
 
