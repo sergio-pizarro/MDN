@@ -15,7 +15,6 @@
     .help-block {
         color: #b71e1e !important;
     }
-
 </style>
 <!--Page content-->
 <!--===================================================-->
@@ -46,7 +45,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="panel panel-bordered-info" style="border-radius: 5px;">
                                     <div class="panel-body">
 
@@ -71,7 +70,7 @@
 
                                             <div class="col-lg-4">
                                                 <label>Grado o Profesional o Directivo</label>
-                                                
+
                                                 <div>
                                                     <input class="magic-radio" type="radio" value="1" name="grado_profesional_directivo" id="grado_yes">
                                                     <label for="grado_yes">SI</label>
@@ -83,7 +82,7 @@
                                             </div>
 
                                             <div class="col-lg-3">
-                                                <label >Seguro de Cesantía</label>
+                                                <label>Seguro de Cesantía</label>
 
                                                 <div>
                                                     <input class="magic-radio" type="radio" name="seguro_cesantia" value="1" id="seguro_cesantia_yes">
@@ -131,7 +130,7 @@
                                                 <button type="button" class="btn btn-warning btn-xs" id="calcuar_contrato">Determinar Contrato</button>
                                                 <button type="button" class="btn btn-info btn-xs" id="desmarcar_todos">Desmarcar todos</button>
                                             </div>
-                                            
+
                                         </div>
 
                                         <div class="row resultado-acciones ocultus">
@@ -164,11 +163,11 @@
                                             <div class="col-lg-2 ocultus">
                                                 Mes 2<input type="text" class="form-control solo-numeros promediar depurar-renta" name="descuentos_legales_2" id="descuentos_legales_2" data-desc="" />
                                             </div>
-                                            <div class="col-lg-2 ocultus" >
+                                            <div class="col-lg-2 ocultus">
                                                 Mes 3<input type="text" class="form-control solo-numeros promediar depurar-renta" name="descuentos_legales_3" id="descuentos_legales_3" data-desc="" />
                                             </div>
                                             <div class="col-lg-8">
-                                                <input type="text" class="form-control solo-numeros clc-otros-descuentos depurar-renta" name="descuentos_legales_promedio" id="descuentos_legales_promedio" data-desc=""/>
+                                                <input type="text" class="form-control solo-numeros clc-otros-descuentos depurar-renta" name="descuentos_legales_promedio" id="descuentos_legales_promedio" data-desc="" />
                                             </div>
                                         </div>
                                         <div class="row mar-top">
@@ -222,10 +221,11 @@
                                 </div>
                                 <div class="row mar-top no-print ocultus ultima-patita resultado-calculadora">
                                     <div class="col-lg-9" style="margin-top: 30px;" id="calculadora_result_placeholder">
-                                        
+
                                     </div>
 
                                     <div class="col-lg-3 text-right ocultus ultima-patita" style="margin-top: 37px;">
+                                        <input type="hidden" name="Id" id="Id" value="" />
                                         <button class="btn btn-default" type="reset">Limpiar</button>
                                         <button class="btn btn-primary" type="submit">Calcular</button>
                                     </div>
@@ -262,7 +262,7 @@
             if (!array)
                 return false;
 
-            // compare lengths - can save a lot of time 
+            // compare lengths - can save a lot of time
             if (this.length != array.length)
                 return false;
 
@@ -381,7 +381,7 @@
                     ]
 
                     var output = matriz_respuestas_.find(function (e) {
-                        return e.combinacion.equals(matriz_real); 
+                        return e.combinacion.equals(matriz_real);
                     })
 
                     if (output === undefined) {
@@ -392,7 +392,7 @@
                     resultado_contrato.mostrarElResultado(output.tipo, output.mensaje);
                     return output;
                 }
-                
+
             };
 
 
@@ -429,8 +429,58 @@
                 if (respu && respu.abrirCalculadora) {
                     $('.ultima-patita').show();
                 }
-               
+
+
+                var objeto_envio_rol_verificador = {
+                    Id: '',
+                    RutAfiliado: $("#rut_afiliado").val(),
+                    Anexo: $("#anexo_empresa").val(),
+                    RutEmpresa: '69073600-4',
+                    NombreEmpresa: 'I MUNICIPALIDAD DE CARTAGENA',
+                    Cotiza: determinarEstado($('input[name=cotiza]:checked').val()),
+                    Grado: determinarEstado($('input[name=grado_profesional_directivo]:checked').val()),
+                    SeguroCesantia: determinarEstado($('input[name=seguro_cesantia]:checked').val()),
+                    ProEmpleo: determinarEstado($('input[name=pro_empleo]:checked').val()),
+                    LeyEspecifica: determinarEstado($('input[name=ley_especifica]:checked').val()),
+                    Resultado1: 'Resultado1'
+                    //TotalHaberes: null,
+                    //BonosExtras: null,
+                    //DescuentoLegalMes1: null,
+                    //DescuentoLegalMes2: null,
+                    //DescuentoLegalMes3: null,
+                    //Promedio: null,
+                    //RentaDepurada: null,
+                    //RentaDepuradaCMR: null,
+                    //TotalDescuento: null,
+                    //OtrosDescuentos: null,
+                    //ValorCuotaCredito: null,
+                    //ValorCuotaCreditoComp: null,
+                    //Resultado1: null,
+                    //Resultado2: null
+                }
+
+                console.log({
+                    objeto_envio_rol_verificador
+                })
+
+                $.SecPostJSON(BASE_URL + "/Motor/api/Gestion/guarda-rol-verificador", objeto_envio_rol_verificador, function (datos) {
+
+                    $('#Id').val(datos.Id);
+                    
+                });
+
+
             });
+
+            function determinarEstado(entrada) {
+                if (entrada === '1') {
+                    return "true";
+                } else if (entrada === '0') {
+                    return "false";
+                } else {
+                    return null;
+                }
+            }
 
             var sumatoria = {
                 totalHaberes: 0,
@@ -479,6 +529,12 @@
                     return input != '' ? parseInt(input.replace(/\./g, '')) : 0;
                 }
 
+
+
+
+
+
+
             }
 
 
@@ -506,7 +562,7 @@
                     descuentos_legales_promedio = !isNaN(parseInt($('#descuentos_legales_promedio').val().replace(/\./g, ''))) ? parseInt($('#descuentos_legales_promedio').val().replace(/\./g, '')) : 0;
 
                 renta_depurada_calculada = haberes - (bonos_extraordinarios + descuentos_legales_promedio);
-                renta_depurada_calculada = renta_depurada_calculada < 0 ? 0 : renta_depurada_calculada; 
+                renta_depurada_calculada = renta_depurada_calculada < 0 ? 0 : renta_depurada_calculada;
                 console.log({ renta_depurada_calculada })
                 $('#renta_depurada_calculada').val(renta_depurada_calculada.toMoney(0));
 
@@ -518,14 +574,14 @@
                     $("#slCotiza").append($('<option>').text(e.respuesta).val(e.id))
                 })
             })
-            
+
             $('.clc-otros-descuentos').on('keyup', function () {
 
                 try {
                     var totalDescuentos = parseInt($('#total-descuentos').val().replace(/\./g, ''));
-                    var descuentosLegales = parseInt($('#descuentos_legales_promedio').val().replace(/\./g,''));
+                    var descuentosLegales = parseInt($('#descuentos_legales_promedio').val().replace(/\./g, ''));
                     var otrosDecuentos = totalDescuentos - descuentosLegales;
-                    
+
                     if (isNaN(otrosDecuentos) || otrosDecuentos < 0) {
                         otrosDecuentos = 0;
                     }
@@ -534,9 +590,9 @@
                 } catch{
                     $('#otros-descuentos').val(0);
                 }
-                
+
             });
-            
+
             $('#formulario_calculadora').on({
                 submit: function (e) {
                     e.preventDefault();
@@ -572,7 +628,7 @@
                         $(this).val(number.toMoney(0));
                 }
             });
-            
+
             $('#formulario_calculadora').bootstrapValidator({
                 excluded: [':disabled'], //, ':not(:visible)'
                 fields: {
@@ -710,15 +766,42 @@
                 e.preventDefault();
                 var $form = $(e.target);
 
-                
+
                 sumatoria.parseObjects($('#haberes').val(), $('#bonos-extraordinarios').val(), $('#descuentos_legales_promedio').val(), $('#otros-descuentos').val(), $('#valor-cuota').val(), $('#descuentos_creditos_planilla').val())
-                
+
                 var resultado = sumatoria.calcularEstado();
 
                 console.log({
                     sumatoria,
                     resultado
                 });
+
+
+                var objeto_envio_rol_verificadorCalculo = {
+                    Id: $('#Id').val(),
+                    TotalHaberes: $("#haberes").val(),
+                    BonosExtras: $("#bonos-extraordinarios").val(),
+                    DescuentoLegalMes1: null,
+                    DescuentoLegalMes2: null,
+                    DescuentoLegalMes3: null,
+                    Promedio: $("#descuentos_legales_promedio").val(), 
+                    RentaDepurada: $("#renta_depurada_calculada").val(),
+                    RentaDepuradaCMR: $("#renta_depurada_crm").val(),
+                    TotalDescuento: $("#total-descuentos").val(),
+                    OtrosDescuentos: $("#otros-descuentos").val(),
+                    ValorCuotaCredito: $("#valor-cuota").val(),
+                    ValorCuotaCreditoComp: $("#descuentos_creditos_planilla").val(),
+                    Resultado2: 'Resultado2',
+                }
+                $.SecPostJSON(BASE_URL + "/Motor/api/Gestion/guarda-rol-verificador-calculo", objeto_envio_rol_verificadorCalculo, function (datos) {
+                    $.niftyNoty({
+                        type: 'success',
+                        icon: 'pli-like-2 icon-2x',
+                        message: 'Registro Guardado Correctamente.',
+                        timer: 5000
+                    });
+                });
+
 
                 if (resultado) {
                     alert("Calculo Aprobado, Acepta para Imprimir");
@@ -728,15 +811,6 @@
                 } else {
                     alert("Calculo Rechazado");
                 }
-
-
-
-                /*const envio = objectifyForm($form.serializeArray())
-                $.SecPostJSON(BASE_URL + "/Motor/api/Gestion/logear-calculadora", envio, function (response) {
-
-                }).fail(function (jqxhr, textStatus, error) {
-                    var x = 0;
-                });*/
             });
 
 

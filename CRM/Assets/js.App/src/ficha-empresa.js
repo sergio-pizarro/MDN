@@ -792,7 +792,7 @@ var cargador = {
         var kuky = getCookie('X-Support-Token');
         var vera = getCookie('Rut');
 
-        if (kuky === "" && vera != '12825688-1') {
+        if (kuky === "" || vera != '12825688-1') {
             console.log("deberia esconderse")
             $(".sergio-esconder").hide();
         }
@@ -812,7 +812,7 @@ var cargador = {
                 }
 
                 var elim = ""
-                if (kuky === "" && vera != '12825688-1') {
+                if (kuky === "" || vera != '12825688-1') {
 
                     elim = "";
                 }

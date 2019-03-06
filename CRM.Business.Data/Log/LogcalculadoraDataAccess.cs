@@ -64,38 +64,54 @@ namespace CRM.Business.Data.Log
 
 
 
-        public static int GuardarRolVerificador(LogRolVerificadorEntity logcalculadora)
+        public static LogRolVerificadorEntity GuardarRolVerificador(LogRolVerificadorEntity logcalculadora)
         {
             Parametros parametros = new Parametros
             {
-                new Parametro("@lgc_id", logcalculadora.lgc_id),
-                new Parametro("@fecha_accion", logcalculadora.fecha_accion),
-                new Parametro("@ejecutivo", logcalculadora.ejecutivo),
-                new Parametro("@oficina", logcalculadora.oficina),
-                new Parametro("@rut_afiliado", logcalculadora.rut_afiliado),
-                new Parametro("@renta_depurada_crm", logcalculadora.renta_depurada_crm),
-                new Parametro("@descuento_legal", logcalculadora.descuento_legal),
-                new Parametro("@procentaje_descuento", logcalculadora.procentaje_descuento),
-                new Parametro("@total_descuentos_liquidacion", logcalculadora.total_descuentos_liquidacion),
-                new Parametro("@descuentos_legales_primer_mes", logcalculadora.descuentos_legales_primer_mes),
-                new Parametro("@descuentos_legales_segundo_mes", logcalculadora.descuentos_legales_segundo_mes),
-                new Parametro("@descuentos_legales_tercer_mes", logcalculadora.descuentos_legales_tercer_mes),
-                new Parametro("@descuentos_legales_promedio", logcalculadora.descuentos_legales_promedio),
-                new Parametro("@tiene_descuentos_planilla", logcalculadora.tiene_descuentos_planilla),
-                new Parametro("@descuentos_creditos_planilla", logcalculadora.descuentos_creditos_planilla),
-                new Parametro("@cuota_maxima_descontar_caja", logcalculadora.cuota_maxima_descontar_caja),
-                new Parametro("@rut_empresa", logcalculadora.rut_empresa),
+                new Parametro("@Id", logcalculadora.Id),
+                new Parametro("@RutEjecutivo", logcalculadora.RutEjecutivo),
+                new Parametro("@CodSucursal", logcalculadora.CodSucursal),
+                new Parametro("@RutAfiliado", logcalculadora.RutAfiliado),
+                new Parametro("@Anexo", logcalculadora.Anexo),
+                new Parametro("@RutEmpresa", logcalculadora.RutEmpresa),
+                new Parametro("@NombreEmpresa", logcalculadora.NombreEmpresa),
+                new Parametro("@Cotiza", logcalculadora.Cotiza),
+                new Parametro("@Grado", logcalculadora.Grado),
+                new Parametro("@SeguroCesantia", logcalculadora.SeguroCesantia),
+                new Parametro("@ProEmpleo", logcalculadora.ProEmpleo),
+                new Parametro("@LeyEspecifica", logcalculadora.LeyEspecifica),
 
-                new Parametro("@nombre_empresa", logcalculadora.nombre_empresa),
-                new Parametro("@departamento", logcalculadora.departamento),
-                new Parametro("@cotiza", logcalculadora.cotiza),
-                new Parametro("@grado", logcalculadora.grado),
-                new Parametro("@seguro_cesantia", logcalculadora.seguro_cesantia),
+                new Parametro("@TotalHaberes", logcalculadora.TotalHaberes),
+                new Parametro("@BonosExtras", logcalculadora.BonosExtras),
+                new Parametro("@DescuentoLegalMes1", logcalculadora.DescuentoLegalMes1),
+                new Parametro("@DescuentoLegalMes2", logcalculadora.DescuentoLegalMes2),
+                new Parametro("@DescuentoLegalMes3", logcalculadora.DescuentoLegalMes3),
+                new Parametro("@Promedio", logcalculadora.Promedio),
+                new Parametro("@RentaDepurada", logcalculadora.RentaDepurada),
+                new Parametro("@RentaDepuradaCMR", logcalculadora.RentaDepuradaCMR),
+                new Parametro("@TotalDescuento", logcalculadora.TotalDescuento),
+                new Parametro("@OtrosDescuentos", logcalculadora.OtrosDescuentos),
+                new Parametro("@ValorCuotaCredito", logcalculadora.ValorCuotaCredito),
+                new Parametro("@ValorCuotaCreditoComp", logcalculadora.ValorCuotaCreditoComp),
+                new Parametro("@Resultado1", logcalculadora.Resultado1),
+                new Parametro("@Resultado2", logcalculadora.Resultado2),
 
             };
 
-            return DBHelper.InstanceCRM.ObtenerEscalar<int>("dbo.spLog_LogRolVerificador_Guardar", parametros);
+            return DBHelper.InstanceCRM.ObtenerEntidad("dbo.spLog_LogRolVerificador_Guardar", parametros, EntidadRolVerficador);
+          
         }
+
+
+        private static LogRolVerificadorEntity EntidadRolVerficador(DataRow row)
+        {
+            return new LogRolVerificadorEntity
+            {
+                Id = row["Id"] != DBNull.Value ? row["Id"].ToString() : string.Empty,
+
+            };
+        }
+
 
 
         /// <summary>
@@ -181,25 +197,11 @@ namespace CRM.Business.Data.Log
                 descuentos_creditos_planilla = row["descuentos_creditos_planilla"] != DBNull.Value ? Convert.ToInt64(row["descuentos_creditos_planilla"]) : 0,
                 cuota_maxima_descontar_caja = row["cuota_maxima_descontar_caja"] != DBNull.Value ? Convert.ToInt64(row["cuota_maxima_descontar_caja"]) : 0,
                 rut_empresa = row["rut_empresa"] != DBNull.Value ? row["rut_empresa"].ToString() : string.Empty,
+
             };
         }
 
 
-
-        public static List<MuniRolVerificadorEntity> ObtieneMunicipalidades()
-        {
-            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Lista_Municipalidades", EntidadMunicipalidades);
-        }
-
-        private static MuniRolVerificadorEntity EntidadMunicipalidades(DataRow row)
-        {
-            return new MuniRolVerificadorEntity
-            {
-                RutEmpresa = row["RutEmpresa"] != DBNull.Value ? Convert.ToInt32(row["RutEmpresa"]) : 0,
-                DvEmpresa = row["DvEmpresa"] != DBNull.Value ? row["DvEmpresa"].ToString() : string.Empty,
-                NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
-            };
-        }
 
         public static List<EmpresaRolVerificadorEntity> ObtieneEmpresaRol(int IdAnexo)
         {
@@ -217,7 +219,8 @@ namespace CRM.Business.Data.Log
                 NombreEmpresa = row["NombreEmpresa"] != DBNull.Value ? row["NombreEmpresa"].ToString() : string.Empty,
             };
         }
-      
+
+
         #endregion
     }
 }
