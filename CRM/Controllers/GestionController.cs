@@ -1174,24 +1174,97 @@ namespace CRM.Controllers
         [AuthorizationRequired]
         [HttpPost]
         [Route("guarda-rol-verificador")]
-        public ResultadoBase RolVerificador(Business.Entity.Log.LogRolVerificadorEntity entrada)
+        public IHttpActionResult RolVerificador(WebRolVerificadorHelper entrada)
         {
             string token = ActionContext.Request.Headers.GetValues("Token").First();
             int _uid = Security.Data.TokenDataAccess.Obtener(token).FirstOrDefault().UserId;
             string _rut = Security.Data.UsuarioDataAccess.UsuarioData(_uid).RutUsuario;
             CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
             int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
-           // entrada.fecha_accion = DateTime.Now;
-            entrada.RutEjecutivo = _rut;
-            entrada.CodSucursal = codOficina;
 
-            Business.Data.Log.LogcalculadoraDataAccess.GuardarRolVerificador(entrada);
-            return new ResultadoBase()
+
+
+            LogRolVerificadorEntity entidad = new LogRolVerificadorEntity
             {
-                Mensaje = "OK",
-                Objeto = entrada
+                //Id = entrada.Id,
+                RutAfiliado = entrada.RutAfiliado,
+                Anexo = Convert.ToInt32(entrada.Anexo),
+                RutEmpresa = entrada.RutEmpresa,
+                NombreEmpresa = entrada.NombreEmpresa,
+                Cotiza = determinarEstado(entrada.Cotiza),
+                Grado = determinarEstado(entrada.Grado),
+                SeguroCesantia = determinarEstado(entrada.SeguroCesantia),
+                ProEmpleo = determinarEstado(entrada.ProEmpleo),
+                LeyEspecifica = determinarEstado(entrada.LeyEspecifica),
+                RutEjecutivo = _rut,
+                CodSucursal = codOficina,
+                Resultado1 = entrada.Resultado1
             };
+            var res = LogcalculadoraDataAccess.GuardarRolVerificador(entidad);
+
+
+            return Ok(res);
+
+
+            //return Business.Data.Log.LogcalculadoraDataAccess.GuardarRolVerificador(entrada);
+            //return new ResultadoBase()
+            //{
+            //    Mensaje = "OK",
+            //    Objeto = entrada
+            //};
         }
+
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("guarda-rol-verificador-calculo")]
+        public IHttpActionResult RolVerificadorCalculo(WebRolVerificadorHelper entrada)
+        {
+            LogRolVerificadorEntity entidad = new LogRolVerificadorEntity
+            {
+                Id = entrada.Id,
+                TotalHaberes = Convert.ToInt32(entrada.TotalHaberes.Replace(".", "")),
+                BonosExtras = Convert.ToInt32(entrada.BonosExtras.Replace(".", "")),
+                //DescuentoLegalMes1 = Convert.ToInt32(entrada.DescuentoLegalMes1),
+                //DescuentoLegalMes2 = Convert.ToInt32(entrada.DescuentoLegalMes2),
+                //DescuentoLegalMes3 = Convert.ToInt32(entrada.DescuentoLegalMes3),
+                Promedio = Convert.ToInt32(entrada.Promedio.Replace(".","")),
+                RentaDepurada = Convert.ToInt32(entrada.RentaDepurada.Replace(".", "")),
+                RentaDepuradaCMR = Convert.ToInt32(entrada.RentaDepuradaCMR.Replace(".", "")),
+                TotalDescuento = Convert.ToInt32(entrada.TotalDescuento.Replace(".", "")),
+                OtrosDescuentos = Convert.ToInt32(entrada.OtrosDescuentos.Replace(".", "")),
+                ValorCuotaCredito = Convert.ToInt32(entrada.ValorCuotaCredito.Replace(".", "")),
+                ValorCuotaCreditoComp = Convert.ToInt32(entrada.ValorCuotaCreditoComp.Replace(".", "")),
+                Resultado2 = entrada.Resultado1
+            };
+            var res = LogcalculadoraDataAccess.GuardarRolVerificador(entidad);
+
+
+            return Ok(res);
+
+
+            //return Business.Data.Log.LogcalculadoraDataAccess.GuardarRolVerificador(entrada);
+            //return new ResultadoBase()
+            //{
+            //    Mensaje = "OK",
+            //    Objeto = entrada
+            //};
+        }
+
+
+
+        private bool? determinarEstado(string input)
+        {
+            if (input == null)
+            {
+                return null;
+            }
+            else
+            {
+                return bool.Parse(input);
+            }
+        }
+
 
         [AuthorizationRequired]
         [HttpGet]

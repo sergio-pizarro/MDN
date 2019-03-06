@@ -64,7 +64,7 @@ namespace CRM.Business.Data.Log
 
 
 
-        public static int GuardarRolVerificador(LogRolVerificadorEntity logcalculadora)
+        public static LogRolVerificadorEntity GuardarRolVerificador(LogRolVerificadorEntity logcalculadora)
         {
             Parametros parametros = new Parametros
             {
@@ -98,8 +98,20 @@ namespace CRM.Business.Data.Log
 
             };
 
-            return DBHelper.InstanceCRM.ObtenerEscalar<int>("dbo.spLog_LogRolVerificador_Guardar", parametros);
+            return DBHelper.InstanceCRM.ObtenerEntidad("dbo.spLog_LogRolVerificador_Guardar", parametros, EntidadRolVerficador);
+          
         }
+
+
+        private static LogRolVerificadorEntity EntidadRolVerficador(DataRow row)
+        {
+            return new LogRolVerificadorEntity
+            {
+                Id = row["Id"] != DBNull.Value ? row["Id"].ToString() : string.Empty,
+
+            };
+        }
+
 
 
         /// <summary>

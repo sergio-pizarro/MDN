@@ -152,18 +152,18 @@ namespace CRM.Business.Entity.Log
         public bool? ProEmpleo { get; set; }
         public bool? LeyEspecifica { get; set; }
 
-        public int TotalHaberes { get; set; }
-        public int BonosExtras { get; set; }
-        public int DescuentoLegalMes1 { get; set; }
-        public int DescuentoLegalMes2 { get; set; }
-        public int DescuentoLegalMes3 { get; set; }
-        public int Promedio { get; set; }
-        public int RentaDepurada { get; set; }
-        public int RentaDepuradaCMR { get; set; }
-        public int TotalDescuento { get; set; }
-        public int OtrosDescuentos { get; set; }
-        public int ValorCuotaCredito { get; set; }
-        public int ValorCuotaCreditoComp { get; set; }
+        public int? TotalHaberes { get; set; }
+        public int? BonosExtras { get; set; }
+        public int? DescuentoLegalMes1 { get; set; }
+        public int? DescuentoLegalMes2 { get; set; }
+        public int? DescuentoLegalMes3 { get; set; }
+        public int? Promedio { get; set; }
+        public int? RentaDepurada { get; set; }
+        public int? RentaDepuradaCMR { get; set; }
+        public int? TotalDescuento { get; set; }
+        public int? OtrosDescuentos { get; set; }
+        public int? ValorCuotaCredito { get; set; }
+        public int? ValorCuotaCreditoComp { get; set; }
         public string Resultado1 { get; set; }
         public string Resultado2 { get; set; }
 
@@ -182,22 +182,54 @@ namespace CRM.Business.Entity.Log
             ProEmpleo = null;
             LeyEspecifica = null;
 
-            TotalHaberes = 0;
-            BonosExtras = 0;
-            DescuentoLegalMes1 = 0;
-            DescuentoLegalMes2 = 0;
-            DescuentoLegalMes3 = 0;
-            Promedio = 0;
-            RentaDepurada = 0;
-            RentaDepuradaCMR = 0;
-            TotalDescuento = 0;
-            OtrosDescuentos = 0;
-            ValorCuotaCredito = 0;
-            ValorCuotaCreditoComp = 0;
-            Resultado1 = string.Empty;
-            Resultado2 = string.Empty;
+            TotalHaberes = null;
+            BonosExtras = null;
+            DescuentoLegalMes1 = null;
+            DescuentoLegalMes2 = null;
+            DescuentoLegalMes3 = null;
+            Promedio = null;
+            RentaDepurada = null;
+            RentaDepuradaCMR = null;
+            TotalDescuento = null;
+            OtrosDescuentos = null;
+            ValorCuotaCredito = null;
+            ValorCuotaCreditoComp = null;
+            Resultado1 = null;
+            Resultado2 = null;
 
         }
+    }
+
+
+    public class WebRolVerificadorHelper
+    {
+        public string Id { get; set; }
+        public string RutEjecutivo { get; set; }
+        public string CodSucursal { get; set; }
+        public string RutAfiliado { get; set; }
+        public string Anexo { get; set; }
+        public string RutEmpresa { get; set; }
+        public string NombreEmpresa { get; set; }
+        public string Cotiza { get; set; }
+        public string Grado { get; set; }
+        public string SeguroCesantia { get; set; }
+        public string ProEmpleo { get; set; }
+        public string LeyEspecifica { get; set; }
+
+        public string TotalHaberes { get; set; }
+        public string BonosExtras { get; set; }
+        public string DescuentoLegalMes1 { get; set; }
+        public string DescuentoLegalMes2 { get; set; }
+        public string DescuentoLegalMes3 { get; set; }
+        public string Promedio { get; set; }
+        public string RentaDepurada { get; set; }
+        public string RentaDepuradaCMR { get; set; }
+        public string TotalDescuento { get; set; }
+        public string OtrosDescuentos { get; set; }
+        public string ValorCuotaCredito { get; set; }
+        public string ValorCuotaCreditoComp { get; set; }
+        public string Resultado1 { get; set; }
+        public string Resultado2 { get; set; }
     }
 
 
