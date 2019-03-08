@@ -1235,7 +1235,7 @@ namespace CRM.Controllers
                 OtrosDescuentos = Convert.ToInt32(entrada.OtrosDescuentos.Replace(".", "")),
                 ValorCuotaCredito = Convert.ToInt32(entrada.ValorCuotaCredito.Replace(".", "")),
                 ValorCuotaCreditoComp = Convert.ToInt32(entrada.ValorCuotaCreditoComp.Replace(".", "")),
-                Resultado2 = entrada.Resultado1
+                Resultado2 = entrada.Resultado2
             };
             var res = LogcalculadoraDataAccess.GuardarRolVerificador(entidad);
 
@@ -1314,7 +1314,7 @@ namespace CRM.Controllers
         [AuthorizationRequired]
         [HttpGet]
         [Route("lista-empresa-rol")]
-        public ICollection<EmpresaRolVerificadorEntity> ObtenerEmpresaRol(int IdAnexo)
+        public EmpresaRolVerificadorEntity ObtenerEmpresaRol(int IdAnexo)
         {
             return LogcalculadoraDataAccess.ObtieneEmpresaRol(IdAnexo);
         }

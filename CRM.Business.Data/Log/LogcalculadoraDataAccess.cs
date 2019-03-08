@@ -203,11 +203,11 @@ namespace CRM.Business.Data.Log
 
 
 
-        public static List<EmpresaRolVerificadorEntity> ObtieneEmpresaRol(int IdAnexo)
+        public static EmpresaRolVerificadorEntity ObtieneEmpresaRol(int IdAnexo)
         {
             Parametro parametro = new Parametro("@IdAnexo", IdAnexo);
 
-            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Lista_Rol_Empresa", parametro, EntidadRolEmpresas);
+            return DBHelper.InstanceCRM.ObtenerEntidad("dbo.spMotor_Lista_Rol_Empresa", parametro, EntidadRolEmpresas);
         }
 
         private static EmpresaRolVerificadorEntity EntidadRolEmpresas(DataRow row)
