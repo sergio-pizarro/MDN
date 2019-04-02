@@ -80,6 +80,7 @@ namespace CRM.Business.Data.Log
                 new Parametro("@SeguroCesantia", logcalculadora.SeguroCesantia),
                 new Parametro("@ProEmpleo", logcalculadora.ProEmpleo),
                 new Parametro("@LeyEspecifica", logcalculadora.LeyEspecifica),
+                new Parametro("@LeyEspecifica2", logcalculadora.LeyEspecifica2),
 
                 new Parametro("@TotalHaberes", logcalculadora.TotalHaberes),
                 new Parametro("@BonosExtras", logcalculadora.BonosExtras),

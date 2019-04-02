@@ -337,7 +337,7 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerColeccion("proceso.sp_ListaGestionFalabella", p, rsFalabellaGestion);
         }
 
-        
+
 
         private static GestionAfiliadoFalabella rsFalabellaGestion(DataRow row)
         {
@@ -361,6 +361,106 @@ namespace CRM.Business.Data
             {
                 RutAfiliado = row["RutAfiliado"] != DBNull.Value ? row["RutAfiliado"].ToString() : string.Empty,
                 Nombres = row["Nombres"] != DBNull.Value ? row["Nombres"].ToString() : string.Empty
+            };
+        }
+
+
+        public static List<Entity.Afiliados.EnfermedadesEncuestaEntity> ObtenerEnfermedades()
+        {
+            return DBHelper.InstanceCRM.ObtenerColeccion("mae.spMotorCartera_ObtenerEnfermedades", ConEnfermedades);
+        }
+
+        private static Entity.Afiliados.EnfermedadesEncuestaEntity ConEnfermedades(DataRow row)
+        {
+
+            return new Entity.Afiliados.EnfermedadesEncuestaEntity
+            {
+                Id = row["Id"] != DBNull.Value ? Convert.ToInt32(row["Id"]) : 0,
+                Patologia = row["Patologia"] != DBNull.Value ? row["Patologia"].ToString() : string.Empty,
+                Categoria = row["Categoria"] != DBNull.Value ? row["Categoria"].ToString() : string.Empty,
+
+            };
+        }
+
+        public static List<Entity.Afiliados.MedicamantosEncuestaEntity> ObtenerMedicamentos()
+        {
+            return DBHelper.InstanceCRM.ObtenerColeccion("mae.spMotorCartera_ObtenerMedicamentos", ConMedicamentos);
+        }
+
+        private static Entity.Afiliados.MedicamantosEncuestaEntity ConMedicamentos(DataRow row)
+        {
+
+            return new Entity.Afiliados.MedicamantosEncuestaEntity
+            {
+                Id = row["Id"] != DBNull.Value ? Convert.ToInt32(row["Id"]) : 0,
+                Medicamento = row["Medicamento"] != DBNull.Value ? row["Medicamento"].ToString() : string.Empty,
+                Categoria = row["Categoria"] != DBNull.Value ? row["Categoria"].ToString() : string.Empty,
+
+            };
+        }
+
+        public static void  GuardarEncuestaEnfermedades(EncuestaEntity entrada)
+        {
+            Parametros parametros = new Parametros
+            {
+                new Parametro("@Adquiere_CanastaGes ", entrada.Adquiere_CanastaGes),
+                new Parametro("@Adquiere_Consultorio ", entrada.Adquiere_Consultorio),
+                new Parametro("@Adquiere_Farmacia ", entrada.Adquiere_Farmacia),
+                new Parametro("@Edad ", entrada.Edad),
+                new Parametro("@Enfermedad_1 ", entrada.Enfermedad_1),
+                new Parametro("@Enfermedad_2 ", entrada.Enfermedad_2),
+                new Parametro("@Enfermedad_3 ", entrada.Enfermedad_3),
+                new Parametro("@Enfermedad_4 ", entrada.Enfermedad_4),
+                new Parametro("@Enfermedad_5 ", entrada.Enfermedad_5),
+                new Parametro("@Enfermedad_6 ", entrada.Enfermedad_6),
+                new Parametro("@Enfermedad_7 ", entrada.Enfermedad_7),
+                new Parametro("@Enfermedad_8 ", entrada.Enfermedad_8),
+                new Parametro("@Enfermedad_9 ", entrada.Enfermedad_9),
+                new Parametro("@Enfermedad_10 ", entrada.Enfermedad_10),
+                new Parametro("@Enfermedad_11 ", entrada.Enfermedad_11),
+                new Parametro("@Medicamentos_1 ", entrada.Medicamentos_1),
+                new Parametro("@Medicamentos_2 ", entrada.Medicamentos_2),
+                new Parametro("@Medicamentos_3 ", entrada.Medicamentos_3),
+                new Parametro("@Medicamentos_4 ", entrada.Medicamentos_4),
+                new Parametro("@Medicamentos_5 ", entrada.Medicamentos_5),
+                new Parametro("@Medicamentos_6 ", entrada.Medicamentos_6),
+                new Parametro("@Medicamentos_7 ", entrada.Medicamentos_7),
+                new Parametro("@Medicamentos_8 ", entrada.Medicamentos_8),
+                new Parametro("@Medicamentos_9 ", entrada.Medicamentos_9),
+                new Parametro("@Medicamentos_10 ", entrada.Medicamentos_10),
+                new Parametro("@Medicamentos_11 ", entrada.Medicamentos_11),
+                new Parametro("@Medicamentos_12 ", entrada.Medicamentos_12),
+                new Parametro("@Medicamentos_13 ", entrada.Medicamentos_13),
+                new Parametro("@Medicamentos_14 ", entrada.Medicamentos_14),
+                new Parametro("@Medicamentos_15 ", entrada.Medicamentos_15),
+                new Parametro("@Medicamentos_16 ", entrada.Medicamentos_16),
+                new Parametro("@NombreFarmacia ", entrada.NombreFarmacia),
+                new Parametro("@Actividad ", entrada.Actividad),
+                new Parametro("@Nombre_Afiliado ", entrada.Nombre_Afiliado),
+                new Parametro("@Prevision ", entrada.Prevision),
+                new Parametro("@Rut_Afiliado ", entrada.Rut_Afiliado),
+                new Parametro("@Rut_Ejecutivo ", entrada.Rut_Ejecutivo),
+                new Parametro("@Sexo ", entrada.Sexo),
+                new Parametro("@Sucursal ", entrada.Sucursal),
+                new Parametro("@Tiene_Enfermedad ", entrada.Tiene_Enfermedad),
+                new Parametro("@Flag_Encuesta ", entrada.Flag_Encuesta),
+            };
+            DBHelper.InstanceCRM.EjecutarProcedimiento("dbo.sp_Encuesta_01_InsertEncuesta", parametros);
+
+        }
+
+        public static List<Entity.Afiliados.EncuestaEntity> ObtenerEstadoEncuesta(string RutAfiliado)
+        {
+            Parametro p = new Parametro("@RUT_AFILIADO", RutAfiliado);
+            return DBHelper.InstanceCRM.ObtenerColeccion("mae.spMotor_ConsultaEncuestaEnfermedades", p, EstadoEncuesta);
+        }
+
+        private static Entity.Afiliados.EncuestaEntity EstadoEncuesta(DataRow row)
+        {
+
+            return new Entity.Afiliados.EncuestaEntity
+            {
+                Flag_Encuesta = row["Flag_Encuesta"] != DBNull.Value ? Convert.ToInt32(row["Flag_Encuesta"]) : 0,
             };
         }
     }

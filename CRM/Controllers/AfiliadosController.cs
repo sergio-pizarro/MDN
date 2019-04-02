@@ -48,9 +48,9 @@ namespace CRM.Areas.AppPage.Controllers
         }
         [HttpGet]
         [Route("obtener-info-empresa")]
-        public Business.Entity.Afiliados.EmpresaAfiliadoEntity ObtenerInfoEmpresa(int RutEmpresa,int RutAfiliado)
+        public Business.Entity.Afiliados.EmpresaAfiliadoEntity ObtenerInfoEmpresa(int RutEmpresa, int RutAfiliado)
         {
-            return AfiliadoDataAccess.ObtenerDatosEmpresa(RutEmpresa,RutAfiliado);
+            return AfiliadoDataAccess.ObtenerDatosEmpresa(RutEmpresa, RutAfiliado);
         }
         [HttpGet]
         [Route("obtener-hist-tipo-campana")]
@@ -111,7 +111,7 @@ namespace CRM.Areas.AppPage.Controllers
         public IHttpActionResult afiliadoFalabella(string RutAfiliado)
         {
             var el = AfiliadoDataAccess.BuscarAfiliadoFalabella(RutAfiliado);
-            if(!string.IsNullOrEmpty(el.RutAfiliado))
+            if (!string.IsNullOrEmpty(el.RutAfiliado))
             {
                 return Ok(el);
             }
@@ -119,7 +119,7 @@ namespace CRM.Areas.AppPage.Controllers
             {
                 return BadRequest();
             }
-            
+
         }
 
         [AuthorizationRequired]
@@ -128,7 +128,7 @@ namespace CRM.Areas.AppPage.Controllers
         public IHttpActionResult gestionAfiliadoFalabella([FromBody] GestionAfiliadoFalabella entrada, [FromUri] string RutAfiliado)
         {
             /*Valido La solicitud*/
-            if(RutAfiliado != entrada.RutAfiliado)
+            if (RutAfiliado != entrada.RutAfiliado)
             {
                 return BadRequest("Datos Inconsistentes");
             }
@@ -140,5 +140,89 @@ namespace CRM.Areas.AppPage.Controllers
 
             return Ok();
         }
+
+
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-enfermedades-encuesta")]
+        public IEnumerable<Business.Entity.Afiliados.EnfermedadesEncuestaEntity> ListarEnfermedades()
+        {
+            return AfiliadoDataAccess.ObtenerEnfermedades();
+        }
+
+
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-medicamentos-encuesta")]
+        public IEnumerable<Business.Entity.Afiliados.MedicamantosEncuestaEntity> ListarMedicamentos()
+        {
+            return AfiliadoDataAccess.ObtenerMedicamentos();
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("guarda-encueasta-enfermedades")]
+        public IHttpActionResult GuardaEncuestas(EncuestaEntity entrada)
+        {
+            EncuestaEntity entidad = new EncuestaEntity
+            {
+                Adquiere_CanastaGes = entrada.Adquiere_CanastaGes,
+                Adquiere_Consultorio = entrada.Adquiere_Consultorio,
+                Adquiere_Farmacia = entrada.Adquiere_Farmacia,
+
+                Edad = entrada.Edad,
+                Enfermedad_1 = entrada.Enfermedad_1,
+                Enfermedad_2 = entrada.Enfermedad_2,
+                Enfermedad_3 = entrada.Enfermedad_3,
+                Enfermedad_4 = entrada.Enfermedad_4,
+                Enfermedad_5 = entrada.Enfermedad_5,
+                Enfermedad_6 = entrada.Enfermedad_6,
+                Enfermedad_7 = entrada.Enfermedad_7,
+                Enfermedad_8 = entrada.Enfermedad_8,
+                Enfermedad_9 = entrada.Enfermedad_9,
+                Enfermedad_10 = entrada.Enfermedad_10,
+                Enfermedad_11 = entrada.Enfermedad_11,
+                Medicamentos_1 = entrada.Medicamentos_1,
+                Medicamentos_2 = entrada.Medicamentos_2,
+                Medicamentos_3 = entrada.Medicamentos_3,
+                Medicamentos_4 = entrada.Medicamentos_4,
+                Medicamentos_5 = entrada.Medicamentos_5,
+                Medicamentos_6 = entrada.Medicamentos_6,
+                Medicamentos_7 = entrada.Medicamentos_7,
+                Medicamentos_8 = entrada.Medicamentos_8,
+                Medicamentos_9 = entrada.Medicamentos_9,
+                Medicamentos_10 = entrada.Medicamentos_10,
+                Medicamentos_11 = entrada.Medicamentos_11,
+                Medicamentos_12 = entrada.Medicamentos_12,
+                Medicamentos_13 = entrada.Medicamentos_13,
+                Medicamentos_14 = entrada.Medicamentos_14,
+                Medicamentos_15 = entrada.Medicamentos_15,
+                NombreFarmacia = entrada.NombreFarmacia,
+                Nombre_Afiliado = entrada.Nombre_Afiliado,
+                Prevision = entrada.Prevision,
+                Rut_Afiliado = entrada.Rut_Afiliado,
+                Rut_Ejecutivo = entrada.Rut_Ejecutivo,
+                Sexo = entrada.Sexo,
+                Actividad = entrada.Actividad,
+                Sucursal = entrada.Sucursal,
+                Tiene_Enfermedad = entrada.Tiene_Enfermedad,
+                Flag_Encuesta = entrada.Flag_Encuesta
+
+            };
+            AfiliadoDataAccess.GuardarEncuestaEnfermedades(entidad);
+            return Ok("OK");
+        }
+
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-estado-encuesta")]
+        public IEnumerable<Business.Entity.Afiliados.EncuestaEntity> ListaEstadoEncuesta(string RutAfiliado)
+        {
+            return AfiliadoDataAccess.ObtenerEstadoEncuesta(RutAfiliado);
+        }
+
     }
 }

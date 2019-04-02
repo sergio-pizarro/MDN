@@ -2,11 +2,12 @@
     #add-enterprise {
         display: none;
     }
-    #btn-back{
-        display:none;
+
+    #btn-back {
+        display: none;
     }
 
-    .result-item{
+    .result-item {
         cursor: pointer;
     }
 
@@ -14,8 +15,6 @@
         color: #fff;
         background-color: #2888d3;
     }
-
-    
 </style>
 
 <div class="panel-body">
@@ -23,7 +22,7 @@
     <div class="row mar-btm" id="button-panel">
         <div class="col-md-12">
             <button class="btn btn-primary" id="btn-add-new-enterprise" type="button">Asignar nueva Empresa</button>
-            
+
         </div>
     </div>
 
@@ -74,7 +73,7 @@
                                     <span class="wz-icon icon-txt text-bold">2</span>
                                     <i class="wz-icon-done demo-psi-like"></i>
                                 </span>
-                                <small class="wz-desc box-block text-semibold">Agregar Anexos</small>
+                                <small class="wz-desc box-block text-semibold">Agregar punto de atención</small>
                             </a>
                         </li>
                         <li class="col-xs-3">
@@ -124,9 +123,7 @@
                                                 <th class="text-center">Holding</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="search-results">
-                                          
-                                        </tbody>
+                                        <tbody id="search-results"></tbody>
                                     </table>
 
                                 </div>
@@ -134,89 +131,86 @@
 
                             <!--Second tab-->
                             <div id="demo-step-tab2" class="tab-pane fade">
-                              <div class="row">
-                                  <div class="col-md-12">
-                                      <div class="form-group">
-                                          <label class="col-lg-2 control-label">Es Empresa sin Sucursales</label>
-                                          <div class="col-lg-7">
-                                              <input type="checkbox" id="es-sin-sucursal" class="mar-top" />
-                                          </div>
-                                      </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Es Empresa sin Sucursales</label>
+                                            <div class="col-lg-7">
+                                                <input type="checkbox" id="es-sin-sucursal" class="mar-top" />
+                                            </div>
+                                        </div>
 
-                                      <div class="form-group bloqueable">
-                                          <label class="col-lg-2 control-label">Nombre Anexo</label>
-                                          <div class="col-lg-7">
-                                              <input type="text" placeholder="" id="nombre-anexo" class="form-control no-vacio">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-lg-2 control-label">Calle</label>
-                                          <div class="col-lg-4">
-                                              <input type="text" placeholder="" id="direccion-anexo-calle" class="form-control no-vacio">
-                                          </div>
-                                          <label class="col-lg-1 control-label">Nro.</label>
-                                          <div class="col-lg-2">
-                                              <input type="text" placeholder="" id="direccion-anexo-numeracion" class="form-control no-vacio">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-lg-2 control-label">Depto o Local</label>
-                                          <div class="col-lg-3">
-                                              <input type="text" placeholder="" id="direccion-anexo-local" class="form-control no-vacio">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-lg-2 control-label">Region</label>
-                                          <div class="col-lg-4">
-                                              <select id="region-anexo" class="form-control no-vacio">
-                                                  <option value="">Selecciona</option>
-                                              </select>
-                                          </div>
-                                          <label class="col-lg-1 control-label">Comuna</label>
-                                          <div class="col-lg-4">
-                                              <select id="comuna-anexo" class="form-control no-vacio">
-                                                  <option value="">Selecciona</option>
-                                              </select>
-                                          </div>
-                                      </div>
-                                     
-                                      <div class="form-group">
-                                          <label class="col-lg-2 control-label">N Trabajadores (Aproximada)</label>
-                                          <div class="col-lg-5">
-                                              <input type="text" placeholder="" id="n-trabajadores-anexo" class="form-control no-vacio">
-                                          </div>
-                                          <div class="col-lg-2">
-                                              <button class="btn btn-primary bloqueable" id="bt-agregar-anexo" type="button">Agregar Anexo</button>
-                                          </div>
-                                      </div>
+                                        <div class="form-group bloqueable">
+                                            <label class="col-lg-2 control-label">Nombre Punto de Atención</label>
+                                            <div class="col-lg-7">
+                                                <input type="text" placeholder="" id="nombre-anexo" class="form-control no-vacio">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Calle</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" placeholder="" id="direccion-anexo-calle" class="form-control no-vacio">
+                                            </div>
+                                            <label class="col-lg-1 control-label">Nro.</label>
+                                            <div class="col-lg-2">
+                                                <input type="text" placeholder="" id="direccion-anexo-numeracion" class="form-control no-vacio">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Depto o Local</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" placeholder="" id="direccion-anexo-local" class="form-control no-vacio">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Region</label>
+                                            <div class="col-lg-4">
+                                                <select id="region-anexo" class="form-control no-vacio">
+                                                </select>
+                                            </div>
+                                            <label class="col-lg-1 control-label">Comuna</label>
+                                            <div class="col-lg-2">
+                                                <select id="comuna-anexo" class="form-control no-vacio" name="comuna-anexo"></select>
+                                            </div>
+                                        </div>
 
-                                  </div>
-                              </div>
-                              <div class="row">
-                                  <div class="col-md-12">
-                                      <div class="col-lg-12 bloqueable">
-                                          <h4>Mis Anexos</h4>
-                                      </div>
-                                      <table class="table bloqueable">
-                                          <thead>
-                                              <tr>
-                                                  <th>Nombre</th>
-                                                  <th>Dirección</th>
-                                                  <th>Comuna</th>
-                                                  <th>N Trabajadores <br/>(Aprox.)</th>
-                                                  <th>Acción</th>
-                                              </tr>
-                                          </thead>
-                                          <tbody id="bdy-listado-anexos"></tbody>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">N Trabajadores (Aproximada)</label>
+                                            <div class="col-lg-5">
+                                                <input type="text" placeholder="" id="n-trabajadores-anexo" class="form-control no-vacio">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <button class="btn btn-primary bloqueable" id="bt-agregar-anexo" type="button">Agregar Punto de Atención</button>
+                                            </div>
+                                        </div>
 
-                                      </table>
-                                  </div>
-                              </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-lg-12 bloqueable">
+                                            <h4>Mis Puntos de Atención</h4>
+                                        </div>
+                                        <table class="table bloqueable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Dirección</th>
+                                                    <th>Comuna</th>
+                                                    <th>N Trabajadores <br />(Aprox.)</th>
+                                                    <th>Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bdy-listado-anexos"></tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
 
                             <!--Third tab-->
                             <div id="demo-step-tab3" class="tab-pane">
-                                
+
                                 <div class="row mar-btm bloqueable">
                                     <strong>NOTA:</strong> El archivo a subir tiene un formato especifico, el cual puedes descargar <a class="btn-link" href="#">aquí</a>
                                 </div>
@@ -237,12 +231,33 @@
 
                                     </table>
                                 </div>
-                                
+
                             </div>
 
                             <!--Fourth tab-->
                             <div id="demo-step-tab4" class="tab-pane mar-btm text-center">
-                                <h4>Finalizar</h4>
+                                <h3>Resumen</h3>
+                                <br />
+                                <div style="text-align: left;">
+                                    <strong>Empresa:</strong> <small id="tNombreEmpresa" style="margin-left: 6px;"></small> <strong style="margin-left: 20px;">Rut:</strong><small id="tRutEmpresa" style="margin-left: 6px;"> </small>
+                                </div>
+                                <hr />
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr class="">
+                                                <th>P. Atención</th>
+                                                <th class="min-col text-left">Dirección</th>
+                                                <th class="min-col text-left">Region</th>
+                                                <th class="min-col text-left">Comuna</th>
+                                                <th class="min-col text-left">N° Trabajadores</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;" id="bdy-listado-anexos-resumen">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <hr />
                                 <p>Para confirmar la operación oprima el boton "Finalizar"</p>
                             </div>
                         </div>
