@@ -722,6 +722,36 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerColeccion("carteras.spMotorCartera_Lista_Empresa_Ejecutivo", prm, ListaEmpresaEjecutivoAsig);
         }
 
+        public static List<RegionEmpresaEntity> ObtieneRegionEmpresa()
+        {
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.sp_MotorCartera_LitaRegion", ListaRegionEmp);
+        }
+
+        private static RegionEmpresaEntity ListaRegionEmp(DataRow row)
+        {
+            return new RegionEmpresaEntity
+            {
+                Region_codigo = row["REGION_CODIGOSIAGF"] != DBNull.Value ? Convert.ToInt32(row["REGION_CODIGOSIAGF"]) : 0,
+                Region_nombre = row["REGION_NOMBRE"] != DBNull.Value ? row["REGION_NOMBRE"].ToString() : string.Empty,
+            };
+        }
+
+        public static List<ComunaEmpresaEntity> ObtieneComunaEmpresa(int ComunaCodigo)
+        {
+            Parametro prm = new Parametro("@ID_REGION", ComunaCodigo);
+            return DBHelper.InstanceCRM.ObtenerColeccion("carteras.sp_MotorCartera_LitaComunas", prm, ListaComunaEmp);
+        }
+
+        private static ComunaEmpresaEntity ListaComunaEmp(DataRow row)
+        {
+            return new ComunaEmpresaEntity
+            {
+                Comuna_codigo = row["COMUNA_CODIGO"] != DBNull.Value ? Convert.ToInt32(row["COMUNA_CODIGO"]) : 0,
+                Comuna_nombre = row["COMUNA_NOMBRESIAGF"] != DBNull.Value ? row["COMUNA_NOMBRESIAGF"].ToString() : string.Empty,
+            };
+        }
+
+
 
 
         private static AnexoEmpresaEntity ListaAnexoEmp(DataRow row)

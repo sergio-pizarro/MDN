@@ -1196,6 +1196,7 @@ namespace CRM.Controllers
                 SeguroCesantia = determinarEstado(entrada.SeguroCesantia),
                 ProEmpleo = determinarEstado(entrada.ProEmpleo),
                 LeyEspecifica = determinarEstado(entrada.LeyEspecifica),
+                LeyEspecifica2 = determinarEstado(entrada.LeyEspecifica2),
                 RutEjecutivo = _rut,
                 CodSucursal = codOficina,
                 Resultado1 = entrada.Resultado1

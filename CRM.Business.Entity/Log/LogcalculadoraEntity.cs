@@ -151,6 +151,7 @@ namespace CRM.Business.Entity.Log
         public bool? SeguroCesantia { get; set; }
         public bool? ProEmpleo { get; set; }
         public bool? LeyEspecifica { get; set; }
+        public bool? LeyEspecifica2 { get; set; }
 
         public int? TotalHaberes { get; set; }
         public int? BonosExtras { get; set; }
@@ -181,6 +182,7 @@ namespace CRM.Business.Entity.Log
             SeguroCesantia = null;
             ProEmpleo = null;
             LeyEspecifica = null;
+            LeyEspecifica2 = null;
 
             TotalHaberes = null;
             BonosExtras = null;
@@ -215,6 +217,8 @@ namespace CRM.Business.Entity.Log
         public string SeguroCesantia { get; set; }
         public string ProEmpleo { get; set; }
         public string LeyEspecifica { get; set; }
+        public string LeyEspecifica2 { get; set; }
+
 
         public string TotalHaberes { get; set; }
         public string BonosExtras { get; set; }

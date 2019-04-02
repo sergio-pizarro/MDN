@@ -222,4 +222,16 @@ namespace CRM.Business.Entity
         public int NCitas { get; set; }
 
     }
+
+    public class RegionEmpresaEntity
+    {
+        public int Region_codigo { get; set; }
+        public string Region_nombre { get; set; }
+    }
+
+    public class ComunaEmpresaEntity
+    {
+        public int Comuna_codigo { get; set; }
+        public string Comuna_nombre { get; set; }
+    }
 }

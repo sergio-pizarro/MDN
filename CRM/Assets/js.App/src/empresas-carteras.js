@@ -1114,6 +1114,7 @@ $('#form_gestion_mantencion_detalle').bootstrapValidator({
 
 
 // BUBBLE NUMBERS
+//CARLOS PRADENAS
 // =================================================================
 $('#demo-step-wz').bootstrapWizard({
     tabClass: 'wz-steps',
@@ -1196,6 +1197,9 @@ $('#bt-search-company').on('click', function () {
 
         $("#lading-indicator").hide();
         $("#table-results").show();
+        $('#tNombreEmpresa').html(response[0].NombreEmpresa)
+        $('#tRutEmpresa').html(response[0].RutEmpresa)
+
 
     });
 });
@@ -1245,8 +1249,11 @@ $('#bt-agregar-anexo').on('click', function () {
         let idx = charlie_listado_anexos.data.findIndex(elm => elm.guid === charlie_listado_anexos.state.editing);
 
         fnd.nombre = $('#nombre-anexo').val();
-        fnd.direccion = $('#direccion-anexo').val();
-        fnd.comuna = $('#comuna-anexo').val();
+        fnd.direccion = $('#direccion-anexo-calle').val();
+        fnd.numeroDireccion = $('#direccion-anexo-numeracion').val();
+        fnd.local = $('#direccion-anexo-local').val();
+        fnd.region = $('select[id="region-anexo"] option:selected').text();
+        fnd.comuna = $('select[id="comuna-anexo"] option:selected').text();
         fnd.cantidadTrabajadores = parseInt($('#n-trabajadores-anexo').val());
 
         charlie_listado_anexos.data[idx] = fnd;
@@ -1256,18 +1263,23 @@ $('#bt-agregar-anexo').on('click', function () {
 
         charlie_listado_anexos.data.push({
             nombre: $('#nombre-anexo').val(),
-            direccion: $('#direccion-anexo').val(),
-            comuna: $('#comuna-anexo').val(),
+            direccion: $('#direccion-anexo-calle').val(),
+            numeroDireccion: $('#direccion-anexo-numeracion').val(),
+            local: $('#direccion-anexo-local').val(),
+            region: $('select[id="region-anexo"] option:selected').text(),
+            comuna: $('select[id="comuna-anexo"] option:selected').text(),
             cantidadTrabajadores: parseInt($('#n-trabajadores-anexo').val()),
             guid: uuid4(),
             databaseId: 0
         });
     }
 
-
     $('#nombre-anexo').val("");
-    $('#direccion-anexo').val("");
-    $('#comuna-anexo').val("");
+    $('#direccion-anexo-calle').val("");
+    $('#direccion-anexo-numeracion').val("");
+    $('#direccion-anexo-local').val("");
+    $('#region-anexo option[value=""]').attr("selected", true);
+    $('#comuna-anexo option[value=""]').attr("selected", true);
     $('#n-trabajadores-anexo').val("");
 
     charlie_listado_anexos.renderAll();
@@ -1279,12 +1291,17 @@ $('#bt-agregar-anexo').on('click', function () {
 $(document).on("charlie.events.onAsignacionyCargaDeAfiliados", function (ev) {
     if ($('#es-sin-sucursal').is(':checked') && charlie_listado_anexos.data.length == 0) {
         charlie_listado_anexos.data.push({
-            direccion: $('#direccion-anexo').val(),
-            comuna: $('#comuna-anexo').val(),
+            nombre: $('#tNombreEmpresa').html(),
+            direccion: $('#direccion-anexo-calle').val(),
+            numeroDireccion: $('#direccion-anexo-numeracion').val(),
+            local: $('#direccion-anexo-local').val(),
+            region: $('select[id="region-anexo"] option:selected').text(),
+            comuna: $('select[id="comuna-anexo"] option:selected').text(),//$('#comuna-anexo').val(),
             cantidadTrabajadores: parseInt($('#n-trabajadores-anexo').val()),
             guid: uuid4()
         });
         charlie_listado_anexos.renderListarAnexoCarga();
+        charlie_listado_anexos.renderListarAnexoResumen();
         $('.bloqueable').hide();
 
     }
@@ -1313,11 +1330,17 @@ $(document).on('charlie.events.onAsignarAnexos', function () {
     });
 });
 
+
 $(document).on('click', '.editar-anexo', function () {
     let $t = $(this);
     let finded = charlie_listado_anexos.data.find(elm => elm.guid == $t.data('guid'));
 
-    $('#direccion-anexo').val(finded.direccion);
+    //$('#direccion-anexo').val(finded.direccion);
+
+    $('#direccion-anexo-calle').val(finded.direccion);
+    $('#direccion-anexo-numeracion').val(finded.numeroDireccion);
+    $('#direccion-anexo-local').val(finded.local);
+    $('select[id="region-anexo"] option:selected').text(finded.region),
     $('#comuna-anexo').val(finded.comuna);
     $('#n-trabajadores-anexo').val(finded.cantidadTrabajadores);
     $('#nombre-anexo').val(finded.nombre);
@@ -1326,8 +1349,27 @@ $(document).on('click', '.editar-anexo', function () {
     charlie_listado_anexos.state = { editing: finded.guid };
 });
 
-//Controller & ViewModel
 
+$(document).on('click', '.finish', function () {
+    let $tfn = $(this);
+    let finish = charlie_listado_anexos.data.find(elm => elm.guid);//charlie_listado_anexos.data.find(elm => elm.guid == $tfn.data('guid'));
+
+    //$('#direccion-anexo').val(finded.direccion);
+    //$('#comuna-anexo').val(finded.comuna);
+    //$('#n-trabajadores-anexo').val(finded.cantidadTrabajadores);
+    //$('#nombre-anexo').val(finded.nombre);
+
+    //$("#bt-agregar-anexo").text("Modificar Anexo");
+    //charlie_listado_anexos.state = { editing: finded.guid };
+
+
+   //console.log(charlie_listado_anexos.data.pop())
+
+});
+
+
+//Controller & ViewModel
+//GRILLA PASO 1 Y PASO 2
 var charlie_listado_anexos = {
     company: {},
     data: [],
@@ -1376,17 +1418,42 @@ var charlie_listado_anexos = {
 
         $(this.bodySelectorAnexoCarga).append(html);
     },
+    bodySelectorAnexoResumen: '#bdy-listado-anexos-resumen',
+    renderListarAnexoResumen: function (data = []) {
+        data = data.length == 0 ? this.data : data;
+        $(this.bodySelectorAnexoResumen).html("");
+        var html = ``;
+        $.each(data, function (i, e) {
+            html += `
+                                <tr id="tr-${e.guid}">
+                                   <td>${e.nombre}</td>
+                                   <td>${e.direccion}</td>
+                                   <td>${e.region}</td>--
+                                   <td>${e.comuna}</td>
+                                   <td>${e.cantidadTrabajadores}</td>
+                                </tr>
+                            `;
+        });
+
+        $(this.bodySelectorAnexoResumen).append(html);
+    },
+
     renderAll: function () {
         this.renderAgregarAnexo();
         this.renderListarAnexoCarga();
+        this.renderListarAnexoResumen();
     },
     cleanData: function () {
         this.data = [];
         this.renderAgregarAnexo();
         this.renderListarAnexoCarga();
+        this.renderListarAnexoResumen();
     },
     export: function () {
-        return {};
+
+        charlie_listado_anexos.data.pop()
+
+
     },
     import: function (input = []) {
         input.forEach(function (e) {
@@ -1394,16 +1461,20 @@ var charlie_listado_anexos = {
                 charlie_listado_anexos.data.push({
                     nombre: e.Anexo,
                     direccion: e.Direccion,
+                    numeroDireccion: e.numeroDireccion,
+                    local: e.local,
+                    region: e.region,
                     comuna: e.NombreComuna,
                     cantidadTrabajadores: e.NumTrabajadores,
                     guid: uuid4(),
-                    databaseId: e.IdEmpresaAnexo
+                    databaseId: e.IdEmpresaAnexo,
+                    NombreEmpresa: e.NombreEmpresa,
+                    rutEmpresa: e.RutEmpresa
                 });
             }
         });
         this.renderAll();
     }
-
 }
 
 
@@ -1425,4 +1496,35 @@ function uuid4() {
         r.slice(8, 10).reduce(hex, '-') +
         r.slice(10, 16).reduce(hex, '-');
 }
+
+
+
+$.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-region-empresa", function (menus) {
+    $("#region-anexo").html("");
+    $("#region-anexo").append($("<option>").attr("value", " ").html("Seleccione"));
+    $.each(menus, function (i, e) {
+        $("#region-anexo").append($("<option>").attr("value", e.Region_codigo).html(e.Region_nombre))
+    });
+});
+
+$('#region-anexo').change(function (e) {
+    e.preventDefault();
+    if ($(this).val() != '') {
+        $("#comuna-anexo").attr("disabled", false);
+        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-comuna-empresa", { ComunaCodigo: $(this).val() }, function (datos) {
+
+            $("#comuna-anexo").html("");
+            $("#comuna-anexo").append($("<option>").attr("value", " ").html("Seleccione"));
+            $.each(datos, function (i, e) {
+                $("#comuna-anexo").append($("<option>").attr("value", e.Comuna_codigo).html(e.Comuna_nombre))
+            });
+        });
+    } else {
+        $("#comuna-anexo").html("");
+        $("#comuna-anexo").attr("disabled", true);
+    }
+});
+
+
+
 

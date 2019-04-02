@@ -152,10 +152,117 @@ namespace CRM.Business.Entity.Afiliados
             Beneficios = string.Empty;
             Ejecutivo = string.Empty;
             Telefono = string.Empty;
-            Correo = string.Empty;   
+            Correo = string.Empty;
         }
     }
 
+
+    public class MedicamantosEncuestaEntity
+    {
+        public int Id { get; set; }
+        public string Medicamento { get; set; }
+        public string Categoria { get; set; }
+    }
+
+    public class EnfermedadesEncuestaEntity
+    {
+        public int Id { get; set; }
+        public string Patologia { get; set; }
+        public string Categoria { get; set; }
+    }
+
+    public class EncuestaEntity
+    {
+        public string Rut_Afiliado { get; set; }
+        public string Nombre_Afiliado { get; set; }
+        public string Rut_Ejecutivo { get; set; }
+        public int Sucursal { get; set; }
+        public string Tiene_Enfermedad { get; set; }
+        public string Enfermedad_1 { get; set; }
+        public string Enfermedad_2 { get; set; }
+        public string Enfermedad_3 { get; set; }
+        public string Enfermedad_4 { get; set; }
+        public string Enfermedad_5 { get; set; }
+        public string Enfermedad_6 { get; set; }
+        public string Enfermedad_7 { get; set; }
+        public string Enfermedad_8 { get; set; }
+        public string Enfermedad_9 { get; set; }
+        public string Enfermedad_10 { get; set; }
+        public string Enfermedad_11 { get; set; }
+        public string Medicamentos_1 { get; set; }
+        public string Medicamentos_2 { get; set; }
+        public string Medicamentos_3 { get; set; }
+        public string Medicamentos_4 { get; set; }
+        public string Medicamentos_5 { get; set; }
+        public string Medicamentos_6 { get; set; }
+        public string Medicamentos_7 { get; set; }
+        public string Medicamentos_8 { get; set; }
+        public string Medicamentos_9 { get; set; }
+        public string Medicamentos_10 { get; set; }
+        public string Medicamentos_11 { get; set; }
+        public string Medicamentos_12 { get; set; }
+        public string Medicamentos_13 { get; set; }
+        public string Medicamentos_14 { get; set; }
+        public string Medicamentos_15 { get; set; }
+        public string Medicamentos_16 { get; set; }
+        public string Adquiere_CanastaGes { get; set; }
+        public string Adquiere_Consultorio { get; set; }
+        public string Adquiere_Farmacia { get; set; }
+        public string NombreFarmacia { get; set; }
+        public string Actividad { get; set; }
+        public string Sexo { get; set; }
+        public string Edad { get; set; }
+        public string Prevision { get; set; }
+        // public string Region { get; set; }
+        public int Flag_Encuesta { get; set; }
+
+
+        public EncuestaEntity()
+        {
+            Rut_Afiliado = string.Empty;
+            Nombre_Afiliado = string.Empty;
+            Rut_Ejecutivo = string.Empty;
+            Sucursal = 0;
+            Tiene_Enfermedad = "";
+            Enfermedad_1 = "";
+            Enfermedad_2 = "";
+            Enfermedad_3 = "";
+            Enfermedad_4 = "";
+            Enfermedad_5 = "";
+            Enfermedad_6 = "";
+            Enfermedad_7 = "";
+            Enfermedad_8 = "";
+            Enfermedad_9 = "";
+            Enfermedad_10 ="";
+            Enfermedad_11 = "";
+            Medicamentos_1 = "";
+            Medicamentos_2 = "";
+            Medicamentos_3 = "";
+            Medicamentos_4 = "";
+            Medicamentos_5 = "";
+            Medicamentos_6 = "";
+            Medicamentos_7 = "";
+            Medicamentos_8 = "";
+            Medicamentos_9 = "";
+            Medicamentos_10 = "";
+            Medicamentos_11 = "";
+            Medicamentos_12 = "";
+            Medicamentos_13 = "";
+            Medicamentos_14 = "";
+            Medicamentos_15 = "";
+            Medicamentos_16 = "";
+            Adquiere_CanastaGes = "";
+            Adquiere_Consultorio = "";
+            Adquiere_Farmacia = "";
+            NombreFarmacia = "";
+            Actividad = "";
+            Sexo = "";
+            Edad = "";
+            Prevision = "";
+            // public string Region { get; set; }
+            Flag_Encuesta = 0;
+        }
+    }
 
 
 }

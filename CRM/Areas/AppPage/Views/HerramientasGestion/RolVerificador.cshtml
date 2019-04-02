@@ -15,7 +15,6 @@
     .help-block {
         color: #b71e1e !important;
     }
-
 </style>
 <!--Page content-->
 <!--===================================================-->
@@ -47,7 +46,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                 <div class="panel panel-bordered-info" style="border-radius: 5px;">
                                     <div class="panel-body">
 
@@ -57,82 +69,121 @@
                                             </div>
                                         </div>
                                         <div class="row mar-top">
-                                            <div class="col-lg-3">
-                                                <label>Cotiza</label>
-
-                                                <div>
-                                                    <input class="magic-radio" type="radio" name="cotiza" value="1" id="cotiza_yes">
-                                                    <label for="cotiza_yes">SI</label>
-
-                                                    <input class="magic-radio" type="radio" name="cotiza" value="0" id="cotiza_no">
-                                                    <label for="cotiza_no">NO</label>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-lg-4">
-                                                <label>Grado o Profesional o Directivo</label>
-                                                
-                                                <div>
-                                                    <input class="magic-radio" type="radio" value="1" name="grado_profesional_directivo" id="grado_yes">
-                                                    <label for="grado_yes">SI</label>
-
-                                                    <input class="magic-radio" type="radio" value="0" name="grado_profesional_directivo" id="grado_no">
-                                                    <label for="grado_no">NO</label>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-lg-3">
-                                                <label >Seguro de Cesantía</label>
-
-                                                <div>
-                                                    <input class="magic-radio" type="radio" name="seguro_cesantia" value="1" id="seguro_cesantia_yes">
-                                                    <label for="seguro_cesantia_yes">SI</label>
-
-                                                    <input class="magic-radio" type="radio" name="seguro_cesantia" value="0" id="seguro_cesantia_no">
-                                                    <label for="seguro_cesantia_no">NO</label>
+                                            <div class="col-md-12">
+                                                <div class="checkbox">
+                                                    <div class="col-lg-2">
+                                                        <input id="cotiza" name="cotiza" class="magic-checkbox" type="checkbox">
+                                                        <label for="cotiza">Cotiza</label>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <input id="grado_profesional_directivo" name="grado_profesional_directivo" class="magic-checkbox" type="checkbox">
+                                                        <label for="grado_profesional_directivo">Grado o Profesional o Directivo</label>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <input id="seguro_cesantia" name="seguro_cesantia" class="magic-checkbox" type="checkbox">
+                                                        <label for="seguro_cesantia">Seguro de Cesantía</label>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <input id="pro_empleo" name="pro_empleo" class="magic-checkbox" type="checkbox">
+                                                        <label for="pro_empleo">Pro Empleo / PMU</label>
+                                                    </div>
                                                 </div>
                                             </div>
-
+                                            <br />
+                                            <div class="col-md-12" style="margin-top: 16px;">
+                                                <div class="checkbox">
+                                                    <div class="col-lg-5">
+                                                        <input id="ley_especifica" name="ley_especifica" class="magic-checkbox" type="checkbox">
+                                                        <label for="ley_especifica">Ley Especifica (19378-19464-19070)</label>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <input id="ley_especifica_2" name="ley_especifica_2" class="magic-checkbox" type="checkbox">
+                                                        <label for="ley_especifica_2">Ley Específica (18883-18834)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div class="row mar-top">
 
 
-                                            <div class="col-lg-3">
-                                                <label for="pro_empleo">Pro Empleo / PMU</label>
 
-                                                <div>
-                                                    <input class="magic-radio" type="radio" name="pro_empleo" value="1" id="pro_empleo_yes">
-                                                    <label for="pro_empleo_yes">SI</label>
+                                        @*<div class="row mar-top">
+                                                <div class="col-lg-3">
+                                                    <label>Cotiza</label>
 
-                                                    <input class="magic-radio" type="radio" name="pro_empleo" value="0" id="pro_empleo_no">
-                                                    <label for="pro_empleo_no">NO</label>
+                                                    <div>
+                                                        <input class="magic-radio" type="radio" name="cotiza" value="1" id="cotiza_yes">
+                                                        <label for="cotiza_yes">SI</label>
+
+                                                        <input class="magic-radio" type="radio" name="cotiza" value="0" id="cotiza_no">
+                                                        <label for="cotiza_no">NO</label>
+                                                    </div>
+
                                                 </div>
-                                            </div>
 
+                                                <div class="col-lg-4">
+                                                    <label>Grado o Profesional o Directivo</label>
 
-                                            <div class="col-lg-6">
-                                                <label>Ley Especifica (19378-19464-19070)</label>
+                                                    <div>
+                                                        <input class="magic-radio" type="radio" value="1" name="grado_profesional_directivo" id="grado_yes">
+                                                        <label for="grado_yes">SI</label>
 
-                                                <div>
-                                                    <input class="magic-radio" type="radio" name="ley_especifica" value="1" id="ley_especifica_yes">
-                                                    <label for="ley_especifica_yes">SI</label>
+                                                        <input class="magic-radio" type="radio" value="0" name="grado_profesional_directivo" id="grado_no">
+                                                        <label for="grado_no">NO</label>
+                                                    </div>
 
-                                                    <input class="magic-radio" type="radio" name="ley_especifica" value="0" id="ley_especifica_no">
-                                                    <label for="ley_especifica_no">NO</label>
                                                 </div>
-                                            </div>
 
-                                        </div>
+                                                <div class="col-lg-3">
+                                                    <label>Seguro de Cesantía</label>
 
-                                        <div class="row mar-top no-print">
+                                                    <div>
+                                                        <input class="magic-radio" type="radio" name="seguro_cesantia" value="1" id="seguro_cesantia_yes">
+                                                        <label for="seguro_cesantia_yes">SI</label>
+
+                                                        <input class="magic-radio" type="radio" name="seguro_cesantia" value="0" id="seguro_cesantia_no">
+                                                        <label for="seguro_cesantia_no">NO</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>*@
+
+                                        @*<div class="row mar-top">
+
+
+                                                <div class="col-lg-3">
+                                                    <label for="pro_empleo">Pro Empleo / PMU</label>
+
+                                                    <div>
+                                                        <input class="magic-radio" type="radio" name="pro_empleo" value="1" id="pro_empleo_yes">
+                                                        <label for="pro_empleo_yes">SI</label>
+
+                                                        <input class="magic-radio" type="radio" name="pro_empleo" value="0" id="pro_empleo_no">
+                                                        <label for="pro_empleo_no">NO</label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-lg-6">
+                                                    <label>Ley Especifica (19378-19464-19070)</label>
+
+                                                    <div>
+                                                        <input class="magic-radio" type="radio" name="ley_especifica" value="1" id="ley_especifica_yes">
+                                                        <label for="ley_especifica_yes">SI</label>
+
+                                                        <input class="magic-radio" type="radio" name="ley_especifica" value="0" id="ley_especifica_no">
+                                                        <label for="ley_especifica_no">NO</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>*@
+
+                                        <div class="row mar-top no-print" style="margin-top: 30px;">
                                             <div class="col-lg-12">
                                                 <button type="button" class="btn btn-warning btn-xs" id="calcuar_contrato">Determinar Contrato</button>
                                                 <button type="button" class="btn btn-info btn-xs" id="desmarcar_todos">Desmarcar todos</button>
                                             </div>
-                                            
+
                                         </div>
 
                                         <div class="row resultado-acciones ocultus">
@@ -169,7 +220,7 @@
                                                 Mes 3<input type="text" class="form-control solo-numeros promediar depurar-renta" name="descuentos_legales_3" id="descuentos_legales_3" data-desc="" />
                                             </div>
                                             <div class="col-lg-8">
-                                                <input type="text" class="form-control solo-numeros clc-otros-descuentos depurar-renta" name="descuentos_legales_promedio" id="descuentos_legales_promedio" data-desc=""/>
+                                                <input type="text" class="form-control solo-numeros clc-otros-descuentos depurar-renta" name="descuentos_legales_promedio" id="descuentos_legales_promedio" data-desc="" />
                                             </div>
                                         </div>
                                         <div class="row mar-top">
@@ -223,7 +274,7 @@
                                 </div>
                                 <div class="row mar-top ocultus ultima-patita resultado-calculadora">
                                     <div class="col-lg-7" style="margin-top: 30px;" id="calculadora_result_placeholder">
-                                        
+
                                     </div>
 
                                     <div class="col-lg-5 text-right ocultus ultima-patita no-print" style="margin-top: 37px;">
@@ -380,7 +431,7 @@
             if (!array)
                 return false;
 
-            // compare lengths - can save a lot of time 
+            // compare lengths - can save a lot of time
             if (this.length != array.length)
                 return false;
 
@@ -410,7 +461,7 @@
                 console.log({
                     ladata
                 })
-                
+
                 $("#elrutafiliado").text(ladata.rut_afiliado);
                 $("#elanexomuni").text(ladata.anexo_empresa);
                 //$("#elnombremuni").text("");
@@ -421,7 +472,7 @@
                 $("#elseguroces").text(determinateState(ladata.seguro_cesantia));
                 $("#elproempleo").text(determinateState(ladata.pro_empleo));
                 $("#laleyespecifica1").text(determinateState(ladata.ley_especifica));
-                
+
 
                 $("#loshaberes").text(detMon(ladata.haberes));
                 $("#losbonos").text(detMon(ladata.bonos_extraordinarios));
@@ -432,7 +483,7 @@
                 $("#losotrosdescuentos").text(detMon(ladata.otros_descuentos));
                 $("#elvalorcuotaevaluacion").text(detMon(ladata.valor_cuota));
                 $("#elvalorcuotacompracartera").text(detMon(ladata.descuentos_creditos_planilla));
-                
+
                 window.print();
             }
 
@@ -450,8 +501,8 @@
         $(function () {
 
             $('#anexo_empresa').on('blur', function () {
-                
-                $.SecGetJSON(BASE_URL + "/Motor/api/Gestion/lista-empresa-rol", { IdAnexo : $(this).val() }, function (datos) {
+
+                $.SecGetJSON(BASE_URL + "/Motor/api/Gestion/lista-empresa-rol", { IdAnexo: $(this).val() }, function (datos) {
                     $('#leyenda_muni').text(`Rut: ${datos.RutEmpresa} - Nombre: ${datos.NombreEmpresa}`);
                     $('#elnombremuni').text(`${datos.NombreEmpresa}`);
                     $('#elrutmuni').text(`${datos.RutEmpresa}`);
@@ -505,72 +556,155 @@
                     $('.resultado-acciones').show();
                     $("#Resultado1").val(messaje);
                 },
-                generaRespuesta: function (cotiza, grado, seguro_cesantia, pro_empleo, ley_especifica) {
+                generaRespuesta: function (cotiza, grado, seguro_cesantia, pro_empleo, ley_especifica, ley_especifica_2) {
 
-                    var matriz_real = [cotiza, grado, seguro_cesantia, pro_empleo, ley_especifica];
+                    var matriz_real = [cotiza, grado, seguro_cesantia, pro_empleo, ley_especifica, ley_especifica_2];
 
                     console.log({ matriz_real })
 
 
                     var matriz_respuestas_ = [
-                        {
-                            combinacion: ['0', '0', '0', '1', undefined],
-                            mensaje: 'Afiliado NO Afecto al 15%',
-                            tipo: 'success',
-                            abrirCalculadora: false
-                        },
-                        {
-                            combinacion: ['0', '1', '0', '0', undefined],
-                            mensaje: 'Afiliado Afecto al 15%',
-                            tipo: 'warning',
-                            abrirCalculadora: true
-                        },
-                        {
-                            combinacion: ['0', '1', '0', undefined, undefined],
-                            mensaje: 'Afiliado Afecto al 15%',
-                            tipo: 'warning',
-                            abrirCalculadora: true
-                        },
-                        {
-                            combinacion: ['0', '1', '0', '0', '0'],
-                            mensaje: 'Afiliado Afecto al 15%',
-                            tipo: 'warning',
-                            abrirCalculadora: true
-                        },
-                        {
-                            combinacion: ['1', '0', '0', undefined, '1'],
-                            mensaje: 'Afiliado NO Afecto al 15%',
-                            tipo: 'success',
-                            abrirCalculadora: false
-                        },
-                        {
-                            combinacion: ['1', '0', '1', undefined, '1'],
-                            mensaje: 'Afiliado NO Afecto al 15%',
-                            tipo: 'success',
-                            abrirCalculadora: false
-                        },
-                        {
-                            combinacion: ['1', '0', '1', undefined, undefined],
-                            mensaje: 'Afiliado NO Afecto al 15%',
-                            tipo: 'success',
-                            abrirCalculadora: false
-                        }
 
+
+                        {
+                            combinacion: [undefined, undefined, undefined, undefined, undefined, 'on'],
+                            mensaje: 'Afiliado Afecto al 15%',
+                            tipo: 'warning',
+                            abrirCalculadora: true
+                        },
+                        {
+                            combinacion: ['on', 'on', 'on', 'on', undefined, 'on'],
+                            mensaje: 'Afiliado Afecto al 15%',
+                            tipo: 'warning',
+                            abrirCalculadora: true
+                        },
+                        {
+                            combinacion: [undefined, 'on', 'on', 'on', undefined, 'on'],
+                            mensaje: 'Afiliado Afecto al 15%',
+                            tipo: 'warning',
+                            abrirCalculadora: true
+                        },
+                        {
+                            combinacion: [undefined, undefined, 'on', 'on', undefined, 'on'],
+                            mensaje: 'Afiliado Afecto al 15%',
+                            tipo: 'warning',
+                            abrirCalculadora: true
+                        },
+                        {
+                            combinacion: [undefined, undefined, undefined, 'on', undefined, 'on'],
+                            mensaje: 'Afiliado Afecto al 15%',
+                            tipo: 'warning',
+                            abrirCalculadora: true
+                        },
+
+
+
+
+                        {
+                            combinacion: [undefined, undefined, undefined, undefined, 'on', undefined],
+                            mensaje: 'Afiliado NO Afecto al 15%',
+                            tipo: 'success',
+                            abrirCalculadora: false
+                        },
+                        {
+                            combinacion: ['on', 'on', 'on', 'on', 'on', undefined],
+                            mensaje: 'Afiliado NO Afecto al 15%',
+                            tipo: 'success',
+                            abrirCalculadora: false
+                        },
+
+                        {
+                            combinacion: [undefined, 'on', 'on', 'on', 'on', undefined],
+                            mensaje: 'Afiliado NO Afecto al 15%',
+                            tipo: 'success',
+                            abrirCalculadora: false
+                        },
+                        {
+                            combinacion: [undefined, undefined, 'on', 'on', 'on', undefined],
+                            mensaje: 'Afiliado NO Afecto al 15%',
+                            tipo: 'success',
+                            abrirCalculadora: false
+                        },
+                        {
+                            combinacion: [undefined, undefined, undefined, 'on', 'on', undefined],
+                            mensaje: 'Afiliado NO Afecto al 15%',
+                            tipo: 'success',
+                            abrirCalculadora: false
+                        },
+    
+
+
+
+
+                        {
+                            combinacion: [undefined, undefined, undefined, 'on', undefined, undefined],
+                            mensaje: 'Afiliado NO Afecto al 15%',
+                            tipo: 'success',
+                            abrirCalculadora: false
+                        },
+                        {
+                            combinacion: [undefined, 'on', undefined, undefined, undefined, undefined],
+                            mensaje: 'Afiliado Afecto al 15%',
+                            tipo: 'warning',
+                            abrirCalculadora: true
+                        },
+                        {
+                            combinacion: ['on', undefined, undefined, undefined, undefined, 'on'],
+                            mensaje: 'Afiliado Afecto al 15%',
+                            tipo: 'warning',
+                            abrirCalculadora: true
+                        },
+                        {
+                            combinacion: ['on', undefined, 'on', undefined, undefined, 'on'],
+                            mensaje: 'Afiliado Afecto al 15%',
+                            tipo: 'warning',
+                            abrirCalculadora: true
+                        },
+                        {
+                            combinacion: [undefined, 'on', undefined, undefined, undefined, 'on'],
+                            mensaje: 'Afiliado Afecto al 15%',
+                            tipo: 'warning',
+                            abrirCalculadora: true
+                        },
+                        {
+                            combinacion: ['on', undefined, undefined, undefined, 'on', undefined],
+                            mensaje: 'Afiliado NO Afecto al 15%',
+                            tipo: 'success',
+                            abrirCalculadora: false
+                        },
+                        //{
+                        //    combinacion: ['on', undefined, undefined, undefined, undefined, undefined],
+                        //    mensaje: 'Afiliado NO Afecto al 15%',
+                        //    tipo: 'success',
+                        //    abrirCalculadora: false
+                        //},
+                        {
+                            combinacion: ['on', undefined, 'on', undefined, 'on', undefined],
+                            mensaje: 'Afiliado NO Afecto al 15%',
+                            tipo: 'success',
+                            abrirCalculadora: false
+                        },
+                        {
+                            combinacion: ['on', undefined, 'on', undefined, undefined, undefined],
+                            mensaje: 'Afiliado NO Afecto al 15%',
+                            tipo: 'success',
+                            abrirCalculadora: false
+                        },
                     ]
 
                     var output = matriz_respuestas_.find(function (e) {
-                        return e.combinacion.equals(matriz_real); 
+                        return e.combinacion.equals(matriz_real);
+
                     })
 
                     if (output === undefined) {
                         resultado_contrato.mostrarElResultado('primary', 'Requiere Certificado');
                         return false;
                     }
-
-                    resultado_contrato.mostrarElResultado(output.tipo, output.mensaje);
+                    resultado_contrato.mostrarElResultado(output.tipo, output.mensaje, output.abrirCalculadora);
                     return output;
                 }
-                
+
             };
 
 
@@ -597,7 +731,8 @@
                     $('input[name=grado_profesional_directivo]:checked').val(),
                     $('input[name=seguro_cesantia]:checked').val(),
                     $('input[name=pro_empleo]:checked').val(),
-                    $('input[name=ley_especifica]:checked').val()
+                    $('input[name=ley_especifica]:checked').val(),
+                    $('input[name=ley_especifica_2]:checked').val()
                 );
 
                 console.log({
@@ -607,7 +742,7 @@
                 if (respu && respu.abrirCalculadora) {
                     $('.ultima-patita').show();
                 }
-                
+
                 var objeto_envio_rol_verificador = {
                     Id: '',
                     RutAfiliado: $("#rut_afiliado").val(),
@@ -619,6 +754,7 @@
                     SeguroCesantia: determinarEstado($('input[name=seguro_cesantia]:checked').val()),
                     ProEmpleo: determinarEstado($('input[name=pro_empleo]:checked').val()),
                     LeyEspecifica: determinarEstado($('input[name=ley_especifica]:checked').val()),
+                    LeyEspecifica2: determinarEstado($('input[name=ley_especifica_2]:checked').val()),
                     Resultado1: $('#Resultado1').val()
                 }
                 console.log({
@@ -627,18 +763,29 @@
                 $.SecPostJSON(BASE_URL + "/Motor/api/Gestion/guarda-rol-verificador", objeto_envio_rol_verificador, function (datos) {
                     $('#Id').val(datos.Id);
                 });
-               
+
             });
 
+            //function determinarEstado(entrada) {
+            //    if (entrada === '1') {
+            //        return "true";
+            //    } else if (entrada === '0') {
+            //        return "false";
+            //    } else {
+            //        return null;
+            //    }
+            //}
+
             function determinarEstado(entrada) {
-                if (entrada === '1') {
+                if (entrada === 'on') {
                     return "true";
-                } else if (entrada === '0') {
+                } else if (entrada === undefined) {
                     return "false";
                 } else {
                     return null;
                 }
             }
+
 
             var sumatoria = {
                 totalHaberes: 0,
@@ -714,7 +861,7 @@
                     descuentos_legales_promedio = !isNaN(parseInt($('#descuentos_legales_promedio').val().replace(/\./g, ''))) ? parseInt($('#descuentos_legales_promedio').val().replace(/\./g, '')) : 0;
 
                 renta_depurada_calculada = haberes - (bonos_extraordinarios + descuentos_legales_promedio);
-                renta_depurada_calculada = renta_depurada_calculada < 0 ? 0 : renta_depurada_calculada; 
+                renta_depurada_calculada = renta_depurada_calculada < 0 ? 0 : renta_depurada_calculada;
                 console.log({ renta_depurada_calculada })
                 $('#renta_depurada_calculada').val(renta_depurada_calculada.toMoney(0));
 
@@ -726,14 +873,14 @@
                     $("#slCotiza").append($('<option>').text(e.respuesta).val(e.id))
                 })
             })
-            
+
             $('.clc-otros-descuentos').on('keyup', function () {
 
                 try {
                     var totalDescuentos = parseInt($('#total-descuentos').val().replace(/\./g, ''));
-                    var descuentosLegales = parseInt($('#descuentos_legales_promedio').val().replace(/\./g,''));
+                    var descuentosLegales = parseInt($('#descuentos_legales_promedio').val().replace(/\./g, ''));
                     var otrosDecuentos = totalDescuentos - descuentosLegales;
-                    
+
                     if (isNaN(otrosDecuentos) || otrosDecuentos < 0) {
                         otrosDecuentos = 0;
                     }
@@ -742,9 +889,9 @@
                 } catch{
                     $('#otros-descuentos').val(0);
                 }
-                
+
             });
-            
+
             $('#formulario_calculadora').on({
                 submit: function (e) {
                     e.preventDefault();
@@ -780,7 +927,7 @@
                         $(this).val(number.toMoney(0));
                 }
             });
-            
+
             $('#formulario_calculadora').bootstrapValidator({
                 excluded: [':disabled'], //, ':not(:visible)'
                 fields: {
@@ -889,13 +1036,13 @@
                             }
                         }
                     },
-                    cotiza: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar cotiza'
-                            }
-                        }
-                    },
+                    //cotiza: {
+                    //    validators: {
+                    //        notEmpty: {
+                    //            message: 'Debe seleccionar cotiza'
+                    //        }
+                    //    }
+                    //},
                     grado: {
                         validators: {
                             notEmpty: {
@@ -903,13 +1050,13 @@
                             }
                         }
                     },
-                    seguro_cesantia: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar seguro'
-                            }
-                        }
-                    },
+                    //seguro_cesantia: {
+                    //    validators: {
+                    //        notEmpty: {
+                    //            message: 'Debe seleccionar seguro'
+                    //        }
+                    //    }
+                    //},
 
                 }
 
@@ -918,9 +1065,9 @@
                 e.preventDefault();
                 var $form = $(e.target);
 
-                
+
                 sumatoria.parseObjects($('#haberes').val(), $('#bonos-extraordinarios').val(), $('#descuentos_legales_promedio').val(), $('#otros-descuentos').val(), $('#valor-cuota').val(), $('#descuentos_creditos_planilla').val())
-                
+
                 var resultado = sumatoria.calcularEstado();
 
                 console.log({
@@ -938,7 +1085,7 @@
                     $("#elresultadofinal").text("OK, No Excede maximo endeudamiento");
                     _tx_r = "OK, No Excede maximo endeudamiento";
                     $('.imprimire').show();
-                    
+
                     //window.print();
                 } else {
                     $("#calculadora_result_placeholder").append($('<div>').addClass(`alert alert-danger`).html('<b>Alerta</b>, Excede maximo endeudamiento'))
@@ -965,16 +1112,16 @@
                     Resultado2: _tx_r,
                 }
                 $.SecPostJSON(BASE_URL + "/Motor/api/Gestion/guarda-rol-verificador-calculo", objeto_envio_rol_verificadorCalculo, function (datos) {
-                    console.log({datos})     
+                    console.log({ datos })  
                 });
 
             });
 
 
             $('#desmarcar_todos').on('click', function () {
-                $('input[type="radio"]').prop('checked', false);
+                $('input[type="checkbox"]').prop('checked', false);
             });
-            
+
 
         });
     </script>
