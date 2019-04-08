@@ -682,7 +682,7 @@ $(function () {
                 title: 'Rut',
                 sortable: true,
                 formatter: function (value, row, index) {
-                    return '<a href="#" class="btn-link" data-target="#mdl_data" data-toggle="modal" data-periodo="' + row.Seguimiento.Periodo + '" data-rut="' + value + '-' + row.Seguimiento.Afiliado_Dv + '" data-tipo="' + row.Seguimiento.TipoAsignacion + '">' + value.toMoney(0).toString() + '-' + row.Seguimiento.Afiliado_Dv + '</a>';
+                    return '<a href="#" class="btn-link" data-target="#mdl_data" data-toggle="modal" data-tieneEncuesta="' + row.TieneEncuesta + '" data-periodo="' + row.Seguimiento.Periodo + '" data-rut="' + value + '-' + row.Seguimiento.Afiliado_Dv + '" data-tipo="' + row.Seguimiento.TipoAsignacion + '">' + value.toMoney(0).toString() + '-' + row.Seguimiento.Afiliado_Dv + '</a>';
                 }
             },
             {
@@ -725,7 +725,7 @@ $(function () {
                 title: 'Prioridad',
                 sortable: false,
                 formatter: function (value, row, index) {
-                    return value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')
+                    return value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '') + (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
                 }
             },
 
@@ -1024,6 +1024,8 @@ $(function () {
         var trutAfiliado = $(e.relatedTarget).data("rut")
         var tperiodo = $(e.relatedTarget).data("periodo")
         var tipoCamp = $(e.relatedTarget).data("tipo")
+        var idEncuesta = $(e.relatedTarget).data("tieneencuesta")
+        $('#linkencuesta').prop('href', '/motor/App/DatosAfiliados?RutBuscar=' + trutAfiliado)
 
         $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-seguimiento", { periodo: tperiodo, afiRut: trutAfiliado, tipoCampagna: tipoCamp }, function (datos) {
 
@@ -1031,6 +1033,13 @@ $(function () {
                 const Asignacion = datos.Objeto;
                 const afiData = Asignacion.Seguimiento;
                 const gesList = Asignacion.HistorialGestion;
+
+                if (idEncuesta == 0) {
+                    $("#lbMensajeEncuesta").css('display', 'block');
+                }
+                else {
+                    $("#lbMensajeEncuesta").css('display', 'none');
+                }
 
                 //DATOS AFILIADO
                 $('#afi_rut').val(afiData.Afiliado_Rut.toMoney(0) + '-' + afiData.Afiliado_Dv);

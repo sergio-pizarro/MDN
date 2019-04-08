@@ -522,6 +522,9 @@ namespace CRM.Business.Data
             
             retorno.Notificaciones = NotificacionAsignacionDataAccess.ObtenerSetNTF(retorno.Seguimiento.Afiliado_Rut.ToString());
 
+            var numero_cedula = retorno.Seguimiento.Afiliado_Rut + "-" + retorno.Seguimiento.Afiliado_Dv;
+            retorno.TieneEncuesta = AfiliadoDataAccess.ObtenerEstadoEncuestaFlag(numero_cedula);
+
 
             return retorno;
 

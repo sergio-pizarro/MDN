@@ -230,7 +230,7 @@
                 <!--Panel body-->
                 <div class="panel-body">
                     <div class="tab-content">
-                        <div id="demo-lft-tab-1" class="tab-pane fade active in">
+                        <div id="demo-lft-tab-1" class="tab-pane fade  active in">
                             <div class="panel-body">
                                 <div class="row">
                                     <table class="table table-hover table-vcenter">
@@ -830,6 +830,31 @@
 
         var _temoralid = 0;
         var Cargador = {
+            EstadoEncuesta: function () {
+                $("#slRutEmpresa").on("change", function (e) {
+                    $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/lista-estado-encuesta", { RutAfiliado: httpGet("RutBuscar") }, function (datos) {
+                        if (datos.length != 0) {
+                            if (datos[0].Flag_Encuesta == 1) {
+                                $('#DivEncusta').css('display', 'none')
+                                $('#lbMenesajeEncuensta').css('display', 'block')
+                                $('#AlertaEncuesta').css('display', 'none')
+                            }
+                        }
+                        else {
+                            $('#DivEncusta').css('display', 'block')
+                            $('#lbMenesajeEncuensta').css('display', 'none')
+                            $('#AlertaEncuesta').css('display', 'block')
+                        }
+
+                        if ($('#NombreAfiliado').html() == "Afiliado Sin Información") {
+                            $('#DivEncusta').css('display', 'none')
+                            $('#lbMenesajeEncuensta').css('display', 'block')
+                            $('#lbMenesajeEncuensta').html("Rut ingresado no corresponde a Afiliado Titular Vigente")
+                            $('#AlertaEncuesta').css('display', 'none')
+                        }
+                    });
+                });
+            },
             CargaDatosAfiliados: function (p_rut) {
                 $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/obtener-info-afiliado", { RutAfiliado: p_rut }, function (e) {
                     console.log($('.editable-input'))
@@ -837,6 +862,12 @@
 
                     if (e.RutAfiliado == null) {
                         $("#NombreAfiliado").html("Afiliado Sin Información");
+                        //$('#DivEncusta').css('display', 'none')
+                        //$('#lbMenesajeEncuensta').css('display', 'block')
+                        //$('#lbMenesajeEncuensta').html("Rut ingresado no corresponde a Afiliado Titular Vigente")
+
+
+
                     }
                     else {
                         $("#RutAfiliado").val(e.RutAfiliado);
@@ -1093,25 +1124,6 @@
                         var divB2 = $('<div>').addClass('timeline-label').css('border-radius', '5px').css('background-color', '#e3e5e6').append(imgB2).append(pB2)
                         var divPrin = $('<div>').addClass('timeline-entry').append(divB1).append(divB2)
                         $('#AfiProyeccion').append(divPrin)
-                    });
-                });
-            },
-            EstadoEncuesta: function () {
-                $("#slRutEmpresa").on("change", function (e) {
-                    $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/lista-estado-encuesta", { RutAfiliado: httpGet("RutBuscar") }, function (datos) {
-                        if (datos.length != 0) {
-                            if (datos[0].Flag_Encuesta == 1) {
-                                $('#DivEncusta').css('display', 'none')
-                                $('#lbMenesajeEncuensta').css('display', 'block')
-                                $('#AlertaEncuesta').css('display', 'none')
-                            }
-                        }
-                        else {
-                            $('#DivEncusta').css('display', 'block')
-                            $('#lbMenesajeEncuensta').css('display', 'none')
-                            $('#AlertaEncuesta').css('display', 'block')
-                        }
-
                     });
                 });
             }
@@ -1839,12 +1851,13 @@
         rutAf = rutAf.replace(/\./g, '');
         rutAf = rutAf.substring(0, rutAf.indexOf('-'));
         Cargador.CargaDatosAfiliados(rutAf)
+        Cargador.EstadoEncuesta()
         Cargador.CargaDatosContactos(rutAf)
         Cargador.CargaDatosCampaniasAfiliado(rutAf)
         Cargador.CargaDatosCumpleanos(rutAf)
         Cargador.CargaDatosAlertas(rutAf)
         Cargador.CargaProyeccion()
-        Cargador.EstadoEncuesta()
+
 
 
         $("#ges_oficina").val(getCookie("Oficina"))
@@ -1875,7 +1888,7 @@
 
         $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-region-empresa", function (menus) {
             $("#region-encuesta").html("");
-            $("#region-encuesta").append($("<option>").attr("value", " ").html("Seleccione"));
+            $("#region-encuesta").append($("<option>").attr("value", "").html(""));
             $.each(menus, function (i, e) {
                 $("#region-encuesta").append($("<option>").attr("value", e.Region_nombre).html(e.Region_nombre))
             });
@@ -1886,11 +1899,22 @@
         $("input:radio[name=rbEnfermedad]").click(function () {
             switch (this.value) {
                 case "SI":
+                    $('#titulo_6_2').html('6.	Ingrese género del afiliado encuestado');
+                    $('#titulo_7_3').html('7.	¿Cuál es su Edad?');
+                    $('#titulo_8_4').html('8.	¿Cuál es su Régimen de Salud?');
+                    $('#titulo_9_5').html('9.	Ingrese Región de residencia del afiliado');
                     $('#divContenedor').css('display', 'block');
+                    $('#divOpcionNo').css('display', 'block');
                     datosEncuenta.Tiene_Enfermedad = this.value
                     break;
                 case "NO":
+                    $('#titulo_6_2').html('2.	Ingrese género del afiliado encuestado');
+                    $('#titulo_7_3').html('3.	¿Cuál es su Edad?');
+                    $('#titulo_8_4').html('4.	¿Cuál es su Régimen de Salud?');
+                    $('#titulo_9_5').html('5.	Ingrese Región de residencia del afiliado');
                     $('#divContenedor').css('display', 'none');
+                    $('#divOpcionNo').css('display', 'block');
+
                     datosEncuenta.Tiene_Enfermedad = this.value
                     break;
             }
@@ -1913,6 +1937,12 @@
                     datosEncuenta.Prevision = this.value
                     break;
                 case "Isapre":
+                    datosEncuenta.Prevision = this.value
+                    break;
+                case "Capredena":
+                    datosEncuenta.Prevision = this.value
+                    break;
+                case "Dipreca":
                     datosEncuenta.Prevision = this.value
                     break;
             }
@@ -2036,11 +2066,17 @@
             }
         });
 
+
+
+
+
         var datosEncuenta = {}
         $("#btFinalizar").on("click", function () {
+            $('#btFinalizar').attr("disabled", "disabled");
             var Enfermedad = [];
             var medicamento = [];
             var errores = [];
+            var erroresNO = [];
 
             $('#selectEnfermedad :selected').each(function () {
                 Enfermedad.push($(this).val())
@@ -2048,16 +2084,19 @@
             $.each(Enfermedad, function (i, e) {
                 datosEncuenta['Enfermedad_' + (i + 1)] = Enfermedad[i];
             });
-            if ($('#txtOtrosEnfermedad').val() != "" && Enfermedad.length < 12) {
-                Enfermedad.push(datosEncuenta['Enfermedad_' + (Enfermedad.length + 1)] = $('#txtOtrosEnfermedad').val());
-            }
-            if (Enfermedad.length < 12) {
+
+            if (Enfermedad.length < 11) {
                 var i = Enfermedad.length;
                 while (i < 11) {
                     datosEncuenta['Enfermedad_' + (i + 1)] = "NULL"
                     i++;
                 }
             }
+            if ($('#txtOtrosEnfermedad').val() != "" && Enfermedad.length < 11) {
+                Enfermedad.push(datosEncuenta['Enfermedad_11'] = $('#txtOtrosEnfermedad').val());
+            }
+
+
 
             $('#selectMedicamentos :selected').each(function () {
                 medicamento.push($(this).val())
@@ -2065,9 +2104,7 @@
             $.each(medicamento, function (i, e) {
                 datosEncuenta['Medicamentos_' + (i + 1)] = medicamento[i];
             });
-            if ($('#txtOtrosMedicamentos').val() != "" && medicamento.length < 17) {
-                medicamento.push(datosEncuenta['Medicamentos_' + (medicamento.length + 1)] = $('#txtOtrosMedicamentos').val());
-            }
+
             if (medicamento.length < 17) {
                 var i = medicamento.length;
                 while (i < 16) {
@@ -2075,15 +2112,21 @@
                     i++;
                 }
             }
+            if ($('#txtOtrosMedicamentos').val() != "" && medicamento.length < 16) {
+                medicamento.push(datosEncuenta['Medicamentos_16'] = $('#txtOtrosMedicamentos').val());
+            }
+
+
             if ($('#txtOtroCual').val() != "") {
                 datosEncuenta.NombreFarmacia = $('#txtOtroCual').val()
             }
 
-            datosEncuenta.Rut_Afiliado = httpGet("RutBuscar");
+            datosEncuenta.Rut_Afiliado = $("#RutAfiliado").val()
             datosEncuenta.Actividad = $("#SegmentoAfi").html();
             datosEncuenta.Nombre_Afiliado = $("#NombreAfiliado").html();
             datosEncuenta.Rut_Ejecutivo = getCookie("Rut");
             datosEncuenta.Sucursal = getCookie("Oficina");
+            datosEncuenta.Region = $("#region-encuesta").val();
             datosEncuenta.Flag_Encuesta = 1;
 
             function addValidation(slected, message) {
@@ -2091,6 +2134,17 @@
                     errores.push(message);
                 }
             }
+            function addValidationNO(slected, message) {
+                if (slected.length == 0) {
+                    erroresNO.push(message);
+                }
+            }
+            function addValidationEnferMed(slected, message) {
+                if (slected.length == 0) {
+                    erroresNO.push(message);
+                }
+            }
+
 
             /*Validacion de:  Farmacias*/
             addValidation($("input[name=chkFarmacias]:checked"), '*Debes seleccionar una Farmacia..')
@@ -2098,13 +2152,31 @@
             addValidation($("input[name=chkEdad]:checked"), '*Debes seleccionar un rago de edad..')
             addValidation($("input[name=chkPrevison]:checked"), '*Debes seleccionar una prevision..')
             addValidation($("input[name=rbAdMedicamentos]:checked"), '*Debes seleccionar adquiere medicamento..')
-            addValidation($("#selectEnfermedad").val(), '* Debe selecciona una enfermedad')
-            addValidation($("#selectMedicamentos").val(), '* Debe selecciona un medicamento')
+            addValidation($("#region-encuesta").val(), '*Debes seleccionar una region..')
+            // addValidation($("#selectEnfermedad").val(), '* Debe seleccionar una enfermedad u otra..')
+            //addValidation($("#selectMedicamentos").val(), '* Debe seleccionar un medicamento u otro..')
+
+            addValidationNO($("input[name=chkSexo]:checked"), '*Debes seleccionar el Genero..')
+            addValidationNO($("input[name=chkEdad]:checked"), '*Debes seleccionar un rago de edad..')
+            addValidationNO($("input[name=chkPrevison]:checked"), '*Debes seleccionar una prevision..')
+            addValidationNO($("#region-encuesta").val(), '*Debes seleccionar una region..')
+
+
+            //$("#selectEnfermedad").val().length  $('#txtOtrosEnfermedad').val().length
+
+            if ($("#selectEnfermedad").val().length == 0 && $('#txtOtrosEnfermedad').val().length == 0) {
+                addValidation($("#selectEnfermedad").val(), '* Debe seleccionar una enfermedad u otra..')
+            }
+
+            if ($("#selectMedicamentos").val().length == 0 && $('#txtOtrosMedicamentos').val().length == 0) {
+                addValidation($("#selectMedicamentos").val(), '* Debe seleccionar un medicamento u otro..')
+            }
+
+
 
             //Verificador final
             if (errores.length > 0 && datosEncuenta.Tiene_Enfermedad == "SI") {
-                //  alert(errores.join('\n'));  Tiene_Enfermedad
-
+                $('#btFinalizar').removeAttr("disabled");
                 $.niftyNoty({
                     type: 'danger',
                     container: 'floating',
@@ -2115,15 +2187,36 @@
                 });
                 return false;
             }
-            else if (datosEncuenta.Tiene_Enfermedad == "NO") {
-               // return true;
+            else if (erroresNO.length > 0 && datosEncuenta.Tiene_Enfermedad == "NO") {
+                $('#btFinalizar').removeAttr("disabled");
+                $.niftyNoty({
+                    type: 'danger',
+                    container: 'floating',
+                    title: 'Error',
+                    message: erroresNO.join('\n'),
+                    closeBtn: false,
+                    timer: 8000,
+                });
+                return false;
+            }
+
+            if ($("input[name=rbEnfermedad]:checked").length == 0) {
+                $('#btFinalizar').removeAttr("disabled");
+                $.niftyNoty({
+                    type: 'danger',
+                    container: 'floating',
+                    title: 'Error',
+                    message: "DEBE INGRESAR UNA OPCION",
+                    closeBtn: false,
+                    timer: 8000,
+                });
+                return false;
             }
 
 
-            //Fin Validaciones
+
 
             $.SecPostJSON(BASE_URL + "/motor/api/Afiliados/guarda-encueasta-enfermedades", datosEncuenta, function (respuesta) {
-
                 $.niftyNoty({
                     type: 'success',
                     icon: 'pli-like-2 icon-2x',
@@ -2145,6 +2238,7 @@
         });
 
         $('#selectEnfermedad').change(function (event) {
+            $('#btFinalizar').removeAttr("disabled");
             if ($(this).val().length > 10) {
                 $.niftyNoty({
                     type: 'danger',
@@ -2156,7 +2250,9 @@
                 });
             }
         });
+
         $('#selectMedicamentos').change(function (event) {
+            $('#btFinalizar').removeAttr("disabled");
             if ($(this).val().length > 15) {
                 $.niftyNoty({
                     type: 'danger',
@@ -2168,6 +2264,10 @@
                 });
             }
         });
+
+
+
+
 
 
     </script>

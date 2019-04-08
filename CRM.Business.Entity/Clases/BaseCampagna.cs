@@ -29,10 +29,12 @@ namespace CRM.Business.Entity.Clases
         public List<NotificacionAsignacionEntity> Notificaciones { get; set; }
         public GestionGenerica UltimaGestion { get; set; }
         public int TotalRegistros { get; set; }
+        public int TieneEncuesta { get; set; }
     }
     public class DatosEmpresaEntity
     {
         public string NonEmpresa { get; set; }
 
     }
+
 }

@@ -161,6 +161,8 @@ namespace CRM.Controllers
             sort = sort.Substring(sort.IndexOf(".") + 1);
             sort = sort.IndexOf(".") >= 0 ? sort.Substring(sort.IndexOf(".") + 1) : sort;
 
+            //1: Comercial 
+            //5: Derivaciones
             if (tipoCampagna == 1 || tipoCampagna == 5)
             {
                 int estado_dos = estado == null ? 0 : Convert.ToInt32(estado);

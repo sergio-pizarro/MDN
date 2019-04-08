@@ -657,7 +657,7 @@ namespace CRM.Controllers
             return Business.Data.PerfilEmpresasDataAccess.EliminaAnexoAsignada(Token, RutEmpresa, IdAnexo);
         }
 
-        [AuthorizationRequired]
+
         [HttpGet]
         [Route("lista-region-empresa")]
         public ICollection<RegionEmpresaEntity> ObtieneRegionEmpresa()
@@ -665,7 +665,7 @@ namespace CRM.Controllers
             return Business.Data.PerfilEmpresasDataAccess.ObtieneRegionEmpresa();
         }
 
-        [AuthorizationRequired]
+
         [HttpGet]
         [Route("lista-comuna-empresa")]
         public ICollection<ComunaEmpresaEntity> ObtieneComunaEmpresa(int ComunaCodigo)

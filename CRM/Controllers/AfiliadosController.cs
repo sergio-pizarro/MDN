@@ -143,7 +143,7 @@ namespace CRM.Areas.AppPage.Controllers
 
 
 
-        [AuthorizationRequired]
+
         [HttpGet]
         [Route("lista-enfermedades-encuesta")]
         public IEnumerable<Business.Entity.Afiliados.EnfermedadesEncuestaEntity> ListarEnfermedades()
@@ -153,7 +153,7 @@ namespace CRM.Areas.AppPage.Controllers
 
 
 
-        [AuthorizationRequired]
+     
         [HttpGet]
         [Route("lista-medicamentos-encuesta")]
         public IEnumerable<Business.Entity.Afiliados.MedicamantosEncuestaEntity> ListarMedicamentos()
@@ -161,7 +161,7 @@ namespace CRM.Areas.AppPage.Controllers
             return AfiliadoDataAccess.ObtenerMedicamentos();
         }
 
-        [AuthorizationRequired]
+     
         [HttpPost]
         [Route("guarda-encueasta-enfermedades")]
         public IHttpActionResult GuardaEncuestas(EncuestaEntity entrada)
@@ -199,6 +199,7 @@ namespace CRM.Areas.AppPage.Controllers
                 Medicamentos_13 = entrada.Medicamentos_13,
                 Medicamentos_14 = entrada.Medicamentos_14,
                 Medicamentos_15 = entrada.Medicamentos_15,
+                Medicamentos_16 = entrada.Medicamentos_16,
                 NombreFarmacia = entrada.NombreFarmacia,
                 Nombre_Afiliado = entrada.Nombre_Afiliado,
                 Prevision = entrada.Prevision,
@@ -208,6 +209,7 @@ namespace CRM.Areas.AppPage.Controllers
                 Actividad = entrada.Actividad,
                 Sucursal = entrada.Sucursal,
                 Tiene_Enfermedad = entrada.Tiene_Enfermedad,
+                Region = entrada.Region,
                 Flag_Encuesta = entrada.Flag_Encuesta
 
             };
@@ -216,7 +218,7 @@ namespace CRM.Areas.AppPage.Controllers
         }
 
 
-        [AuthorizationRequired]
+     
         [HttpGet]
         [Route("lista-estado-encuesta")]
         public IEnumerable<Business.Entity.Afiliados.EncuestaEntity> ListaEstadoEncuesta(string RutAfiliado)
