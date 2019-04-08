@@ -443,6 +443,7 @@ namespace CRM.Business.Data
                 new Parametro("@Sexo ", entrada.Sexo),
                 new Parametro("@Sucursal ", entrada.Sucursal),
                 new Parametro("@Tiene_Enfermedad ", entrada.Tiene_Enfermedad),
+                new Parametro("@Region", entrada.Region),
                 new Parametro("@Flag_Encuesta ", entrada.Flag_Encuesta),
             };
             DBHelper.InstanceCRM.EjecutarProcedimiento("dbo.sp_Encuesta_01_InsertEncuesta", parametros);
@@ -453,6 +454,12 @@ namespace CRM.Business.Data
         {
             Parametro p = new Parametro("@RUT_AFILIADO", RutAfiliado);
             return DBHelper.InstanceCRM.ObtenerColeccion("mae.spMotor_ConsultaEncuestaEnfermedades", p, EstadoEncuesta);
+        }
+
+        public static int ObtenerEstadoEncuestaFlag(string RutAfiliado)
+        {
+            Parametro p = new Parametro("@RUT_AFILIADO", RutAfiliado);
+            return DBHelper.InstanceCRM.ObtenerEntidad("mae.spMotor_ConsultaEncuestaEnfermedades", p, EstadoEncuesta).Flag_Encuesta;
         }
 
         private static Entity.Afiliados.EncuestaEntity EstadoEncuesta(DataRow row)

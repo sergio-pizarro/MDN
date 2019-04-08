@@ -13,5 +13,12 @@ namespace CRM.Areas.AppPage.Controllers
         {
             return View();
         }
+
+        public ActionResult EncuestaEnfermedadesCall(string RutBuscar)
+        {
+            return View("Encuesta/EncuestaEnfermedadesCall");
+        }
+
+
     }
 }

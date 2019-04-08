@@ -116,7 +116,7 @@
 
                         <div class="checkbox">
                             <input id="rbConsultorio" class="magic-checkbox" type="checkbox" name="rbAdMedicamentos" value="Consultorio">
-                            <label for="rbConsultorio">Consultorio</label>
+                            <label for="rbConsultorio">Consultorio u Hospital</label>
                         </div>
 
                         <div class="checkbox">
@@ -140,7 +140,7 @@
                     <div class="col-md-9">
                         <div class="radio">
                             <input id="rbNoCompra" class="magic-radio" type="radio" name="chkFarmacias" value="Consultorio">
-                            <label for="rbNoCompra">No los compra/Se los dan todos en Consultorio	 </label>
+                            <label for="rbNoCompra">No los compra/Se los dan todos en Consultorio u Hospital </label>
                         </div>
                         <div class="radio">
                             <input id="rbFAhumada" class="magic-radio" type="radio" name="chkFarmacias" value="Farmacias Ahumada">
@@ -176,30 +176,32 @@
                         </div>
                     </div>
                 </div>
-                <hr>
-                <h5 class="h3 text-uppercase text-normal mar-no">Variables de segmentación</h5>
-                <hr class="new-section-sm bord-no">
-                @*<div class="row">
-                        <p class="text-bold text-main mar-no">
-                            6.	Ingrese actividad principal del afiliado
-                        </p>
-                    </div>
-                    <div class="row" style="margin-left: 10px;">
-                        <div class="col-md-9">
-                            <div class="radio">
-                                <input id="rbTrabajador" class="magic-radio" type="radio" name="chkActividad" value="Trabajador">
-                                <label for="rbTrabajador">Trabajador</label>
-                            </div>
-                            <div class="radio">
-                                <input id="rbPensionado" class="magic-radio" type="radio" name="chkActividad" value="Pensionado">
-                                <label for="rbPensionado">Pensionado</label>
-                            </div>
+
+            </div>
+
+            @*<div class="row">
+                    <p class="text-bold text-main mar-no">
+                        6.	Ingrese actividad principal del afiliado
+                    </p>
+                </div>
+                <div class="row" style="margin-left: 10px;">
+                    <div class="col-md-9">
+                        <div class="radio">
+                            <input id="rbTrabajador" class="magic-radio" type="radio" name="chkActividad" value="Trabajador">
+                            <label for="rbTrabajador">Trabajador</label>
                         </div>
-                    </div>*@
+                        <div class="radio">
+                            <input id="rbPensionado" class="magic-radio" type="radio" name="chkActividad" value="Pensionado">
+                            <label for="rbPensionado">Pensionado</label>
+                        </div>
+                    </div>
+                </div>*@
+
+
+            <div id="divOpcionNo" style="display:none;">
 
                 <div class="row">
-                    <p class="text-bold text-main mar-no">
-                        6.	Ingrese género del afiliado encuestado
+                    <p class="text-bold text-main mar-no" id="titulo_6_2">
                     </p>
                 </div>
                 <div class="row" style="margin-left: 10px;">
@@ -217,8 +219,7 @@
 
 
                 <div class="row">
-                    <p class="text-bold text-main mar-no">
-                        7.	¿Cuál es su Edad?
+                    <p class="text-bold text-main mar-no" id="titulo_7_3">
                     </p>
                 </div>
                 <div class="row" style="margin-left: 10px;">
@@ -255,8 +256,7 @@
                 </div>
 
                 <div class="row">
-                    <p class="text-bold text-main mar-no">
-                        8.	¿Cuál es su Régimen de Salud?
+                    <p class="text-bold text-main mar-no" id="titulo_8_4">
                     </p>
                 </div>
                 <div class="row" style="margin-left: 10px;">
@@ -269,19 +269,25 @@
                             <input id="rbIsapre" class="magic-radio" type="radio" name="chkPrevison" value="Isapre">
                             <label for="rbIsapre">Isapre</label>
                         </div>
+                        <div class="radio">
+                            <input id="rbCapredena" class="magic-radio" type="radio" name="chkPrevison" value="Capredena">
+                            <label for="rbCapredena">Capredena</label>
+                        </div>
+                        <div class="radio">
+                            <input id="rbDipreca" class="magic-radio" type="radio" name="chkPrevison" value="Dipreca">
+                            <label for="rbDipreca">Dipreca</label>
+                        </div>
                     </div>
                 </div>
-                @*<div class="row">
-                        <p class="text-bold text-main mar-no">
-                            10.	Ingrese Región de residencia del afiliado
-                        </p>
+                <div class="row">
+                    <p class="text-bold text-main mar-no" id="titulo_9_5">
+                    </p>
+                </div>
+                <div class="row" style="margin-left: 10px;">
+                    <div class="panel-body">
+                        <select id="region-encuesta" class="form-control" data-placeholder="Seleccione..."></select>
                     </div>
-                    <div class="row" style="margin-left: 10px;">
-                        <div class="panel-body">
-                            <select id="region-encuesta" class="form-control"></select>
-                        </div>
-                    </div>*@
-
+                </div>
                 <hr class="new-section-sm bord-no">
                 <div class="well well-sm" style="border-radius: 7px;">
                     <p class="text-bold text-main mar-no" id="NomAfiliado"> </p>

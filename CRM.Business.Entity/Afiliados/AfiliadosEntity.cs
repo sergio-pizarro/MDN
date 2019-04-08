@@ -213,7 +213,7 @@ namespace CRM.Business.Entity.Afiliados
         public string Sexo { get; set; }
         public string Edad { get; set; }
         public string Prevision { get; set; }
-        // public string Region { get; set; }
+        public string Region { get; set; }
         public int Flag_Encuesta { get; set; }
 
 
@@ -233,7 +233,7 @@ namespace CRM.Business.Entity.Afiliados
             Enfermedad_7 = "";
             Enfermedad_8 = "";
             Enfermedad_9 = "";
-            Enfermedad_10 ="";
+            Enfermedad_10 = "";
             Enfermedad_11 = "";
             Medicamentos_1 = "";
             Medicamentos_2 = "";
@@ -259,7 +259,7 @@ namespace CRM.Business.Entity.Afiliados
             Sexo = "";
             Edad = "";
             Prevision = "";
-            // public string Region { get; set; }
+            Region = "";
             Flag_Encuesta = 0;
         }
     }
