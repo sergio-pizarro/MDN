@@ -332,6 +332,7 @@
     <Content Include="Assets\img\logo_arau.png" />
     <Content Include="Assets\js.App\Conf.js" />
     <Content Include="Assets\js.App\Ext.js" />
+    <Content Include="Assets\js.App\printThis.js" />
     <Content Include="Assets\js.App\src\BuscadorGrilla.js" />
     <Content Include="Assets\js.App\src\empresas-carteras.js" />
     <Content Include="Assets\js.App\src\empresas-prospectos.js" />
@@ -462,6 +463,9 @@
     <Content Include="Areas\AppPage\Views\HerramientasGestion\RolVerificador.cshtml" />
     <Content Include="Areas\AppPage\Views\DatosAfiliados\Encuesta\EncuestaEnfermedades.cshtml" />
     <Content Include="Areas\AppPage\Views\DatosAfiliados\Encuesta\EncuestaEnfermedadesCall.cshtml" />
+    <Content Include="Assets\js.App\borrar_prueba.json" />
+    <Content Include="Areas\AppPage\Views\Gestion\Pensionados.cshtml" />
+    <Content Include="Areas\AppPage\Views\Gestion\PrintPensionado.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

@@ -15,8 +15,7 @@ namespace CRM.Business.Entity.Clases
         public int ges_id_asignacion { get; set; }
 
     }
-
-
+  
     public class WebGestionNormalizacion
     {
         public int ges_causa_basal_normalizacion { get; set; }

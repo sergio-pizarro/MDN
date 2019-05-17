@@ -1,7 +1,7 @@
 $(function () {
 
 
-    if (getCookie("Cargo") == 'Administrador Sistema' || getCookie("Cargo") == 'Usuario Avanzado' || getCookie("Cargo") == 'Zonal') {
+    if (getCookie("Cargo") == 'Administrador Sistema' || getCookie("Cargo") == 'Usuario Avanzado' || getCookie("Cargo") == 'Zonal' || getCookie("Cargo") == 'Coordinador Zonal' ) {
         $('.no-admin').hide();
         $('.yes-admin').show();
     } else {

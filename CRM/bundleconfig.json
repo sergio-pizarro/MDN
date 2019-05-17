@@ -47,6 +47,8 @@
       "Assets/plugins/chosen/chosen.jquery.min.js",
       "Assets/plugins/bootstrap-table/bootstrap-table.min.js",
       "Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js",
+      "Assets/plugins/bootstrap-select/bootstrap-select.min.js",
+      "Assets/js.App/printThis.js",
       "Assets/js.App/src/index.js"
     ],
     "minify": {
