@@ -1817,3 +1817,29 @@ $('#btCita_elimina').on('click', function () {
         }
     })
 });
+
+//Temporal tabla licencia medica
+
+$("#tblLCAfiliado").bootstrapTable({
+    striped: true,
+    pagination: true,
+    pageSize: 10,
+    pageList: [],
+    search: true,
+    showColumns: false,
+    showRefresh: true,
+});
+
+$('#modal-licencia_medica').on('show.bs.modal', function (event) {
+    var lc = $(event.relatedTarget);
+    var estado = lc.data('estado')
+
+    if (estado == "DISPONIBLE PARA PAGO") {
+        $("#divLicDisponible").css('display', 'block');
+        $("#divLicPendientes").css('display', 'none');
+    }
+    else if (estado == "PENDIENTE") {
+        $("#divLicPendientes").css('display', 'block');
+        $("#divLicDisponible").css('display', 'none');
+    }
+});

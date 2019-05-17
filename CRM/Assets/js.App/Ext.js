@@ -142,6 +142,8 @@ function parseDate(str) {
     return new Date(mdy[2], mdy[1]-1, mdy[0]);
 }
 
+
+
 function CantidadDiasCorridos(FechaInicio, FechaFin) {
     return Math.round((FechaFin - FechaInicio) / (1000 * 60 * 60 * 24)) +1;
 }

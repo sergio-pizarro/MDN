@@ -1231,7 +1231,7 @@ namespace CRM.Controllers
                 //DescuentoLegalMes1 = Convert.ToInt32(entrada.DescuentoLegalMes1),
                 //DescuentoLegalMes2 = Convert.ToInt32(entrada.DescuentoLegalMes2),
                 //DescuentoLegalMes3 = Convert.ToInt32(entrada.DescuentoLegalMes3),
-                Promedio = Convert.ToInt32(entrada.Promedio.Replace(".","")),
+                Promedio = Convert.ToInt32(entrada.Promedio.Replace(".", "")),
                 RentaDepurada = Convert.ToInt32(entrada.RentaDepurada.Replace(".", "")),
                 RentaDepuradaCMR = Convert.ToInt32(entrada.RentaDepuradaCMR.Replace(".", "")),
                 TotalDescuento = Convert.ToInt32(entrada.TotalDescuento.Replace(".", "")),
@@ -1323,8 +1323,232 @@ namespace CRM.Controllers
         }
 
 
+        [HttpGet]
+        [Route("lista-pensionado")]
+        public IEnumerable<PensionadosEntity> ListaPensionado(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, string rutEjecutivo)
+        {
+            return PensionadosDataAccess.ListaPensionados(Token, Nombre, Comuna, Prioridad, EstadoGestion, rutEjecutivo);
+        }
+
+        [HttpGet]
+        [Route("lista-ejecutivo-pensionados")]
+        public IEnumerable<EjecutivoPensionadosEntity> ListaejecutivoPensionado(string Token)
+        {
+            return PensionadosDataAccess.ListaEjecutivoPensionados(Token);
+        }
+
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("asigna-ejecutivo-pensionado")]
+        public ResultadoBase AsigEjecPensionado(AsigPensionadosEntity entrada)
+        {
+            try
+            {
+                PensionadosDataAccess.AsignaEjecutivo(entrada);
+                return new ResultadoBase()
+                {
+                    Estado = "OK",
+                    Mensaje = "Pruebas ok",
+                    Objeto = entrada
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoBase()
+                {
+                    Estado = "ERROR",
+                    Mensaje = ex.Message,
+                    Objeto = ex
+                };
+            }
+        }
+
+        [HttpGet]
+        [Route("print-pensionados")]
+        public IEnumerable<BuscaPensionadosEntity> ObtenerPensionado(int id_Asign)
+        {
+            return PensionadosDataAccess.obtinePensionados(id_Asign);
+        }
+
+        [HttpGet]
+        [Route("lista-comuna-oficina-pensionados")]
+        public IEnumerable<PensionadosEntity> ListaComunaSucPensionado(string Token)
+        {
+            return PensionadosDataAccess.ListaComunaPensionados(Token);
+        }
+
+        [HttpGet]
+        [Route("lista-comuna-pensionados")]
+        public IEnumerable<PensionadosEntity> ListaComunaPensionado()
+        {
+            return PensionadosDataAccess.ListaComunaPen();
+        }
+
+        [HttpPost]
+        [Route("update-contacto-pensionados")]
+        public ResultadoBase updateConctacPensionado(BuscaPensionadosEntity entrada)
+        {
+            try
+            {
+                PensionadosDataAccess.ActualizaContactoPensionado(entrada);
+                return new ResultadoBase()
+                {
+                    Estado = "OK",
+                    Mensaje = "Pruebas ok",
+                    Objeto = entrada
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoBase()
+                {
+                    Estado = "ERROR",
+                    Mensaje = ex.Message,
+                    Objeto = ex
+                };
+            }
+        }
+
+        [HttpGet]
+        [Route("lista-estado-gestion-pensionados")]
+        public IEnumerable<EstadoGestionPensionadoEntity> ListaEstadoGesPensionado(int Padre)
+        {
+            return PensionadosDataAccess.ListaEstadoGestPensionado(Padre);
+        }
+
+        [HttpGet]
+        [Route("lista-estado-gestion-contacto-pensionados")]
+        public IEnumerable<EstadoGestionPensionadoEntity> ListaEstadoGesConPensionado()
+        {
+            return PensionadosDataAccess.ListaEstadoGestConPensionado();
+        }
+
+        [HttpGet]
+        [Route("lista-subestado-gestion-pensionados")]
+        public IEnumerable<EstadoGestionPensionadoEntity> ListaSubEstadoGesPensionado(int Id_ges)
+        {
+            return PensionadosDataAccess.ListaSubEstadoGestPensionado(Id_ges);
+        }
+
+        [HttpPost]
+        [Route("guardar-contacto-pensionados")]
+        public ResultadoBase GuardarContactoPensionados(WebContactoPensionados entrada)
+        {
+            try
+            {
+                PensionadosDataAccess.GuardaContactoPensionado(entrada);
+                return new ResultadoBase()
+                {
+                    Estado = "OK",
+                    Mensaje = "Pruebas ok",
+                    Objeto = entrada
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoBase()
+                {
+                    Estado = "ERROR",
+                    Mensaje = ex.Message,
+                    Objeto = ex
+                };
+            }
+        }
+
+        //[HttpPost]
+        //[Route("guardar-gestion-pensionados")]
+        //public ResultadoBase GuardarGestionPensionados(WebBasePensionadosContacto entrada)
+        //{
+        //    try
+        //    {
+        //        PensionadosDataAccess.GuardaGestionPensionado(entrada.gestion);
+
+        //        PensionadosDataAccess.GuardaContactoPensionado(entrada.contacto);
+
+        //        return new ResultadoBase()
+        //        {
+        //            Estado = "OK",
+        //            Mensaje = "Pruebas ok",
+        //            Objeto = entrada
+        //        };
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new ResultadoBase()
+        //        {
+        //            Estado = "ERROR",
+        //            Mensaje = ex.Message,
+        //            Objeto = ex
+        //        };
+        //    }
+        //}
+
+
+        [HttpPost]
+        [Route("guardar-gestion-pensionados")]
+        public ResultadoBase GuardarGestionPensionados(WebGestionPensionados entrada)
+        {
+            try
+            {
+                var entidad = new GestionPensionados
+                {
+                    ges_bcam_uid = entrada.ges_bcam_uid,
+                    ges_estado_gst = entrada.ges_estado_gst,
+                    ges_sub_estado_gst = entrada.ges_sub_estado_gst,
+                    ges_fecha_compromete = DateTime.Parse(entrada.ges_fecha_compromete),
+                    ges_descripcion_gst = entrada.ges_descripcion_gst,
+                    ges_ejecutivo_rut = entrada.ges_ejecutivo_rut,
+                    ges_oficina = entrada.ges_oficina,
+                    estado_gestion = Convert.ToInt32(entrada.ges_sub_estado_gst)
+                };
+                PensionadosDataAccess.GuardaGestionPensionado(entidad);
+                return new ResultadoBase()
+                {
+                    Estado = "OK",
+                    Mensaje = "Pruebas ok",
+                    Objeto = entrada
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoBase()
+                {
+                    Estado = "ERROR",
+                    Mensaje = ex.Message,
+                    Objeto = ex
+                };
+            }
+        }
+
+        [HttpGet]
+        [Route("lista-historial-gestion-pensionados")]
+        public IEnumerable<WebHistorialGesPensionados> ListaHistorialPensionado(int ges_bcam_uid)
+        {
+            return PensionadosDataAccess.ListaHistGestPensionado(ges_bcam_uid);
+        }
+
+        [HttpGet]
+        [Route("lista-ultima-gestion-contacto")]
+        public WebUltimaGesPensionados ObtenerUltGrstionContacto(int Id, int Cod_oficina)
+        {
+            return PensionadosDataAccess.ObtieneUtimaGetionContacto(Id, Cod_oficina);
+        }
+
+        [HttpGet]
+        [Route("lista-ultima-contacto-pensionado")]
+        public UltimoContactoPensionados ObtenerUltContactoPen(int Id, int Cod_oficina)
+        {
+            return PensionadosDataAccess.ObtieneUtimaContactoPen(Id, Cod_oficina);
+        }
+
+        [HttpGet]
+        [Route("lista-estado-gestion")]
+        public IEnumerable<EstadoGestionPensionadoEntity> ListaEstadoGestion()
+        {
+            return PensionadosDataAccess.ListaEstadoGest();
+        }
+
+
     }
-
-
-
 }

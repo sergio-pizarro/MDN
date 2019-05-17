@@ -24,6 +24,9 @@
                     <li class="">
                         <a data-toggle="tab" href="#demo-lft-tab-5" aria-expanded="false" id="tab_derivaciones" class="tab-principal">Derivaciones</a>
                     </li>
+                    <li class="">
+                        <a data-toggle="tab" href="#demo-lft-tab-6" aria-expanded="false" id="tab_derivaciones" class="tab-principal">Pensionados</a>
+                    </li>
                 </ul>
 
                 <!--Tabs Content-->
@@ -376,6 +379,9 @@
                             <table class="table table-bordered table-hover toggle-circle" id="tabla_derivaciones"></table>
                         </div>
                     </div>
+                    <div id="demo-lft-tab-6" class="tab-pane fade">
+                        @Html.Partial("Pensionados")
+                    </div>
                 </div>
             </div>
         </div>
@@ -592,9 +598,9 @@
                                             </div>
                                         </div>
 
-                                        <div class="alert alert-purple" style="border-radius: 5px; display:none" id="lbMensajeEncuesta">
-                                            Afiliado no ha realizado la encuesta. "Enfermedades Cronicas y Medicamentos" <strong><u><a style="color: #076fc7;" id="linkencuesta" href="/motor/App/DatosAfiliados?RutBuscar=" target="_blank">  ir a encuesta! </a></u></strong>
-                                        </div>
+                                        @*<div class="alert alert-purple" style="border-radius: 5px; display:none" id="lbMensajeEncuesta">
+                                                Afiliado no ha realizado la encuesta. "Enfermedades Cronicas y Medicamentos" <strong><u><a style="color: #076fc7;" id="linkencuesta" href="/motor/App/DatosAfiliados?RutBuscar=" target="_blank">  ir a encuesta! </a></u></strong>
+                                            </div>*@
 
                                         <div class="row charlyNTF" style="display:none;">
                                             <div class="col-sm-12 charlyNTFContainer">
@@ -849,4 +855,7 @@
 <!--End page content-->
 @section script{
     <script src="~/Assets/js.App/gestion.min.js?g=@Guid.NewGuid().ToString()"></script>
+    @*<script src="~/Assets/js.App/printThis.js"></script>
+    <script src="~/Assets/js.App/src/index.js"></script>*@
 }
+

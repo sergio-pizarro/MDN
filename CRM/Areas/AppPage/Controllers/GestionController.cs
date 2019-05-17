@@ -18,12 +18,13 @@ namespace CRM.Areas.AppPage.Controllers
             ViewBag.hash = Jasheo.CurrentDateHash;
 
         }
-
-        
-
-
         // GET: AppPage/Negocios
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult PrintPensionado()
         {
             return View();
         }
@@ -41,41 +42,41 @@ namespace CRM.Areas.AppPage.Controllers
 
         public ActionResult Empresas()
         {
-            
+
             return View();
         }
         public ActionResult EmpresasAdmin()
         {
-            
+
             return View();
         }
 
         public ActionResult EmpresaDetalle(int Id)
         {
-            
+
             return View();
         }
 
-        
+
         public ActionResult Licencia()
         {
-            
+
             return View();
         }
-        public ActionResult DetalleGestionEmpresa(int RutEmpresa,string Periodo)
+        public ActionResult DetalleGestionEmpresa(int RutEmpresa, string Periodo)
         {
-            
+
             return View();
         }
         public ActionResult DetalleGestionEmpresasAdmin(int RutEmpresa, string Periodo)
         {
-            
+
             return View();
         }
 
         public ActionResult AsignacionEmpresa(int RutEmpresa, string Periodo)
         {
-            
+
             return View();
         }
     }
