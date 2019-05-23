@@ -282,7 +282,8 @@ $(function () {
                     $("#rdkContactoSi").prop('checked', true);
                     $("#contacto-rd-" + respuesta['con_forma_contacto']).prop('checked', true);
                     $('#txtObservacionContacto').val(respuesta['con_no_observacion_contacto'])
-                    $('#btn_contacto_guardar').attr('disabled', true);
+                   // $('#btn_contacto_guardar').attr('disabled', true);
+                    $('#btn_contacto').attr('disabled', true);
                     $('#btn_contacto').attr('disabled', false);
                     $('#paso1_No').css('display', 'none');
                     $('#paso1_Si').css('display', 'block');
@@ -302,7 +303,7 @@ $(function () {
 
                     $('#txtObservacionContacto').val(respuesta['con_no_observacion_contacto'])
                     $('#btn_contacto').attr('disabled', true);
-                    $('#btn_contacto_guardar').attr('disabled', false);
+                   // $('#btn_contacto_guardar').attr('disabled', false);
                     $('#paso1_Si').css('display', 'none');
                     $('#paso1_No').css('display', 'block');
                 }
@@ -340,6 +341,14 @@ $(function () {
                     var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
                     $("#dvRbMedioNoDomi").append(dv)
                 });
+            });
+        },
+        ListaProspectoPensionados: function () {
+            $("#tblLisprospecto").bootstrapTable('refresh', {
+                url: BASE_URL + "/motor/api/Gestion/lista-prospecto-pensionado",
+                query: {
+                    Cod_oficina: getCookie('Oficina')
+                }
             });
         }
     }
@@ -2358,8 +2367,8 @@ $(function () {
     }
     render.CargaEjecutivoPensionados();
     render.CargaEstadosGestion();
-
-    $('#btn_contacto_guardar').on('click', function () {
+    //GUARDA CONTACTO
+    $('#btn_contacto').on('click', function () {
         var estado;
         var con_form_Contacto = $('input:radio[name=rbContactoSIMedio]:checked').val()
         if (con_form_Contacto == undefined) {
@@ -2424,9 +2433,16 @@ $(function () {
                     timer: 4000
                 });
                 $('#txtObservacionContacto').val("");
-                $('#btn_contacto_guardar').attr('disabled', true);
+               // $('#btn_contacto_guardar').attr('disabled', true);
+                $('#btn_contacto').attr('disabled', true);
                 if ($('input:radio[name=inline-form-radioContacto]:checked').val() == 'SI') {
-                    $('#btn_contacto').attr('disabled', false);
+                    //$('#btn_contacto').attr('disabled', false);
+                    $('#etapaContacto').css('display', 'none');
+                    $('#etapaDomicilio').css('display', 'none');
+                    $('#etapaSucursal').css('display', 'none');
+                    $('#etapaInteres').css('display', 'block');
+
+                    $('#lbTitulo').html("Interes")
                 }
                 else {
                     $('#btn_contacto').attr('disabled', true);
@@ -2562,16 +2578,6 @@ $(function () {
         });
     });
 
-    $('#btn_contacto').on('click', function () {
-        $('#etapaContacto').css('display', 'none');
-        $('#etapaDomicilio').css('display', 'none');
-        $('#etapaSucursal').css('display', 'none');
-        $('#etapaInteres').css('display', 'block');
-
-        $('#lbTitulo').html("Interes")
-
-    });
-
     $('#btn_interes').on('click', function () {
         if ($('#btn_interes').html() == 'Finalizar') {
             limpiaModal();
@@ -2587,13 +2593,15 @@ $(function () {
                 $("#paso1_Si").css('display', 'block')
                 $('input:radio[name=rbContactoNoFono]:checked').prop('checked', false)
                 $('input:radio[name=rbContactoNoDomi]:checked').prop('checked', false)
-                $('#btn_contacto_guardar').attr('disabled', false);
+               // $('#btn_contacto_guardar').attr('disabled', false);
+                $('#btn_contacto').attr('disabled', false);
                 render.ModalCargaRBContactoSI();
                 break;
             case "NO":
                 $("#paso1_Si").css('display', 'none')
                 $("#paso1_No").css('display', 'block')
-                $('#btn_contacto_guardar').attr('disabled', false);
+                //$('#btn_contacto_guardar').attr('disabled', false);
+                $('#btn_contacto').attr('disabled', false);
                 $('input:radio[name=rbContactoSIMedio]:checked').prop('checked', false);
                 render.ModalCargaRBContactoNO();
                 break;
@@ -3091,7 +3099,7 @@ $(function () {
         $("input[name=rbContactoNoFono]").prop('checked', false);
         $("input[name=rbContactoNoDomi]").prop('checked', false);
         $('#txtObservacionContacto').val("")
-        $('#btn_contacto_guardar').attr('disabled', true);
+        //$('#btn_contacto_guardar').attr('disabled', true);
         $('#btn_contacto').attr('disabled', true);
         $('#lbTitulo').html('Contacto')
 
@@ -3124,17 +3132,172 @@ $(function () {
     });
 
 
+    //-----------------PROSPECTOS-------PESNIONADOS------------------------------------------------------
+
+    render.ListaProspectoPensionados();
+
+    $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-comunas-empresa", function (menus) {
+        $("#slpropComuna").html("");
+        $("#slpropComuna").append($("<option>").attr("value", "").html("Seleccione"));
+        $.each(menus, function (i, e) {
+            $("#slpropComuna").append($("<option>").attr("value", e.IdComuna).html(e.NombreComuna))
+        });
+        $('#slpropComuna').chosen({
+            width: '100%'
+        });
+    });
 
 
+    $('#frm_prospecto').bootstrapValidator({
+        excluded: [':disabled', ':not(:visible)'],
+        feedbackIcons: [],
+        excluded: [':disabled'],
+        fields: {
+            propRut: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe ingresar un Rut'
+                    }
+                }
+            },
+            propNombres: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe ingresar nombres'
+                    }
+                }
+            },
+            propEdad: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe ingresar una edad'
+                    },
+                    integer: {
+                        message: 'Debe ingresar solo numeros'
+                    }
+                }
+            },
+            slpropCajaOrigen: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe seleccionar una caja de origen'
+                    }
+                }
+            },
+            propRenta: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe ingresar una renta aprox.'
+                    },
+                    integer: {
+                        message: 'Debe ingresar solo numeros'
+                    }
+                }
+            },
+            propCelular: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe ingresar un N° de celular'
+                    },
+                    integer: {
+                        message: 'Debe ingresar solo numeros'
+                    }
+                }
+            },
+            propFono: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe ingresar un Fono Fijo'
+                    },
+                    integer: {
+                        message: 'Debe ingresar solo numeros'
+                    }
+                }
+            },
+            propEmail: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe ingresar un electronico'
+                    },
+                    regexp: {
+                        regexp: '^[^@\\s]+@([^@\\s]+\\.)+[^@\\s]+$',
+                        message: 'Ingrese un correo valido'
+                    }
+                }
+            },
+            propCalle: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe ingresar nombre de calle'
+                    }
+                }
+            },
+            propDirNumero: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe ingresar un N° de dirección'
+                    },
+                    integer: {
+                        message: 'Debe ingresar solo numeros'
+                    }
+                }
+            },
+            slpropComuna: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe seleccionar una comuna'
+                    }
+                }
+            }
+        }
+    }).on('success.form.bv', function (e) {
+        e.preventDefault();
+        var $form = $(e.target);
+
+        var objeto_envio_prospecto = {
+            Rut_Pensionado: $('#propRut').val(),
+            Nombre: $('#propNombres').val(),
+            Edad: $('#propEdad').val(),
+            Caja_Origen: $('select[name="slpropCajaOrigen"] option:selected').text(),
+            Renta_Aproximada: $('#propRenta').val(),
+            Celular: $('#propCelular').val(),
+            Fono_Fijo: $('#propFono').val(),
+            Email: $('#propEmail').val(),
+            Direccion_Calle: $('#propCalle').val(),
+            Direccion_Numero: $('#propDirNumero').val(),
+            Direccion_Dpto: $('#propDirDpto').val(),
+            Comuna: $('select[name="slpropComuna"] option:selected').text(),
+            Rut_Ejecutivo: getCookie('Rut'),
+            Cod_Sucursal: getCookie("Oficina")
+        }
+        $.SecPostJSON(BASE_URL + "/motor/api/Gestion/ingresa-pensionado-prospecto", objeto_envio_prospecto, function (datos) {
+
+            if (datos.Estado === "OK") {
+                $("#frm_prospecto").bootstrapValidator('resetForm', true);
+                $('#propDirDpto').val("");
+                $('#slpropComuna').val('').trigger('chosen:updated');
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'pli-like-2 icon-2x',
+                    message: 'Datos Guardado correctamente.',
+                    container: '#msjSaveProspecto',
+                    timer: 3000
+                });
+                render.ListaProspectoPensionados();
+            }
+            else if (datos.Estado === "ERROR") {
+                $.niftyNoty({
+                    type: 'danger',
+                    message: datos.Mensaje,
+                    container: '#msjSaveProspecto',
+                    timer: 6000
+                });
+            }
+        });
+
+    });
 });
 
-
-
-
-
-
-
-
-
-
-
+function formateaRenta(val) {
+    return val.toMoney(0);
+}
