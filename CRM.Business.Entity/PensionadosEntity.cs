@@ -157,4 +157,44 @@ namespace CRM.Business.Entity
 
 
 
+    public class WebPensionadosProspectos
+    {
+        public string Rut_Pensionado { get; set; }
+        public string Nombre { get; set; }
+        public int Edad { get; set; }
+        public string Caja_Origen { get; set; }
+        public int Renta_Aproximada { get; set; }
+        public string Celular { get; set; }
+        public string Fono_Fijo { get; set; }
+        public string Email { get; set; }
+        public string Direccion_Calle { get; set; }
+        public int Direccion_Numero { get; set; }
+        public string Direccion_Dpto { get; set; }
+        public string Comuna { get; set; }
+        public string Rut_Ejecutivo { get; set; }
+        public int Cod_Sucursal { get; set; }
+
+    }
+
+    public class ProspectosPensionados
+    {
+        public string Rut_Pensionado { get; set; }
+        public string Nombre { get; set; }
+        public int Edad { get; set; }
+        public string Caja_Origen { get; set; }
+        public int Renta_Aproximada { get; set; }
+        public string Celular { get; set; }
+        public string Fono_Fijo { get; set; }
+        public string Email { get; set; }
+        public string Direccion_Calle { get; set; }
+        public int Direccion_Numero { get; set; }
+        public string Direccion_Dpto { get; set; }
+        public string Comuna { get; set; }
+        public string Rut_Ejecutivo { get; set; }
+        public int Cod_Sucursal { get; set; }
+
+    }
+
+
+
 }

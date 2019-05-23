@@ -23,7 +23,6 @@ namespace CRM.Business.Data
                 new Parametro("@PRIORIDAD",Prioridad),
                 new Parametro("@RUT_EJECUTIVO",rutEjecutivo),
                 new Parametro("@ESTADO_GES",EstadoGestion),
-                
             };
             return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_ListaPensionados", param, ProyePensionado);
         }
@@ -220,7 +219,7 @@ namespace CRM.Business.Data
                 new Parametro("@ges_ejecutivo_rut",entrada.ges_ejecutivo_rut),
                 new Parametro("@ges_oficina",entrada.ges_oficina),
                 new Parametro("@estado_gestion",entrada.estado_gestion),
-                
+
             };
             return DBHelper.InstanceCRM.EjecutarProcedimiento("dbo.spMotor_Guarda_Gestion_pensionado", pram);
         }
@@ -230,7 +229,7 @@ namespace CRM.Business.Data
             Parametros pram = new Parametros
             {
                 new Parametro("@ID_PENSIONADO", ges_bcam_uid),
-     
+
             };
             return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Lista_historial_Gestion_pensionado", pram, EstadoHistPensionado);
         }
@@ -320,7 +319,60 @@ namespace CRM.Business.Data
             };
         }
 
+        // PROSPECTOS PENSIONADOS
+
+        public static int GuardaProspectoPensionado(ProspectosPensionados entrada)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@Rut_Pensionado", entrada.Rut_Pensionado),
+                new Parametro("@Nombre",entrada.Nombre),
+                new Parametro("@Edad", entrada.Edad),
+                new Parametro("@Caja_Origen", entrada.Caja_Origen),
+                new Parametro("@Renta_Aproximada", entrada.Renta_Aproximada),
+                new Parametro("@Celular",entrada.Celular),
+                new Parametro("@Fono_Fijo",entrada.Fono_Fijo),
+                new Parametro("@Email",entrada.Email),
+                new Parametro("@Direccion_Calle",entrada.Direccion_Calle),
+                new Parametro("@Direccion_Numero", entrada.Direccion_Numero),
+                new Parametro("@Direccion_Dpto",entrada.Direccion_Dpto),
+                new Parametro("@Comuna",entrada.Comuna),
+                new Parametro("@Rut_Ejecutivo",entrada.Rut_Ejecutivo),
+                new Parametro("@Cod_Sucursal",entrada.Cod_Sucursal),
+
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("dbo.spMotor_Guarda_pensionado_Prospectos", pram);
+        }
 
 
+        public static List<Entity.ProspectosPensionados> ListaProspecPensionados(int Cod_oficina)
+        {
+            Parametros param = new Parametros
+            {
+                new Parametro("@COD_SUCURSAL",Cod_oficina),
+            };
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Lista_Pensionados_Prospectos", param, ListProspecPensionado);
+        }
+
+        private static Entity.ProspectosPensionados ListProspecPensionado(DataRow row)
+        {
+            return new Entity.ProspectosPensionados
+            {
+                Rut_Pensionado = row["Rut_Pensionado"] != DBNull.Value ? row["Rut_Pensionado"].ToString() : string.Empty,
+                Nombre = row["Nombre"] != DBNull.Value ? row["Nombre"].ToString() : string.Empty,
+                Edad = row["Edad"] != DBNull.Value ? Convert.ToInt32(row["Edad"]) : 0,
+                Caja_Origen = row["Caja_Origen"] != DBNull.Value ? row["Caja_Origen"].ToString() : string.Empty,
+                Renta_Aproximada = row["Renta_Aproximada"] != DBNull.Value ? Convert.ToInt32(row["Renta_Aproximada"]) : 0,
+                Celular = row["Celular"] != DBNull.Value ? row["Celular"].ToString() : string.Empty,
+                Fono_Fijo = row["Fono_Fijo"] != DBNull.Value ? row["Fono_Fijo"].ToString() : string.Empty,
+                Email = row["Email"] != DBNull.Value ? row["Email"].ToString() : string.Empty,
+                Direccion_Calle = row["Direccion_Calle"] != DBNull.Value ? row["Direccion_Calle"].ToString() : string.Empty,
+                Direccion_Numero = row["Direccion_Numero"] != DBNull.Value ? Convert.ToInt32(row["Direccion_Numero"]) : 0,
+                Direccion_Dpto = row["Direccion_Dpto"] != DBNull.Value ? row["Direccion_Dpto"].ToString() : string.Empty,
+                Comuna = row["Comuna"] != DBNull.Value ? row["Comuna"].ToString() : string.Empty,
+                Rut_Ejecutivo = row["Rut_Ejecutivo"] != DBNull.Value ? row["Rut_Ejecutivo"].ToString() : string.Empty,
+                Cod_Sucursal = row["Cod_Sucursal"] != DBNull.Value ? Convert.ToInt32(row["Cod_Sucursal"]) : 0,
+            };
+        }
     }
 }

@@ -5,7 +5,6 @@
 <link href="~/Assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
 
 <style>
-
     #tblAsigPen > tbody {
         font-size: 11px;
     }
@@ -53,19 +52,16 @@
                                 <select id="dllEstadoGestion" class="form-control"></select>
                             </div>
                         </div>
-
                         <div class="col-sm-2 text-xs-center" id="divAgente" style="display:none;">
                             <div class="form-group">
                                 <label class="control-label">Ejecutivo</label>
                                 <select id="dllEjecutivo" class="form-control"></select>
                             </div>
                         </div>
-
                         <div class="col-sm-1 text-xs-center">
                             <div class="form-group">
                                 <label class="control-label"></label>
                                 <button id="btn_filtroPen" class="btn btn-primary btn-rounded" style="margin-top: 4px;">Filtrar</button>
-
                             </div>
                         </div>
                         <div class="col-sm-5 text-xs-center" style="display:none;">
@@ -76,7 +72,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="panel" style="border-radius: 7px;">
                 <div class="panel-heading">
                     <div class="panel-control">
@@ -95,7 +90,6 @@
                         return `<a href="${value}" class="btn-link" data-id="${value}"  data-estado="${row.PRIORIDAD}" data-toggle="modal" data-target="#mdl_data_gestion_pensionado">${value}</a>`;
                     }
                 </script>
-
                 <div class="panel-body">
                     <table data-toggle="table"
                            data-sort-name="id"
@@ -120,7 +114,6 @@
                 </div>
             </div>
             <div class="mar-all" style="display:none" id="printPensionado">
-
                 <div id="tblPrinPensionado">
                     <div style="visibility: hidden;">
                         separador
@@ -182,7 +175,6 @@
                 </div>
             </div>
         </div>
-
         <div id="mdl_data_gestion_pensionado" class="modal fade" tabindex="-1">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content" style="border-radius: 7px;">
@@ -207,9 +199,7 @@
                                     <li class="">
                                         <a data-toggle="tab" href="#tab-gestion-historial" aria-expanded="false">Historial Gestión</a>
                                     </li>
-
                                 </ul>
-
                                 <!--Tabs Content-->
                                 <div class="tab-content" style="box-shadow: 0 0 0 !important;">
                                     <div id="tab-gestion-pensionado" class="tab-pane fade active in">
@@ -293,7 +283,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div id="tab-gestion-contacto" class="tab-pane fade" style="display:none;">
                                         <div class="panel" style="border-radius: 6px; border: 1px solid #dad3d3;">
                                             <div class="panel-heading">
@@ -354,7 +343,6 @@
                                                 </form>
                                             </div>
                                         </div>
-
                                         <div class="panel" style="border-radius: 6px; border: 1px solid #dad3d3; display:none;" id="paneGestionPesnionado">
                                             <div class="panel-heading">
                                                 <div class="panel-control">
@@ -447,34 +435,9 @@
                                         <div class="list-group" id="gestiones_realizadas_pensionados" style="min-height:290px;">
                                         </div>
                                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                     <div id="tab-gestion-gestion" class="tab-pane fade">
                                         <div id="msjMantPensionado"></div>
-
                                         <h4 class="modal-title" id="lbTitulo">Contacto</h4>
-
                                         <!--CONTACTO-->
                                         <div class="modal-body" id="etapaContacto" style="display:block">
                                             <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666;">
@@ -499,7 +462,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="paso1_No">
                                                 <div class="panel-body">
                                                     <div class="form-group pad-ver">
@@ -515,8 +477,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label class="control-label">Observación</label>
@@ -524,11 +484,10 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-success" id="btn_contacto_guardar" type="submit" disabled>Guardar</button>
+                                                @*<button class="btn btn-success" id="btn_contacto_guardar" type="submit" disabled>Guardar</button>*@
                                                 <button class="btn btn-primary" id="btn_contacto" type="submit" disabled>Siguiente</button>
                                             </div>
                                         </div>
-
                                         <!--INTERES-->
                                         <div class="modal-body" id="etapaInteres" style="display:none">
                                             <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666;">
@@ -537,13 +496,9 @@
                                                     <div class="radio" id="divInteres"></div>
                                                 </div>
                                             </div>
-
                                             <div class="alert alert-warning" id="msjBloqueo" style="display:none;">
                                                 <strong>Atencion!</strong> Pensionado, <a href="#" class="alert-link" id="msjBlockPen"></a>
                                             </div>
-
-
-
                                             <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Interes_Si">
                                                 <div class="panel-body">
                                                     <div class="form-group pad-ver">
@@ -561,8 +516,6 @@
                                                                 <label class="control-label">Cuando?</label>
                                                             </div>
                                                         </div>
-
-
                                                         <div id="dp-component-pensionados-interes" class="col-md-4">
                                                             <label class="control-label">Fecha</label>
                                                             <div class="input-group date">
@@ -570,10 +523,6 @@
                                                                 <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
                                                             </div>
                                                         </div>
-
-
-
-
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label class="control-label">Hora</label>
@@ -614,9 +563,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
-
                                             <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Interes_Terminada">
                                                 <div class="panel-body">
                                                     <div class="form-group pad-ver">
@@ -635,447 +581,413 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label class="control-label">Comentarios</label>
                                                     <textarea placeholder="Comentarios" rows="3" class="form-control" id="txt_interes_comentarios_pen" name="txt_interes_comentarios_pen"></textarea>
                                                 </div>
                                             </div>
-
-
-
                                             <div class="modal-footer">
                                                 <button class="btn btn-success" id="btn_interes_guardar" type="submit" disabled>Guardar</button>
                                                 <button class="btn btn-primary" id="btn_interes" type="submit" disabled>Siguiente</button>
                                             </div>
                                         </div>
-
                                         <!--DOMICILIO-->
                                         @*<div class="modal-body" id="etapaDomicilio" style="display:none">
-                                            <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666;">
-                                                <label class="col-md-5 control-label">Se concretó la visita?  </label>
-                                                <div class="col-md-6" style="margin-top: -11px;">
-                                                    <div class="radio">
-                                                        <input id="rdkDomicilioSi" class="magic-radio" type="radio" name="inline-form-radioDomicilio" value="SI">
-                                                        <label for="rdkDomicilioSi">SI</label>
-                                                        <input id="rdkDomicilioNO" class="magic-radio" type="radio" name="inline-form-radioDomicilio" value="NO">
-                                                        <label for="rdkDomicilioNO">NO</label>
+                                                <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666;">
+                                                    <label class="col-md-5 control-label">Se concretó la visita?  </label>
+                                                    <div class="col-md-6" style="margin-top: -11px;">
+                                                        <div class="radio">
+                                                            <input id="rdkDomicilioSi" class="magic-radio" type="radio" name="inline-form-radioDomicilio" value="SI">
+                                                            <label for="rdkDomicilioSi">SI</label>
+                                                            <input id="rdkDomicilioNO" class="magic-radio" type="radio" name="inline-form-radioDomicilio" value="NO">
+                                                            <label for="rdkDomicilioNO">NO</label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666; display:none;" id="preguntaInteresDom">
-                                                <label class="col-md-5 control-label">Sigue Interesado?</label>
-                                                <div class="col-md-6" style="margin-top: -11px;">
-                                                    <div class="radio">
-                                                        <input id="rdkDomicilioInteresadoSi" class="magic-radio" type="radio" name="inline-form-radioDomicilioInteresado" value="SI">
-                                                        <label for="rdkDomicilioInteresadoSi">SI</label>
-                                                        <input id="rdkDomicilioInteresadoNO" class="magic-radio" type="radio" name="inline-form-radioDomicilioInteresado" value="NO">
-                                                        <label for="rdkDomicilioInteresadoNO">NO</label>
+                                                <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666; display:none;" id="preguntaInteresDom">
+                                                    <label class="col-md-5 control-label">Sigue Interesado?</label>
+                                                    <div class="col-md-6" style="margin-top: -11px;">
+                                                        <div class="radio">
+                                                            <input id="rdkDomicilioInteresadoSi" class="magic-radio" type="radio" name="inline-form-radioDomicilioInteresado" value="SI">
+                                                            <label for="rdkDomicilioInteresadoSi">SI</label>
+                                                            <input id="rdkDomicilioInteresadoNO" class="magic-radio" type="radio" name="inline-form-radioDomicilioInteresado" value="NO">
+                                                            <label for="rdkDomicilioInteresadoNO">NO</label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Domicilio_Si">
-                                                <div class="panel-body">
-                                                    <div class="form-group pad-ver">
-                                                        <label class="col-md-4 control-label">Como avanzamos?</label>
-                                                        <div class="col-md-8">
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio">Agenda Visita a Domicilio</label>
-                                                            </div>
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio-2">Agenda Visita a Sucursal</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="visibility: hidden;">
-                                                        separador
-                                                    </div>
-                                                    <div class="form-group pad-ver">
-                                                        <div class="col-md-4 control-label">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Cuando?</label>
+                                                <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Domicilio_Si">
+                                                    <div class="panel-body">
+                                                        <div class="form-group pad-ver">
+                                                            <label class="col-md-4 control-label">Como avanzamos?</label>
+                                                            <div class="col-md-8">
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio">Agenda Visita a Domicilio</label>
+                                                                </div>
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio-2">Agenda Visita a Sucursal</label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Fecha</label>
-                                                                <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha">
-                                                            </div>
+                                                        <div style="visibility: hidden;">
+                                                            separador
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Hora</label>
-                                                                <div class="input-group date">
-                                                                    <select id="slComienzaDomicilio" name="slComienzaDomicilio" class="form-control" tabindex="-98">
-                                                                        <option value="">Seleccione</option>
-                                                                        <option value="09:00">9:00 hrs.</option>
-                                                                        <option value="09:30">9:30 hrs.</option>
-                                                                        <option value="10:00">10:00 hrs.</option>
-                                                                        <option value="10:30">10:30 hrs.</option>
-                                                                        <option value="11:00">11:00 hrs.</option>
-                                                                        <option value="11:30">11:30 hrs.</option>
-                                                                        <option value="12:00">12:00 hrs.</option>
-                                                                        <option value="12:30">12:30 hrs.</option>
-                                                                        <option value="13:00">13:00 hrs.</option>
-                                                                        <option value="13:30">13:30 hrs.</option>
-                                                                        <option value="14:00">14:00 hrs.</option>
-                                                                        <option value="14:30">14:30 hrs.</option>
-                                                                        <option value="15:00">15:00 hrs.</option>
-                                                                        <option value="15:30">15:30 hrs.</option>
-                                                                        <option value="16:00">16:00 hrs.</option>
-                                                                        <option value="16:30">16:30 hrs.</option>
-                                                                        <option value="17:00">17:00 hrs.</option>
-                                                                        <option value="17:30">17:30 hrs.</option>
-                                                                        <option value="18:00">18:00 hrs.</option>
-                                                                        <option value="18:30">18:30 hrs.</option>
-                                                                        <option value="19:00">19:00 hrs.</option>
-                                                                        <option value="19:30">19:30 hrs.</option>
-                                                                        <option value="20:00">20:00 hrs.</option>
-                                                                        <option value="20:30">20:30 hrs.</option>
-                                                                        <option value="21:00">21:00 hrs.</option>
-                                                                    </select>
-                                                                    <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                        <div class="form-group pad-ver">
+                                                            <div class="col-md-4 control-label">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Cuando?</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Fecha</label>
+                                                                    <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Hora</label>
+                                                                    <div class="input-group date">
+                                                                        <select id="slComienzaDomicilio" name="slComienzaDomicilio" class="form-control" tabindex="-98">
+                                                                            <option value="">Seleccione</option>
+                                                                            <option value="09:00">9:00 hrs.</option>
+                                                                            <option value="09:30">9:30 hrs.</option>
+                                                                            <option value="10:00">10:00 hrs.</option>
+                                                                            <option value="10:30">10:30 hrs.</option>
+                                                                            <option value="11:00">11:00 hrs.</option>
+                                                                            <option value="11:30">11:30 hrs.</option>
+                                                                            <option value="12:00">12:00 hrs.</option>
+                                                                            <option value="12:30">12:30 hrs.</option>
+                                                                            <option value="13:00">13:00 hrs.</option>
+                                                                            <option value="13:30">13:30 hrs.</option>
+                                                                            <option value="14:00">14:00 hrs.</option>
+                                                                            <option value="14:30">14:30 hrs.</option>
+                                                                            <option value="15:00">15:00 hrs.</option>
+                                                                            <option value="15:30">15:30 hrs.</option>
+                                                                            <option value="16:00">16:00 hrs.</option>
+                                                                            <option value="16:30">16:30 hrs.</option>
+                                                                            <option value="17:00">17:00 hrs.</option>
+                                                                            <option value="17:30">17:30 hrs.</option>
+                                                                            <option value="18:00">18:00 hrs.</option>
+                                                                            <option value="18:30">18:30 hrs.</option>
+                                                                            <option value="19:00">19:00 hrs.</option>
+                                                                            <option value="19:30">19:30 hrs.</option>
+                                                                            <option value="20:00">20:00 hrs.</option>
+                                                                            <option value="20:30">20:30 hrs.</option>
+                                                                            <option value="21:00">21:00 hrs.</option>
+                                                                        </select>
+                                                                        <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Domicilio_NO">
-                                                <div class="panel-body">
-                                                    <div class="form-group pad-ver">
-                                                        <label class="col-md-3 control-label">Por que?</label>
-                                                        <div class="col-md-6">
-                                                            <textarea placeholder="Comentarios..." rows="13" class="form-control" style="margin: 0px -63.3438px 0px 0px; height: 155px; width: 400px;"></textarea>
+                                                <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Domicilio_NO">
+                                                    <div class="panel-body">
+                                                        <div class="form-group pad-ver">
+                                                            <label class="col-md-3 control-label">Por que?</label>
+                                                            <div class="col-md-6">
+                                                                <textarea placeholder="Comentarios..." rows="13" class="form-control" style="margin: 0px -63.3438px 0px 0px; height: 155px; width: 400px;"></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
 
-                                            <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="DomicilioVisita_NO">
-                                                <div class="panel-body">
-                                                    <div class="form-group pad-ver">
-                                                        <label class="col-md-4 control-label">Por que? </label>
-                                                        <div class="col-md-8">
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio">Domicilio No Corresponde</label>
-                                                            </div>
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio-2">Domicilio No Existe</label>
-                                                            </div>
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio-3" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio-3">No se encontraba en el momento de visita</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="visibility: hidden;">
-                                                        separador
-                                                    </div>
-                                                    <div class="form-group pad-ver">
-                                                        <label class="col-md-4 control-label">Como avanzamos?</label>
-                                                        <div class="col-md-8">
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio">Agenda otra Visita a Domicilio</label>
-                                                            </div>
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio-2">Agenda Visita a Sucursal</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="visibility: hidden;">
-                                                        separador
-                                                    </div>
-                                                    <div class="form-group pad-ver">
-                                                        <div class="col-md-4 control-label">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Cuando?</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Fecha</label>
-                                                                <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Hora</label>
-                                                                <div class="input-group date">
-                                                                    <select id="slComienzaDomicilio" name="slComienzaDomicilio" class="form-control" tabindex="-98">
-                                                                        <option value="">Seleccione</option>
-                                                                        <option value="09:00">9:00 hrs.</option>
-                                                                        <option value="09:30">9:30 hrs.</option>
-                                                                        <option value="10:00">10:00 hrs.</option>
-                                                                        <option value="10:30">10:30 hrs.</option>
-                                                                        <option value="11:00">11:00 hrs.</option>
-                                                                        <option value="11:30">11:30 hrs.</option>
-                                                                        <option value="12:00">12:00 hrs.</option>
-                                                                        <option value="12:30">12:30 hrs.</option>
-                                                                        <option value="13:00">13:00 hrs.</option>
-                                                                        <option value="13:30">13:30 hrs.</option>
-                                                                        <option value="14:00">14:00 hrs.</option>
-                                                                        <option value="14:30">14:30 hrs.</option>
-                                                                        <option value="15:00">15:00 hrs.</option>
-                                                                        <option value="15:30">15:30 hrs.</option>
-                                                                        <option value="16:00">16:00 hrs.</option>
-                                                                        <option value="16:30">16:30 hrs.</option>
-                                                                        <option value="17:00">17:00 hrs.</option>
-                                                                        <option value="17:30">17:30 hrs.</option>
-                                                                        <option value="18:00">18:00 hrs.</option>
-                                                                        <option value="18:30">18:30 hrs.</option>
-                                                                        <option value="19:00">19:00 hrs.</option>
-                                                                        <option value="19:30">19:30 hrs.</option>
-                                                                        <option value="20:00">20:00 hrs.</option>
-                                                                        <option value="20:30">20:30 hrs.</option>
-                                                                        <option value="21:00">21:00 hrs.</option>
-                                                                    </select>
-                                                                    <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="DomicilioVisita_NO">
+                                                    <div class="panel-body">
+                                                        <div class="form-group pad-ver">
+                                                            <label class="col-md-4 control-label">Por que? </label>
+                                                            <div class="col-md-8">
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio">Domicilio No Corresponde</label>
+                                                                </div>
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio-2">Domicilio No Existe</label>
+                                                                </div>
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio-3" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio-3">No se encontraba en el momento de visita</label>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div style="visibility: hidden;">
+                                                            separador
+                                                        </div>
+                                                        <div class="form-group pad-ver">
+                                                            <label class="col-md-4 control-label">Como avanzamos?</label>
+                                                            <div class="col-md-8">
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio">Agenda otra Visita a Domicilio</label>
+                                                                </div>
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio-2">Agenda Visita a Sucursal</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div style="visibility: hidden;">
+                                                            separador
+                                                        </div>
+                                                        <div class="form-group pad-ver">
+                                                            <div class="col-md-4 control-label">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Cuando?</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Fecha</label>
+                                                                    <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Hora</label>
+                                                                    <div class="input-group date">
+                                                                        <select id="slComienzaDomicilio" name="slComienzaDomicilio" class="form-control" tabindex="-98">
+                                                                            <option value="">Seleccione</option>
+                                                                            <option value="09:00">9:00 hrs.</option>
+                                                                            <option value="09:30">9:30 hrs.</option>
+                                                                            <option value="10:00">10:00 hrs.</option>
+                                                                            <option value="10:30">10:30 hrs.</option>
+                                                                            <option value="11:00">11:00 hrs.</option>
+                                                                            <option value="11:30">11:30 hrs.</option>
+                                                                            <option value="12:00">12:00 hrs.</option>
+                                                                            <option value="12:30">12:30 hrs.</option>
+                                                                            <option value="13:00">13:00 hrs.</option>
+                                                                            <option value="13:30">13:30 hrs.</option>
+                                                                            <option value="14:00">14:00 hrs.</option>
+                                                                            <option value="14:30">14:30 hrs.</option>
+                                                                            <option value="15:00">15:00 hrs.</option>
+                                                                            <option value="15:30">15:30 hrs.</option>
+                                                                            <option value="16:00">16:00 hrs.</option>
+                                                                            <option value="16:30">16:30 hrs.</option>
+                                                                            <option value="17:00">17:00 hrs.</option>
+                                                                            <option value="17:30">17:30 hrs.</option>
+                                                                            <option value="18:00">18:00 hrs.</option>
+                                                                            <option value="18:30">18:30 hrs.</option>
+                                                                            <option value="19:00">19:00 hrs.</option>
+                                                                            <option value="19:30">19:30 hrs.</option>
+                                                                            <option value="20:00">20:00 hrs.</option>
+                                                                            <option value="20:30">20:30 hrs.</option>
+                                                                            <option value="21:00">21:00 hrs.</option>
+                                                                        </select>
+                                                                        <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
 
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-success" id="btn_domicilio_guardar" type="submit">Guardar</button>
-                                                <button class="btn btn-primary" id="btn_domicilio" type="submit" disabled>Siguiente</button>
-                                            </div>
-                                        </div>*@
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-success" id="btn_domicilio_guardar" type="submit">Guardar</button>
+                                                    <button class="btn btn-primary" id="btn_domicilio" type="submit" disabled>Siguiente</button>
+                                                </div>
+                                            </div>*@
 
                                         <!--SUCURSAL-->
                                         @*<div class="modal-body" id="etapaSucursal" style="display:none">
-                                            <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666;">
-                                                <label class="col-md-5 control-label">Se concretó la visita?  </label>
-                                                <div class="col-md-6" style="margin-top: -11px;">
-                                                    <div class="radio">
-                                                        <input id="rdkSucursalSi" class="magic-radio" type="radio" name="inline-form-radioSucursal" value="SI">
-                                                        <label for="rdkSucursalSi">SI</label>
-                                                        <input id="rdkSucursalNO" class="magic-radio" type="radio" name="inline-form-radioSucursal" value="NO">
-                                                        <label for="rdkSucursalNO">NO</label>
+                                                <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666;">
+                                                    <label class="col-md-5 control-label">Se concretó la visita?  </label>
+                                                    <div class="col-md-6" style="margin-top: -11px;">
+                                                        <div class="radio">
+                                                            <input id="rdkSucursalSi" class="magic-radio" type="radio" name="inline-form-radioSucursal" value="SI">
+                                                            <label for="rdkSucursalSi">SI</label>
+                                                            <input id="rdkSucursalNO" class="magic-radio" type="radio" name="inline-form-radioSucursal" value="NO">
+                                                            <label for="rdkSucursalNO">NO</label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666; display:none;" id="preguntaInteresSurc">
-                                                <label class="col-md-5 control-label">Sigue Interesado?</label>
-                                                <div class="col-md-6" style="margin-top: -11px;">
-                                                    <div class="radio">
-                                                        <input id="rdkrdkSucursalInteresadoSi" class="magic-radio" type="radio" name="inline-form-radiordkSucursalInteresado" value="SI">
-                                                        <label for="rdkrdkSucursalInteresadoSi">SI</label>
-                                                        <input id="rdkrdkSucursalInteresadoNO" class="magic-radio" type="radio" name="inline-form-radiordkSucursalInteresado" value="NO">
-                                                        <label for="rdkrdkSucursalInteresadoNO">NO</label>
+                                                <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666; display:none;" id="preguntaInteresSurc">
+                                                    <label class="col-md-5 control-label">Sigue Interesado?</label>
+                                                    <div class="col-md-6" style="margin-top: -11px;">
+                                                        <div class="radio">
+                                                            <input id="rdkrdkSucursalInteresadoSi" class="magic-radio" type="radio" name="inline-form-radiordkSucursalInteresado" value="SI">
+                                                            <label for="rdkrdkSucursalInteresadoSi">SI</label>
+                                                            <input id="rdkrdkSucursalInteresadoNO" class="magic-radio" type="radio" name="inline-form-radiordkSucursalInteresado" value="NO">
+                                                            <label for="rdkrdkSucursalInteresadoNO">NO</label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Sucursal_Si">
-                                                <div class="panel-body">
-                                                    <div class="form-group pad-ver">
-                                                        <label class="col-md-4 control-label">Como avanzamos?</label>
-                                                        <div class="col-md-8">
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio">Agenda Visita a Sucursal</label>
-                                                            </div>
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio-2">Pensionado Afiliado</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="visibility: hidden;">
-                                                        separador
-                                                    </div>
-                                                    <div class="form-group pad-ver">
-                                                        <div class="col-md-4 control-label">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Cuando?</label>
+                                                <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Sucursal_Si">
+                                                    <div class="panel-body">
+                                                        <div class="form-group pad-ver">
+                                                            <label class="col-md-4 control-label">Como avanzamos?</label>
+                                                            <div class="col-md-8">
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio">Agenda Visita a Sucursal</label>
+                                                                </div>
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio-2">Pensionado Afiliado</label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Fecha</label>
-                                                                <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha">
-                                                            </div>
+                                                        <div style="visibility: hidden;">
+                                                            separador
                                                         </div>
+                                                        <div class="form-group pad-ver">
+                                                            <div class="col-md-4 control-label">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Cuando?</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Fecha</label>
+                                                                    <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha">
+                                                                </div>
+                                                            </div>
 
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Hora</label>
-                                                                <div class="input-group date">
-                                                                    <select id="slComienzaSucursalNO" name="slComienzaSucursalNO" class="form-control" tabindex="-98">
-                                                                        <option value="">Seleccione</option>
-                                                                        <option value="09:00">9:00 hrs.</option>
-                                                                        <option value="09:30">9:30 hrs.</option>
-                                                                        <option value="10:00">10:00 hrs.</option>
-                                                                        <option value="10:30">10:30 hrs.</option>
-                                                                        <option value="11:00">11:00 hrs.</option>
-                                                                        <option value="11:30">11:30 hrs.</option>
-                                                                        <option value="12:00">12:00 hrs.</option>
-                                                                        <option value="12:30">12:30 hrs.</option>
-                                                                        <option value="13:00">13:00 hrs.</option>
-                                                                        <option value="13:30">13:30 hrs.</option>
-                                                                        <option value="14:00">14:00 hrs.</option>
-                                                                        <option value="14:30">14:30 hrs.</option>
-                                                                        <option value="15:00">15:00 hrs.</option>
-                                                                        <option value="15:30">15:30 hrs.</option>
-                                                                        <option value="16:00">16:00 hrs.</option>
-                                                                        <option value="16:30">16:30 hrs.</option>
-                                                                        <option value="17:00">17:00 hrs.</option>
-                                                                        <option value="17:30">17:30 hrs.</option>
-                                                                        <option value="18:00">18:00 hrs.</option>
-                                                                        <option value="18:30">18:30 hrs.</option>
-                                                                        <option value="19:00">19:00 hrs.</option>
-                                                                        <option value="19:30">19:30 hrs.</option>
-                                                                        <option value="20:00">20:00 hrs.</option>
-                                                                        <option value="20:30">20:30 hrs.</option>
-                                                                        <option value="21:00">21:00 hrs.</option>
-                                                                    </select>
-                                                                    <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Hora</label>
+                                                                    <div class="input-group date">
+                                                                        <select id="slComienzaSucursalNO" name="slComienzaSucursalNO" class="form-control" tabindex="-98">
+                                                                            <option value="">Seleccione</option>
+                                                                            <option value="09:00">9:00 hrs.</option>
+                                                                            <option value="09:30">9:30 hrs.</option>
+                                                                            <option value="10:00">10:00 hrs.</option>
+                                                                            <option value="10:30">10:30 hrs.</option>
+                                                                            <option value="11:00">11:00 hrs.</option>
+                                                                            <option value="11:30">11:30 hrs.</option>
+                                                                            <option value="12:00">12:00 hrs.</option>
+                                                                            <option value="12:30">12:30 hrs.</option>
+                                                                            <option value="13:00">13:00 hrs.</option>
+                                                                            <option value="13:30">13:30 hrs.</option>
+                                                                            <option value="14:00">14:00 hrs.</option>
+                                                                            <option value="14:30">14:30 hrs.</option>
+                                                                            <option value="15:00">15:00 hrs.</option>
+                                                                            <option value="15:30">15:30 hrs.</option>
+                                                                            <option value="16:00">16:00 hrs.</option>
+                                                                            <option value="16:30">16:30 hrs.</option>
+                                                                            <option value="17:00">17:00 hrs.</option>
+                                                                            <option value="17:30">17:30 hrs.</option>
+                                                                            <option value="18:00">18:00 hrs.</option>
+                                                                            <option value="18:30">18:30 hrs.</option>
+                                                                            <option value="19:00">19:00 hrs.</option>
+                                                                            <option value="19:30">19:30 hrs.</option>
+                                                                            <option value="20:00">20:00 hrs.</option>
+                                                                            <option value="20:30">20:30 hrs.</option>
+                                                                            <option value="21:00">21:00 hrs.</option>
+                                                                        </select>
+                                                                        <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Sucursal_NO">
+                                                    <div class="panel-body">
+                                                        <div class="form-group pad-ver">
+                                                            <label class="col-md-3 control-label">Por que?</label>
+                                                            <div class="col-md-6">
+                                                                <textarea placeholder="Comentarios..." rows="13" class="form-control" style="margin: 0px -63.3438px 0px 0px; height: 155px; width: 400px;"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="SucursalVisita_NO">
+                                                    <div class="panel-body">
+                                                        <div class="form-group pad-ver">
+                                                            <label class="col-md-4 control-label">Por que? </label>
+                                                            <div class="col-md-8">
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio">No Asistió a cita</label>
                                                                 </div>
                                                             </div>
                                                         </div>
 
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Sucursal_NO">
-                                                <div class="panel-body">
-                                                    <div class="form-group pad-ver">
-                                                        <label class="col-md-3 control-label">Por que?</label>
-                                                        <div class="col-md-6">
-                                                            <textarea placeholder="Comentarios..." rows="13" class="form-control" style="margin: 0px -63.3438px 0px 0px; height: 155px; width: 400px;"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="SucursalVisita_NO">
-                                                <div class="panel-body">
-                                                    <div class="form-group pad-ver">
-                                                        <label class="col-md-4 control-label">Por que? </label>
-                                                        <div class="col-md-8">
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio">No Asistió a cita</label>
+                                                        <div class="form-group pad-ver">
+                                                            <label class="col-md-4 control-label">Como avanzamos?</label>
+                                                            <div class="col-md-8">
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio">Agenda otra Visita a Sucursal</label>
+                                                                </div>
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio-2">No Contesta llamados</label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="form-group pad-ver">
-                                                        <label class="col-md-4 control-label">Como avanzamos?</label>
-                                                        <div class="col-md-8">
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio">Agenda otra Visita a Sucursal</label>
-                                                            </div>
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio-2">No Contesta llamados</label>
-                                                            </div>
+                                                        <div style="visibility: hidden;">
+                                                            separador
                                                         </div>
-                                                    </div>
-                                                    <div style="visibility: hidden;">
-                                                        separador
-                                                    </div>
-                                                    <div class="form-group pad-ver">
-                                                        <div class="col-md-4 control-label">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Cuando?</label>
+                                                        <div class="form-group pad-ver">
+                                                            <div class="col-md-4 control-label">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Cuando?</label>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Fecha</label>
-                                                                <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Fecha</label>
+                                                                    <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Hora</label>
-                                                                <div class="input-group date">
-                                                                    <select id="slComienzaSucursalSi" name="slComienzaSucursalSi" class="form-control" tabindex="-98">
-                                                                        <option value="">Seleccione</option>
-                                                                        <option value="09:00">9:00 hrs.</option>
-                                                                        <option value="09:30">9:30 hrs.</option>
-                                                                        <option value="10:00">10:00 hrs.</option>
-                                                                        <option value="10:30">10:30 hrs.</option>
-                                                                        <option value="11:00">11:00 hrs.</option>
-                                                                        <option value="11:30">11:30 hrs.</option>
-                                                                        <option value="12:00">12:00 hrs.</option>
-                                                                        <option value="12:30">12:30 hrs.</option>
-                                                                        <option value="13:00">13:00 hrs.</option>
-                                                                        <option value="13:30">13:30 hrs.</option>
-                                                                        <option value="14:00">14:00 hrs.</option>
-                                                                        <option value="14:30">14:30 hrs.</option>
-                                                                        <option value="15:00">15:00 hrs.</option>
-                                                                        <option value="15:30">15:30 hrs.</option>
-                                                                        <option value="16:00">16:00 hrs.</option>
-                                                                        <option value="16:30">16:30 hrs.</option>
-                                                                        <option value="17:00">17:00 hrs.</option>
-                                                                        <option value="17:30">17:30 hrs.</option>
-                                                                        <option value="18:00">18:00 hrs.</option>
-                                                                        <option value="18:30">18:30 hrs.</option>
-                                                                        <option value="19:00">19:00 hrs.</option>
-                                                                        <option value="19:30">19:30 hrs.</option>
-                                                                        <option value="20:00">20:00 hrs.</option>
-                                                                        <option value="20:30">20:30 hrs.</option>
-                                                                        <option value="21:00">21:00 hrs.</option>
-                                                                    </select>
-                                                                    <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Hora</label>
+                                                                    <div class="input-group date">
+                                                                        <select id="slComienzaSucursalSi" name="slComienzaSucursalSi" class="form-control" tabindex="-98">
+                                                                            <option value="">Seleccione</option>
+                                                                            <option value="09:00">9:00 hrs.</option>
+                                                                            <option value="09:30">9:30 hrs.</option>
+                                                                            <option value="10:00">10:00 hrs.</option>
+                                                                            <option value="10:30">10:30 hrs.</option>
+                                                                            <option value="11:00">11:00 hrs.</option>
+                                                                            <option value="11:30">11:30 hrs.</option>
+                                                                            <option value="12:00">12:00 hrs.</option>
+                                                                            <option value="12:30">12:30 hrs.</option>
+                                                                            <option value="13:00">13:00 hrs.</option>
+                                                                            <option value="13:30">13:30 hrs.</option>
+                                                                            <option value="14:00">14:00 hrs.</option>
+                                                                            <option value="14:30">14:30 hrs.</option>
+                                                                            <option value="15:00">15:00 hrs.</option>
+                                                                            <option value="15:30">15:30 hrs.</option>
+                                                                            <option value="16:00">16:00 hrs.</option>
+                                                                            <option value="16:30">16:30 hrs.</option>
+                                                                            <option value="17:00">17:00 hrs.</option>
+                                                                            <option value="17:30">17:30 hrs.</option>
+                                                                            <option value="18:00">18:00 hrs.</option>
+                                                                            <option value="18:30">18:30 hrs.</option>
+                                                                            <option value="19:00">19:00 hrs.</option>
+                                                                            <option value="19:30">19:30 hrs.</option>
+                                                                            <option value="20:00">20:00 hrs.</option>
+                                                                            <option value="20:30">20:30 hrs.</option>
+                                                                            <option value="21:00">21:00 hrs.</option>
+                                                                        </select>
+                                                                        <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-success" id="btn_sucursal_guardar" type="submit">Guardar</button>
-                                                <button class="btn btn-primary" id="btn_sucursal" type="submit" disabled>Finalizar</button>
-                                            </div>
-                                        </div>*@
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-success" id="btn_sucursal_guardar" type="submit">Guardar</button>
+                                                    <button class="btn btn-primary" id="btn_sucursal" type="submit" disabled>Finalizar</button>
+                                                </div>
+                                            </div>*@
                                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                 </div>
                             </div>
                         </div>
@@ -1083,7 +995,6 @@
                 </div>
             </div>
         </div>
-
         <div id="modal_asigna_pensionado" class="modal fade" tabindex="-1">
             <div class="modal-dialog modal-xs">
                 <div class="modal-content" style="border-radius: 9px;">
@@ -1111,29 +1022,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
 </div>
 

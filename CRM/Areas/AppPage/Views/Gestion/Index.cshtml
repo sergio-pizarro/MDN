@@ -27,6 +27,11 @@
                     <li class="">
                         <a data-toggle="tab" href="#demo-lft-tab-6" aria-expanded="false" id="tab_derivaciones" class="tab-principal">Pensionados</a>
                     </li>
+                    <li class="">
+                        <a data-toggle="tab" href="#demo-lft-tab-7" aria-expanded="false" id="tab_derivaciones" class="tab-principal">Prospectos</a>
+                    </li>
+
+
                 </ul>
 
                 <!--Tabs Content-->
@@ -382,6 +387,11 @@
                     <div id="demo-lft-tab-6" class="tab-pane fade">
                         @Html.Partial("Pensionados")
                     </div>
+
+                    <div id="demo-lft-tab-7" class="tab-pane fade">
+                        @Html.Partial("Prospecto")
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -856,6 +866,20 @@
 @section script{
     <script src="~/Assets/js.App/gestion.min.js?g=@Guid.NewGuid().ToString()"></script>
     @*<script src="~/Assets/js.App/printThis.js"></script>
-    <script src="~/Assets/js.App/src/index.js"></script>*@
+        <script src="~/Assets/js.App/src/index.js"></script>*@
+
+
+    <script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+    <!--Bootstrap Select [ OPTIONAL ]-->
+    <script src="~/Assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
+    <script src="~/Assets/js.App/printThis.js"></script>
+    <script src="~/Assets/js.App/src/index.js"></script>
+    <!--<script src="~/Assets/js.App/gestion/index.js?v=@Html.Raw(ViewBag.hash)"></script>-->
+
+
 }
 

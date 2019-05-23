@@ -1549,6 +1549,56 @@ namespace CRM.Controllers
             return PensionadosDataAccess.ListaEstadoGest();
         }
 
+        // PENSIONADOS PROSPECTOS
 
+
+        [HttpPost]
+        [Route("ingresa-pensionado-prospecto")]
+        public ResultadoBase GuardarProspectoPensionados(WebPensionadosProspectos entrada)
+        {
+            try
+            {
+                var entidad = new ProspectosPensionados
+                {
+                    Rut_Pensionado = entrada.Rut_Pensionado,
+                    Nombre = entrada.Nombre,
+                    Edad = entrada.Edad,
+                    Caja_Origen = entrada.Caja_Origen,
+                    Renta_Aproximada = entrada.Renta_Aproximada,
+                    Celular = entrada.Celular,
+                    Fono_Fijo = entrada.Fono_Fijo,
+                    Email = entrada.Email,
+                    Direccion_Calle = entrada.Direccion_Calle,
+                    Direccion_Numero = entrada.Direccion_Numero,
+                    Direccion_Dpto = entrada.Direccion_Dpto,
+                    Comuna = entrada.Comuna,
+                    Rut_Ejecutivo = entrada.Rut_Ejecutivo,
+                    Cod_Sucursal = entrada.Cod_Sucursal,
+                };
+                PensionadosDataAccess.GuardaProspectoPensionado(entidad);
+                return new ResultadoBase()
+                {
+                    Estado = "OK",
+                    Mensaje = "Pruebas ok",
+                    Objeto = entrada
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoBase()
+                {
+                    Estado = "ERROR",
+                    Mensaje = ex.Message,
+                    Objeto = ex
+                };
+            }
+        }
+
+        [HttpGet]
+        [Route("lista-prospecto-pensionado")]
+        public IEnumerable<ProspectosPensionados> ListaProspectoPensionado(int Cod_oficina)
+        {
+            return PensionadosDataAccess.ListaProspecPensionados(Cod_oficina);
+        }
     }
 }
