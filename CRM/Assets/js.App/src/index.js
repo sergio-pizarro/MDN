@@ -1,3 +1,11 @@
+
+if (getCookie('Cargo') == 'Ejecutivos Incorporación y Prospección Pensionados' || getCookie('Cargo') == 'Ejecutivo Pensionado') {
+    $('#tab_derivaciones').css('display', 'none')
+    $('#tab_segcesantia').css('display', 'none')
+    $('#tab_recuperaciones').css('display', 'none')
+    $('#tab_preaprobados').css('display', 'none')
+}
+
 function cargaDatosDeContacto(rutAf) {
 
     $("#bdy_datos_contactos > tr").remove();
@@ -282,7 +290,7 @@ $(function () {
                     $("#rdkContactoSi").prop('checked', true);
                     $("#contacto-rd-" + respuesta['con_forma_contacto']).prop('checked', true);
                     $('#txtObservacionContacto').val(respuesta['con_no_observacion_contacto'])
-                   // $('#btn_contacto_guardar').attr('disabled', true);
+                    // $('#btn_contacto_guardar').attr('disabled', true);
                     $('#btn_contacto').attr('disabled', true);
                     $('#btn_contacto').attr('disabled', false);
                     $('#paso1_No').css('display', 'none');
@@ -303,7 +311,7 @@ $(function () {
 
                     $('#txtObservacionContacto').val(respuesta['con_no_observacion_contacto'])
                     $('#btn_contacto').attr('disabled', true);
-                   // $('#btn_contacto_guardar').attr('disabled', false);
+                    // $('#btn_contacto_guardar').attr('disabled', false);
                     $('#paso1_Si').css('display', 'none');
                     $('#paso1_No').css('display', 'block');
                 }
@@ -781,7 +789,7 @@ $(function () {
 
 
     //COMERCIAL 
-
+    //sergio
     $('#button').click(function () {
         $("#tabla_comercial").bootstrapTable('refresh', {
             url: BASE_URL + "/motor/api/Gestion/v3/lista-seguimientos",
@@ -874,7 +882,8 @@ $(function () {
                 sortable: true,
                 align: 'right',
                 formatter: function (value, row, index) {
-                    return value.toMoney(0);
+                    //return value.toMoney(0);
+                    return row.Seguimiento.MARCA_CC === 1 ? value.toMoney(0) + '/' + row.Seguimiento.OFERTA_FINAL_TOTAL.toMoney(0) : value.toMoney(0)
                 }
             },
             {
@@ -882,7 +891,7 @@ $(function () {
                 title: 'Prioridad',
                 sortable: false,
                 formatter: function (value, row, index) {
-                    return value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '') //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
+                    return value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '') + (row.Seguimiento.MARCA_CC === 1 ? '    <span class="badge badge-purple">C.C</span>' : '') //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
                 }
             },
 
@@ -928,6 +937,21 @@ $(function () {
             },
         ]
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //RECUPERACIONES 
@@ -1204,7 +1228,13 @@ $(function () {
                 $('#afi_segmento').val(afiData.Segmento);
                 $('#afi_empresa_nombre').val(afiData.Empresa);
                 $('#afi_empresa_rut').val(parseInt(afiData.Empresa_Rut).toMoney(0) + '-' + afiData.Empresa_Dv);
-                $('#afi_preaprobado').val(afiData.OfertaTexto.length === 0 ? '$' + afiData.PreAprobadoFinal.toMoney(0) : afiData.OfertaTexto);
+                if (afiData.MARCA_CC === 1) {
+                    $('#afi_preaprobado').val(afiData.OfertaTexto.length === 0 ? '$' + afiData.PreAprobadoFinal.toMoney(0) + '/' + afiData.OFERTA_FINAL_TOTAL.toMoney(0) : afiData.OfertaTexto);
+                }
+                else {
+                    $('#afi_preaprobado').val(afiData.OfertaTexto.length === 0 ? '$' + afiData.PreAprobadoFinal.toMoney(0) : afiData.OfertaTexto);
+                    $(".charlyNTF").hide();
+                }
                 $('#ges_id_asignacion').val(afiData.id_Asign);
                 $('#ges_id_asignacion_normalizacion').val(afiData.id_Asign);
                 $('#ges_id_asignacionTMC').val(afiData.id_Asign);
@@ -1260,6 +1290,7 @@ $(function () {
                 //NOTIFICACIONES
                 var sx = false;
 
+
                 if (typeof Asignacion.Notificaciones != "undefined" && Asignacion.Notificaciones != null && Asignacion.Notificaciones.length > 0) {
                     var text = "";
                     var type = "success";
@@ -1298,6 +1329,7 @@ $(function () {
                     });
 
 
+
                     /*TO DO: Revisar la logica*/
                     if (!sx) {
                         $(".charlyNTF").show();
@@ -1313,9 +1345,24 @@ $(function () {
                     info_xxx = ("Filtros Riesgo " + Asignacion.FiltrosRSG).toEtiquetaSuperior('x');
                 }
 
-
-
                 if (tipoCamp === 1 || tipoCamp === 5) {
+                    if (afiData.MARCA_CC === 1) {
+                        $(".sergioNTF").show();
+                        $(".sergioNTFContainer").html("");
+
+                        $.niftyNoty({
+                            type: "purple",
+                            container: '.sergioNTFContainer',
+                            html: "<strong>Afiliado con Oferta Compra Cartera.....</strong>",
+                            focus: false,
+                            closeBtn: false
+                        });
+                    }
+                    else {
+                        $(".sergioNTF").hide();
+                    }
+
+
                     render.HistorialGestion(gesList);
                     $("#myLargeModalLabel").html("Gestión Comercial " + afiData.Prioridad.toString().toEtiquetaPrioridad() + " " + info_xxx);
 
@@ -2361,10 +2408,24 @@ $(function () {
     });
     if (getCookie('Cargo') == 'Agente' || getCookie('Cargo') == 'Jefe Servicio al Cliente') {
         $('#divAgente').css('display', 'block')
+        $('#mdAsigEjePen').css('display', 'block');
     }
     else {
         $('#divAgente').css('display', 'none')
+        $('#mdAsigEjePen').css('display', 'none');
     }
+
+
+
+    //PARCHE PENSIONADO
+    
+
+
+
+    //Ejecutivos Incorporación y Prospección Pensionados
+    //Ejecutivo Pensiona
+
+
     render.CargaEjecutivoPensionados();
     render.CargaEstadosGestion();
     //GUARDA CONTACTO
@@ -2433,7 +2494,7 @@ $(function () {
                     timer: 4000
                 });
                 $('#txtObservacionContacto').val("");
-               // $('#btn_contacto_guardar').attr('disabled', true);
+                // $('#btn_contacto_guardar').attr('disabled', true);
                 $('#btn_contacto').attr('disabled', true);
                 if ($('input:radio[name=inline-form-radioContacto]:checked').val() == 'SI') {
                     //$('#btn_contacto').attr('disabled', false);
@@ -2593,7 +2654,7 @@ $(function () {
                 $("#paso1_Si").css('display', 'block')
                 $('input:radio[name=rbContactoNoFono]:checked').prop('checked', false)
                 $('input:radio[name=rbContactoNoDomi]:checked').prop('checked', false)
-               // $('#btn_contacto_guardar').attr('disabled', false);
+                // $('#btn_contacto_guardar').attr('disabled', false);
                 $('#btn_contacto').attr('disabled', false);
                 render.ModalCargaRBContactoSI();
                 break;
