@@ -290,7 +290,6 @@ $(function () {
                     $("#rdkContactoSi").prop('checked', true);
                     $("#contacto-rd-" + respuesta['con_forma_contacto']).prop('checked', true);
                     $('#txtObservacionContacto').val(respuesta['con_no_observacion_contacto'])
-                    // $('#btn_contacto_guardar').attr('disabled', true);
                     $('#btn_contacto').attr('disabled', true);
                     $('#btn_contacto').attr('disabled', false);
                     $('#paso1_No').css('display', 'none');
@@ -311,7 +310,6 @@ $(function () {
 
                     $('#txtObservacionContacto').val(respuesta['con_no_observacion_contacto'])
                     $('#btn_contacto').attr('disabled', true);
-                    // $('#btn_contacto_guardar').attr('disabled', false);
                     $('#paso1_Si').css('display', 'none');
                     $('#paso1_No').css('display', 'block');
                 }
@@ -2494,7 +2492,6 @@ $(function () {
                     timer: 4000
                 });
                 $('#txtObservacionContacto').val("");
-                // $('#btn_contacto_guardar').attr('disabled', true);
                 $('#btn_contacto').attr('disabled', true);
                 if ($('input:radio[name=inline-form-radioContacto]:checked').val() == 'SI') {
                     //$('#btn_contacto').attr('disabled', false);
@@ -2654,7 +2651,6 @@ $(function () {
                 $("#paso1_Si").css('display', 'block')
                 $('input:radio[name=rbContactoNoFono]:checked').prop('checked', false)
                 $('input:radio[name=rbContactoNoDomi]:checked').prop('checked', false)
-                // $('#btn_contacto_guardar').attr('disabled', false);
                 $('#btn_contacto').attr('disabled', false);
                 render.ModalCargaRBContactoSI();
                 break;

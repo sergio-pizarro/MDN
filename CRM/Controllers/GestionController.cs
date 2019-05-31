@@ -1553,7 +1553,6 @@ namespace CRM.Controllers
 
         // PENSIONADOS PROSPECTOS
 
-
         [HttpPost]
         [Route("ingresa-pensionado-prospecto")]
         public ResultadoBase GuardarProspectoPensionados(WebPensionadosProspectos entrada)
