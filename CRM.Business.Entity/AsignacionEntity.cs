@@ -264,6 +264,16 @@ namespace CRM.Business.Entity
         /// </summary>
         public string TipoDerivacion { get; set; }
 
+        /// <summary>
+        /// OFERTA_FINAL_TOTAL
+        /// </summary>
+        public int OFERTA_FINAL_TOTAL { get; set; }
+
+        /// <summary>
+        /// MARCA_CC
+        /// </summary>
+        public int MARCA_CC { get; set; }
+
 
 
         /// <summary>
@@ -319,6 +329,8 @@ namespace CRM.Business.Entity
             Cuadrante = 0;
             OfertaTexto = string.Empty;
             TipoDerivacion = string.Empty;
+            OFERTA_FINAL_TOTAL = 0;
+            MARCA_CC = 0;
 
         }
     }

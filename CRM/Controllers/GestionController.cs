@@ -121,6 +121,8 @@ namespace CRM.Controllers
             return ret;
         }
 
+
+        /*DEPRECADO!!!!!!*/
         [AuthorizationRequired]
         [HttpGet]
         [Route("v2/lista-seguimientos")]
@@ -1550,7 +1552,6 @@ namespace CRM.Controllers
         }
 
         // PENSIONADOS PROSPECTOS
-
 
         [HttpPost]
         [Route("ingresa-pensionado-prospecto")]

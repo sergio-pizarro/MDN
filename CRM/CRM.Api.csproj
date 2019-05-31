@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\AppPage\Controllers\UpdateController.cs" />
     <Compile Include="Areas\EmpresasPage\Controllers\CarteraEmpresaEjecutivoController.cs" />
     <Compile Include="Areas\EmpresasPage\Controllers\CarteraEmpresasController.cs" />
     <Compile Include="Areas\EmpresasPage\Controllers\DetalleGestionController.cs" />
@@ -467,6 +468,7 @@
     <Content Include="Areas\AppPage\Views\Gestion\Pensionados.cshtml" />
     <Content Include="Areas\AppPage\Views\Gestion\PrintPensionado.cshtml" />
     <Content Include="Areas\AppPage\Views\Gestion\Prospecto.cshtml" />
+    <Content Include="Areas\AppPage\Views\Update\ArchivoGP.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -582,6 +584,7 @@
     <Folder Include="Areas\EmpresasPage\SampleGeneration\" />
     <Folder Include="Assets\AfiliadoExcel\" />
     <Folder Include="Views\Afiliados\" />
+    <Folder Include="Views\ArchivoGP\" />
     <Folder Include="Views\Buscar\" />
     <Folder Include="Views\CarteraEmpresas\" />
     <Folder Include="Views\Configuracion\" />

@@ -58,5 +58,11 @@ namespace CRM.Areas.AppPage.Controllers
             return View();
         }
 
+        public ActionResult ArchivoGP()
+        {
+            return View();
+        }
+
+
     }
 }
