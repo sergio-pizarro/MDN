@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CRM.Business.Entity;
+using CRM.Business.Entity.Empresas;
 using System.Data;
 using CDK.Data;
 using CDK.Integration;
@@ -169,7 +170,29 @@ namespace CRM.Business.Data
         private static int ConstructotrCount(DataRow row)
         {
             return Convert.ToInt32(row["Total"]);
-        } 
+        }
+        #endregion
+
+        #region Validaciones de Entrada
+
+        public static void ValidarIngresoPunto(DireccionEmpresa data)
+        {
+
+            Parametros pr = new Parametros
+            {
+                new Parametro("@RutEmpresa", data.Rut), 
+                new Parametro("@Calle",data.Calle),
+                new Parametro("@Numero", data.Numero),
+                new Parametro("@LocalODepto",data.DeptoLocal),
+                new Parametro("@Region", data.Region),
+                new Parametro("@Comuna", data.Comuna)
+            };
+            
+            DBHelper.InstanceCRM.EjecutarProcedimiento("carteras.spMotorCartera_ValidarIngrsoPuntoEmpresa", pr);
+
+        }
+
+        
         #endregion
 
     }

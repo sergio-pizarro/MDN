@@ -706,10 +706,10 @@ $('#demo-lg-modal-entrevista').on('hidden.bs.modal', function (event) {
 
 $(document).on('click', '.elimination', function () {
     // alert($(this).data("idanexo"))
-    var rut_empresa = $(this).data("erut")
-    var id_anexo = $(this).data("eanexo")
+    var rut_empresa = $(this).data("erut");
+    var id_anexo = $(this).data("eanexo");
 
-    $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/elimina-anexo-asignada", { RutEmpresa: rut_empresa, IdAnexo: id_anexo }, function (datos) {
+    $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/elimina-anexo-asignada/" + rut_empresa, { IdAnexo: id_anexo }, function (datos) {
         $.niftyNoty({
             type: 'success',
             icon: 'pli-like-2 icon-2x',
@@ -792,8 +792,8 @@ var cargador = {
         var kuky = getCookie('X-Support-Token');
         var vera = getCookie('Rut');
 
-        if (kuky === "" || vera != '12825688-1') {
-            console.log("deberia esconderse")
+        if (kuky === '' || vera !== '12825688-1') {
+            //console.log("deberia esconderse")
             $(".sergio-esconder").hide();
         }
 
@@ -804,21 +804,19 @@ var cargador = {
             var contador = 0;
             var matriz = ''
             $.each(menus, function (i, e) {
-                if (e.Anexo == 'MATRIZ') {
-                    matriz = e.Anexo + '  (' + $('#tituloEmp').html() + ')'
+                if (e.Anexo === 'MATRIZ') {
+                    matriz = e.Anexo + '  (' + $('#tituloEmp').html() + ')';
                 }
                 else {
-                    matriz = e.Anexo
+                    matriz = e.Anexo;
                 }
 
-                var elim = ""
-                if (kuky === "" || vera != '12825688-1') {
-
-                    elim = "";
-                }
-                else {
-                    elim = '<a class="btn btn-danger btn-icon btn-circle elimination sergio-esconder" data-erut="' + e.RutEmpresa + '"  data-eanexo="' + e.IdEmpresaAnexo + '"  title="Eliminar" href="#"><i class="ion-trash-a"></i></a>';
-                }
+                var elim = '<a class="btn btn-danger btn-icon btn-circle elimination sergio-esconder" data-erut="' + e.RutEmpresa + '"  data-eanexo="' + e.IdEmpresaAnexo + '"  title="Eliminar" href="#"><i class="ion-trash-a"></i></a>';
+                //if (kuky === "" || vera !== '12825688-1') {
+                //
+                //    elim = "";
+                //}
+                
 
                 $("#tbdyAnexo")
                     .append(

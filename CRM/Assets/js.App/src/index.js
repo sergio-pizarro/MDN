@@ -680,7 +680,6 @@ $(function () {
         },
         locale: 'es-ES',
         striped: true,
-        pagination: true,
         pageSize: 30,
         pageList: [],
         search: false,
@@ -889,6 +888,11 @@ $(function () {
                 title: 'Prioridad',
                 sortable: false,
                 formatter: function (value, row, index) {
+                    //var prioPens = row.Notificaciones.findIndex(function (x) {
+                    //    return x.Tipo === 'PRIOPENS';
+                    //});
+
+                    //return value.toString().toEtiquetaPrioridad() + (prioPens >= 0 ? '    <span class="badge badge-warning">!</span>' : (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')) //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
                     return value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '') + (row.Seguimiento.MARCA_CC === 1 ? '    <span class="badge badge-purple">C.C</span>' : '') //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
                 }
             },
@@ -1308,7 +1312,12 @@ $(function () {
                         }
 
                         if (e.Tipo == "MUNICIP") {
-                            text += "<strong>Afiliado Municipal, </strong> debe ser evaluado por comité de créditos.</strong>"
+                            text += "<strong>Afiliado Municipal, </strong> debe ser evaluado por comité de créditos."
+                            type = "warning";
+                        }
+
+                        if (e.Tipo == "PRIOPENS") {
+                            text += "<strong>Afiliado Prioridad </strong> " + e.Valor;
                             type = "warning";
                         }
 

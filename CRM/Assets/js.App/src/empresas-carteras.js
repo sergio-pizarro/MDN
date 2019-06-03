@@ -1146,6 +1146,10 @@ $('#demo-step-wz').bootstrapWizard({
             $(document).trigger("charlie.events.onAsignacionyCargaDeAfiliados");
         }
 
+        if (index == 3) {
+            $(document).trigger("charlie.events.onFinalizaryResumen");
+        }
+
         // If it's the last tab then hide the last button and show the finish instead
         if ($current >= $total) {
             $('#demo-step-wz').find('.next').hide();
@@ -1225,66 +1229,113 @@ $('#bt-agregar-anexo').on('click', function () {
     var vacios = [];
 
     $('.no-vacio').each(function (i, e) {
-        console.log({
-            e, i
-        })
-
+        
         if ($(e).val() === '') {
             $(e).addClass('has-error');
             vacios.push($(e).prop('id'));
         }
-    })
+    });
 
     if (vacios.length > 0) {
-
-        var mensaje = 'Porfavor Rellena los Campos Vacíos \n -' + vacios.join('\n -')
-        alert(mensaje);
+        //TODO: Modificar cadena para que no se vean los guiones medios en el mensaje
+        var mensaje = '<br/> *' + vacios.join('<br/> *').replace(/\-/gi,' ');
+        
+        $.niftyNoty({
+            type: 'danger',
+            container: 'floating',
+            title: 'Porfavor Rellena los Campos Vacíos ',
+            message: mensaje,
+            closeBtn: false,
+            timer: 2800
+        });
         return false;
     }
 
+    //Validar que no este ingresando una direccion ya existente en la base de datos
 
-    if (charlie_listado_anexos.state.editing !== null) {
+    //validar que no este ingresando una empresa que sea sin sucursales y este asignada a otra empresa
+    var empresa = {
+        Rut: charlie_listado_anexos.company.rut,
+        Calle: $('#direccion-anexo-calle').val(),
+        Numero: $('#direccion-anexo-numeracion').val(),
+        DeptoLocal: $('#direccion-anexo-local').val(),
+        Region: '-',
+        Comuna: '-'
+    };
 
-        let fnd = charlie_listado_anexos.data.find(elm => elm.guid === charlie_listado_anexos.state.editing);
-        let idx = charlie_listado_anexos.data.findIndex(elm => elm.guid === charlie_listado_anexos.state.editing);
+    //$.ajaxSetup({ async: false }); $.ajaxSetup({ async: true });
+    $.SecPostJSON(BASE_URL + "/motor/api/CarteraEmpresas/validar-ingreso-empresa", empresa, function (datos) {
+        //Tiene la VElde
+        if (charlie_listado_anexos.state.editing !== null) {
 
-        fnd.nombre = $('#nombre-anexo').val();
-        fnd.direccion = $('#direccion-anexo-calle').val();
-        fnd.numeroDireccion = $('#direccion-anexo-numeracion').val();
-        fnd.local = $('#direccion-anexo-local').val();
-        fnd.region = $('select[id="region-anexo"] option:selected').text();
-        fnd.comuna = $('select[id="comuna-anexo"] option:selected').text();
-        fnd.cantidadTrabajadores = parseInt($('#n-trabajadores-anexo').val());
+            let fnd = charlie_listado_anexos.data.find(elm => elm.guid === charlie_listado_anexos.state.editing);
+            let idx = charlie_listado_anexos.data.findIndex(elm => elm.guid === charlie_listado_anexos.state.editing);
 
-        charlie_listado_anexos.data[idx] = fnd;
-        $(this).text('Agregar Anexo');
+            fnd.nombre = $('#nombre-anexo').val();
+            fnd.direccion = $('#direccion-anexo-calle').val();
+            fnd.numeroDireccion = $('#direccion-anexo-numeracion').val();
+            fnd.local = $('#direccion-anexo-local').val();
+            fnd.region = $('select[id="region-anexo"] option:selected').text();
+            fnd.comuna = $('select[id="comuna-anexo"] option:selected').text();
+            fnd.cantidadTrabajadores = parseInt($('#n-trabajadores-anexo').val());
+            fnd.direccionCompuesta = $('#direccion-anexo-calle').val() + " #" + $('#direccion-anexo-numeracion').val() + " Depto/local:" + $('#direccion-anexo-local').val();
 
-    } else {
 
-        charlie_listado_anexos.data.push({
-            nombre: $('#nombre-anexo').val(),
-            direccion: $('#direccion-anexo-calle').val(),
-            numeroDireccion: $('#direccion-anexo-numeracion').val(),
-            local: $('#direccion-anexo-local').val(),
-            region: $('select[id="region-anexo"] option:selected').text(),
-            comuna: $('select[id="comuna-anexo"] option:selected').text(),
-            cantidadTrabajadores: parseInt($('#n-trabajadores-anexo').val()),
-            guid: uuid4(),
-            databaseId: 0
+            charlie_listado_anexos.data[idx] = fnd;
+            $(this).text('Agregar Anexo');
+
+        } else {
+
+
+
+            charlie_listado_anexos.data.push({
+                nombre: $('#nombre-anexo').val(),
+                direccion: $('#direccion-anexo-calle').val(),
+                numeroDireccion: $('#direccion-anexo-numeracion').val(),
+                local: $('#direccion-anexo-local').val(),
+                region: $('select[id="region-anexo"] option:selected').text(),
+                comuna: $('select[id="comuna-anexo"] option:selected').text(),
+                direccionCompuesta: $('#direccion-anexo-calle').val() + " #" + $('#direccion-anexo-numeracion').val() + " Depto/local:" + $('#direccion-anexo-local').val(),
+                cantidadTrabajadores: parseInt($('#n-trabajadores-anexo').val()),
+                guid: uuid4(),
+                databaseId: 0,
+                nomina: [],
+                ejecutivos: []
+            });
+        }
+
+        $('#nombre-anexo').val("");
+        $('#direccion-anexo-calle').val("");
+        $('#direccion-anexo-numeracion').val("");
+        $('#direccion-anexo-local').val("");
+        $('#region-anexo option[value=""]').attr("selected", true);
+        $('#comuna-anexo option[value=""]').attr("selected", true);
+        $('#n-trabajadores-anexo').val("");
+
+        charlie_listado_anexos.renderAll();
+
+
+
+    }).fail(function (errores) {
+        console.log({ errores });
+        var err = errores.responseJSON.Message;
+        $.niftyNoty({
+            type: 'danger',
+            container: 'floating',
+            title: 'Validación',
+            message: err,
+            closeBtn: false,
+            timer: 2800
         });
-    }
 
-    $('#nombre-anexo').val("");
-    $('#direccion-anexo-calle').val("");
-    $('#direccion-anexo-numeracion').val("");
-    $('#direccion-anexo-local').val("");
-    $('#region-anexo option[value=""]').attr("selected", true);
-    $('#comuna-anexo option[value=""]').attr("selected", true);
-    $('#n-trabajadores-anexo').val("");
+        return false;
+    });
 
-    charlie_listado_anexos.renderAll();
-
+    
+    
 });
+
+
 
 
 
@@ -1324,11 +1375,18 @@ $(document).on('charlie.events.onAsignarAnexos', function () {
         holding: $('.seleccionado').find('.elholding').text()
     };
 
-    $.SecGetJSON('http://localhost/motor/api/perfil-empresas/lista-cartera-anexo', { RutEmpresa: charlie_listado_anexos.company.rut }, function (response) {
-        console.log({ response })
+    $.SecGetJSON(BASE_URL + '/motor/api/perfil-empresas/lista-cartera-anexo', { RutEmpresa: charlie_listado_anexos.company.rut }, function (response) {
+        console.log({ response });
         charlie_listado_anexos.import(response);
     });
 });
+
+
+$(document).on('charlie.events.onFinalizaryResumen', function () {
+    
+});
+
+
 
 
 $(document).on('click', '.editar-anexo', function () {
@@ -1383,7 +1441,7 @@ var charlie_listado_anexos = {
             html += `
                                 <tr data-guid="${e.guid}">
                                    <td>${e.nombre}</td>
-                                   <td>${e.direccion}</td>
+                                   <td>${e.direccionCompuesta}</td>
                                    <td>${e.comuna == null ? '' : e.comuna}</td>
                                    <td>${e.cantidadTrabajadores}</td>
                                    <td><button type="button" class="btn btn-warning btn-sm editar-anexo" data-guid="${e.guid}">Editar</button></td>
@@ -1400,20 +1458,20 @@ var charlie_listado_anexos = {
         var html = ``;
         $.each(data, function (i, e) {
             html += `
-                                <tr id="tr-${e.guid}">
-                                   <td class="bloqueable">${e.nombre}</td>
-                                   <td>${e.direccion}</td>
-                                   <td>${e.comuna}</td>
-                                   <td>${e.cantidadTrabajadores}</td>
-                                   <td class="bloqueable">
-                                        <span class="pull-left btn btn-primary btn-file">
-                                            Selecciona
-                                            <input type="file" name="archivafil[]" accept=".csv" class="archivos" id="file-${e.guid}" />
-                                        </span>
-                                    </td>
-                                   <td><select id="sel-${e.guid}" class="from-control select-dotacion" multiple ><option value=""><Seleccione/option></select></td>
-                                </tr>
-                            `;
+                    <tr id="tr-${e.guid}">
+                        <td class="bloqueable">${e.nombre}</td>
+                        <td>${e.direccion}</td>
+                        <td>${e.comuna}</td>
+                        <td>${e.cantidadTrabajadores}</td>
+                        <td class="bloqueable">
+                            <span class="pull-left btn btn-primary btn-file file-wrapper">
+                                Selecciona
+                                <input type="file" name="archivafil[]" accept=".csv" class="archivos" id="fl${e.guid}" onchange="Upload('${e.guid}')" />
+                            </span>
+                        </td>
+                        <td><select id="sl${e.guid}" class="from-control select-dotacion" onchange="" multiple ><option value="">Seleccione</option></select></td>
+                    </tr>
+                `;
         });
 
         $(this.bodySelectorAnexoCarga).append(html);
@@ -1428,7 +1486,7 @@ var charlie_listado_anexos = {
                                 <tr id="tr-${e.guid}">
                                    <td>${e.nombre}</td>
                                    <td>${e.direccion}</td>
-                                   <td>${e.region}</td>--
+                                   <td>${e.region}</td>
                                    <td>${e.comuna}</td>
                                    <td>${e.cantidadTrabajadores}</td>
                                 </tr>
@@ -1451,7 +1509,7 @@ var charlie_listado_anexos = {
     },
     export: function () {
 
-        charlie_listado_anexos.data.pop()
+        charlie_listado_anexos.data.pop();
 
 
     },
@@ -1497,7 +1555,43 @@ function uuid4() {
         r.slice(10, 16).reduce(hex, '-');
 }
 
+function Upload(uid) {
+    
 
+    var fileUpload = document.querySelector(`#fl${uid}`);
+    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+    if (regex.test(fileUpload.value.toLowerCase())) {
+        if (typeof (FileReader) !== "undefined") {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var fnd = charlie_listado_anexos.data.find(elm => elm.guid === uid);
+                var idx = charlie_listado_anexos.data.findIndex(elm => elm.guid === uid);
+                var rows = e.target.result.split("\n");
+                for (var i = 1; i < rows.length; i++) {
+                    var cells = rows[i].split(";");
+                    if (cells.length > 1) {
+                        fnd.nomina.push({
+                            rut: cells[0],
+                            dv: cells[1].replace(/(\r\n|\n|\r)/gm, "")
+                        });
+                    }
+                }
+                
+                charlie_listado_anexos.data[idx] = fnd;
+
+            };
+            reader.readAsText(fileUpload.files[0]);
+        } else {
+            alert("This browser does not support HTML5.");
+        }
+    } else {
+        alert("Porfavor carga un archivo con extension .csv");
+    }
+}
+
+function Select(uid) {
+
+}
 
 $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-region-empresa", function (menus) {
     $("#region-anexo").html("");

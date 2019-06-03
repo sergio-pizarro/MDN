@@ -79,6 +79,7 @@
     <Compile Include="Empresa.cs" />
     <Compile Include="EmpresaEntity.cs" />
     <Compile Include="Empresas\AmbitosretencionEntity.cs" />
+    <Compile Include="Empresas\DireccionEmpresa.cs" />
     <Compile Include="Empresas\GestionprospeccionEntity.cs" />
     <Compile Include="Empresas\GestionretencionEntity.cs" />
     <Compile Include="Empresas\ProspeccionEntity.cs" />

@@ -61,5 +61,12 @@ namespace CRM.Areas.AppPage.Controllers
         {
             return View();
         }
+
+
+        public ActionResult Maqueta()
+        {
+            return View();
+        }
+        
     }
 }

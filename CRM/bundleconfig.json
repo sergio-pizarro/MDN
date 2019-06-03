@@ -14,7 +14,8 @@
       "Assets/plugins/bootstrap-validator/bootstrapValidator.css",
       "Assets/plugins/bootstrap-select/bootstrap-select.css",
       "Assets/plugins/bootstrap-table/bootstrap-table.css",
-      "Assets/plugins/chosen/chosen.css"
+      "Assets/plugins/chosen/chosen.css",
+      "Assets/plugins/magic-check/css/magic-check.css"
     ],
     "minify": {
       "enabled": true
@@ -32,7 +33,8 @@
       "Assets/js/demo/ui-modals.js",
       "Assets/js/demo/icons.js",
       "Assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js",
-      "Assets/plugins/bootstrap-validator/bootstrapValidator.js"
+      "Assets/plugins/bootstrap-validator/bootstrapValidator.js",
+      "Assets/plugins/chosen/chosen.jquery.min.js"
     ],
     "minify": {
       "enabled": true
@@ -44,7 +46,6 @@
       "Assets/plugins/fooTable/dist/footable.all.min.js",
       "Assets/plugins/bootstrap-validator/bootstrapValidator.min.js",
       "Assets/plugins/bootstrap-select/bootstrap-select.min.js",
-      "Assets/plugins/chosen/chosen.jquery.min.js",
       "Assets/plugins/bootstrap-table/bootstrap-table.min.js",
       "Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js",
       "Assets/plugins/bootstrap-select/bootstrap-select.min.js"
