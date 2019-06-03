@@ -449,6 +449,122 @@ namespace CRM.Controllers
             return View();
         }
 
+        public ActionResult AccesoPensionados(string RutEjecutivo, string ClaveEjecutivo)
+        {
+            if (!Request.Browser.Type.ToUpper().Contains("IE"))
+            {
+                if (RutEjecutivo != null)
+                {
+                    
+                    AutenticarLdapService.AutenticarLdapDelegateClient ServicioAuth = new AutenticarLdapService.AutenticarLdapDelegateClient();
+                    ServicioAuth.ClientCredentials.UserName.UserName = "SOAPCES";
+                    ServicioAuth.ClientCredentials.UserName.Password = "r{91u5#0T.k2)9Y";
+
+                    AutenticarLdapService.entradaAutenticarLdap usrData = new AutenticarLdapService.entradaAutenticarLdap()
+                    {
+                        usuario = RutEjecutivo,
+                        password = ClaveEjecutivo
+                    };
+                    AutenticarLdapService.autenticacionLDAP RespuestaAuth;
+                    using (new OperationContextScope(ServicioAuth.InnerChannel))
+                    {
+                        // Add a HTTP Header to an outgoing request
+                        string auth = "Basic " + Convert.ToBase64String(System.Text.Encoding.Default.GetBytes(ServicioAuth.ClientCredentials.UserName.UserName + ":" + ServicioAuth.ClientCredentials.UserName.Password));
+                        HttpRequestMessageProperty requestMessage = new HttpRequestMessageProperty();
+                        requestMessage.Headers["Authorization"] = auth;
+                        OperationContext.Current.OutgoingMessageProperties[HttpRequestMessageProperty.Name] = requestMessage;
+                        RespuestaAuth = ServicioAuth.autenticarUsuario(usrData);
+                    }
+
+                    if (RespuestaAuth.log.codRespuesta.Equals("3"))
+                    {
+                        var client = new RestClient(baseUrl + "/motor/api");
+                        var request = new RestRequest("Auth/authenticate", Method.GET);
+                        request.AddQueryParameter("re", RutEjecutivo);
+                        IRestResponse response = client.Execute(request);
+
+                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            dynamic respuesta = SimpleJson.DeserializeObject(response.Content);
+
+                            System.Web.HttpCookie myCookie = new System.Web.HttpCookie("Token");
+                            myCookie.Value = response.Headers.Where(x => x.Name == "Token").FirstOrDefault().Value.ToString();
+                            myCookie.Expires = DateTime.Now.AddDays(5);
+                            Response.Cookies.Add(myCookie);
+
+                            System.Web.HttpCookie rutCookie = new System.Web.HttpCookie("Rut");
+                            rutCookie.Value = RutEjecutivo;
+                            rutCookie.Expires = DateTime.Now.AddDays(5);
+                            Response.Cookies.Add(rutCookie);
+
+                            System.Web.HttpCookie usuarioCookie = new System.Web.HttpCookie("Usuario");
+                            usuarioCookie.Value = respuesta.Usuario;
+                            usuarioCookie.Expires = DateTime.Now.AddDays(5);
+                            Response.Cookies.Add(usuarioCookie);
+
+                            System.Web.HttpCookie cargoCookie = new System.Web.HttpCookie("Cargo");
+                            cargoCookie.Value = respuesta.Cargo;
+                            cargoCookie.Expires = DateTime.Now.AddDays(5);
+                            Response.Cookies.Add(cargoCookie);
+
+                            System.Web.HttpCookie notiniCookie = new System.Web.HttpCookie("Noticia");
+                            notiniCookie.Value = respuesta.Noticia;
+                            notiniCookie.Expires = DateTime.Now.AddDays(1);
+                            Response.Cookies.Add(notiniCookie);
+
+                            System.Web.HttpCookie ofiCookie = new System.Web.HttpCookie("Oficina");
+                            ofiCookie.Value = respuesta.Oficina;
+                            ofiCookie.Expires = DateTime.Now.AddDays(5);
+                            Response.Cookies.Add(ofiCookie);
+
+
+
+                            int install = Convert.ToInt32(respuesta.Instalar);
+                            int multi = Convert.ToInt32(respuesta.Multi);
+
+                            if (install > 0)
+                            {
+                                return Redirect("../Home/Instalador?i=" + install.ToString());
+                            }
+
+                            else
+                            {
+
+                                if (multi > 1)
+                                {
+                                    ViewBag.Modo = "MULTISELECT";
+                                    ViewBag.Logins = CRM.Business.Data.DotacionDataAccess.MultiLoginByRut(RutEjecutivo);
+                                    return View();
+                                }
+                                else
+                                {
+                                    return Redirect(response.Headers.Where(x => x.Name == "Location").FirstOrDefault().Value.ToString());
+                                }
+                            }
+                        }
+                        else
+                        {
+                            ViewBag.CodError = "NO_CONECT";
+                            return View();
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.CodError = "NO_CONECT";
+                        return View();
+                    }
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            else
+            {
+                return new RedirectResult("/motor/Home/");
+            }
+        }
+
 
     }
 }

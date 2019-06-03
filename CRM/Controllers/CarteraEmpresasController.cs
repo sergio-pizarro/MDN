@@ -10,8 +10,7 @@ using CRM.Business.Entity.Contracts;
 using CRM.Business.Data;
 using CRM.ActionFilters;
 using CRM.Filters;
-
-
+using CRM.Business.Entity.Empresas;
 
 namespace CRM.Controllers
 {
@@ -212,6 +211,25 @@ namespace CRM.Controllers
 
             return Ok(CarteraEmpresaDataAccess.ObtenerEmpresaPorNombreRutOHolding(query));
             
+        }
+
+        [AuthorizationRequired]
+        [HttpPost]
+        [Route("validar-ingreso-empresa")]
+        public IHttpActionResult ValidarIngresoEmpresaOPunto(DireccionEmpresa empresa)
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+
+            try
+            {
+                CarteraEmpresaDataAccess.ValidarIngresoPunto(empresa);
+
+                return Ok("Passing");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }

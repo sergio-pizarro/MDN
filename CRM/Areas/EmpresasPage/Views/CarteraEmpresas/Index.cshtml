@@ -25,6 +25,9 @@
                             <li class="">
                                 <a data-toggle="tab" href="#tab-prospecciones" aria-expanded="false" id="tab_prospecciones" style="font-weight: bold;">Prospectos</a>
                             </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#lft-tab-4" aria-expanded="false" id="tab_campania_empresas" class="tab-principal" style="font-weight: bold;">Campaña: Empresas Sin Cotizar</a>
+                            </li>
                         </ul>
                     </div>
                     <h3 class="panel-title" style="color:white">.</h3>
@@ -114,9 +117,7 @@
                                                     <th>Caja Origen</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="tbody_prospectos">
-
-                                            </tbody>
+                                            <tbody id="tbody_prospectos"></tbody>
 
                                         </table>
 
@@ -181,7 +182,7 @@
                                                     </div>
                                                 </div>
 
-                                                
+
                                             </div>
 
 
@@ -230,7 +231,7 @@
 
                                                             </select>
                                                         </div>
-                                                    </div>                                                    
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -274,9 +275,7 @@
                                                                     <th class="text-center" style="width:20%;">Telefono</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody id="tbody-contactos">
-                                                                
-                                                            </tbody>
+                                                            <tbody id="tbody-contactos"></tbody>
                                                         </table>
                                                     </div>
                                                 </div>
@@ -289,11 +288,79 @@
                                                     <button class="btn btn-info" type="button" id="bt-contacto" data-toggle="modal" data-target="#modal-contactos">Agregar Contacto</button>
                                                     <button class="btn btn-info hidden" type="button" id="bt-gestion" data-toggle="modal" data-target="#modal-gestion">Registrar Gestión</button>
                                                     <button class="btn btn-success" id="bt-guardar">Guardar Cambios</button>
-                                                    
+
                                                 </div>
                                             </div>
 
                                         </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="lft-tab-4" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+
+                                        <div class="pad-btm">
+                                            <div class="row">
+
+                                                <div class="col-sm-2 text-xs-center">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Estado</label>
+                                                        <select id="filtro-estado" class="form-control data-filter">
+                                                            <option value="">Todos</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2 text-xs-center">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Sub Estado</label>
+                                                        <select id="filtro-subestado" class="form-control data-filter">
+                                                            <option value="">Todos</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-2 text-xs-center">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Oficina</label>
+                                                        <select id="filtro-ejecutivos" class="form-control data-filter">
+                                                            
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 text-xs-center">
+                                                    <label class="control-label">Rut</label>
+                                                    <div class="input-group mar-btm">
+                                                        <input id="filtro-rut" type="text" placeholder="Ej. 11.111.111-1" class="form-control data-filter" autocomplete="off">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+                                                    <button id="button-filtrar" class="btn btn-default">Filtrar</button>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <h4>Para visualizar datos debe presionar el botón filtrar.</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table class="table table-bordered table-hover toggle-circle" id="tabla_leads">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rut</th>
+                                                    <th>Razón Social</th>
+                                                    <th>Segmento</th>
+                                                    <th>Empleados</th>
+                                                    <th>Meses Sin Cotizar</th>
+                                                    <th>Última Gestión</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+
                                     </div>
                                 </div>
                             </div>
@@ -304,6 +371,8 @@
         </div>
     </div>
 </div>
+
+
 
 <div id="demo-lg-modal-agenda" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -1019,7 +1088,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label class="control-label">Cargo</label>
-                                <select name="cargo" id="contacto-cargo" class="form-control" >
+                                <select name="cargo" id="contacto-cargo" class="form-control">
                                     <option value="">Selecciona</option>
                                     <option value="Gerente General">Gerente General</option>
                                     <option value="Gerente RRHH">Gerente RRHH</option>
@@ -1085,6 +1154,152 @@
     </div>
 </div>
 
+
+
+<div id="mdl_management" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title" id="myLargeModalLabel">Gestión</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="tab-base" id="MDL_Primario" style="margin-bottom: 0px !important;">
+                    <!--Nav Tabs-->
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab-gestion-1" id="tab_contacti" aria-expanded="true">Empresa</a>
+                        </li>
+                        <li class="">
+                            <a data-toggle="tab" href="#tab-gestion-2" aria-expanded="false">Historial de Gestión</a>
+                        </li>
+                    </ul>
+
+                    <!--Tabs Content-->
+                    <div class="tab-content" style="box-shadow: 0 0 0 !important;">
+                        <div id="tab-gestion-1" class="tab-pane fade active in">
+                            <form>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="control-label">Rut</label>
+                                            <input class="form-control" id="companyId" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label class="control-label">Razon Social</label>
+                                            <input class="form-control" id="companyName" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="control-label segmento_texto">Segmento</label>
+                                            <input class="form-control" id="companySegment" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Oficina Asignación</label>
+                                            <input class="form-control" id="assignedOffice" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Telefono</label>
+                                            <input class="form-control" id="companyPhone" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Email</label>
+                                            <input class="form-control" id="companyEmail" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label segmento_texto">Dirección</label>
+                                            <input class="form-control" id="companyAddress" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row charlyNTF" style="display:none;">
+                                    <div class="col-sm-12 charlyNTFContainer">
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="tab-gestion-2" class="tab-pane fade">
+                            <div class="list-group" id="gestiones_realizadas" style="min-height:100px; max-height:200px; overflow: scroll;">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--Modal footer-->
+            <div class="modal-footer" id="mensahes-must">
+                <form id="management-data" action="#" method="post">
+                    <div class="row" style="text-align: left;">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">Estado</label>
+                                <select class="form-control" id="parentStats" name="parentStats" required>
+                                    <option value="">Seleccione</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">Sub Estado</label>
+                                <select class="form-control" id="childStats" name="childStats" disabled="disabled" required>
+                                    <option value="">Seleccione</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group" id="fpg">
+                                <label class="control-label">Fecha Próxima Gestión</label>
+                                <div id="datepicker-component">
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" id="nextCommitmentDate" name="nextCommitment" autocomplete="off">
+                                        <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row esconder" style="text-align: left;">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Comentarios</label>
+                                <textarea placeholder="Comentarios" rows="3" class="form-control" id="comments" name="comments" required></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <input type="hidden" id="leadId" name="leadId" value="" />
+
+                    <button data-dismiss="modal" class="btn btn-default close-modal-btn" type="button">Cerrar</button>
+                    <button class="btn btn-primary esconder" id="btn_savear" type="submit">Guardar</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @section script{
 
     <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
@@ -1099,6 +1314,8 @@
     <script src="~/Assets/plugins/bootbox/bootbox.min.js"></script>
 
     <script type="text/javascript">
+
+
 
         $('#dateTimepk').timepicker();
         $('#dateTimeDiaria').timepicker();
@@ -2107,7 +2324,7 @@
             }
 
 
-            
+
 
             $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/ingresa-detalle-entrevista", objeto_detalle_entrevista, function (datos) {
                 $("#form-registro-entrevista-detalle").bootstrapValidator('resetForm', true);
@@ -2258,8 +2475,277 @@
         });
 
 
-        
 
+
+    </script>
+
+    <script>
+        $(function () {
+            var PAGE = 1;
+            var OFFICE = getCookie('Oficina');
+            var USER = getCookie('Rut');
+            var LEAD_TYPE_ID = 1;
+            var STATS_OBJECT = null;
+            var STATS_MAP = null;
+            var INVOLVED_USERS = null;
+
+            //Start Loads
+            $.getJSON(`${LEAD_SERVICE_BASE_URL}/api/v1/management-stats/${LEAD_TYPE_ID}/stats-map`, function (response) {
+                STATS_MAP = response;
+                //Una vez cargados los estados que son requisito para poder desplegar los estados de las gestiones de los Leads
+                $.getJSON(`${LEAD_SERVICE_BASE_URL}/api/v1/leads/${OFFICE}/${USER}/${PAGE}`, function (response) {
+
+                    $(response).each(function (index, lead) {
+
+                        var lastLeadManagement = lead.managements.slice(-1)[0];
+                        var statsSummary = STATS_MAP.find(function (st) {
+                            return lastLeadManagement !== undefined ? st.code === lastLeadManagement.stats : null;
+                        });
+                        
+                        $(`#tabla_leads tbody`).append(
+                            $('<tr>')
+                                .append($('<td>').html(`<a class="btn-link" data-toggle="modal" data-target="#mdl_management" data-lead="${lead.id}" href="#!">${lead.companyId}</a>`))
+                                .append($('<td>').html(lead.company.companyName))
+                                .append($('<td>').html(lead.company.segment))
+                                .append($('<td>').html(lead.company.employeesCount))
+                                .append($('<td>').html(lead.company.unlistedMonthsCount))
+                                .append($('<td>').html(statsSummary !== undefined ? statsSummary.leyend + (lastLeadManagement.nextCommitment != null ? ` <br/>Próx. Compromiso (${lastLeadManagement.nextCommitment.toFecha()})`: '') : '-'))
+                        );
+                    });
+
+                });
+
+            });
+
+            $.getJSON(`${LEAD_SERVICE_BASE_URL}/api/v1/management-stats/${LEAD_TYPE_ID}`, function (response) {
+
+                STATS_OBJECT = response;
+                var rootStats = STATS_OBJECT.filter(function (st) {
+                    return st.parentId === null && (st.options === null || (st.options !== null && !st.options.includes('--hidden')));
+                });
+
+                $("#parentStats").html(`<option value="">Seleccione</option>`);
+                $("#filtro-estado").html(`<option value="">Todos</option><option value="-1">Sín Gestión</option>`);
+                $.each(rootStats, function (i, rootStat) {
+                    $("#parentStats").append($('<option>').val(rootStat.id).text(rootStat.name));
+                    $("#filtro-estado").append($('<option>').val(rootStat.id).text(rootStat.name))
+                });
+            });
+
+            ///Office employees
+            $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/dotacion-oficina", function (responseUsers) {
+
+                INVOLVED_USERS = responseUsers;
+                
+                $("#filtro-ejecutivos").append(
+                    $("<optgroup>").prop('label','Generales')
+                        .append($("<option>").attr("value", USER).html("Mios"))
+                        .append($("<option>").attr("value", 'ALL').html("Todos"))
+                );
+
+                var $officeGroup = $('<optgroup>').prop('label', 'Otros Ejecutivos');
+                $.each(INVOLVED_USERS, function (i, e) {
+                    if (USER !== e.Rut) {
+                        $officeGroup.append($("<option>").attr("value", e.Rut).html(e.Nombre.OrdenaNombreCompleto()))
+                    }
+                });
+                $("#filtro-ejecutivos").append($officeGroup);
+            });
+            
+            $('#parentStats').on('change', function (event) {
+
+                if ($(this).val() === '') {
+                    $('#childStats').html(`<option value="">Selecciona</option>`);
+                    $('#childStats').prop('disabled', true);
+                    return false;
+                }
+
+                var parentId = parseInt($(this).val());
+                var childStats = STATS_OBJECT.filter(function (cst) {
+                    return cst.parentId === parentId;
+                });
+
+                $('#childStats').prop('disabled', false);
+                $('#childStats').html(`<option value="">Selecciona</option>`);
+                $(childStats).each(function (index, stat) {
+                    $('#childStats').append($('<option>').val(stat.id).text(stat.name));
+                });
+            });
+
+            $('#filtro-estado').on('change', function (event) {
+
+                if ($(this).val() === '') {
+                    $('#filtro-subestado').prop('disabled', true);
+                    return false;
+                }
+
+                var parentId = parseInt($(this).val());
+                var childStats = STATS_OBJECT.filter(function (cst) {
+                    return cst.parentId === parentId;
+                });
+
+                $('#filtro-subestado').prop('disabled', false);
+                $('#filtro-subestado').html(`<option value="">Todos</option>`);
+                $(childStats).each(function (index, stat) {
+                    $('#filtro-subestado').append($('<option>').val(stat.id).text(stat.name));
+                });
+            });
+
+            $('#datepicker-component .input-group.date').datepicker(
+                { autoclose: true, format: 'dd-mm-yyyy', startDate: "0d", language: "es", daysOfWeekDisabled: [6, 0], todayHighlight: true }
+            ).on('changeDate', function (e) {
+                e.stopPropagation();
+            }).on('show.bs.modal hide.bs.modal', function (event) {
+                event.stopPropagation();
+            });
+            
+            $('#mdl_management').on('show.bs.modal', function (event) {
+                var $opener = $(event.relatedTarget);
+                var leadId = $opener.data('lead');
+
+                //Get the Lead Data
+                $.getJSON(`${LEAD_SERVICE_BASE_URL}/api/v1/leads/${leadId}`, function (response) {
+
+                    $("#companyId").val(response.companyId);
+                    $("#companyName").val(response.company.companyName);
+                    $("#companySegment").val(response.company.segment);
+                    $("#assignedOffice").val(response.assignedOfficce);
+                    $("#companyPhone").val(response.company.phoneNumber);
+                    $("#companyEmail").val(response.company.email);
+                    $("#companyAddress").val(response.company.address);
+                    $('#leadId').val(response.id);
+
+                    $("#gestiones_realizadas").html("");
+                    $.each(response.managements.reverse(), function (i, management) {
+
+
+                        var statsSummary = STATS_MAP.find(function (st) {
+                            return st.code === management.stats;
+                        });
+
+                        var userReg = INVOLVED_USERS.find(function (iu) {
+                            return iu.Rut === management.createdBy;
+                        });
+
+
+                        $("#gestiones_realizadas").append($("<a>").attr("href", '#')
+                            .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + userReg.Nombre.OrdenaNombreCompleto()))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + management.createdAt.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + (management.nextCommitment !== null ? management.nextCommitment.toFecha() : '-')))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + statsSummary.leyend))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + management.comments))
+                        );
+                    });
+                })
+
+                
+            });
+
+            $('#mdl_management').on('hide.bs.modal', function (event) {
+                $("#companyId").val('');
+                $("#companyName").val('');
+                $("#companySegment").val('');
+                $("#assignedOffice").val('');
+                $("#companyPhone").val('');
+                $("#companyEmail").val('');
+                $("#companyAddress").val('');
+                $("#leadId").val('');
+
+                $('#mensahes-must .panel-alert').remove();
+                $('#btn_savear').text("Guardar").prop('disabled', false);
+            });
+
+            $('#management-data').on('submit', function (event) {
+
+                var formData = $(this).serializeFormJSON();
+                var managementDto = {
+                    leadId: formData.leadId,
+                    comments: formData.comments,
+                    status: {
+                        parent: formData.parentStats,
+                        child: formData.childStats
+                    },
+                    nextAppointment: parseDate(formData.nextCommitment),
+                    manager: USER,
+                    office: OFFICE
+                };
+
+                $('#btn_savear').text("Guardando!!!!").prop('disabled', true);
+                $('.close-modal-btn').prop('disabled', true);
+
+                $.ajax({
+                    type: 'POST',
+                    url: `${LEAD_SERVICE_BASE_URL}/api/v1/managements`,
+                    data: JSON.stringify(managementDto),
+                    contentType: "application/json; charset=utf-8"
+                })
+                .done(function () {
+
+                    $('#parentStats').val('');
+                    $('#childStats').html(`<option value="">Selecciona</option>`);
+                    $('#childStats').prop('disabled', true);
+                    $('#nextCommitmentDate').val('');
+                    $('#comments').val('');
+                    $('#btn_savear').text("Guardar");
+                    $('.close-modal-btn').prop('disabled', false);
+
+                    $.niftyNoty({
+                        type: 'success',
+                        container: '#mensahes-must',
+                        html: '<strong>OK</strong> Gestion guardada exitosamente.',
+                        closeBtn: true,
+                        onHidden: function () {
+                            $('#btn_savear').prop('disabled', false);
+                        }
+                    });
+                })
+                .fail(function (failureResponse) {
+                    console.log({
+                        failureResponse
+                    });
+
+                    $.niftyNoty({
+                        type: 'success',
+                        container: '#mensahes-must',
+                        html: '<strong>Error al Guardar</strong> ' + failureResponse,
+                        closeBtn: true
+                    });
+                })
+                
+
+                return false;
+            });
+
+            $('#button-filtrar').on('click', function (event) {
+
+                var filterObject = {
+                    parentState: $('#filtro-estado').val() === '' ? 0 : parseInt($('#filtro-estado').val()),
+                    childState: $('#filtro-subestado').val() === '' ? 0 : parseInt($('#filtro-subestado').val()),
+                    companyRut: $('#filtro-rut').val() === '' ? null : $('#filtro-rut').val()
+                }
+                var showOfUser = $('#filtro-ejecutivos').val();
+                $.getJSON(`${LEAD_SERVICE_BASE_URL}/api/v1/leads/${OFFICE}/${showOfUser}/${PAGE}`, filterObject, function (response) {
+                    $(`#tabla_leads tbody`).html('');
+                    $(response).each(function (index, lead) {
+
+                        var lastLeadManagement = lead.managements.slice(-1)[0];
+                        var statsSummary = STATS_MAP.find(function (st) {
+                            return lastLeadManagement !== undefined ? st.code === lastLeadManagement.stats : null;
+                        });
+
+                        $(`#tabla_leads tbody`).append(
+                            $('<tr>')
+                                .append($('<td>').html(`<a class="btn-link" data-toggle="modal" data-target="#mdl_management" data-lead="${lead.id}" href="#!">${lead.companyId}</a>`))
+                                .append($('<td>').html(lead.company.companyName))
+                                .append($('<td>').html(lead.company.segment))
+                                .append($('<td>').html(lead.company.employeesCount))
+                                .append($('<td>').html(lead.company.unlistedMonthsCount))
+                                .append($('<td>').html(statsSummary !== undefined ? statsSummary.leyend + (lastLeadManagement.nextCommitment != null ? ` <br/>Próx. Compromiso (${lastLeadManagement.nextCommitment.toFecha()})` : '') : '-'))
+                        );
+                    });
+
+                });
+            });
+        });
     </script>
 
     <script src="~/Assets/js.App/src/empresas-prospectos.js"></script>
