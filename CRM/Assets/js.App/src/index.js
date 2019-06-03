@@ -2418,7 +2418,16 @@ $(function () {
 
 
     //PARCHE PENSIONADO
-    
+    if (getCookie('Cargo') == 'Ejecutivos Incorporación y Prospección Pensionados' || getCookie('Cargo') == 'Ejecutivo Pensionado') {
+        $('#tab_derivaciones').css('display', 'none')
+        $('#tab_segcesantia').css('display', 'none')
+        $('#tab_recuperaciones').css('display', 'none')
+        $('#tab_preaprobados').css('display', 'none')
+        $('#demo-lft-tab-5').css('display', 'none')
+
+        $('[href="#demo-lft-tab-6"]').tab('show');
+        $('[href="#demo-lft-tab-5"]').tab('hide');
+    }
 
 
 
