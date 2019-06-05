@@ -880,7 +880,7 @@ $(function () {
                 align: 'right',
                 formatter: function (value, row, index) {
                     //return value.toMoney(0);
-                    return row.Seguimiento.MARCA_CC === 1 ? value.toMoney(0) + '/' + row.Seguimiento.OFERTA_FINAL_TOTAL.toMoney(0) : value.toMoney(0)
+                    return row.Seguimiento.MARCA_CC === 1 ? value.toMoney(0) + '/' + (!isNaN(row.Seguimiento.OFERTA_FINAL_TOTAL) ? row.Seguimiento.OFERTA_FINAL_TOTAL : row.Seguimiento.OFERTA_FINAL_TOTAL.toMoney(0)) : value.toMoney(0)
                 }
             },
             {
@@ -1231,7 +1231,8 @@ $(function () {
                 $('#afi_empresa_nombre').val(afiData.Empresa);
                 $('#afi_empresa_rut').val(parseInt(afiData.Empresa_Rut).toMoney(0) + '-' + afiData.Empresa_Dv);
                 if (afiData.MARCA_CC === 1) {
-                    $('#afi_preaprobado').val(afiData.OfertaTexto.length === 0 ? '$' + afiData.PreAprobadoFinal.toMoney(0) + '/' + afiData.OFERTA_FINAL_TOTAL.toMoney(0) : afiData.OfertaTexto);
+                    $('#afi_preaprobado').val(afiData.OfertaTexto.length === 0 ? '$' + afiData.PreAprobadoFinal.toMoney(0) + '/' + (!isNaN(afiData.OFERTA_FINAL_TOTAL) ? afiData.OFERTA_FINAL_TOTAL : afiData.OFERTA_FINAL_TOTAL.toMoney(0)) : afiData.OfertaTexto);
+
                 }
                 else {
                     $('#afi_preaprobado').val(afiData.OfertaTexto.length === 0 ? '$' + afiData.PreAprobadoFinal.toMoney(0) : afiData.OfertaTexto);
@@ -2895,11 +2896,11 @@ $(function () {
 
     $('#btn_filtroPen').click(function () {
         var RutEjec;
-        if (getCookie('Cargo') != 'Agente') {
-            RutEjec = getCookie('Rut')
+        if (getCookie('Cargo') != 'Agente' && getCookie('Cargo') != 'Jefe Servicio al Cliente') {
+            RutEjec = getCookie('Rut') 
         }
         else {
-            RutEjec = $('#dllEjecutivo').val()
+            RutEjec = $('#dllEjecutivo').val();
         }
 
         $("#tblAsigPen").bootstrapTable('refresh', {
