@@ -267,7 +267,7 @@ namespace CRM.Business.Entity
         /// <summary>
         /// OFERTA_FINAL_TOTAL
         /// </summary>
-        public int OFERTA_FINAL_TOTAL { get; set; }
+        public string OFERTA_FINAL_TOTAL { get; set; }
 
         /// <summary>
         /// MARCA_CC
@@ -329,7 +329,7 @@ namespace CRM.Business.Entity
             Cuadrante = 0;
             OfertaTexto = string.Empty;
             TipoDerivacion = string.Empty;
-            OFERTA_FINAL_TOTAL = 0;
+            OFERTA_FINAL_TOTAL = string.Empty;
             MARCA_CC = 0;
 
         }

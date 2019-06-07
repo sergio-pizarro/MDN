@@ -444,7 +444,7 @@ namespace CRM.Business.Data
                 Cuadrante = row["Cuadrante"] != DBNull.Value ? Convert.ToInt32(row["Cuadrante"]) : 0,
                 OfertaTexto = row["OfertaTexto"] != DBNull.Value ? row["OfertaTexto"].ToString() : string.Empty,
                 TipoDerivacion = row["TipoDerivacion"] != DBNull.Value ? row["TipoDerivacion"].ToString() : string.Empty,
-                OFERTA_FINAL_TOTAL = row["OFERTA_FINAL_TOTAL"] != DBNull.Value ? Convert.ToInt32(row["OFERTA_FINAL_TOTAL"]) : 0,
+                OFERTA_FINAL_TOTAL = row["OFERTA_FINAL_TOTAL"] != DBNull.Value ? row["OFERTA_FINAL_TOTAL"].ToString() : string.Empty,
                 MARCA_CC = row["MARCA_CC"] != DBNull.Value ? Convert.ToInt32(row["MARCA_CC"]) : 0,
         };
     }
@@ -488,7 +488,7 @@ namespace CRM.Business.Data
         retorno.Seguimiento.Cuadrante = row["Cuadrante"] != DBNull.Value ? Convert.ToInt32(row["Cuadrante"]) : 0;
         retorno.Seguimiento.OfertaTexto = row["OfertaTexto"] != DBNull.Value ? row["OfertaTexto"].ToString() : string.Empty;
         retorno.Seguimiento.TipoDerivacion = row["TipoDerivacion"] != DBNull.Value ? row["TipoDerivacion"].ToString() : string.Empty;
-        retorno.Seguimiento.OFERTA_FINAL_TOTAL = row["OFERTA_FINAL_TOTAL"] != DBNull.Value ? Convert.ToInt32(row["OFERTA_FINAL_TOTAL"]) : 0;
+        retorno.Seguimiento.OFERTA_FINAL_TOTAL = row["OFERTA_FINAL_TOTAL"] != DBNull.Value ? row["OFERTA_FINAL_TOTAL"].ToString() : string.Empty;
         retorno.Seguimiento.MARCA_CC = row["MARCA_CC"] != DBNull.Value ? Convert.ToInt32(row["MARCA_CC"]) : 0;
 
 
