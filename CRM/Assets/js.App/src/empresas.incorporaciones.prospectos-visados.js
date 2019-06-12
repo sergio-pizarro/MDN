@@ -20,7 +20,6 @@ var prospectoDefaults = {
     }
 };
 
-const server_name = 'motordenegocios';
 const office = getCookie('Oficina');
 const rutEjecutivo = getCookie('Rut');
 
@@ -97,7 +96,7 @@ var app = new Vue({
             this.resultados.resultadosPadres = this.resultados.resultadosAll.filter((elm) => elm.resultadoPadre === null);
         },
         fetchLeads() {
-            fetch(`http://${server_name}:4002/lead-visados?rutEjecutivo=${rutEjecutivo}`, {
+            fetch(`http://${motor_api_server}:4002/lead-visados?rutEjecutivo=${rutEjecutivo}`, {
                 method: 'GET',
                 mode: 'cors',
                 cache: 'default'
@@ -108,7 +107,7 @@ var app = new Vue({
                 });
         },
         fetchLead(id) {
-            return fetch(`http://${server_name}:4002/lead-visados/${id}`, {
+            return fetch(`http://${motor_api_server}:4002/lead-visados/${id}`, {
                 method: 'GET',
                 mode: 'cors',
                 cache: 'default'
@@ -116,7 +115,7 @@ var app = new Vue({
                 .then(response => response.json());
         },
         fetchParticipees(empresaRut) {
-            return fetch(`http://${server_name}:4002/lead-visados/${empresaRut}/participantes?global=1`, {
+            return fetch(`http://${motor_api_server}:4002/lead-visados/${empresaRut}/participantes?global=1`, {
                 method: 'GET',
                 mode: 'cors',
                 cache: 'default'
@@ -124,7 +123,7 @@ var app = new Vue({
                 .then(response => response.json());
         },
         fetchChannels() {
-            return fetch(`http://${server_name}:4002/lead-visados/listados/canales`, {
+            return fetch(`http://${motor_api_server}:4002/lead-visados/listados/canales`, {
                 method: 'GET',
                 mode: 'cors',
                 cache: 'default'
@@ -132,7 +131,7 @@ var app = new Vue({
                 .then(response => response.json());
         },
         fetchResultados() {
-            return fetch(`http://${server_name}:4002/lead-visados/listados/resultados`, {
+            return fetch(`http://${motor_api_server}:4002/lead-visados/listados/resultados`, {
                 method: 'GET',
                 mode: 'cors',
                 cache: 'default'
@@ -140,7 +139,7 @@ var app = new Vue({
                 .then(response => response.json());
         },
         fetchTopicos() {
-            return fetch(`http://${server_name}:4002/lead-visados/listados/topicos`, {
+            return fetch(`http://${motor_api_server}:4002/lead-visados/listados/topicos`, {
                 method: 'GET',
                 mode: 'cors',
                 cache: 'default'
@@ -177,7 +176,7 @@ var app = new Vue({
                 });
 
 
-                fetch(`http://${server_name}:4002/lead-visados`, {
+                fetch(`http://${motor_api_server}:4002/lead-visados`, {
                     method: 'POST',
                     body: JSON.stringify(formData),
                     headers: {
@@ -291,7 +290,7 @@ var app = new Vue({
                 };
 
 
-                fetch(`http://${server_name}:4002/empresas/contactos/add`, {
+                fetch(`http://${motor_api_server}:4002/empresas/contactos/add`, {
                     method: 'POST',
                     body: JSON.stringify(contactoDTO),
                     headers: {

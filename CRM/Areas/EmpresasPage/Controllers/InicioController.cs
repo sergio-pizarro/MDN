@@ -23,5 +23,16 @@ namespace CRM.Areas.EmpresasPage.Controllers
         {
             return View();
         }
+
+        public ActionResult DirectoresLaborales()
+        {
+            return View();
+        }
+
+
+        public ActionResult Campanias()
+        {
+            return View();
+        }
     }
 }
