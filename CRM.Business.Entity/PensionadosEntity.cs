@@ -138,6 +138,16 @@ namespace CRM.Business.Entity
         public DateTime ges_fecha_compromete { get; set; }
         public string ges_descripcion_gst { get; set; }
         public DateTime ges_fecha_accion { get; set; }
+        public int ges_id { get; set; }
+        public IEnumerable<TagDto> tags { get; set; }
+
+    }
+
+    public class TagDto
+    {
+        public int id { get; set; }
+        public string nombre { get; set; }
+
     }
 
     public class UltimoContactoPensionados

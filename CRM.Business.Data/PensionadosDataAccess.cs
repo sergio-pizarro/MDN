@@ -274,7 +274,15 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerEntidad("dbo.spMotor_Lista_ultima_Gestion_Contato", pram, ultimaGestionContacto);
         }
 
-        private static Entity.WebUltimaGesPensionados ultimaGestionContacto(DataRow row)
+
+        public static List<Entity.TagDto> ObtieneTagsGetionContacto(int IdGestion)
+        {
+            Parametro param = new Parametro("@ID_GESTION", IdGestion);
+
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Lista_Tags_Gestion_Contato", param, constructorTags);
+        }
+
+        public static Entity.WebUltimaGesPensionados ultimaGestionContacto(DataRow row)
         {
             return new Entity.WebUltimaGesPensionados
             {
@@ -284,10 +292,20 @@ namespace CRM.Business.Data
                 ges_fecha_compromete = row["ges_fecha_compromete"] != DBNull.Value ? Convert.ToDateTime(row["ges_fecha_compromete"]) : new DateTime(1900, 1, 1),
                 ges_descripcion_gst = row["ges_descripcion_gst"] != DBNull.Value ? row["ges_descripcion_gst"].ToString() : string.Empty,
                 ges_fecha_accion = row["ges_fecha_accion"] != DBNull.Value ? Convert.ToDateTime(row["ges_fecha_accion"]) : new DateTime(1900, 1, 1),
+                ges_id = row["ges_id"] != DBNull.Value ? Convert.ToInt32(row["ges_id"]) : 0,
+                tags = ObtieneTagsGetionContacto(Convert.ToInt32(row["ges_id"]))
 
             };
         }
 
+        public static Entity.TagDto constructorTags(DataRow row)
+        {
+            return new Entity.TagDto
+            {
+                id = row["gesTagId"] != DBNull.Value ? Convert.ToInt32(row["gesTagId"]) : 0,
+                nombre = row["gesTagNombre"] != DBNull.Value ? row["gesTagNombre"].ToString() : string.Empty,
+            };
+        }
 
         public static Entity.UltimoContactoPensionados ObtieneUtimaContactoPen(int Id, int Cod_oficina)
         {

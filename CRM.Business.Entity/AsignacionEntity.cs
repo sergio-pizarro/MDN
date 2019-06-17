@@ -19,7 +19,7 @@ namespace CRM.Business.Entity
     /// Esta clase fué generada automáticamente por una herramienta.
     /// Para modificarla, debes modificar su correspondiente tabla en la Base de Datos y luego generar nuevamente esta clase usando la herramienta
     /// </remarks>
-    public class AsignacionEntity 
+    public class AsignacionEntity
     {
 
         /// <summary>
@@ -274,6 +274,11 @@ namespace CRM.Business.Entity
         /// </summary>
         public int MARCA_CC { get; set; }
 
+        /// <summary>
+        /// MARCA_CC
+        /// </summary>
+        public int MarcaPsu { get; set; }
+
 
 
         /// <summary>
@@ -331,7 +336,25 @@ namespace CRM.Business.Entity
             TipoDerivacion = string.Empty;
             OFERTA_FINAL_TOTAL = string.Empty;
             MARCA_CC = 0;
+            MarcaPsu = 0;
 
         }
     }
+
+    /// <summary>
+    /// TEMPORAL ----- BORRAR PSUEntity SOLO SE USAR POR TIEMPO CORTO
+    /// </summary>
+    public class PSUEntity
+    {
+        public int Afiliado_Rut { get; set; }
+        public int N_Cargas { get; set; }
+
+
+        public PSUEntity()
+        {
+            Afiliado_Rut = 0;
+            N_Cargas = 0;
+        }
+    }
+
 }
