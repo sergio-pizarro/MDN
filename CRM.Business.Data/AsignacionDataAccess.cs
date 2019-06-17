@@ -446,113 +446,144 @@ namespace CRM.Business.Data
                 TipoDerivacion = row["TipoDerivacion"] != DBNull.Value ? row["TipoDerivacion"].ToString() : string.Empty,
                 OFERTA_FINAL_TOTAL = row["OFERTA_FINAL_TOTAL"] != DBNull.Value ? row["OFERTA_FINAL_TOTAL"].ToString() : string.Empty,
                 MARCA_CC = row["MARCA_CC"] != DBNull.Value ? Convert.ToInt32(row["MARCA_CC"]) : 0,
-        };
-    }
+                MarcaPsu = row["MarcaPsu"] != DBNull.Value ? Convert.ToInt32(row["MarcaPsu"]) : 0,
+            };
+        }
 
 
-    private static AsignacionRechazos ConstructorRechazo(DataRow row)
-    {
-        return new AsignacionRechazos
+        private static AsignacionRechazos ConstructorRechazo(DataRow row)
         {
-            Periodo = row["Periodo"] != DBNull.Value ? Convert.ToInt32(row["Periodo"]) : 0,
-            AfiliadoRut = row["Afiliado_Rut"] != DBNull.Value ? Convert.ToInt32(row["Afiliado_Rut"]) : 0,
-            EmpresaRut = row["Empresa_Rut"] != DBNull.Value ? Convert.ToInt32(row["Empresa_Rut"]) : 0,
-            MotivoRechazo = row["MotivoRechazo"] != DBNull.Value ? row["MotivoRechazo"].ToString() : string.Empty
-        };
-    }
-
-
-    private static ContenedorCampaniaList ContainerConstructor(DataRow row)
-    {
-        ContenedorCampaniaList retorno = new ContenedorCampaniaList();
-
-        retorno.TotalRegistros = row["total_reg"] != DBNull.Value ? Convert.ToInt32(row["total_reg"]) : 0;
-        retorno.Seguimiento = new AsignacionEntity();
-        retorno.Seguimiento.id_Asign = row["id_Asign"] != DBNull.Value ? Convert.ToInt32(row["id_Asign"]) : 0;
-        retorno.Seguimiento.Periodo = row["Periodo"] != DBNull.Value ? row["Periodo"].ToString() : string.Empty;
-        retorno.Seguimiento.Afiliado_Rut = row["Afiliado_Rut"] != DBNull.Value ? Convert.ToDecimal(row["Afiliado_Rut"]) : 0;
-        retorno.Seguimiento.Afiliado_Dv = row["Afiliado_Dv"] != DBNull.Value ? row["Afiliado_Dv"].ToString() : string.Empty;
-        retorno.Seguimiento.Nombre = row["Nombre"] != DBNull.Value ? row["Nombre"].ToString() : string.Empty;
-        retorno.Seguimiento.Apellido = row["Apellido"] != DBNull.Value ? row["Apellido"].ToString() : string.Empty;
-        retorno.Seguimiento.Empresa_Rut = row["Empresa_Rut"] != DBNull.Value ? row["Empresa_Rut"].ToString() : string.Empty;
-        retorno.Seguimiento.Empresa_Dv = row["Empresa_Dv"] != DBNull.Value ? row["Empresa_Dv"].ToString() : string.Empty;
-        retorno.Seguimiento.Empresa = row["Empresa"] != DBNull.Value ? row["Empresa"].ToString() : string.Empty;
-        retorno.Seguimiento.Holding = row["Holding"] != DBNull.Value ? row["Holding"].ToString() : string.Empty;
-        retorno.Seguimiento.Segmento = row["Segmento"] != DBNull.Value ? row["Segmento"].ToString() : string.Empty;
-        retorno.Seguimiento.PensionadoFFAA = row["PensionadoFFAA"] != DBNull.Value ? Convert.ToInt32(row["PensionadoFFAA"]) : 0;
-        retorno.Seguimiento.Ejec_Asignacion = row["Ejec_Asignacion"] != DBNull.Value ? row["Ejec_Asignacion"].ToString() : string.Empty;
-        retorno.Seguimiento.PreAprobadoFinal = row["PreAprobadoFinal"] != DBNull.Value ? Convert.ToInt64(row["PreAprobadoFinal"]) : 0;
-        retorno.Seguimiento.TipoAsignacion = row["TipoAsignacion"] != DBNull.Value ? Convert.ToInt32(row["TipoAsignacion"]) : 0;
-        retorno.Seguimiento.Prioridad = row["Prioridad"] != DBNull.Value ? Convert.ToInt32(row["Prioridad"]) : 0;
-        retorno.Seguimiento.TipoCampania = row["TipoCampania"] != DBNull.Value ? row["TipoCampania"].ToString() : string.Empty;
-        retorno.Seguimiento.Cuadrante = row["Cuadrante"] != DBNull.Value ? Convert.ToInt32(row["Cuadrante"]) : 0;
-        retorno.Seguimiento.OfertaTexto = row["OfertaTexto"] != DBNull.Value ? row["OfertaTexto"].ToString() : string.Empty;
-        retorno.Seguimiento.TipoDerivacion = row["TipoDerivacion"] != DBNull.Value ? row["TipoDerivacion"].ToString() : string.Empty;
-        retorno.Seguimiento.OFERTA_FINAL_TOTAL = row["OFERTA_FINAL_TOTAL"] != DBNull.Value ? row["OFERTA_FINAL_TOTAL"].ToString() : string.Empty;
-        retorno.Seguimiento.MARCA_CC = row["MARCA_CC"] != DBNull.Value ? Convert.ToInt32(row["MARCA_CC"]) : 0;
-
-
-        retorno.UltimaGestion = new GestionGenerica();
-        retorno.UltimaGestion.GestionBase = new GestionEntity();
-        retorno.UltimaGestion.GestionBase.IdBaseCampagna = row["ges_bcam_uid"] != DBNull.Value ? Convert.ToInt32(row["ges_bcam_uid"]) : 0;
-        retorno.UltimaGestion.GestionBase.FechaAccion = row["ges_fecha_accion"] != DBNull.Value ? Convert.ToDateTime(row["ges_fecha_accion"]) : DateTime.MinValue;
-        retorno.UltimaGestion.GestionBase.FechaCompromete = row["ges_fecha_compromete"] != DBNull.Value ? Convert.ToDateTime(row["ges_fecha_compromete"]) : DateTime.MinValue;
-        retorno.UltimaGestion.GestionBase.Descripcion = row["ges_descripcion_gst"] != DBNull.Value ? row["ges_descripcion_gst"].ToString() : string.Empty;
-        retorno.UltimaGestion.GestionBase.IdEstado = row["ges_estado_gst"] != DBNull.Value ? Convert.ToInt32(row["ges_estado_gst"]) : 0;
-        retorno.UltimaGestion.GestionBase.RutEjecutivo = row["ges_ejecutivo_rut"] != DBNull.Value ? row["ges_ejecutivo_rut"].ToString() : string.Empty;
-        retorno.UltimaGestion.GestionBase.IdOficina = row["ges_oficina"] != DBNull.Value ? row["ges_oficina"].ToString() : string.Empty;
-
-        if (retorno.Seguimiento.TipoAsignacion == 2)
-        {
-            var x = retorno.UltimaGestion.GestionBase;
-            int causaBasalId = 0, consecuenciaId = 0, estadoId = 0;
-
-            if (x.IdEstado.ToString().Length >= 9)
+            return new AsignacionRechazos
             {
-                causaBasalId = Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(0, 1) : x.IdEstado.ToString().Substring(0, 2));
-                consecuenciaId = Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(1, 4) : x.IdEstado.ToString().Substring(2, 4));
-                estadoId = Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(5, 4) : x.IdEstado.ToString().Substring(6, 4));
+                Periodo = row["Periodo"] != DBNull.Value ? Convert.ToInt32(row["Periodo"]) : 0,
+                AfiliadoRut = row["Afiliado_Rut"] != DBNull.Value ? Convert.ToInt32(row["Afiliado_Rut"]) : 0,
+                EmpresaRut = row["Empresa_Rut"] != DBNull.Value ? Convert.ToInt32(row["Empresa_Rut"]) : 0,
+                MotivoRechazo = row["MotivoRechazo"] != DBNull.Value ? row["MotivoRechazo"].ToString() : string.Empty
+            };
+        }
+
+
+        private static ContenedorCampaniaList ContainerConstructor(DataRow row)
+        {
+            ContenedorCampaniaList retorno = new ContenedorCampaniaList();
+
+            retorno.TotalRegistros = row["total_reg"] != DBNull.Value ? Convert.ToInt32(row["total_reg"]) : 0;
+            retorno.Seguimiento = new AsignacionEntity();
+            retorno.Seguimiento.id_Asign = row["id_Asign"] != DBNull.Value ? Convert.ToInt32(row["id_Asign"]) : 0;
+            retorno.Seguimiento.Periodo = row["Periodo"] != DBNull.Value ? row["Periodo"].ToString() : string.Empty;
+            retorno.Seguimiento.Afiliado_Rut = row["Afiliado_Rut"] != DBNull.Value ? Convert.ToDecimal(row["Afiliado_Rut"]) : 0;
+            retorno.Seguimiento.Afiliado_Dv = row["Afiliado_Dv"] != DBNull.Value ? row["Afiliado_Dv"].ToString() : string.Empty;
+            retorno.Seguimiento.Nombre = row["Nombre"] != DBNull.Value ? row["Nombre"].ToString() : string.Empty;
+            retorno.Seguimiento.Apellido = row["Apellido"] != DBNull.Value ? row["Apellido"].ToString() : string.Empty;
+            retorno.Seguimiento.Empresa_Rut = row["Empresa_Rut"] != DBNull.Value ? row["Empresa_Rut"].ToString() : string.Empty;
+            retorno.Seguimiento.Empresa_Dv = row["Empresa_Dv"] != DBNull.Value ? row["Empresa_Dv"].ToString() : string.Empty;
+            retorno.Seguimiento.Empresa = row["Empresa"] != DBNull.Value ? row["Empresa"].ToString() : string.Empty;
+            retorno.Seguimiento.Holding = row["Holding"] != DBNull.Value ? row["Holding"].ToString() : string.Empty;
+            retorno.Seguimiento.Segmento = row["Segmento"] != DBNull.Value ? row["Segmento"].ToString() : string.Empty;
+            retorno.Seguimiento.PensionadoFFAA = row["PensionadoFFAA"] != DBNull.Value ? Convert.ToInt32(row["PensionadoFFAA"]) : 0;
+            retorno.Seguimiento.Ejec_Asignacion = row["Ejec_Asignacion"] != DBNull.Value ? row["Ejec_Asignacion"].ToString() : string.Empty;
+            retorno.Seguimiento.PreAprobadoFinal = row["PreAprobadoFinal"] != DBNull.Value ? Convert.ToInt64(row["PreAprobadoFinal"]) : 0;
+            retorno.Seguimiento.TipoAsignacion = row["TipoAsignacion"] != DBNull.Value ? Convert.ToInt32(row["TipoAsignacion"]) : 0;
+            retorno.Seguimiento.Prioridad = row["Prioridad"] != DBNull.Value ? Convert.ToInt32(row["Prioridad"]) : 0;
+            retorno.Seguimiento.TipoCampania = row["TipoCampania"] != DBNull.Value ? row["TipoCampania"].ToString() : string.Empty;
+            retorno.Seguimiento.Cuadrante = row["Cuadrante"] != DBNull.Value ? Convert.ToInt32(row["Cuadrante"]) : 0;
+            retorno.Seguimiento.OfertaTexto = row["OfertaTexto"] != DBNull.Value ? row["OfertaTexto"].ToString() : string.Empty;
+            retorno.Seguimiento.TipoDerivacion = row["TipoDerivacion"] != DBNull.Value ? row["TipoDerivacion"].ToString() : string.Empty;
+            retorno.Seguimiento.OFERTA_FINAL_TOTAL = row["OFERTA_FINAL_TOTAL"] != DBNull.Value ? row["OFERTA_FINAL_TOTAL"].ToString() : string.Empty;
+            retorno.Seguimiento.MARCA_CC = row["MARCA_CC"] != DBNull.Value ? Convert.ToInt32(row["MARCA_CC"]) : 0;
+            retorno.Seguimiento.MarcaPsu = row["MarcaPsu"] != DBNull.Value ? Convert.ToInt32(row["MarcaPsu"]) : 0;
+
+
+            retorno.UltimaGestion = new GestionGenerica();
+            retorno.UltimaGestion.GestionBase = new GestionEntity();
+            retorno.UltimaGestion.GestionBase.IdBaseCampagna = row["ges_bcam_uid"] != DBNull.Value ? Convert.ToInt32(row["ges_bcam_uid"]) : 0;
+            retorno.UltimaGestion.GestionBase.FechaAccion = row["ges_fecha_accion"] != DBNull.Value ? Convert.ToDateTime(row["ges_fecha_accion"]) : DateTime.MinValue;
+            retorno.UltimaGestion.GestionBase.FechaCompromete = row["ges_fecha_compromete"] != DBNull.Value ? Convert.ToDateTime(row["ges_fecha_compromete"]) : DateTime.MinValue;
+            retorno.UltimaGestion.GestionBase.Descripcion = row["ges_descripcion_gst"] != DBNull.Value ? row["ges_descripcion_gst"].ToString() : string.Empty;
+            retorno.UltimaGestion.GestionBase.IdEstado = row["ges_estado_gst"] != DBNull.Value ? Convert.ToInt32(row["ges_estado_gst"]) : 0;
+            retorno.UltimaGestion.GestionBase.RutEjecutivo = row["ges_ejecutivo_rut"] != DBNull.Value ? row["ges_ejecutivo_rut"].ToString() : string.Empty;
+            retorno.UltimaGestion.GestionBase.IdOficina = row["ges_oficina"] != DBNull.Value ? row["ges_oficina"].ToString() : string.Empty;
+
+            if (retorno.Seguimiento.TipoAsignacion == 2)
+            {
+                var x = retorno.UltimaGestion.GestionBase;
+                int causaBasalId = 0, consecuenciaId = 0, estadoId = 0;
+
+                if (x.IdEstado.ToString().Length >= 9)
+                {
+                    causaBasalId = Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(0, 1) : x.IdEstado.ToString().Substring(0, 2));
+                    consecuenciaId = Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(1, 4) : x.IdEstado.ToString().Substring(2, 4));
+                    estadoId = Convert.ToInt32((x.IdEstado.ToString().Length == 9) ? x.IdEstado.ToString().Substring(5, 4) : x.IdEstado.ToString().Substring(6, 4));
+                }
+
+                retorno.UltimaGestion.CausaBasalGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(causaBasalId);
+                retorno.UltimaGestion.ConsecuenciaGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(consecuenciaId);
+                retorno.UltimaGestion.EstadoGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(estadoId);
+            }
+            else
+            {
+                retorno.UltimaGestion.SubEstadoGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(retorno.UltimaGestion.GestionBase.IdEstado);
+                retorno.UltimaGestion.EstadoGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(retorno.UltimaGestion.SubEstadoGestion != null ? retorno.UltimaGestion.SubEstadoGestion.ejes_id_padre : 0);
             }
 
-            retorno.UltimaGestion.CausaBasalGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(causaBasalId);
-            retorno.UltimaGestion.ConsecuenciaGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(consecuenciaId);
-            retorno.UltimaGestion.EstadoGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(estadoId);
+            retorno.Notificaciones = NotificacionAsignacionDataAccess.ObtenerSetNTF(retorno.Seguimiento.Afiliado_Rut.ToString());
+
+            var numero_cedula = retorno.Seguimiento.Afiliado_Rut + "-" + retorno.Seguimiento.Afiliado_Dv;
+            retorno.TieneEncuesta = AfiliadoDataAccess.ObtenerEstadoEncuestaFlag(numero_cedula);
+
+
+
+            return retorno;
+
         }
-        else
+
+        public static IEnumerable<DatosEmpresaEntity> ListaEmpresaEje(string token)
         {
-            retorno.UltimaGestion.SubEstadoGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(retorno.UltimaGestion.GestionBase.IdEstado);
-            retorno.UltimaGestion.EstadoGestion = EstadosyTiposDataAccess.ObtenerEstadosGestionById(retorno.UltimaGestion.SubEstadoGestion != null ? retorno.UltimaGestion.SubEstadoGestion.ejes_id_padre : 0);
-        }
-
-        retorno.Notificaciones = NotificacionAsignacionDataAccess.ObtenerSetNTF(retorno.Seguimiento.Afiliado_Rut.ToString());
-
-        var numero_cedula = retorno.Seguimiento.Afiliado_Rut + "-" + retorno.Seguimiento.Afiliado_Dv;
-        retorno.TieneEncuesta = AfiliadoDataAccess.ObtenerEstadoEncuestaFlag(numero_cedula);
-
-
-        return retorno;
-
-    }
-
-    public static IEnumerable<DatosEmpresaEntity> ListaEmpresaEje(string token)
-    {
-        Parametros prms = new Parametros
+            Parametros prms = new Parametros
             {
                 new Parametro("@TokenEjecutivo", token),
             };
-        return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Asignacion_Lista_Empresa", prms, Empresa);
-    }
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Asignacion_Lista_Empresa", prms, Empresa);
+        }
 
-    private static DatosEmpresaEntity Empresa(DataRow row)
-    {
-        return new DatosEmpresaEntity
+        private static DatosEmpresaEntity Empresa(DataRow row)
         {
-            NonEmpresa = row["Empresa"] != DBNull.Value ? row["Empresa"].ToString() : string.Empty
-        };
+            return new DatosEmpresaEntity
+            {
+                NonEmpresa = row["Empresa"] != DBNull.Value ? row["Empresa"].ToString() : string.Empty
+            };
+        }
+
+
+        /// <summary>
+        /// TEMPORAL BORRAR AL NO OCUPAR CAMPAÑA PARA PSU
+        /// </summary>
+        /// <param name="Afiliado_Rut"></param>
+        /// <returns></returns>
+
+        public static PSUEntity ObtenerCargaAfiPsu(int Afiliado_Rut)
+        {
+            Parametros para = new Parametros
+            {
+                new Parametro("@Afiliado_Rut", Afiliado_Rut)
+            };
+            return DBHelper.InstanceCRM.ObtenerEntidad("spMotor_Busca_notificacion_Psu", para, AfiliadoCargaPsu);
+        }
+
+
+        private static PSUEntity AfiliadoCargaPsu(DataRow row)
+        {
+            return new PSUEntity
+            {
+                Afiliado_Rut = row["Afiliado_Rut"] != DBNull.Value ? Convert.ToInt32(row["Afiliado_Rut"]) : 0,
+                N_Cargas = row["N_Cargas"] != DBNull.Value ? Convert.ToInt32(row["N_Cargas"]) : 0,
+            };
+        }
+
+
+
+
+        #endregion
     }
-
-
-    #endregion
-}
 }
 

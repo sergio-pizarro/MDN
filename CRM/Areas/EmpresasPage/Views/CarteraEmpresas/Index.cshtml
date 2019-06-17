@@ -1429,7 +1429,7 @@
                     $("#slEmpresaAgendasIng").html("");
                     $("#slEmpresaAgendasIng").append($("<option>").attr("value", "").html("Seleccione"));
                     $.each(datos, function (i, e) {
-                        $("#slEmpresaAgendasIng").append($("<option>").attr("value", e.RutEmpresa).html(e.NombreEmpresa).data('idanexo', e.IdEmpresa)).trigger('chosen:updated')
+                        $("#slEmpresaAgendasIng").append($("<option>").attr("value", e.RutEmpresa).html(e.NombreEmpresa).data('idanexo', e.IdEmpresa)); //.trigger('chosen:updated')
                     });
                 });
                 $('#slEmpresaAgendasIng').chosen({ width: '100%' });
@@ -1610,7 +1610,7 @@
             else if ($('#slFrecuencia').val() == 'Diaria') {
                 results = "Null"
             }
-
+            //var test = $('#slEmpresaAgendasIng option:selected').data('idanexo');
             var objeto_envio_agenda_empresa = {
                 RutEmpresa: $('#slEmpresaAgendasIng').val(),
                 RutEjecutivo: $('#slEjecutivoAgendaIng').val(),
@@ -1623,7 +1623,7 @@
                 Frecuencia: $('#slFrecuencia').val(),
                 Dias: results,
                 TipoVisita: $('#slTipoVisita').val(),
-                IdAnexo: $('#slEmpresaAgendasIng option:selected').data('idanexo'),
+                IdAnexo: $('#slEmpresaAgendasIng option:selected').data('idanexo');,
                 DiasSucede: $('#slSucedeDia').val(),
             }
 

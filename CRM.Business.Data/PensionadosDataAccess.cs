@@ -42,8 +42,8 @@ namespace CRM.Business.Data
                 CIUDAD = row["CIUDAD"] != DBNull.Value ? row["CIUDAD"].ToString() : string.Empty,
                 REGION = row["REGION"] != DBNull.Value ? row["REGION"].ToString() : string.Empty,
 
-                FONOPARTICULAR = row["FONOPARTICULAR"] != DBNull.Value ? Convert.ToInt32(row["FONOPARTICULAR"]) : 0,
-                FONOCELULAR = row["FONOCELULAR"] != DBNull.Value ? Convert.ToInt32(row["FONOCELULAR"]) : 0,
+                FONOPARTICULAR = row["FONOPARTICULAR"] != DBNull.Value ? row["FONOPARTICULAR"].ToString() : string.Empty,
+                FONOCELULAR = row["FONOCELULAR"] != DBNull.Value ? row["FONOCELULAR"].ToString() : string.Empty,
                 EMAIL = row["EMAIL"] != DBNull.Value ? row["EMAIL"].ToString() : string.Empty,
                 PRIORIDAD = row["PRIORIDAD"] != DBNull.Value ? row["PRIORIDAD"].ToString() : string.Empty,
                 PREAPROBADO = row["PREAPROBADO"] != DBNull.Value ? Convert.ToInt32(row["PREAPROBADO"]) : 0,
@@ -221,8 +221,23 @@ namespace CRM.Business.Data
                 new Parametro("@estado_gestion",entrada.estado_gestion),
 
             };
-            return DBHelper.InstanceCRM.EjecutarProcedimiento("dbo.spMotor_Guarda_Gestion_pensionado", pram);
+            return DBHelper.InstanceCRM.ObtenerEscalar<int>("dbo.spMotor_Guarda_Gestion_pensionado", pram);
         }
+
+
+        public static int GuardaGestionTagPensionado(TagGestionPensionados entrada)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@gesTag_id", entrada.gesTag_id),
+                new Parametro("@gesTag_gestion",entrada.gesTag_gestion),
+
+
+            };
+            return DBHelper.InstanceCRM.EjecutarProcedimiento("dbo.spMotor_Guarda_GestionTag_pensionado", pram);
+        }
+
+
 
         public static List<Entity.WebHistorialGesPensionados> ListaHistGestPensionado(int ges_bcam_uid)
         {
@@ -259,7 +274,15 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerEntidad("dbo.spMotor_Lista_ultima_Gestion_Contato", pram, ultimaGestionContacto);
         }
 
-        private static Entity.WebUltimaGesPensionados ultimaGestionContacto(DataRow row)
+
+        public static List<Entity.TagDto> ObtieneTagsGetionContacto(int IdGestion)
+        {
+            Parametro param = new Parametro("@ID_GESTION", IdGestion);
+
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Lista_Tags_Gestion_Contato", param, constructorTags);
+        }
+
+        public static Entity.WebUltimaGesPensionados ultimaGestionContacto(DataRow row)
         {
             return new Entity.WebUltimaGesPensionados
             {
@@ -269,10 +292,20 @@ namespace CRM.Business.Data
                 ges_fecha_compromete = row["ges_fecha_compromete"] != DBNull.Value ? Convert.ToDateTime(row["ges_fecha_compromete"]) : new DateTime(1900, 1, 1),
                 ges_descripcion_gst = row["ges_descripcion_gst"] != DBNull.Value ? row["ges_descripcion_gst"].ToString() : string.Empty,
                 ges_fecha_accion = row["ges_fecha_accion"] != DBNull.Value ? Convert.ToDateTime(row["ges_fecha_accion"]) : new DateTime(1900, 1, 1),
+                ges_id = row["ges_id"] != DBNull.Value ? Convert.ToInt32(row["ges_id"]) : 0,
+                tags = ObtieneTagsGetionContacto(Convert.ToInt32(row["ges_id"]))
 
             };
         }
 
+        public static Entity.TagDto constructorTags(DataRow row)
+        {
+            return new Entity.TagDto
+            {
+                id = row["gesTagId"] != DBNull.Value ? Convert.ToInt32(row["gesTagId"]) : 0,
+                nombre = row["gesTagNombre"] != DBNull.Value ? row["gesTagNombre"].ToString() : string.Empty,
+            };
+        }
 
         public static Entity.UltimoContactoPensionados ObtieneUtimaContactoPen(int Id, int Cod_oficina)
         {
@@ -374,5 +407,27 @@ namespace CRM.Business.Data
                 Cod_Sucursal = row["Cod_Sucursal"] != DBNull.Value ? Convert.ToInt32(row["Cod_Sucursal"]) : 0,
             };
         }
+
+        public static List<Entity.EstadoNOGestionPensionadoEntity> ListaSubEstadoNoGestPensionado(int egesNO_id)
+        {
+            Parametros param = new Parametros
+            {
+                new Parametro("@ID_NO_GEST", egesNO_id),
+            };
+
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_SubEstado_No_Gestion_pensionado", param, EstadoNoGestPensionado);
+        }
+
+        private static Entity.EstadoNOGestionPensionadoEntity EstadoNoGestPensionado(DataRow row)
+        {
+            return new Entity.EstadoNOGestionPensionadoEntity
+            {
+                egesNo_id = row["egesNo_id"] != DBNull.Value ? Convert.ToInt32(row["egesNo_id"]) : 0,
+                egesNo_nombre = row["egesNo_nombre"] != DBNull.Value ? row["egesNo_nombre"].ToString() : string.Empty,
+                ejesNo_id_padre = row["ejesNo_id_padre"] != DBNull.Value ? Convert.ToInt32(row["ejesNo_id_padre"]) : 0,
+            };
+        }
+
+
     }
 }
