@@ -15,14 +15,13 @@
         </tr>
     </thead>
     <tbody>
-
-        <tr v-for="item in prospectosVisados">
-            <td><a class="btn-link" data-toggle="modal" data-target="#modalGestion" href="#">{{item.rut}}</a></td>
-            <td>{{ item.razonSocial }}</td>
-            <td>{{ item.empleados }}</td>
-            <td>{{ item.clasificacion }}</td>
-            <td>{{ item.caja }}</td>
-            <td>{{ item.hito }}</td>
+        <tr v-for="item in prospectosVisados.leads">
+            <td><a class="btn-link" data-toggle="modal" data-target="#modalGestion" :data-lead="item.id" href="#">{{item.empresa.rut}}</a></td>
+            <td>{{ item.empresa.nombre }}</td>
+            <td>{{ item.empresa.cantidadEmpleados }}</td>
+            <td>{{ item.clase }}</td>
+            <td>{{ item.cajaOrigen }}</td>
+            <td>Fase 0</td>
         </tr>
     </tbody>
 </table>
@@ -32,7 +31,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Gestión de Prospectos Visados</h4>
+                <h4 class="modal-title" id="myModalLabel">GestiÃ³n de Prospectos Visados</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -42,8 +41,8 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active"><a href="#company-data" aria-controls="company-data" role="tab" data-toggle="tab">Empresa</a></li>
-                                <li role="presentation"><a href="#company-topics" aria-controls="company-topics" role="tab" data-toggle="tab">Tópicos</a></li>
-                                <li role="presentation"><a href="#history-info" aria-controls="history-info" role="tab" data-toggle="tab">Historial de Gestión</a></li>
+                                <li role="presentation"><a href="#company-topics" aria-controls="company-topics" role="tab" data-toggle="tab">TÃ³picos</a></li>
+                                <li role="presentation"><a href="#history-info" aria-controls="history-info" role="tab" data-toggle="tab">Historial de GestiÃ³n</a></li>
                                 <li role="presentation"><a href="#contact-info" aria-controls="contact-info" role="tab" data-toggle="tab">Contactos</a></li>
                             </ul>
 
@@ -54,61 +53,60 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label><strong>Rut</strong></label>
-                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.rut" readonly>
+                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.empresa.rut" readonly>
                                             </div>
                                         </div>
 
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <label><strong>Razón Social</strong></label>
-                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.razonSocial" readonly>
+                                                <label><strong>RazÃ³n Social</strong></label>
+                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.empresa.nombre" readonly>
                                             </div>
                                         </div>
 
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label><strong>Nro. Empleados</strong></label>
-                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.empleados" readonly>
+                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.empresa.cantidadEmpleados" readonly>
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label><strong>Caja Actual</strong></label>
-                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.caja" readonly>
+                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.cajaOrigen" readonly>
                                             </div>
                                         </div>
 
                                         <div class="col-md-7">
                                             <div class="form-group">
                                                 <label><strong>Holding</strong></label>
-                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.holding" readonly>
+                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.empresa.nombreHolding" readonly>
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label><strong>Segmento</strong></label>
-                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.segmento" readonly>
+                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.empresa.segmento" readonly>
                                             </div>
                                         </div>
 
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label><strong>Rubro</strong></label>
-                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.rubro" readonly>
+                                                <input type="text" class="form-control" v-bind:value="seleccionadoModal.empresa.rubro" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="company-topics">
                                     <div class="row mar-top">
-                                        <div v-for="topico in toipics" class="form-group pad-ver">
+                                        <div v-for="topico in toipics.vista" class="form-group pad-ver">
                                             <label class="col-md-2 control-label mar-top">{{ topico.nombre }}</label>
                                             <div class="col-md-10">
                                                 <div class="radio">
-
-                                                    <input :id="'tema_' + topico.id + '_nota_na'" class="magic-radio" value="na" type="radio" :name="'radio_' + topico.id">
+                                                    <input :id="'tema_' + topico.id + '_nota_na'" class="magic-radio" value="na" type="radio" :name="'radio_' + topico.id" checked>
                                                     <label :for="'tema_' + topico.id + '_nota_na'">N/A</label>
 
                                                     <input :id="'tema_' + topico.id + '_nota_1'" class="magic-radio" value="1" type="radio" :name="'radio_' + topico.id">
@@ -127,7 +125,7 @@
                                                     <label :for="'tema_' + topico.id + '_nota_5'">5</label>
                                                 </div>
                                                 <div>
-                                                    <input type="text" class="form-control" />
+                                                    <input type="text" :id="'text_' + topico.id" class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
@@ -139,39 +137,40 @@
 
                                         <div class="col-md-12">
                                             <ul class="list-group">
-                                                <li class="list-group-item">
-                                                    <span class="badge">Ini: 10-11-2019</span>
-                                                    <span class="badge alert-warning">Comp: 10-11-2019</span>
+                                                <li v-for="gestion in seleccionadoModal.gestiones" class="list-group-item">
                                                     <table>
                                                         <tr>
                                                             <td style="padding-right: 5px;"><strong>Ejecutivo</strong></td>
                                                             <td style="padding-right: 5px;">:</td>
-                                                            <td>17042783-1 | Carlos Pradenas Pérez</td>
+                                                            <td>{{ gestion.ejecutivoIngresoRut }} | {{ gestion.ejecutivoIngresoNombre }}</td>
                                                         </tr>
-
                                                     </table>
-                                                    <p class="mar-top">Se dijo todo lo que querian saber Se dijo todo lo que querian saber Se dijo todo lo que querian saber Se dijo todo lo que querian saber Se dijo todo lo que querian saber Se dijo todo lo que querian saber Se dijo todo lo que querian saber Se dijo todo lo que querian saber.......</p>
-                                                    <span class="label label-info">Tubo Comercial</span>
-                                                    <span class="label label-primary">001003 - Se encuietra con mucho texto \ Se agendara nueva reunion</span>
-                                                    <hr />
-                                                    <span class="label label-info">Topico</span>
+                                                    <p class="mar-top text-muted">{{ gestion.comentarios }}</p>
+                                                    <div class="bord-top mar-top pad-top">
+                                                        <span class="label label-primary">{{ gestion.resultado.resultadoPadre.nombre }} \ {{ gestion.resultado.nombre }}</span>
+                                                        <span class="label label-default">FG: {{ gestion.fechaCreacion | formatDate }}</span>
+                                                        <span class="label label-warning" v-show="gestion.fechaProximaGestion !== null">FC: {{ gestion.fechaProximaGestion | formatDate }}</span>
+                                                    </div>
                                                 </li>
-
                                             </ul>
                                         </div>
 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="contact-info">
-                                    <div class="row mar-top">
+                                    <div class="row pull-right">
+                                        <button class="btn btn-primary" id="bt-nuevo-contacto">Nuevo</button>
+                                        <button class="btn btn-primary" id="bt-nuevo-contacto-volver" style="display:none;">Volver</button>
+                                    </div>
+                                    <div class="row" id="wrap-contactos">
                                         <ul class="media-list">
-                                            <li v-for="itmContacto in seleccionadoModal.contactos" class="media">
-                                                <div class="media-left">
+                                            <li v-for="itmContacto in participees.contactos" class="media">
+                                                <div class="media-left" v-show="!itmContacto.global">
                                                     <a href="#">
                                                         <img class="media-object" style="width: 54px; height: 54px;" src="/Motor/Assets/img/profile-photos/1.png" alt="...">
                                                     </a>
                                                 </div>
-                                                <div class="media-body">
+                                                <div class="media-body" v-show="!itmContacto.global">
                                                     <h4 class="media-heading">{{ itmContacto.nombre }} ({{ itmContacto.cargo }})</h4>
                                                     <table style="width: 90%;">
                                                         <tr>
@@ -190,6 +189,58 @@
 
                                         </ul>
                                     </div>
+                                    <div class="row" id="wrap-add-contactos" style="display:none;">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Cargo</label>
+                                                        <select class="form-control" v-model="formularioContacto.cargo">
+                                                            <option value="">Selecciona</option>
+                                                            <option value="Gerente General">Gerente General</option>
+                                                            <option value="Gerente RRHH">Gerente RRHH</option>
+                                                            <option value="Directiva Sindical">Directiva Sindical</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Nombre</label>
+                                                        <input type="text" class="form-control" v-model="formularioContacto.nombre" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Correo</label>
+                                                        <input type="text" class="form-control" v-model="formularioContacto.correo" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Telefono</label>
+                                                        <input type="text" class="form-control" v-model="formularioContacto.telefono" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Celular</label>
+                                                        <input type="text" class="form-control" v-model="formularioContacto.celular" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <button class="btn btn-primary" id="bt-guardar-contacto" type="button" v-on:click="handleContactSubmit">Guardar</button>
+                                                </div>
+                                            </div>
+                                            <div class="row mar-top" id="mensajes_contacto">
+
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
 
                             </div>
@@ -199,19 +250,18 @@
                     <div class="col-xs-2">
                         <div class="row">
                             <div v-bind:class="clasificacionClass">
-                                <p class="text-center">Clasificación</p>
-                                <p class="text-center" style="font-size:22px !important;">{{ seleccionadoModal.clasificacion }}</p>
+                                <p class="text-center">ClasificaciÃ³n</p>
+                                <p class="text-center" style="font-size:22px !important;">{{ seleccionadoModal.clase }}</p>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="alert alert-info">
                                 <p class="text-center">Fase</p>
-                                <p class="text-center" style="font-size:18px !important;">{{ seleccionadoModal.hito }}</p>
+                                <p class="text-center" style="font-size:18px !important;">0</p>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="modal-footer">
@@ -219,25 +269,16 @@
                     <div class="row" style="text-align: left;">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Canal de Gestión</label>
+                                <label class="control-label">Canal de GestiÃ³n</label>
                                 <div>
                                     <div class="checkbox">
-
-                                        <!-- Inline Checkboxes -->
-                                        <input id="phoneType" class="magic-checkbox" type="checkbox">
-                                        <label for="phoneType">Telefónica</label>
-
-                                        <input id="emailType" class="magic-checkbox" type="checkbox">
-                                        <label for="emailType">Correo</label>
-
-                                        <input id="visitType" class="magic-checkbox" type="checkbox">
-                                        <label for="visitType">Visita</label>
-
+                                        <template v-for="chnl in canales">
+                                            <input :id="chnl.id+'Type'" class="magic-checkbox" type="checkbox" :value="chnl.id" v-model="formulario.canales">
+                                            <label :for="chnl.id+'Type'">{{ chnl.nombre }}</label>
+                                        </template>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
 
@@ -246,24 +287,19 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Participantes</label>
-                                <select v-model="selectedQuorum" id="managementQuorum" data-placeholder="Selecciona a los prticipantes de esta gestión..." multiple>
-                                    <option v-for="aitmContacto in seleccionadoModal.contactos" v-bind:value="aitmContacto.id">{{ aitmContacto.nombre }} ({{ aitmContacto.cargo }})</option>
-                                    <option value="all">Sindicato</option>
+                                <select id="managementQuorum" data-placeholder="Selecciona a los prticipantes de esta gestiÃ³n..." multiple>
+                                    <option v-for="aitmContacto in participees.contactos" v-bind:value="aitmContacto.id">{{ aitmContacto.nombre }} ({{ aitmContacto.cargo }})</option>
                                 </select>
                             </div>
-
-
                         </div>
                     </div>
                     <div class="row" style="text-align: left;">
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="control-label">Estado</label>
-                                <select class="form-control" id="parentStatus" name="parentStatus">
+                                <select v-model="formulario.estado" class="form-control" id="parentStatus" name="parentStatus" v-on:change="handleResultadosHijos($event.target.value)">
                                     <option value="">Seleccione</option>
-                                    <option value="001">Si Hay Interés</option>
-                                    <option value="002">No hay Interés</option>
-                                    <option value="003">No me pude Contactar</option>
+                                    <option v-for="padre in resultados.resultadosPadres" :value="padre.id">{{ padre.nombre }}</option>
                                 </select>
                             </div>
                         </div>
@@ -271,18 +307,16 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="control-label">Sub Estado</label>
-                                <select class="form-control" id="childStatus" name="childStatus">
+                                <select v-model="formulario.subEstado" class="form-control" id="childStatus" name="childStatus">
                                     <option value="">Seleccione</option>
-                                    <option value="001001">Ingreso de Comentarios</option>
-                                    <option value="001002">Agendé Reunión</option>
-                                    <option value="001003">Empresa Realmente Interesada</option>
+                                    <option v-for="hijo in resultados.resultadosHijos" :value="hijo.id">{{ hijo.nombre }}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group" id="fpg">
-                                <label class="control-label">Fecha Próxima Gestión</label>
-                                <div id="demo-dp-component">
+                                <label class="control-label">Fecha PrÃ³xima GestiÃ³n</label>
+                                <div id="dp-fecha-proxima-gestion">
                                     <div class="input-group date">
                                         <input type="text" class="form-control" id="nextCommitmentDate" name="nextCommitmentDate">
                                         <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
@@ -291,43 +325,19 @@
                             </div>
                         </div>
                     </div>
-                    @*<div class="row" style="text-align: left;">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Topicos</label>
-                                <select id="conversationTopics" data-placeholder="Busca los tópicos de conversación" multiple>
-                                    <option value="Licencias Medicas">Licencias Medicas</option>
-                                    <option value="Credito">Credito</option>
-                                </select>
-                            </div>
-
-
-                        </div>
-                    </div>*@
                     <div class="row" style="text-align: left;">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">Comentarios</label>
-                                <textarea placeholder="Comentarios" rows="3" class="form-control" id="comments" name="comments"></textarea>
+                                <textarea v-model="formulario.comentarios" placeholder="Comentarios" rows="3" class="form-control" id="comments" name="comments"></textarea>
                             </div>
                         </div>
                     </div>
-
-
-
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <div id="mensajes" class="mar-btm"></div>
+                    <button type="button" class="btn btn-default bloquear-onsubmit" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary bloquear-onsubmit" v-on:click="handleSubmit">Guardar</button>
                 </form>
-
-
-
-
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
