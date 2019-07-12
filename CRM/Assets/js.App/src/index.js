@@ -421,6 +421,39 @@ $(function () {
                 });
             });
         },
+        ModalCargaRB_ANGT: function () {
+            $("#divInteresNoInteresado").html("");
+            $("#divInteresSI").html("");
+            $("#divInteresTerminada").html("");
+
+            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 3 }, function (datos) {
+                $.each(datos, function (i, e) {
+                    if (e.eges_id != '301' && e.eges_id != '302') {
+                        var lb = $('<label>').prop('for', `interes-rdInteresNoInteresado-${e.eges_id}`).text(e.eges_nombre);
+                        var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresNoInteresado', id: `interes-rdInteresNoInteresado-${e.eges_id}` }).val(e.eges_id)
+                        var dv = $('<div>').addClass('radio').css('margin-top', '9px').append(inp).append(lb).append($('<div>').prop({ id: `divInteresNoInteresadoSub-${e.eges_id}` }).addClass('activarSub' + e.eges_id).css('display', 'none').css('margin-left', '40px'))
+                        $("#divInteresNoInteresado").append(dv)
+                    }
+                });
+            });
+
+            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 1 }, function (datos) {
+                $.each(datos, function (i, e) {
+                    var lb = $('<label>').prop('for', `contacto-rdInteresSi-${e.eges_id}`).text(e.eges_nombre);
+                    var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresSI', id: `contacto-rdInteresSi-${e.eges_id}` }).val(e.eges_id)
+                    var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
+                    $("#divInteresSI").append(dv)
+                });
+            });
+            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 2 }, function (datos) {
+                $.each(datos, function (i, e) {
+                    var lb = $('<label>').prop('for', `contacto-rdInteresTerminada-${e.eges_id}`).text(e.eges_nombre);
+                    var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresTerminada', id: `contacto-rdInteresTerminada-${e.eges_id}` }).val(e.eges_id)
+                    var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
+                    $("#divInteresTerminada").append(dv)
+                });
+            });
+        },
         ModalCargaRBContactoSI: function () {
             $("#dvRbMedioSi").html("");
             $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estado-gestion-pensionados", { Padre: 6 }, function (datos) {
@@ -932,7 +965,7 @@ $(function () {
                 title: 'Rut',
                 sortable: true,
                 formatter: function (value, row, index) {
-                    return '<a href="#" class="btn-link" data-target="#mdl_data" data-toggle="modal" data-tieneEncuesta="' + row.TieneEncuesta + '" data-periodo="' + row.Seguimiento.Periodo + '" data-rutafipsu="' + value + '" data-rut="' + value + '-' + row.Seguimiento.Afiliado_Dv + '" data-tipo="' + row.Seguimiento.TipoAsignacion + '">' + value.toMoney(0).toString() + '-' + row.Seguimiento.Afiliado_Dv + '</a>';
+                    return '<a href="#" class="btn-link" data-target="#mdl_data" data-toggle="modal" data-tieneEncuesta="' + row.TieneEncuesta + '" data-periodo="' + row.Seguimiento.Periodo + '" data-rutafipsu="' + value  + '" data-rut="' + value + '-' + row.Seguimiento.Afiliado_Dv + '" data-tipo="' + row.Seguimiento.TipoAsignacion + '">' + value.toMoney(0).toString() + '-' + row.Seguimiento.Afiliado_Dv + '</a>';
                 }
             },
             {
@@ -2542,6 +2575,20 @@ $(function () {
             estado_gestion: ges_subEstado_interes,
             tags_conforme: [],
             tags_noQuiere: []
+        }
+
+        if (ges_estado_interes == '3' && $('input:radio[name=gRbInteresNoInteresado]:checked').val() == '303' && $('#selectNoInteresadoConforme').val().length == 0) {
+
+            $.niftyNoty({
+                type: 'danger',
+                message: 'Debe seleccionar una opción',
+                container: '#msjMantPensionado',
+                timer: 4000
+            });
+            return false;
+        }
+        else {
+            webSaveGestionContPensionado.tags_conforme = $('#selectNoInteresadoConforme').val();
         }
 
         if (ges_estado_interes == '3' && $('input:radio[name=gRbInteresNoInteresado]:checked').val() == '303' && $('#selectNoInteresadoConforme').val().length == 0) {

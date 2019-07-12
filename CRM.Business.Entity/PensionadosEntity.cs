@@ -222,6 +222,14 @@ namespace CRM.Business.Entity
 
     }
 
+    public class EstadoNOGestionPensionadoEntity
+    {
+        public int egesNo_id { get; set; }
+        public string egesNo_nombre { get; set; }
+        public int ejesNo_id_padre { get; set; }
+
+    }
+
 
 
 }
