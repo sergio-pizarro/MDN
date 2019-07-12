@@ -362,6 +362,7 @@
     <Content Include="Assets\js.App\printThis.js" />
     <Content Include="Assets\js.App\src\acuerdo_pagos.js" />
     <Content Include="Assets\js.App\src\BuscadorGrilla.js" />
+    <Content Include="Assets\js.App\src\empresas.incorporaciones.prospectos-visados.reasignacion.js" />
     <Content Include="Assets\js.App\src\empresas.incorporaciones.prospectos-visados.js" />
     <Content Include="Assets\js.App\src\empresas-carteras.js" />
     <Content Include="Assets\js.App\src\empresas-leads.js" />
@@ -505,6 +506,7 @@
     <Content Include="Areas\AppPage\Views\Update\ArchivoGP.cshtml" />
     <Content Include="Areas\EmpresasPage\Views\Inicio\DirectoresLaborales.cshtml" />
     <Content Include="Areas\EmpresasPage\Views\Inicio\Campanias.cshtml" />
+    <Content Include="Areas\EmpresasPage\Views\Incorporaciones\partials\Reasignaciones.cshtml" />
     <Content Include="Areas\AppPage\Views\Cosal\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />

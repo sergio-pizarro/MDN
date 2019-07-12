@@ -17,6 +17,10 @@
                     <li class="">
                         <a data-toggle="tab" href="#tab-2" aria-expanded="false" id="tab_visados" class="tab-principal"><strong>Prospectos Visados</strong></a>
                     </li>
+
+                    <li class="">
+                        <a data-toggle="tab" href="#tab-3" aria-expanded="false" id="tab_visados" class="tab-principal"><strong>Reasignaciones</strong></a>
+                    </li>
                 </ul>
 
                 <!--Tabs Content-->
@@ -231,6 +235,15 @@
                             </div>
                         </div>
                     </div>
+                    <div id="tab-3" class="tab-pane fade">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    @Html.Partial("Partials/Reasignaciones")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -242,7 +255,10 @@
     <!--Bootstrap Table [ OPTIONAL ]-->
     <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
-    <script src="~/Assets/js/vue.min.js"></script>
+    <!--Bootstrap Wizard [ OPTIONAL ]-->
+    <script src="~/Assets/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="~/Assets/js/vue.js"></script>
     <script src="~/Assets/js.App/src/empresas.incorporaciones.prospectos-visados.js"></script>
+    <script src="~/Assets/js.App/src/empresas.incorporaciones.prospectos-visados.reasignacion.js"></script>
     <script src="~/Assets/js.App/src/empresas-prospectos.js"></script>
 }
