@@ -1332,9 +1332,9 @@ namespace CRM.Controllers
 
         [HttpGet]
         [Route("lista-pensionado")]
-        public IEnumerable<PensionadosEntity> ListaPensionado(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, string rutEjecutivo)
+        public IEnumerable<PensionadosEntity> ListaPensionado(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, int EstadoSubGestion, string rutEjecutivo)
         {
-            return PensionadosDataAccess.ListaPensionados(Token, Nombre, Comuna, Prioridad, EstadoGestion, rutEjecutivo);
+            return PensionadosDataAccess.ListaPensionados(Token, Nombre, Comuna, Prioridad, EstadoGestion, EstadoSubGestion, rutEjecutivo);
         }
 
         [HttpGet]
@@ -1584,6 +1584,15 @@ namespace CRM.Controllers
         {
             return PensionadosDataAccess.ListaEstadoGest();
         }
+
+
+        [HttpGet]
+        [Route("lista-estado-sub-gestion")]
+        public IEnumerable<EstadoGestionPensionadoEntity> ListaSubEstadoGestion( int padre)
+        {
+            return PensionadosDataAccess.ListaSubEstadoGest(padre);
+        }
+
 
         // PENSIONADOS PROSPECTOS
 

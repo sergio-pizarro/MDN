@@ -210,6 +210,15 @@ namespace CRM.Business.Entity
         public string Comuna { get; set; }
         public string Rut_Ejecutivo { get; set; }
         public int Cod_Sucursal { get; set; }
+        public string Nombre_ejecutivo { get; set; }
+
+    }
+
+    public class EstadoNOGestionPensionadoEntity
+    {
+        public int egesNo_id { get; set; }
+        public string egesNo_nombre { get; set; }
+        public int ejesNo_id_padre { get; set; }
 
     }
 

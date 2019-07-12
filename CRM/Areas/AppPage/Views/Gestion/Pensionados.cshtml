@@ -49,7 +49,15 @@
                         <div class="col-sm-2 text-xs-center">
                             <div class="form-group">
                                 <label class="control-label">Estado Gestion</label>
-                                <select id="dllEstadoGestion" class="form-control"></select>
+                                <select id="dllEstadoGestionPadre" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 text-xs-center">
+                            <div class="form-group">
+                                <label class="control-label">Sub-Estado Gestion</label>
+                                <select id="dllEstadoGestion" class="form-control">
+                                    <option value="0">Todos</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-2 text-xs-center" id="divAgente" style="display:none;">
@@ -110,7 +118,7 @@
                                 <th data-field="FONOPARTICULAR" data-sortable="true">Fono P.</th>
                                 @*<th data-field="EMAIL" data-sortable="true">Mail</th>*@
                                 <th data-field="RUTEJECUTIVO" data-sortable="true">Asignado</th>
-                                <th data-field="NOM_GESTION" data-sortable="true">Estado Gestion</th>
+                                <th data-field="NOM_GESTION" data-sortable="true">Sub-Estado</th>
                             </tr>
                         </thead>
                     </table>

@@ -6,6 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="~/Assets/img/favicon.ico" />
+    <link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
 
     @*
         <meta http-equiv="cache-control" content="max-age=0" />
@@ -19,24 +20,67 @@
     <title>Motor de Negocios</title>
     <!--STYLESHEET-->
     <!--=================================================-->
-    <!--Open Sans Font [ REQUIRED ]-->
+    <!--Open Sans Font [ OPTIONAL ]-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-    <!--App Styles & dependences [ REQUIRED ]-->
-    <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Assets/css/nifty.min.css" rel="stylesheet" />
-    <link href="~/Assets/css/themes/type-a/theme-ocean.min.css" rel="stylesheet" />
-    <link href="~/Assets/css/demo/nifty-demo-icons.min.css" rel="stylesheet" />
-    <link href="~/Assets/premium/icon-sets/icons/line-icons/premium-line-icons.min.css" rel="stylesheet" />
-    <link href="~/Assets/plugins/fooTable/css/footable.core.min.css" rel="stylesheet" />
-    <link href="~/Assets/plugins/ionicons/css/ionicons.min.css" rel="stylesheet" />
-    <link href="~/Assets/plugins/pace/pace.min.css" rel="stylesheet" />
-    <link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet" />
-    <link href="~/Assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
-    <link href="~/Assets/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+
+
+    <!--Bootstrap Stylesheet [ REQUIRED ]-->
+    <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!--Nifty Stylesheet [ REQUIRED ]-->
+    <link href="~/Assets/css/nifty.min.css" rel="stylesheet">
+    <link href="~/Assets/css/themes/type-a/theme-ocean.min.css" rel="stylesheet">
+
+
+    <!--Nifty Premium Icon [ DEMONSTRATION ]-->
+    <link href="~/Assets/css/demo/nifty-demo-icons.min.css" rel="stylesheet">
+
+    <!--FooTable [ OPTIONAL ]-->
+    <link href="~/Assets/plugins/fooTable/css/footable.core.css" rel="stylesheet">
+
+    <!--Ion Icons [ OPTIONAL ]-->
+    <link href="~/Assets/plugins/ionicons/css/ionicons.min.css" rel="stylesheet">
+
+    <!--Bootstrap Datepicker [ OPTIONAL ]-->
+    <link href="~/Assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+
     <link href="~/Assets/plugins/chosen/chosen.min.css" rel="stylesheet" />
     <link href="~/Assets/plugins/magic-check/css/magic-check.min.css" rel="stylesheet" />
+
+
+    <!--JAVASCRIPT-->
+    <!--=================================================-->
+    <!--Pace - Page Load Progress Par [OPTIONAL]-->
+    <link href="~/Assets/plugins/pace/pace.min.css" rel="stylesheet">
     <link href="~/Assets/css.App/print.css" rel="stylesheet">
-    @RenderSection("styles", false)
+
+    <script src="~/Assets/plugins/clipboard/dist/clipboard.js"></script>
+    <!--jQuery [ REQUIRED ]-->
+    <script src="~/Assets/js/jquery.min.js"></script>
+    <script src="~/Assets/plugins/pace/pace.min.js"></script>
+
+    <script src="~/Assets/js.App/Conf.js?v=@Html.Raw(CRM.Areas.AppPage.Controllers.Jasheo.CurrentDateHash)"></script>
+    <script src="~/Assets/js.App/Ext.js?v=@Html.Raw(CRM.Areas.AppPage.Controllers.Jasheo.CurrentDateHash)"></script>
+
+    <!--BootstrapJS [ RECOMMENDED ]-->
+    <script src="~/Assets/js/bootstrap.min.js"></script>
+
+
+    <!--NiftyJS [ RECOMMENDED ]-->
+    <script src="~/Assets/js/nifty.js"></script>
+
+    <!--Premium Line Icons [ OPTIONAL ]-->
+    <link href="~/Assets/premium/icon-sets/icons/line-icons/premium-line-icons.min.css" rel="stylesheet">
+
+    <!--Modals [ SAMPLE ]-->
+    <script src="~/Assets/js/demo/ui-modals.js"></script>
+
+    <!--Icons [ SAMPLE ]-->
+    <script src="~/Assets/js/demo/icons.js"></script>
+
+    <!--Bootstrap Datepicker [ OPTIONAL ]-->
+    <script src="~/Assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 
 </head>
 
@@ -230,6 +274,88 @@
                                             <img class="img-circle img-sm img-border" src="~/Assets/img/profile-photos/1.png" alt="Profile Picture">
                                         </div>
                                         <a href="#profile-nav">
+                                            <script type="text/javascript">
+                                                $(function () {
+
+                                                    var oficinas = [];
+                                                    oficinas[0] = "Sin Información"
+                                                    oficinas[1] = "Huérfanos"
+                                                    oficinas[3] = "San Bernardo"
+                                                    oficinas[4] = "Talagante"
+                                                    oficinas[5] = "Melipilla"
+                                                    oficinas[6] = "Metropolitana"
+                                                    oficinas[8] = "Gran Avenida"
+                                                    oficinas[11] = "Arica"
+                                                    oficinas[13] = "Iquique"
+                                                    oficinas[21] = "Tocopilla"
+                                                    oficinas[22] = "Antofagasta"
+                                                    oficinas[23] = "Calama"
+                                                    oficinas[24] = "María Elena"
+                                                    oficinas[31] = "Copiapó"
+                                                    oficinas[32] = "Vallenar"
+                                                    oficinas[41] = "Ovalle"
+                                                    oficinas[42] = "La Serena"
+                                                    oficinas[43] = "Coquimbo"
+                                                    oficinas[44] = "Illapel"
+                                                    oficinas[45] = "Vicuña"
+                                                    oficinas[51] = "Viña del Mar"
+                                                    oficinas[52] = "San Antonio"
+                                                    oficinas[53] = "Quillota"
+                                                    oficinas[54] = "Valparaíso"
+                                                    oficinas[56] = "Los Andes"
+                                                    oficinas[57] = "La Calera"
+                                                    oficinas[58] = "Quilpué"
+                                                    oficinas[59] = "Casablanca"
+                                                    oficinas[61] = "Rancagua"
+                                                    oficinas[62] = "San Fernando"
+                                                    oficinas[71] = "Curicó"
+                                                    oficinas[72] = "Talca"
+                                                    oficinas[73] = "Linares"
+                                                    oficinas[74] = "Constitución"
+                                                    oficinas[81] = "Chillán"
+                                                    oficinas[82] = "Concepción"
+                                                    oficinas[84] = "Los Ángeles"
+                                                    oficinas[85] = "Talcahuano"
+                                                    oficinas[86] = "San Carlos"
+                                                    oficinas[87] = "Cañete"
+                                                    oficinas[88] = "Coronel"
+                                                    oficinas[89] = "Mulchen"
+                                                    oficinas[92] = "Temuco"
+                                                    oficinas[93] = "Angol"
+                                                    oficinas[97] = "Victoria"
+                                                    oficinas[101] = "Valdivia"
+                                                    oficinas[102] = "Osorno"
+                                                    oficinas[103] = "Puerto Montt"
+                                                    oficinas[104] = "Castro"
+                                                    oficinas[105] = "Puerto Varas"
+                                                    oficinas[106] = "La Unión"
+                                                    oficinas[107] = "Ancud"
+                                                    oficinas[108] = "Quellón"
+                                                    oficinas[109] = "Calbuco"
+                                                    oficinas[110] = "Puerto Aysén"
+                                                    oficinas[111] = "Coyhaique"
+                                                    oficinas[121] = "Puerto Natales"
+                                                    oficinas[122] = "Punta Arenas"
+                                                    oficinas[130] = "La Florida"
+                                                    oficinas[133] = "Puente Alto"
+                                                    oficinas[134] = "Independencia"
+                                                    oficinas[135] = "Maipú"
+                                                    oficinas[136] = "Quilicura"
+                                                    oficinas[137] = "Centro Cívico"
+                                                    oficinas[138] = "Providencia"
+                                                    oficinas[170] = "Las Condes"
+                                                    oficinas[171] = "Ñuñoa"
+                                                    oficinas[172] = "Huechuraba"
+                                                    oficinas[174] = "Estación Central"
+
+                                                    if (getCookie("Usuario") == "Vega Salgado, M.Eugenia" || getCookie("Usuario") == "Garcia Gonzalez,Alejandra") {
+                                                        $("#nombre_usuario").html(getCookie("Usuario").OrdenaNombre() + '<br/><small>' + '</small><br/><small>' + "Gerencia de Personas" + '</small>')
+                                                    }
+                                                    else {
+                                                        $("#nombre_usuario").html(getCookie("Usuario").OrdenaNombre() + '<br/><small>' + getCookie("Cargo") + '</small><br/><small>' + oficinas[getCookie("Oficina")] + '</small>')
+                                                    }
+                                                })
+                                            </script>
                                             <p class="mnp-name" id="nombre_usuario">N/A</p>
                                         </a>
                                     </div>
@@ -284,11 +410,37 @@
     <!--===================================================-->
     <!-- END OF CONTAINER -->
 
-    <!--JAVASCRIPT-->
-    <!--=================================================-->
-    <!--App General dependences [ REQUIRED ]-->
-    <script src="~/Assets/js.App/bundle.min.js?g=@Guid.NewGuid().ToString()"></script>
     @RenderSection("script", false)
 
+    <script src="~/Assets/js/jquery.rut.chileno.min.js"></script>
+    <script src="~/Assets/plugins/masked-input/jquery.maskedinput.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+
+            var support = getCookie('X-Support-Token');
+            var token = getCookie('Token');
+            if (support != null && support != '' && support != token) {
+                $('#dropdown-user').show();
+                $('.usuario-soporte').show();
+            }
+
+            $('#btVolverListado').on('click', function (e) {
+                //Kill sesion e ir a inicio soporte
+                $.SecGetJSON(BASE_URL + "/motor/api/Auth/kill", function (respuesta) {
+                    //Limpiar cookies y variables locales y de sesion
+                    var cookies = document.cookie.split(";");
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i];
+                        var eqPos = cookie.indexOf("=");
+                        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                    }
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    setTimeout("location.href = '/motor/App/Inicio'", 1000);
+                });
+            });
+        });
+    </script>
 </body>
 </html>

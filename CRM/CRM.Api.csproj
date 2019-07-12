@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\AppPage\Controllers\CosalController.cs" />
     <Compile Include="Areas\AppPage\Controllers\UpdateController.cs" />
     <Compile Include="Areas\EmpresasPage\Controllers\CarteraEmpresaEjecutivoController.cs" />
     <Compile Include="Areas\EmpresasPage\Controllers\CarteraEmpresasController.cs" />
@@ -283,6 +284,7 @@
     <Compile Include="Controllers\CarteraEmpresasController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\ContactabilidadController.cs" />
+    <Compile Include="Controllers\CosalController.cs" />
     <Compile Include="Controllers\EmpresasController.cs" />
     <Compile Include="Controllers\FichaEmpresasController.cs" />
     <Compile Include="Controllers\InformeFFVVController.cs" />
@@ -358,6 +360,7 @@
     <Content Include="Assets\js.App\Conf.js" />
     <Content Include="Assets\js.App\Ext.js" />
     <Content Include="Assets\js.App\printThis.js" />
+    <Content Include="Assets\js.App\src\acuerdo_pagos.js" />
     <Content Include="Assets\js.App\src\BuscadorGrilla.js" />
     <Content Include="Assets\js.App\src\empresas.incorporaciones.prospectos-visados.js" />
     <Content Include="Assets\js.App\src\empresas-carteras.js" />
@@ -367,6 +370,7 @@
     <Content Include="Assets\js.App\src\ficha-empresa.js" />
     <Content Include="Assets\js.App\src\index.js" />
     <Content Include="Assets\js.App\src\inicio.js" />
+    <Content Include="Assets\js.App\src\normalizacion.js" />
     <Content Include="Assets\js.App\src\oferta.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -501,6 +505,7 @@
     <Content Include="Areas\AppPage\Views\Update\ArchivoGP.cshtml" />
     <Content Include="Areas\EmpresasPage\Views\Inicio\DirectoresLaborales.cshtml" />
     <Content Include="Areas\EmpresasPage\Views\Inicio\Campanias.cshtml" />
+    <Content Include="Areas\AppPage\Views\Cosal\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

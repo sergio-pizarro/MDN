@@ -13,7 +13,7 @@ namespace CRM.Business.Data
 {
     public static class PensionadosDataAccess
     {
-        public static List<Entity.PensionadosEntity> ListaPensionados(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, string rutEjecutivo)
+        public static List<Entity.PensionadosEntity> ListaPensionados(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, int EstadoSubGestion, string rutEjecutivo)
         {
             Parametros param = new Parametros
             {
@@ -23,6 +23,7 @@ namespace CRM.Business.Data
                 new Parametro("@PRIORIDAD",Prioridad),
                 new Parametro("@RUT_EJECUTIVO",rutEjecutivo),
                 new Parametro("@ESTADO_GES",EstadoGestion),
+                new Parametro("@SUB_ESTADO_GES",EstadoSubGestion),
             };
             return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_ListaPensionados", param, ProyePensionado);
         }
@@ -340,6 +341,16 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Lista_Estado_Gestion", EstadoGest);
         }
 
+        public static List<Entity.EstadoGestionPensionadoEntity> ListaSubEstadoGest(int padre)
+        {
+            Parametros pram = new Parametros
+            {
+                new Parametro("@PADRE", padre),
+            };
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Lista_Sub_Estado_Gestion", pram, EstadoGest);
+        }
+
+
         private static Entity.EstadoGestionPensionadoEntity EstadoGest(DataRow row)
         {
             return new Entity.EstadoGestionPensionadoEntity
@@ -405,6 +416,7 @@ namespace CRM.Business.Data
                 Comuna = row["Comuna"] != DBNull.Value ? row["Comuna"].ToString() : string.Empty,
                 Rut_Ejecutivo = row["Rut_Ejecutivo"] != DBNull.Value ? row["Rut_Ejecutivo"].ToString() : string.Empty,
                 Cod_Sucursal = row["Cod_Sucursal"] != DBNull.Value ? Convert.ToInt32(row["Cod_Sucursal"]) : 0,
+                Nombre_ejecutivo = row["Nombre_ejecutivo"] != DBNull.Value ? row["Nombre_ejecutivo"].ToString() : string.Empty,
             };
         }
 

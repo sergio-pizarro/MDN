@@ -73,6 +73,7 @@
     <Compile Include="ContactoafiliadoEntity.cs" />
     <Compile Include="ContactoEntity.cs" />
     <Compile Include="Contracts\IResultado.cs" />
+    <Compile Include="CosalEntity.cs" />
     <Compile Include="CuestionarioEntity.cs" />
     <Compile Include="DesarrolloEntity.cs" />
     <Compile Include="DotacionEntity.cs" />
