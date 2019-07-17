@@ -2993,7 +2993,7 @@ $(function () {
                 Prioridad: $('#dllPriorodadPen').val(),
                 EstadoGestion: $('#dllEstadoGestionPadre').val(),
                 EstadoSubGestion: $('#dllEstadoGestion').val(),
-                rutEjecutivo: RutEjec,
+                rutEjecutivo: RutEjec
             }
         });
     });

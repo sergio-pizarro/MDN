@@ -230,7 +230,6 @@ namespace CRM.Controllers
                     {
                         dynamic respuesta = SimpleJson.DeserializeObject(response.Content);
 
-
                         System.Web.HttpCookie myCookie = new System.Web.HttpCookie("Token");
                         myCookie.Value = response.Headers.Where(x => x.Name == "Token").FirstOrDefault().Value.ToString();
                         myCookie.Expires = DateTime.Now.AddDays(5);
@@ -493,7 +492,7 @@ namespace CRM.Controllers
                             Response.Cookies.Add(myCookie);
 
                             System.Web.HttpCookie rutCookie = new System.Web.HttpCookie("Rut");
-                            rutCookie.Value = RutEjecutivo;
+                            rutCookie.Value = RutEjecutivo.PadLeft(10, '0');
                             rutCookie.Expires = DateTime.Now.AddDays(5);
                             Response.Cookies.Add(rutCookie);
 
