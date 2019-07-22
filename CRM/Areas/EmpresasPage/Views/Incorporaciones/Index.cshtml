@@ -19,7 +19,7 @@
                     </li>
 
                     <li class="">
-                        <a data-toggle="tab" href="#tab-3" aria-expanded="false" id="tab_visados" class="tab-principal"><strong>Reasignaciones</strong></a>
+                        <a data-toggle="tab" href="#tab-3" aria-expanded="false" id="tab_visados_reasigna" class="tab-principal" style="display: none;"><strong>Reasignaciones</strong></a>
                     </li>
                 </ul>
 
@@ -261,4 +261,16 @@
     <script src="~/Assets/js.App/src/empresas.incorporaciones.prospectos-visados.js"></script>
     <script src="~/Assets/js.App/src/empresas.incorporaciones.prospectos-visados.reasignacion.js"></script>
     <script src="~/Assets/js.App/src/empresas-prospectos.js"></script>
+    <script>
+        $(function () {
+
+            //getCookie('Oficina');
+            //getCookie('Cargo');
+            if ((getCookie('Oficina') === '992' && getCookie('Cargo') === 'Agente') || getCookie('Cargo') === 'Administrador Sistema') {
+                $('#tab_visados_reasigna').show();
+            }
+
+
+        });
+    </script>
 }

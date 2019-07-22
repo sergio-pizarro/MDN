@@ -45,6 +45,18 @@
             </div>
         </div>
     </div>
+    <div class="row" v-if="vistaElevada">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label">Ejecutivo</label>
+                <select class="form-control" id="filtrar-ejecutivo" v-model="filtros.rutEjecutivo" v-on:change="handleFilterTable">
+                    <option value="">Todos</option>
+                    <option :value="rutLogeado">Mios</option>
+                    <option v-for="ejecutivo in ejecutivos" :value="ejecutivo.Rut" v-if="ejecutivo.Rut != rutLogeado">{{ ejecutivo.Nombre }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
     <div class="row mar-btm">
         <div class="col-md-3">
             <button type="button" class="btn btn-primary" v-on:click="resetFilters">Limpiar Filtros</button>
@@ -71,6 +83,7 @@
                 <th data-sortable="true" data-field="cajaOrigen">Caja Origen</th>
                 <th data-sortable="true" data-field="fechaCompromisoPrimeraGestion" data-formatter="prospectosVisados_formatPrimerCompromiso">Comp. Primera Gesti&oacute;n</th>
                 <th data-sortable="false" data-field="estado" data-formatter="prospectosVisados_formatBanderaGestion">Gestionado</th>
+                <th data-sortable="false" data-visible="false" data-formatter="prospectosVisados_formatNombreEjecutivoAsignado" data-field="ejecutivo">Ejecutivo</th>
             </tr>
         </thead>
     </table>

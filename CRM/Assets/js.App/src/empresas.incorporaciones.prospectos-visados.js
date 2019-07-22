@@ -39,7 +39,11 @@ var app = new Vue({
             contactos: [],
             actuales: []
         },
+        rutLogeado: getCookie('Rut'),
+        cargoLogeado: getCookie('Cargo'),
+        oficinaLogeado: getCookie('Oficina'),
         canales: [],
+        ejecutivos: [],
         resultados: {
             resultadosPadres: [],
             resultadosHijos: [],
@@ -71,12 +75,18 @@ var app = new Vue({
             clase: '',
             fechaInicioCompromiso: '',
             fechaFinCompromiso: '',
-            busquedaEmpresa: ''
+            busquedaEmpresa: '',
+            rutEjecutivo: ''
         }
     },
-    mounted: function () {
+    mounted: async function () {
         this.fetchLeads();
         this.fetchTopicos();
+        
+        if (this.vistaElevada) {
+            this.ejecutivos = await this.fetchEjecutivos();
+            $('#table-conche').bootstrapTable('showColumn', 'ejecutivo');
+        }
     },
     updated: async function () {
         if (this.participees.actuales !== this.participees.contactos) {
@@ -105,8 +115,16 @@ var app = new Vue({
         },
         fetchLeads() {
             /**/
+            let q = {};
+            if (this.vistaElevada) {
+                q.oficina = this.oficinaLogeado;
+            } else {
+                q.rutEjecutivo = this.rutLogeado;
+            }
+
             $('#table-conche').bootstrapTable({
-                url: `http://${motor_api_server}:4002/lead-visados?rutEjecutivo=${rutEjecutivo}`
+                url: `http://${motor_api_server}:4002/lead-visados`,
+                query: q
             });
         },
         fetchLead(id) {
@@ -364,6 +382,16 @@ var app = new Vue({
             let update = true;
             let filtros = {};
 
+
+            if (this.vistaElevada) {
+                filtros.oficina = this.oficinaLogeado;
+                if (this.filtros.rutEjecutivo !== '') {
+                    filtros.rutEjecutivo = this.filtros.rutEjecutivo;
+                }
+            } else {
+                filtros.rutEjecutivo = this.rutLogeado;
+            }
+
             if (this.filtros.estadoGestion !== '') {
                 filtros.estado = this.filtros.estadoGestion;
             }
@@ -387,7 +415,7 @@ var app = new Vue({
 
             if (update) {
                 $("#table-conche").bootstrapTable('refresh', {
-                    url: `http://${motor_api_server}:4002/lead-visados?rutEjecutivo=${rutEjecutivo}`,
+                    url: `http://${motor_api_server}:4002/lead-visados`,
                     query: filtros
                 });
             }
@@ -427,6 +455,16 @@ var app = new Vue({
             $("#table-conche").bootstrapTable('refresh', {
                 url: `http://${motor_api_server}:4002/lead-visados?rutEjecutivo=${rutEjecutivo}`
             });
+        },
+        fetchEjecutivos() {
+            return fetch(`${BASE_URL}/motor/api/perfil-empresas/dotacion-oficina`, {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    'Token': getCookie('Token')
+                }
+            }).then(response => response.json());
+
         }
     },
     computed: {
@@ -437,6 +475,9 @@ var app = new Vue({
                 'alert-warning': this.seleccionadoModal.clase === 'B',
                 'alert-danger': this.seleccionadoModal.clase === 'C'
             };
+        },
+        vistaElevada: function () {
+            return ((this.cargoLogeado === 'Agente' && this.oficinaLogeado === '992') || this.cargoLogeado === 'Administrador Sistema');
         }
     }
 });
@@ -552,4 +593,8 @@ function prospectosVisados_formatPrimerCompromiso(value, row, index) {
 
 function prospectosVisados_formatBanderaGestion(value, row, index) {
     return row.gestiones.length > 0 ? `Gestionado` : `No Gestionado`;
+}
+
+function prospectosVisados_formatNombreEjecutivoAsignado(value, row, index) {
+    return $(`#filtrar-ejecutivo option[value='${row.ejecutivoIngreso}'`).text();
 }

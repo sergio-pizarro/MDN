@@ -71,7 +71,10 @@ var appReasignaciones = new Vue({
                 $.niftyNoty({
                     type: 'success',
                     icon: 'pli-like-2 icon-2x',
-                    message: 'Gestión Guardada correctamente.'
+                    message: 'Gestión Guardada correctamente.',
+                    onHide: function () {
+                        location.reload();
+                    }
                 });
             });
         }
