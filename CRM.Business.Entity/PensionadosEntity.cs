@@ -55,6 +55,7 @@ namespace CRM.Business.Entity
         public string Comuna { get; set; }
         public int id_Asign { get; set; }
         public string Mail { get; set; }
+        public string codigo { get; set; }
     }
 
     public class EstadoGestionPensionadoEntity
@@ -221,15 +222,5 @@ namespace CRM.Business.Entity
         public int ejesNo_id_padre { get; set; }
 
     }
-
-    public class EstadoNOGestionPensionadoEntity
-    {
-        public int egesNo_id { get; set; }
-        public string egesNo_nombre { get; set; }
-        public int ejesNo_id_padre { get; set; }
-
-    }
-
-
 
 }

@@ -2992,7 +2992,7 @@ $(function () {
                 Comuna: $('#dllComunaPen').val(),
                 Prioridad: $('#dllPriorodadPen').val(),
                 EstadoGestion: $('#dllEstadoGestionPadre').val(),
-                EstadoSubGestion: $('#dllEstadoGestion').val(),
+                //EstadoSubGestion: $('#dllEstadoGestion').val(),
                 rutEjecutivo: RutEjec,
             }
         });
@@ -3049,7 +3049,7 @@ $(function () {
                 $.SecGetJSON(BASE_URL + "/motor/api/Gestion/print-pensionados", { id_Asign: result[i] }, function (respuesta) {
                     var newTable = $('#base-table').clone();
                     newTable.show().appendTo('#tblPrinPensionado')
-                    newTable.find(`td:contains('([id])')`).text('ID: ' + result[i]);
+                    newTable.find(`td:contains('([id])')`).text('ID: ' + result[i] + ' / CODIGO: ' + respuesta[0].codigo);
                     newTable.find(`td:contains('([email])')`).text('Email: ' + respuesta[0].Mail);
                     newTable.find(`td:contains('([name])')`).text(respuesta[0].NombrePensionado);
                     newTable.find(`td:contains('([phone])')`).text(respuesta[0].FonoParticular + ' / ' + respuesta[0].FonoCelular);
@@ -3216,6 +3216,7 @@ $(function () {
             $('#pen_fono_1').val(respuesta[0].FonoCelular)
             $('#pen_fono_2').val(respuesta[0].FonoParticular)
             $('#pen_correo').val(respuesta[0].Mail)
+            $('#codPensionado').html(respuesta[0].codigo)
 
             $('#pen_comuna ').prop('disabled', true).trigger("chosen:updated");
             $('#pen_direccion').attr("disabled", true);

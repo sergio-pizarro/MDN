@@ -13,7 +13,7 @@ namespace CRM.Business.Data
 {
     public static class PensionadosDataAccess
     {
-        public static List<Entity.PensionadosEntity> ListaPensionados(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, int EstadoSubGestion, string rutEjecutivo)
+        public static List<Entity.PensionadosEntity> ListaPensionados(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, string rutEjecutivo)
         {
             Parametros param = new Parametros
             {
@@ -23,9 +23,9 @@ namespace CRM.Business.Data
                 new Parametro("@PRIORIDAD",Prioridad),
                 new Parametro("@RUT_EJECUTIVO",rutEjecutivo),
                 new Parametro("@ESTADO_GES",EstadoGestion),
-                new Parametro("@SUB_ESTADO_GES",EstadoSubGestion),
+                //new Parametro("@SUB_ESTADO_GES",EstadoSubGestion),
             };
-            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_ListaPensionados", param, ProyePensionado);
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_ListaPensionados_desa", param, ProyePensionado);
         }
 
         private static Entity.PensionadosEntity ProyePensionado(DataRow row)
@@ -112,7 +112,7 @@ namespace CRM.Business.Data
             {
                 new Parametro("@ID_PENSIONADO",id_Asign),
             };
-            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_buscaPensionados", param, SearchPensionado);
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_buscaPensionados_desa", param, SearchPensionado);
         }
 
         private static Entity.BuscaPensionadosEntity SearchPensionado(DataRow row)
@@ -126,6 +126,8 @@ namespace CRM.Business.Data
                 Comuna = row["COMUNA"] != DBNull.Value ? row["COMUNA"].ToString() : string.Empty,
                 Mail = row["EMAIL"] != DBNull.Value ? row["EMAIL"].ToString() : string.Empty,
                 N_direccion = row["NUMERO"] != DBNull.Value ? Convert.ToInt32(row["NUMERO"]) : 0,
+                codigo = row["codigo"] != DBNull.Value ? row["codigo"].ToString() : string.Empty,
+                id_Asign = row["id_Asign"] != DBNull.Value ? Convert.ToInt32(row["id_Asign"]) : 0,
             };
         }
 
