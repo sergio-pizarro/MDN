@@ -170,6 +170,10 @@ namespace CRM.Controllers
                 int estado_dos = estado == null ? 0 : Convert.ToInt32(estado);
                 int subestado_dos = subestado == null ? 0 : Convert.ToInt32(subestado);
                 res = AsignacionDataAccess.ListarPaginado(periodo, tipoCampagna, token, estado_dos, marca, subestado_dos, prioridad, segmento, tipo, busEmpresa, rut, offset, limit, sort, order, vencimiento);
+
+
+
+
             }
             else if (tipoCampagna == 2)
             {
@@ -1278,6 +1282,7 @@ namespace CRM.Controllers
         {
             return AsignacionDataAccess.obtenerRechazos(Periodo, RutEmpresa, RutAfiliado);
         }
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("obtener-afi")]
@@ -1327,9 +1332,9 @@ namespace CRM.Controllers
 
         [HttpGet]
         [Route("lista-pensionado")]
-        public IEnumerable<PensionadosEntity> ListaPensionado(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, string rutEjecutivo)
+        public IEnumerable<PensionadosEntity> ListaPensionado(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, int EstadoSubGestion, string rutEjecutivo)
         {
-            return PensionadosDataAccess.ListaPensionados(Token, Nombre, Comuna, Prioridad, EstadoGestion, rutEjecutivo);
+            return PensionadosDataAccess.ListaPensionados(Token, Nombre, Comuna, Prioridad, EstadoGestion, EstadoSubGestion, rutEjecutivo);
         }
 
         [HttpGet]
@@ -1504,7 +1509,36 @@ namespace CRM.Controllers
                     ges_oficina = entrada.ges_oficina,
                     estado_gestion = Convert.ToInt32(entrada.ges_sub_estado_gst)
                 };
-                PensionadosDataAccess.GuardaGestionPensionado(entidad);
+                var codigoGestion = PensionadosDataAccess.GuardaGestionPensionado(entidad);
+
+                if (entrada.tags_conforme != null)
+                {
+                    if (entrada.tags_conforme.Length > 0)
+                    {
+                        foreach (var codigoTag in entrada.tags_conforme)
+                        {
+                            TagGestionPensionados x = new TagGestionPensionados();
+                            x.gesTag_gestion = codigoGestion;
+                            x.gesTag_id = Convert.ToInt32(codigoTag);
+                            PensionadosDataAccess.GuardaGestionTagPensionado(x);
+                        }
+                    }
+                }
+
+                if (entrada.tags_noQuiere != null)
+                {
+                    if (entrada.tags_noQuiere.Length > 0)
+                    {
+                        foreach (var codigoTag in entrada.tags_noQuiere)
+                        {
+                            TagGestionPensionados x = new TagGestionPensionados();
+                            x.gesTag_gestion = codigoGestion;
+                            x.gesTag_id = Convert.ToInt32(codigoTag);
+                            PensionadosDataAccess.GuardaGestionTagPensionado(x);
+                        }
+                    }
+                }
+
                 return new ResultadoBase()
                 {
                     Estado = "OK",
@@ -1550,6 +1584,15 @@ namespace CRM.Controllers
         {
             return PensionadosDataAccess.ListaEstadoGest();
         }
+
+
+        [HttpGet]
+        [Route("lista-estado-sub-gestion")]
+        public IEnumerable<EstadoGestionPensionadoEntity> ListaSubEstadoGestion( int padre)
+        {
+            return PensionadosDataAccess.ListaSubEstadoGest(padre);
+        }
+
 
         // PENSIONADOS PROSPECTOS
 
@@ -1601,5 +1644,25 @@ namespace CRM.Controllers
         {
             return PensionadosDataAccess.ListaProspecPensionados(Cod_oficina);
         }
+
+
+        [HttpGet]
+        [Route("lista-subestado-no-gestion-pensionados")]
+        public IEnumerable<EstadoNOGestionPensionadoEntity> ListaSubEstadoNOGesPensionado(int egesNO_id)
+        {
+            return PensionadosDataAccess.ListaSubEstadoNoGestPensionado(egesNO_id);
+        }
+
+
+        [HttpGet]
+        [Route("obtener-afi-psu")]
+        public PSUEntity ObtenerCargaAfiPsu(int Afiliado_Rut)
+        {
+            return AsignacionDataAccess.ObtenerCargaAfiPsu(Afiliado_Rut);
+        }
+
+
+
+
     }
 }

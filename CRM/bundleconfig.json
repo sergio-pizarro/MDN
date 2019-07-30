@@ -1,27 +1,5 @@
 ﻿[
   {
-    "outputFileName": "Assets/css.App/bundle.min.css",
-    "inputFiles": [
-      "Assets/css/bootstrap.css",
-      "Assets/css/nifty.css",
-      "Assets/css/themes/type-a/theme-ocean.css",
-      "Assets/css/demo/nifty-demo-icons.css",
-      "Assets/premium/icon-sets/icons/line-icons/premium-line-icons.css",
-      "Assets/plugins/fooTable/css/footable.core.css",
-      "Assets/plugins/ionicons/css/ionicons.css",
-      "Assets/plugins/pace/pace.css",
-      "Assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css",
-      "Assets/plugins/bootstrap-validator/bootstrapValidator.css",
-      "Assets/plugins/bootstrap-select/bootstrap-select.css",
-      "Assets/plugins/bootstrap-table/bootstrap-table.css",
-      "Assets/plugins/chosen/chosen.css",
-      "Assets/plugins/magic-check/css/magic-check.css"
-    ],
-    "minify": {
-      "enabled": true
-    }
-  },
-  {
     "outputFileName": "Assets/js.App/bundle.min.js",
     "inputFiles": [
       "Assets/js/jquery.min.js",
@@ -36,6 +14,7 @@
       "Assets/plugins/bootstrap-validator/bootstrapValidator.js",
       "Assets/plugins/chosen/chosen.jquery.min.js"
     ],
+    "sourceMap": true,
     "minify": {
       "enabled": true
     }
@@ -47,8 +26,7 @@
       "Assets/plugins/bootstrap-validator/bootstrapValidator.min.js",
       "Assets/plugins/bootstrap-select/bootstrap-select.min.js",
       "Assets/plugins/bootstrap-table/bootstrap-table.min.js",
-      "Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js",
-      "Assets/plugins/bootstrap-select/bootstrap-select.min.js"
+      "Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"
       //"Assets/js.App/printThis.js",
       //"Assets/js.App/src/index.js"
     ],

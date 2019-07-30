@@ -17,8 +17,8 @@ namespace CRM.Business.Entity
         public string COMUNA { get; set; }
         public string CIUDAD { get; set; }
         public string REGION { get; set; }
-        public int FONOPARTICULAR { get; set; }
-        public int FONOCELULAR { get; set; }
+        public string FONOPARTICULAR { get; set; }
+        public string FONOCELULAR { get; set; }
         public string EMAIL { get; set; }
         public string PRIORIDAD { get; set; }
         public int PREAPROBADO { get; set; }
@@ -88,7 +88,15 @@ namespace CRM.Business.Entity
         public string ges_descripcion_gst { get; set; }
         public string ges_ejecutivo_rut { get; set; }
         public string ges_oficina { get; set; }
+        public string[] tags_conforme { get; set; }
+        public string[] tags_noQuiere { get; set; }
 
+    }
+
+    public class TagGestionPensionados
+    {
+        public int gesTag_id { get; set; }
+        public int gesTag_gestion { get; set; }
     }
 
     public class GestionPensionados
@@ -130,6 +138,16 @@ namespace CRM.Business.Entity
         public DateTime ges_fecha_compromete { get; set; }
         public string ges_descripcion_gst { get; set; }
         public DateTime ges_fecha_accion { get; set; }
+        public int ges_id { get; set; }
+        public IEnumerable<TagDto> tags { get; set; }
+
+    }
+
+    public class TagDto
+    {
+        public int id { get; set; }
+        public string nombre { get; set; }
+
     }
 
     public class UltimoContactoPensionados
@@ -192,6 +210,15 @@ namespace CRM.Business.Entity
         public string Comuna { get; set; }
         public string Rut_Ejecutivo { get; set; }
         public int Cod_Sucursal { get; set; }
+        public string Nombre_ejecutivo { get; set; }
+
+    }
+
+    public class EstadoNOGestionPensionadoEntity
+    {
+        public int egesNo_id { get; set; }
+        public string egesNo_nombre { get; set; }
+        public int ejesNo_id_padre { get; set; }
 
     }
 

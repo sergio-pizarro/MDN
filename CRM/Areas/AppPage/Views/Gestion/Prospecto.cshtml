@@ -89,7 +89,13 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">LISTADO DE PROSPECTOS</h3>
                 </div>
-               
+
+                <script>
+                    function formatNombre(value, row, index) {
+                        return value.OrdenaNombre()
+                    }
+                </script>
+
                 <div class="panel-body">
                     <table data-toggle="table"
                            data-search="true"
@@ -107,6 +113,7 @@
                                 <th data-field="Comuna" data-sortable="true">COMUNA</th>
                                 <th data-field="Celular" data-sortable="true">CELULAR</th>
                                 <th data-field="Fono_Fijo" data-sortable="true">FONO FIJO</th>
+                                <th data-field="Nombre_ejecutivo" data-sortable="true" data-formatter="formatNombre">EJE. INGRESO</th>
                             </tr>
                         </thead>
                     </table>

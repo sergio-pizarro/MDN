@@ -53,6 +53,7 @@
     <Compile Include="ContactabilidadDataAccess\ContactabilidadDataAccess.cs" />
     <Compile Include="ContactoafiliadoDataAccess.cs" />
     <Compile Include="ContactoDataAccess.cs" />
+    <Compile Include="CosalDataAccess.cs" />
     <Compile Include="CuestionarioDataAccess.cs" />
     <Compile Include="DesarrolloDataAccess.cs" />
     <Compile Include="DotacionDataAccess.cs" />

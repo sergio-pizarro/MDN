@@ -1124,6 +1124,14 @@
 
 
         });
+
+
+        jQuery(document).bind("keyup keydown", function (e) {
+            if (e.ctrlKey && e.keyCode == 80) {
+                alert('Para imprimir primero debes rellenar el formulario y presionar el botón imprimir');
+                return false;
+            }
+        });
     </script>
 
 
