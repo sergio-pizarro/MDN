@@ -151,7 +151,14 @@ function normalizacionLinkFormatter(value, row, index) {
 }
 
 function normalizacionNombresFormatter(value, row, index) {
-    return value + ' ' + row.afiliado.apellidos;
+    try {
+        return value + ' ' + row.afiliado.apellidos;
+    }
+    catch
+    {
+        return 'No tenemos el dato Registrado';
+        console.log({ row })
+    }
 }
 
 function normalizacionPrioridadFormatter(value, row, index) {
@@ -367,7 +374,10 @@ $(function () {
     $('#mdl_data_normalizacion').on('show.bs.modal', async (event) => {
         const rut = $(event.relatedTarget).data('rut');
         console.log({ rut })
+        var rutCont = rut
+        rutCont = rutCont.substring(0, rutCont.length - 2)
         await appNormalizacionModal.obtenerLead(rut);
+        cargaDatosDeContacto(rutCont, '#bdy_datos_contactos_normalizacion') 
         $('#form-registro-contacto-nomalizacion').trigger("reset");
     });
 

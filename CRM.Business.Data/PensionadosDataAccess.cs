@@ -25,7 +25,7 @@ namespace CRM.Business.Data
                 new Parametro("@ESTADO_GES",EstadoGestion),
                 //new Parametro("@SUB_ESTADO_GES",EstadoSubGestion),
             };
-            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_ListaPensionados_desa", param, ProyePensionado);
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_ListaPensionados", param, ProyePensionado);
         }
 
         private static Entity.PensionadosEntity ProyePensionado(DataRow row)
@@ -112,7 +112,7 @@ namespace CRM.Business.Data
             {
                 new Parametro("@ID_PENSIONADO",id_Asign),
             };
-            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_buscaPensionados_desa", param, SearchPensionado);
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_buscaPensionados", param, SearchPensionado);
         }
 
         private static Entity.BuscaPensionadosEntity SearchPensionado(DataRow row)
@@ -120,8 +120,8 @@ namespace CRM.Business.Data
             return new Entity.BuscaPensionadosEntity
             {
                 NombrePensionado = row["NOMBREPEN"] != DBNull.Value ? row["NOMBREPEN"].ToString() : string.Empty,
-                FonoParticular = row["FONOPARTICULAR"] != DBNull.Value ? Convert.ToInt32(row["FONOPARTICULAR"]) : 0,
-                FonoCelular = row["FONOCELULAR"] != DBNull.Value ? Convert.ToInt32(row["FONOCELULAR"]) : 0,
+                FonoParticular = row["FONOPARTICULAR"] != DBNull.Value ? row["FONOPARTICULAR"].ToString() : string.Empty,
+                FonoCelular = row["FONOCELULAR"] != DBNull.Value ? row["FONOCELULAR"].ToString() : string.Empty,
                 Direccion = row["DIRECCION"] != DBNull.Value ? row["DIRECCION"].ToString() : string.Empty,
                 Comuna = row["COMUNA"] != DBNull.Value ? row["COMUNA"].ToString() : string.Empty,
                 Mail = row["EMAIL"] != DBNull.Value ? row["EMAIL"].ToString() : string.Empty,

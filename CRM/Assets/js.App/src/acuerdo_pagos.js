@@ -348,7 +348,10 @@ $(function () {
 
         const rut = $(event.relatedTarget).data('rut');
         console.log({ rut })
+        var rutCont = rut
+        rutCont = rutCont.substring(0, rutCont.length - 2)
         await appAcuerdoPagoModal.obtenerLead(rut);
+        cargaDatosDeContacto(rutCont, '#bdy_datos_contactos_acuerdo_pago') 
         $('#new_datos-gestion_acuerdo_pago').trigger("reset");
     });
 });

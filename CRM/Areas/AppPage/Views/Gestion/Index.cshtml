@@ -360,7 +360,7 @@
                                    data-show-columns="false"
                                    data-page-list="[]"
                                    data-page-size="40"
-                                   data-pagination="true"
+                                   data-pagination="false"
                                    data-side-pagination="server"
                                    data-show-pagination-switch="false"
                                    data-locale="es-CL">
@@ -1070,17 +1070,17 @@
                             </div>
                             <div id="tab-normalizacion-3" class="tab-pane fade">
                                 <div class="row">
-                                    <button type="button" id="btn-add-contac" class="btn btn-primary btn-xs">+</button>
+                                    <button type="button" id="btn-add-contac-normalizacion" class="btn btn-primary btn-xs">+</button>
                                 </div>
-                                <div class="mar-btm" style="display: none;" id="formulario-contac">
-                                    <form id="form-registro-contacto" action="#" method="post">
+                                <div class="mar-btm" style="display: none;" id="formulario-contac_normalizacion">
+                                    <form id="form-registro-contacto_norm" action="#" method="post">
 
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <div class="btn-group bootstrap-select">
                                                         <label class="control-label">Tipo de Contacto</label>
-                                                        <select class="selectpicker" id="cbtippContac" name="cbtippContac">
+                                                        <select class="selectpicker" id="cbtippContac_norm" name="cbtippContac_norm">
                                                             <option value="">Seleccione..</option>
                                                             <option value="1">Celular</option>
                                                             <option value="2">Teléfono</option>
@@ -1093,7 +1093,7 @@
                                                 <div class="form-group">
                                                     <div class="btn-group bootstrap-select">
                                                         <label class="control-label">Clasificación de Contacto</label>
-                                                        <select class="selectpicker" id="cbClasificacionConctac" name="cbClasificacionConctac">
+                                                        <select class="selectpicker" id="cbClasificacionConctac_norm" name="cbClasificacionConctac_norm">
                                                             <option value="">Seleccione..</option>
                                                             <option value="1">Personal</option>
                                                             <option value="2">Comercial</option>
@@ -1104,11 +1104,11 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="control-label">Datos de Contacto</label>
-                                                    <input class="form-control" id="afi_NewContacto" type="text" value="" maxlength="150" name="afi_NewContacto">
+                                                    <input class="form-control" id="afi_NewContacto_norm" type="text" value="" maxlength="150" name="afi_NewContacto_norm">
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary" id="btGuardaContacto" type="submit">Guardar Contacto</button>
+                                        <button class="btn btn-primary" id="btGuardaContacto_norm" type="submit">Guardar Contacto</button>
                                     </form>
                                 </div>
                                 <div class="row">
@@ -1116,12 +1116,12 @@
                                         <thead>
                                             <tr>
                                                 <th>Gestión</th>
-                                                <th>Datos Contacto</th>
+                                                <th>Datos Contacto Nor</th>
                                                 <th>Tipo contacto</th>
                                                 <th>Ultimo Contacto Valido</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="bdy_datos_contactos"></tbody>
+                                        <tbody id="bdy_datos_contactos_normalizacion"></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -1350,7 +1350,7 @@
                                 <div class="row">
                                     <button type="button" id="btn-add-contac_acuerdo_pago" class="btn btn-primary btn-xs">+</button>
                                 </div>
-                                <div class="mar-btm" style="display: none;" id="formulario-contac">
+                                <div class="mar-btm" style="display: none;" id="formulario-contac_acuerdo_pago">
                                     <form id="form-registro-contacto_acuerdo_pago" action="#" method="post">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -1488,11 +1488,11 @@
     <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
     <script src="~/Assets/js.App/printThis.js"></script>
-    <script src="~/Assets/js.App/src/index.js"></script>
+    <script src="~/Assets/js.App/src/index.js?g=@Guid.NewGuid().ToString()"></script>
 
     <!--<script src="~/Assets/js.App/gestion/index.js?v=@Html.Raw(ViewBag.hash)"></script>-->
-    <script src="~/Assets/js.App/src/normalizacion.js"></script>
-    <script src="~/Assets/js.App/src/acuerdo_pagos.js"></script>
+    <script src="~/Assets/js.App/src/normalizacion.js?g=@Guid.NewGuid().ToString()"></script>
+    <script src="~/Assets/js.App/src/acuerdo_pagos.js?g=@Guid.NewGuid().ToString()"></script>
 
 
 }
