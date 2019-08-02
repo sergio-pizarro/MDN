@@ -26,12 +26,12 @@ const rutEjecutivo = getCookie('Rut');
 Vue.filter('formatDate', function (value) {
     if (value) {
         var f = new Date(value);
-        return f.toLocaleDateString();
+        return f.toChileanDateString();
     }
 });
 
 var app = new Vue({
-    el: '#page-content',
+    el: '#page-prospectos-visados',
     data: {
         prospectosVisados: {},
         seleccionadoModal: prospectoDefaults,
@@ -39,7 +39,11 @@ var app = new Vue({
             contactos: [],
             actuales: []
         },
+        rutLogeado: getCookie('Rut'),
+        cargoLogeado: getCookie('Cargo'),
+        oficinaLogeado: getCookie('Oficina'),
         canales: [],
+        ejecutivos: [],
         resultados: {
             resultadosPadres: [],
             resultadosHijos: [],
@@ -65,19 +69,31 @@ var app = new Vue({
             correo: '',
             telefono: '',
             celular: ''
+        },
+        filtros: {
+            estadoGestion: '',
+            clase: '',
+            fechaInicioCompromiso: '',
+            fechaFinCompromiso: '',
+            busquedaEmpresa: '',
+            rutEjecutivo: ''
         }
-
     },
-    mounted: function () {
+    mounted: async function () {
         this.fetchLeads();
         this.fetchTopicos();
+        
+        if (this.vistaElevada) {
+            this.ejecutivos = await this.fetchEjecutivos();
+            $('#table-conche').bootstrapTable('showColumn', 'ejecutivo');
+        }
     },
     updated: async function () {
         if (this.participees.actuales !== this.participees.contactos) {
             this.participees.actuales = this.participees.contactos;
             $("#managementQuorum").trigger("chosen:updated");
         }
-
+        
         this.formulario.fechaProximaGestion = $('#nextCommitmentDate').val();
         this.formulario.participantes = [];
         $("#managementQuorum option:selected").each((i, e) => {
@@ -85,6 +101,8 @@ var app = new Vue({
         });
 
         this.checkForm();
+        this.fireCalendar();
+
         console.log('updated');
     },
     methods: {
@@ -96,15 +114,18 @@ var app = new Vue({
             this.resultados.resultadosPadres = this.resultados.resultadosAll.filter((elm) => elm.resultadoPadre === null);
         },
         fetchLeads() {
-            fetch(`http://${motor_api_server}:4002/lead-visados?rutEjecutivo=${rutEjecutivo}`, {
-                method: 'GET',
-                mode: 'cors',
-                cache: 'default'
-            })
-                .then(response => response.json())
-                .then(myJson => {
-                    this.$data.prospectosVisados = myJson;
-                });
+            /**/
+            let q = {};
+            if (this.vistaElevada) {
+                q.oficina = this.oficinaLogeado;
+            } else {
+                q.rutEjecutivo = this.rutLogeado;
+            }
+
+            $('#table-conche').bootstrapTable({
+                url: `http://${motor_api_server}:4002/lead-visados`,
+                query: q
+            });
         },
         fetchLead(id) {
             return fetch(`http://${motor_api_server}:4002/lead-visados/${id}`, {
@@ -355,6 +376,95 @@ var app = new Vue({
             }
 
             
+        },
+        handleFilterTable() {
+          
+            let update = true;
+            let filtros = {};
+
+
+            if (this.vistaElevada) {
+                filtros.oficina = this.oficinaLogeado;
+                if (this.filtros.rutEjecutivo !== '') {
+                    filtros.rutEjecutivo = this.filtros.rutEjecutivo;
+                }
+            } else {
+                filtros.rutEjecutivo = this.rutLogeado;
+            }
+
+            if (this.filtros.estadoGestion !== '') {
+                filtros.estado = this.filtros.estadoGestion;
+            }
+
+            if (this.filtros.clase !== '') {
+                filtros.clase = this.filtros.clase;
+            }
+
+            if (this.filtros.fechaInicioCompromiso !== '' && this.filtros.fechaFinCompromiso !== '') {
+                filtros.fechaInicioCompromiso = this.filtros.fechaInicioCompromiso;
+                filtros.fechaFinCompromiso = this.filtros.fechaFinCompromiso;
+            }
+
+            if (this.filtros.busquedaEmpresa !== '' && this.filtros.busquedaEmpresa.length > 5) {
+                filtros.busquedaEmpresa = this.filtros.busquedaEmpresa;
+            } else if (this.filtros.busquedaEmpresa === '') {
+                filtros.busquedaEmpresa = this.filtros.busquedaEmpresa;
+            } else {
+                update = false;
+            }
+
+            if (update) {
+                $("#table-conche").bootstrapTable('refresh', {
+                    url: `http://${motor_api_server}:4002/lead-visados`,
+                    query: filtros
+                });
+            }
+        },
+        fireCalendar() {
+            $('.lafecha .input-group.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+                language: "es",
+                daysOfWeekDisabled: [6, 0],
+                todayHighlight: true
+            }).on('changeDate', function (event) {
+                event.stopPropagation();
+                const $that = $(event.target);
+                const formdata = { fecha: event.date, id: $that.data('lead') };
+                //console.log({ event, formdata }); return false;
+                fetch(`http://${motor_api_server}:4002/lead-visados/set-fecha-primer-compromiso`, {
+                    method: 'POST',
+                    body: JSON.stringify(formdata),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Token': getCookie('Token')
+                    }
+                }).then(response => response.json())
+                    .then(json => {
+                        let $td = $that.closest('td');
+                        $td.html(event.date.toChileanDateString());
+                    });
+            });
+        },
+        resetFilters() {
+            this.filtros.estadoGestion = '';
+            this.filtros.clase = '';
+            this.filtros.fechaInicioCompromiso = '';
+            this.filtros.fechaFinCompromiso = '';
+            this.filtros.busquedaEmpresa = '';
+            $("#table-conche").bootstrapTable('refresh', {
+                url: `http://${motor_api_server}:4002/lead-visados?rutEjecutivo=${rutEjecutivo}`
+            });
+        },
+        fetchEjecutivos() {
+            return fetch(`${BASE_URL}/motor/api/perfil-empresas/dotacion-oficina`, {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    'Token': getCookie('Token')
+                }
+            }).then(response => response.json());
+
         }
     },
     computed: {
@@ -365,12 +475,23 @@ var app = new Vue({
                 'alert-warning': this.seleccionadoModal.clase === 'B',
                 'alert-danger': this.seleccionadoModal.clase === 'C'
             };
+        },
+        vistaElevada: function () {
+            return ((this.cargoLogeado === 'Agente' && this.oficinaLogeado === '992') || this.cargoLogeado === 'Administrador Sistema');
         }
     }
 });
 
+
 //Eventos JQUERY
 $(function () {
+    $('#table-conche').on('load-success.bs.table', function () {
+
+        console.info('Hola pasamos por el evento de la tabla');
+        app.fireCalendar();
+    });
+
+
     $('#modalGestion').on('show.bs.modal', async (event) => {
         var $opener = $(event.relatedTarget);
         var leadId = $opener.data('lead');
@@ -413,7 +534,28 @@ $(function () {
     $('#managementQuorum').chosen({ width: '100%' }).change((event) => {
         app.$forceUpdate();
     });
-        
+
+
+
+    $('#demo-dp-range .input-daterange').datepicker({
+        format: "dd-mm-yyyy",
+        todayBtn: "linked",
+        autoclose: true,
+        todayHighlight: true,
+        daysOfWeekDisabled: [6, 0],
+        language: 'es'
+    }).on('changeDate', function () {
+        app.$data.filtros.fechaInicioCompromiso = $('#f-start').val();
+        app.$data.filtros.fechaFinCompromiso = $('#f-end').val();
+        app.handleFilterTable();
+        app.$forceUpdate();
+    });
+
+    /*setTimeout(() => {
+        app.fireCalendar();
+    }, 1000);*/
+    
+
     //Datepicker
     $('#dp-fecha-proxima-gestion .input-group.date').datepicker({
         autoclose: true,
@@ -430,3 +572,29 @@ $(function () {
         event.stopPropagation();
     });
 });
+
+//Formatters
+
+function prospectosVisados_formatRut(value, row, index) {
+    return `<a class="btn-link" data-toggle="modal" data-target="#modalGestion" data-lead="${row.id}" href="#">${value}</a>`;
+}
+
+function prospectosVisados_formatPrimerCompromiso(value, row, index) {
+
+    return row.fechaCompromisoPrimeraGestion === null ? `<div class="form-group">
+                                    <div class="lafecha">
+                                        <div class="input-group date" data-lead="${row.id}">
+                                            <input type="text" class="form-control" readonly>
+                                            <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                        </div>
+                                    </div>
+                                </div>` : row.fechaCompromisoPrimeraGestion.toFecha();
+}
+
+function prospectosVisados_formatBanderaGestion(value, row, index) {
+    return row.gestiones.length > 0 ? `Gestionado` : `No Gestionado`;
+}
+
+function prospectosVisados_formatNombreEjecutivoAsignado(value, row, index) {
+    return $(`#filtrar-ejecutivo option[value='${row.ejecutivoIngreso}'`).text();
+}

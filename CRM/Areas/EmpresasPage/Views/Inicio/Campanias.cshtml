@@ -12,7 +12,7 @@
                 <!--Nav Tabs-->
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a data-toggle="tab" href="#tab-2" aria-expanded="true" id="tab_visados" class="tab-principal"><strong>Directores Laborales</strong></a>
+                        <a data-toggle="tab" href="#tab-2" aria-expanded="true" id="tab_visados" class="tab-principal"><strong>Comité Paritario</strong></a>
                     </li>
                     <li class="">
                         <a data-toggle="tab" href="#tab-3" aria-expanded="false" id="tab_campania_empresas" class="tab-principal" style="font-weight: bold;">Empresas Sin Cotizar</a>
@@ -25,25 +25,54 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <table class="table table-striped" id="tabla_fidelizacion">
+                                    <div class="row">
+                                        <div class="col-md-3 pull-right">
+                                            <div class="form-group">
+                                                <label class="control-label">Estado</label>
+                                                <select class="form-control" v-on:change="handleFilterTable" v-model="filtros.estadoGestion">
+                                                    <option value="">Selecciona</option>
+                                                    <option value="Sin Gestión">Sin Gestionar</option>
+                                                    <option value="Gestionado">Gestionados</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div v-if="mostrarAdminSucursal" class="col-md-4 pull-right">
+                                            <div class="form-group">
+                                                <label class="control-label">Ejecutivo</label>
+                                                <select class="form-control" v-model="filtros.ejecutivo" v-on:click="handleChangeEjecutivo">
+                                                    <optgroup label="Personal">
+                                                        <option v-for="ejecutivo in estado.ejecutivos" v-if="ejecutivo.Rut == sesion.rutEjecutivo()" :value="ejecutivo.Rut" selected="selected">{{ejecutivo.Nombre}} ({{ejecutivo.Cargo}})</option>
+                                                    </optgroup>
+                                                    <optgroup label="Oficina">
+                                                        <option v-for="ejecutivo in estado.ejecutivos" v-if="ejecutivo.Rut != sesion.rutEjecutivo()" :value="ejecutivo.Rut">{{ejecutivo.Nombre}} ({{ejecutivo.Cargo}})</option>
+                                                    </optgroup>                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="table-conche"
+                                           class="table table-striped"
+                                           data-search="true"
+                                           data-show-refresh="false"
+                                           data-show-toggle="false"
+                                           data-show-columns="false"
+                                           data-page-list="[]"
+                                           data-page-size="40"
+                                           data-pagination="true"
+                                           data-side-pagination="server"
+                                           data-show-pagination-switch="false"
+                                           data-locale="es-CL">
                                         <thead>
                                             <tr>
-                                                <th>Código Pto. Atención</th>
-                                                <th>Rut</th>
-                                                <th>Nombre \ Pto. Atención</th>
-                                                <th>N° Trabajadores</th>
-                                                <th>N° Directores Laborales</th>
+                                                <th data-field="empresaCodigoPuntoAtencion" data-sortable="true" data-formatter="linkFormatter">Código Pto. Atención</th>
+                                                <th data-field="empresaRut" data-sortable="true">Rut</th>
+                                                <th data-field="empresaNombre" data-sortable="true" data-formatter="nombresFormatter">Nombre \ Punto Atención</th>
+                                                <th data-field="empresaCantidadTrabajadores" data-sortable="true">N° Trabajadores</th>
+                                                <th data-field="estado" data-sortable="false" data-formatter="estadoFormatter">Est. Gestión</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr v-for="item in leads">
-                                                <td><a class="btn-link" data-toggle="modal" data-target="#modalGestion" :data-lead="item.id" href="#">{{ item.empresaCodigoPuntoAtencion }}</a></td>
-                                                <td>{{ item.empresaRut }}</td>
-                                                <td>{{ item.empresaNombre }} \ {{ item.empresaNombrePuntoAtencion }}</td>
-                                                <td>{{ item.empresaCantidadTrabajadores }}</td>
-                                                <td>{{ item.directoresLaborales.length }}</td>
-                                            </tr>
-                                        </tbody>
+  
                                     </table>
 
                                 </div>
@@ -133,15 +162,18 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="well">
+                            <div class="well well-sm">
                                 <div class="row mar-btm">
+                                    <div class="col-lg-12">
+                                        <p class="h4">Info. de la Compañia</p>
+                                    </div>
                                     <div class="col-lg-6">
                                         <div class="dd-handle dd-outline dd-anim">
                                             <div class="media-left">
                                                 <i class="pli-building icon-2x"></i>
                                             </div>
                                             <div class="media-body">
-                                                <p class="text-main mar-no">Compañía</p>
+                                                <p class="text-main mar-no">Rut - Nombre</p>
                                                 <small class="text-semibold">{{ leadModal.empresaRut }} - {{ leadModal.empresaNombre }}</small>
                                             </div>
                                         </div>
@@ -158,7 +190,27 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p class="h4">Contactos de la Compañia</p>
+                                        <p class="text-muted" v-show="leadModal.contactosEmpresa.length === 0">No hay registros..</p>
+                                    </div>
 
+                                    
+                                    <div class="col-lg-6" v-for="cont in leadModal.contactosEmpresa">
+                                        <div class="dd-handle dd-outline dd-anim">
+                                            <div class="media-left">
+                                                <i class="ion-ios-person-outline icon-2x"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <p class="text-main mar-no">{{ cont.nombre }} ({{ cont.cargo }})</p>
+                                                <small class="text-semibold mar-no">Mail: {{ cont.correo }}</small><br/>
+                                                <small class="text-semibold mar-no">Tel: {{ cont.telefono }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                             </div>
 
                             <div class="well well-sm">
@@ -169,10 +221,14 @@
                                     <div class="col-lg-12">
                                         <div class="dd-handle dd-outline dd-anim">
                                             <div class="media-left">
-                                                <i class="ion-ios-person icon-2x"></i>
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Haz click para var las opciones" ><i class="ion-ios-person icon-2x"></i></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" v-on:click="handleClickEditarDirectivo(directivo.id)"><i class="ion-edit"></i> Editar</a></li>
+                                                    <li><a href="#" v-on:click="handleClickEliminarDirectivo(directivo.id)"><i class="ion-trash-a"></i> Eliminar</a></li>
+                                                </ul>
                                             </div>
                                             <div class="media-body">
-                                                <p class="text-main mar-no">{{directivo.nombre}} ({{directivo.cargo}})</p>
+                                                <p class="text-main mar-no">{{directivo.nombre}} ({{directivo.cargo}}, {{directivo.tipo}})</p>
                                                 <small class="text-semibold"><span v-show="directivo.telefonoFijo.length>0"><b>Tel:</b> {{directivo.telefonoFijo}} | </span><span v-show="directivo.telefonoCelular.length>0"><b>Cel:</b> {{directivo.telefonoCelular}} | </span><span v-show="directivo.correo.length>0"><b>Mail:</b> {{directivo.correo}}</span> </small>
                                             </div>
                                         </div>
@@ -187,13 +243,13 @@
                     <p class="text-main h4">Formulario de Ingreso</p>
                     <form id="datos-gestion" action="#" method="post">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label><strong>Nombre</strong></label>
                                     <input type="text" class="form-control" v-model="modeloFormulario.nombre">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label><strong>Cargo</strong></label>
                                     <select class="form-control" v-model="modeloFormulario.cargo">
@@ -201,6 +257,17 @@
                                         <option value="Presidente">Presidente</option>
                                         <option value="Secretario">Secretario</option>
                                         <option value="Director">Director</option>
+                                        <option value="Delegado">Delegado</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label><strong>Tipo</strong></label>
+                                    <select class="form-control" v-model="modeloFormulario.tipo">
+                                        <option value="">Selecciona</option>
+                                        <option value="Patronal">Patronal</option>
+                                        <option value="Laboral">Laboral</option>
                                     </select>
                                 </div>
                             </div>
@@ -229,8 +296,153 @@
                 </div>
                 <div class="modal-footer">
                     <div class="row mar-btm" id="mensajes"></div>
+                    <div v-if="leadModal.banderaNoAplica == 1" class="row mar-btm alert alert-warning text-left">Empresa Marcada como <strong>No Aplicable</strong></div>
                     <button type="button" class="btn btn-default bloquear-onsubmit" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary bloquear-onsubmit" v-on:click="agregaDirectivo">Guardar</button>
+                    <button type="button" class="btn btn-warning bloquear-onsubmit" :disabled="leadModal.banderaNoAplica == 1" v-on:click="handleClickEmpresaNoAplica">Empresa No Aplica</button>
+                    <button type="button" class="btn btn-primary bloquear-onsubmit" :disabled="leadModal.banderaNoAplica == 1" v-on:click="agregaDirectivo">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mdl_management" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                    <h4 class="modal-title" id="myLargeModalLabel">Gestión</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="tab-base" id="MDL_Primario" style="margin-bottom: 0px !important;">
+                        <!--Nav Tabs-->
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#tab-gestion-1" id="tab_contacti" aria-expanded="true">Empresa</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#tab-gestion-2" aria-expanded="false">Historial de Gestión</a>
+                            </li>
+                        </ul>
+
+                        <!--Tabs Content-->
+                        <div class="tab-content" style="box-shadow: 0 0 0 !important;">
+                            <div id="tab-gestion-1" class="tab-pane fade active in">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label class="control-label">Rut</label>
+                                                <input class="form-control" id="companyId" type="text" value="" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label class="control-label">Razon Social</label>
+                                                <input class="form-control" id="companyName" type="text" value="" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label class="control-label segmento_texto">Segmento</label>
+                                                <input class="form-control" id="companySegment" type="text" value="" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Oficina Asignación</label>
+                                                <input class="form-control" id="assignedOffice" type="text" value="" readonly="readonly">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Telefono</label>
+                                                <input class="form-control" id="companyPhone" type="text" value="" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Email</label>
+                                                <input class="form-control" id="companyEmail" type="text" value="" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label segmento_texto">Dirección</label>
+                                                <input class="form-control" id="companyAddress" type="text" value="" readonly="readonly">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row charlyNTF" style="display:none;">
+                                        <div class="col-sm-12 charlyNTFContainer">
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="tab-gestion-2" class="tab-pane fade">
+                                <div class="list-group" id="gestiones_realizadas" style="min-height:100px; max-height:200px; overflow: scroll;">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--Modal footer-->
+                <div class="modal-footer" id="mensahes-must">
+                    <form id="management-data" action="#" method="post">
+                        <div class="row" style="text-align: left;">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">Estado</label>
+                                    <select class="form-control" id="parentStats" name="parentStats" required>
+                                        <option value="">Seleccione</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">Sub Estado</label>
+                                    <select class="form-control" id="childStats" name="childStats" disabled="disabled" required>
+                                        <option value="">Seleccione</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" id="fpg">
+                                    <label class="control-label">Fecha Próxima Gestión</label>
+                                    <div id="datepicker-component">
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control" id="nextCommitmentDate" name="nextCommitment" autocomplete="off">
+                                            <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row esconder" style="text-align: left;">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Comentarios</label>
+                                    <textarea placeholder="Comentarios" rows="3" class="form-control" id="comments" name="comments" required></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <input type="hidden" id="leadId" name="leadId" value="" />
+
+                        <button data-dismiss="modal" class="btn btn-default close-modal-btn" type="button">Cerrar</button>
+                        <button class="btn btn-primary esconder" id="btn_savear" type="submit">Guardar</button>
+                    </form>
+
+
                 </div>
             </div>
         </div>
