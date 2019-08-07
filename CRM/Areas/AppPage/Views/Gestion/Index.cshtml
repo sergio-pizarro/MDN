@@ -2,7 +2,7 @@
     Layout = "~/Areas/AppPage/Views/Shared/_Layout.cshtml";
 }
 
-
+<link href="~/Assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 
 <!--Page content-->
 <!--===================================================-->
@@ -176,6 +176,8 @@
                                         </div>
                                     </div>
 
+
+
                                     <div class="col-sm-2 text-xs-center">
                                         <div class="form-group">
                                             <label class="control-label">Estado</label>
@@ -276,25 +278,21 @@
 
                     <div id="demo-lft-tab-2" class="tab-pane fade">
                         <div class="panel-body">
-
                             <div class="pad-btm">
                                 <div class="row">
                                     <div class="col-sm-2 text-xs-center">
                                         <div class="form-group">
                                             <label class="control-label">Causa</label>
-                                            <select id="flt_causa_normalizacion" class="form-control">
+                                            <select class="form-control" v-model="modelos.causa">
                                                 <option value="">Todos</option>
                                                 <option v-for="causa in filtros.causas" :value="causa.id">{{causa.nombre}}</option>
                                             </select>
                                         </div>
                                     </div>
-
-
-
-                                    <div class="col-sm-2 text-xs-center">
+                                    <div class="col-sm-1 text-xs-center">
                                         <div class="form-group">
                                             <label class="control-label">Estado</label>
-                                            <select id="flt_estado_normalizacion" class="form-control" v-on:change="eventoCambiaEstado" v-model="modelos.estado">
+                                            <select class="form-control" v-on:change="eventoCambiaEstado" v-model="modelos.estado">
                                                 <option value="">Todos</option>
                                                 <option v-for="estado in filtros.estados" :value="estado.id">{{estado.nombre}}</option>
                                             </select>
@@ -309,41 +307,41 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    <div class="col-sm-1 text-xs-center">
+                                    <div class="col-sm-2 text-xs-center">
                                         <div class="form-group">
                                             <label class="control-label">Prioridad</label>
-                                            <select id="slPrioridad_normalizacion" class="form-control selectpicker">
+                                            <select class="form-control" v-model="modelos.prioridad">
                                                 <option value="">Todos</option>
-                                                <option data-content='<span class="badge badge-gray">1</span>'>1</option>
-                                                <option data-content='<span class="badge badge-gray">2</span>'>2</option>
-                                                <option data-content='<span class="badge badge-gray">3</span>'>3</option>
-                                                <option data-content='<span class="badge badge-gray">4</span>'>4</option>
-                                                <option data-content='<span class="badge badge-gray">5</span>'>5</option>
+                                                <option v-for="prio in filtros.prioridad" :data-content="`<span class='${prio.color}'>${prio.id}</span>`">{{prio.glosa}}</option>
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="col-sm-2 text-xs-center">
                                         <div class="form-group">
-                                            <label class="control-label">Vencimiento</label>
-                                            <select id="flt_vencidos_normalizacion" class="form-control">
+                                            <label class="control-label">Tipo Campaña</label>
+                                            <select class="form-control" v-model="modelos.tipoCampana">
                                                 <option value="">Todos</option>
-                                                <option value="AYER">Vencidos</option>
-                                                <option value="HOY">Vence Hoy</option>
-                                                <option value="PROX5DIAS">Prox. 5 días</option>
+                                                <option v-for="tipoCamp in filtros.tipoCampana" :value="tipoCamp.id">{{tipoCamp.glosa}}</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 text-xs-center">
-                                        <label class="control-label">Rut</label>
-                                        <div class="input-group mar-btm">
-                                            <input id="flt_rut_normalizacion" type="text" placeholder="Ej. 11.111.111-1" class="form-control" autocomplete="off">
-                                            <div class="input-group-btn">
-                                                <button data-target="#demo-lg-modal-search" data-toggle="modal" class="btn btn-primary" type="button">
-                                                    <i class="pli-search-on-cloud"></i>
-                                                </button>
-                                            </div>
+                                    <div class="col-sm-2 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Estado Cliente</label>
+                                            <select class="form-control" v-model="modelos.estadoCliente">
+                                                <option value="">Todos</option>
+                                                <option v-for="estadoCli in filtros.estadoCliente" :value="estadoCli.id">{{estadoCli.estado}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1 text-xs-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Derivación</label>
+                                            <select class="form-control" v-model="modelos.derivacion">
+                                                <option value="">Ninguno</option>
+                                                <option v-for="deriv in filtros.derivacion" :value="deriv.id">{{deriv.glosa}}</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -358,31 +356,28 @@
                             </div>
                             <table id="tabla_recuperaciones"
                                    class="table table-bordered table-hover toggle-circle"
-                                   data-search="false"
+                                   data-search="true"
                                    data-show-refresh="false"
                                    data-show-toggle="false"
                                    data-show-columns="false"
                                    data-page-list="[]"
-                                   data-page-size="40"
+                                   data-page-size="50"
                                    data-pagination="true"
-                                   data-side-pagination="server"
+                                   data-side-pagination="client"
                                    data-show-pagination-switch="false"
                                    data-locale="es-CL">
                                 <thead>
                                     <tr>
                                         <th data-field="rut" data-sortable="true" data-formatter="normalizacionLinkFormatter">Rut</th>
                                         <th data-field="afiliado.nombres" data-sortable="true" data-formatter="normalizacionNombresFormatter">Nombres</th>
+                                        <th data-field="empresa.nombre" data-sortable="true">Nom. Empresa</th>
+                                        <th data-field="montoAdeudado" data-sortable="true" data-formatter="formatoMoneyFormatter">Monto Adeudado</th>
                                         <th data-field="prioridad" data-sortable="true" data-formatter="normalizacionPrioridadFormatter">Prioridad</th>
-
-                                        <th data-field="rutempresa" data-sortable="true">Rut Empresa</th>
-                                        <th data-field="segmento" data-sortable="true">Segmento</th>
-
-
+                                        <th data-field="gestiones.causaBasal" data-sortable="false" data-formatter="normalizacionFormaterBasal">Causa Basal</th>
+                                        <th data-field="gestiones.estadoCliente" data-sortable="false" data-formatter="normalizacionFormaterEstado">Estado Cliente</th>
                                     </tr>
                                 </thead>
-
                             </table>
-
                         </div>
                     </div>
 
@@ -761,8 +756,8 @@
                                         </div>
 
                                         @*<div class="alert alert-purple" style="border-radius: 5px; display:none" id="lbMensajeEncuesta">
-            Afiliado no ha realizado la encuesta. "Enfermedades Cronicas y Medicamentos" <strong><u><a style="color: #076fc7;" id="linkencuesta" href="/motor/App/DatosAfiliados?RutBuscar=" target="_blank">  ir a encuesta! </a></u></strong>
-        </div>*@
+                                                Afiliado no ha realizado la encuesta. "Enfermedades Cronicas y Medicamentos" <strong><u><a style="color: #076fc7;" id="linkencuesta" href="/motor/App/DatosAfiliados?RutBuscar=" target="_blank">  ir a encuesta! </a></u></strong>
+                                            </div>*@
 
                                         <div class="row charlyNTF" style="display:none;">
                                             <div class="col-sm-12 charlyNTFContainer">
@@ -973,7 +968,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                    <h4 class="modal-title" id="myLargeModalLabel">Gestión Normalización</h4>
+                    <h4 class="modal-title" id="myLargeModalLabel">Gestión Normalización ------ Folio Credito:  <label id="estadoClieModalNorm"></label>{{dataModal.folioCredito}}</h4>
                 </div>
                 <div class="modal-body">
 
@@ -997,46 +992,18 @@
                         <!--Tabs Content-->
                         <div class="tab-content msjNormalizacion" style="box-shadow: 0 0 0 !important;">
                             <div id="tab-normalizacion-1" class="tab-pane fade active in">
-                                <form>
+                                <form id="form-registro-contacto-nomalizacion" action="#" method="post">
                                     <div class="row">
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label class="control-label">Rut</label>
-                                                <input class="form-control" type="text" :value="dataModal.rut" readonly="readonly">
+                                                <input class="form-control" id="txtRutAfiNorm" type="text" :value="dataModal.rut" readonly="readonly">
                                             </div>
                                         </div>
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-7">
                                             <div class="form-group">
                                                 <label class="control-label">Nombres</label>
                                                 <input class="form-control" type="text" :value="dataModal.afiliado && dataModal.afiliado.nombres + ' ' + dataModal.afiliado.apellidos" readonly="readonly">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="form-group">
-                                                <label class="control-label segmento_texto">Segmento</label>
-                                                <input class="form-control" type="text" :value="dataModal.segmento" readonly="readonly">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label class="control-label">Oficina Asignación</label>
-                                                <input class="form-control" id="OficinaAsig" type="text" :value="dataModal.oficina" readonly="readonly">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label class="control-label" id="labelrutempresa">Rut Empresa</label>
-                                                <input class="form-control" id="afi_empresa_rut" type="text" :value="dataModal.rutempresa" readonly="readonly">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6" id="morf_cnvs">
-                                            <div class="form-group">
-                                                <label class="control-label" id="labelempresa">Empresa</label>
-                                                <input class="form-control" type="text" id="afi_empresa_nombre" :value="dataModal.empresa && dataModal.empresa.nombre" readonly="readonly">
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
@@ -1049,106 +1016,21 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row" style="display:none;">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label">Emails</label>
-                                                <button class="btn btn-xs btn-rounded btn-default" type="button" data-clipboard-action="copy" id="btn_copiar">copiar seleccionado</button>
-                                                <div class="input-group mar-btm multicontrol-mail">
-                                                    <div class="input-group-btn">
-                                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" style="height: 34px; margin-right:0px;">
-                                                            <i class="pli-mail-2"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li class="forma-uno-mail"><a href="#" id="correos_Malo">Marcar como Malo</a></li>
-                                                            <li class="divider desaparecible-mail"></li>
-                                                            <li class="forma-dos-mail"><a href="#" id="correos_Nuevo">Agregar Nuevo</a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <select class="form-control" id="afi_correos" readonly="readonly"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label">Celulares</label>
-                                                <div class="input-group mar-btm multicontrol-cel">
-                                                    <div class="input-group-btn">
-                                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" style="height: 34px; margin-right:0px;">
-                                                            <i class="pli-smartphone-3"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li class="forma-uno-cel"><a href="#" id="celulares_Malo">Marcar como Malo</a></li>
-                                                            <li class="divider desaparecible-cel"></li>
-                                                            <li class="forma-dos-cel"><a href="#" id="celulares_Nuevo">Agregar Nuevo</a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <select class="form-control" id="afi_celulares" readonly="readonly"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div class="row">
-                                        <div style="display:none;" class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label">Telefonos</label>
-                                                <div class="input-group mar-btm multicontrol">
-
-                                                    <div class="input-group-btn">
-                                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" style="height: 34px; margin-right:0px;">
-                                                            <i class="pli-phone-2"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li class="forma-uno"><a href="#" id="telefonos_Malo">Marcar como Malo</a></li>
-                                                            <li class="divider desaparecible"></li>
-                                                            <li class="forma-dos"><a href="#" id="telefonos_Nuevo">Agregar Nuevo</a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <select class="form-control" id="afi_telefonos" readonly="readonly"></select>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
-                                                <label class="control-label">Oficina Preferencia</label>
-                                                <div class="input-group mar-btm">
-
-                                                    <select class="form-control" id="afi_oficina_preferenciaNormalizacion" readonly="readonly"></select>
-                                                </div>
+                                                <label class="control-label" id="labelrutempresa">Rut Empresa</label>
+                                                <input class="form-control" id="afi_empresa_rut" type="text" :value="dataModal.rutempresa" readonly="readonly">
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-9" id="morf_cnvs">
                                             <div class="form-group">
-                                                <label class="control-label">Horario Preferencia</label>
-                                                <div class="input-group mar-btm">
-                                                    <select class="form-control" id="afi_horario_preferencia" readonly="readonly">
-                                                        <option value="">Seleccione</option>
-                                                        <optgroup label="Generales">
-                                                            <option>Durante la Mañana</option>
-                                                            <option>Durante la Tarde</option>
-                                                            <option>Cualquier Horario</option>
-                                                        </optgroup>
-                                                        <optgroup label="Especificas">
-                                                            <option>09:00-11:00</option>
-                                                            <option>11:00-13:00</option>
-                                                            <option>13:00-15:00</option>
-                                                            <option>15:00-17:00</option>
-                                                            <option>17:00-19:00</option>
-                                                        </optgroup>
-
-                                                    </select>
-                                                </div>
+                                                <label class="control-label" id="labelempresa">Empresa</label>
+                                                <input class="form-control" type="text" id="afi_empresa_nombre" :value="dataModal.empresa && dataModal.empresa.nombre" readonly="readonly">
                                             </div>
                                         </div>
                                     </div>
-
-                                    @*<div class="alert alert-purple" style="border-radius: 5px; display:none" id="lbMensajeEncuesta">
-                                            Afiliado no ha realizado la encuesta. "Enfermedades Cronicas y Medicamentos" <strong><u><a style="color: #076fc7;" id="linkencuesta" href="/motor/App/DatosAfiliados?RutBuscar=" target="_blank">  ir a encuesta! </a></u></strong>
-                                        </div>*@
                                     <div class="row charlyNTF" style="display:none;">
                                         <div class="col-sm-12 charlyNTFContainer">
 
@@ -1169,16 +1051,17 @@
                                 <div class="list-group" style="min-height:290px;">
                                     <div v-for="gestion in dataModal.gestiones">
                                         <a href="#">
-                                            <h4 class="list-group-item-heading"><strong>Gestor:</strong>{{gestion.rutEjecutivo}}</h4>
+                                            <h4 class="list-group-item-heading"><strong>Gestor:</strong>{{gestion.nombreEjecutivo != undefined && gestion.nombreEjecutivo.OrdenaNombre()}}</h4>
                                             <p class="list-group-item-text">
-                                                <strong>Fecha Gestión:</strong>{{gestion.fechaCompromiso}}, <strong>Fecha Prox. Gestión:</strong>
-                                                {{gestion.fechaCompromiso}}
+                                                <strong>Fecha Gestión: </strong> {{gestion.fechaGestion != undefined && gestion.fechaGestion.toFechaHoraPrueba()}}, <strong>Fecha Prox. Gestión: </strong>
+                                                {{gestion.fechaCompromiso != undefined && gestion.fechaCompromiso.toFechaHoraPrueba()}}
                                             </p>
                                             <p class="list-group-item-text">
                                                 <strong>Causa basal:</strong>
-                                                Baja de ingresos por condiciones economicas,
+                                                {{gestion.causaBasal != undefined && gestion.causaBasal != null ? gestion.causaBasal.nombre : 'No Seleccionado'}}
                                                 <strong>Estado:</strong>{{gestion.estado.padre.nombre}}
                                                 <strong>Sub-Estado:</strong>{{gestion.estado.nombre}}
+                                                <strong>Estado Cliente: </strong><span :class="gestion.estadoCliente.color"> {{gestion.estadoCliente.estado}}</span>
                                             </p>
                                             <p class="list-group-item-text">
                                                 <strong>Comentario:</strong> {{gestion.comentarios}}
@@ -1189,17 +1072,17 @@
                             </div>
                             <div id="tab-normalizacion-3" class="tab-pane fade">
                                 <div class="row">
-                                    <button type="button" id="btn-add-contac" class="btn btn-primary btn-xs">+</button>
+                                    <button type="button" id="btn-add-contac-normalizacion" class="btn btn-primary btn-xs">+</button>
                                 </div>
-                                <div class="mar-btm" style="display: none;" id="formulario-contac">
-                                    <form id="form-registro-contacto" action="#" method="post">
+                                <div class="mar-btm" style="display: none;" id="formulario-contac_normalizacion">
+                                    <form id="form-registro-contacto_norm" action="#" method="post">
 
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <div class="btn-group bootstrap-select">
                                                         <label class="control-label">Tipo de Contacto</label>
-                                                        <select class="selectpicker" id="cbtippContac" name="cbtippContac">
+                                                        <select class="selectpicker" id="cbtippContac_norm" name="cbtippContac_norm">
                                                             <option value="">Seleccione..</option>
                                                             <option value="1">Celular</option>
                                                             <option value="2">Teléfono</option>
@@ -1212,7 +1095,7 @@
                                                 <div class="form-group">
                                                     <div class="btn-group bootstrap-select">
                                                         <label class="control-label">Clasificación de Contacto</label>
-                                                        <select class="selectpicker" id="cbClasificacionConctac" name="cbClasificacionConctac">
+                                                        <select class="selectpicker" id="cbClasificacionConctac_norm" name="cbClasificacionConctac_norm">
                                                             <option value="">Seleccione..</option>
                                                             <option value="1">Personal</option>
                                                             <option value="2">Comercial</option>
@@ -1223,34 +1106,26 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="control-label">Datos de Contacto</label>
-                                                    <input class="form-control" id="afi_NewContacto" type="text" value="" maxlength="150" name="afi_NewContacto">
+                                                    <input class="form-control" id="afi_NewContacto_norm" type="text" value="" maxlength="150" name="afi_NewContacto_norm">
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <button class="btn btn-primary" id="btGuardaContacto" type="submit">Guardar Contacto</button>
-
+                                        <button class="btn btn-primary" id="btGuardaContacto_norm" type="submit">Guardar Contacto</button>
                                     </form>
                                 </div>
-
                                 <div class="row">
-
-
                                     <table class="table table-hover table-vcenter" style="font-size: 11px;">
                                         <thead>
                                             <tr>
                                                 <th>Gestión</th>
-                                                <th>Datos Contacto</th>
+                                                <th>Datos Contacto Nor</th>
                                                 <th>Tipo contacto</th>
                                                 <th>Ultimo Contacto Valido</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="bdy_datos_contactos"></tbody>
+                                        <tbody id="bdy_datos_contactos_normalizacion"></tbody>
                                     </table>
                                 </div>
-
-
-
                             </div>
                             <div id="tab-normalizacion-4" class="tab-pane fade">
                                 <div class="table-responsive" style="overflow:scroll; height:350px;">
@@ -1267,19 +1142,11 @@
 
                     <form id="new_datos-gestion_normalizacion" action="#" method="post">
                         <div class="row esconder" style="text-align: left;">
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label class="control-label">Causa</label>
-                                    <select class="form-control" v-model="modelosModal.causaBasal">
-                                        <option value="">Seleccione</option>
-                                        <option v-for="causaModal in filtrosModal.causasModal" :value="causaModal.id">{{causaModal.nombre}}</option>
-                                    </select>
-                                </div>
-                            </div>
+
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label class="control-label">Estado</label>
-                                    <select class="form-control" v-on:change="eventoCambiaEstadoModal" v-model="modelosModal.estado">
+                                    <select class="form-control" id="slEstadoModNormalizacion" v-on:change="eventoCambiaEstadoModal" v-model="modelosModal.estado">
                                         <option value="">Seleccione</option>
                                         <option v-for="estadoModal in filtrosModal.estadosModal" :value="estadoModal.id">{{estadoModal.nombre}}</option>
                                     </select>
@@ -1291,6 +1158,15 @@
                                     <select class="form-control" v-on:change="manejarVisibilidadCalendario" v-model="modelosModal.subEstado">
                                         <option value="">Seleccione</option>
                                         <option v-for="sEstadoModal in filtrosModal.subEstadosModal" :value="sEstadoModal.id">{{sEstadoModal.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Causa</label>
+                                    <select class="form-control limpiar" id="slBasalModNormalizacion" v-model="modelosModal.causaBasal" disabled>
+                                        <option value="">Seleccione</option>
+                                        <option v-for="causaModal in filtrosModal.causasModal" :value="causaModal.id">{{causaModal.nombre}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -1320,7 +1196,7 @@
                         <input type="hidden" id="ges_id_asignacion_normalizacion" name="ges_id_asignacion_normalizacion" value="" />
 
                         <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                        <button class="btn btn-primary esconder" v-on:click="handleSubmitNormalizacion" type="button">Guardar</button>
+                        <button id="btGestNormalizacion" class="btn btn-primary esconder" v-on:click="handleSubmitNormalizacion" type="button">Guardar</button>
                     </form>
 
                 </div>
@@ -1461,7 +1337,7 @@
                                             </p>
                                             <p class="list-group-item-text">
                                                 <strong>Causa basal: </strong>
-                                                {{gestion.causaBasal.nombre}}
+                                                {{gestion.causaBasal != undefined ? gestion.causaBasal.nombre : 'No Seleccionado'}}
                                                 <strong>Estado: </strong> {{gestion.estado.padre.nombre}}
                                                 <strong>Sub-Estado: </strong>{{gestion.estado.nombre}}
                                                 <strong>Estado Cliente: </strong><span :class="gestion.estadoCliente.color"> {{gestion.estadoCliente.estado}}</span>
@@ -1477,7 +1353,7 @@
                                 <div class="row">
                                     <button type="button" id="btn-add-contac_acuerdo_pago" class="btn btn-primary btn-xs">+</button>
                                 </div>
-                                <div class="mar-btm" style="display: none;" id="formulario-contac">
+                                <div class="mar-btm" style="display: none;" id="formulario-contac_acuerdo_pago">
                                     <form id="form-registro-contacto_acuerdo_pago" action="#" method="post">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -1615,11 +1491,11 @@
     <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
     <script src="~/Assets/js.App/printThis.js"></script>
-    <script src="~/Assets/js.App/src/index.js"></script>
+    <script src="~/Assets/js.App/src/index.js?g=@Guid.NewGuid().ToString()"></script>
 
     <!--<script src="~/Assets/js.App/gestion/index.js?v=@Html.Raw(ViewBag.hash)"></script>-->
-    <script src="~/Assets/js.App/src/normalizacion.js"></script>
-    <script src="~/Assets/js.App/src/acuerdo_pagos.js"></script>
+    <script src="~/Assets/js.App/src/normalizacion.js?g=@Guid.NewGuid().ToString()"></script>
+    <script src="~/Assets/js.App/src/acuerdo_pagos.js?g=@Guid.NewGuid().ToString()"></script>
 
 
 }

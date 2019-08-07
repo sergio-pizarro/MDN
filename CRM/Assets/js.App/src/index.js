@@ -8,10 +8,17 @@ if (getCookie('Cargo') == 'Ejecutivos Incorporación y Prospección Pensionados'
     $('#tab_preaprobados').css('display', 'none')
 }
 
-function cargaDatosDeContacto(rutAf) {
+function cargaDatosDeContacto(rutAf, destino = null) {
 
-    $("#bdy_datos_contactos > tr").remove();
-    $("#bdy_datos_contactos").html("");
+    if (destino != null) {
+        $(`${destino} > tr`).remove();
+        $(destino).html("");
+    }
+    else {
+        $("#bdy_datos_contactos > tr").remove();
+        $("#bdy_datos_contactos").html("");
+    }
+
 
     $.SecGetJSON(BASE_URL + "/motor/api/Contactos/lista-contactos-afi", { RutAfiliado: rutAf }, function (contac) {
         $.each(contac, function (i, e) {
@@ -33,8 +40,8 @@ function cargaDatosDeContacto(rutAf) {
             }
             else { alertFecha = e.FechaContacto.toFecha() }
 
-
-            $("#bdy_datos_contactos")
+            var destinoDefault = destino == null ? "#bdy_datos_contactos" : destino;
+            $(destinoDefault)
                 .append(
                     $("<tr>")
                         .append($("<td>").append(
@@ -683,7 +690,7 @@ $(function () {
         sessionStorage.setItem('GST_PESTANA_ACTIVA', '2');
         $("#PrincipalTabActivo").val("2");
 
-        
+
         //Carga de selects Filtros de Normalizaciones
         $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estados-gestion", { tipoCampagna: 2, padre: 10 }, function (datos) {
 
@@ -965,7 +972,7 @@ $(function () {
                 title: 'Rut',
                 sortable: true,
                 formatter: function (value, row, index) {
-                    return '<a href="#" class="btn-link" data-target="#mdl_data" data-toggle="modal" data-tieneEncuesta="' + row.TieneEncuesta + '" data-periodo="' + row.Seguimiento.Periodo + '" data-rutafipsu="' + value  + '" data-rut="' + value + '-' + row.Seguimiento.Afiliado_Dv + '" data-tipo="' + row.Seguimiento.TipoAsignacion + '">' + value.toMoney(0).toString() + '-' + row.Seguimiento.Afiliado_Dv + '</a>';
+                    return '<a href="#" class="btn-link" data-target="#mdl_data" data-toggle="modal" data-tieneEncuesta="' + row.TieneEncuesta + '" data-periodo="' + row.Seguimiento.Periodo + '" data-rutafipsu="' + value + '" data-rut="' + value + '-' + row.Seguimiento.Afiliado_Dv + '" data-tipo="' + row.Seguimiento.TipoAsignacion + '">' + value.toMoney(0).toString() + '-' + row.Seguimiento.Afiliado_Dv + '</a>';
                 }
             },
             {
@@ -1889,19 +1896,147 @@ $(function () {
             $.SecGetJSON(BASE_URL + "/motor/api/Contactos/ingresa-nuevo-contacto", objeto_envio_contacto, function (datos) {
                 $("#form-registro-contacto").bootstrapValidator('resetForm', true);
                 $('#demo-lg-modal-new').modal('hide');
-                cargaDatosDeContacto(rutAf);
+                cargaDatosDeContacto(rutAf, '#bdy_datos_contactos');
                 $("#btn-add-contac").trigger("click");
                 $.niftyNoty({
                     type: 'success',
                     icon: 'pli-like-2 icon-2x',
                     message: 'Contacto Guardado correctamente.',
                     container: '#tab-gestion-3',
-                    timer: 5000
                 });
             });
 
         });
     });
+
+    $('#form-registro-contacto_norm').bootstrapValidator({
+        excluded: [':disabled', ':not(:visible)'],
+        feedbackIcons: [],
+        fields: {
+            cbtippContac_norm: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe seleccionar un tipo de Contacto'
+                    }
+                }
+            },
+            cbClasificacionConctac_norm: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe seleccionar una clasificación de contacto'
+                    }
+                }
+            },
+            afi_NewContacto_norm: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe ingresar un contacto'
+                    },
+                    stringLength: {
+                        message: 'No pueden ser mas de 100 caracteres',
+                        max: function (value, validator, $field) {
+                            return 150 - (value.match(/\r/g) || []).length;
+                        }
+                    }
+                }
+            }
+        }
+    }).on('success.form.bv', function (e) {
+        // Prevén que se mande el formulario
+        e.preventDefault();
+        var $form = $(e.target);
+
+        var rutCont = $('#txtRutAfiNorm').val()
+        rutCont = rutCont.substring(0, rutCont.length - 2)
+
+        var objeto_envio_contacto = {
+            RutAfiliado: rutCont,
+            IdTipoContac: $('#cbtippContac_norm').val(),
+            GlosaTipoContac: $('select[name="cbtippContac_norm"] option:selected').text(),
+            IdClasifContac: $('#cbClasificacionConctac_norm').val(),
+            GlosaClasifContac: $('select[name="cbClasificacionConctac_norm"] option:selected').text(),
+            DatosContac: $('#afi_NewContacto_norm').val()
+        }
+        $.SecGetJSON(BASE_URL + "/motor/api/Contactos/ingresa-nuevo-contacto", objeto_envio_contacto, function (datos) {
+            $("#form-registro-contacto_norm").bootstrapValidator('resetForm', true);
+            // $('#demo-lg-modal-new').modal('hide');
+            cargaDatosDeContacto(rutCont, '#bdy_datos_contactos_normalizacion');
+            $("#btn-add-contac-normalizacion").trigger("click");
+            $.niftyNoty({
+                type: 'success',
+                icon: 'pli-like-2 icon-2x',
+                message: 'Contacto Guardado correctamente.',
+                container: '#tab-gestion-3',
+                timer: 5000
+            });
+        });
+        return false;
+
+    });
+
+    $('#form-registro-contacto_acuerdo_pago').bootstrapValidator({
+        excluded: [':disabled', ':not(:visible)'],
+        feedbackIcons: [],
+        fields: {
+            cbtippContac_acuerdo_pago: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe seleccionar un tipo de Contacto'
+                    }
+                }
+            },
+            cbClasificacionConctac_acuerdo_pago: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe seleccionar una clasificación de contacto'
+                    }
+                }
+            },
+            afi_NewContacto_acuerdo_pago: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe ingresar un contacto'
+                    },
+                    stringLength: {
+                        message: 'No pueden ser mas de 100 caracteres',
+                        max: function (value, validator, $field) {
+                            return 150 - (value.match(/\r/g) || []).length;
+                        }
+                    }
+                }
+            }
+        }
+    }).on('success.form.bv', function (e) {
+        // Prevén que se mande el formulario
+        e.preventDefault();
+        var $form = $(e.target);
+        var rutCont = $('#txtRutAfiAcuerdo').val()
+        rutCont = rutCont.substring(0, rutCont.length - 2)
+        var objeto_envio_contacto = {
+            RutAfiliado: rutCont,
+            IdTipoContac: $('#cbtippContac_acuerdo_pago').val(),
+            GlosaTipoContac: $('select[name="cbtippContac_acuerdo_pago"] option:selected').text(),
+            IdClasifContac: $('#cbClasificacionConctac_acuerdo_pago').val(),
+            GlosaClasifContac: $('select[name="cbClasificacionConctac_acuerdo_pago"] option:selected').text(),
+            DatosContac: $('#afi_NewContacto_acuerdo_pago').val()
+        }
+        $.SecGetJSON(BASE_URL + "/motor/api/Contactos/ingresa-nuevo-contacto", objeto_envio_contacto, function (datos) {
+            $("#form-registro-contacto_acuerdo_pago").bootstrapValidator('resetForm', true);
+            // $('#demo-lg-modal-new').modal('hide');
+            cargaDatosDeContacto(rutCont, 'bdy_datos_contactos_acuerdo_pago');
+            $("#btn-add-contac_acuerdo_pago").trigger("click");
+            $.niftyNoty({
+                type: 'success',
+                icon: 'pli-like-2 icon-2x',
+                message: 'Contacto Guardado correctamente.',
+                container: '#tab-gestion-3',
+                timer: 5000
+            });
+        });
+
+    });
+
+
 
     $('#mdl_data').on('hide.bs.modal', function (e) {
 
@@ -2395,9 +2530,33 @@ $(function () {
         $('#demo-chosen-select').chosen();
     });
 
+    $('#btn-add-contac-normalizacion').on('click', function () {
+
+        // console.log('Visibiliadad', $('#formulario-contac').is(':visible'));
+        if ($('#formulario-contac_normalizacion').is(':visible')) {
+            $('#formulario-contac_normalizacion').hide('slow');
+        }
+        else {
+            $('#formulario-contac_normalizacion').show('slow');
+        }
+
+    });
+
+    $('#btn-add-contac_acuerdo_pago').on('click', function () {
+
+        // console.log('Visibiliadad', $('#formulario-contac').is(':visible'));
+        if ($('#formulario-contac_acuerdo_pago').is(':visible')) {
+            $('#formulario-contac_acuerdo_pago').hide('slow');
+        }
+        else {
+            $('#formulario-contac_acuerdo_pago').show('slow');
+        }
+
+    });
+
     $('#btn-add-contac').on('click', function () {
 
-        console.log('Visibiliadad', $('#formulario-contac').is(':visible'));
+        // console.log('Visibiliadad', $('#formulario-contac').is(':visible'));
         if ($('#formulario-contac').is(':visible')) {
             $('#formulario-contac').hide('slow');
         }
@@ -2406,6 +2565,10 @@ $(function () {
         }
 
     });
+
+
+
+
     if (getCookie('Cargo') == 'Agente' || getCookie('Cargo') == 'Jefe Servicio al Cliente') {
         $('#divAgente').css('display', 'block')
         $('#mdAsigEjePen').css('display', 'block');
@@ -2512,6 +2675,16 @@ $(function () {
                     $('#btn_contacto').attr('disabled', true);
                 }
                 render.ModalUltimoContacto($('#txtId').val());
+
+                var RutEjec;
+                if (getCookie('Cargo') != 'Agente' && getCookie('Cargo') != 'Jefe Servicio al Cliente') {
+                    RutEjec = getCookie('Rut')
+                }
+                else {
+                    RutEjec = $('#dllEjecutivo').val();
+                }
+
+
                 $("#tblAsigPen").bootstrapTable('refresh', {
                     url: BASE_URL + "/motor/api/Gestion/lista-pensionado",
                     query: {
@@ -2520,7 +2693,7 @@ $(function () {
                         Comuna: $('#dllComunaPen').val(),
                         Prioridad: $('#dllPriorodadPen').val(),
                         EstadoGestion: $('#dllEstadoGestion').val(),
-                        rutEjecutivo: $('#dllEjecutivo').val(),
+                        rutEjecutivo: RutEjec,
                     }
                 });
             }
@@ -2689,7 +2862,7 @@ $(function () {
                         Comuna: $('#dllComunaPen').val(),
                         Prioridad: $('#dllPriorodadPen').val(),
                         EstadoGestion: $('#dllEstadoGestion').val(),
-                        rutEjecutivo: $('#dllEjecutivo').val(),
+                        rutEjecutivo: getCookie('Rut'),
                     }
                 });
             }
@@ -2992,8 +3165,8 @@ $(function () {
                 Comuna: $('#dllComunaPen').val(),
                 Prioridad: $('#dllPriorodadPen').val(),
                 EstadoGestion: $('#dllEstadoGestionPadre').val(),
-                EstadoSubGestion: $('#dllEstadoGestion').val(),
-                rutEjecutivo: RutEjec
+                //EstadoSubGestion: $('#dllEstadoGestion').val(),Araucana.08
+                rutEjecutivo: RutEjec,
             }
         });
     });
@@ -3049,7 +3222,7 @@ $(function () {
                 $.SecGetJSON(BASE_URL + "/motor/api/Gestion/print-pensionados", { id_Asign: result[i] }, function (respuesta) {
                     var newTable = $('#base-table').clone();
                     newTable.show().appendTo('#tblPrinPensionado')
-                    newTable.find(`td:contains('([id])')`).text('ID: ' + result[i]);
+                    newTable.find(`td:contains('([id])')`).text('ID: ' + result[i] + ' / CODIGO: ' + respuesta[0].codigo);
                     newTable.find(`td:contains('([email])')`).text('Email: ' + respuesta[0].Mail);
                     newTable.find(`td:contains('([name])')`).text(respuesta[0].NombrePensionado);
                     newTable.find(`td:contains('([phone])')`).text(respuesta[0].FonoParticular + ' / ' + respuesta[0].FonoCelular);
@@ -3216,6 +3389,7 @@ $(function () {
             $('#pen_fono_1').val(respuesta[0].FonoCelular)
             $('#pen_fono_2').val(respuesta[0].FonoParticular)
             $('#pen_correo').val(respuesta[0].Mail)
+            $('#codPensionado').html(respuesta[0].codigo)
 
             $('#pen_comuna ').prop('disabled', true).trigger("chosen:updated");
             $('#pen_direccion').attr("disabled", true);
@@ -3395,7 +3569,7 @@ $(function () {
         $("#dllEstadoGestion").html("");
         if ($(this).val() != 0) {
             $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estado-sub-gestion", { padre: $(this).val() }, function (datos) {
-                
+
                 $("#dllEstadoGestion").append($("<option>").attr("value", "0").html("Todos"));
                 $.each(datos, function (i, e) {
                     $("#dllEstadoGestion").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre))

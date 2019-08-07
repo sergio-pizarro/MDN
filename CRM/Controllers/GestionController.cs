@@ -1332,9 +1332,9 @@ namespace CRM.Controllers
 
         [HttpGet]
         [Route("lista-pensionado")]
-        public IEnumerable<PensionadosEntity> ListaPensionado(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, int EstadoSubGestion, string rutEjecutivo)
+        public IEnumerable<PensionadosEntity> ListaPensionado(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, string rutEjecutivo)
         {
-            return PensionadosDataAccess.ListaPensionados(Token, Nombre, Comuna, Prioridad, EstadoGestion, EstadoSubGestion, rutEjecutivo);
+            return PensionadosDataAccess.ListaPensionados(Token, Nombre, Comuna, Prioridad, EstadoGestion, rutEjecutivo);
         }
 
         [HttpGet]

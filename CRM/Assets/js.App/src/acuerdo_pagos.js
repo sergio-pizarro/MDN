@@ -124,10 +124,12 @@ var appAcuerdoPagosFiltros = new Vue({
 
         },
         handleEventoClickFiltrar() {
+            var fechaHoy = new Date();
+            var periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
             $("#tabla_recuperaciones_acuerdo").bootstrapTable('refresh', {
                 url: `http://${motor_api_server}:4002/acuerdopago/leads`,
                 query: {
-                    periodo: 201906,
+                    periodo: periodo,
                     asignado: getCookie('Rut'),
                     causa: this.modelos.causa,
                     estado: this.modelos.estado,
@@ -346,7 +348,10 @@ $(function () {
 
         const rut = $(event.relatedTarget).data('rut');
         console.log({ rut })
+        var rutCont = rut
+        rutCont = rutCont.substring(0, rutCont.length - 2)
         await appAcuerdoPagoModal.obtenerLead(rut);
+        cargaDatosDeContacto(rutCont, '#bdy_datos_contactos_acuerdo_pago') 
         $('#new_datos-gestion_acuerdo_pago').trigger("reset");
     });
 });

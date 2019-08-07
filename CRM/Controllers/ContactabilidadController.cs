@@ -16,7 +16,7 @@ namespace CRM.Areas.AppPage.Controllers
     [RoutePrefix("api/Contactos")]
     public class ContactabilidadController : ApiController
     {
-        [AuthorizationRequired]
+       // [AuthorizationRequired]
         [HttpGet]
         [Route("lista-contactos-afi")]
         public IEnumerable<Business.Entity.Contactibilidad.ContactabilidadEntity> ListarContactoAfiliado(int RutAfiliado)
