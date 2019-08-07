@@ -2675,6 +2675,16 @@ $(function () {
                     $('#btn_contacto').attr('disabled', true);
                 }
                 render.ModalUltimoContacto($('#txtId').val());
+
+                var RutEjec;
+                if (getCookie('Cargo') != 'Agente' && getCookie('Cargo') != 'Jefe Servicio al Cliente') {
+                    RutEjec = getCookie('Rut')
+                }
+                else {
+                    RutEjec = $('#dllEjecutivo').val();
+                }
+
+
                 $("#tblAsigPen").bootstrapTable('refresh', {
                     url: BASE_URL + "/motor/api/Gestion/lista-pensionado",
                     query: {
@@ -2683,7 +2693,7 @@ $(function () {
                         Comuna: $('#dllComunaPen').val(),
                         Prioridad: $('#dllPriorodadPen').val(),
                         EstadoGestion: $('#dllEstadoGestion').val(),
-                        rutEjecutivo: $('#dllEjecutivo').val(),
+                        rutEjecutivo: RutEjec,
                     }
                 });
             }
@@ -2852,7 +2862,7 @@ $(function () {
                         Comuna: $('#dllComunaPen').val(),
                         Prioridad: $('#dllPriorodadPen').val(),
                         EstadoGestion: $('#dllEstadoGestion').val(),
-                        rutEjecutivo: $('#dllEjecutivo').val(),
+                        rutEjecutivo: getCookie('Rut'),
                     }
                 });
             }
@@ -3155,7 +3165,7 @@ $(function () {
                 Comuna: $('#dllComunaPen').val(),
                 Prioridad: $('#dllPriorodadPen').val(),
                 EstadoGestion: $('#dllEstadoGestionPadre').val(),
-                //EstadoSubGestion: $('#dllEstadoGestion').val(),
+                //EstadoSubGestion: $('#dllEstadoGestion').val(),Araucana.08
                 rutEjecutivo: RutEjec,
             }
         });

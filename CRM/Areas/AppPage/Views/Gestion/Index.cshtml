@@ -2,7 +2,7 @@
     Layout = "~/Areas/AppPage/Views/Shared/_Layout.cshtml";
 }
 
-
+<link href="~/Assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 
 <!--Page content-->
 <!--===================================================-->
@@ -356,14 +356,14 @@
                             </div>
                             <table id="tabla_recuperaciones"
                                    class="table table-bordered table-hover toggle-circle"
-                                   data-search="false"
+                                   data-search="true"
                                    data-show-refresh="false"
                                    data-show-toggle="false"
                                    data-show-columns="false"
                                    data-page-list="[]"
-                                   data-page-size="40"
-                                   data-pagination="false"
-                                   data-side-pagination="server"
+                                   data-page-size="50"
+                                   data-pagination="true"
+                                   data-side-pagination="client"
                                    data-show-pagination-switch="false"
                                    data-locale="es-CL">
                                 <thead>
@@ -373,8 +373,8 @@
                                         <th data-field="empresa.nombre" data-sortable="true">Nom. Empresa</th>
                                         <th data-field="montoAdeudado" data-sortable="true" data-formatter="formatoMoneyFormatter">Monto Adeudado</th>
                                         <th data-field="prioridad" data-sortable="true" data-formatter="normalizacionPrioridadFormatter">Prioridad</th>
-                                        <th data-field="gestiones" data-sortable="true" data-formatter="normalizacionFormaterBasal">Causa Basal</th>
-                                        <th data-field="gestiones" data-sortable="true" data-formatter="normalizacionFormaterEstado">Estado Cliente</th>
+                                        <th data-field="gestiones.causaBasal" data-sortable="false" data-formatter="normalizacionFormaterBasal">Causa Basal</th>
+                                        <th data-field="gestiones.estadoCliente" data-sortable="false" data-formatter="normalizacionFormaterEstado">Estado Cliente</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -1058,7 +1058,7 @@
                                             </p>
                                             <p class="list-group-item-text">
                                                 <strong>Causa basal:</strong>
-                                                {{gestion.causaBasal.nombre}}
+                                                {{gestion.causaBasal != undefined && gestion.causaBasal != null ? gestion.causaBasal.nombre : 'No Seleccionado'}}
                                                 <strong>Estado:</strong>{{gestion.estado.padre.nombre}}
                                                 <strong>Sub-Estado:</strong>{{gestion.estado.nombre}}
                                                 <strong>Estado Cliente: </strong><span :class="gestion.estadoCliente.color"> {{gestion.estadoCliente.estado}}</span>
@@ -1142,19 +1142,11 @@
 
                     <form id="new_datos-gestion_normalizacion" action="#" method="post">
                         <div class="row esconder" style="text-align: left;">
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label class="control-label">Causa</label>
-                                    <select class="form-control" v-model="modelosModal.causaBasal">
-                                        <option value="">Seleccione</option>
-                                        <option v-for="causaModal in filtrosModal.causasModal" :value="causaModal.id">{{causaModal.nombre}}</option>
-                                    </select>
-                                </div>
-                            </div>
+
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label class="control-label">Estado</label>
-                                    <select class="form-control" v-on:change="eventoCambiaEstadoModal" v-model="modelosModal.estado">
+                                    <select class="form-control" id="slEstadoModNormalizacion" v-on:change="eventoCambiaEstadoModal" v-model="modelosModal.estado">
                                         <option value="">Seleccione</option>
                                         <option v-for="estadoModal in filtrosModal.estadosModal" :value="estadoModal.id">{{estadoModal.nombre}}</option>
                                     </select>
@@ -1166,6 +1158,15 @@
                                     <select class="form-control" v-on:change="manejarVisibilidadCalendario" v-model="modelosModal.subEstado">
                                         <option value="">Seleccione</option>
                                         <option v-for="sEstadoModal in filtrosModal.subEstadosModal" :value="sEstadoModal.id">{{sEstadoModal.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Causa</label>
+                                    <select class="form-control limpiar" id="slBasalModNormalizacion" v-model="modelosModal.causaBasal" disabled>
+                                        <option value="">Seleccione</option>
+                                        <option v-for="causaModal in filtrosModal.causasModal" :value="causaModal.id">{{causaModal.nombre}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -1195,7 +1196,7 @@
                         <input type="hidden" id="ges_id_asignacion_normalizacion" name="ges_id_asignacion_normalizacion" value="" />
 
                         <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                        <button class="btn btn-primary esconder" v-on:click="handleSubmitNormalizacion" type="button">Guardar</button>
+                        <button id="btGestNormalizacion" class="btn btn-primary esconder" v-on:click="handleSubmitNormalizacion" type="button">Guardar</button>
                     </form>
 
                 </div>
@@ -1336,7 +1337,7 @@
                                             </p>
                                             <p class="list-group-item-text">
                                                 <strong>Causa basal: </strong>
-                                                {{gestion.causaBasal.nombre}}
+                                                {{gestion.causaBasal != undefined ? gestion.causaBasal.nombre : 'No Seleccionado'}}
                                                 <strong>Estado: </strong> {{gestion.estado.padre.nombre}}
                                                 <strong>Sub-Estado: </strong>{{gestion.estado.nombre}}
                                                 <strong>Estado Cliente: </strong><span :class="gestion.estadoCliente.color"> {{gestion.estadoCliente.estado}}</span>

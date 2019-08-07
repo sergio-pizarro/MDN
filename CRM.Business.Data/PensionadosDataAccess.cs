@@ -13,7 +13,7 @@ namespace CRM.Business.Data
 {
     public static class PensionadosDataAccess
     {
-        public static List<Entity.PensionadosEntity> ListaPensionados(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, int EstadoSubGestion, string rutEjecutivo)
+        public static List<Entity.PensionadosEntity> ListaPensionados(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, string rutEjecutivo)
         {
             Parametros param = new Parametros
             {

@@ -166,9 +166,16 @@ function normalizacionPrioridadFormatter(value, row, index) {
 }
 
 function normalizacionFormaterBasal(value, row, index) {
-    if (row.gestiones[row.gestiones.length - 1] != undefined) {
-        return row.gestiones[row.gestiones.length - 1].causaBasal.nombre
-    } else {
+
+    try {
+        if (row.gestiones[row.gestiones.length - 1] != undefined) {
+            return row.gestiones[row.gestiones.length - 1].causaBasal.nombre
+        } else {
+            return '-';
+        }
+    }
+    catch
+    {
         return '-';
     }
 }
@@ -315,7 +322,6 @@ var appNormalizacionModal = new Vue({
             })
                 .then(response => response.json())
                 .then(datos => {
-                    console.log({ datos })
                     this.dataModal = datos;
                     return datos
                 }).then(x => {
@@ -357,6 +363,12 @@ var appNormalizacionModal = new Vue({
                     container: '.msjNormalizacion',
                     timer: 3000
                 });
+                $('#btGestNormalizacion').attr("disabled", true);
+                $('#fpg_normalizacion').css('display', 'none');
+                appNormalizacionModal.setDefaultsModal();
+                appNormalizacionFiltros.handleEventoClickFiltrar();
+               
+              
             }).catch(reasons => {
                 console.log({ reasons });
                 $.niftyNoty({
@@ -367,6 +379,16 @@ var appNormalizacionModal = new Vue({
                 });
             });
         },
+        setDefaultsModal() {
+            this.modelosModal = {
+                estado: '',
+                subEstado: '',
+                causaBasal: '',
+                fechaCompromiso: '',
+                comentarios: '',
+                folioCredito: '',
+            }
+        }
     },
 });
 
@@ -377,8 +399,30 @@ $(function () {
         var rutCont = rut
         rutCont = rutCont.substring(0, rutCont.length - 2)
         await appNormalizacionModal.obtenerLead(rut);
-        cargaDatosDeContacto(rutCont, '#bdy_datos_contactos_normalizacion') 
-        $('#form-registro-contacto-nomalizacion').trigger("reset");
+        cargaDatosDeContacto(rutCont, '#bdy_datos_contactos_normalizacion')
+        //$('#new_datos-gestion_normalizacion').trigger("reset");
+        appNormalizacionModal.setDefaultsModal();
+        $('#fpg_normalizacion').css('display', 'none');
+        $('#btGestNormalizacion').attr("disabled", false);
     });
 
+
+    $('#mdl_data_normalizacion').on('hidden.bs.modal', async (event) => {
+        appNormalizacionModal.setDefaultsModal();
+        $('#slBasalModNormalizacion').attr("disabled", true);
+    });
+
+    $('#slEstadoModNormalizacion').change(function (e) {
+        e.preventDefault();
+        if ($(this).val() == 1) {
+            $('#slBasalModNormalizacion').attr("disabled", false);
+        }
+        else {
+            $('#slBasalModNormalizacion').attr("disabled", true);
+            $('#fpg_normalizacion').css('display', 'none');
+           // appNormalizacionModal.setDefaultsCausaModal()
+            $('#slBasalModNormalizacion').val("");
+        }
+
+    });
 });
