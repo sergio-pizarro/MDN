@@ -199,69 +199,107 @@
 
                         <hr />
 
-                        <div class="row" id="checkList">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="h4">¿Falta algún documento?</p>
+                                <div class="radio">
+                                    <input type="radio" id="falta_doc_si" name="falta_documentacion" class="magic-radio falta-doc" value="1" />
+                                    <label for="falta_doc_si">Si</label>
+
+                                    <input type="radio" id="falta_doc_no" name="falta_documentacion" class="magic-radio falta-doc" value="0" checked="checked" />
+                                    <label for="falta_doc_no">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row docs-faltantes" id="checkList" style="display:none;">
+                            <h4 class="title">Documentos Faltantes</h4>
 
                             <div class="form-group pad-ver">
-                                <div class="col-md-4" id="doc_check" style="display:none;">
-                                    <h4 class="title">Documentos Recepcionados</h4>
+                                <div class="col-md-2">
+
                                     <!-- Checkboxes -->
                                     <div class="checkbox">
                                         <input id="m1" class="magic-checkbox" type="checkbox">
-                                        <label for="m1" id="lm1">[mes1]</label>
+                                        <label for="m1" id="lm1">Liq. Mes 1</label>
                                     </div>
-
-
                                     <!-- Checkboxes -->
                                     <div class="checkbox">
                                         <input id="m2" class="magic-checkbox" type="checkbox">
-                                        <label for="m2" id="lm2">[mes2]</label>
+                                        <label for="m2" id="lm2">Liq. Mes 2</label>
                                     </div>
 
 
                                     <!-- Checkboxes -->
                                     <div class="checkbox">
                                         <input id="m3" class="magic-checkbox" type="checkbox">
-                                        <label for="m3" id="lm3">[mes3]</label>
+                                        <label for="m3" id="lm3">Liq. Mes 3</label>
+                                    </div>
+                                    <div>
+                                        <p>Maternales</p>
+                                    </div>
+                                    <!-- Checkboxes -->
+                                    <div class="checkbox">
+                                        <input id="m4" class="magic-checkbox" type="checkbox">
+                                        <label for="m4" id="lm4">Liq. Mes 4</label>
+                                    </div>
+
+                                    <!-- Checkboxes -->
+                                    <div class="checkbox">
+                                        <input id="m5" class="magic-checkbox" type="checkbox">
+                                        <label for="m5" id="lm3">Liq. Mes 5</label>
+                                    </div>
+
+                                    <!-- Checkboxes -->
+                                    <div class="checkbox">
+                                        <input id="m6" class="magic-checkbox" type="checkbox">
+                                        <label for="m6" id="lm3">Liq. Mes 6</label>
                                     </div>
 
                                 </div>
 
-                                <div class="col-md-4" id="doc_check_nac" style="display:none;">
-                                    <h4 class="title">Documentos Recepcionados Maternal</h4>
+                                <div class="col-md-3">
                                     <!-- Checkboxes -->
                                     <div class="checkbox">
-                                        <input id="mn1" class="magic-checkbox" type="checkbox">
-                                        <label for="mn1" id="lmn1">[mes1]</label>
+                                        <input id="certificado_renta" class="magic-checkbox" type="checkbox">
+                                        <label for="certificado_renta">Certificado de Renta</label>
                                     </div>
-
 
                                     <!-- Checkboxes -->
                                     <div class="checkbox">
-                                        <input id="mn2" class="magic-checkbox" type="checkbox">
-                                        <label for="mn2" id="lmn2">[mes2]</label>
+                                        <input id="accr1" class="magic-checkbox" type="checkbox">
+                                        <label for="accr1">Acredita 90 días Cotiz./Liq. Sueldo</label>
                                     </div>
-
 
                                     <!-- Checkboxes -->
                                     <div class="checkbox">
-                                        <input id="mn3" class="magic-checkbox" type="checkbox">
-                                        <label for="mn3" id="lmn3">[mes3]</label>
+                                        <input id="accr2" class="magic-checkbox" type="checkbox">
+                                        <label for="accr2">Acredita 180 días Cotiz./AFP</label>
                                     </div>
 
                                     <!-- Checkboxes -->
-                                    <div class="checkbox" id="nac">
-                                        <input id="mncn" data-tipodoc="3" class="magic-checkbox" type="checkbox" value="201799">
-                                        <label for="mncn">Certificado de Nacimiento</label>
+                                    <div class="checkbox">
+                                        <input id="otros" class="magic-checkbox" type="checkbox">
+                                        <label for="otros">Otros</label>
                                     </div>
+
 
                                 </div>
 
+
+                                
                             </div>
 
                         </div>
 
-
+                        <div class="row mar-top docs-faltantes" style="display:none;">
+                            <div class="col-md-12">
+                                <label for="comentarios">Comentarios</label>
+                                <textarea id="comentarios" class="form-control"></textarea>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div class="panel-footer text-right">
                         <button class="btn btn-primary" type="button" id="bt-bolver">Volver</button>
                         <button class="btn btn-success" type="submit" id="bt-guarda-otra">Guardar</button>
@@ -362,6 +400,24 @@
                             }
                         }
                         $("#FolioLic").val(response.IngresoData.FolioLicencia);
+
+                        $(`#falta_doc_si`).prop('checked', response.DocumentosFaltantes.FaltaDocumentacion);
+                        if (response.DocumentosFaltantes.FaltaDocumentacion) {
+                            $(`#falta_doc_si`).trigger('change');
+                        }
+                        
+                        $(`#m1`).prop('checked', response.DocumentosFaltantes.Liquidacion1);
+                        $(`#m2`).prop('checked', response.DocumentosFaltantes.Liquidacion2);
+                        $(`#m3`).prop('checked', response.DocumentosFaltantes.Liquidacion3);
+                        $(`#m4`).prop('checked', response.DocumentosFaltantes.Liquidacion4);
+                        $(`#m5`).prop('checked', response.DocumentosFaltantes.Liquidacion5);
+                        $(`#m6`).prop('checked', response.DocumentosFaltantes.Liquidacion6);
+                        $(`#certificado_renta`).prop('checked', response.DocumentosFaltantes.CertificadoRenta);
+                        $(`#accr1`).prop('checked', response.DocumentosFaltantes.Acredita90);
+                        $(`#accr2`).prop('checked', response.DocumentosFaltantes.Acredita180);
+                        $(`#otros`).prop('checked', response.DocumentosFaltantes.Otros);
+                        $(`#comentarios`).val(response.DocumentosFaltantes.Comentarios);
+
                         $.SecGetJSON(BASE_URL + "/motor/api/Licencias/listar-suc-derivacion", function (datos) {
                             $("#sslOfiDerivacion").html("");
                             $("#sslOfiDerivacion").attr("disabled", true);
@@ -397,15 +453,23 @@
                         TipoLM: $("#TipoLM").val(),
                         OfiDerivacion: parseInt($("#sslOfiDerivacion option:selected").data('id')) > 0 ? $("#sslOfiDerivacion option:selected").data('id') : $("#sslOfiDerivacion").val(),
                         //Los Documentos
-                        DocumentacionLM: []
-                        //
+                        DocumentacionLM: [],
+                        //Documentacion Faltante
+                        LiqMes1: $('#m1').is(':checked') ? 1 : 0,
+                        LiqMes2: $('#m2').is(':checked') ? 1 : 0,
+                        LiqMes3: $('#m3').is(':checked') ? 1 : 0,
+                        LiqMes4: $('#m4').is(':checked') ? 1 : 0,
+                        LiqMes5: $('#m5').is(':checked') ? 1 : 0,
+                        LiqMes6: $('#m6').is(':checked') ? 1 : 0,
+                        CertificadoRenta: $('#certificado_renta').is(':checked') ? 1 : 0,
+                        Acredita90: $('#accr1').is(':checked') ? 1 : 0,
+                        Acredita180: $('#accr2').is(':checked') ? 1 : 0,
+                        Otros: $('#otros').is(':checked') ? 1 : 0,
+                        Comentarios: $('#comentarios').val().length > 0 ? $('#comentarios').val() : '',
+                        FaltaDocumentacion: $('#falta_doc_si').is(':checked') ? 1 : 0
                     }
 
-
-                    //$.each($(':checkbox'), function (i, e) {
-                    //    WebIngresoLicencia.DocumentacionLM.push({ Periodo: $(e).val(), TipoDoc: $(e).data("tipodoc"), Recepcionado: $(e).is(":checked") })
-                    //})
-
+                    
                     $.SecPostJSON(BASE_URL + "/motor/api/Licencias/guardar-licencia", WebIngresoLicencia, function (respuesta) {
                         if (respuesta.Estado === "OK") {
                             $.niftyNoty({
@@ -587,7 +651,8 @@
                                 decimalSeparator: ''
                             }*/
                         }
-                    }/*,
+                    },
+                    /*,
                     DiasLM: {
                         validators: {
                             numeric: {
@@ -634,7 +699,7 @@
                 }
 
                 cargador.saveLC(0);
-
+                
                 if (typeof CodIng == "undefined") {
                     $("#AfiliadoRut").val("");
                     $("#AfiliadoRut").focus();
@@ -648,7 +713,15 @@
                     $("#DerivarLM").prop("checked", false);
                     $("#sslOfiDerivacion").val('');
                     $("#sslOfiDerivacion").prop('disabled', true);
+
+                    $("input[type=checkbox]").prop("checked", false);
+                    $("#falta_doc_no").prop("checked", true);
+                    $(".docs-faltantes").hide();
+                    $('#comentarios').val('');
+
                     $("#frm-data-lc").bootstrapValidator('resetForm', true);
+                    
+
                 }
             });
 
@@ -888,6 +961,15 @@
             }
 
             $("#sslOfiDerivacion").trigger("change");
+
+            $('.falta-doc').on('change', function (event) {
+                var value = $(this).val();
+                if (value == '1') {
+                    $('.docs-faltantes').show();
+                } else {
+                    $('.docs-faltantes').hide();
+                }
+            })
         })
 
 
