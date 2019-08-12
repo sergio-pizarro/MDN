@@ -77,7 +77,7 @@
                                         <input id="radio-formato-manual-lm" class="magic-radio" type="radio" name="radio-formato-licencia" checked="checked">
                                         <label for="radio-formato-manual-lm">Manual</label>
                                         <!-- <input id="radio-formato-electronico-lm" class="magic-radio" type="radio" name="radio-formato-licencia">
-                                         <label for="radio-formato-electronico-lm">Electrónica</label> -->
+                     <label for="radio-formato-electronico-lm">Electrónica</label> -->
                                         <input id="radio-formato-mixto-lm" class="magic-radio" type="radio" name="radio-formato-licencia">
                                         <label for="radio-formato-mixto-lm">Mixta</label>
                                     </div>
@@ -144,7 +144,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <div class="form-group">
-                                   
+
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -201,13 +201,15 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <p class="h4">¿Falta algún documento?</p>
-                                <div class="radio">
-                                    <input type="radio" id="falta_doc_si" name="falta_documentacion" class="magic-radio falta-doc" value="1" />
-                                    <label for="falta_doc_si">Si</label>
+                                <div class="form-group">
+                                    <label class="h4 control-label">¿Falta algún documento?</label>
+                                    <div class="radio">
+                                        <input type="radio" id="falta_doc_si" name="FaltaDocumentacion" class="magic-radio falta-doc" value="1" />
+                                        <label for="falta_doc_si">Si</label>
 
-                                    <input type="radio" id="falta_doc_no" name="falta_documentacion" class="magic-radio falta-doc" value="0" checked="checked" />
-                                    <label for="falta_doc_no">No</label>
+                                        <input type="radio" id="falta_doc_no" name="FaltaDocumentacion" class="magic-radio falta-doc" value="0" />
+                                        <label for="falta_doc_no">No</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -286,8 +288,6 @@
 
                                 </div>
 
-
-                                
                             </div>
 
                         </div>
@@ -572,14 +572,21 @@
 
             $('.demo-msk-date').mask('99/99/9999');
             $('.es-rut').mask('99.999.999-*');
-            //$('#FolioLic').mask('999999?9999*');
             $('#FolioLic').mask('99999999');
             $("#TipoLM").mask('~');
             
             $('#frm-data-lc').bootstrapValidator({
-                excluded: [':disabled', ':not(:visible)'],
+                excluded: [':disabled'],
                 feedbackIcons: [],
                 fields: {
+
+                    FaltaDocumentacion: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debes seleccionar una opción'
+                            },
+                        }
+                    },
                     AfiliadoRut: {
                         validators: {
                             notEmpty: {
@@ -605,29 +612,10 @@
                                     if ($('#FormLM').val() == 'Mixta') {
                                         value = value.replace(/-/g, '');
                                         var xx = value.substring(0, 1);
-                                        //console.log(value.substring(0, 1))
                                         if (xx == '3' || xx == '4') {
-
-                                            //console.log(value.substring(value.length - 1))
                                             var xy = Number(value.substring(1, value.length - 1)).toMoney(0) + '-' + value.substring(value.length - 1);
-
-                                            //console.log($.rut.validar(xy))
                                             var result = $.rut.validar(xy)
-                                            /*if(result)
-                                            {
-                                                if(value.length == 9)
-                                                {
-                                                    $('#FolioLic').mask('9-9999999-*');
-                                                }
-                                                else
-                                                {
-                                                    $('#FolioLic').mask('9-99999999-*');
-                                                }
-                                            }*/
-
                                             return result;
-
-
                                         }
                                         else {
                                             return false;
@@ -638,51 +626,9 @@
                                     }
                                 }
                             },
-                            /*callback: {
-                                message: 'Folio Invalido',
-                                callback: function (value, validator, $field) {
-                                    return $.rut.validar(value);
-                                }
-                            }*/
-                            /*numeric: {
-                                message: 'Solo se pueden ingresar digitos',
-                                // The default separators
-                                thousandsSeparator: '',
-                                decimalSeparator: ''
-                            }*/
                         }
                     },
-                    /*,
-                    DiasLM: {
-                        validators: {
-                            numeric: {
-                                message: 'Solo se pueden ingresar digitos',
-                                // The default separators
-                                thousandsSeparator: '',
-                                decimalSeparator: ''
-                            }
-                        }
-                    },
-                    FechaDesdeLM: {
-                        validators: {
-                            date: {
-                                format: 'DD/MM/YYYY',
-                                message: 'Dede ingresar una fecha valida'
-                            }
-                        }
-                    },
-                    TipoLM: {
-                        validators: {
-                            numeric: {
-                                message: 'Solo se pueden ingresar digitos',
-                                // The default separators
-                                thousandsSeparator: '',
-                                decimalSeparator: ''
-                            }
-                        },
-
-                    },*/
-
+                    
                 }
             }).on('success.form.bv', function (e) {
                 // Prevén que se mande el formulario
@@ -715,15 +661,25 @@
                     $("#sslOfiDerivacion").prop('disabled', true);
 
                     $("input[type=checkbox]").prop("checked", false);
-                    $("#falta_doc_no").prop("checked", true);
+                    $(".falta-doc").prop("checked", false);
                     $(".docs-faltantes").hide();
                     $('#comentarios').val('');
 
                     $("#frm-data-lc").bootstrapValidator('resetForm', true);
-                    
+
 
                 }
-            });
+                })
+
+
+
+             /*.on('status.field.bv', function (e, data) {
+                var $form = $(e.target),
+                    validator = data.bv;
+
+
+                console.log({ validator })
+            });*/
 
 
             $("#bt-bolver").on("click", function () {
@@ -735,16 +691,12 @@
                 $('#frm-data-lc').bootstrapValidator('updateStatus', 'AfiliadoRut', 'NOT_VALIDATED').bootstrapValidator('validateField', 'AfiliadoRut');
             })
 
-            //$("#FolioLic").on("keyup", function () {
-            //    $('#frm-data-lc').bootstrapValidator('updateStatus', 'FolioLic', 'NOT_VALIDATED').bootstrapValidator('validateField', 'FolioLic');
-            //})
-
+            
             $("#AfiliadoRut").on("blur", function () {
 
                 if ($(this).val().length > 7) {
                     $.SecGetJSON(BASE_URL + "/motor/api/Licencias/datos-afiliado", { AfiliadoRut: $(this).val() }, function (respuesta) {
                         if (respuesta.Estado === "OK") {
-
                             if (respuesta.Objeto.logField.codRespuestaField != 5) {
                                 $("#AfiNombres").val(respuesta.Objeto.datosAfiliado1Field.apellidoPaternoField + " " + respuesta.Objeto.datosAfiliado1Field.apellidoMaternoField + " " + respuesta.Objeto.datosAfiliado1Field.nombresField)
                                 $("#EmpresaRut").val(respuesta.Objeto.empresasField[0].rutEmpresaField);
@@ -757,8 +709,6 @@
                                 $("#EmpresaNombre").val("");
                                 $("#SistemaNoData").prop("checked", true);
                             }
-
-
                         } else {
                             $.niftyNoty({
                                 type: 'danger',
@@ -803,42 +753,6 @@
 
                 $('#frm-data-lc').bootstrapValidator('updateStatus', 'FolioLic', 'NOT_VALIDATED').bootstrapValidator('validateField', 'FolioLic');
             });
-
-            /*$('#FolioLic').on("keydown", function (e) {
-                console.log("keydown",e)
-                if ($('#FormLM').val() == 'Mixta') {
-
-                        var value = $(this).val().replace(/-/g, '');
-                        var xx = value.substring(0, 1);
-                        //console.log(value.substring(0, 1))
-                        if (xx == '3' || xx == '4') {
-
-                            //console.log(value.substring(value.length - 1))
-                            var xy = Number(value.substring(1, value.length - 1)).toMoney(0) + '-' + value.substring(value.length - 1);
-
-                            //console.log($.rut.validar(xy))
-                            var result = $.rut.validar(xy)
-                            if (result) {
-                                if (value.length == 9) {
-                                    $('#FolioLic').mask('9-9999999-*');
-                                }
-                                else {
-                                    $('#FolioLic').mask('9-99999999-*');
-                                }
-                            }
-
-                            return result;
-
-
-                        }
-
-                        //if ($(this).val().replace(/-/g, '').replace(/_/g, '').length > 8) {
-                        //    $('#frm-data-lc').bootstrapValidator('updateStatus', 'FolioLic', 'NOT_VALIDATED').bootstrapValidator('validateField', 'FolioLic');
-                        //}
-
-                }
-            });*/
-
 
 
             $('#FolioLic').on("focus", function (e) {
