@@ -199,6 +199,7 @@
     <Compile Include="Areas\AppPage\Controllers\CosalController.cs" />
     <Compile Include="Areas\AppPage\Controllers\UpdateController.cs" />
     <Compile Include="Areas\EmpresasPage\Controllers\CarteraEmpresaEjecutivoController.cs" />
+    <Compile Include="Areas\EmpresasPage\Controllers\ComiteParitarioController.cs" />
     <Compile Include="Areas\EmpresasPage\Controllers\CarteraEmpresasController.cs" />
     <Compile Include="Areas\EmpresasPage\Controllers\DetalleGestionController.cs" />
     <Compile Include="Areas\EmpresasPage\Controllers\DetalleVisitaController.cs" />
@@ -508,6 +509,7 @@
     <Content Include="Areas\EmpresasPage\Views\Inicio\Campanias.cshtml" />
     <Content Include="Areas\EmpresasPage\Views\Incorporaciones\partials\Reasignaciones.cshtml" />
     <Content Include="Areas\AppPage\Views\Cosal\Index.cshtml" />
+    <Content Include="Areas\EmpresasPage\Views\ComiteParitario\SeleccionElector.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
