@@ -943,7 +943,10 @@
                         {
                             field: 'empresaNombre',
                             sortable: true,
-                            title: 'Nombre \ Pto. Atención'
+                            title: 'Nombre \ Pto. Atención',
+                            formatter: function (value, row, index) {
+                                return `${row.empresaNombre}\\${row.empresaNombrePuntoAtencion}`;
+                            }
                         },
                         {
                             field: 'empresaCantidadTrabajadores',
