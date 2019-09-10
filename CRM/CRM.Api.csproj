@@ -373,6 +373,8 @@
     <Content Include="Assets\js.App\src\inicio.js" />
     <Content Include="Assets\js.App\src\normalizacion.js" />
     <Content Include="Assets\js.App\src\oferta.js" />
+    <Content Include="Assets\js.App\src\pensionados.js" />
+    <Content Include="Assets\js.App\src\seguro_cesantia.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />

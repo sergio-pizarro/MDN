@@ -217,10 +217,10 @@
                                 <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_relacion" class="tab-principal" style="font-weight: bold;">Relacionamiento</a>
                             </li>
                             @*<li class="">
-                                <a data-toggle="tab" href="#demo-lft-tab-5" aria-expanded="false" id="tab_encuesta" class="tab-principal" style="font-weight: bold;">
-                                    <span class="badge badge-header badge-danger" id="AlertaEncuesta" style="display:none"></span>Encuesta
-                                </a>
-                            </li>*@
+                                    <a data-toggle="tab" href="#demo-lft-tab-5" aria-expanded="false" id="tab_encuesta" class="tab-principal" style="font-weight: bold;">
+                                        <span class="badge badge-header badge-danger" id="AlertaEncuesta" style="display:none"></span>Encuesta
+                                    </a>
+                                </li>*@
 
                         </ul>
                     </div>
@@ -311,12 +311,12 @@
                         </div>
 
                         @*<div id="demo-lft-tab-5" class="tab-pane fade">
-                            <div class="panel-body">
-                                <div class="row">
-                                    @Html.Partial("Encuesta/EncuestaEnfermedades")
+                                <div class="panel-body">
+                                    <div class="row">
+                                        @Html.Partial("Encuesta/EncuestaEnfermedades")
+                                    </div>
                                 </div>
-                            </div>
-                        </div>*@
+                            </div>*@
 
 
                     </div>
@@ -701,13 +701,771 @@
             </div>
         </div>
     </div>
+
+    <div id="mdl_data_normalizacion" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                    <h4 class="modal-title" id="myLargeModalLabel">Gestión Normalización ------ Folio Credito:  <label id="estadoClieModalNorm"></label>{{dataModal.folioCredito}}</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="tab-base" id="MDL_Primario_normalizacion" style="margin-bottom: 0px !important;">
+                        <!--Nav Tabs-->
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#tab-normalizacion-1" id="tab_contacti_normalizacion" aria-expanded="true">Contacto</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#tab-normalizacion-2" aria-expanded="false">Historial de Gestión</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#tab-normalizacion-3" aria-expanded="false">Contactabilidad</a>
+                            </li>
+                            <li class="" style="display:none;">
+                                <a data-toggle="tab" href="#tab-normalizacion-4" aria-expanded="false">Filtros</a>
+                            </li>
+                        </ul>
+
+                        <!--Tabs Content-->
+                        <div class="tab-content msjNormalizacion" style="box-shadow: 0 0 0 !important;">
+                            <div id="tab-normalizacion-1" class="tab-pane fade active in">
+                                <form id="form-registro-contacto-nomalizacion" action="#" method="post">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label class="control-label">Rut</label>
+                                                <input class="form-control" id="txtRutAfiNorm" type="text" :value="dataModal.rut" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <div class="form-group">
+                                                <label class="control-label">Nombres</label>
+                                                <input class="form-control" type="text" :value="dataModal.afiliado && dataModal.afiliado.nombres + ' ' + dataModal.afiliado.apellidos" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group has-success">
+                                                <label class="control-label" id="morfeable_monto">Monto Adeudado</label>
+                                                <div class="input-group mar-btm">
+                                                    <span class="input-group-addon"><i class="demo-pli-wallet-2"></i></span>
+                                                    <input class="form-control text-lg-right" type="text" :value="dataModal.montoAdeudado" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="control-label" id="labelrutempresa">Rut Empresa</label>
+                                                <input class="form-control" id="afi_empresa_rut" type="text" :value="dataModal.rutempresa" readonly="readonly">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-9" id="morf_cnvs">
+                                            <div class="form-group">
+                                                <label class="control-label" id="labelempresa">Empresa</label>
+                                                <input class="form-control" type="text" id="afi_empresa_nombre" :value="dataModal.empresa && dataModal.empresa.nombre" readonly="readonly">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row charlyNTF" style="display:none;">
+                                        <div class="col-sm-12 charlyNTFContainer">
+
+                                        </div>
+                                    </div>
+                                    <div class="row sergioNTF" style="display:none;">
+                                        <div class="col-sm-12 sergioNTFContainer">
+
+                                        </div>
+                                    </div>
+                                    <div class="row psuNTF" style="display:none;">
+                                        <div class="col-sm-12 psuNTFContainer">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="tab-normalizacion-2" class="tab-pane fade">
+                                <div class="list-group" style="min-height:290px;">
+                                    <div v-for="gestion in dataModal.gestiones">
+                                        <a href="#">
+                                            <h4 class="list-group-item-heading"><strong>Gestor:</strong>{{gestion.nombreEjecutivo != undefined && gestion.nombreEjecutivo.OrdenaNombre()}}</h4>
+                                            <p class="list-group-item-text">
+                                                <strong>Fecha Gestión: </strong> {{gestion.fechaGestion != undefined && gestion.fechaGestion.toFechaHoraPrueba()}}, <strong>Fecha Prox. Gestión: </strong>
+                                                {{gestion.fechaCompromiso != undefined && gestion.fechaCompromiso.toFechaHoraPrueba()}}
+                                            </p>
+                                            <p class="list-group-item-text">
+                                                <strong>Causa basal:</strong>
+                                                {{gestion.causaBasal != undefined && gestion.causaBasal != null ? gestion.causaBasal.nombre : 'No Seleccionado'}}
+                                                <strong>Estado:</strong>{{gestion.estado.padre != undefined && gestion.estado.padre != null ? gestion.estado.padre.nombre: '------'}}
+                                                <strong>Sub-Estado:</strong>{{gestion.estado != undefined && gestion.estado != null ? gestion.estado.nombre: '------'}}
+                                                <strong>Estado Cliente: </strong><span :class="gestion.estadoCliente.color"> {{gestion.estadoCliente.estado}}</span>
+                                            </p>
+                                            <p class="list-group-item-text">
+                                                <strong>Comentario:</strong> {{gestion.comentarios}}
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tab-normalizacion-3" class="tab-pane fade">
+                                <div class="row">
+                                    <button type="button" id="btn-add-contac-normalizacion" class="btn btn-primary btn-xs">+</button>
+                                </div>
+                                <div class="mar-btm" style="display: none;" id="formulario-contac_normalizacion">
+                                    <form id="form-registro-contacto_norm" action="#" method="post">
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="btn-group bootstrap-select">
+                                                        <label class="control-label">Tipo de Contacto</label>
+                                                        <select class="selectpicker" id="cbtippContac_norm" name="cbtippContac_norm">
+                                                            <option value="">Seleccione..</option>
+                                                            <option value="1">Celular</option>
+                                                            <option value="2">Teléfono</option>
+                                                            <option value="3">Mail</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="btn-group bootstrap-select">
+                                                        <label class="control-label">Clasificación de Contacto</label>
+                                                        <select class="selectpicker" id="cbClasificacionConctac_norm" name="cbClasificacionConctac_norm">
+                                                            <option value="">Seleccione..</option>
+                                                            <option value="1">Personal</option>
+                                                            <option value="2">Comercial</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Datos de Contacto</label>
+                                                    <input class="form-control" id="afi_NewContacto_norm" type="text" value="" maxlength="150" name="afi_NewContacto_norm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary" id="btGuardaContacto_norm" type="submit">Guardar Contacto</button>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-hover table-vcenter" style="font-size: 11px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Gestión</th>
+                                                <th>Datos Contacto Nor</th>
+                                                <th>Tipo contacto</th>
+                                                <th>Indice</th>
+                                                <th>Ultimo Contacto Valido</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bdy_datos_contactos_normalizacion"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="tab-normalizacion-4" class="tab-pane fade">
+                                <div class="table-responsive" style="overflow:scroll; height:350px;">
+                                    <table class="table table-striped">
+                                        <tbody id="letable"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Modal footer-->
+                <div class="modal-footer" id="mensahes-must">
+
+                    <form id="new_datos-gestion_normalizacion" action="#" method="post">
+                        <div class="row esconder" style="text-align: left;">
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Estado</label>
+                                    <select class="form-control" id="slEstadoModNormalizacion" v-on:change="eventoCambiaEstadoModal" v-model="modelosModal.estado">
+                                        <option value="">Seleccione</option>
+                                        <option v-for="estadoModal in filtrosModal.estadosModal" :value="estadoModal.id">{{estadoModal.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Sub Estado</label>
+                                    <select class="form-control" v-on:change="manejarVisibilidadCalendario" v-model="modelosModal.subEstado">
+                                        <option value="">Seleccione</option>
+                                        <option v-for="sEstadoModal in filtrosModal.subEstadosModal" :value="sEstadoModal.id">{{sEstadoModal.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Causa</label>
+                                    <select class="form-control limpiar" id="slBasalModNormalizacion" v-model="modelosModal.causaBasal" disabled>
+                                        <option value="">Seleccione</option>
+                                        <option v-for="causaModal in filtrosModal.causasModal" :value="causaModal.id">{{causaModal.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" v-if="comportamientos.mostrarProximaGestion">
+                                <div class="form-group" id="fpg_normalizacion">
+                                    <label class="control-label">Fecha Próxima Gestión</label>
+                                    <div id="demo-dp-component_normalizacion">
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control" v-model="modelosModal.fechaCompromiso">
+                                            <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row esconder" style="text-align: left;">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Comentarios</label>
+                                    <textarea placeholder="Comentarios" rows="3" class="form-control" v-model="modelosModal.comentarios"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <input type="hidden" id="ges_id_asignacion_normalizacion" name="ges_id_asignacion_normalizacion" value="" />
+
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                        <button id="btGestNormalizacion" class="btn btn-primary esconder" v-on:click="handleSubmitNormalizacion" type="button">Guardar</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mdl_data_seguro_cesantia" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                    <h4 class="modal-title" id="myLargeModalLabel">Gestión Seguro Cesantia ------ Folio Credito:  <label id="estadoClieSeguroCesantia"></label>{{dataModal.folio}}</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="tab-base" id="MDL_Primario_seguro_cesantia" style="margin-bottom: 0px !important;">
+                        <!--Nav Tabs-->
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#tab-seguro_cesantia-1" id="tab_contacti_seguro_cesantia" aria-expanded="true">Contacto</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#tab-seguro_cesantia-2" aria-expanded="false">Historial de Gestión</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#tab-seguro_cesantia-3" aria-expanded="false">Contactabilidad</a>
+                            </li>
+                            <li class="" style="display:none;">
+                                <a data-toggle="tab" href="#tab-seguro_cesantia-4" aria-expanded="false">Filtros</a>
+                            </li>
+                        </ul>
+
+                        <!--Tabs Content-->
+                        <div class="tab-content msjSeguroCesantia" style="box-shadow: 0 0 0 !important;">
+                            <div id="tab-seguro_cesantia-1" class="tab-pane fade active in">
+                                <form id="form-registros-seguro-cesantia" action="#" method="post">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label class="control-label">Rut</label>
+                                                <input class="form-control" id="txtRutAfiSegC" type="text" :value="dataModal.rut" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label class="control-label">Nombres</label>
+                                                <input class="form-control" type="text" :value="dataModal.afiliado && dataModal.afiliado.nombres + ' ' + dataModal.afiliado.apellidos" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Fecha Colocación</label>
+                                                <input class="form-control" type="text" :value="dataModal.fechaColocacion" readonly="readonly">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label class="control-label">Oficina</label>
+                                                <input class="form-control" type="text" :value="dataModal.oficina" readonly="readonly">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="control-label" id="labelrutempresa">Rut Empresa</label>
+                                                <input class="form-control" id="afi_empresa_rut" type="text" :value="dataModal.rutempresa" readonly="readonly">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6" id="morf_cnvs">
+                                            <div class="form-group">
+                                                <label class="control-label" id="labelempresa">Empresa</label>
+                                                <input class="form-control" type="text" id="afi_empresa_nombre" :value="dataModal.empresa && dataModal.empresa.nombre" readonly="readonly">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group has-success">
+                                                <label class="control-label" id="morfeable_monto">Monto Adeudado</label>
+                                                <div class="input-group mar-btm">
+                                                    <span class="input-group-addon"><i class="demo-pli-wallet-2"></i></span>
+                                                    <input class="form-control text-lg-right" type="text" :value="dataModal.montoAdeudado" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row charlyNTF" style="display:none;">
+                                        <div class="col-sm-12 charlyNTFContainer">
+
+                                        </div>
+                                    </div>
+                                    <div class="row sergioNTF" style="display:none;">
+                                        <div class="col-sm-12 sergioNTFContainer">
+
+                                        </div>
+                                    </div>
+                                    <div class="row psuNTF" style="display:none;">
+                                        <div class="col-sm-12 psuNTFContainer">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="tab-seguro_cesantia-2" class="tab-pane fade">
+                                <div class="list-group" style="min-height:290px;">
+                                    <div v-for="gestion in dataModal.gestiones">
+                                        <a href="#">
+                                            <h4 class="list-group-item-heading"><strong>Gestor:</strong>{{gestion.nombreEjecutivo != undefined && gestion.nombreEjecutivo.OrdenaNombre()}}</h4>
+                                            <p class="list-group-item-text">
+                                                <strong>Fecha Gestión: </strong> {{gestion.fechaGestion != undefined && gestion.fechaGestion.toFechaHoraPrueba()}}, <strong>Fecha Prox. Gestión: </strong>
+                                                {{gestion.fechaCompromiso != undefined && gestion.fechaCompromiso.toFechaHoraPrueba()}}
+                                            </p>
+                                            <p class="list-group-item-text">
+                                                <strong>Estado:</strong>{{gestion.estado.padre != undefined && gestion.estado.padre != null ? gestion.estado.padre.nombre: '------'}}
+                                                <strong>Sub-Estado:</strong>{{gestion.estado != undefined && gestion.estado != null ? gestion.estado.nombre: '------'}}
+                                            </p>
+                                            <p class="list-group-item-text">
+                                                <strong>Comentario:</strong> {{gestion.comentarios}}
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tab-seguro_cesantia-3" class="tab-pane fade">
+                                <div class="row">
+                                    <button type="button" id="btn-add-contac-seguro_cesantia" class="btn btn-primary btn-xs">+</button>
+                                </div>
+                                <div class="mar-btm" style="display: none;" id="formulario-contac_seguro_cesantia">
+                                    <form id="form-registro-contacto_seguro-cesantia" action="#" method="post">
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="btn-group bootstrap-select">
+                                                        <label class="control-label">Tipo de Contacto</label>
+                                                        <select class="selectpicker" id="cbtippContac_seg" name="cbtippContac_seg">
+                                                            <option value="">Seleccione..</option>
+                                                            <option value="1">Celular</option>
+                                                            <option value="2">Teléfono</option>
+                                                            <option value="3">Mail</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="btn-group bootstrap-select">
+                                                        <label class="control-label">Clasificación de Contacto</label>
+                                                        <select class="selectpicker" id="cbClasificacionConctac_seg" name="cbClasificacionConctac_seg">
+                                                            <option value="">Seleccione..</option>
+                                                            <option value="1">Personal</option>
+                                                            <option value="2">Comercial</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Datos de Contacto</label>
+                                                    <input class="form-control" id="afi_NewContacto_seg" type="text" value="" maxlength="150" name="afi_NewContacto_seg">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary" id="btGuardaContacto_seguro-cesantia" type="submit">Guardar Contacto</button>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-hover table-vcenter" style="font-size: 11px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Gestión</th>
+                                                <th>Datos Contacto Nor</th>
+                                                <th>Tipo contacto</th>
+                                                <th>Indice</th>
+                                                <th>Ultimo Contacto Valido</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bdy_datos_contactos_seguro_cesantia"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="tab-seguro_cesantia-4" class="tab-pane fade">
+                                <div class="table-responsive" style="overflow:scroll; height:350px;">
+                                    <table class="table table-striped">
+                                        <tbody id="letable"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Modal footer-->
+                <div class="modal-footer" id="mensahes-must">
+
+                    <form id="new_datos-gestion_seguro-cesantia" action="#" method="post">
+                        <div class="row esconder" style="text-align: left;">
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Estado</label>
+                                    <select class="form-control" v-on:change="eventoCambiaEstadoModal" v-model="modelosModal.estado">
+                                        <option value="">Seleccione</option>
+                                        <option v-for="estadoModal in filtrosModal.estadosModal" :value="estadoModal.id">{{estadoModal.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Sub Estado</label>
+                                    <select class="form-control" v-on:change="manejarVisibilidadCalendario" v-model="modelosModal.subEstado">
+                                        <option value="">Seleccione</option>
+                                        <option v-for="sEstadoModal in filtrosModal.subEstadosModal" :value="sEstadoModal.id">{{sEstadoModal.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" v-if="comportamientos.mostrarProximaGestion">
+                                <div class="form-group" id="fpg_seguroCesantia">
+                                    <label class="control-label">Fecha Próxima Gestión</label>
+                                    <div id="demo-dp-component_normalizacion">
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control" v-model="modelosModal.fechaCompromiso">
+                                            <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row esconder" style="text-align: left;">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Comentarios</label>
+                                    <textarea placeholder="Comentarios" rows="3" class="form-control" v-model="modelosModal.comentarios"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <input type="hidden" id="ges_id_asignacion_seguro-cesantia" name="ges_id_asignacion_seguro-cesantia" value="" />
+
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                        <button id="btGestSeguroCesantia" class="btn btn-primary esconder" v-on:click="handleSubmitSeguroCesantia" type="button">Guardar</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mdl_data_acuerdo_pago" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                    <h4 class="modal-title" id="myLargeModalLabelAcuerdo">Gestión Acuerdo de Pago ------ Estado Cliente:  <label id="estadoClieModal"></label></h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="tab-base" id="MDL_Primario_acuerdo_pago" style="margin-bottom: 0px !important;">
+                        <!--Nav Tabs-->
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#tab-acuerdo_pago-1" id="tab_contacti_acuerdo_pago" aria-expanded="true">Contacto</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#tab-acuerdo_pago-2" aria-expanded="false">Historial de Gestión</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#tab-acuerdo_pago-3" aria-expanded="false">Contactabilidad</a>
+                            </li>
+                        </ul>
+
+                        <!--Tabs Content-->
+                        <div class="tab-content msjAcuerdo_pago" style="box-shadow: 0 0 0 !important;">
+                            <div id="tab-acuerdo_pago-1" class="tab-pane fade active in">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Rut</label>
+                                                <input class="form-control" id="txtRutAfiAcuerdo" type="text" :value="dataModal.rut" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label class="control-label">Nombres</label>
+                                                <input class="form-control" type="text" :value="dataModal.afiliado && dataModal.afiliado.nombres + ' ' + dataModal.afiliado.apellidos" readonly="readonly">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group has-success">
+                                                <label class="control-label" id="morfeable_monto">Saldo Total</label>
+                                                <div class="input-group mar-btm">
+                                                    <span class="input-group-addon" style="color: #000000; background-color: rgb(255, 179, 174); border-color: #3c763d;"><i class="demo-pli-wallet-2"></i></span>
+                                                    <input class="form-control text-lg-right" type="text" :value="dataModal.montoTotal !== undefined && dataModal.montoTotal.toMoney(0)" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group has-success">
+                                                <label class="control-label" id="morfeable_monto">Saldo 1° Descuento</label>
+                                                <div class="input-group mar-btm">
+                                                    <span class="input-group-addon"><i class="demo-pli-wallet-2"></i></span>
+                                                    <input class="form-control text-lg-right" type="text" :value="dataModal.saldoPrimerDesc !== undefined && dataModal.saldoPrimerDesc.toMoney(0)" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group has-success">
+                                                <label class="control-label" id="morfeable_monto">Saldo Descuento Convenio</label>
+                                                <div class="input-group mar-btm">
+                                                    <span class="input-group-addon"><i class="demo-pli-wallet-2"></i></span>
+                                                    <input class="form-control text-lg-right" type="text" :value="dataModal.saldoDescuentoTotal !== undefined && dataModal.saldoDescuentoTotal.toMoney(0)" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group has-success">
+                                                <label class="control-label" id="morfeable_monto">Saldo Descuento Total</label>
+                                                <div class="input-group mar-btm">
+                                                    <span class="input-group-addon"><i class="demo-pli-wallet-2"></i></span>
+                                                    <input class="form-control text-lg-right" type="text" :value="dataModal.saldoDescuentoTPago !== undefined && dataModal.saldoDescuentoTPago.toMoney(0)" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div style="display:none;" class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Telefonos</label>
+                                                <div class="input-group mar-btm multicontrol">
+
+                                                    <div class="input-group-btn">
+                                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" style="height: 34px; margin-right:0px;">
+                                                            <i class="pli-phone-2"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li class="forma-uno"><a href="#" id="telefonos_Malo_acuerdo_pago">Marcar como Malo</a></li>
+                                                            <li class="divider desaparecible"></li>
+                                                            <li class="forma-dos"><a href="#" id="telefonos_Nuevo_acuerdo_pago">Agregar Nuevo</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <select class="form-control" id="afi_telefonos" readonly="readonly"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*<div class="alert alert-purple" style="border-radius: 5px; display:none" id="lbMensajeEncuesta">
+                                            Afiliado no ha realizado la encuesta. "Enfermedades Cronicas y Medicamentos" <strong><u><a style="color: #076fc7;" id="linkencuesta" href="/motor/App/DatosAfiliados?RutBuscar=" target="_blank">  ir a encuesta! </a></u></strong>
+                                        </div>*@
+                                    <div class="row charlyNTF" style="display:none;">
+                                        <div class="col-sm-12 charlyNTFContainer">
+
+                                        </div>
+                                    </div>
+                                    <div class="row sergioNTF" style="display:none;">
+                                        <div class="col-sm-12 sergioNTFContainer">
+
+                                        </div>
+                                    </div>
+                                    <div class="row psuNTF" style="display:none;">
+                                        <div class="col-sm-12 psuNTFContainer">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="tab-acuerdo_pago-2" class="tab-pane fade">
+                                <div class="list-group" style="min-height:290px;">
+                                    <div v-for="gestion in dataModal.gestiones">
+                                        <a href="#">
+                                            <h4 class="list-group-item-heading"><strong>Gestor: </strong> {{gestion.nombreEjecutivo != undefined && gestion.nombreEjecutivo.OrdenaNombre()}}</h4>
+                                            <p class="list-group-item-text">
+                                                <strong>Fecha Gestión: </strong>{{gestion.fechaGestion != undefined && gestion.fechaGestion.toFechaHoraPrueba()}}, <strong>Fecha Prox. Gestión: </strong>
+                                                {{gestion.fechaCompromiso != undefined && gestion.fechaCompromiso.toFechaHoraPrueba()}}
+                                            </p>
+                                            <p class="list-group-item-text">
+                                                <strong>Causa basal: </strong>
+                                                {{gestion.causaBasal != undefined && gestion.causaBasal != null ? gestion.causaBasal.nombre : 'No Seleccionado'}}
+                                                <strong>Estado: </strong>{{gestion.estado.padre != undefined && gestion.estado.padre != null ? gestion.estado.padre.nombre: '------'}}
+                                                <strong>Sub-Estado: </strong>{{gestion.estado != undefined && gestion.estado != null ? gestion.estado.nombre: '------'}}
+                                                <strong>Estado Cliente: </strong><span :class="gestion.estadoCliente.color"> {{gestion.estadoCliente.estado}}</span>
+                                            </p>
+                                            <p class="list-group-item-text">
+                                                <strong>Comentario: </strong> {{gestion.comentarios}}
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tab-acuerdo_pago-3" class="tab-pane fade">
+                                <div class="row">
+                                    <button type="button" id="btn-add-contac_acuerdo_pago" class="btn btn-primary btn-xs">+</button>
+                                </div>
+                                <div class="mar-btm" style="display: none;" id="formulario-contac_acuerdo_pago">
+                                    <form id="form-registro-contacto_acuerdo_pago" action="#" method="post">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="btn-group bootstrap-select">
+                                                        <label class="control-label">Tipo de Contacto</label>
+                                                        <select class="selectpicker" id="cbtippContac_acuerdo_pago" name="cbtippContac_acuerdo_pago">
+                                                            <option value="">Seleccione..</option>
+                                                            <option value="1">Celular</option>
+                                                            <option value="2">Teléfono</option>
+                                                            <option value="3">Mail</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="btn-group bootstrap-select">
+                                                        <label class="control-label">Clasificación de Contacto</label>
+                                                        <select class="selectpicker" id="cbClasificacionConctac_acuerdo_pago" name="cbClasificacionConctac_acuerdo_pago">
+                                                            <option value="">Seleccione..</option>
+                                                            <option value="1">Personal</option>
+                                                            <option value="2">Comercial</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Datos de Contacto</label>
+                                                    <input class="form-control" id="afi_NewContacto_acuerdo_pago" type="text" value="" maxlength="150" name="afi_NewContacto_acuerdo_pago">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary" id="btGuardaContacto_acuerdo_pago" type="submit">Guardar Contacto</button>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-hover table-vcenter" style="font-size: 11px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Gestión</th>
+                                                <th>Datos Contacto</th>
+                                                <th>Tipo contacto</th>
+                                                <th>Indice</th>
+                                                <th>Ultimo Contacto Valido</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bdy_datos_contactos_acuerdo_pago"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Modal footer-->
+                <div class="modal-footer" id="mensahes-must">
+                    <form id="new_datos-gestion_acuerdo_pago" action="#" method="post">
+                        <div class="row esconder" style="text-align: left;">
+
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label">Estado</label>
+                                    <select class="form-control" v-on:change="eventoCambiaEstadoModal" v-model="modelosModal.estado" id="slEstadoAcuerdoPago">
+                                        <option value="">Seleccione</option>
+                                        <option v-for="estadoModal in filtrosModal.estadosModal" :value="estadoModal.id">{{estadoModal.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Sub Estado</label>
+                                    <select class="form-control" v-on:change="manejarVisibilidadCalendario" v-model="modelosModal.subEstado">
+                                        <option value="">Seleccione</option>
+                                        <option v-for="sEstadoModal in filtrosModal.subEstadosModal" :value="sEstadoModal.id">{{sEstadoModal.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Causa</label>
+                                    <select class="form-control" v-model="modelosModal.causaBasal" id="slBasalAcuerdoPago" disabled>
+                                        <option value="">Seleccione</option>
+                                        <option v-for="causaModal in filtrosModal.causasModal" :value="causaModal.id">{{causaModal.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2" v-if="comportamientos.mostrarProximaGestion">
+                                <div class="form-group" id="fpg_acuerdo">
+                                    <label class="control-label">Fec. Próx. Gestión</label>
+                                    <div id="demo-dp-component_normalizacion">
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control" v-model="modelosModal.fechaCompromiso">
+                                            <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row esconder" style="text-align: left;">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Comentarios</label>
+                                    <textarea placeholder="Comentarios" rows="3" class="form-control" v-model="modelosModal.comentarios"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="ges_id_asignacion_Acuerdo_pago" name="ges_id_asignacion_Acuerdo_pago" value="" />
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                        <button class="btn btn-primary esconder" id="btGestAcuerdoPago" v-on:click="handleSubmitAcuerdoPago" type="button">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <div class="col-sm-6 text-xs-left"> </div>
 <input type="hidden" id="temporalid" name="temporalid" value="" />
 <!--===================================================-->
 <!--End page content-->
 @section script{
-
+    <script src="~/Assets/js/vue.js"></script>
     <script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
     <!--Bootstrap Select [ OPTIONAL ]-->
@@ -727,6 +1485,13 @@
     <script src="~/Assets/plugins/x-editable/inputs-ext/address/address.js"></script>
 
     <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
+    @*<script src="~/Assets/plugins/bootstrap-table/chosen.jquery.min.js"></script>*@
+
+    <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
+
+    <script src="~/Assets/js.App/src/normalizacion.js?g=@Guid.NewGuid().ToString()"></script>
+    <script src="~/Assets/js.App/src/seguro_cesantia.js?g=@Guid.NewGuid().ToString()"></script>
 
 
     <script type="text/javascript">
@@ -947,7 +1712,7 @@
                 });
             },
 
-            CargaDatosCampaniasAfiliado: function (p_rutAfi) {
+            CargaDatosCampaniasAfiliado: function (p_rutAfi, rut_nor) {
                 $("#bdy_datos").html("");
                 $.SecGetJSON(BASE_URL + "/motor/api/Afiliados/lista-campanias-afiliado", { RutAfiliado: p_rutAfi }, function (camp) {
                     $.each(camp, function (i, e) {
@@ -961,15 +1726,19 @@
                                 break;
                             case 'Normalización':
                                 clase = 'text-dark';
-                                link = '<a href="#" class="btn-link" data-target="#demo-lg-modal-Normalizacion" data-toggle="modal" data-asignacion="' + e.id_Asginacion + '">' + e.Campania + '</a>';
+                                link = '<a href="#" class="btn-link" data-target="#mdl_data_normalizacion" data-toggle="modal" data-rut="' + rut_nor + '">' + e.Campania + '</a>';
                                 break;
                             case 'Seguro Cesantía':
                                 clase = 'text-dark';
-                                link = '<a href="#" class="btn-link" data-target="#demo-lg-modal-sc" data-toggle="modal" data-asignacion="' + e.id_Asginacion + '">' + e.Campania + '</a>';
+                                link = '<a href="#" class="btn-link" data-target="#mdl_data_seguro_cesantia" data-toggle="modal" data-rut="' + rut_nor + '">' + e.Campania + '</a>';
                                 break;
                             case 'TMC':
                                 clase = 'text-dark';
                                 link = '<a href="#" class="btn-link" data-target="#demo-lg-modal-tmc" data-toggle="modal" data-asignacion="' + e.id_Asginacion + '">' + e.Campania + '</a>';
+                                break;
+                            case 'Acuerdo de Pago':
+                                clase = 'text-dark';
+                                link = '<a href="#" class="btn-link" data-target="#mdl_data_acuerdo_pago" data-toggle="modal" data-rut="' + rut_nor + '">' + e.Campania + '</a>';
                                 break;
                         }
                         $("#bdy_datos")
@@ -1074,7 +1843,7 @@
                                     .append($("<td>").append('<span class="' + colorPorc + '">' + e.PorcIndice + '</span>'))
                                     .append($("<td>").append(e.FechaIntento.toFecha()))
                                     .append($("<td>").append(e.Descripcion))
-                                    .append($("<td>").append(e.OrigenCreacion))
+                                    .append($("<td>").append(e.OrigenIntento))
                                     .append($("<td>").append(alertFecha))
                                 //.append($("<td>").append(e.FechaContacto.toFecha()))
                             );
@@ -1853,7 +2622,7 @@
         Cargador.CargaDatosAfiliados(rutAf)
         Cargador.EstadoEncuesta()
         Cargador.CargaDatosContactos(rutAf)
-        Cargador.CargaDatosCampaniasAfiliado(rutAf)
+        Cargador.CargaDatosCampaniasAfiliado(rutAf, httpGet("RutBuscar"))
         Cargador.CargaDatosCumpleanos(rutAf)
         Cargador.CargaDatosAlertas(rutAf)
         Cargador.CargaProyeccion()
@@ -2263,6 +3032,160 @@
                     timer: 8000,
                 });
             }
+        });
+
+
+        function cargaDatosDeContacto(rutAf, destino = null) {
+
+            if (destino != null) {
+                $(`${destino} > tr`).remove();
+                $(destino).html("");
+            }
+            else {
+                $("#bdy_datos_contactos > tr").remove();
+                $("#bdy_datos_contactos").html("");
+            }
+
+
+            $.SecGetJSON(BASE_URL + "/motor/api/Contactos/lista-contactos-afi", { RutAfiliado: rutAf }, function (contac) {
+                $.each(contac, function (i, e) {
+                    var colorPorc = '';
+                    var alertFecha = '';
+
+                    if (e.PorcIndice > 70) {
+                        var colorPorc = 'pull-left badge badge-success'
+                    }
+                    if (e.PorcIndice > 40 && e.PorcIndice < 69) {
+                        var colorPorc = 'pull-left badge badge-warning'
+                    }
+                    if (e.PorcIndice < 39) {
+                        var colorPorc = 'pull-left badge badge-danger'
+                    }
+                    if (e.FechaContacto.toFecha() === "01-01-1900") {
+                        alertFecha = e.FechaContacto.toFecha() + '<i class="badge badge-danger badge-stat badge-icon pull-right add-tooltip" style="position: static; data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="Se debe Actualizar Contacto">!</i>'
+                        $("#afiContac").css({ 'display': 'block' })
+                    }
+                    else { alertFecha = e.FechaContacto.toFecha() }
+
+                    var destinoDefault = destino == null ? "#bdy_datos_contactos" : destino;
+                    $(destinoDefault)
+                        .append(
+                            $("<tr>")
+                                .append($("<td>").append(
+                                    $("<select>").addClass('dropdown-caret').css('width', '88px').css('border-radius', '6px').append(
+                                        $('<option data-icon="fa fa-paint-brush">').val('Seleccione').text("Seleccione..."),
+                                        $('<option>').val(1).text("Valido Presencial"),
+                                        $('<option>').val(2).text("Contacto Valido"),
+                                        $('<option>').val(3).text("Tercero Valido"),
+                                        $('<option>').val(4).text("No Contesta"),
+                                        $('<option>').val(5).text("Buzon de voz"),
+                                        $('<option>').val(6).text("Apagado"),
+                                        $('<option>').val(7).text("Equivocado"),
+                                        $('<option>').val(8).text("No Existe")
+                                    ).on('change', function () {
+
+                                        var indice = $(this).val();
+                                        var valorD = e.ValorDato;
+                                        var ofici = getCookie("Oficina");
+                                        $.SecGetJSON(BASE_URL + "/motor/api/Contactos/actualiza-indice-contacto", { Indice: indice, RutAfi: rutAf, ValorDato: valorD, Oficina: ofici }, function (datos) {
+
+                                            cargaDatosDeContacto(rutAf);
+
+                                            $.niftyNoty({
+                                                type: 'success',
+                                                icon: 'pli-like-2 icon-2x',
+                                                message: 'Gestión Guardada correctamente.',
+                                                container: '#tab-gestion-3',
+                                                timer: 5000
+                                            });
+                                        });
+                                    })
+                                ))
+                                .append($("<td>").append(e.ValorDato))
+                                .append($("<td>").append(e.TipoDato))
+                                .append($("<td>").append(e.PorcIndice))
+                                .append($("<td>").append(alertFecha))
+                        );
+                });
+            });
+
+        }
+
+        $('#form-registro-contacto_norm').bootstrapValidator({
+            excluded: [':disabled', ':not(:visible)'],
+            feedbackIcons: [],
+            fields: {
+                cbtippContac_norm: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar un tipo de Contacto'
+                        }
+                    }
+                },
+                cbClasificacionConctac_norm: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe seleccionar una clasificación de contacto'
+                        }
+                    }
+                },
+                afi_NewContacto_norm: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe ingresar un contacto'
+                        },
+                        stringLength: {
+                            message: 'No pueden ser mas de 100 caracteres',
+                            max: function (value, validator, $field) {
+                                return 150 - (value.match(/\r/g) || []).length;
+                            }
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            // Prevén que se mande el formulario
+            e.preventDefault();
+            var $form = $(e.target);
+
+            var rutCont = $('#txtRutAfiNorm').val()
+            rutCont = rutCont.substring(0, rutCont.length - 2)
+
+            var objeto_envio_contacto = {
+                RutAfiliado: rutCont,
+                IdTipoContac: $('#cbtippContac_norm').val(),
+                GlosaTipoContac: $('select[name="cbtippContac_norm"] option:selected').text(),
+                IdClasifContac: $('#cbClasificacionConctac_norm').val(),
+                GlosaClasifContac: $('select[name="cbClasificacionConctac_norm"] option:selected').text(),
+                DatosContac: $('#afi_NewContacto_norm').val()
+            }
+            $.SecGetJSON(BASE_URL + "/motor/api/Contactos/ingresa-nuevo-contacto", objeto_envio_contacto, function (datos) {
+                $("#form-registro-contacto_norm").bootstrapValidator('resetForm', true);
+                // $('#demo-lg-modal-new').modal('hide');
+                cargaDatosDeContacto(rutCont, '#bdy_datos_contactos_normalizacion');
+                $("#btn-add-contac-normalizacion").trigger("click");
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'pli-like-2 icon-2x',
+                    message: 'Contacto Guardado correctamente.',
+                    container: '#tab-gestion-3',
+                    timer: 5000
+                });
+            });
+            return false;
+
+        });
+
+        $('#btn-add-contac-normalizacion').on('click', function () {
+
+            // console.log('Visibiliadad', $('#formulario-contac').is(':visible'));
+            if ($('#formulario-contac_normalizacion').is(':visible')) {
+                $('#formulario-contac_normalizacion').hide('slow');
+            }
+            else {
+                $('#formulario-contac_normalizacion').show('slow');
+            }
+
         });
 
 

@@ -425,6 +425,10 @@
                 $('.usuario-soporte').show();
             }
 
+            if (getCookie('Cargo') === 'Agente') {
+                $('a[href$="/motor/Emp/CarteraEmpresaEjecutivo"]').closest('li').remove()
+            }
+
             $('#btVolverListado').on('click', function (e) {
                 //Kill sesion e ir a inicio soporte
                 $.SecGetJSON(BASE_URL + "/motor/api/Auth/kill", function (respuesta) {

@@ -17,7 +17,16 @@
             <div class="panel" style="border-radius: 7px;">
                 <div class="panel-heading">
                     <div class="panel-control">
-                        <a href="#fakelink" class="add-tooltip demo-pli-question-circle icon-lg unselectable" data-html="true" data-title="<h4>Información</h4><p style='width:150px'>Debe presionar el boton Filtrar para visualizar datos de pensionados.</p>" data-original-title="" title=""></a>
+                        @* <a href="#fakelink" class="add-tooltip demo-pli-question-circle icon-lg unselectable" data-html="true" data-title="<h4>Información</h4><p style='width:150px'>Debe presionar el boton Filtrar para visualizar datos de pensionados.</p>" data-original-title="" title=""></a>*@
+
+
+                        <div class="col-sm-12 table-toolbar-right">
+                            <div class="form-group">
+                                <button data-target="#demo-lg-modal-pensionado" style="margin-top: 9px;" data-toggle="modal" class="btn btn-primary btn-rounded btn-labeled pli-search-on-cloud">Buscar_Pensionado</button>
+                            </div>
+
+                        </div>
+
                     </div>
                     <h3 class="panel-title">PENSIONADOS</h3>
                 </div>
@@ -1063,6 +1072,103 @@
                 </div>
             </div>
         </div>
+
+
+        <div id="demo-lg-modal-pensionado" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                        <h4 class="modal-title" id="myLargeModalLabel-search">Buscar Pensionado</h4>
+                    </div>
+                    <div class="modal-body" id="bdy_busqueda_pensionado">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Rut Pensionado</label>
+
+                                    <div class="row">
+                                        <div class="col-sm-6 text-xs-center">
+                                            <div class="form-group">
+                                                <input class="form-control" id="afi_rut_Pens" style="width: 250px;" maxlength="10" placeholder="99999999-9" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 text-xs-center">
+                                            <div class="form-group">
+                                                <button class="btn btn-primary" v-on:click="handleEventoClickBuscaUniversal" id="btn_buscar_pens" type="submit">Buscar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="NotfGenericaPensionado"></div>
+                                    <hr />
+                                    <div class="pad-all">
+                                        <div class="media mar-btm">
+                                            <div class="media-left">
+                                                <img src="/Motor/Assets/img/profile-photos/1.png" class="img-md img-circle" alt="Avatar">
+                                            </div>
+                                            <div class="media-body" style="vertical-align: middle;">
+                                                <p class="text-lg text-main text-semibold mar-no">Pensionado: <label class="control-label limpiarUni"> {{dataModal.nombre != undefined && dataModal.nombre != "" ? dataModal.nombre : '------'}}</label></p>
+                                            </div>
+                                        </div>
+                                        <ul class="list-group bg-trans bord-no">
+                                            <li class="list-group-item list-item-sm">
+                                                <div class="row">
+                                                    <div class="col-sm-4 text-xs-center">
+                                                        <div class="form-group">
+                                                            <div class="media-left">
+                                                                <i class="ion-person-stalker icon-lg"></i>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <a href="#" class="btn-link text-semibold">Esta Asignado?</a>
+                                                                <br />
+                                                                <p class="text-semibold text-main limpiarUni"> {{dataModal.ejecutivo_asignado != undefined ? dataModal.ejecutivo_asignado != "" ? "SI" : "NO"  : '------------'}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-4 text-xs-center">
+                                                        <div class="form-group">
+                                                            <div class="media-left">
+                                                                <i class="ion-person icon-lg"></i>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <a href="#" class="btn-link text-semibold">Ejecutivo Asignado</a>
+                                                                <br>
+                                                                <p class="text-semibold text-main limpiarUni">{{dataModal.nombreEjecutivo != undefined ? dataModal.nombreEjecutivo != "" ?  dataModal.nombreEjecutivo : "SIN ASIGNAR"  : '------------'}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4 text-xs-center">
+                                                        <div class="form-group">
+                                                            <div class="media-left">
+                                                                <i class="ion-home icon-lg"></i>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <a href="#" class="btn-link text-semibold">Sucursal</a>
+                                                                <br />
+                                                                <p class="text-semibold text-main limpiarUni">{{dataModal.sucursalEjecutivo != undefined ? dataModal.sucursalEjecutivo != "" ? dataModal.sucursalEjecutivo : "SIN ASIGNAR" : '------------'}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Modal footer-->
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

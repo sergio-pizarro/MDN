@@ -575,23 +575,37 @@ $(function () {
 
         var rutAfilado = $("#afi_rut_busc").val().replace(/\./g, '')
         var tpcmp = $("#PrincipalTabActivo").val();
-        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-seguimiento", { periodo: entorno.Periodo, afiRut: rutAfilado.trim(), tipoCampagna: tpcmp }, function (datos) {
 
-            if (datos.Estado === "OK") {
-                location.href = BASE_URL + '/motor/App/Gestion/Oferta/' + datos.Objeto.Seguimiento.Periodo.toString() + '/' + rutAfilado + '/' + tpcmp
-            } else {
-                $.niftyNoty({
-                    type: 'primary',
-                    container: '#bdy_busqueda',
-                    html: '<strong>!</strong> No se encontro Rut para el periodo actual.',
-                    focus: false,
-                    timer: 3000
-                });
-            }
-        });
+        if (tpcmp == 2) {
+            $("#demo-lg-modal-search").modal('hide')
+            $("#mdl_data_normalizacion").modal("show");
+            $("#afi_rut_busc").val("");
+        }
 
+        if (tpcmp == 8) {
+            $("#demo-lg-modal-search").modal('hide')
+            $("#mdl_data_acuerdo_pago").modal("show");
+            $("#afi_rut_busc").val("");
+        }
 
+        else {
+            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-seguimiento", { periodo: entorno.Periodo, afiRut: rutAfilado.trim(), tipoCampagna: tpcmp }, function (datos) {
+
+                if (datos.Estado === "OK") {
+                    location.href = BASE_URL + '/motor/App/Gestion/Oferta/' + datos.Objeto.Seguimiento.Periodo.toString() + '/' + rutAfilado + '/' + tpcmp
+                } else {
+                    $.niftyNoty({
+                        type: 'primary',
+                        container: '#bdy_busqueda',
+                        html: '<strong>!</strong> No se encontro Rut para el periodo actual.',
+                        focus: false,
+                        timer: 3000
+                    });
+                }
+            });
+        }
     });
+
 
     //Evento de Estado maestro Pre Aprobados
     $("#ges_estado").on("change", function () {
@@ -1019,9 +1033,20 @@ $(function () {
                     //var prioPens = row.Notificaciones.findIndex(function (x) {
                     //    return x.Tipo === 'PRIOPENS';
                     //});
+                    jQuery.ajaxSetup({ async: false });
+
+                    let descripcion = "";
+                    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-comercial-beneficios", { Rut_: row.Seguimiento.Afiliado_Rut }, function (datos) {
+                        $.each(datos, function (i, e) {
+                            descripcion = descripcion + ' ' + '<span class="badge badge-info">' + e.Descripcion + '</span>';
+                        });
+                    });
 
                     //return value.toString().toEtiquetaPrioridad() + (prioPens >= 0 ? '    <span class="badge badge-warning">!</span>' : (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')) //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
-                    return value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '') + (row.Seguimiento.MARCA_CC === 1 ? '    <span class="badge badge-purple">C.C</span>' : '') + (row.Seguimiento.MarcaPsu === 1 ? '    <span class="badge badge-primary">PSU</span>' : '') //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
+                    //eturn value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '') + (row.Seguimiento.MARCA_CC === 1 ? '    <span class="badge badge-purple">C.C</span>' : '') + (row.Seguimiento.MarcaPsu === 1 ? '    <span class="badge badge-primary">PSU</span>' : '') //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
+                    jQuery.ajaxSetup({ async: true });
+                    //turn value.toString().toEtiquetaPrioridad() + ' ' + descripcion;
+                    return value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '') + (row.Seguimiento.MARCA_CC === 1 ? '    <span class="badge badge-purple">C.C</span>' : '') + (row.Seguimiento.MarcaPsu === 1 ? '    <span class="badge badge-primary">PSU</span>' : '') + ' ' + descripcion; //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
                 }
             },
 
@@ -1070,19 +1095,19 @@ $(function () {
 
 
     //SEGURO CESANTIA
-    $('#btn_seguro_cesantia').click(function () {
-        $("#tabla_seguro_cesantia").bootstrapTable('refresh', {
-            url: BASE_URL + "/motor/api/Gestion/v3/lista-seguimientos",
-            query: {
-                tipoCampagna: 4,
-                periodo: entorno.Periodo,
-                estado: $('#flt_estado_sc').val(),
-                subestado: $('#flt_sub_estado_sc').val(),
-                rut: $('#flt_rut_sc').val(),
-                vencimiento: $('#flt_vencidos_sc').val()
-            }
-        });
-    });
+    //$('#btn_seguro_cesantia').click(function () {
+    //    $("#tabla_seguro_cesantia").bootstrapTable('refresh', {
+    //        url: BASE_URL + "/motor/api/Gestion/v3/lista-seguimientos",
+    //        query: {
+    //            tipoCampagna: 4,
+    //            periodo: entorno.Periodo,
+    //            estado: $('#flt_estado_sc').val(),
+    //            subestado: $('#flt_sub_estado_sc').val(),
+    //            rut: $('#flt_rut_sc').val(),
+    //            vencimiento: $('#flt_vencidos_sc').val()
+    //        }
+    //    });
+    //});
 
 
     $("#tabla_seguro_cesantia").bootstrapTable({
@@ -1182,6 +1207,7 @@ $(function () {
             $("#afi_oficina_preferencia").append($("<option>").attr("value", e.Id).html(e.Nombre))
             $("#afi_oficina_preferenciaNormalizacion").append($("<option>").attr("value", e.Id).html(e.Nombre))
         });
+        $('.search > .form-control').attr('placeholder', 'Buscar por Rut')
     });
 
 
@@ -1209,7 +1235,7 @@ $(function () {
                 }
 
                 //DATOS AFILIADO
-                // rutPSU = afiData.Afiliado_Rut; // TEMPORAL BORRAR AL TERMINAR CAMPAÑA
+                rutPSU = afiData.Afiliado_Rut; // TEMPORAL BORRAR AL TERMINAR CAMPAÑA
                 $('#afi_rut').val(afiData.Afiliado_Rut.toMoney(0) + '-' + afiData.Afiliado_Dv);
                 $('#afi_nombres').val(afiData.Nombre + ' ' + afiData.Apellido);
                 $('#afi_segmento').val(afiData.Segmento);
@@ -1279,7 +1305,25 @@ $(function () {
                 //NOTIFICACIONES
                 var sx = false;
 
+                $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-comercial-beneficios", { Rut_: afiData.Afiliado_Rut }, function (datos) {
+                    $(".NotfGenericaContainer").html("");
+                    let text = "";
+                    var type = "success";
+                    $.each(datos, function (i, e) {
+                        $(".NotfGenerica").show();
+                        text = e.Glosa;
+                        $.niftyNoty({
+                            type: type,
+                            container: '.NotfGenericaContainer',
+                            html: text,
+                            focus: false,
+                            closeBtn: false
+                        });
+                    });
+                });
 
+
+                //BORRADO POR NUEVA NOTIFICACNES --SERGIO
                 if (typeof Asignacion.Notificaciones != "undefined" && Asignacion.Notificaciones != null && Asignacion.Notificaciones.length > 0) {
                     var text = "";
                     var type = "success";
@@ -1322,8 +1366,6 @@ $(function () {
                         }
                     });
 
-
-
                     /*TO DO: Revisar la logica*/
                     if (!sx) {
                         $(".charlyNTF").show();
@@ -1333,6 +1375,9 @@ $(function () {
                     $(".charlyNTF").hide();
                 }
 
+
+                /// FIN COMENTARIO POR NUEVO METODO NOTIFICACIONES -- SERGIO
+
                 var info_xxx = "";
 
                 if (Asignacion.FiltrosRSG.length > 0) {
@@ -1340,6 +1385,7 @@ $(function () {
                 }
 
                 if (tipoCamp === 1 || tipoCamp === 5) {
+                    //BORRADO POR NUEVA NOTIFICACNES ---SERGIO
                     if (afiData.MARCA_CC === 1) {
                         $(".sergioNTF").show();
                         $(".sergioNTFContainer").html("");
@@ -1414,6 +1460,9 @@ $(function () {
 
 
         /// TEMPORAL BORRA CAMPAÑA PARA PSU SERGIO
+
+        console.log(rutPSU)
+
         $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-afi-psu", { Afiliado_Rut: rutPSU }, function (datos) {
             $(".psuNTF").show();
             $(".psuNTFContainer").html("");
@@ -1885,8 +1934,12 @@ $(function () {
             e.preventDefault();
             var $form = $(e.target);
 
+            var rutClie = $('#afi_rut').val()
+            rutClie = rutClie.split('.').join('')
+            rutClie = rutClie.substring(0, rutClie.length - 2)
+
             var objeto_envio_contacto = {
-                RutAfiliado: rutAf,
+                RutAfiliado: rutClie,
                 IdTipoContac: $('#cbtippContac').val(),
                 GlosaTipoContac: $('select[name="cbtippContac"] option:selected').text(),
                 IdClasifContac: $('#cbClasificacionConctac').val(),
@@ -1946,11 +1999,11 @@ $(function () {
         e.preventDefault();
         var $form = $(e.target);
 
-        var rutCont = $('#txtRutAfiNorm').val()
-        rutCont = rutCont.substring(0, rutCont.length - 2)
+        var rutClie = $('#txtRutAfiNorm').val()
+        rutClie = rutClie.substring(0, rutClie.length - 2)
 
         var objeto_envio_contacto = {
-            RutAfiliado: rutCont,
+            RutAfiliado: rutClie,
             IdTipoContac: $('#cbtippContac_norm').val(),
             GlosaTipoContac: $('select[name="cbtippContac_norm"] option:selected').text(),
             IdClasifContac: $('#cbClasificacionConctac_norm').val(),
@@ -2025,6 +2078,69 @@ $(function () {
             // $('#demo-lg-modal-new').modal('hide');
             cargaDatosDeContacto(rutCont, 'bdy_datos_contactos_acuerdo_pago');
             $("#btn-add-contac_acuerdo_pago").trigger("click");
+            $.niftyNoty({
+                type: 'success',
+                icon: 'pli-like-2 icon-2x',
+                message: 'Contacto Guardado correctamente.',
+                container: '#tab-gestion-3',
+                timer: 5000
+            });
+        });
+
+    });
+
+
+    $('#form-registro-contacto_seguro-cesantia').bootstrapValidator({
+        excluded: [':disabled', ':not(:visible)'],
+        feedbackIcons: [],
+        fields: {
+            cbtippContac_seg: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe seleccionar un tipo de Contacto'
+                    }
+                }
+            },
+            cbClasificacionConctac_seg: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe seleccionar una clasificación de contacto'
+                    }
+                }
+            },
+            afi_NewContacto_seg: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe ingresar un contacto'
+                    },
+                    stringLength: {
+                        message: 'No pueden ser mas de 100 caracteres',
+                        max: function (value, validator, $field) {
+                            return 150 - (value.match(/\r/g) || []).length;
+                        }
+                    }
+                }
+            }
+        }
+    }).on('success.form.bv', function (e) {
+        // Prevén que se mande el formulario
+        e.preventDefault();
+        var $form = $(e.target);
+        var rutCont = $('#txtRutAfiSegC').val()
+        rutCont = rutCont.substring(0, rutCont.length - 2)
+        var objeto_envio_contacto = {
+            RutAfiliado: rutCont,
+            IdTipoContac: $('#cbtippContac_seg').val(),
+            GlosaTipoContac: $('select[name="cbtippContac_seg"] option:selected').text(),
+            IdClasifContac: $('#cbClasificacionConctac_seg').val(),
+            GlosaClasifContac: $('select[name="cbClasificacionConctac_seg"] option:selected').text(),
+            DatosContac: $('#afi_NewContacto_seg').val()
+        }
+        $.SecGetJSON(BASE_URL + "/motor/api/Contactos/ingresa-nuevo-contacto", objeto_envio_contacto, function (datos) {
+            $("#form-registro-contacto_seguro-cesantia").bootstrapValidator('resetForm', true);
+            // $('#demo-lg-modal-new').modal('hide');
+            cargaDatosDeContacto(rutCont, 'bdy_datos_contactos_seguro_cesantia');
+            $("#btn-add-contac-seguro_cesantia").trigger("click");
             $.niftyNoty({
                 type: 'success',
                 icon: 'pli-like-2 icon-2x',
@@ -2550,6 +2666,18 @@ $(function () {
         }
         else {
             $('#formulario-contac_acuerdo_pago').show('slow');
+        }
+
+    });
+
+    $('#btn-add-contac-seguro_cesantia').on('click', function () {
+
+        // console.log('Visibiliadad', $('#formulario-contac').is(':visible'));
+        if ($('#formulario-contac_seguro_cesantia').is(':visible')) {
+            $('#formulario-contac_seguro_cesantia').hide('slow');
+        }
+        else {
+            $('#formulario-contac_seguro_cesantia').show('slow');
         }
 
     });
@@ -3094,13 +3222,13 @@ $(function () {
     var result = [];
     $('#btAsignarPensionado').click(function () {
 
-        if ($("#dllEjePensiondos").val() != "") {
+        if ($("#dllEjecutivo").val() != "") {
             var malos = []
             var buenos = 0;
             $.each(result, function (i, e) {
                 var webPensionado = {
                     Token: getCookie('Token'),
-                    Rut_Ejecutivo: $("#dllEjePensiondos").val(),
+                    Rut_Ejecutivo: $("#dllEjecutivo").val(),
                     id_Asign: result[i],
                 }
                 $.SecPostJSON(BASE_URL + "/motor/api/Gestion/asigna-ejecutivo-pensionado", webPensionado, function (respuesta) {
@@ -3123,7 +3251,7 @@ $(function () {
                     timer: 4000
                 });
             }, 100);
-            $('#dllEjePensiondos').val('0')
+            $('#dllEjecutivo').val('0')
         }
         else {
             $.niftyNoty({

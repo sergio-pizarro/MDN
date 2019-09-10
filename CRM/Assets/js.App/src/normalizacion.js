@@ -32,7 +32,7 @@ var appNormalizacionFiltros = new Vue({
         this.obtenerDerivacion();
     },
     updated() {
-        console.log('cambió')
+        // console.log('cambió')
     },
     methods: {
         obtenerCausas() {
@@ -136,6 +136,7 @@ var appNormalizacionFiltros = new Vue({
                     estadoCliente: this.modelos.estadoCliente,
                     tipoCampana: this.modelos.tipoCampana,
                     derivacion: this.modelos.derivacion,
+                    oficina: getCookie('Oficina'),
                 }
             });
         },
@@ -238,9 +239,9 @@ var appNormalizacionModal = new Vue({
         this.obtenerEstadoClienteModal();
     },
     updated() {
-        console.log('cambió', {
-            form: this.modelosModal
-        })
+        //console.log('cambió', {
+        //    form: this.modelosModal
+        //})
     },
     methods: {
         obtenerCausasModal() {
@@ -315,13 +316,19 @@ var appNormalizacionModal = new Vue({
             this.comportamientos.mostrarProximaGestion = (new RegExp('--compromiso')).test(sbestado.opciones);
         },
         obtenerLead(rut) {
-            fetch(`http://${motor_api_server}:4002/normalizacion/leads/${rut}`, {
+            var fechaHoy = new Date();
+            var periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
+            fetch(`http://${motor_api_server}:4002/normalizacion/leads/${rut}/${periodo}`, {
                 method: 'GET',
                 mode: 'cors',
                 cache: 'default'
             })
                 .then(response => response.json())
                 .then(datos => {
+
+                    console.log({
+                        dep: datos
+                    })
                     this.dataModal = datos;
                     return datos
                 }).then(x => {
@@ -367,17 +374,18 @@ var appNormalizacionModal = new Vue({
                 $('#fpg_normalizacion').css('display', 'none');
                 appNormalizacionModal.setDefaultsModal();
                 appNormalizacionFiltros.handleEventoClickFiltrar();
-               
-              
-            }).catch(reasons => {
-                console.log({ reasons });
-                $.niftyNoty({
-                    type: 'danger',
-                    message: 'Error al intentar guardar gestión.',
-                    container: '.msjNormalizacion',
-                    timer: 3000
-                });
+
+
             });
+            //.catch(reasons => {
+            //    console.log({ reasons });
+            //    $.niftyNoty({
+            //        type: 'danger',
+            //        message: 'Error al intentar guardar gestión.',
+            //        container: '.msjNormalizacion',
+            //        timer: 3000
+            //    });
+            //});
         },
         setDefaultsModal() {
             this.modelosModal = {
@@ -393,17 +401,40 @@ var appNormalizacionModal = new Vue({
 });
 
 $(function () {
+
+
+
+
+
     $('#mdl_data_normalizacion').on('show.bs.modal', async (event) => {
-        const rut = $(event.relatedTarget).data('rut');
+
+        const rut = event.relatedTarget != undefined ? $(event.relatedTarget).data('rut') : $('#afi_rut_busc').val();
         console.log({ rut })
         var rutCont = rut
         rutCont = rutCont.substring(0, rutCont.length - 2)
         await appNormalizacionModal.obtenerLead(rut);
         cargaDatosDeContacto(rutCont, '#bdy_datos_contactos_normalizacion')
-        //$('#new_datos-gestion_normalizacion').trigger("reset");
         appNormalizacionModal.setDefaultsModal();
         $('#fpg_normalizacion').css('display', 'none');
         $('#btGestNormalizacion').attr("disabled", false);
+
+
+        setInterval(function () {
+            $('#demo-dp-component_normalizacion .input-group.date').datepicker({
+                autoclose: true,
+                format: 'dd-mm-yyyy',
+                startdate: "0d",
+                language: "es",
+                daysofweekdisabled: [6, 0],
+                todayhighlight: true
+            }).on('show.bs.modal hide.bs.modal', function (event) {
+                event.stoppropagation();
+            });
+        }, 1000);
+
+
+
+
     });
 
 
@@ -420,9 +451,24 @@ $(function () {
         else {
             $('#slBasalModNormalizacion').attr("disabled", true);
             $('#fpg_normalizacion').css('display', 'none');
-           // appNormalizacionModal.setDefaultsCausaModal()
             $('#slBasalModNormalizacion').val("");
         }
+    });
 
+    $('.subEstado').change(function (e) {
+        appNormalizacionModal.manejarVisibilidadCalendario();
+        $('#datos-gestion_normalizacion').show();
+        /*$('#demo-dp-component_normalizacion .input-group.date').datepicker({
+            autoclose: true,
+            format: 'dd-mm-yyyy',
+            startDate: "0d",
+            language: "es",
+            daysOfWeekDisabled: [6, 0],
+            todayHighlight: true
+
+        }).on('show.bs.modal hide.bs.modal', function (event) {
+            // prevent datepicker from firing bootstrap modal "show.bs.modal"
+            event.stopPropagation();
+            });*/
     });
 });
