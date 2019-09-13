@@ -220,7 +220,7 @@ $(function () {
                 });
             });
         },
-        CargaEjecutivoPensionados: function () {
+       /* CargaEjecutivoPensionados: function () {
             $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-ejecutivo-pensionados", { Token: getCookie('Token') }, function (datos) {
                 $("#dllEjePensiondos").html("");
                 $("#dllEjecutivo").html("");
@@ -244,7 +244,7 @@ $(function () {
                     );
                 });
             });
-        },
+        },*/
         ModalUltimaGestion: function (id) {
             $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-ultima-gestion-contacto", { Id: id, Cod_oficina: getCookie("Oficina") }, function (respuesta) {
                 //console.log({
@@ -2721,9 +2721,13 @@ $(function () {
 
     //Ejecutivos Incorporación y Prospección Pensionados
     //Ejecutivo Pensiona
-    render.CargaEjecutivoPensionados();
-    render.CargaEstadosGestion();
+   // render.CargaEjecutivoPensionados();
+    //render.CargaEstadosGestion();
     //GUARDA CONTACTO
+
+
+    //nuevo medelo sergio
+    
     $('#btn_contacto').on('click', function () {
         var estado;
         var con_form_Contacto = $('input:radio[name=rbContactoSIMedio]:checked').val()
@@ -2837,7 +2841,7 @@ $(function () {
         });
     });
 
-    $('#btn_interes_guardar').on('click', function () {
+   /* $('#btn_interes_guardar').on('click', function () {
         var fecha;
         var fechaCompromete = $('#txtFechacita').val() + ' ' + $('#slHoraInteres').val();
         if (fechaCompromete == " " || fechaCompromete == "") {
@@ -3006,6 +3010,12 @@ $(function () {
             }
         });
     });
+
+*/
+
+    //NUEVO MODELO SERGIO
+
+    /*
 
     $('#btn_interes').on('click', function () {
         if ($('#btn_interes').html() == 'Finalizar') {
@@ -3314,6 +3324,9 @@ $(function () {
         }
     });
 
+    */
+
+    /* NUEVO MEDELO SERGIO
     $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-comuna-oficina-pensionados", { Token: getCookie('Token') }, function (menus) {
         $("#dllComunaPen").html("");
         $("#dllComunaPen").append($("<option>").attr("value", "").html("Todos"));
@@ -3324,9 +3337,10 @@ $(function () {
         $('#dllComunaPen').chosen({
             width: '100%'
         });
-    });
+    });*/
 
-
+//NUEVO MEDELO SERGIO
+    /*
     $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-comuna-pensionados", function (menus) {
         $("#pen_comuna").html("");
         $("#pen_comuna").append($("<option>").attr("value", "").html("Seleccione..."));
@@ -3338,8 +3352,10 @@ $(function () {
             width: '100%'
         });
     });
+    */
 
-
+    // NUEVO MODELO SERGIO
+    /*
     $('#PrintPensionados').click(function () {
         if (result['length'] != 0) {
             var openEnderContent = $('#tblPrinPensionado').html()
@@ -3709,6 +3725,8 @@ $(function () {
         }
 
     });
+
+*/
 
     //-----------------PROSPECTOS-------PESNIONADOS------------------------------------------------------
 
