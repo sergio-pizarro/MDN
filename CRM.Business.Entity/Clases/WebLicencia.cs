@@ -49,6 +49,19 @@ namespace CRM.Business.Entity.Clases
         public int TipoLM { get; set; }
         public int OfiDerivacion { get; set; }
 
+        /*Documentación Faltante*/
+        public int LiqMes1 { get; set; }
+        public int LiqMes2 { get; set; }
+        public int LiqMes3 { get; set; }
+        public int LiqMes4 { get; set; }
+        public int LiqMes5 { get; set; }
+        public int LiqMes6 { get; set; }
+        public int CertificadoRenta { get; set; }
+        public int Acredita90 { get; set; }
+        public int Acredita180 { get; set; }
+        public int Otros { get; set; }
+        public string Comentarios { get; set; }
+        public int FaltaDocumentacion { get; set; }
 
         public List<WebDocumentacion> DocumentacionLM { get; set; }
        // 

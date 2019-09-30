@@ -55,6 +55,7 @@ namespace CRM.Controllers
             return new BaseLicencia
             {
                 IngresoData = ingLc,
+                DocumentosFaltantes = DocumentosFaltantesLMDataAccess.ObtenerByCodIngresoLM(codIngreso),
                 EstadoData = EstadolicenciaDataAccess.ObtenerPorID(ingLc.CodEstado),
                 NombreEjecutivo = DotacionDataAccess.ObtenerByRut(ingLc.RutEjecutivo).Nombres
             };
@@ -121,21 +122,36 @@ namespace CRM.Controllers
                     ing.TipoLM = null;
                 }
 
-                //  
+                var codIngreso = IngresolicenciaDataAccess.Guardar(ing, token);
+                var codFinal = entrada.CodIngreso > 0 ? entrada.CodIngreso : codIngreso;
 
-                IngresolicenciaDataAccess.Guardar(ing, token);
+                DocumentosFaltantesLM dcm = new DocumentosFaltantesLM(
+                    entrada.FolioLc,
+                    entrada.RutAfiliado.Replace(".", ""),
+                    codFinal,
+                    entrada.LiqMes1==1,
+                    entrada.LiqMes2==1,
+                    entrada.LiqMes3==1,
+                    entrada.LiqMes4==1,
+                    entrada.LiqMes5==1,
+                    entrada.LiqMes6==1,
+                    entrada.CertificadoRenta==1,
+                    entrada.Acredita90==1,
+                    entrada.Acredita180==1,
+                    entrada.Otros==1,
+                    entrada.Comentarios,
+                    entrada.FaltaDocumentacion==1
+                );
+
+                DocumentosFaltantesLMDataAccess.GuardarEntrada(dcm, token);
+
                 return new ResultadoBase() { Estado = "OK", Mensaje = "Licencia ingresada con éxito", Objeto = entrada };
             }
             catch (Exception ex)
             {
                 var x = ex.Message.Split(';');
                 return new ResultadoBase() { Estado = "ERR", Mensaje = x[1], Objeto = x[0] };
-
-
-
-
-
-
+                
                 //if (base1.Estado.Equals("ERR"))
                 //{
                 //    return new ResultadoBase() { Estado = "ERR", Mensaje = x[0], Objeto = ex };

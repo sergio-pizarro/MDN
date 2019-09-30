@@ -1,6 +1,6 @@
 ﻿//@charlie Prä//
 var app = new Vue({
-    el: '#page-content',
+    el: '#tab-2',
     data: {
         sesion: {
             rutEjecutivo: function () {
