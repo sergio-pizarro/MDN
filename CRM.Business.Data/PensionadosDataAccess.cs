@@ -54,6 +54,7 @@ namespace CRM.Business.Data
                 id_Asign = row["id_Asign"] != DBNull.Value ? Convert.ToInt32(row["id_Asign"]) : 0,
                 ESTADO_GESTION = row["ESTADO_GESTION"] != DBNull.Value ? Convert.ToInt32(row["ESTADO_GESTION"]) : 0,
                 NOM_GESTION = row["NOM_GESTION"] != DBNull.Value ? row["NOM_GESTION"].ToString() : string.Empty,
+                codigo = row["codigo"] != DBNull.Value ? row["codigo"].ToString() : string.Empty,
 
             };
         }

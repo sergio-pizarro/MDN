@@ -22,13 +22,13 @@ namespace CRM.Business.Data
 
         public static List<EstadogestionEntity> ListarEstadosGestion()
         {
-            
+
             return DBHelper.InstanceCRM.ObtenerColeccion("spMotor_Estadogestion_Listar", EntidadEstadoGestion);
         }
 
         public static EstadogestionEntity ObtenerEstadosGestionById(long id)
         {
-            return DBHelper.InstanceCRM.ObtenerEntidad("spMotor_Estadogestion_ObtenerById", new Parametro("@Id", id),EntidadEstadoGestion);
+            return DBHelper.InstanceCRM.ObtenerEntidad("spMotor_Estadogestion_ObtenerById", new Parametro("@Id", id), EntidadEstadoGestion);
         }
 
 
@@ -40,7 +40,7 @@ namespace CRM.Business.Data
                 Nombre = row["afi_dv"] != DBNull.Value ? row["afi_dv"].ToString() : string.Empty,
             };
         }
-        
+
         private static EstadogestionEntity EntidadEstadoGestion(DataRow row)
         {
             return new EstadogestionEntity
@@ -53,5 +53,21 @@ namespace CRM.Business.Data
             };
         }
 
+        public static List<TipoComercialBeneficioEntity> ListaComercialBeneficios(int Rut_)
+        {
+            Parametro pram = new Parametro("@RUT", Rut_);
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Lista_comercial_Beneficios", pram, EntidadcomercialBenefico);
+        }
+
+        private static TipoComercialBeneficioEntity EntidadcomercialBenefico(DataRow row)
+        {
+            return new TipoComercialBeneficioEntity
+            {
+                Rut = row["rut"] != DBNull.Value ? row["rut"].ToString() : string.Empty,
+                Rut_ = row["rut_"] != DBNull.Value ? Convert.ToInt32(row["rut_"]) : 0,
+                Glosa = row["glosa"] != DBNull.Value ? row["glosa"].ToString() : string.Empty,
+                Descripcion = row["descripcion"] != DBNull.Value ? row["descripcion"].ToString() : string.Empty,
+            };
+        }
     }
 }

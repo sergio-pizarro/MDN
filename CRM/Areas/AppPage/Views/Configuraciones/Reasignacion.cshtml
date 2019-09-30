@@ -70,6 +70,7 @@
                                                 <option value="2">Normalización</option>
                                                 @*<option value="3">Devolución TMC</option>*@
                                                 <option value="4">Seg. Cesantía</option>
+                                                <option value="5">Acuerdo de Pago</option>
                                             </select>
                                         </div>
                                     </div>
@@ -461,7 +462,7 @@
 
             $("#slTipoCamp").on("change", function () {
 
-                var tipoCampania = $(this).val() != "" && $(this).val() != "2" ? $(this).val() : 0
+                var tipoCampania = $(this).val() != "" && $(this).val() != "2" && $(this).val() != "5" ? $(this).val() : 0
                 $.SecGetJSON(BASE_URL + "/motor/api/Gestion/listar-mi-oficina", { tipoCampania }, function (respuesta) {
 
                     $(".lista-ejecutivos").html("");
@@ -485,7 +486,46 @@
                     var rutEjecutivo = $(this).val();
                     var fechaHoy = new Date();
                     var periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
-                    fetch(`http://${motor_api_server}:4002/normalizacion/leadAsignados?rutEjecutivo=${rutEjecutivo}&periodo=${periodo}`, {
+                    var oficina = getCookie('Oficina');
+                    fetch(`http://${motor_api_server}:4002/normalizacion/leadAsignados?rutEjecutivo=${rutEjecutivo}&periodo=${periodo}&oficina=${oficina}`, {
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'default'
+                    })
+                        .then(rs => rs.text())
+                        .then(rsText => {
+                            console.log({ rsText })
+                            $("#nroCasosOrigen").val(rsText);
+                            $("#nroCasosAsignar").val(rsText);
+                            $("#Resumen_EjecutivoOrigen_nroCasos_antes").val(rsText);
+                        });
+                }
+
+                if ($('#slTipoCamp').val() == 5) {
+                    var rutEjecutivo = $(this).val();
+                    var fechaHoy = new Date();
+                    var periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
+                    var oficina = getCookie('Oficina');
+                    fetch(`http://${motor_api_server}:4002/acuerdopago/leadAsignados?rutEjecutivo=${rutEjecutivo}&periodo=${periodo}&oficina=${oficina}`, {
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'default'
+                    })
+                        .then(rs => rs.text())
+                        .then(rsText => {
+                            console.log({ rsText })
+                            $("#nroCasosOrigen").val(rsText);
+                            $("#nroCasosAsignar").val(rsText);
+                            $("#Resumen_EjecutivoOrigen_nroCasos_antes").val(rsText);
+                        });
+                }
+
+                if ($('#slTipoCamp').val() == 4) {
+                    var rutEjecutivo = $(this).val();
+                    var fechaHoy = new Date();
+                    var periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
+                    var oficina = getCookie('Oficina');
+                    fetch(`http://${motor_api_server}:4002/segurocesantia/leadAsignados?rutEjecutivo=${rutEjecutivo}&periodo=${periodo}&oficina=${oficina}`, {
                         method: 'GET',
                         mode: 'cors',
                         cache: 'default'
@@ -506,7 +546,41 @@
                     var rutEjecutivo = $(this).val();
                     var fechaHoy = new Date();
                     var periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
-                    fetch(`http://${motor_api_server}:4002/normalizacion/leadAsignados?rutEjecutivo=${rutEjecutivo}&periodo=${periodo}`, {
+                    var oficina = getCookie('Oficina');
+                    fetch(`http://${motor_api_server}:4002/normalizacion/leadAsignados?rutEjecutivo=${rutEjecutivo}&periodo=${periodo}&oficina=${oficina}`, {
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'default'
+                    })
+                        .then(rs => rs.text())
+                        .then(rsText => {
+                            console.log({ rsText })
+                            $("#nroCasosDestinoActual").val(rsText);
+                        });
+                }
+                else if ($('#slTipoCamp').val() == 5) {
+                    var rutEjecutivo = $(this).val();
+                    var fechaHoy = new Date();
+                    var periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
+                    var oficina = getCookie('Oficina');
+                    fetch(`http://${motor_api_server}:4002/acuerdopago/leadAsignados?rutEjecutivo=${rutEjecutivo}&periodo=${periodo}&oficina=${oficina}`, {
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'default'
+                    })
+                        .then(rs => rs.text())
+                        .then(rsText => {
+                            console.log({ rsText })
+                            $("#nroCasosDestinoActual").val(rsText);
+                        });
+                }
+
+                else if ($('#slTipoCamp').val() == 4) {
+                    var rutEjecutivo = $(this).val();
+                    var fechaHoy = new Date();
+                    var periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
+                    var oficina = getCookie('Oficina');
+                    fetch(`http://${motor_api_server}:4002/segurocesantia/leadAsignados?rutEjecutivo=${rutEjecutivo}&periodo=${periodo}&oficina=${oficina}`, {
                         method: 'GET',
                         mode: 'cors',
                         cache: 'default'
@@ -526,7 +600,7 @@
                     if (result) {
 
                         Pace.track(function () {
-                            if ($("#slTipoCamp").val() != 2) {
+                            if ($("#slTipoCamp").val() != 2 && $("#slTipoCamp").val() != 5 && $("#slTipoCamp").val() != 4) {
 
                                 var WebReasignacion = {
                                     ProcesoReasignacion: {
@@ -570,6 +644,7 @@
                                 });
                             }
                             else {
+
                                 var fechaHoy = new Date();
                                 var per = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
 
@@ -581,31 +656,88 @@
                                     oficina: getCookie("Oficina")
                                 };
 
-                                fetch(`http://${motor_api_server}:4002/normalizacion/reasignaNormalizacion`, {
-                                    method: 'POST',
-                                    body: JSON.stringify(formData),
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    }
-                                }).then(async (response) => {
-                                    console.log(response);
-                                    if (response.ok) {
+                                if ($("#slTipoCamp").val() == 2) {
+                                    fetch(`http://${motor_api_server}:4002/normalizacion/reasignaNormalizacion`, {
+                                        method: 'POST',
+                                        body: JSON.stringify(formData),
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+                                    }).then(async (response) => {
+                                        console.log(response);
+                                        if (response.ok) {
 
-                                        $("#nameOrigen").html($("#slEjecutivOrigen").find(':selected').html())
-                                        $("#nameDestino").html($("#slEjecutivDestino").find(':selected').html())
-                                        $("#resumen_tipo_camp").html($("#slTipoCamp").find(':selected').html())
-                                        $("#resumen_cantidad_asignaciones").html($("#nroCasosAsignar").val());
+                                            $("#nameOrigen").html($("#slEjecutivOrigen").find(':selected').html())
+                                            $("#nameDestino").html($("#slEjecutivDestino").find(':selected').html())
+                                            $("#resumen_tipo_camp").html($("#slTipoCamp").find(':selected').html())
+                                            $("#resumen_cantidad_asignaciones").html($("#nroCasosAsignar").val());
 
-                                        $("#origenAntes").html($("#nroCasosOrigen").val());
-                                        $("#origenDespues").html($("#Resumen_EjecutivoOrigen_nroCasos_despues").val());
+                                            $("#origenAntes").html($("#nroCasosOrigen").val());
+                                            $("#origenDespues").html($("#Resumen_EjecutivoOrigen_nroCasos_despues").val());
 
-                                        $("#destinoAntes").html($("#nroCasosDestinoActual").val());
-                                        $("#destinoDespues").html($("#Resumen_EjecutivoDestino_nroCasos_despues").val());
+                                            $("#destinoAntes").html($("#nroCasosDestinoActual").val());
+                                            $("#destinoDespues").html($("#Resumen_EjecutivoDestino_nroCasos_despues").val());
 
-                                        $(".CharlyWizardContainer").hide();
-                                        $("#CharlyFinallyContainer").show();
-                                    }
-                                });
+                                            $(".CharlyWizardContainer").hide();
+                                            $("#CharlyFinallyContainer").show();
+                                        }
+                                    });
+
+                                }
+                                else if ($("#slTipoCamp").val() == 5) {
+                                    fetch(`http://${motor_api_server}:4002/acuerdopago/reasignaAcuerdoPago`, {
+                                        method: 'POST',
+                                        body: JSON.stringify(formData),
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+                                    }).then(async (response) => {
+                                        console.log(response);
+                                        if (response.ok) {
+
+                                            $("#nameOrigen").html($("#slEjecutivOrigen").find(':selected').html())
+                                            $("#nameDestino").html($("#slEjecutivDestino").find(':selected').html())
+                                            $("#resumen_tipo_camp").html($("#slTipoCamp").find(':selected').html())
+                                            $("#resumen_cantidad_asignaciones").html($("#nroCasosAsignar").val());
+
+                                            $("#origenAntes").html($("#nroCasosOrigen").val());
+                                            $("#origenDespues").html($("#Resumen_EjecutivoOrigen_nroCasos_despues").val());
+
+                                            $("#destinoAntes").html($("#nroCasosDestinoActual").val());
+                                            $("#destinoDespues").html($("#Resumen_EjecutivoDestino_nroCasos_despues").val());
+
+                                            $(".CharlyWizardContainer").hide();
+                                            $("#CharlyFinallyContainer").show();
+                                        }
+                                    });
+                                }
+                                else if ($("#slTipoCamp").val() == 4) {
+                                    fetch(`http://${motor_api_server}:4002/segurocesantia/reasignaSeguroCesantia`, {
+                                        method: 'POST',
+                                        body: JSON.stringify(formData),
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+                                    }).then(async (response) => {
+                                        console.log(response);
+                                        if (response.ok) {
+
+                                            $("#nameOrigen").html($("#slEjecutivOrigen").find(':selected').html())
+                                            $("#nameDestino").html($("#slEjecutivDestino").find(':selected').html())
+                                            $("#resumen_tipo_camp").html($("#slTipoCamp").find(':selected').html())
+                                            $("#resumen_cantidad_asignaciones").html($("#nroCasosAsignar").val());
+
+                                            $("#origenAntes").html($("#nroCasosOrigen").val());
+                                            $("#origenDespues").html($("#Resumen_EjecutivoOrigen_nroCasos_despues").val());
+
+                                            $("#destinoAntes").html($("#nroCasosDestinoActual").val());
+                                            $("#destinoDespues").html($("#Resumen_EjecutivoDestino_nroCasos_despues").val());
+
+                                            $(".CharlyWizardContainer").hide();
+                                            $("#CharlyFinallyContainer").show();
+                                        }
+                                    });
+                                }
                             }
                         });
                     }
@@ -635,8 +767,6 @@
                         $('#slEjecutivOrigen_chosen').next('small').remove();
                     }
                 }
-
-
             });
 
             $("#slEjecutivDestino").chosen().change(function () {

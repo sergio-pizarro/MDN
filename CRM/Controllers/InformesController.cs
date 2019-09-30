@@ -288,7 +288,7 @@ namespace CRM.Controllers
 
 
 
-        [AuthorizationRequired]
+      //  [AuthorizationRequired]
         [HttpGet]
         [Route("obtener-gestion-comercial")]
         public TrackingEjecutivoGestion ObtenerTrackingInformeEjecutivoGestion()
@@ -297,7 +297,7 @@ namespace CRM.Controllers
             return InformesDataAccess.ObtenerTotalesEjecutivoGestion(token);
         }
 
-        [AuthorizationRequired]
+      //  [AuthorizationRequired]
         [HttpGet]
         [Route("obtener-gestion-comercial-vencidas")]
         public TrackinVencimientosGestiones ObtenerTrackingVencimientoGestion()
@@ -306,7 +306,7 @@ namespace CRM.Controllers
             return InformesDataAccess.ObtenerVencidosGestiones(token);
         }
 
-        [AuthorizationRequired]
+       // [AuthorizationRequired]
         [HttpGet]
         [Route("obtener-gestion-normalizacion")]
         public TrackEjecutivoGestionNormalizacion ObtenerInformeEjecutivoNormalizacion()
@@ -315,7 +315,7 @@ namespace CRM.Controllers
             return InformesDataAccess.ObtenerGestionNormalizacion(token);
         }
 
-        [AuthorizationRequired]
+       // [AuthorizationRequired]
         [HttpGet]
         [Route("obtener-gestion-normalizacion-vencidas")]
         public TrackVencimientosGesNormalizacion ObtenerInfoVencidosGesNormalizacion()

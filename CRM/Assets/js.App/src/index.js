@@ -211,16 +211,16 @@ $(function () {
                 $(".esconder").show();
             }
         },
-        CargaEstadosGestion: function () {
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estado-gestion", function (datos) {
-                $("#dllEstadoGestionPadre").html("");
-                $("#dllEstadoGestionPadre").append($("<option>").attr("value", "0").html("Todos"));
-                $.each(datos, function (i, e) {
-                    $("#dllEstadoGestionPadre").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre))
-                });
-            });
-        },
-        CargaEjecutivoPensionados: function () {
+        //CargaEstadosGestion: function () {
+        //    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estado-gestion", function (datos) {
+        //        $("#dllEstadoGestionPadre").html("");
+        //        $("#dllEstadoGestionPadre").append($("<option>").attr("value", "0").html("Todos"));
+        //        $.each(datos, function (i, e) {
+        //            $("#dllEstadoGestionPadre").append($("<option>").attr("value", e.eges_id).html(e.eges_nombre))
+        //        });
+        //    });
+        //},
+       /* CargaEjecutivoPensionados: function () {
             $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-ejecutivo-pensionados", { Token: getCookie('Token') }, function (datos) {
                 $("#dllEjePensiondos").html("");
                 $("#dllEjecutivo").html("");
@@ -244,257 +244,257 @@ $(function () {
                     );
                 });
             });
-        },
-        ModalUltimaGestion: function (id) {
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-ultima-gestion-contacto", { Id: id, Cod_oficina: getCookie("Oficina") }, function (respuesta) {
-                //console.log({
-                //    respuesta
-                //})
+        },*/
+        //ModalUltimaGestion: function (id) {
+        //    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-ultima-gestion-contacto", { Id: id, Cod_oficina: getCookie("Oficina") }, function (respuesta) {
+        //        //console.log({
+        //        //    respuesta
+        //        //})
 
-                if (respuesta['eges_nombre'] != null) {
+        //        if (respuesta['eges_nombre'] != null) {
 
-                    if (respuesta['ges_estado_gst'] == 1) {
-                        $('#msjBloqueo').css('display', 'none');
-                        $('#lbTitulo').html(respuesta['eges_nombre'])
-                        // $('#Interes_Si').css('display', 'block');
-                        // $('#txt_interes_comentarios_pen').val(respuesta['ges_descripcion_gst']);
-                        //  $('#txtFechacita').val(respuesta['ges_fecha_compromete'].toFecha())
-                        // $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
-                        // $("#contacto-rdInteresSi-" + respuesta['ges_sub_estado_gst']).prop('checked', true);
-                        $("#txt_interes_comentarios_pen").removeAttr("disabled");
-                        $('#txt_interes_comentarios_pen').val("");
-                        $("input[name=inline-form-radioInteres]").prop('checked', false);
-                        $("input[name=inline-form-radioInteres]").removeAttr("disabled");
-                        $('#btn_interes_guardar').attr('disabled', true);
-                    }
-                    else if (respuesta['ges_estado_gst'] == 3) {
-                        $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
-                        $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).trigger("click");
-                        $('#divInteresNoInteresado').css('display', 'none');
-                        $('#Interes_Terminada').css('display', 'none');
-                        $('#Interes_Si').css('display', 'none');
-                        $('#divInteresNO').css('display', 'block');
-                        $('#Interes_NO').css('display', 'block');
-                        //$("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
+        //            if (respuesta['ges_estado_gst'] == 1) {
+        //                $('#msjBloqueo').css('display', 'none');
+        //                $('#lbTitulo').html(respuesta['eges_nombre'])
+        //                // $('#Interes_Si').css('display', 'block');
+        //                // $('#txt_interes_comentarios_pen').val(respuesta['ges_descripcion_gst']);
+        //                //  $('#txtFechacita').val(respuesta['ges_fecha_compromete'].toFecha())
+        //                // $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
+        //                // $("#contacto-rdInteresSi-" + respuesta['ges_sub_estado_gst']).prop('checked', true);
+        //                $("#txt_interes_comentarios_pen").removeAttr("disabled");
+        //                $('#txt_interes_comentarios_pen').val("");
+        //                $("input[name=inline-form-radioInteres]").prop('checked', false);
+        //                $("input[name=inline-form-radioInteres]").removeAttr("disabled");
+        //                $('#btn_interes_guardar').attr('disabled', true);
+        //            }
+        //            else if (respuesta['ges_estado_gst'] == 3) {
+        //                $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
+        //                $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).trigger("click");
+        //                $('#divInteresNoInteresado').css('display', 'none');
+        //                $('#Interes_Terminada').css('display', 'none');
+        //                $('#Interes_Si').css('display', 'none');
+        //                $('#divInteresNO').css('display', 'block');
+        //                $('#Interes_NO').css('display', 'block');
+        //                //$("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
 
-                        $('#msjBlockPen').html(' Se encuentra en estado de ' + respuesta['eges_nombre'] + ', gestionado en la fecha: ' + respuesta['ges_fecha_accion'].toFecha())
-                        $('#lbTitulo').html(respuesta['eges_nombre'])
-                        $('#msjBloqueo').css('display', 'block');
-                        $('#txt_interes_comentarios_pen').val(respuesta['ges_descripcion_gst']);
+        //                $('#msjBlockPen').html(' Se encuentra en estado de ' + respuesta['eges_nombre'] + ', gestionado en la fecha: ' + respuesta['ges_fecha_accion'].toFecha())
+        //                $('#lbTitulo').html(respuesta['eges_nombre'])
+        //                $('#msjBloqueo').css('display', 'block');
+        //                $('#txt_interes_comentarios_pen').val(respuesta['ges_descripcion_gst']);
 
-                        $("#txt_interes_comentarios_pen").attr("disabled", "disabled");
-                        $("#contacto-rdInteresNo-" + respuesta['ges_sub_estado_gst']).prop('checked', true);
-                        $("input[name=inline-form-radioInteres]").attr("disabled", "disabled");
-                        $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
-                        //$("input[name=gRbInteresNO]").attr("disabled", "disabled");
+        //                $("#txt_interes_comentarios_pen").attr("disabled", "disabled");
+        //                $("#contacto-rdInteresNo-" + respuesta['ges_sub_estado_gst']).prop('checked', true);
+        //                $("input[name=inline-form-radioInteres]").attr("disabled", "disabled");
+        //                $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
+        //                //$("input[name=gRbInteresNO]").attr("disabled", "disabled");
 
-                        $('#btn_interes_guardar').attr('disabled', true);
+        //                $('#btn_interes_guardar').attr('disabled', true);
 
-                        if (respuesta['ges_sub_estado_gst'] != 301 && respuesta['ges_sub_estado_gst'] != 302) {
-                            $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
-                            $("#interes-rdInteresNoInteresado-" + respuesta['ges_sub_estado_gst']).prop('checked', true);
-                            $('#divInteresNO').css('display', 'none');
-                            $('#divInteresNoInteresado').css('display', 'block');
-
-
-                            var tags = respuesta['tags'];
-                            var arrayTags = []
-                            if (respuesta['ges_sub_estado_gst'] == 303) {
-                                $("#interes-rdInteresNoInteresado-303").trigger("click");
-                                arrayTags.length = 0;
-                                $.each(tags, function (i, ex) {
-                                    arrayTags[i] = ex.id
-                                    $("#selectNoInteresadoConforme").append($("<option>").attr("value", ex.id).html(ex.nombre))
-                                });
-                                $('#selectNoInteresadoConforme').val(arrayTags).trigger('chosen:updated');
-                                $('#selectNoInteresadoConforme').prop('disabled', true).trigger("chosen:updated");
-
-                            }
-                            else if (respuesta['ges_sub_estado_gst'] == 307) {
-                                $("#interes-rdInteresNoInteresado-307").trigger("click");
-                                arrayTags.length = 0;
-                                $.each(tags, function (i, ee) {
-                                    arrayTags[i] = ee.id
-                                    $("#selectNoQuiereEstar").append($("<option>").attr("value", ee.id).html(ee.nombre))
-                                });
-                                $('#selectNoQuiereEstar').val(arrayTags).trigger('chosen:updated');
-                                $('#selectNoQuiereEstar').prop('disabled', true).trigger("chosen:updated");
-                            }
-                            $("input[name=gRbInteresNoInteresado]").attr("disabled", "disabled");
-                            bandera_bloqueo_elementos = true;
-                        }
-                        //sergio
-                    }
-                    else if (respuesta['ges_estado_gst'] == 2) {
-                        $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).trigger("click");
-                        $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
-                        $('#msjBlockPen').html(' Se encuentra en estado de ' + respuesta['eges_nombre'] + ', gestionado en la fecha: ' + respuesta['ges_fecha_accion'].toFecha())
-                        $('#lbTitulo').html(respuesta['eges_nombre'])
-                        $('#msjBloqueo').css('display', 'block');
-                        $('#Interes_Si').css('display', 'none');
-                        $('#Interes_NO').css('display', 'none');
+        //                if (respuesta['ges_sub_estado_gst'] != 301 && respuesta['ges_sub_estado_gst'] != 302) {
+        //                    $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
+        //                    $("#interes-rdInteresNoInteresado-" + respuesta['ges_sub_estado_gst']).prop('checked', true);
+        //                    $('#divInteresNO').css('display', 'none');
+        //                    $('#divInteresNoInteresado').css('display', 'block');
 
 
-                        $('#txt_interes_comentarios_pen').val(respuesta['ges_descripcion_gst']);
-                        $("input[name=inline-form-radioInteres]").attr("disabled", "disabled");
-                        $("input[name=gRbInteresTerminada]").attr("disabled", "disabled");
-                        $("#txt_interes_comentarios_pen").attr("disabled", "disabled");
-                        $("#contacto-rdInteresTerminada-" + respuesta['ges_sub_estado_gst']).prop('checked', true);
+        //                    var tags = respuesta['tags'];
+        //                    var arrayTags = []
+        //                    if (respuesta['ges_sub_estado_gst'] == 303) {
+        //                        $("#interes-rdInteresNoInteresado-303").trigger("click");
+        //                        arrayTags.length = 0;
+        //                        $.each(tags, function (i, ex) {
+        //                            arrayTags[i] = ex.id
+        //                            $("#selectNoInteresadoConforme").append($("<option>").attr("value", ex.id).html(ex.nombre))
+        //                        });
+        //                        $('#selectNoInteresadoConforme').val(arrayTags).trigger('chosen:updated');
+        //                        $('#selectNoInteresadoConforme').prop('disabled', true).trigger("chosen:updated");
+
+        //                    }
+        //                    else if (respuesta['ges_sub_estado_gst'] == 307) {
+        //                        $("#interes-rdInteresNoInteresado-307").trigger("click");
+        //                        arrayTags.length = 0;
+        //                        $.each(tags, function (i, ee) {
+        //                            arrayTags[i] = ee.id
+        //                            $("#selectNoQuiereEstar").append($("<option>").attr("value", ee.id).html(ee.nombre))
+        //                        });
+        //                        $('#selectNoQuiereEstar').val(arrayTags).trigger('chosen:updated');
+        //                        $('#selectNoQuiereEstar').prop('disabled', true).trigger("chosen:updated");
+        //                    }
+        //                    $("input[name=gRbInteresNoInteresado]").attr("disabled", "disabled");
+        //                    bandera_bloqueo_elementos = true;
+        //                }
+        //                //sergio
+        //            }
+        //            else if (respuesta['ges_estado_gst'] == 2) {
+        //                $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).trigger("click");
+        //                $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
+        //                $('#msjBlockPen').html(' Se encuentra en estado de ' + respuesta['eges_nombre'] + ', gestionado en la fecha: ' + respuesta['ges_fecha_accion'].toFecha())
+        //                $('#lbTitulo').html(respuesta['eges_nombre'])
+        //                $('#msjBloqueo').css('display', 'block');
+        //                $('#Interes_Si').css('display', 'none');
+        //                $('#Interes_NO').css('display', 'none');
 
 
-                        // $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
-                        $('#Interes_Terminada').css('display', 'block');
-                        $('#btn_interes_guardar').attr('disabled', true);
-                    }
-                    $('#etapaContacto').css('display', 'none');
-                    $('#etapaInteres').css('display', 'block');
+        //                $('#txt_interes_comentarios_pen').val(respuesta['ges_descripcion_gst']);
+        //                $("input[name=inline-form-radioInteres]").attr("disabled", "disabled");
+        //                $("input[name=gRbInteresTerminada]").attr("disabled", "disabled");
+        //                $("#txt_interes_comentarios_pen").attr("disabled", "disabled");
+        //                $("#contacto-rdInteresTerminada-" + respuesta['ges_sub_estado_gst']).prop('checked', true);
 
 
-                }
-                else {
-                    $('#msjBloqueo').css('display', 'none');
-                    $('#etapaInteres').css('display', 'none');
-                    //$('#lbTitulo').html('Contacto')
-                    $("input[name=inline-form-radioInteres]").removeAttr("disabled");
-                    $("#txt_interes_comentarios_pen").removeAttr("disabled");
-                    $('#etapaContacto').css('display', 'block');
-                }
-            });
-        },
-        ModalUltimoContacto: function (id) {
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-ultima-contacto-pensionado", { Id: id, Cod_oficina: getCookie("Oficina") }, function (respuesta) {
-                if (respuesta['con_contacto'] == 'SI') {
-                    //render.ModalCargaRBContactoSI();
-                    $('#lbTitulo').html(respuesta['nomContatoSi']);
-                    $("#rdkContactoNO").prop('checked', false);
-                    $("#rdkContactoSi").prop('checked', true);
-                    $("#contacto-rd-" + respuesta['con_forma_contacto']).prop('checked', true);
-                    $('#txtObservacionContacto').val(respuesta['con_no_observacion_contacto'])
-                    $('#btn_contacto').attr('disabled', true);
-                    $('#btn_contacto').attr('disabled', false);
-                    $('#paso1_No').css('display', 'none');
-                    $('#paso1_Si').css('display', 'block');
-                }
-                else if (respuesta['con_contacto'] == 'NO') {
-                    // render.ModalCargaRBContactoNO();
-                    $('#lbTitulo').html(respuesta['nomConFono'] + ' ... ' + respuesta['nomConDom']);
-                    $("#rdkContactoSi").prop('checked', false);
-                    $("#rdkContactoNO").prop('checked', true);
+        //                // $("#contacto-rdInteres-" + respuesta['ges_estado_gst']).prop('checked', true);
+        //                $('#Interes_Terminada').css('display', 'block');
+        //                $('#btn_interes_guardar').attr('disabled', true);
+        //            }
+        //            $('#etapaContacto').css('display', 'none');
+        //            $('#etapaInteres').css('display', 'block');
 
-                    if (respuesta['con_no_contacto_fono'] != '0') {
-                        $("#contacto-rdFonoNO-" + respuesta['con_no_contacto_fono']).prop('checked', true);
-                    }
-                    if (respuesta['con_no_contacto_domicilo'] != '0') {
-                        $("#contacto-rdDomNo-" + respuesta['con_no_contacto_domicilo']).prop('checked', true);
-                    }
 
-                    $('#txtObservacionContacto').val(respuesta['con_no_observacion_contacto'])
-                    $('#btn_contacto').attr('disabled', true);
-                    $('#paso1_Si').css('display', 'none');
-                    $('#paso1_No').css('display', 'block');
-                }
-            });
-        },
-        ModalCargaRB_ANGT: function () {
-            $("#divInteresNoInteresado").html("");
-            $("#divInteresSI").html("");
-            $("#divInteresTerminada").html("");
+        //        }
+        //        else {
+        //            $('#msjBloqueo').css('display', 'none');
+        //            $('#etapaInteres').css('display', 'none');
+        //            //$('#lbTitulo').html('Contacto')
+        //            $("input[name=inline-form-radioInteres]").removeAttr("disabled");
+        //            $("#txt_interes_comentarios_pen").removeAttr("disabled");
+        //            $('#etapaContacto').css('display', 'block');
+        //        }
+        //    });
+        //},
+        //ModalUltimoContacto: function (id) {
+        //    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-ultima-contacto-pensionado", { Id: id, Cod_oficina: getCookie("Oficina") }, function (respuesta) {
+        //        if (respuesta['con_contacto'] == 'SI') {
+        //            //render.ModalCargaRBContactoSI();
+        //            $('#lbTitulo').html(respuesta['nomContatoSi']);
+        //            $("#rdkContactoNO").prop('checked', false);
+        //            $("#rdkContactoSi").prop('checked', true);
+        //            $("#contacto-rd-" + respuesta['con_forma_contacto']).prop('checked', true);
+        //            $('#txtObservacionContacto').val(respuesta['con_no_observacion_contacto'])
+        //            $('#btn_contacto').attr('disabled', true);
+        //            $('#btn_contacto').attr('disabled', false);
+        //            $('#paso1_No').css('display', 'none');
+        //            $('#paso1_Si').css('display', 'block');
+        //        }
+        //        else if (respuesta['con_contacto'] == 'NO') {
+        //            // render.ModalCargaRBContactoNO();
+        //            $('#lbTitulo').html(respuesta['nomConFono'] + ' ... ' + respuesta['nomConDom']);
+        //            $("#rdkContactoSi").prop('checked', false);
+        //            $("#rdkContactoNO").prop('checked', true);
 
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 3 }, function (datos) {
-                $.each(datos, function (i, e) {
-                    if (e.eges_id != '301' && e.eges_id != '302') {
-                        var lb = $('<label>').prop('for', `interes-rdInteresNoInteresado-${e.eges_id}`).text(e.eges_nombre);
-                        var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresNoInteresado', id: `interes-rdInteresNoInteresado-${e.eges_id}` }).val(e.eges_id)
-                        var dv = $('<div>').addClass('radio').css('margin-top', '9px').append(inp).append(lb).append($('<div>').prop({ id: `divInteresNoInteresadoSub-${e.eges_id}` }).addClass('activarSub' + e.eges_id).css('display', 'none').css('margin-left', '40px'))
-                        $("#divInteresNoInteresado").append(dv)
-                    }
-                });
-            });
+        //            if (respuesta['con_no_contacto_fono'] != '0') {
+        //                $("#contacto-rdFonoNO-" + respuesta['con_no_contacto_fono']).prop('checked', true);
+        //            }
+        //            if (respuesta['con_no_contacto_domicilo'] != '0') {
+        //                $("#contacto-rdDomNo-" + respuesta['con_no_contacto_domicilo']).prop('checked', true);
+        //            }
 
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 1 }, function (datos) {
-                $.each(datos, function (i, e) {
-                    var lb = $('<label>').prop('for', `contacto-rdInteresSi-${e.eges_id}`).text(e.eges_nombre);
-                    var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresSI', id: `contacto-rdInteresSi-${e.eges_id}` }).val(e.eges_id)
-                    var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
-                    $("#divInteresSI").append(dv)
-                });
-            });
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 2 }, function (datos) {
-                $.each(datos, function (i, e) {
-                    var lb = $('<label>').prop('for', `contacto-rdInteresTerminada-${e.eges_id}`).text(e.eges_nombre);
-                    var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresTerminada', id: `contacto-rdInteresTerminada-${e.eges_id}` }).val(e.eges_id)
-                    var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
-                    $("#divInteresTerminada").append(dv)
-                });
-            });
-        },
-        ModalCargaRB_ANGT: function () {
-            $("#divInteresNoInteresado").html("");
-            $("#divInteresSI").html("");
-            $("#divInteresTerminada").html("");
+        //            $('#txtObservacionContacto').val(respuesta['con_no_observacion_contacto'])
+        //            $('#btn_contacto').attr('disabled', true);
+        //            $('#paso1_Si').css('display', 'none');
+        //            $('#paso1_No').css('display', 'block');
+        //        }
+        //    });
+        //},
+        //ModalCargaRB_ANGT: function () {
+        //    $("#divInteresNoInteresado").html("");
+        //    $("#divInteresSI").html("");
+        //    $("#divInteresTerminada").html("");
 
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 3 }, function (datos) {
-                $.each(datos, function (i, e) {
-                    if (e.eges_id != '301' && e.eges_id != '302') {
-                        var lb = $('<label>').prop('for', `interes-rdInteresNoInteresado-${e.eges_id}`).text(e.eges_nombre);
-                        var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresNoInteresado', id: `interes-rdInteresNoInteresado-${e.eges_id}` }).val(e.eges_id)
-                        var dv = $('<div>').addClass('radio').css('margin-top', '9px').append(inp).append(lb).append($('<div>').prop({ id: `divInteresNoInteresadoSub-${e.eges_id}` }).addClass('activarSub' + e.eges_id).css('display', 'none').css('margin-left', '40px'))
-                        $("#divInteresNoInteresado").append(dv)
-                    }
-                });
-            });
+        //    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 3 }, function (datos) {
+        //        $.each(datos, function (i, e) {
+        //            if (e.eges_id != '301' && e.eges_id != '302') {
+        //                var lb = $('<label>').prop('for', `interes-rdInteresNoInteresado-${e.eges_id}`).text(e.eges_nombre);
+        //                var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresNoInteresado', id: `interes-rdInteresNoInteresado-${e.eges_id}` }).val(e.eges_id)
+        //                var dv = $('<div>').addClass('radio').css('margin-top', '9px').append(inp).append(lb).append($('<div>').prop({ id: `divInteresNoInteresadoSub-${e.eges_id}` }).addClass('activarSub' + e.eges_id).css('display', 'none').css('margin-left', '40px'))
+        //                $("#divInteresNoInteresado").append(dv)
+        //            }
+        //        });
+        //    });
 
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 1 }, function (datos) {
-                $.each(datos, function (i, e) {
-                    var lb = $('<label>').prop('for', `contacto-rdInteresSi-${e.eges_id}`).text(e.eges_nombre);
-                    var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresSI', id: `contacto-rdInteresSi-${e.eges_id}` }).val(e.eges_id)
-                    var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
-                    $("#divInteresSI").append(dv)
-                });
-            });
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 2 }, function (datos) {
-                $.each(datos, function (i, e) {
-                    var lb = $('<label>').prop('for', `contacto-rdInteresTerminada-${e.eges_id}`).text(e.eges_nombre);
-                    var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresTerminada', id: `contacto-rdInteresTerminada-${e.eges_id}` }).val(e.eges_id)
-                    var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
-                    $("#divInteresTerminada").append(dv)
-                });
-            });
-        },
-        ModalCargaRBContactoSI: function () {
-            $("#dvRbMedioSi").html("");
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estado-gestion-pensionados", { Padre: 6 }, function (datos) {
-                $.each(datos, function (i, e) {
-                    var lb = $('<label>').prop('for', `contacto-rd-${e.eges_id}`).text(e.eges_nombre);
-                    var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'rbContactoSIMedio', id: `contacto-rd-${e.eges_id}` }).val(e.eges_id)
-                    var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
-                    $("#dvRbMedioSi").append(dv)
-                });
-            });
-        },
-        ModalCargaRBContactoNO: function () {
+        //    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 1 }, function (datos) {
+        //        $.each(datos, function (i, e) {
+        //            var lb = $('<label>').prop('for', `contacto-rdInteresSi-${e.eges_id}`).text(e.eges_nombre);
+        //            var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresSI', id: `contacto-rdInteresSi-${e.eges_id}` }).val(e.eges_id)
+        //            var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
+        //            $("#divInteresSI").append(dv)
+        //        });
+        //    });
+        //    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 2 }, function (datos) {
+        //        $.each(datos, function (i, e) {
+        //            var lb = $('<label>').prop('for', `contacto-rdInteresTerminada-${e.eges_id}`).text(e.eges_nombre);
+        //            var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresTerminada', id: `contacto-rdInteresTerminada-${e.eges_id}` }).val(e.eges_id)
+        //            var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
+        //            $("#divInteresTerminada").append(dv)
+        //        });
+        //    });
+        //},
+        //ModalCargaRB_ANGT: function () {
+        //    $("#divInteresNoInteresado").html("");
+        //    $("#divInteresSI").html("");
+        //    $("#divInteresTerminada").html("");
 
-            $("#dvRbMedioNoFono").html("");
-            $("#dvRbMedioNoDomi").html("");
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estado-gestion-pensionados", { Padre: 7 }, function (datos) {
-                // $("#slNOContactoPensionadoFono").html("");
-                //$("#slNOContactoPensionadoFono").append($("<option>").attr("value", "").html("Seleccione"));
-                $.each(datos, function (i, e) {
-                    var lb = $('<label>').prop('for', `contacto-rdFonoNO-${e.eges_id}`).text(e.eges_nombre);
-                    var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'rbContactoNoFono', id: `contacto-rdFonoNO-${e.eges_id}` }).val(e.eges_id)
-                    var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
-                    $("#dvRbMedioNoFono").append(dv)
-                });
-            });
-            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estado-gestion-pensionados", { Padre: 8 }, function (datos) {
-                $.each(datos, function (i, e) {
-                    var lb = $('<label>').prop('for', `contacto-rdDomNo-${e.eges_id}`).text(e.eges_nombre);
-                    var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'rbContactoNoDomi', id: `contacto-rdDomNo-${e.eges_id}` }).val(e.eges_id)
-                    var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
-                    $("#dvRbMedioNoDomi").append(dv)
-                });
-            });
-        },
+        //    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 3 }, function (datos) {
+        //        $.each(datos, function (i, e) {
+        //            if (e.eges_id != '301' && e.eges_id != '302') {
+        //                var lb = $('<label>').prop('for', `interes-rdInteresNoInteresado-${e.eges_id}`).text(e.eges_nombre);
+        //                var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresNoInteresado', id: `interes-rdInteresNoInteresado-${e.eges_id}` }).val(e.eges_id)
+        //                var dv = $('<div>').addClass('radio').css('margin-top', '9px').append(inp).append(lb).append($('<div>').prop({ id: `divInteresNoInteresadoSub-${e.eges_id}` }).addClass('activarSub' + e.eges_id).css('display', 'none').css('margin-left', '40px'))
+        //                $("#divInteresNoInteresado").append(dv)
+        //            }
+        //        });
+        //    });
+
+        //    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 1 }, function (datos) {
+        //        $.each(datos, function (i, e) {
+        //            var lb = $('<label>').prop('for', `contacto-rdInteresSi-${e.eges_id}`).text(e.eges_nombre);
+        //            var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresSI', id: `contacto-rdInteresSi-${e.eges_id}` }).val(e.eges_id)
+        //            var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
+        //            $("#divInteresSI").append(dv)
+        //        });
+        //    });
+        //    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-subestado-gestion-pensionados", { Id_ges: 2 }, function (datos) {
+        //        $.each(datos, function (i, e) {
+        //            var lb = $('<label>').prop('for', `contacto-rdInteresTerminada-${e.eges_id}`).text(e.eges_nombre);
+        //            var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'gRbInteresTerminada', id: `contacto-rdInteresTerminada-${e.eges_id}` }).val(e.eges_id)
+        //            var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
+        //            $("#divInteresTerminada").append(dv)
+        //        });
+        //    });
+        //},
+        //ModalCargaRBContactoSI: function () {
+        //    $("#dvRbMedioSi").html("");
+        //    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estado-gestion-pensionados", { Padre: 6 }, function (datos) {
+        //        $.each(datos, function (i, e) {
+        //            var lb = $('<label>').prop('for', `contacto-rd-${e.eges_id}`).text(e.eges_nombre);
+        //            var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'rbContactoSIMedio', id: `contacto-rd-${e.eges_id}` }).val(e.eges_id)
+        //            var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
+        //            $("#dvRbMedioSi").append(dv)
+        //        });
+        //    });
+        //},
+        //ModalCargaRBContactoNO: function () {
+
+        //    $("#dvRbMedioNoFono").html("");
+        //    $("#dvRbMedioNoDomi").html("");
+        //    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estado-gestion-pensionados", { Padre: 7 }, function (datos) {
+        //        // $("#slNOContactoPensionadoFono").html("");
+        //        //$("#slNOContactoPensionadoFono").append($("<option>").attr("value", "").html("Seleccione"));
+        //        $.each(datos, function (i, e) {
+        //            var lb = $('<label>').prop('for', `contacto-rdFonoNO-${e.eges_id}`).text(e.eges_nombre);
+        //            var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'rbContactoNoFono', id: `contacto-rdFonoNO-${e.eges_id}` }).val(e.eges_id)
+        //            var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
+        //            $("#dvRbMedioNoFono").append(dv)
+        //        });
+        //    });
+        //    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-estado-gestion-pensionados", { Padre: 8 }, function (datos) {
+        //        $.each(datos, function (i, e) {
+        //            var lb = $('<label>').prop('for', `contacto-rdDomNo-${e.eges_id}`).text(e.eges_nombre);
+        //            var inp = $('<input>').addClass('magic-radio').prop({ type: 'radio', name: 'rbContactoNoDomi', id: `contacto-rdDomNo-${e.eges_id}` }).val(e.eges_id)
+        //            var dv = $('<div>').addClass('radio').css('margin-top', '-2px').append(inp).append(lb)
+        //            $("#dvRbMedioNoDomi").append(dv)
+        //        });
+        //    });
+        //},
         ListaProspectoPensionados: function () {
             $("#tblLisprospecto").bootstrapTable('refresh', {
                 url: BASE_URL + "/motor/api/Gestion/lista-prospecto-pensionado",
@@ -575,23 +575,37 @@ $(function () {
 
         var rutAfilado = $("#afi_rut_busc").val().replace(/\./g, '')
         var tpcmp = $("#PrincipalTabActivo").val();
-        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-seguimiento", { periodo: entorno.Periodo, afiRut: rutAfilado.trim(), tipoCampagna: tpcmp }, function (datos) {
 
-            if (datos.Estado === "OK") {
-                location.href = BASE_URL + '/motor/App/Gestion/Oferta/' + datos.Objeto.Seguimiento.Periodo.toString() + '/' + rutAfilado + '/' + tpcmp
-            } else {
-                $.niftyNoty({
-                    type: 'primary',
-                    container: '#bdy_busqueda',
-                    html: '<strong>!</strong> No se encontro Rut para el periodo actual.',
-                    focus: false,
-                    timer: 3000
-                });
-            }
-        });
+        if (tpcmp == 2) {
+            $("#demo-lg-modal-search").modal('hide')
+            $("#mdl_data_normalizacion").modal("show");
+            $("#afi_rut_busc").val("");
+        }
 
+        if (tpcmp == 8) {
+            $("#demo-lg-modal-search").modal('hide')
+            $("#mdl_data_acuerdo_pago").modal("show");
+            $("#afi_rut_busc").val("");
+        }
 
+        else {
+            $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-seguimiento", { periodo: entorno.Periodo, afiRut: rutAfilado.trim(), tipoCampagna: tpcmp }, function (datos) {
+
+                if (datos.Estado === "OK") {
+                    location.href = BASE_URL + '/motor/App/Gestion/Oferta/' + datos.Objeto.Seguimiento.Periodo.toString() + '/' + rutAfilado + '/' + tpcmp
+                } else {
+                    $.niftyNoty({
+                        type: 'primary',
+                        container: '#bdy_busqueda',
+                        html: '<strong>!</strong> No se encontro Rut para el periodo actual.',
+                        focus: false,
+                        timer: 3000
+                    });
+                }
+            });
+        }
     });
+
 
     //Evento de Estado maestro Pre Aprobados
     $("#ges_estado").on("change", function () {
@@ -1019,9 +1033,20 @@ $(function () {
                     //var prioPens = row.Notificaciones.findIndex(function (x) {
                     //    return x.Tipo === 'PRIOPENS';
                     //});
+                    jQuery.ajaxSetup({ async: false });
+
+                    let descripcion = "";
+                    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-comercial-beneficios", { Rut_: row.Seguimiento.Afiliado_Rut }, function (datos) {
+                        $.each(datos, function (i, e) {
+                            descripcion = descripcion + ' ' + '<span class="badge badge-info">' + e.Descripcion + '</span>';
+                        });
+                    });
 
                     //return value.toString().toEtiquetaPrioridad() + (prioPens >= 0 ? '    <span class="badge badge-warning">!</span>' : (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')) //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
-                    return value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '') + (row.Seguimiento.MARCA_CC === 1 ? '    <span class="badge badge-purple">C.C</span>' : '') + (row.Seguimiento.MarcaPsu === 1 ? '    <span class="badge badge-primary">PSU</span>' : '') //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
+                    //eturn value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '') + (row.Seguimiento.MARCA_CC === 1 ? '    <span class="badge badge-purple">C.C</span>' : '') + (row.Seguimiento.MarcaPsu === 1 ? '    <span class="badge badge-primary">PSU</span>' : '') //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
+                    jQuery.ajaxSetup({ async: true });
+                    //turn value.toString().toEtiquetaPrioridad() + ' ' + descripcion;
+                    return value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '') + (row.Seguimiento.MARCA_CC === 1 ? '    <span class="badge badge-purple">C.C</span>' : '') + (row.Seguimiento.MarcaPsu === 1 ? '    <span class="badge badge-primary">PSU</span>' : '') + ' ' + descripcion; //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
                 }
             },
 
@@ -1070,19 +1095,19 @@ $(function () {
 
 
     //SEGURO CESANTIA
-    $('#btn_seguro_cesantia').click(function () {
-        $("#tabla_seguro_cesantia").bootstrapTable('refresh', {
-            url: BASE_URL + "/motor/api/Gestion/v3/lista-seguimientos",
-            query: {
-                tipoCampagna: 4,
-                periodo: entorno.Periodo,
-                estado: $('#flt_estado_sc').val(),
-                subestado: $('#flt_sub_estado_sc').val(),
-                rut: $('#flt_rut_sc').val(),
-                vencimiento: $('#flt_vencidos_sc').val()
-            }
-        });
-    });
+    //$('#btn_seguro_cesantia').click(function () {
+    //    $("#tabla_seguro_cesantia").bootstrapTable('refresh', {
+    //        url: BASE_URL + "/motor/api/Gestion/v3/lista-seguimientos",
+    //        query: {
+    //            tipoCampagna: 4,
+    //            periodo: entorno.Periodo,
+    //            estado: $('#flt_estado_sc').val(),
+    //            subestado: $('#flt_sub_estado_sc').val(),
+    //            rut: $('#flt_rut_sc').val(),
+    //            vencimiento: $('#flt_vencidos_sc').val()
+    //        }
+    //    });
+    //});
 
 
     $("#tabla_seguro_cesantia").bootstrapTable({
@@ -1182,6 +1207,7 @@ $(function () {
             $("#afi_oficina_preferencia").append($("<option>").attr("value", e.Id).html(e.Nombre))
             $("#afi_oficina_preferenciaNormalizacion").append($("<option>").attr("value", e.Id).html(e.Nombre))
         });
+        $('.search > .form-control').attr('placeholder', 'Buscar por Rut')
     });
 
 
@@ -1209,7 +1235,7 @@ $(function () {
                 }
 
                 //DATOS AFILIADO
-                // rutPSU = afiData.Afiliado_Rut; // TEMPORAL BORRAR AL TERMINAR CAMPAÑA
+                rutPSU = afiData.Afiliado_Rut; // TEMPORAL BORRAR AL TERMINAR CAMPAÑA
                 $('#afi_rut').val(afiData.Afiliado_Rut.toMoney(0) + '-' + afiData.Afiliado_Dv);
                 $('#afi_nombres').val(afiData.Nombre + ' ' + afiData.Apellido);
                 $('#afi_segmento').val(afiData.Segmento);
@@ -1279,7 +1305,25 @@ $(function () {
                 //NOTIFICACIONES
                 var sx = false;
 
+                $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-comercial-beneficios", { Rut_: afiData.Afiliado_Rut }, function (datos) {
+                    $(".NotfGenericaContainer").html("");
+                    let text = "";
+                    var type = "success";
+                    $.each(datos, function (i, e) {
+                        $(".NotfGenerica").show();
+                        text = e.Glosa;
+                        $.niftyNoty({
+                            type: type,
+                            container: '.NotfGenericaContainer',
+                            html: text,
+                            focus: false,
+                            closeBtn: false
+                        });
+                    });
+                });
 
+
+                //BORRADO POR NUEVA NOTIFICACNES --SERGIO
                 if (typeof Asignacion.Notificaciones != "undefined" && Asignacion.Notificaciones != null && Asignacion.Notificaciones.length > 0) {
                     var text = "";
                     var type = "success";
@@ -1322,8 +1366,6 @@ $(function () {
                         }
                     });
 
-
-
                     /*TO DO: Revisar la logica*/
                     if (!sx) {
                         $(".charlyNTF").show();
@@ -1333,6 +1375,9 @@ $(function () {
                     $(".charlyNTF").hide();
                 }
 
+
+                /// FIN COMENTARIO POR NUEVO METODO NOTIFICACIONES -- SERGIO
+
                 var info_xxx = "";
 
                 if (Asignacion.FiltrosRSG.length > 0) {
@@ -1340,6 +1385,7 @@ $(function () {
                 }
 
                 if (tipoCamp === 1 || tipoCamp === 5) {
+                    //BORRADO POR NUEVA NOTIFICACNES ---SERGIO
                     if (afiData.MARCA_CC === 1) {
                         $(".sergioNTF").show();
                         $(".sergioNTFContainer").html("");
@@ -1414,6 +1460,9 @@ $(function () {
 
 
         /// TEMPORAL BORRA CAMPAÑA PARA PSU SERGIO
+
+        console.log(rutPSU)
+
         $.SecGetJSON(BASE_URL + "/motor/api/Gestion/obtener-afi-psu", { Afiliado_Rut: rutPSU }, function (datos) {
             $(".psuNTF").show();
             $(".psuNTFContainer").html("");
@@ -1885,8 +1934,12 @@ $(function () {
             e.preventDefault();
             var $form = $(e.target);
 
+            var rutClie = $('#afi_rut').val()
+            rutClie = rutClie.split('.').join('')
+            rutClie = rutClie.substring(0, rutClie.length - 2)
+
             var objeto_envio_contacto = {
-                RutAfiliado: rutAf,
+                RutAfiliado: rutClie,
                 IdTipoContac: $('#cbtippContac').val(),
                 GlosaTipoContac: $('select[name="cbtippContac"] option:selected').text(),
                 IdClasifContac: $('#cbClasificacionConctac').val(),
@@ -1946,11 +1999,11 @@ $(function () {
         e.preventDefault();
         var $form = $(e.target);
 
-        var rutCont = $('#txtRutAfiNorm').val()
-        rutCont = rutCont.substring(0, rutCont.length - 2)
+        var rutClie = $('#txtRutAfiNorm').val()
+        rutClie = rutClie.substring(0, rutClie.length - 2)
 
         var objeto_envio_contacto = {
-            RutAfiliado: rutCont,
+            RutAfiliado: rutClie,
             IdTipoContac: $('#cbtippContac_norm').val(),
             GlosaTipoContac: $('select[name="cbtippContac_norm"] option:selected').text(),
             IdClasifContac: $('#cbClasificacionConctac_norm').val(),
@@ -2025,6 +2078,69 @@ $(function () {
             // $('#demo-lg-modal-new').modal('hide');
             cargaDatosDeContacto(rutCont, 'bdy_datos_contactos_acuerdo_pago');
             $("#btn-add-contac_acuerdo_pago").trigger("click");
+            $.niftyNoty({
+                type: 'success',
+                icon: 'pli-like-2 icon-2x',
+                message: 'Contacto Guardado correctamente.',
+                container: '#tab-gestion-3',
+                timer: 5000
+            });
+        });
+
+    });
+
+
+    $('#form-registro-contacto_seguro-cesantia').bootstrapValidator({
+        excluded: [':disabled', ':not(:visible)'],
+        feedbackIcons: [],
+        fields: {
+            cbtippContac_seg: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe seleccionar un tipo de Contacto'
+                    }
+                }
+            },
+            cbClasificacionConctac_seg: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe seleccionar una clasificación de contacto'
+                    }
+                }
+            },
+            afi_NewContacto_seg: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe ingresar un contacto'
+                    },
+                    stringLength: {
+                        message: 'No pueden ser mas de 100 caracteres',
+                        max: function (value, validator, $field) {
+                            return 150 - (value.match(/\r/g) || []).length;
+                        }
+                    }
+                }
+            }
+        }
+    }).on('success.form.bv', function (e) {
+        // Prevén que se mande el formulario
+        e.preventDefault();
+        var $form = $(e.target);
+        var rutCont = $('#txtRutAfiSegC').val()
+        rutCont = rutCont.substring(0, rutCont.length - 2)
+        var objeto_envio_contacto = {
+            RutAfiliado: rutCont,
+            IdTipoContac: $('#cbtippContac_seg').val(),
+            GlosaTipoContac: $('select[name="cbtippContac_seg"] option:selected').text(),
+            IdClasifContac: $('#cbClasificacionConctac_seg').val(),
+            GlosaClasifContac: $('select[name="cbClasificacionConctac_seg"] option:selected').text(),
+            DatosContac: $('#afi_NewContacto_seg').val()
+        }
+        $.SecGetJSON(BASE_URL + "/motor/api/Contactos/ingresa-nuevo-contacto", objeto_envio_contacto, function (datos) {
+            $("#form-registro-contacto_seguro-cesantia").bootstrapValidator('resetForm', true);
+            // $('#demo-lg-modal-new').modal('hide');
+            cargaDatosDeContacto(rutCont, 'bdy_datos_contactos_seguro_cesantia');
+            $("#btn-add-contac-seguro_cesantia").trigger("click");
             $.niftyNoty({
                 type: 'success',
                 icon: 'pli-like-2 icon-2x',
@@ -2554,6 +2670,18 @@ $(function () {
 
     });
 
+    $('#btn-add-contac-seguro_cesantia').on('click', function () {
+
+        // console.log('Visibiliadad', $('#formulario-contac').is(':visible'));
+        if ($('#formulario-contac_seguro_cesantia').is(':visible')) {
+            $('#formulario-contac_seguro_cesantia').hide('slow');
+        }
+        else {
+            $('#formulario-contac_seguro_cesantia').show('slow');
+        }
+
+    });
+
     $('#btn-add-contac').on('click', function () {
 
         // console.log('Visibiliadad', $('#formulario-contac').is(':visible'));
@@ -2593,9 +2721,13 @@ $(function () {
 
     //Ejecutivos Incorporación y Prospección Pensionados
     //Ejecutivo Pensiona
-    render.CargaEjecutivoPensionados();
-    render.CargaEstadosGestion();
+   // render.CargaEjecutivoPensionados();
+    //render.CargaEstadosGestion();
     //GUARDA CONTACTO
+
+
+    //nuevo medelo sergio
+    /*
     $('#btn_contacto').on('click', function () {
         var estado;
         var con_form_Contacto = $('input:radio[name=rbContactoSIMedio]:checked').val()
@@ -2709,7 +2841,7 @@ $(function () {
         });
     });
 
-    $('#btn_interes_guardar').on('click', function () {
+   /* $('#btn_interes_guardar').on('click', function () {
         var fecha;
         var fechaCompromete = $('#txtFechacita').val() + ' ' + $('#slHoraInteres').val();
         if (fechaCompromete == " " || fechaCompromete == "") {
@@ -2878,6 +3010,12 @@ $(function () {
             }
         });
     });
+
+*/
+
+    //NUEVO MODELO SERGIO
+
+    /*
 
     $('#btn_interes').on('click', function () {
         if ($('#btn_interes').html() == 'Finalizar') {
@@ -3094,13 +3232,13 @@ $(function () {
     var result = [];
     $('#btAsignarPensionado').click(function () {
 
-        if ($("#dllEjePensiondos").val() != "") {
+        if ($("#dllEjecutivo").val() != "") {
             var malos = []
             var buenos = 0;
             $.each(result, function (i, e) {
                 var webPensionado = {
                     Token: getCookie('Token'),
-                    Rut_Ejecutivo: $("#dllEjePensiondos").val(),
+                    Rut_Ejecutivo: $("#dllEjecutivo").val(),
                     id_Asign: result[i],
                 }
                 $.SecPostJSON(BASE_URL + "/motor/api/Gestion/asigna-ejecutivo-pensionado", webPensionado, function (respuesta) {
@@ -3123,7 +3261,7 @@ $(function () {
                     timer: 4000
                 });
             }, 100);
-            $('#dllEjePensiondos').val('0')
+            $('#dllEjecutivo').val('0')
         }
         else {
             $.niftyNoty({
@@ -3186,6 +3324,9 @@ $(function () {
         }
     });
 
+    */
+
+    /* NUEVO MEDELO SERGIO
     $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-comuna-oficina-pensionados", { Token: getCookie('Token') }, function (menus) {
         $("#dllComunaPen").html("");
         $("#dllComunaPen").append($("<option>").attr("value", "").html("Todos"));
@@ -3196,9 +3337,10 @@ $(function () {
         $('#dllComunaPen').chosen({
             width: '100%'
         });
-    });
+    });*/
 
-
+//NUEVO MEDELO SERGIO
+    /*
     $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-comuna-pensionados", function (menus) {
         $("#pen_comuna").html("");
         $("#pen_comuna").append($("<option>").attr("value", "").html("Seleccione..."));
@@ -3210,8 +3352,10 @@ $(function () {
             width: '100%'
         });
     });
+    */
 
-
+    // NUEVO MODELO SERGIO
+    /*
     $('#PrintPensionados').click(function () {
         if (result['length'] != 0) {
             var openEnderContent = $('#tblPrinPensionado').html()
@@ -3581,6 +3725,8 @@ $(function () {
         }
 
     });
+
+*/
 
     //-----------------PROSPECTOS-------PESNIONADOS------------------------------------------------------
 

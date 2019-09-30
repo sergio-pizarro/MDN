@@ -28,6 +28,7 @@ namespace CRM.Business.Entity
         public int id_Asign { get; set; }
         public int ESTADO_GESTION { get; set; }
         public string NOM_GESTION { get; set; }
+        public string codigo { get; set; }
     }
 
     public class EjecutivoPensionadosEntity
