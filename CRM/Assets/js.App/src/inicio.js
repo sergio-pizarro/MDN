@@ -15,9 +15,7 @@ $(function () {
     var today = new Date()
     var tperiodo = today.getFullYear().toString() + (today.getMonth() + 1).toString().paddingLeft("00");
 
-    $.SecGetJSON(BASE_URL + "/motor/api/Informes/lista-traking-totalEjecutivo2", {
-        Periodo: tperiodo
-    }, function (menus) {
+    $.SecGetJSON(BASE_URL + "/motor/api/Informes/lista-traking-totalEjecutivo2", { Periodo: tperiodo }, function (menus) {
 
 
         if (getCookie("Cargo") == "Ejecutivo Normalización" || getCookie("Cargo") == "Ejecutivo Gestión de Nómina") {

@@ -543,83 +543,89 @@
         </div>
     </div>
 
-    <div id="demo-lg-modal-sc" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                    <h4 class="modal-title" id="myLargeModalLabel">Gestión SC</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="tab-base" style="margin-bottom: 0px !important;">
-                        <!--Nav Tabs-->
-                        <ul class="nav nav-tabs">
-
-                            <li class="active">
-                                <a data-toggle="tab" href="#tab-gestionSC-2" aria-expanded="false">Historial de Gestión</a>
-                            </li>
-
-                        </ul>
-                        <div class="tab-content" style="box-shadow: 0 0 0 !important;">
-                            <div id="tab-gestionNor-2" class="tab-pane  fade active in">
-                                <div class="list-group" id="gestiones_realizadasSC">
-                                </div>
-                            </div>
-                        </div>
+    <!--<div id="demo-lg-modal-sc" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                        <h4 class="modal-title" id="myLargeModalLabel">Gestión SC</h4>
                     </div>
-                </div>
-                <div class="modal-footer" id="mensahes-mustsc">
+                    <div class="modal-body">
+                        <div class="tab-base" style="margin-bottom: 0px !important;">
 
-                    <form id="datos-gestion-sc" action="#" method="post">
-                        <div class="row esconder" style="text-align: left;">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label">Estado</label>
-                                    <select class="form-control" id="ges_estadoSC" name="ges_estadoSC">
-                                        <option value="">Seleccione</option>
-                                    </select>
-                                </div>
-                            </div>
+        <ul class="nav nav-tabs">
 
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label">Sub Estado</label>
-                                    <select class="form-control" id="ges_subestadoSC" name="ges_subestadoSC" disabled="disabled">
-                                        <option value="">Seleccione</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group" id="fpgSC">
-                                    <label class="control-label">Fecha Próxima Gestión</label>
-                                    <div id="demo-dp-componentSC">
-                                        <div class="input-group date">
-                                            <input type="text" class="form-control" id="ges_prox_gestionSC" name="ges_prox_gestionSC">
-                                            <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <li class="active">
+                <a data-toggle="tab" href="#tab-gestionSC-2" aria-expanded="false">Historial de Gestión</a>
+            </li>
 
-                        <div class="row esconder" style="text-align: left;">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="control-label">Comentarios</label>
-                                    <textarea placeholder="Comentarios" rows="3" class="form-control" id="ges_comentariosSC" name="ges_comentariosSC"></textarea>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <input type="hidden" id="ges_id_asignacionSC" name="ges_id_asignacionSC" value="" />
-                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                        <button class="btn btn-primary esconder" id="btn_savear" type="submit">Guardar</button>
-                    </form>
+        </ul>
+        <div class="tab-content" style="box-shadow: 0 0 0 !important;">
+            <div id="tab-gestionNor-2" class="tab-pane  fade active in">
+                <div class="list-group" id="gestiones_realizadasSC">
                 </div>
             </div>
         </div>
     </div>
+                    </div>
+    <div class="modal-footer" id="mensahes-mustsc">
+
+        <form id="datos-gestion-sc" action="#" method="post">
+            <div class="row esconder" style="text-align: left;">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="control-label">Estado</label>
+                        <select class="form-control" id="ges_estadoSC" name="ges_estadoSC">
+                            <option value="">Seleccione</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="control-label">Sub Estado</label>
+                        <select class="form-control" id="ges_subestadoSC" name="ges_subestadoSC" disabled="disabled">
+                            <option value="">Seleccione</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group" id="fpgSC">
+                        <label class="control-label">Fecha Próxima Gestión</label>
+                        <div id="demo-dp-componentSC">
+                            <div class="input-group date">
+                                <input type="text" class="form-control" id="ges_prox_gestionSC" name="ges_prox_gestionSC">
+                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row esconder" style="text-align: left;">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label">Comentarios</label>
+                        <textarea placeholder="Comentarios" rows="3" class="form-control" id="ges_comentariosSC" name="ges_comentariosSC"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <input type="hidden" id="ges_id_asignacionSC" name="ges_id_asignacionSC" value="" />
+            <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+            <button class="btn btn-primary esconder" id="btn_savear" type="submit">Guardar</button>
+        </form>
+    </div>
+                </div>
+            </div>
+        </div>
+
+
+    -->
+
+
+
     <div id="demo-lg-modal-tmc" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
