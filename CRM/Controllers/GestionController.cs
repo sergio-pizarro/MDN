@@ -463,12 +463,25 @@ namespace CRM.Controllers
             {
                 if (entrada.ges_subestado.Equals("0"))
                 {
-                    throw new Exception("[ERR-00001] Error al guardar por favor comuniquese con Soporte");
+                    throw new Exception("[ERR-00001] Error al guardar: No hay un estado y/o subestado");
                 }
 
 
                 string token = ActionContext.Request.Headers.GetValues("Token").First();
+
+                if (string.IsNullOrEmpty(token))
+                {
+                    throw new Exception("[ERR-00002] Error al guardar: No hay token generado");
+                }
+
+
                 DotacionEntity ejecutivo = DotacionDataAccess.ObtenerByToken(token);
+
+                if(ejecutivo == null)
+                {
+                    throw new Exception("[ERR-00003] Error al guardar: Usuario No Encontrado");
+                }
+
                 GestionEntity oGuardar = new GestionEntity
                 {
                     IdBaseCampagna = entrada.ges_id_asignacion,
