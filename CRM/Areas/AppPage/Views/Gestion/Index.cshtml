@@ -29,6 +29,9 @@
                         <a data-toggle="tab" href="#demo-lft-tab-5" aria-expanded="false" id="tab_derivaciones" class="tab-principal">Derivaciones</a>
                     </li>
                     <li class="">
+                        <a data-toggle="tab" href="#demo-lft-tab-9" aria-expanded="false" id="tab_ing" class="tab-principal">IGN</a>
+                    </li>
+                    <li class="">
                         <a data-toggle="tab" href="#demo-lft-tab-6" aria-expanded="false" id="tab_pensionados" class="tab-principal">Pensionados</a>
                     </li>
                     <li class="" style="display:none;">
@@ -260,15 +263,15 @@
                                    data-pagination="true"
                                    data-side-pagination="client"
                                    data-show-pagination-switch="false"
-                                   data-locale="es-CL">
+                                   data-locale="es-CL" style="font-size: 12px;">
                                 <thead>
                                     <tr>
-                                        <th data-field="rut" data-sortable="true" data-formatter="AcuerdoPagoLinkFormatter">Rut</th>
-                                        <th data-field="afiliado.nombres" data-sortable="true" data-formatter="AcuerdoPagoNombresFormatter">Nombres</th>
-                                        <th data-field="montoTotal" data-sortable="true" data-formatter="formatoMoneyFormatter">Saldo Total</th>
-                                        <th data-field="saldoDescuentoTotal" data-sortable="true" data-formatter="formatoMoneyFormatter">Descuento Total Convenio</th>
-                                        <th data-field="saldoDescuentoTPago" data-sortable="true" data-formatter="formatoMoneyFormatter">Descuento Pago Total</th>
-                                        <th data-field="prioridad" data-sortable="true" data-formatter="AcuerdoPagoPrioridadFormatter">Prioridad</th>
+                                        <th data-field="rut" data-sortable="true" data-formatter="AcuerdoPagoLinkFormatter">Rut Cliente</th>
+                                        <th data-field="afiliado.nombres" data-sortable="true" data-formatter="AcuerdoPagoNombresFormatter">Nombres Cliente</th>
+                                        <th data-field="montoTotal" data-sortable="true" data-formatter="formatoMoneyFormatterAcuerdo">Total Deuda</th>
+                                        <th data-field="totalCapital" data-sortable="true" data-formatter="formatoMoneyFormatterAcuerdo">Total Capital</th>
+                                        <th data-field="ofertaPagoTotal" data-sortable="true" data-formatter="formatoMoneyFormatterAcuerdo">Oferta Pago Total</th>
+                                        <th data-field="OfertaAcuerdoPago" data-sortable="true" data-formatter="formatoMoneyFormatterAcuerdo">Oferta Acuerdo Pago</th>
                                         <th data-field="rutempresa" data-sortable="true" data-formatter="AcuerdoPagoEstadoAfiliadoFormatter">Estado Cliente</th>
                                     </tr>
                                 </thead>
@@ -572,6 +575,10 @@
                         @Html.Partial("Prospecto")
                     </div>
 
+                    <div id="demo-lft-tab-9" class="tab-pane fade">
+                        @Html.Partial("Ign")
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -792,6 +799,12 @@
 
                                         <div class="row sergioNTF" style="display:none;">
                                             <div class="col-sm-12 sergioNTFContainer">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row contingenciaNTF" style="display:none;">
+                                            <div class="col-sm-12 contingenciaNTFContainer">
 
                                             </div>
                                         </div>
@@ -1504,7 +1517,7 @@
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="form-group has-success">
-                                            <label class="control-label" id="morfeable_monto">Saldo Total</label>
+                                            <label class="control-label" id="morfeable_monto">Total Deuda</label>
                                             <div class="input-group mar-btm">
                                                 <span class="input-group-addon" style="color: #000000; background-color: rgb(255, 179, 174); border-color: #3c763d;"><i class="demo-pli-wallet-2"></i></span>
                                                 <input class="form-control text-lg-right" type="text" :value="dataModal.montoTotal !== undefined && dataModal.montoTotal.toMoney(0)" readonly="readonly">
@@ -1513,29 +1526,29 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group has-success">
-                                            <label class="control-label" id="morfeable_monto">Saldo 1° Descuento</label>
+                                            <label class="control-label" id="morfeable_monto">Total Capital</label>
                                             <div class="input-group mar-btm">
                                                 <span class="input-group-addon"><i class="demo-pli-wallet-2"></i></span>
-                                                <input class="form-control text-lg-right" type="text" :value="dataModal.saldoPrimerDesc !== undefined && dataModal.saldoPrimerDesc.toMoney(0)" readonly="readonly">
+                                                <input class="form-control text-lg-right" type="text" :value="dataModal.totalCapital !== undefined && dataModal.totalCapital.toMoney(0)" readonly="readonly">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-sm-3">
                                         <div class="form-group has-success">
-                                            <label class="control-label" id="morfeable_monto">Saldo Descuento Convenio</label>
+                                            <label class="control-label" id="morfeable_monto">Oferta Pago Total</label>
                                             <div class="input-group mar-btm">
                                                 <span class="input-group-addon"><i class="demo-pli-wallet-2"></i></span>
-                                                <input class="form-control text-lg-right" type="text" :value="dataModal.saldoDescuentoTotal !== undefined && dataModal.saldoDescuentoTotal.toMoney(0)" readonly="readonly">
+                                                <input class="form-control text-lg-right" type="text" :value="dataModal.ofertaPagoTotal !== undefined && dataModal.ofertaPagoTotal.toMoney(0)" readonly="readonly">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group has-success">
-                                            <label class="control-label" id="morfeable_monto">Saldo Descuento Total</label>
+                                            <label class="control-label" id="morfeable_monto">Oferta Acuerdo Pago</label>
                                             <div class="input-group mar-btm">
                                                 <span class="input-group-addon"><i class="demo-pli-wallet-2"></i></span>
-                                                <input class="form-control text-lg-right" type="text" :value="dataModal.saldoDescuentoTPago !== undefined && dataModal.saldoDescuentoTPago.toMoney(0)" readonly="readonly">
+                                                <input class="form-control text-lg-right" type="text" :value="dataModal.OfertaAcuerdoPago !== undefined && dataModal.OfertaAcuerdoPago.toMoney(0)" readonly="readonly">
                                             </div>
                                         </div>
                                     </div>
@@ -1713,6 +1726,8 @@
     <script src="~/Assets/js.App/src/acuerdo_pagos.js?g=@Guid.NewGuid().ToString()"></script>
     <script src="~/Assets/js.App/src/seguro_cesantia.js?g=@Guid.NewGuid().ToString()"></script>
     <script src="~/Assets/js.App/src/pensionados.js?g=@Guid.NewGuid().ToString()"></script>
+    <script src="~/Assets/js.App/src/ign.js?g=@Guid.NewGuid().ToString()"></script>
+    <script src="~/Assets/js.App/src/seguros.js?g=@Guid.NewGuid().ToString()"></script>
 
 }
 

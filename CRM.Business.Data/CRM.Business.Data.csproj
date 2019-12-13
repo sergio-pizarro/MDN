@@ -49,6 +49,7 @@
     <Compile Include="AusenciaDataAccess.cs" />
     <Compile Include="BaseCampagnaDataAccess.cs" />
     <Compile Include="CarteraEmpresaDataAccess.cs" />
+    <Compile Include="CarteraFFVVDataAccess.cs" />
     <Compile Include="ConfirmDotacionDataAccess.cs" />
     <Compile Include="ContactabilidadDataAccess\ContactabilidadDataAccess.cs" />
     <Compile Include="ContactoafiliadoDataAccess.cs" />

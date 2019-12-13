@@ -299,6 +299,7 @@ namespace CRM.Business.Data
                 PreAprobadoFinal = row["PreAprobadoFinal"] != DBNull.Value ? Convert.ToInt32(row["PreAprobadoFinal"]) : 0,
                 Periodo = row["Periodo"] != DBNull.Value ? row["Periodo"].ToString() : string.Empty,
                 EstadoGestion = row["EstadoGestion"] != DBNull.Value ? Convert.ToInt32(row["EstadoGestion"]) : 0,
+                TipoGestion = row["TipoGestion"] != DBNull.Value ? row["TipoGestion"].ToString() : string.Empty,
             };
         }
         //

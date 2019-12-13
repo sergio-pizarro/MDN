@@ -230,6 +230,14 @@ namespace CRM.Controllers
         }
 
 
+        [HttpGet]
+        [Route("lista-contingencia-motor")]
+        public IEnumerable<ContingenciaEntity> ListaFlagContingencia(int Rut_Empresa)
+        {
+            return EstadosyTiposDataAccess.ListaCintingencia(Rut_Empresa);
+
+        }
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("obtener-seguimiento")]
@@ -463,25 +471,12 @@ namespace CRM.Controllers
             {
                 if (entrada.ges_subestado.Equals("0"))
                 {
-                    throw new Exception("[ERR-00001] Error al guardar: No hay un estado y/o subestado");
+                    throw new Exception("[ERR-00001] Error al guardar por favor comuniquese con Soporte");
                 }
 
 
                 string token = ActionContext.Request.Headers.GetValues("Token").First();
-
-                if (string.IsNullOrEmpty(token))
-                {
-                    throw new Exception("[ERR-00002] Error al guardar: No hay token generado");
-                }
-
-
                 DotacionEntity ejecutivo = DotacionDataAccess.ObtenerByToken(token);
-
-                if(ejecutivo == null)
-                {
-                    throw new Exception("[ERR-00003] Error al guardar: Usuario No Encontrado");
-                }
-
                 GestionEntity oGuardar = new GestionEntity
                 {
                     IdBaseCampagna = entrada.ges_id_asignacion,

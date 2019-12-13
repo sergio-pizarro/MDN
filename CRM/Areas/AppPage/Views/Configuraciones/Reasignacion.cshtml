@@ -71,6 +71,7 @@
                                                 @*<option value="3">Devolución TMC</option>*@
                                                 <option value="4">Seg. Cesantía</option>
                                                 <option value="5">Acuerdo de Pago</option>
+                                                <option value="6">IGN</option>
                                             </select>
                                         </div>
                                     </div>
@@ -462,7 +463,7 @@
 
             $("#slTipoCamp").on("change", function () {
 
-                var tipoCampania = $(this).val() != "" && $(this).val() != "2" && $(this).val() != "5" ? $(this).val() : 0
+                var tipoCampania = $(this).val() != "" && $(this).val() != "2" && $(this).val() != "5" && $(this).val() != "6" ? $(this).val() : 0
                 $.SecGetJSON(BASE_URL + "/motor/api/Gestion/listar-mi-oficina", { tipoCampania }, function (respuesta) {
 
                     $(".lista-ejecutivos").html("");
@@ -482,6 +483,7 @@
             });
 
             $("#slEjecutivOrigen").on("change", function () {
+
                 if ($('#slTipoCamp').val() == 2) {
                     var rutEjecutivo = $(this).val();
                     var fechaHoy = new Date();
@@ -539,6 +541,25 @@
                         });
                 }
 
+
+                if ($('#slTipoCamp').val() == 6) {
+                    var rutEjecutivo = $(this).val();
+                    var fechaHoy = new Date();
+                    var periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
+                    var oficina = getCookie('Oficina');
+                    fetch(`http://${motor_api_server}:4002/ign/leadAsignadosIgn?rutEjecutivo=${rutEjecutivo}&periodo=${periodo}&oficina=${oficina}`, {
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'default'
+                    })
+                        .then(rs => rs.text())
+                        .then(rsText => {
+                            console.log({ rsText })
+                            $("#nroCasosOrigen").val(rsText);
+                            $("#nroCasosAsignar").val(rsText);
+                            $("#Resumen_EjecutivoOrigen_nroCasos_antes").val(rsText);
+                        });
+                }
             });
 
             $("#slEjecutivDestino").on("change", function () {
@@ -591,6 +612,23 @@
                             $("#nroCasosDestinoActual").val(rsText);
                         });
                 }
+
+                else if ($('#slTipoCamp').val() == 6) {
+                    var rutEjecutivo = $(this).val();
+                    var fechaHoy = new Date();
+                    var periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
+                    var oficina = getCookie('Oficina');
+                    fetch(`http://${motor_api_server}:4002/ign/leadAsignadosIgn?rutEjecutivo=${rutEjecutivo}&periodo=${periodo}&oficina=${oficina}`, {
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'default'
+                    })
+                        .then(rs => rs.text())
+                        .then(rsText => {
+                            console.log({ rsText })
+                            $("#nroCasosDestinoActual").val(rsText);
+                        });
+                }
             });
 
 
@@ -600,7 +638,7 @@
                     if (result) {
 
                         Pace.track(function () {
-                            if ($("#slTipoCamp").val() != 2 && $("#slTipoCamp").val() != 5 && $("#slTipoCamp").val() != 4) {
+                            if ($("#slTipoCamp").val() != 2 && $("#slTipoCamp").val() != 5 && $("#slTipoCamp").val() != 4 && $("#slTipoCamp").val() != 6) {
 
                                 var WebReasignacion = {
                                     ProcesoReasignacion: {
@@ -738,6 +776,36 @@
                                         }
                                     });
                                 }
+
+                                else if ($("#slTipoCamp").val() == 6) {
+                                    fetch(`http://${motor_api_server}:4002/ign/reasignaIgn`, {
+                                        method: 'POST',
+                                        body: JSON.stringify(formData),
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+                                    }).then(async (response) => {
+                                        console.log('paso por el 6', response);
+                                        if (response.ok) {
+
+                                            $("#nameOrigen").html($("#slEjecutivOrigen").find(':selected').html())
+                                            $("#nameDestino").html($("#slEjecutivDestino").find(':selected').html())
+                                            $("#resumen_tipo_camp").html($("#slTipoCamp").find(':selected').html())
+                                            $("#resumen_cantidad_asignaciones").html($("#nroCasosAsignar").val());
+
+                                            $("#origenAntes").html($("#nroCasosOrigen").val());
+                                            $("#origenDespues").html($("#Resumen_EjecutivoOrigen_nroCasos_despues").val());
+
+                                            $("#destinoAntes").html($("#nroCasosDestinoActual").val());
+                                            $("#destinoDespues").html($("#Resumen_EjecutivoDestino_nroCasos_despues").val());
+
+                                            $(".CharlyWizardContainer").hide();
+                                            $("#CharlyFinallyContainer").show();
+                                        }
+                                    });
+                                }
+
+
                             }
                         });
                     }

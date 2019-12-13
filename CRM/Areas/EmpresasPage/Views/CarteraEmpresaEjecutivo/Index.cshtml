@@ -27,6 +27,9 @@
                             <li class="">
                                 <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="false" id="tab_Empresas" style="font-weight: bold;">Empresas Asignadas</a>
                             </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_Contactabilidad" style="font-weight: bold;">Contactabilidad</a>
+                            </li>
                         </ul>
                     </div>
                     <h3 class="panel-title" style="color:white">.</h3>
@@ -87,6 +90,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="demo-lft-tab-3" class="tab-pane fade">
+                            @Html.Partial("../Contactabilidad/index")
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -858,6 +865,7 @@
 
 @section script{
 
+    <script src="~/Assets/js/vue.js"></script>
     <script src="~/Assets/plugins/dropzone/dropzone.min.js"></script>
     <script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
     <script src="~/Assets/js/demo/tables-footable.js"></script>
@@ -873,6 +881,8 @@
     <script src="~/Assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
     <script src="~/Assets/plugins/bootbox/bootbox.min.js"></script>
+
+    <script src="~/Assets/js.App/src/contactabilidad-empresa.js?g=@Guid.NewGuid().ToString()"></script>
 
     <script type="text/javascript">
         $('#demo-dp-component .input-group.date').datepicker({

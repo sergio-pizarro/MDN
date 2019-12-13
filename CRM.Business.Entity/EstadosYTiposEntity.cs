@@ -72,4 +72,13 @@ namespace CRM.Business.Entity
         public string Descripcion { get; set; }
     }
 
+
+    public class ContingenciaEntity
+    {
+        public int Afiliado_Rut { get; set; }
+        public int Empresa_Rut { get; set; }
+        public string Empresa { get; set; }
+        public string Motivo { get; set; }
+    }
+
 }
