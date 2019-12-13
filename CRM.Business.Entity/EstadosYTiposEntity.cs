@@ -63,4 +63,13 @@ namespace CRM.Business.Entity
         public int Id { get; set; }
         public string Nombre { get; set; }
     }
+
+    public class TipoComercialBeneficioEntity
+    {
+        public string Rut { get; set; }
+        public int Rut_ { get; set; }
+        public string Glosa { get; set; }
+        public string Descripcion { get; set; }
+    }
+
 }

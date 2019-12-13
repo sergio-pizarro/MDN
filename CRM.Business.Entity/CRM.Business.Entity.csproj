@@ -76,6 +76,7 @@
     <Compile Include="CosalEntity.cs" />
     <Compile Include="CuestionarioEntity.cs" />
     <Compile Include="DesarrolloEntity.cs" />
+    <Compile Include="DocumentosFaltantesLM.cs" />
     <Compile Include="DotacionEntity.cs" />
     <Compile Include="Empresa.cs" />
     <Compile Include="EmpresaEntity.cs" />

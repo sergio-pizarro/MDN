@@ -10,6 +10,7 @@ namespace CRM.Business.Entity.Clases
     {
         public Ingresolicencia IngresoData { get; set; }
         public Estadolicencia EstadoData { get; set; }
+        public DocumentosFaltantesLM DocumentosFaltantes { get; set; }
         public string NombreEjecutivo { get; set; }
     }
 }

@@ -77,7 +77,7 @@
                                         <input id="radio-formato-manual-lm" class="magic-radio" type="radio" name="radio-formato-licencia" checked="checked">
                                         <label for="radio-formato-manual-lm">Manual</label>
                                         <!-- <input id="radio-formato-electronico-lm" class="magic-radio" type="radio" name="radio-formato-licencia">
-                                         <label for="radio-formato-electronico-lm">Electrónica</label> -->
+                     <label for="radio-formato-electronico-lm">Electrónica</label> -->
                                         <input id="radio-formato-mixto-lm" class="magic-radio" type="radio" name="radio-formato-licencia">
                                         <label for="radio-formato-mixto-lm">Mixta</label>
                                     </div>
@@ -144,7 +144,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <div class="form-group">
-                                   
+
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -199,60 +199,92 @@
 
                         <hr />
 
-                        <div class="row" id="checkList">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="h4 control-label">¿Falta algún documento?</label>
+                                    <div class="radio">
+                                        <input type="radio" id="falta_doc_si" name="FaltaDocumentacion" class="magic-radio falta-doc" value="1" />
+                                        <label for="falta_doc_si">Si</label>
+
+                                        <input type="radio" id="falta_doc_no" name="FaltaDocumentacion" class="magic-radio falta-doc" value="0" />
+                                        <label for="falta_doc_no">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row docs-faltantes" id="checkList" style="display:none;">
+                            <h4 class="title">Documentos Faltantes</h4>
 
                             <div class="form-group pad-ver">
-                                <div class="col-md-4" id="doc_check" style="display:none;">
-                                    <h4 class="title">Documentos Recepcionados</h4>
+                                <div class="col-md-2">
+
                                     <!-- Checkboxes -->
                                     <div class="checkbox">
                                         <input id="m1" class="magic-checkbox" type="checkbox">
-                                        <label for="m1" id="lm1">[mes1]</label>
+                                        <label for="m1" id="lm1">Liq. Mes 1</label>
                                     </div>
-
-
                                     <!-- Checkboxes -->
                                     <div class="checkbox">
                                         <input id="m2" class="magic-checkbox" type="checkbox">
-                                        <label for="m2" id="lm2">[mes2]</label>
+                                        <label for="m2" id="lm2">Liq. Mes 2</label>
                                     </div>
 
 
                                     <!-- Checkboxes -->
                                     <div class="checkbox">
                                         <input id="m3" class="magic-checkbox" type="checkbox">
-                                        <label for="m3" id="lm3">[mes3]</label>
+                                        <label for="m3" id="lm3">Liq. Mes 3</label>
+                                    </div>
+                                    <div>
+                                        <p>Maternales</p>
+                                    </div>
+                                    <!-- Checkboxes -->
+                                    <div class="checkbox">
+                                        <input id="m4" class="magic-checkbox" type="checkbox">
+                                        <label for="m4" id="lm4">Liq. Mes 4</label>
+                                    </div>
+
+                                    <!-- Checkboxes -->
+                                    <div class="checkbox">
+                                        <input id="m5" class="magic-checkbox" type="checkbox">
+                                        <label for="m5" id="lm3">Liq. Mes 5</label>
+                                    </div>
+
+                                    <!-- Checkboxes -->
+                                    <div class="checkbox">
+                                        <input id="m6" class="magic-checkbox" type="checkbox">
+                                        <label for="m6" id="lm3">Liq. Mes 6</label>
                                     </div>
 
                                 </div>
 
-                                <div class="col-md-4" id="doc_check_nac" style="display:none;">
-                                    <h4 class="title">Documentos Recepcionados Maternal</h4>
+                                <div class="col-md-3">
                                     <!-- Checkboxes -->
                                     <div class="checkbox">
-                                        <input id="mn1" class="magic-checkbox" type="checkbox">
-                                        <label for="mn1" id="lmn1">[mes1]</label>
+                                        <input id="certificado_renta" class="magic-checkbox" type="checkbox">
+                                        <label for="certificado_renta">Certificado de Renta</label>
                                     </div>
-
 
                                     <!-- Checkboxes -->
                                     <div class="checkbox">
-                                        <input id="mn2" class="magic-checkbox" type="checkbox">
-                                        <label for="mn2" id="lmn2">[mes2]</label>
+                                        <input id="accr1" class="magic-checkbox" type="checkbox">
+                                        <label for="accr1">Acredita 90 días Cotiz./Liq. Sueldo</label>
                                     </div>
-
 
                                     <!-- Checkboxes -->
                                     <div class="checkbox">
-                                        <input id="mn3" class="magic-checkbox" type="checkbox">
-                                        <label for="mn3" id="lmn3">[mes3]</label>
+                                        <input id="accr2" class="magic-checkbox" type="checkbox">
+                                        <label for="accr2">Acredita 180 días Cotiz./AFP</label>
                                     </div>
 
                                     <!-- Checkboxes -->
-                                    <div class="checkbox" id="nac">
-                                        <input id="mncn" data-tipodoc="3" class="magic-checkbox" type="checkbox" value="201799">
-                                        <label for="mncn">Certificado de Nacimiento</label>
+                                    <div class="checkbox">
+                                        <input id="otros" class="magic-checkbox" type="checkbox">
+                                        <label for="otros">Otros</label>
                                     </div>
+
 
                                 </div>
 
@@ -260,8 +292,14 @@
 
                         </div>
 
-
+                        <div class="row mar-top docs-faltantes" style="display:none;">
+                            <div class="col-md-12">
+                                <label for="comentarios">Comentarios</label>
+                                <textarea id="comentarios" class="form-control"></textarea>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div class="panel-footer text-right">
                         <button class="btn btn-primary" type="button" id="bt-bolver">Volver</button>
                         <button class="btn btn-success" type="submit" id="bt-guarda-otra">Guardar</button>
@@ -354,14 +392,32 @@
                             $("#radio-formato-mixto-lm").prop('checked', true)
                             $("#radio-formato-mixto-lm").trigger("change")
 
-                            if ($("#FolioLic").val().length == 9) {
+                            /*if ($("#FolioLic").val().length == 9) {
                                 $('#FolioLic').mask('9-9999999-*');
                             }
                             else {
                                 $('#FolioLic').mask('9-99999999-*');
-                            }
+                            }*/
                         }
                         $("#FolioLic").val(response.IngresoData.FolioLicencia);
+
+                        $(`#falta_doc_si`).prop('checked', response.DocumentosFaltantes.FaltaDocumentacion);
+                        if (response.DocumentosFaltantes.FaltaDocumentacion) {
+                            $(`#falta_doc_si`).trigger('change');
+                        }
+                        
+                        $(`#m1`).prop('checked', response.DocumentosFaltantes.Liquidacion1);
+                        $(`#m2`).prop('checked', response.DocumentosFaltantes.Liquidacion2);
+                        $(`#m3`).prop('checked', response.DocumentosFaltantes.Liquidacion3);
+                        $(`#m4`).prop('checked', response.DocumentosFaltantes.Liquidacion4);
+                        $(`#m5`).prop('checked', response.DocumentosFaltantes.Liquidacion5);
+                        $(`#m6`).prop('checked', response.DocumentosFaltantes.Liquidacion6);
+                        $(`#certificado_renta`).prop('checked', response.DocumentosFaltantes.CertificadoRenta);
+                        $(`#accr1`).prop('checked', response.DocumentosFaltantes.Acredita90);
+                        $(`#accr2`).prop('checked', response.DocumentosFaltantes.Acredita180);
+                        $(`#otros`).prop('checked', response.DocumentosFaltantes.Otros);
+                        $(`#comentarios`).val(response.DocumentosFaltantes.Comentarios);
+
                         $.SecGetJSON(BASE_URL + "/motor/api/Licencias/listar-suc-derivacion", function (datos) {
                             $("#sslOfiDerivacion").html("");
                             $("#sslOfiDerivacion").attr("disabled", true);
@@ -397,14 +453,26 @@
                         TipoLM: $("#TipoLM").val(),
                         OfiDerivacion: parseInt($("#sslOfiDerivacion option:selected").data('id')) > 0 ? $("#sslOfiDerivacion option:selected").data('id') : $("#sslOfiDerivacion").val(),
                         //Los Documentos
-                        DocumentacionLM: []
-                        //
+                        DocumentacionLM: [],
+                        //Documentacion Faltante
+                        LiqMes1: $('#m1').is(':checked') ? 1 : 0,
+                        LiqMes2: $('#m2').is(':checked') ? 1 : 0,
+                        LiqMes3: $('#m3').is(':checked') ? 1 : 0,
+                        LiqMes4: $('#m4').is(':checked') ? 1 : 0,
+                        LiqMes5: $('#m5').is(':checked') ? 1 : 0,
+                        LiqMes6: $('#m6').is(':checked') ? 1 : 0,
+                        CertificadoRenta: $('#certificado_renta').is(':checked') ? 1 : 0,
+                        Acredita90: $('#accr1').is(':checked') ? 1 : 0,
+                        Acredita180: $('#accr2').is(':checked') ? 1 : 0,
+                        Otros: $('#otros').is(':checked') ? 1 : 0,
+                        Comentarios: $('#comentarios').val().length > 0 ? $('#comentarios').val() : '',
+                        FaltaDocumentacion: $('#falta_doc_si').is(':checked') ? 1 : 0
                     }
 
 
-                    //$.each($(':checkbox'), function (i, e) {
-                    //    WebIngresoLicencia.DocumentacionLM.push({ Periodo: $(e).val(), TipoDoc: $(e).data("tipodoc"), Recepcionado: $(e).is(":checked") })
-                    //})
+                    const fl = $("#FormLM").val();
+                    console.log({ fl })
+
 
                     $.SecPostJSON(BASE_URL + "/motor/api/Licencias/guardar-licencia", WebIngresoLicencia, function (respuesta) {
                         if (respuesta.Estado === "OK") {
@@ -508,14 +576,21 @@
 
             $('.demo-msk-date').mask('99/99/9999');
             $('.es-rut').mask('99.999.999-*');
-            //$('#FolioLic').mask('999999?9999*');
-            $('#FolioLic').mask('99999999');
-            $("#TipoLM").mask('~');
+            //$('#FolioLic').mask('99999999');
+            //$("#TipoLM").mask('~');
             
             $('#frm-data-lc').bootstrapValidator({
-                excluded: [':disabled', ':not(:visible)'],
+                excluded: [':disabled'],
                 feedbackIcons: [],
                 fields: {
+
+                    FaltaDocumentacion: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Debes seleccionar una opción'
+                            },
+                        }
+                    },
                     AfiliadoRut: {
                         validators: {
                             notEmpty: {
@@ -541,29 +616,10 @@
                                     if ($('#FormLM').val() == 'Mixta') {
                                         value = value.replace(/-/g, '');
                                         var xx = value.substring(0, 1);
-                                        //console.log(value.substring(0, 1))
                                         if (xx == '3' || xx == '4') {
-
-                                            //console.log(value.substring(value.length - 1))
                                             var xy = Number(value.substring(1, value.length - 1)).toMoney(0) + '-' + value.substring(value.length - 1);
-
-                                            //console.log($.rut.validar(xy))
                                             var result = $.rut.validar(xy)
-                                            /*if(result)
-                                            {
-                                                if(value.length == 9)
-                                                {
-                                                    $('#FolioLic').mask('9-9999999-*');
-                                                }
-                                                else
-                                                {
-                                                    $('#FolioLic').mask('9-99999999-*');
-                                                }
-                                            }*/
-
                                             return result;
-
-
                                         }
                                         else {
                                             return false;
@@ -574,67 +630,26 @@
                                     }
                                 }
                             },
-                            /*callback: {
-                                message: 'Folio Invalido',
-                                callback: function (value, validator, $field) {
-                                    return $.rut.validar(value);
-                                }
-                            }*/
-                            /*numeric: {
-                                message: 'Solo se pueden ingresar digitos',
-                                // The default separators
-                                thousandsSeparator: '',
-                                decimalSeparator: ''
-                            }*/
-                        }
-                    }/*,
-                    DiasLM: {
-                        validators: {
-                            numeric: {
-                                message: 'Solo se pueden ingresar digitos',
-                                // The default separators
-                                thousandsSeparator: '',
-                                decimalSeparator: ''
-                            }
                         }
                     },
-                    FechaDesdeLM: {
-                        validators: {
-                            date: {
-                                format: 'DD/MM/YYYY',
-                                message: 'Dede ingresar una fecha valida'
-                            }
-                        }
-                    },
-                    TipoLM: {
-                        validators: {
-                            numeric: {
-                                message: 'Solo se pueden ingresar digitos',
-                                // The default separators
-                                thousandsSeparator: '',
-                                decimalSeparator: ''
-                            }
-                        },
-
-                    },*/
-
+                    
                 }
             }).on('success.form.bv', function (e) {
                 // Prevén que se mande el formulario
                 e.preventDefault();
                 var $form = $(e.target);
 
-                if ($('#FormLM').val() == 'Mixta') {
+                /*if ($('#FormLM').val() == 'Mixta') {
                     if ($("#FolioLic").val().length == 9) {
                         $('#FolioLic').mask('9-9999999-*');
                     }
                     else {
                         $('#FolioLic').mask('9-99999999-*');
                     }
-                }
+                }*/
 
                 cargador.saveLC(0);
-
+                
                 if (typeof CodIng == "undefined") {
                     $("#AfiliadoRut").val("");
                     $("#AfiliadoRut").focus();
@@ -648,9 +663,27 @@
                     $("#DerivarLM").prop("checked", false);
                     $("#sslOfiDerivacion").val('');
                     $("#sslOfiDerivacion").prop('disabled', true);
+
+                    $("input[type=checkbox]").prop("checked", false);
+                    $(".falta-doc").prop("checked", false);
+                    $(".docs-faltantes").hide();
+                    $('#comentarios').val('');
+
                     $("#frm-data-lc").bootstrapValidator('resetForm', true);
+
+
                 }
-            });
+                })
+
+
+
+             /*.on('status.field.bv', function (e, data) {
+                var $form = $(e.target),
+                    validator = data.bv;
+
+
+                console.log({ validator })
+            });*/
 
 
             $("#bt-bolver").on("click", function () {
@@ -662,16 +695,12 @@
                 $('#frm-data-lc').bootstrapValidator('updateStatus', 'AfiliadoRut', 'NOT_VALIDATED').bootstrapValidator('validateField', 'AfiliadoRut');
             })
 
-            //$("#FolioLic").on("keyup", function () {
-            //    $('#frm-data-lc').bootstrapValidator('updateStatus', 'FolioLic', 'NOT_VALIDATED').bootstrapValidator('validateField', 'FolioLic');
-            //})
-
+            
             $("#AfiliadoRut").on("blur", function () {
 
                 if ($(this).val().length > 7) {
                     $.SecGetJSON(BASE_URL + "/motor/api/Licencias/datos-afiliado", { AfiliadoRut: $(this).val() }, function (respuesta) {
                         if (respuesta.Estado === "OK") {
-
                             if (respuesta.Objeto.logField.codRespuestaField != 5) {
                                 $("#AfiNombres").val(respuesta.Objeto.datosAfiliado1Field.apellidoPaternoField + " " + respuesta.Objeto.datosAfiliado1Field.apellidoMaternoField + " " + respuesta.Objeto.datosAfiliado1Field.nombresField)
                                 $("#EmpresaRut").val(respuesta.Objeto.empresasField[0].rutEmpresaField);
@@ -684,8 +713,6 @@
                                 $("#EmpresaNombre").val("");
                                 $("#SistemaNoData").prop("checked", true);
                             }
-
-
                         } else {
                             $.niftyNoty({
                                 type: 'danger',
@@ -705,13 +732,13 @@
 
             $("#radio-formato-manual-lm").on("change", function (e) {
                 $('#FolioLic').val('');
-                $('#FolioLic').mask('99999999');
+                //$('#FolioLic').mask('99999999');
                 $('#FormLM').val('Manual');
             })
 
             $("#radio-formato-mixto-lm").on("change", function (e) {
                 $('#FolioLic').val('');
-                $('#FolioLic').unmask();
+                //$('#FolioLic').unmask();
                 $('#FormLM').val('Mixta');
             })
 
@@ -719,12 +746,12 @@
 
                 if ($('#FormLM').val() == 'Mixta') {
                     if ($(this).val().replace(/-/g, '').replace(/_/g, '').length == 0) {
-                        $('#FolioLic').unmask();
+                        //$('#FolioLic').unmask();
                         $('#FolioLic').val('');
                     }
                     else {
                         $(this).val($(this).val().replace(/-/g, '').replace(/_/g, ''))
-                        $('#FolioLic').unmask();
+                        //$('#FolioLic').unmask();
                     }
                 }
 
@@ -781,12 +808,12 @@
 
                 if ($('#FormLM').val() == 'Mixta') {
                     $('#FolioLic').val($('#FolioLic').val().replace(/-/g, '').replace(/_/g, ''))
-                    $('#FolioLic').unmask();
+                    //$('#FolioLic').unmask();
                 }
             });
 
 
-            $('#FolioLic').on("blur", function (e) {
+            /*$('#FolioLic').on("blur", function (e) {
                 if ($('#FormLM').val() == 'Mixta') {
                     if ($(this).val().length == 9) {
                         $('#FolioLic').mask('9-9999999-*');
@@ -795,7 +822,7 @@
                         $('#FolioLic').mask('9-99999999-*');
                     }
                 }
-            });
+            });*/
 
 
 
@@ -888,6 +915,15 @@
             }
 
             $("#sslOfiDerivacion").trigger("change");
+
+            $('.falta-doc').on('change', function (event) {
+                var value = $(this).val();
+                if (value == '1') {
+                    $('.docs-faltantes').show();
+                } else {
+                    $('.docs-faltantes').hide();
+                }
+            })
         })
 
 

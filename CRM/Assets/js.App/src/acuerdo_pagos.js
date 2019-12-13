@@ -34,7 +34,7 @@ var appAcuerdoPagosFiltros = new Vue({
         this.obtenerPrioridad();
     },
     updated() {
-        console.log('cambió')
+       // console.log('cambió')
     },
     methods: {
         obtenerCausasAcuerdoPago() {
@@ -124,10 +124,12 @@ var appAcuerdoPagosFiltros = new Vue({
 
         },
         handleEventoClickFiltrar() {
+            var fechaHoy = new Date();
+            var periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
             $("#tabla_recuperaciones_acuerdo").bootstrapTable('refresh', {
                 url: `http://${motor_api_server}:4002/acuerdopago/leads`,
                 query: {
-                    periodo: 201906,
+                    periodo: periodo,
                     asignado: getCookie('Rut'),
                     causa: this.modelos.causa,
                     estado: this.modelos.estado,
@@ -136,7 +138,9 @@ var appAcuerdoPagosFiltros = new Vue({
                     estadoCliente: this.modelos.estadoCliente,
                     tipoCampana: this.modelos.tipoCampana,
                     derivacion: this.modelos.derivacion,
-                    prioridad: this.modelos.prioridad
+                    prioridad: this.modelos.prioridad,
+                    oficina: getCookie('Oficina'),
+
                 }
             });
         },
@@ -209,9 +213,9 @@ var appAcuerdoPagoModal = new Vue({
         this.obtenerEstadoClienteModal();
     },
     updated() {
-        console.log('cambió', {
-            form: this.modelosModal
-        })
+        //console.log('cambió', {
+        //    form: this.modelosModal
+        //})
     },
     methods: {
         obtenerCausasModal() {
@@ -328,25 +332,62 @@ var appAcuerdoPagoModal = new Vue({
                 appAcuerdoPagosFiltros.handleEventoClickFiltrar();
                 $('#new_datos-gestion_acuerdo_pago').trigger("reset");
 
-            }).catch(reasons => {
-                console.log({ reasons });
-                $.niftyNoty({
-                    type: 'danger',
-                    message: 'Error al intentar guardar gestión.',
-                    container: '.msjAcuerdo_pago',
-                    timer: 3000
-                });
             });
+            //    .catch(reasons => {
+            //    console.log({ reasons });
+            //    $.niftyNoty({
+            //        type: 'danger',
+            //        message: 'Error al intentar guardar gestión.',
+            //        container: '.msjAcuerdo_pago',
+            //        timer: 3000
+            //    });
+            //});
         },
+        setDefaultsModal() {
+            this.modelosModal = {
+                estado: '',
+                subEstado: '',
+                causaBasal: '',
+                fechaCompromiso: '',
+                comentarios: '',
+                folioCredito: '',
+            }
+        }
     },
 });
 
 $(function () {
     $('#mdl_data_acuerdo_pago').on('show.bs.modal', async (event) => {
 
-        const rut = $(event.relatedTarget).data('rut');
+        const rut = event.relatedTarget != undefined ? $(event.relatedTarget).data('rut') : $('#afi_rut_busc').val();
         console.log({ rut })
+        var rutCont = rut
+        rutCont = rutCont.substring(0, rutCont.length - 2)
         await appAcuerdoPagoModal.obtenerLead(rut);
+        cargaDatosDeContacto(rutCont, '#bdy_datos_contactos_acuerdo_pago')
         $('#new_datos-gestion_acuerdo_pago').trigger("reset");
+        $('#fpg_acuerdo').css('display', 'none');
+        appAcuerdoPagoModal.setDefaultsModal();
+        $('#btGestAcuerdoPago').attr("disabled", false);
     });
+
+
+    $('#mdl_data_acuerdo_pago').on('hidden.bs.modal', async (event) => {
+        appNormalizacionModal.setDefaultsModal();
+        $('#slBasalAcuerdoPago').attr("disabled", true);
+    });
+
+    $('#slEstadoAcuerdoPago').change(function (e) {
+        e.preventDefault();
+        if ($(this).val() == 1) {
+            $('#slBasalAcuerdoPago').attr("disabled", false);
+        }
+        else {
+            $('#slBasalAcuerdoPago').attr("disabled", true);
+            $('#fpg_acuerdo').css('display', 'none');
+            $('#slBasalAcuerdoPago').val("");
+        }
+
+    });
+
 });

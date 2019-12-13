@@ -53,6 +53,11 @@ namespace CRM.Areas.AppPage.Controllers
             return View();
         }
 
+        public ActionResult FugaEmpresas()
+        {
+            return View();
+        }
+
         // GET: AppPage/Configuraciones/SucursalAdmin
         public ActionResult SucursalAdmin()
         {

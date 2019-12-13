@@ -13,7 +13,7 @@ namespace CRM.Business.Data
 {
     public static class PensionadosDataAccess
     {
-        public static List<Entity.PensionadosEntity> ListaPensionados(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, int EstadoSubGestion, string rutEjecutivo)
+        public static List<Entity.PensionadosEntity> ListaPensionados(string Token, string Nombre, string Comuna, string Prioridad, int EstadoGestion, string rutEjecutivo)
         {
             Parametros param = new Parametros
             {
@@ -23,7 +23,7 @@ namespace CRM.Business.Data
                 new Parametro("@PRIORIDAD",Prioridad),
                 new Parametro("@RUT_EJECUTIVO",rutEjecutivo),
                 new Parametro("@ESTADO_GES",EstadoGestion),
-                new Parametro("@SUB_ESTADO_GES",EstadoSubGestion),
+                //new Parametro("@SUB_ESTADO_GES",EstadoSubGestion),
             };
             return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_ListaPensionados", param, ProyePensionado);
         }
@@ -54,6 +54,7 @@ namespace CRM.Business.Data
                 id_Asign = row["id_Asign"] != DBNull.Value ? Convert.ToInt32(row["id_Asign"]) : 0,
                 ESTADO_GESTION = row["ESTADO_GESTION"] != DBNull.Value ? Convert.ToInt32(row["ESTADO_GESTION"]) : 0,
                 NOM_GESTION = row["NOM_GESTION"] != DBNull.Value ? row["NOM_GESTION"].ToString() : string.Empty,
+                codigo = row["codigo"] != DBNull.Value ? row["codigo"].ToString() : string.Empty,
 
             };
         }
@@ -120,12 +121,14 @@ namespace CRM.Business.Data
             return new Entity.BuscaPensionadosEntity
             {
                 NombrePensionado = row["NOMBREPEN"] != DBNull.Value ? row["NOMBREPEN"].ToString() : string.Empty,
-                FonoParticular = row["FONOPARTICULAR"] != DBNull.Value ? Convert.ToInt32(row["FONOPARTICULAR"]) : 0,
-                FonoCelular = row["FONOCELULAR"] != DBNull.Value ? Convert.ToInt32(row["FONOCELULAR"]) : 0,
+                FonoParticular = row["FONOPARTICULAR"] != DBNull.Value ? row["FONOPARTICULAR"].ToString() : string.Empty,
+                FonoCelular = row["FONOCELULAR"] != DBNull.Value ? row["FONOCELULAR"].ToString() : string.Empty,
                 Direccion = row["DIRECCION"] != DBNull.Value ? row["DIRECCION"].ToString() : string.Empty,
                 Comuna = row["COMUNA"] != DBNull.Value ? row["COMUNA"].ToString() : string.Empty,
                 Mail = row["EMAIL"] != DBNull.Value ? row["EMAIL"].ToString() : string.Empty,
                 N_direccion = row["NUMERO"] != DBNull.Value ? Convert.ToInt32(row["NUMERO"]) : 0,
+                codigo = row["codigo"] != DBNull.Value ? row["codigo"].ToString() : string.Empty,
+                id_Asign = row["id_Asign"] != DBNull.Value ? Convert.ToInt32(row["id_Asign"]) : 0,
             };
         }
 
