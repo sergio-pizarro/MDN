@@ -325,7 +325,7 @@ namespace CRM.Business.Data
 
             if (TipoAsignacion == 1)
             {
-                sql = "select count(*) Retorno from dbo.TabMotor_Asignacion where Periodo = (select max(Periodo) from dbo.TabMotor_Asignacion) and Ejec_Asignacion = @rutEjec and TipoAsignacion=@tipAsig and Oficina=@CodOffice and (Celular<>'' Or Telefono1<>'' Or Telefono2<>'') and Cuadrante = 1 ";
+                sql = "select count(*) Retorno from dbo.TabMotor_Asignacion x Inner  join(  select distinct RutAfiliado from BD_herramientas.scafi.TabMotor_Contactibilidad b where B.iTipoDato<>3 and B.IndiceContactab<>8 And B.OrigenBaja='' ) y on x.afiliado_rut=y.RutAfiliado where Periodo = (select max(Periodo) from dbo.TabMotor_Asignacion) and x.Ejec_Asignacion = @rutEjec and x.TipoAsignacion=@tipAsig and x.Oficina=@CodOffice and x.Cuadrante = 1";
             }
             if (TipoAsignacion == 2)
             {
@@ -340,6 +340,7 @@ namespace CRM.Business.Data
             {
                 sql = "select count(*) Retorno from dbo.TabMotor_Asignacion where Periodo = (select max(Periodo) from dbo.TabMotor_Asignacion) and Ejec_Asignacion = @rutEjec and TipoAsignacion=@tipAsig and Oficina=@CodOffice and (Celular<>'' Or Telefono1<>'' Or Telefono2<>'')";
             }
+            
 
             return DBHelper.InstanceCRM.ObtenerEscalarFromSql<int>(sql, pram);
         }

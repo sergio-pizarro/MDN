@@ -1165,5 +1165,24 @@
 
     });
 
+    var rutCont = $("#afi_rut").val().replace('.', '').replace('.', ''),
+    rutCont = rutCont.substring(0, rutCont.length - 2)
+    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-comercial-beneficios", { Rut_: rutCont }, function (datos) {
+        $(".NotfGenericaContainer").html("");
+        let text = "";
+        var type = "info";
+        $.each(datos, function (i, e) {
+            $(".NotfGenerica").show();
+            text = e.Glosa;
+            $.niftyNoty({
+                type: type,
+                container: '.NotfGenericaContainer',
+                html: text,
+                focus: false,
+                closeBtn: false
+            });
+        });
+    });
+
 
 });

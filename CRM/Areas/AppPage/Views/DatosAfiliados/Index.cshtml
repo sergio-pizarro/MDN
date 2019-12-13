@@ -37,7 +37,7 @@
             <div class="panel">
                 <div class="panel-body">
                     <h2 class="panel-title">
-                        <span class="pull-left badge badge-danger" style="border-radius: 4px; display: none;" id="msjNoMoles">No Molestar</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px; display:none" id="cumpleanos">Afiliado esta de Cumpleaños</span><span class="pull-left badge badge-warning" style="border-radius: 4px; margin-left: 5px; display:none" id="afinuevo">Afi Nuevo</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px;" id="afiVigente"></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display:none" id="afiFallecido "></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display:none" id="afiContac">Actualizar Contactos</span>
+                        <span class="pull-left badge badge-danger" style="border-radius: 4px; display: none;" id="msjNoMoles">No Molestar</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px; display:none" id="cumpleanos">Afiliado esta de Cumpleaños</span><span class="pull-left badge badge-warning" style="border-radius: 4px; margin-left: 5px; display:none" id="afinuevo">Afi Nuevo</span><span class="pull-left badge badge-success" style="border-radius: 4px; margin-left: 5px;" id="afiVigente"></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display:none" id="afiFallecido "></span><span class="pull-left badge badge-danger" style="border-radius: 4px; margin-left: 5px; display: none;" id="afiContac">Actualizar Contactos</span>
                     </h2>
                     <hr />
                     <div class="row">
@@ -189,6 +189,11 @@
                                 </div>
                                 <div class="row">
                                 </div>
+                                <div class="row NotfGenerica" style="display:none;">
+                                    <div class="col-sm-12 NotfGenericaContainer">
+                                        <br />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -271,7 +276,7 @@
                                 <label class="control-label">Filtro por Estados</label>
                                 <select class="selectpicker" id="filtroEstado">
                                     <option value="0">Todos..</option>
-                                    <option value="1">Gestion Motor</option>
+                                    <option value="1">Gestion Campañas</option>
                                     <option value="2">Comentarios</option>
                                     <option value="3">No Molestar</option>
                                     <option value="4">Desbloqueo no Molestar</option>
@@ -1662,7 +1667,6 @@
 
                     if (e.Vigente == 1) {
                         //$("#afiVigente").html("Afi Vigente").addClass("label-info label-info");
-
                     }
                     else {
                         $("#afiVigente").html("No Vigente").addClass("label-info label-danger");
@@ -1807,11 +1811,15 @@
                         if (e.PorcIndice < 39) {
                             var colorPorc = 'pull-left badge badge-danger'
                         }
-                        if (e.FechaContacto.toFecha() === "01-01-1900") {
-                            alertFecha = e.FechaContacto.toFecha() + '<i class="badge badge-danger badge-stat badge-icon pull-right add-tooltip" style="position: static; data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="Se debe Actualizar Contacto">!</i>'
-                            $("#afiContac").css({ 'display': 'block' })
+                        if (i === 0) {
+                            if (e.FechaContacto.toFecha() === "01-01-1900") {
+                                alertFecha = e.FechaContacto.toFecha() + '<i class="badge badge-danger badge-stat badge-icon pull-right add-tooltip" style="position: static; data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="Se debe Actualizar Contacto">!</i>'
+                                $("#afiContac").css({ 'display': 'block' })
+                            }
+                            else { alertFecha = e.FechaContacto.toFecha() }
                         }
-                        else { alertFecha = e.FechaContacto.toFecha() }
+
+                       
                         $("#bdy_datos_contactos")
                             .append(
                                 $("<tr>")
@@ -1867,9 +1875,25 @@
                             day: "numeric", hour: "2-digit", minute: "2-digit"
                         };
                         var i_img;
+                        var tag = "";
+                        if (e.TipoGestion == 'Gestion Comercial') {
+                            tag = '<span class="label label-success" style="border-radius: 5px">' + e.TipoGestion + '</span>'
+                        }
+                        else if (e.TipoGestion == 'Campaña seguro Cesantia') {
+                            tag = '<span class="label label-info" style="border-radius: 5px">' + e.TipoGestion +'</span>'
+                        }
+                        else if (e.TipoGestion == 'Campaña Normalización') {
+                            tag = '<span class="label label-danger" style="border-radius: 5px">' + e.TipoGestion + '</span>'
+                        }
+                        else if (e.TipoGestion == 'Campaña Acuerdo de Pago') {
+                            tag = '<span class="label label-warning" style="border-radius: 5px">' + e.TipoGestion + '</span>'
+                        }
+
+     
+
                         if (e.EstadoGestion == 1) {
                             i_img = $('<img>').attr('src', '../Assets/img/M.png').attr('alt', 'Profile picture')
-                            var iB2_4 = $('<a>').html('   Motor')
+                            var iB2_4 = $('<a>').html('   Motor -- ' + tag)
                             var aB2_5 = $('<a>').addClass('text-main text-bold').html('Gestion:  ').append(iB2_4).append('<br/>')
                             var iB2_4_ = $('<a>').html(e.Estado + '  -  ' + e.SubEstado)
                             var aB2_5_ = $('<a>').addClass('text-main text-bold').html('Motivo:  ').append(iB2_4_)
@@ -2519,10 +2543,29 @@
                         day: "numeric", hour: "2-digit", minute: "2-digit"
                     };
                     var i_img;
+                    var tag = "";
                     if (e.EstadoGestion == 1) {
+
+                     
+                        if (e.TipoGestion == 'Gestion Comercial') {
+                            tag = '<span class="label label-success" style="border-radius: 5px">' + e.TipoGestion + '</span>'
+                        }
+                        else if (e.TipoGestion == 'Campaña seguro Cesantia') {
+                            tag = '<span class="label label-info" style="border-radius: 5px">' + e.TipoGestion + '</span>'
+                        }
+                        else if (e.TipoGestion == 'Campaña Normalización') {
+                            tag = '<span class="label label-danger" style="border-radius: 5px">' + e.TipoGestion + '</span>'
+                        }
+                        else if (e.TipoGestion == 'Campaña Acuerdo de Pago') {
+                            tag = '<span class="label label-warning" style="border-radius: 5px">' + e.TipoGestion + '</span>'
+                        }
+
+
+
+
                         i_img = $('<img>').attr('src', '../Assets/img/M.png').attr('alt', 'Profile picture')
 
-                        var iB2_4 = $('<a>').html('   Motor')
+                        var iB2_4 = $('<a>').html('   Motor -- '+ tag )
                         var aB2_5 = $('<a>').addClass('text-main text-bold').html('Gestion:  ').append(iB2_4).append('<br/>')
 
                         var iB2_4_ = $('<a>').html(e.Estado + '  -  ' + e.SubEstado)
@@ -3067,11 +3110,14 @@
                     if (e.PorcIndice < 39) {
                         var colorPorc = 'pull-left badge badge-danger'
                     }
-                    if (e.FechaContacto.toFecha() === "01-01-1900") {
-                        alertFecha = e.FechaContacto.toFecha() + '<i class="badge badge-danger badge-stat badge-icon pull-right add-tooltip" style="position: static; data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="Se debe Actualizar Contacto">!</i>'
-                        $("#afiContac").css({ 'display': 'block' })
+
+                    if (i === 0) {
+                        if (e.FechaContacto.toFecha() === "01-01-1900") {
+                            alertFecha = e.FechaContacto.toFecha() + '<i class="badge badge-danger badge-stat badge-icon pull-right add-tooltip" style="position: static; data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="Se debe Actualizar Contacto">!</i>'
+                            $("#afiContac").css({ 'display': 'block' })
+                        }
+                        else { alertFecha = e.FechaContacto.toFecha() }
                     }
-                    else { alertFecha = e.FechaContacto.toFecha() }
 
                     var destinoDefault = destino == null ? "#bdy_datos_contactos" : destino;
                     $(destinoDefault)
@@ -3194,7 +3240,24 @@
 
         });
 
-
+        var rutCont = httpGet("RutBuscar")
+        rutCont = rutCont.substring(0, rutCont.length - 2)
+        $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-comercial-beneficios", { Rut_: rutCont }, function (datos) {
+            $(".NotfGenericaContainer").html("");
+            let text = "";
+            var type = "info";
+            $.each(datos, function (i, e) {
+                $(".NotfGenerica").show();
+                text = e.Glosa;
+                $.niftyNoty({
+                    type: type,
+                    container: '.NotfGenericaContainer',
+                    html: text,
+                    focus: false,
+                    closeBtn: false
+                });
+            });
+        });
 
 
 

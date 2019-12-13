@@ -127,6 +127,7 @@ namespace CRM.Business.Entity.Afiliados
         public int PreAprobadoFinal { get; set; }
         public string Periodo { get; set; }
         public int EstadoGestion { get; set; }
+        public string TipoGestion { get; set; }
 
     }
 

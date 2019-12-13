@@ -230,6 +230,14 @@ namespace CRM.Controllers
         }
 
 
+        [HttpGet]
+        [Route("lista-contingencia-motor")]
+        public IEnumerable<ContingenciaEntity> ListaFlagContingencia(int Rut_Empresa)
+        {
+            return EstadosyTiposDataAccess.ListaCintingencia(Rut_Empresa);
+
+        }
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("obtener-seguimiento")]

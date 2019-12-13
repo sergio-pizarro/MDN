@@ -28,7 +28,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-sm-3 text-xs-center">
+                        <div class="col-sm-2 text-xs-center">
                             <div class="form-group">
                                 <label class="control-label">Nombre</label>
                                 <input type="text" class="form-control" id="txtNombrePen" placeholder="Nombre pensionado..">
@@ -43,7 +43,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-2 text-xs-center">
+                        <div class="col-sm-1 text-xs-center">
                             <div class="form-group">
                                 <label class="control-label">Prioridad</label>
                                 <select id="dllPriorodadPen" class="form-control" v-model="modelos.prioridad">
@@ -61,6 +61,17 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="col-sm-2 text-xs-center">
+                            <div class="form-group">
+                                <label class="control-label">Foco</label>
+                                <select id="dllFoco" tabindex="2" class="form-control">
+                                    <option value="">Todos</option>
+                                    <option value="Base Potenciada">Base Potenciada</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="col-sm-2 text-xs-center" style="display:none;">
                             <div class="form-group">
                                 <label class="control-label">Sub-Estado Gestion</label>
@@ -92,19 +103,12 @@
             <div class="panel" style="border-radius: 7px;">
                 <div class="panel-heading">
                     <div class="panel-control">
-
-                        <div class="col-sm-4">
-                            <button class="demo-panel-ref-btn btn btn-default btn-active-success" data-toggle="panel-overlay" id="modalBasePotenciada">
-                                <i class="demo-psi-repeat-2 glyphicon-search"></i> Buscar Base Potenciada
-                            </button>
-                        </div>
-
-                        <div class="col-sm-4" id="mdAsigEjePen">
+                        <div class="col-sm-8" id="mdAsigEjePen">
                             <button class="demo-panel-ref-btn btn btn-default btn-active-success" data-toggle="panel-overlay" id="modalAsignacion">
                                 <i class="demo-psi-repeat-2 icon-fw"></i> Asignar Pensionados
                             </button>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <button class="demo-panel-ref-btn btn btn-default  btn-active-success" data-toggle="panel-overlay" id="PrintPensionados">
                                 <i class="demo-pli-printer"></i> Imprimir
                             </button>
@@ -144,57 +148,76 @@
                     <img src="~/Assets/img/logo_arau.png" style="width: 200px; margin-top: 10px;" />
                     <br />
                     <br />
-                    <table id="base-table" class='table table-bordered' style='display:none; border-radius: 7px; font-size: 10px;'>
-                        <tbody id='nada'>
-                            <tr>
-                                <td style='width: 621px'>([id])</td>
-                                <td style='width: 300px'>([email])</td>
-                            </tr>
-                            <tr>
-                                <td style='width: 621px'>Nombre</td>
-                                <td style='width: 300px'>Fono Particular / Celular</td>
-                            </tr>
-                            <tr>
-                                <td>([name])</td>
-                                <td>([phone])</td>
-                            </tr>
-                            <tr>
-                                <td>Dirección</td>
-                                <td>Comuna</td>
-                            </tr>
-                            <tr>
-                                <td>([address])</td>
-                                <td>([city])</td>
-                            </tr>
-                            <tr>
-                                <td colspan='2'>
-                                    Contacto:
-                                    <div class='checkbox'>
-                                        <input id='demo-form-inline-checkbox' class='magic-checkbox' type='checkbox'>
-                                        <label for='demo-form-inline-checkbox'>Fono / Celular</label>
 
-                                        <input id='demo-form-inline-checkbox-2' class='magic-checkbox' type='checkbox'>
-                                        <label for='demo-form-inline-checkbox-2'>Domicilio</label>
+                    <div class="panel-body">
+                        <table id="base-table" class='table table-bordered' style='display:none; border-radius: 7px; font-size: 10px;'>
+                            <tbody id='nada'>
+                                <tr>
+                                    <td style='width: 621px'>([id])</td>
+                                    <td style='width: 300px'>([email])</td>
+                                </tr>
+                                <tr>
+                                    <td style='width: 621px'>Nombre</td>
+                                    <td style='width: 300px'>Fono Particular / Celular</td>
+                                </tr>
+                                <tr>
+                                    <td>([name])</td>
+                                    <td>([phone])</td>
+                                </tr>
+                                <tr>
+                                    <td>Dirección</td>
+                                    <td>Comuna</td>
+                                </tr>
+                                <tr>
+                                    <td>([address])</td>
+                                    <td>([city])</td>
+                                </tr>
+                                <tr>
+                                    <td colspan='2'>
+                                        Contacto:
+                                        <div class='checkbox'>
+                                            <input id='demo-form-inline-checkbox' class='magic-checkbox' type='checkbox'>
+                                            <label for='demo-form-inline-checkbox'>Fono / Celular</label>
 
-                                        <input id='demo-form-inline-checkbox-3' class='magic-checkbox' type='checkbox'>
-                                        <label for='demo-form-inline-checkbox-3'>Evento</label>
+                                            <input id='demo-form-inline-checkbox-2' class='magic-checkbox' type='checkbox'>
+                                            <label for='demo-form-inline-checkbox-2'>Domicilio</label>
 
-                                        <input id='demo-form-inline-checkbox-3' class='magic-checkbox' type='checkbox'>
-                                        <label for='demo-form-inline-checkbox-3'>Ninguno</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan='2'>Fecha Contacto:</td>
-                            </tr>
-                            <tr>
-                                <td colspan='2'>Proxima Gestion (Fecha-Hora)</td>
-                            </tr>
-                            <tr style='height: 140px;'>
-                                <td colspan='2'>Observación Gestión</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                            <input id='demo-form-inline-checkbox-3' class='magic-checkbox' type='checkbox'>
+                                            <label for='demo-form-inline-checkbox-3'>Evento</label>
+
+                                            <input id='demo-form-inline-checkbox-3' class='magic-checkbox' type='checkbox'>
+                                            <label for='demo-form-inline-checkbox-3'>Ninguno</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan='2'>Fecha Contacto:</td>
+                                </tr>
+                                <tr>
+                                    <td colspan='2'>Proxima Gestion (Fecha-Hora)</td>
+                                </tr>
+                                <tr style='height: 140px;'>
+                                    <td colspan='2'>Observación Gestión</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan='2'>DATOS DE CONTACTO</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <table id="tblppontenciada" style="font-size: 10px; display:none;" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Telefono</th>
+                                    <th>Tipo</th>
+                                    <th>Ranking</th>
+                                    <th>Relacionado</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -203,7 +226,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content" style="border-radius: 7px;">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                        <button id="btCerrarModal" type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
                         <h4 class="modal-title">Pensionado ---- CODIGO:  <label id="codPensionado"></label> {{dataModal.codigo}}</h4>
                     </div>
                     <div class="modal-body">
@@ -211,18 +234,22 @@
                             <div class="tab-base" id="MDL_Primario" style="margin-bottom: 0px !important;">
                                 <!--Nav Tabs-->
                                 <ul class="nav nav-tabs">
-                                    <li class="active">
-                                        <a data-toggle="tab" href="#tab-gestion-pensionado" aria-expanded="true">Datos Pensionado</a>
+                                    <li class="active tabDatos">
+                                        <a data-toggle="tab" id="tabDatosPen" href="#tab-gestion-pensionado" aria-expanded="true">Datos Pensionado</a>
                                     </li>
                                     <li class="" style="display:none;">
                                         <a data-toggle="tab" href="#tab-gestion-contacto" aria-expanded="false">Contacto/Gestión</a>
                                     </li>
-                                    <li class="">
-                                        <a data-toggle="tab" href="#tab-gestion-gestion" aria-expanded="false">Gestión</a>
+                                    <li class="tabGestion">
+                                        <a data-toggle="tab" id="tabgestion" href="#tab-gestion-gestion" aria-expanded="false">Gestión</a>
                                     </li>
-                                    <li class="">
-                                        <a data-toggle="tab" href="#tab-gestion-historial" aria-expanded="false">Historial Gestión</a>
+                                    <li class="tabHistorial">
+                                        <a data-toggle="tab" id="tabHistorial" href="#tab-gestion-historial" aria-expanded="false">Historial Gestión</a>
                                     </li>
+                                    <li class="tabContactabilidad">
+                                        <a data-toggle="tab" id="tabContactabilidad" href="#tab-gestion-contactabilidad" aria-expanded="false">Contactabilidad</a>
+                                    </li>
+
                                 </ul>
                                 <!--Tabs Content-->
                                 <div class="tab-content" style="box-shadow: 0 0 0 !important;">
@@ -237,6 +264,7 @@
                                             <div class="panel-body">
                                                 <div id="msjMantPensionadoContacto"></div>
                                                 <form id="form-info-pensionado" action="#" method="post">
+                                                    <input class="form-control" id="txtRutPen" :value="dataModal.rut" style="display:none" type="text">
                                                     <div class="row">
                                                         <div class="col-sm-2">
                                                             <div class="form-group">
@@ -466,6 +494,90 @@
 
                                         </div>
                                     </div>
+                                    <div id="tab-gestion-contactabilidad" class="tab-pane fade">
+                                        <div id="msj-contact-potenc"></div>
+                                        <div class="header">
+                                            <a class="close" id="btNewContato">
+                                                <i class="demo-pli-add icon-2x "></i>
+                                                <span class="menu-title">
+                                                    <strong>Agregar Contacto</strong>
+                                                </span>
+                                            </a>
+                                            <h4 class="modal-title" id="myLargeModalLabel-search"> Base Potenciada</h4>
+                                        </div>
+                                        <div class="body" id="bdy_busqueda_pensionado">
+                                            <div style="display:none;" id="newContacto">
+                                                <hr />
+                                                <div class="panel panel-bordered-info" style="border-radius: 5px;">
+                                                    <div class="panel-body">
+                                                        <div class="panel-body">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Telefono</label>
+                                                                        <input type="text" id="txtTelfConPot" class="form-control" maxlength="20">
+
+                                                                        <i class="demo-psi-dis-like icon-lg"></i>
+                                                                        <i class="fa fa-thumbs-o-down"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Relaciondo</label>
+                                                                        <input type="text" id="txtRelacConPot" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-footer text-right">
+                                                            <button class="btn btn-success" type="button" id="btSaveContPontenciada">Guardar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="row" style="display:none;">
+                                                            <div class="col-sm-4 text-xs-center">
+                                                                <div class="form-group">
+                                                                    <input class="form-control" id="txtIdBase" style="width: 250px;" maxlength="10" placeholder="123456" type="text" v-on:keypress="onlyNumber" v-model="idPensionadoVal">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4 text-xs-center ">
+                                                                <div class="form-group">
+                                                                    <button class="btn btn-primary" v-on:click="handleEventoClickBuscaBasePotenciada" id="btn_buscar_base" type="submit">Buscar</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="NotfGenericaDBPotenciado"></div>
+                                                        <hr />
+                                                        <strong>Nombre: </strong> <label id="lbNomPotenc"></label>
+                                                        <div class="panel-body">
+                                                            <table data-toggle="table"
+                                                                   data-sort-name="id"
+                                                                   data-page-list="[]"
+                                                                   data-page-size="10"
+                                                                   data-pagination="true" id="tblPenPotenciada">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th data-field="telefono" data-sortable="true">Telefono</th>
+                                                                        <th data-field="tipo" data-sortable="true">Tipo</th>
+                                                                        <th data-field="ranking" data-sortable="true">Ranking</th>
+                                                                        <th data-field="relacionado" data-sortable="true">Relacionado</th>
+                                                                        <th data-field="marca" data-formatter="estadoImg" data-sortable="true">Estado</th>
+                                                                        <th data-field="relacionado" data-formatter="opcionContactabilidad">Acciones</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div id="tab-gestion-gestion" class="tab-pane fade">
                                         <div id="msjMantPensionado"></div>
                                         <h4 class="modal-title" id="lbTitulo">Contacto</h4>
@@ -495,48 +607,53 @@
                                             </div>
                                             <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="paso1_No">
                                                 <div class="panel-body">
-
+                                                    <label class="control-label" style="margin-top: 20px;"><strong>Fono</strong></label>
                                                     <div class="row">
-                                                        <div class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label class="control-label" style="margin-top: 20px;">Fono</label>
-                                                            </div>
-                                                        </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <div class="col-md-12" id="dvRbMedioNoFono" style="margin-top: 20px;"></div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4" id="subFonoNo" style="display:none;">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group">
-                                                                <div id="dvRbMedioNoSubFono" class="col-md-12 well" style="border-radius: 8px; background-color: #f3f3f3;">
-                                                                </div>
+                                                                <div id="subFonoNo" style="display:none;"></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="dp-txtFechaConFonoNO" class="col-sm-3" style="display:none;">
+                                                            <label class="control-label">Fecha</label>
+                                                            <div class="input-group date">
+                                                                <input type="text" class="form-control" id="txtFechaConFonoNO" name="txtFechaConFonoNO">
+                                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div style="visibility: hidden;">
                                                         separador
                                                     </div>
+
+                                                    <label class="control-label" style="margin-top: 20px;"><strong>Domicilio</strong></label>
                                                     <div class="row">
-                                                        <div class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label class="col-md-4 control-label" style="margin-top: 20px;">Domicilio</label>
-                                                            </div>
-                                                        </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <div class="col-md-12" id="dvRbMedioNoDomi" style="margin-top: 20px;"></div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4" id="subDomiNo" style="display:none;">
-                                                            <div class="form-group">
-                                                                <div id="dvRbMedioNoSubDomi" class="col-md-12 well" style="border-radius: 8px; background-color: #f3f3f3;">
-                                                                </div>
+                                                        <div class="col-sm-3">
+                                                            <div id="subDomiNo" style="display:none;"></div>
+                                                        </div>
+
+                                                        <div id="dp-txtFechaConDomiNO" class="col-sm-3" style="margin-top: 37px; display:none;">
+                                                            <label class="control-label">Fecha</label>
+                                                            <div class="input-group date">
+                                                                <input type="text" class="form-control" id="txtFechaConDomiNO" name="txtFechaConDomiNO">
+                                                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label class="control-label">Observación</label>
@@ -548,6 +665,7 @@
                                                 <button class="btn btn-primary" id="btn_contacto" type="submit" v-on:click="handleSubmitContactoPensionado" disabled>Siguiente</button>
                                             </div>
                                         </div>
+
                                         <!--INTERES-->
                                         <div class="modal-body" id="etapaInteres" style="display:none">
                                             <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666;">
@@ -645,26 +763,26 @@
 
 
                                                         @*<div class="col-md-8" id="divInteresNO2">
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input class="magic-radio" type="radio" name="gRbInteresNO2" id="contacto-rdInteresNo-3012" value="301">
-                                                                <label for="contacto-rdInteresNo-3012">No Interesado</label>
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input class="magic-radio" type="radio" name="gRbInteresNO2" id="contacto-rdInteresNo-3012" value="301">
+                                                                    <label for="contacto-rdInteresNo-3012">No Interesado</label>
 
 
-                                                                <div class="radio" style="margin-top: 9px; margin-left: 40px;">
-                                                                    <input class="magic-radio" type="radio" name="gRbInteresNO22" id="contacto-rdInteresNo-30222" value="302">
-                                                                    <label for="contacto-rdInteresNo-30222">Desiste4444</label>
+                                                                    <div class="radio" style="margin-top: 9px; margin-left: 40px;">
+                                                                        <input class="magic-radio" type="radio" name="gRbInteresNO22" id="contacto-rdInteresNo-30222" value="302">
+                                                                        <label for="contacto-rdInteresNo-30222">Desiste4444</label>
+                                                                    </div>
+                                                                    <div class="radio" style="margin-top: 9px; margin-left: 40px;">
+                                                                        <input class="magic-radio" type="radio" name="gRbInteresNO22" id="contacto-rdInteresNo-302223" value="302">
+                                                                        <label for="contacto-rdInteresNo-302223">Desiste555</label>
+                                                                    </div>
+
                                                                 </div>
-                                                                <div class="radio" style="margin-top: 9px; margin-left: 40px;">
-                                                                    <input class="magic-radio" type="radio" name="gRbInteresNO22" id="contacto-rdInteresNo-302223" value="302">
-                                                                    <label for="contacto-rdInteresNo-302223">Desiste555</label>
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input class="magic-radio" type="radio" name="gRbInteresNO2" id="contacto-rdInteresNo-3022" value="302">
+                                                                    <label for="contacto-rdInteresNo-3022">Desiste</label>
                                                                 </div>
-
-                                                            </div>
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input class="magic-radio" type="radio" name="gRbInteresNO2" id="contacto-rdInteresNo-3022" value="302">
-                                                                <label for="contacto-rdInteresNo-3022">Desiste</label>
-                                                            </div>
-                                                        </div>*@
+                                                            </div>*@
 
 
 
@@ -684,207 +802,207 @@
                                         </div>
                                         <!--DOMICILIO-->
                                         @*<div class="modal-body" id="etapaDomicilio" style="display:none">
-                                            <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666;">
-                                                <label class="col-md-5 control-label">Se concretó la visita?  </label>
-                                                <div class="col-md-6" style="margin-top: -11px;">
-                                                    <div class="radio">
-                                                        <input id="rdkDomicilioSi" class="magic-radio" type="radio" name="inline-form-radioDomicilio" value="SI">
-                                                        <label for="rdkDomicilioSi">SI</label>
-                                                        <input id="rdkDomicilioNO" class="magic-radio" type="radio" name="inline-form-radioDomicilio" value="NO">
-                                                        <label for="rdkDomicilioNO">NO</label>
+                                                <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666;">
+                                                    <label class="col-md-5 control-label">Se concretó la visita?  </label>
+                                                    <div class="col-md-6" style="margin-top: -11px;">
+                                                        <div class="radio">
+                                                            <input id="rdkDomicilioSi" class="magic-radio" type="radio" name="inline-form-radioDomicilio" value="SI">
+                                                            <label for="rdkDomicilioSi">SI</label>
+                                                            <input id="rdkDomicilioNO" class="magic-radio" type="radio" name="inline-form-radioDomicilio" value="NO">
+                                                            <label for="rdkDomicilioNO">NO</label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666; display:none;" id="preguntaInteresDom">
-                                                <label class="col-md-5 control-label">Sigue Interesado?</label>
-                                                <div class="col-md-6" style="margin-top: -11px;">
-                                                    <div class="radio">
-                                                        <input id="rdkDomicilioInteresadoSi" class="magic-radio" type="radio" name="inline-form-radioDomicilioInteresado" value="SI">
-                                                        <label for="rdkDomicilioInteresadoSi">SI</label>
-                                                        <input id="rdkDomicilioInteresadoNO" class="magic-radio" type="radio" name="inline-form-radioDomicilioInteresado" value="NO">
-                                                        <label for="rdkDomicilioInteresadoNO">NO</label>
+                                                <div class="alert alert-success" style="border-radius: 5px; height: 54px; background-color: #f3f3f3; color: #696666; display:none;" id="preguntaInteresDom">
+                                                    <label class="col-md-5 control-label">Sigue Interesado?</label>
+                                                    <div class="col-md-6" style="margin-top: -11px;">
+                                                        <div class="radio">
+                                                            <input id="rdkDomicilioInteresadoSi" class="magic-radio" type="radio" name="inline-form-radioDomicilioInteresado" value="SI">
+                                                            <label for="rdkDomicilioInteresadoSi">SI</label>
+                                                            <input id="rdkDomicilioInteresadoNO" class="magic-radio" type="radio" name="inline-form-radioDomicilioInteresado" value="NO">
+                                                            <label for="rdkDomicilioInteresadoNO">NO</label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Domicilio_Si">
-                                                <div class="panel-body">
-                                                    <div class="form-group pad-ver">
-                                                        <label class="col-md-4 control-label">Como avanzamos?</label>
-                                                        <div class="col-md-8">
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio">Agenda Visita a Domicilio</label>
-                                                            </div>
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio-2">Agenda Visita a Sucursal</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="visibility: hidden;">
-                                                        separador
-                                                    </div>
-                                                    <div class="form-group pad-ver">
-                                                        <div class="col-md-4 control-label">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Cuando?</label>
+                                                <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Domicilio_Si">
+                                                    <div class="panel-body">
+                                                        <div class="form-group pad-ver">
+                                                            <label class="col-md-4 control-label">Como avanzamos?</label>
+                                                            <div class="col-md-8">
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio">Agenda Visita a Domicilio</label>
+                                                                </div>
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio-2">Agenda Visita a Sucursal</label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Fecha</label>
-                                                                <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha">
-                                                            </div>
+                                                        <div style="visibility: hidden;">
+                                                            separador
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Hora</label>
-                                                                <div class="input-group date">
-                                                                    <select id="slComienzaDomicilio" name="slComienzaDomicilio" class="form-control" tabindex="-98">
-                                                                        <option value="">Seleccione</option>
-                                                                        <option value="09:00">9:00 hrs.</option>
-                                                                        <option value="09:30">9:30 hrs.</option>
-                                                                        <option value="10:00">10:00 hrs.</option>
-                                                                        <option value="10:30">10:30 hrs.</option>
-                                                                        <option value="11:00">11:00 hrs.</option>
-                                                                        <option value="11:30">11:30 hrs.</option>
-                                                                        <option value="12:00">12:00 hrs.</option>
-                                                                        <option value="12:30">12:30 hrs.</option>
-                                                                        <option value="13:00">13:00 hrs.</option>
-                                                                        <option value="13:30">13:30 hrs.</option>
-                                                                        <option value="14:00">14:00 hrs.</option>
-                                                                        <option value="14:30">14:30 hrs.</option>
-                                                                        <option value="15:00">15:00 hrs.</option>
-                                                                        <option value="15:30">15:30 hrs.</option>
-                                                                        <option value="16:00">16:00 hrs.</option>
-                                                                        <option value="16:30">16:30 hrs.</option>
-                                                                        <option value="17:00">17:00 hrs.</option>
-                                                                        <option value="17:30">17:30 hrs.</option>
-                                                                        <option value="18:00">18:00 hrs.</option>
-                                                                        <option value="18:30">18:30 hrs.</option>
-                                                                        <option value="19:00">19:00 hrs.</option>
-                                                                        <option value="19:30">19:30 hrs.</option>
-                                                                        <option value="20:00">20:00 hrs.</option>
-                                                                        <option value="20:30">20:30 hrs.</option>
-                                                                        <option value="21:00">21:00 hrs.</option>
-                                                                    </select>
-                                                                    <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                        <div class="form-group pad-ver">
+                                                            <div class="col-md-4 control-label">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Cuando?</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Fecha</label>
+                                                                    <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Hora</label>
+                                                                    <div class="input-group date">
+                                                                        <select id="slComienzaDomicilio" name="slComienzaDomicilio" class="form-control" tabindex="-98">
+                                                                            <option value="">Seleccione</option>
+                                                                            <option value="09:00">9:00 hrs.</option>
+                                                                            <option value="09:30">9:30 hrs.</option>
+                                                                            <option value="10:00">10:00 hrs.</option>
+                                                                            <option value="10:30">10:30 hrs.</option>
+                                                                            <option value="11:00">11:00 hrs.</option>
+                                                                            <option value="11:30">11:30 hrs.</option>
+                                                                            <option value="12:00">12:00 hrs.</option>
+                                                                            <option value="12:30">12:30 hrs.</option>
+                                                                            <option value="13:00">13:00 hrs.</option>
+                                                                            <option value="13:30">13:30 hrs.</option>
+                                                                            <option value="14:00">14:00 hrs.</option>
+                                                                            <option value="14:30">14:30 hrs.</option>
+                                                                            <option value="15:00">15:00 hrs.</option>
+                                                                            <option value="15:30">15:30 hrs.</option>
+                                                                            <option value="16:00">16:00 hrs.</option>
+                                                                            <option value="16:30">16:30 hrs.</option>
+                                                                            <option value="17:00">17:00 hrs.</option>
+                                                                            <option value="17:30">17:30 hrs.</option>
+                                                                            <option value="18:00">18:00 hrs.</option>
+                                                                            <option value="18:30">18:30 hrs.</option>
+                                                                            <option value="19:00">19:00 hrs.</option>
+                                                                            <option value="19:30">19:30 hrs.</option>
+                                                                            <option value="20:00">20:00 hrs.</option>
+                                                                            <option value="20:30">20:30 hrs.</option>
+                                                                            <option value="21:00">21:00 hrs.</option>
+                                                                        </select>
+                                                                        <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Domicilio_NO">
-                                                <div class="panel-body">
-                                                    <div class="form-group pad-ver">
-                                                        <label class="col-md-3 control-label">Por que?</label>
-                                                        <div class="col-md-6">
-                                                            <textarea placeholder="Comentarios..." rows="13" class="form-control" style="margin: 0px -63.3438px 0px 0px; height: 155px; width: 400px;"></textarea>
+                                                <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="Domicilio_NO">
+                                                    <div class="panel-body">
+                                                        <div class="form-group pad-ver">
+                                                            <label class="col-md-3 control-label">Por que?</label>
+                                                            <div class="col-md-6">
+                                                                <textarea placeholder="Comentarios..." rows="13" class="form-control" style="margin: 0px -63.3438px 0px 0px; height: 155px; width: 400px;"></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
 
-                                            <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="DomicilioVisita_NO">
-                                                <div class="panel-body">
-                                                    <div class="form-group pad-ver">
-                                                        <label class="col-md-4 control-label">Por que? </label>
-                                                        <div class="col-md-8">
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio">Domicilio No Corresponde</label>
-                                                            </div>
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio-2">Domicilio No Existe</label>
-                                                            </div>
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio-3" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio-3">No se encontraba en el momento de visita</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="visibility: hidden;">
-                                                        separador
-                                                    </div>
-                                                    <div class="form-group pad-ver">
-                                                        <label class="col-md-4 control-label">Como avanzamos?</label>
-                                                        <div class="col-md-8">
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio">Agenda otra Visita a Domicilio</label>
-                                                            </div>
-                                                            <div class="radio" style="margin-top: -2px;">
-                                                                <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
-                                                                <label for="demo-form-radio-2">Agenda Visita a Sucursal</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="visibility: hidden;">
-                                                        separador
-                                                    </div>
-                                                    <div class="form-group pad-ver">
-                                                        <div class="col-md-4 control-label">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Cuando?</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Fecha</label>
-                                                                <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Hora</label>
-                                                                <div class="input-group date">
-                                                                    <select id="slComienzaDomicilio" name="slComienzaDomicilio" class="form-control" tabindex="-98">
-                                                                        <option value="">Seleccione</option>
-                                                                        <option value="09:00">9:00 hrs.</option>
-                                                                        <option value="09:30">9:30 hrs.</option>
-                                                                        <option value="10:00">10:00 hrs.</option>
-                                                                        <option value="10:30">10:30 hrs.</option>
-                                                                        <option value="11:00">11:00 hrs.</option>
-                                                                        <option value="11:30">11:30 hrs.</option>
-                                                                        <option value="12:00">12:00 hrs.</option>
-                                                                        <option value="12:30">12:30 hrs.</option>
-                                                                        <option value="13:00">13:00 hrs.</option>
-                                                                        <option value="13:30">13:30 hrs.</option>
-                                                                        <option value="14:00">14:00 hrs.</option>
-                                                                        <option value="14:30">14:30 hrs.</option>
-                                                                        <option value="15:00">15:00 hrs.</option>
-                                                                        <option value="15:30">15:30 hrs.</option>
-                                                                        <option value="16:00">16:00 hrs.</option>
-                                                                        <option value="16:30">16:30 hrs.</option>
-                                                                        <option value="17:00">17:00 hrs.</option>
-                                                                        <option value="17:30">17:30 hrs.</option>
-                                                                        <option value="18:00">18:00 hrs.</option>
-                                                                        <option value="18:30">18:30 hrs.</option>
-                                                                        <option value="19:00">19:00 hrs.</option>
-                                                                        <option value="19:30">19:30 hrs.</option>
-                                                                        <option value="20:00">20:00 hrs.</option>
-                                                                        <option value="20:30">20:30 hrs.</option>
-                                                                        <option value="21:00">21:00 hrs.</option>
-                                                                    </select>
-                                                                    <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                <div class="panel panel-bordered-success" style="border-radius: 6px; border: 1px solid #e0e0e0; display:none;" id="DomicilioVisita_NO">
+                                                    <div class="panel-body">
+                                                        <div class="form-group pad-ver">
+                                                            <label class="col-md-4 control-label">Por que? </label>
+                                                            <div class="col-md-8">
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio">Domicilio No Corresponde</label>
+                                                                </div>
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio-2">Domicilio No Existe</label>
+                                                                </div>
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio-3" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio-3">No se encontraba en el momento de visita</label>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div style="visibility: hidden;">
+                                                            separador
+                                                        </div>
+                                                        <div class="form-group pad-ver">
+                                                            <label class="col-md-4 control-label">Como avanzamos?</label>
+                                                            <div class="col-md-8">
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio">Agenda otra Visita a Domicilio</label>
+                                                                </div>
+                                                                <div class="radio" style="margin-top: -2px;">
+                                                                    <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
+                                                                    <label for="demo-form-radio-2">Agenda Visita a Sucursal</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div style="visibility: hidden;">
+                                                            separador
+                                                        </div>
+                                                        <div class="form-group pad-ver">
+                                                            <div class="col-md-4 control-label">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Cuando?</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Fecha</label>
+                                                                    <input type="text" class="form-control" id="txtFechacita" name="txtFechacita" placeholder="Fecha">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Hora</label>
+                                                                    <div class="input-group date">
+                                                                        <select id="slComienzaDomicilio" name="slComienzaDomicilio" class="form-control" tabindex="-98">
+                                                                            <option value="">Seleccione</option>
+                                                                            <option value="09:00">9:00 hrs.</option>
+                                                                            <option value="09:30">9:30 hrs.</option>
+                                                                            <option value="10:00">10:00 hrs.</option>
+                                                                            <option value="10:30">10:30 hrs.</option>
+                                                                            <option value="11:00">11:00 hrs.</option>
+                                                                            <option value="11:30">11:30 hrs.</option>
+                                                                            <option value="12:00">12:00 hrs.</option>
+                                                                            <option value="12:30">12:30 hrs.</option>
+                                                                            <option value="13:00">13:00 hrs.</option>
+                                                                            <option value="13:30">13:30 hrs.</option>
+                                                                            <option value="14:00">14:00 hrs.</option>
+                                                                            <option value="14:30">14:30 hrs.</option>
+                                                                            <option value="15:00">15:00 hrs.</option>
+                                                                            <option value="15:30">15:30 hrs.</option>
+                                                                            <option value="16:00">16:00 hrs.</option>
+                                                                            <option value="16:30">16:30 hrs.</option>
+                                                                            <option value="17:00">17:00 hrs.</option>
+                                                                            <option value="17:30">17:30 hrs.</option>
+                                                                            <option value="18:00">18:00 hrs.</option>
+                                                                            <option value="18:30">18:30 hrs.</option>
+                                                                            <option value="19:00">19:00 hrs.</option>
+                                                                            <option value="19:30">19:30 hrs.</option>
+                                                                            <option value="20:00">20:00 hrs.</option>
+                                                                            <option value="20:30">20:30 hrs.</option>
+                                                                            <option value="21:00">21:00 hrs.</option>
+                                                                        </select>
+                                                                        <span class="input-group-addon"><i class="demo-pli-clock"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
 
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-success" id="btn_domicilio_guardar" type="submit">Guardar</button>
-                                                <button class="btn btn-primary" id="btn_domicilio" type="submit" disabled>Siguiente</button>
-                                            </div>
-                                        </div>*@
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-success" id="btn_domicilio_guardar" type="submit">Guardar</button>
+                                                    <button class="btn btn-primary" id="btn_domicilio" type="submit" disabled>Siguiente</button>
+                                                </div>
+                                            </div>*@
 
                                         <!--SUCURSAL-->
                                         @*<div class="modal-body" id="etapaSucursal" style="display:none">
@@ -1075,8 +1193,7 @@
                                             <div class="modal-footer">
                                                 <button class="btn btn-success" id="btn_sucursal_guardar" type="submit">Guardar</button>
                                                 <button class="btn btn-primary" id="btn_sucursal" type="submit" disabled>Finalizar</button>
-                                            </div>
-                                        </div>*@
+                                            </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -1085,226 +1202,164 @@
                 </div>
             </div>
         </div>
-        <div id="modal_asigna_pensionado" class="modal fade" tabindex="-1">
-            <div class="modal-dialog modal-xs">
-                <div class="modal-content" style="border-radius: 9px;">
-                    <div class="modal-header">
-                        <div class="panel-control">
-                            <span class="badge badge-pink" id="cantPensScheck">0</span>
-                            <span>Pensionados seleccionados</span>
-                        </div>
-                        <h4 class="modal-title">Asiganción de pensionados</h4>
+    </div>
+    <div id="modal_asigna_pensionado" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-xs">
+            <div class="modal-content" style="border-radius: 9px;">
+                <div class="modal-header">
+                    <div class="panel-control">
+                        <span class="badge badge-pink" id="cantPensScheck">0</span>
+                        <span>Pensionados seleccionados</span>
                     </div>
-                    <div id="msjAsigPensionado"></div>
-                    <div class="modal-body">
-                        <div class="col-sm-8 text-xs-center">
+                    <h4 class="modal-title">Asiganción de pensionados</h4>
+                </div>
+                <div id="msjAsigPensionado"></div>
+                <div class="modal-body">
+                    <div class="col-sm-8 text-xs-center">
+                        <div class="form-group">
+                            <label class="control-label">Seleccione un ejecutivo para asignar...</label>
+                            <select id="dllEjePensiondos" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <!--Modal footer-->
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                    <button class="btn btn-primary" id="btAsignarPensionado">Asignar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="demo-lg-modal-pensionado" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                    <h4 class="modal-title" id="myLargeModalLabel-search">Buscar Pensionado</h4>
+                </div>
+                <div class="modal-body" id="bdy_busqueda_pensionado">
+                    <div class="row">
+                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="control-label">Seleccione un ejecutivo para asignar...</label>
-                                <select id="dllEjePensiondos" class="form-control"></select>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Modal footer-->
-                    <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                        <button class="btn btn-primary" id="btAsignarPensionado">Asignar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="demo-lg-modal-pensionado" class="modal fade" tabindex="-1">
-            <div class="modal-dialog modal-md">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                        <h4 class="modal-title" id="myLargeModalLabel-search">Buscar Pensionado</h4>
-                    </div>
-                    <div class="modal-body" id="bdy_busqueda_pensionado">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="control-label">Rut Pensionado</label>
-
-                                    <div class="row">
-                                        <div class="col-sm-6 text-xs-center">
-                                            <div class="form-group">
-                                                <input class="form-control" id="afi_rut_Pens" style="width: 250px;" maxlength="10" placeholder="99999999-9" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4 text-xs-center">
-                                            <div class="form-group">
-                                                <button class="btn btn-primary" v-on:click="handleEventoClickBuscaUniversal" id="btn_buscar_pens" type="submit">Buscar</button>
-                                            </div>
+                                <label class="control-label">Rut Pensionado</label>
+                                <div class="row">
+                                    <div class="col-sm-4 text-xs-center">
+                                        <div class="form-group">
+                                            <input class="form-control" id="afi_rut_Pens" style="width: 250px;" maxlength="10" placeholder="99999999-9" type="text">
                                         </div>
                                     </div>
-                                    <div id="NotfGenericaPensionado"></div>
-                                    <hr />
-                                    <div class="pad-all">
-                                        <div class="media mar-btm">
-                                            <div class="media-left">
-                                                <img src="/Motor/Assets/img/profile-photos/1.png" class="img-md img-circle" alt="Avatar">
-                                            </div>
-                                            <div class="media-body" style="vertical-align: middle;">
-                                                <p class="text-lg text-main text-semibold mar-no">Pensionado: <label class="control-label limpiarUni"> {{dataModal.nombre != undefined && dataModal.nombre != "" ? dataModal.nombre : '------'}}</label></p>
-                                            </div>
+                                    <div class="col-sm-4 text-xs-center">
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" v-on:click="handleEventoClickBuscaUniversal" id="btn_buscar_pens" type="submit" style="border-radius: 7px;">Buscar</button>
                                         </div>
-                                        <ul class="list-group bg-trans bord-no">
-                                            <li class="list-group-item list-item-sm">
-                                                <div class="row">
-                                                    <div class="col-sm-4 text-xs-center">
-                                                        <div class="form-group">
-                                                            <div class="media-left">
-                                                                <i class="ion-person-stalker icon-lg"></i>
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <a href="#" class="btn-link text-semibold">Esta Asignado?</a>
-                                                                <br />
-                                                                <p class="text-semibold text-main limpiarUni"> {{dataModal.ejecutivo_asignado != undefined ? dataModal.ejecutivo_asignado != "" ? "SI" : "NO"  : '------------'}}</p>
-                                                            </div>
+                                    </div>
+                                </div>
+                                <div id="NotfGenericaPensionado"></div>
+                                <hr />
+                                <div class="pad-all">
+                                    <div class="media mar-btm">
+                                        <div class="media-left">
+                                            <img src="/Motor/Assets/img/profile-photos/1.png" class="img-md img-circle" alt="Avatar">
+                                        </div>
+                                        <div class="media-body" style="vertical-align: middle;">
+                                            <p class="text-lg text-main text-semibold mar-no">Pensionado: <label class="control-label limpiarUni"> {{dataModal.nombre != undefined && dataModal.nombre != "" ? dataModal.nombre : '------'}}</label></p>
+                                        </div>
+                                    </div>
+                                    <ul class="list-group bg-trans bord-no">
+                                        <li class="list-group-item list-item-sm">
+                                            <div class="row">
+                                                <div class="col-sm-3 text-xs-center">
+                                                    <div class="form-group">
+                                                        <div class="media-left">
+                                                            <i class="ion-person-stalker icon-lg"></i>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="col-sm-4 text-xs-center">
-                                                        <div class="form-group">
-                                                            <div class="media-left">
-                                                                <i class="ion-person icon-lg"></i>
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <a href="#" class="btn-link text-semibold">Ejecutivo Asignado</a>
-                                                                <br>
-                                                                <p class="text-semibold text-main limpiarUni">{{dataModal.nombreEjecutivo != undefined ? dataModal.nombreEjecutivo != "" ?  dataModal.nombreEjecutivo : "SIN ASIGNAR"  : '------------'}}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-4 text-xs-center">
-                                                        <div class="form-group">
-                                                            <div class="media-left">
-                                                                <i class="ion-home icon-lg"></i>
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <a href="#" class="btn-link text-semibold">Sucursal</a>
-                                                                <br />
-                                                                <p class="text-semibold text-main limpiarUni">{{dataModal.sucursalEjecutivo != undefined ? dataModal.sucursalEjecutivo != "" ? dataModal.sucursalEjecutivo : "SIN ASIGNAR" : '------------'}}</p>
-                                                            </div>
+                                                        <div class="media-body">
+                                                            <a href="#" class="btn-link text-semibold">Esta Asignado?</a>
+                                                            <br />
+                                                            <p class="text-semibold text-main limpiarUni"> {{dataModal.ejecutivo_asignado != undefined ? dataModal.ejecutivo_asignado != "" ? "SI" : "NO"  : '------------'}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </li>
-                                        </ul>
-                                    </div>
 
+                                                <div class="col-sm-4 text-xs-center">
+                                                    <div class="form-group">
+                                                        <div class="media-left">
+                                                            <i class="ion-person icon-lg"></i>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <a href="#" class="btn-link text-semibold">Ejecutivo Asignado</a>
+                                                            <br>
+                                                            <p class="text-semibold text-main limpiarUni">{{dataModal.nombreEjecutivo != undefined ? dataModal.nombreEjecutivo != "" ?  dataModal.nombreEjecutivo : "SIN ASIGNAR"  : '------------'}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 text-xs-center">
+                                                    <div class="form-group">
+                                                        <div class="media-left">
+                                                            <i class="ion-home icon-lg"></i>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <a href="#" class="btn-link text-semibold">Sucursal</a>
+                                                            <br />
+                                                            <p class="text-semibold text-main limpiarUni">{{dataModal.sucursalEjecutivo != undefined ? dataModal.sucursalEjecutivo != "" ? dataModal.sucursalEjecutivo : "SIN ASIGNAR" : '------------'}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
+                                                <div class="col-sm-2 text-xs-center">
+                                                    <div class="form-group">
+                                                        <div class="media-left">
+                                                            <i class="ion-home icon-lg"></i>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <a href="#" class="btn-link text-semibold">Estado Gestión</a>
+                                                            <br />
+                                                            <p class="text-semibold text-main limpiarUni">{{dataModal.estado != undefined ? dataModal.estado != "" ? dataModal.estado : "SIN GESTION" : '------------'}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="divGestUni" style="display:none;">
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-sm-5 text-xs-center">
+                                                        <div class="form-group">
+                                                            <p class="btn-link text-semibold"> Pensionado sin gestion!.. Desea Gestionarlo?</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4 text-xs-center">
+                                                        <div class="form-group" id="btGesPen">
+                                                            @*<button id="btn_gestion_pen" type="submit" class="btn btn-primary"  :data-lead="dataModal.id"  :data-rut="dataModal.rut" style="margin-top: -9px; border-radius: 7px;">Gestionar</button>*@
+
+                                                            @* <a href="#" class="btn-link" data-toggle="modal" data-target="#mdl_data_gestion_pensionado" data-backdrop="static" data-keyboard="false" :data-lead="dataModal.id" :data-rut="dataModal.rut">Gestionar</a>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--Modal footer-->
-                    <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-
-                    </div>
+                </div>
+                <!--Modal footer-->
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
                 </div>
             </div>
         </div>
-
-        <div id="modal-pensionado-base-potenciada" class="modal fade" tabindex="-1">
-            <div class="modal-dialog modal-md">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                        <h4 class="modal-title" id="myLargeModalLabel-search">Busqueda Base Potenciada</h4>
-                    </div>
-                    <div class="modal-body" id="bdy_busqueda_pensionado">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="control-label">Rut Pensionado</label>
-
-                                    <div class="row">
-                                        <div class="col-sm-6 text-xs-center">
-                                            <div class="form-group">
-                                                <input class="form-control" id="afi_rut_Pens" style="width: 250px;" maxlength="10" placeholder="99999999-9" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4 text-xs-center">
-                                            <div class="form-group">
-                                                <button class="btn btn-primary" v-on:click="handleEventoClickBuscaUniversal" id="btn_buscar_pens" type="submit">Buscar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="NotfGenericaPensionado"></div>
-                                    <hr />
-                                    <div class="pad-all">
-                                        <div class="media mar-btm">
-                                            <div class="media-left">
-                                                <img src="/Motor/Assets/img/profile-photos/1.png" class="img-md img-circle" alt="Avatar">
-                                            </div>
-                                            <div class="media-body" style="vertical-align: middle;">
-                                                <p class="text-lg text-main text-semibold mar-no">Pensionado: <label class="control-label limpiarUni"> {{dataModal.nombre != undefined && dataModal.nombre != "" ? dataModal.nombre : '------'}}</label></p>
-                                            </div>
-                                        </div>
-                                        <ul class="list-group bg-trans bord-no">
-                                            <li class="list-group-item list-item-sm">
-                                                <div class="row">
-                                                    <div class="col-sm-4 text-xs-center">
-                                                        <div class="form-group">
-                                                            <div class="media-left">
-                                                                <i class="ion-person-stalker icon-lg"></i>
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <a href="#" class="btn-link text-semibold">Esta Asignado?</a>
-                                                                <br />
-                                                                <p class="text-semibold text-main limpiarUni"> {{dataModal.ejecutivo_asignado != undefined ? dataModal.ejecutivo_asignado != "" ? "SI" : "NO"  : '------------'}}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-sm-4 text-xs-center">
-                                                        <div class="form-group">
-                                                            <div class="media-left">
-                                                                <i class="ion-person icon-lg"></i>
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <a href="#" class="btn-link text-semibold">Ejecutivo Asignado</a>
-                                                                <br>
-                                                                <p class="text-semibold text-main limpiarUni">{{dataModal.nombreEjecutivo != undefined ? dataModal.nombreEjecutivo != "" ?  dataModal.nombreEjecutivo : "SIN ASIGNAR"  : '------------'}}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-4 text-xs-center">
-                                                        <div class="form-group">
-                                                            <div class="media-left">
-                                                                <i class="ion-home icon-lg"></i>
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <a href="#" class="btn-link text-semibold">Sucursal</a>
-                                                                <br />
-                                                                <p class="text-semibold text-main limpiarUni">{{dataModal.sucursalEjecutivo != undefined ? dataModal.sucursalEjecutivo != "" ? dataModal.sucursalEjecutivo : "SIN ASIGNAR" : '------------'}}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
+    </div>
+    <div id="modal-pensionado-base-potenciada" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-md" style="width: 65%;">
 
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Modal footer-->
-                    <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
 
-                    </div>
-                </div>
-            </div>
+
+
         </div>
-
-
-
     </div>
 </div>
+
 

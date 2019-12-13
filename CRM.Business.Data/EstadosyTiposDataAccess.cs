@@ -69,5 +69,25 @@ namespace CRM.Business.Data
                 Descripcion = row["descripcion"] != DBNull.Value ? row["descripcion"].ToString() : string.Empty,
             };
         }
+
+        public static List<ContingenciaEntity> ListaCintingencia(int Rut_Empresa)
+        {
+            Parametro pram = new Parametro("@EMPRESA_RUT", Rut_Empresa);
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Contingencia_Motor", pram, EntidadContingencia);
+        }
+
+        private static ContingenciaEntity EntidadContingencia(DataRow row)
+        {
+            return new ContingenciaEntity
+            {
+                // Afiliado_Rut = row["AFILIADO_RUT"] != DBNull.Value ? Convert.ToInt32(row["AFILIADO_RUT"]) : 0,
+                Empresa_Rut = row["EMPRESA_RUT"] != DBNull.Value ? Convert.ToInt32(row["EMPRESA_RUT"]) : 0,
+                //Empresa = row["EMPRESA"] != DBNull.Value ? row["EMPRESA"].ToString() : string.Empty,
+                Motivo = row["MOTIVO"] != DBNull.Value ? row["MOTIVO"].ToString() : string.Empty,
+            };
+        }
+
+
+
     }
 }

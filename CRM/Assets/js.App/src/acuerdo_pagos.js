@@ -166,7 +166,7 @@ function AcuerdoPagoPrioridadFormatter(value, row, index) {
     return value.toString().toEtiquetaPrioridad();
 }
 
-function formatoMoneyFormatter(value, row, index) {
+function formatoMoneyFormatterAcuerdo(value, row, index) {
     return value.toMoney(0);
 }
 
