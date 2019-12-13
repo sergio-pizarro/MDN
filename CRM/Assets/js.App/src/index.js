@@ -1042,11 +1042,20 @@ $(function () {
                         });
                     });
 
+                    let contingencia = "";
+                    $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-contingencia-motor", { Rut_Empresa: row.Seguimiento.Empresa_Rut }, function (datos) {
+                        $.each(datos, function (i, e) {
+                            contingencia = contingencia + ' ' + '<span class="badge badge-danger">CN</span>';
+                        });
+                    });
+
+
+
                     //return value.toString().toEtiquetaPrioridad() + (prioPens >= 0 ? '    <span class="badge badge-warning">!</span>' : (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '')) //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
                     //eturn value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '') + (row.Seguimiento.MARCA_CC === 1 ? '    <span class="badge badge-purple">C.C</span>' : '') + (row.Seguimiento.MarcaPsu === 1 ? '    <span class="badge badge-primary">PSU</span>' : '') //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
                     jQuery.ajaxSetup({ async: true });
                     //turn value.toString().toEtiquetaPrioridad() + ' ' + descripcion;
-                    return value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '') + (row.Seguimiento.MARCA_CC === 1 ? '    <span class="badge badge-purple">C.C</span>' : '') + (row.Seguimiento.MarcaPsu === 1 ? '    <span class="badge badge-primary">PSU</span>' : '') + ' ' + descripcion; //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
+                    return value.toString().toEtiquetaPrioridad() + (row.Notificaciones.length > 0 ? '    <span class="badge badge-info">!</span>' : '') + (row.Seguimiento.MARCA_CC === 1 ? '    <span class="badge badge-purple">C.C</span>' : '') + (row.Seguimiento.MarcaPsu === 1 ? '    <span class="badge badge-primary">PSU</span>' : '') + ' ' + descripcion + ' ' + contingencia; //+ (row.TieneEncuesta === 0 ? '    <span class="badge badge-purple">E</span>' : '') 
                 }
             },
 
@@ -1321,6 +1330,26 @@ $(function () {
                         });
                     });
                 });
+
+                // CONTINGENCIA
+                $.SecGetJSON(BASE_URL + "/motor/api/Gestion/lista-contingencia-motor", { Rut_Empresa: afiData.Empresa_Rut }, function (datos) {
+                    $(".contingenciaNTFContainer").html("");
+                    let text = "";
+                    var type = "danger";
+                    $.each(datos, function (i, e) {
+                        $(".contingenciaNTF").show();
+                        text = e.Motivo;
+                        $.niftyNoty({
+                            type: type,
+                            container: '.contingenciaNTFContainer',
+                            html: text,
+                            focus: false,
+                            closeBtn: false
+                        });
+                    });
+                });
+
+
 
 
                 //BORRADO POR NUEVA NOTIFICACNES --SERGIO
