@@ -107,7 +107,8 @@
     <script>
         $(document).ready(function () {
 
-
+            var existe_ya = false;
+            var fuga_id = undefined;
             const oficina = getCookie('Oficina');
             
             $.SecGetJSON(`http://${motor_api_server}:4002/fuga-empresas?filter=codigoOficina||eq||${oficina}&join=empresasFuga`, function (datos) {
@@ -120,13 +121,17 @@
                 })
 
                 if (ejecuciones.length > 0) {
+                    existe_ya = true;
                     const hoy = ejecuciones[0];
                     
                     if (hoy.hayNovedad == 1) {
 
                         console.log({
-                            x: hoy.empresasFuga
+                            x: hoy.empresasFuga,
+                            y: hoy
                         })
+
+                        fuga_id = hoy.id
 
 
                         hoy.empresasFuga.forEach(e => {
@@ -141,14 +146,14 @@
                         })
 
                         $('.table-container').find('.d-clonar').first().remove();
-                        $('.table-container').find('input').prop('disabled', true)
+                        //$('.table-container').find('input').prop('disabled', true)
                     } else {
                         $('#EstadoArticulo').trigger("click");
                     }
 
-                    $('#btn-add').prop('disabled', true);
-                    $("#btn-guardar").prop("disabled", true);
-                    $("#btn-guardar").html(" Ya marcado para hoy <i class='pli-like-2 icon-1x'></i>")
+                    //$('#btn-add').prop('disabled', true);
+                    //$("#btn-guardar").prop("disabled", true);
+                    //$("#btn-guardar").html(" Ya marcado para hoy <i class='pli-like-2 icon-1x'></i>")
                 }
 
                 
@@ -169,16 +174,37 @@
             $('#EstadoArticulo').on("change", function () {
                 if ($(this).is(':checked')) {
                     $('.interact-fom').show();
-                    $('#btn-add').prop('disabled', false);
+                    //$('#btn-add').prop('disabled', false);
                 } else {
                     $('.interact-fom').hide();
-                    $('#btn-add').prop('disabled', true);
+                    //$('#btn-add').prop('disabled', true);
                 }
             })
 
 
 
             $("#form-asignados").on("submit", function () {
+
+                let steps = [];
+                console.log({
+                    existe_ya,
+                    fuga_id
+                })
+
+                if (existe_ya) {
+                    steps.push('[WAY][->][EXISTENCIA]');
+                    steps.push('[SEND_DELETE][->][ELIMINANDO_EXISTENTE]');
+                    $.ajax({
+                        url: `http://${motor_api_server}:4002/fuga-empresas/${fuga_id}`,
+                        type: 'DELETE',
+                        success: function(result) {
+                            steps.push('[STEP][->][ELIMINA_EXISTENTE]');
+                        }
+                    });
+                }
+                //return false;
+
+
 
                 //validaciones
                 //todo: if() [->] validar si hay novedad poner al menos una empresa
@@ -201,7 +227,7 @@
                 })
 
                 //inicializaciones
-                $("#btn-guardar").prop("disabled", true);
+                //$("#btn-guardar").prop("disabled", true);
 
                 //Primer objeto
                 var transferObjectMaster = {
@@ -211,11 +237,11 @@
                     "codigoOficina": parseInt(getCookie('Oficina'))
                 };
 
-
+                steps.push('[SEND_POST][->][GENERANDO_NUEVO]');
                 $.SecPostJSON(`http://${motor_api_server}:4002/fuga-empresas`, transferObjectMaster, function (datos) {
 
                     if (datos) {
-
+                        steps.push('[STEP][->][NUEVO_GENERADO]');
                         if ($('#EstadoArticulo').is(':checked')) {
 
                             const id_fuga = parseInt(datos.id);
@@ -239,9 +265,9 @@
                                 "bulk": nomina_empresas
                             };
 
-
+                            steps.push('[SEND_POST][->][INGRESANDO_NOMINA]');
                             $.SecPostJSON(`http://${motor_api_server}:4002/fuga-empresas-nomina/bulk`, nomina_transfer_object, function (datos) {
-
+                                steps.push('[STEP][->][NOMINA_INGRESADA]');
                                 $.niftyNoty({
                                     type: 'success',
                                     icon: 'pli-like-2 icon-2x',
@@ -251,8 +277,8 @@
                                 });
 
 
-                                $("#btn-guardar").html(" Ya marcado para hoy <i class='pli-like-2 icon-1x'></i>")
-                                $('.table-container').find('input').prop('disabled', true)
+                                //$("#btn-guardar").html(" Ya marcado para hoy <i class='pli-like-2 icon-1x'></i>")
+                                //$('.table-container').find('input').prop('disabled', true)
                             })
                         } else {
                             $.niftyNoty({
@@ -264,11 +290,11 @@
                             });
 
 
-                            $("#btn-guardar").html(" Ya marcado para hoy <i class='pli-like-2 icon-1x'></i>")
+                            //$("#btn-guardar").html(" Ya marcado para hoy <i class='pli-like-2 icon-1x'></i>")
                         }
                     }
                 });
-
+                console.log({steps})
                 return false;
             })
 
@@ -279,8 +305,6 @@
             elems.forEach(function (html) {
                 var switchery = new Switchery(html);
             });
-
-
 
         });
 
