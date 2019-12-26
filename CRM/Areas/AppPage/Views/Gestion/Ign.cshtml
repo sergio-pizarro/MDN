@@ -4,33 +4,82 @@
 <link href="~/Assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
 
 <div id="page-content">
-    <div class="row">
-        <div class="col-lg-12" id="contIGN">
-            <div class="panel" style="border-radius: 7px;">
-                <div class="panel-heading">
-                    <h3 class="panel-title">DATOS IGN</h3>
-                </div>
-                <div class="panel-body">
-                    <table data-toggle="table"
-                           data-sort-name="id"
-                           data-page-list="[]"
-                           data-page-size="50"
-                           data-search="true"
-                           data-pagination="true" id="tblIgn" style="font-size: 10px">
 
-                        <thead>
-                            <tr>
-                                <th data-field="rutEmpresa" data-sortable="true" data-formatter="idFormatterMoldalIgn">RUT EMPRESA</th>
-                                <th data-field="nombreEmpresa" data-sortable="true">NOM. EMPRESA</th>
-                                <th data-field="nNominas" data-sortable="true">CANT. NOMINA </th>
-                                <th data-field="folio" data-sortable="true">CANT. FOLIOS </th>
-                                <th data-field="montoNomina" data-formatter="formatoMoneyFormatterign" data-sortable="true">MON. NOMINA</th>
-                                <th data-field="montoNominaPendiente" data-formatter="formatoMoneyFormatterign" data-sortable="true">M. NOMINA PEND.</th>
-                                <th data-field="ignActual" data-formatter="formatoPorcentaje" data-sortable="true">IGN ACTUAL</th>
-                                <th data-field="ultimaGestion.estado.nombreEstado" data-sortable="true">ESTADO</th>
-                            </tr>
-                        </thead>
-                    </table>
+    <div id="contIGN">
+        <div class="panel" style="border-radius: 7px;">
+            <div class="panel-heading">
+                <h3 class="panel-title">FILTROS IGN</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-sm-3 text-xs-center">
+                        <div class="form-group">
+                            <label class="control-label">ESTADO</label>
+                            <select class="form-control" id="dllEstadoIgnPrin" v-on:change="eventoCambSubEstadoIng" v-model="modelosP.estadosIgn">
+                                <option value="">Seleccione...</option>
+                                <option v-for="estIgn in filtrosP.estadosIgn" :value="estIgn.id">{{estIgn.nombreEstado}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 text-xs-center">
+                        <div class="form-group">
+                            <label class="control-label">SUB-ESTADO</label>
+                            <select class="form-control" v-model="modelosP.subEstadosIgn" id="slSubEstadoIngPrin">
+                                <option value="">Seleccione...</option>
+                                <option v-for="subEstIgn in filtrosP.subEstadosIgn" :value="subEstIgn.id">{{subEstIgn.nombreEstado}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 text-xs-center">
+                        <div class="form-group">
+                            <label class="control-label">ESTADO NOMINA</label>
+                            <select class="form-control" v-model="modelosP.estadoNominaIgn" id="slEstadoIngNomina">
+                                <option value="">Seleccione...</option>
+                                <option v-for="estNominaIgn in filtrosP.estadoNominaIgn" :value="estNominaIgn.estadoNomina">{{estNominaIgn.estadoNomina}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1 text-xs-center">
+                        <div class="form-group">
+                            <label class="control-label"></label>
+                            <button class="btn btn-primary btn-rounded" v-on:click="cargalistaIgn" style="margin-top: 21px;">Filtrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel" style="border-radius: 7px;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">DATOS IGN</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table data-toggle="table"
+                               data-sort-name="id"
+                               data-page-list="[]"
+                               data-page-size="50"
+                               data-search="true"
+                               data-pagination="true" id="tblIgn" style="font-size: 10px">
+
+                            <thead>
+                                <tr>
+                                    <th data-field="rutEmpresa" data-sortable="true" data-formatter="idFormatterMoldalIgn">RUT EMPRESA</th>
+                                    <th data-field="nombreEmpresa" data-sortable="true">NOM. EMPRESA</th>
+                                    <th data-field="nNominas" data-sortable="true">CANT. NOMINA </th>
+                                    <th data-field="folio" data-sortable="true">CANT. FOLIOS </th>
+                                    <th data-field="montoNomina" data-formatter="formatoMoneyFormatterign" data-sortable="true">MON. NOMINA</th>
+                                    <th data-field="montoNominaPendiente" data-formatter="formatoMoneyFormatterign" data-sortable="true">M. NOMINA PEND.</th>
+                                    <th data-field="ignActual" data-formatter="formatoPorcentaje" data-sortable="true">IGN ACTUAL</th>
+                                    <th data-field="ultimaGestion.estado.nombreEstado" data-sortable="true">ESTADO</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -147,7 +196,7 @@
                             <div class="row">
                                 <div class="col-sm-4 text-xs-center">
                                     <div class="form-group">
-                                        <label class="control-label">ESTADO</label>
+                                        <label class="control-label">Estado</label>
                                         <select class="form-control" id="dllEstadoIgn" v-on:change="eventoCambiaSubEstadoIng" v-model="modelos.estadosIgn">
                                             <option value="">Seleccione...</option>
                                             <option v-for="estIgn in filtros.estadosIgn" :value="estIgn.id">{{estIgn.nombreEstado}}</option>

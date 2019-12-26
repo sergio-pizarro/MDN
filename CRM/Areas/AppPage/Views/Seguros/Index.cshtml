@@ -13,59 +13,138 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-bordered-info" style="border-radius: 5px;">
-                <div class="panel-body" id="dvPrincipal">
-                    <div class="row">
-                        <div class="col-sm-2 text-xs-center">
-                            <div class="form-group">
-                                <label class="control-label">Rut a buscar</label>
-                                <input class="form-control" id="seguro_rut_busc" type="text" maxlength="10">
-                            </div>
-                        </div>
-                        <div class="col-sm-2 text-xs-center">
+                <div class="modal-body">
+                    <div class="panel">
+                        <div class="tab-base" id="MDL_Primario" style="margin-bottom: 0px !important;">
+                            <!--Nav Tabs-->
+                            <ul class="nav nav-tabs">
+                                <li class="active tabDatos">
+                                    <a data-toggle="tab" id="tabDatosPen" href="#tab-gestion-pensionado" aria-expanded="true">Gestion Seguros</a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#tab-gestion-contacto" aria-expanded="false">Detalle Seguros/Ejecutivo</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" style="box-shadow: 0 0 0 !important;">
+                                <div id="tab-gestion-pensionado" class="tab-pane fade active in">
+                                    <div class="panel-body" id="dvPrincipal">
+                                        <div class="row">
+                                            <div class="col-sm-2 text-xs-center">
+                                                <div class="form-group">
+                                                    <label class="control-label">Rut a buscar</label>
+                                                    <input class="form-control" id="seguro_rut_busc" type="text" maxlength="10">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2 text-xs-center">
 
-                            <label class="control-label">Fecha de busqueda</label>
-                            <div class="input-group date">
-                                <input type="text" class="form-control" id="dp-fecha-seguros" name="dp-fecha-seguros">
-                                <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
-                            </div>
-                        </div>
-                        <div class="col-sm-1 text-xs-center">
-                            <div class="form-group">
-                                <label class="control-label">
-                                </label>
-                                <button type="button" class="btn btn-primary btn-rounded" style="margin-top: 22px;" v-on:click="buscaSeguroFechaRut">Buscar</button>
-                            </div>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="header">
-                        <a class="close" id="btNewContato">
-                            <i class="demo-pli-add icon-2x" data-target="#modal-seguros" data-toggle="modal"></i>
-                            <span class="menu-title">
-                                <strong>Agregar</strong>
-                            </span>
-                        </a>
+                                                <label class="control-label">Fecha de busqueda</label>
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control" id="dp-fecha-seguros" name="dp-fecha-seguros">
+                                                    <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1 text-xs-center">
+                                                <div class="form-group">
+                                                    <label class="control-label">
+                                                    </label>
+                                                    <button type="button" class="btn btn-primary btn-rounded" style="margin-top: 22px;" v-on:click="buscaSeguroFechaRut">Buscar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        @*<div class="header">
+                                                <a class="close" id="btNewContato">
+                                                    <i class="demo-pli-add icon-2x" data-target="#modal-seguros" data-toggle="modal"></i>
+                                                    <span class="menu-title">
+                                                        <strong>Agregar</strong>
+                                                    </span>
+                                                </a>
+                                            </div>*@
 
-                    </div>
-                    <br />
-                    <div class="panel-body">
-                        <table data-toggle="table"
-                               data-sort-name="id"
-                               data-page-list="[]"
-                               data-page-size="10"
-                               data-pagination="true" id="tblSeguros">
-                            <thead>
-                                <tr>
-                                    <th data-field="rut" data-sortable="true">Rut</th>
-                                    <th data-field="fechaVenta" data-sortable="true">Fecha Venta</th>
-                                    <th data-field="sDesgravamen" data-sortable="true" data-formatter="sDesgravamenFormatter">S. Desgravamen</th>
-                                    <th data-field="sCesantia" data-sortable="true" data-formatter="sCesantianFormatter">S. Cesantía</th>
-                                    <th data-field="sVida" data-sortable="true" data-formatter="sVidaFormatter">S. Vida</th>
-                                    <th data-field="sHogar" data-sortable="true" data-formatter="sHogarFormatter">S. Hogar</th>
-                                    <th data-field="sAccidentePersonales" data-sortable="true" data-formatter="sAccidentePersonalesFormatter">S. Accidentes Personales</th>
-                                </tr>
-                            </thead>
-                        </table>
+                                        <div class="col-sm-12 table-toolbar-right">
+                                            <button class="btn btn-success" style="border-radius: 7px;" id="btNewContato" data-target="#modal-seguros" data-toggle="modal"><i class="demo-pli-add icon-fw"></i>Agregar</button>
+                                        </div>
+                                        <div class="panel-body">
+                                            <table data-toggle="table"
+                                                   data-sort-name="id"
+                                                   data-page-list="[]"
+                                                   data-page-size="10"
+                                                   data-pagination="true" id="tblSeguros">
+                                                <thead>
+                                                    <tr>
+                                                        <th data-field="rut" data-sortable="true">Rut</th>
+                                                        <th data-field="fechaVenta" data-sortable="true">Fecha Venta</th>
+                                                        <th data-field="sDesgravamen" data-sortable="true" data-formatter="sDesgravamenFormatter">S. Desgravamen</th>
+                                                        <th data-field="sCesantia" data-sortable="true" data-formatter="sCesantianFormatter">S. Cesantía</th>
+                                                        <th data-field="sVida" data-sortable="true" data-formatter="sVidaFormatter">S. Vida</th>
+                                                        <th data-field="sHogar" data-sortable="true" data-formatter="sHogarFormatter">S. Hogar</th>
+                                                        <th data-field="sAccidentePersonales" data-sortable="true" data-formatter="sAccidentePersonalesFormatter">S. Accidentes Personales</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tab-gestion-contacto" class="tab-pane fade">
+                                    <div class="panel-body">
+                                        <div class="col-sm-6 table-toolbar-left">
+                                            <button id="btnExport" class="btn btn-success" style="border-radius: 7px;"><i class="pli-file-excel"></i>  Exportar</button>
+                                        </div>
+
+
+                                        <div class="col-sm-6 table-toolbar-right">
+                                            <div class="form-group">
+                                                <div class="input-group date" style="width: 150px;">
+                                                    <input type="text" class="form-control" id="dp-fecha-detalle-seguros" name="dp-fecha-detalle-seguros">
+                                                    <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button class="btn btn-default" v-on:click="cargaDetalleSeguros"><i class="demo-pli-download-from-search"></i>  Buscar</button>
+
+                                            </div>
+                                        </div>
+                                        <table data-toggle="table"
+                                               data-sort-name="id"
+                                               data-page-list="[]"
+                                               data-page-size="10"
+                                               data-search="false"
+                                               data-pagination="true" id="tblDetalleSeguros">
+                                            <thead>
+                                                <tr>
+                                                    <th data-field="ejecutivo_ingreso" data-sortable="true">Rut Ejecutivo</th>
+                                                    <th data-field="nombreEjecutivo" data-sortable="true">Nombre Ejecutivo</th>
+                                                    <th data-field="sDesgravamen" data-sortable="true" data-formatter="sDesgravamenFormatter">S. Desgravamen</th>
+                                                    <th data-field="sCesantia" data-sortable="true" data-formatter="sCesantianFormatter">S. Cesantía</th>
+                                                    <th data-field="sVida" data-sortable="true" data-formatter="sVidaFormatter">S. Vida</th>
+                                                    <th data-field="sHogar" data-sortable="true" data-formatter="sHogarFormatter">S. Hogar</th>
+                                                    <th data-field="sAccidentePersonales" data-sortable="true" data-formatter="sAccidentePersonalesFormatter">S. Accidentes Personales</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+
+                                        <div id="tbl_detalle" style="display:none;">
+                                            <table id="tablaExport" class="table table-bordered table-hover toggle-circle table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Rut Ejecutivo</th>
+                                                        <th>Nombre Ejecutivo</th>
+                                                        <th data-align="center" data-sortable="true">S. Desgravamen</th>
+                                                        <th data-align="center" data-sortable="true">S. Cesantia</th>
+                                                        <th data-align="center" data-sortable="true">S. Vida</th>
+                                                        <th data-align="center" data-sortable="true">S. Hogar</th>
+                                                        <th data-align="center" data-sortable="true">S. Accidentes Personales</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="bdy_detalleSeguroDatos"></tbody>
+                                            </table>
+                                            <div id="elementH"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,7 +197,7 @@
                                 <div class="row">
                                     <div class="col-sm-4 text-xs-center">
                                         <div class="checkbox">
-                                            <input id="checkbox-desgravamen" class="magic-checkbox" type="checkbox"  disabled>
+                                            <input id="checkbox-desgravamen" class="magic-checkbox" type="checkbox" disabled>
                                             <label for="checkbox-desgravamen">Desgravamen</label>
                                         </div>
                                     </div>
@@ -253,11 +332,24 @@
 @section script{
 
     <script src="~/Assets/js/vue.js"></script>
-    <script src="~/Assets/js.App/gestion.min.js?g=@Guid.NewGuid().ToString()"></script>
-    @*<script src="~/Assets/js.App/printThis.js"></script>
-        <script src="~/Assets/js.App/src/index.js"></script>*@
+
+
 
     <script src="~/Assets/js/demo/ui-alerts.js"></script>
+    <script src="~/Assets/js.App/FileSaver.js"></script>
+
+    <script src="~/Assets/js.App/jspdf.min.js"></script>
+    <script src="~/Assets/js.App/jspdf.plugin.autotable.min.js"></script>
+
+
+    <script src="~/Assets/js.App/jspdf.plugin.standard_fonts_metrics.js"></script>
+    <script src="~/Assets/js.App/jspdf.plugin.split_text_to_size.js"></script>
+    <script src="~/Assets/js.App/jspdf.plugin.from_html.js"></script>
+    <script src="~/Assets/js.App/jspdf.plugin.cell.js"></script>
+
+
+
+
 
 
     <script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
@@ -267,9 +359,8 @@
     <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
-    <script src="~/Assets/js.App/printThis.js"></script>
-    <script src="~/Assets/js.App/src/index.js?g=@Guid.NewGuid().ToString()"></script>
 
     <script src="~/Assets/js.App/src/seguros.js?g=@Guid.NewGuid().ToString()"></script>
+
 
 }

@@ -1,9 +1,8 @@
 ﻿jQuery.support.cors = true;
 var appSeguro = new Vue({
-    el: '#dvPrincipal',
+    el: '#MDL_Primario',
 
     mounted() {
-
     },
     methods: {
 
@@ -21,6 +20,26 @@ var appSeguro = new Vue({
                     }
                 });
         },
+
+        cargaDetalleSeguros() {
+            let oficina = getCookie('Oficina')
+            let fechaHoy = new Date();
+            let periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
+            let fecha = $('#dp-fecha-detalle-seguros').val()
+
+            fetch(`http://${motor_api_server}:4002/seguros/lead-detalle-seguros/${oficina}/${periodo}/${fecha}`, {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'default'
+            })
+                .then(response => response.json())
+                .then(datos => {
+                    if (datos.length > 0) {
+                        $("#tblDetalleSeguros").bootstrapTable('load', datos);
+                    }
+                });
+        },
+
         loadTablaSeguros() {
             $("#tblSeguros").bootstrapTable();
         },
@@ -43,7 +62,7 @@ var appSeguro = new Vue({
                         $("#tblSeguros").bootstrapTable('load', datos);
                     }
                     else {
-                        $("#tblSeguros").bootstrapTable('load',[]);
+                        $("#tblSeguros").bootstrapTable('load', []);
                     }
                 });
         },
@@ -104,22 +123,22 @@ function sHogarFormatter(value, row, index) {
 
 
 
-$(function() {
-    $('#btNewContato').on('click', function(event) {
+$(function () {
+    $('#btNewContato').on('click', function (event) {
         $('#newContacto').css('display', 'block')
     });
 
-    $(function() {
+    $(function () {
 
 
 
-        $('#dp-fecha-seguros').datepicker({
+        $('#dp-fecha-detalle-seguros').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,
             language: "es",
             daysOfWeekDisabled: [6, 0],
         });
-        $('#dp-fecha-seguros').datepicker("setDate", new Date());
+        $('#dp-fecha-detalle-seguros').datepicker("setDate", new Date());
 
         $('#txtFechaModalSeguro').datepicker({
             format: 'yyyy-mm-dd',
@@ -128,6 +147,14 @@ $(function() {
             daysOfWeekDisabled: [6, 0],
         });
         $('#txtFechaModalSeguro').datepicker("setDate", new Date());
+
+        $('#dp-fecha-seguros').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            language: "es",
+            daysOfWeekDisabled: [6, 0],
+        });
+        $('#dp-fecha-seguros').datepicker("setDate", new Date());
 
 
         //$('#dp-fecha-seguros .input-group.date').datepicker(
@@ -164,6 +191,7 @@ var appModalSeguro = new Vue({
                 s_vida: $('#txtVida').val(),
                 s_hogar: $('#txtHogar').val(),
                 s_accidente_personales: $('#txtAccidentes').val(),
+                tipo_afiliado: $('select[name="slTipoAsegurado"] option:selected').text(),
             };
 
             if ($('#slTipoAsegurado').val() == 0) {
@@ -222,11 +250,49 @@ var appModalSeguro = new Vue({
                     timer: 3000
                 });
                 appSeguro.cargalistaSeguros();
+                appSeguro.cargaDetalleSeguros();
             });
         }
     }
 });
 
+
+$("#btnExport").click(function (e) {
+    let oficina = getCookie('Oficina')
+    let fechaHoy = new Date();
+    let periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
+    $("#bdy_detalleSeguroDatos").html("");
+    let fecha = $('#dp-fecha-detalle-seguros').val()
+
+    fetch(`http://${motor_api_server}:4002/seguros/lead-detalle-seguros/${oficina}/${periodo}/${fecha}`, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'default'
+    })
+        .then(response => response.json())
+        .then(datos => {
+            if (datos.length > 0) {
+
+                var data = [];
+                $.each(datos, function (i, e) {
+                    data.push([e.ejecutivo_ingreso, e.nombreEjecutivo, e.sDesgravamen, e.sCesantia, e.sVida, e.sHogar, e.sAccidentePersonales]);
+                });
+
+                let fechaPdf = new Date()
+                let fPdf = fechaPdf.getDate().toString() + (fechaPdf.getMonth() + 1).toString().padStart(2, '0') + fechaPdf.getFullYear().toString();
+
+                var pdf = new jsPDF();
+                pdf.text(15, 15, "Detalle venta seguros por ejecutivos");
+                var columns = ["Rut Ejecutivo", "Nombre Ejecutivo", "S. Desgravamen", "S. Cesantía", "S. Vida", "S. Hogar", "S. Accidentes Personales"];
+
+                pdf.autoTable(columns, data,
+                    { margin: { top: 25 } }
+                );
+
+                pdf.save('Detalle_seguro_' + fPdf + '.pdf');
+            }
+        });
+});
 
 
 $('#slTipoAsegurado').change(function (e) {
@@ -238,8 +304,8 @@ $('#slTipoAsegurado').change(function (e) {
         $("#checkbox-cesantia").prop("disabled", false);
         $('#txtCesantia').val("0")
 
-       // HabilitaBotonesMasMenos()
-        habilitaCheckSeguros(); 
+        // HabilitaBotonesMasMenos()
+        habilitaCheckSeguros();
     }
     else if ($(this).val() == 2) {
         $("#modal_seguro_rut_busc").prop("disabled", false);
@@ -248,13 +314,13 @@ $('#slTipoAsegurado').change(function (e) {
         $("#checkbox-cesantia").prop("checked", false);
         $("#checkbox-cesantia").prop("disabled", true);
         $('#txtCesantia').val("0")
-      //  HabilitaBotonesMasMenos();
+        //  HabilitaBotonesMasMenos();
 
         $("#btMasCesantia").prop('disabled', true);
         $("#btMenosCesantia").prop('disabled', true);
-     
 
-        habilitaCheckSeguros(); 
+
+        habilitaCheckSeguros();
         $("#checkbox-cesantia").prop("disabled", true);
 
     }
@@ -267,7 +333,7 @@ $('#slTipoAsegurado').change(function (e) {
 
         desabilitaCheckSeguros();
         desabilitaBotonesMasMenos();
-    
+
         $('#txtDesgravamen').val('0');
         $('#txtCesantia').val('0');
         $('#txtVida').val('0');
@@ -336,12 +402,12 @@ function HabilitaBotonesMasMenos() {
 
 
 
-$('#btMasDesgravamen').click(function() {
+$('#btMasDesgravamen').click(function () {
     let valor = parseInt($('#txtDesgravamen').val());
     valor = valor + 1
     $('#txtDesgravamen').val(valor);
 });
-$('#btMenosDesgravamen').click(function() {
+$('#btMenosDesgravamen').click(function () {
     let valor = parseInt($('#txtDesgravamen').val());
     if (valor > 0) {
         valor = valor - 1
@@ -352,7 +418,7 @@ $('#btMenosDesgravamen').click(function() {
     }
 });
 
-$('#btMenosCesantia').click(function() {
+$('#btMenosCesantia').click(function () {
     let valor = parseInt($('#txtCesantia').val());
     if (valor > 0) {
         valor = valor - 1
@@ -363,12 +429,12 @@ $('#btMenosCesantia').click(function() {
     }
 });
 
-$('#btMasVida').click(function() {
+$('#btMasVida').click(function () {
     let valor = parseInt($('#txtVida').val());
     valor = valor + 1
     $('#txtVida').val(valor);
 });
-$('#btMenosVida').click(function() {
+$('#btMenosVida').click(function () {
     let valor = parseInt($('#txtVida').val());
     if (valor > 0) {
         valor = valor - 1
@@ -379,12 +445,12 @@ $('#btMenosVida').click(function() {
     }
 });
 
-$('#btMasHogar').click(function() {
+$('#btMasHogar').click(function () {
     let valor = parseInt($('#txtHogar').val());
     valor = valor + 1
     $('#txtHogar').val(valor);
 });
-$('#btMenosHogar').click(function() {
+$('#btMenosHogar').click(function () {
     let valor = parseInt($('#txtHogar').val());
     if (valor > 0) {
         valor = valor - 1
@@ -395,12 +461,12 @@ $('#btMenosHogar').click(function() {
     }
 });
 
-$('#btMasAccidentes').click(function() {
+$('#btMasAccidentes').click(function () {
     let valor = parseInt($('#txtAccidentes').val());
     valor = valor + 1
     $('#txtAccidentes').val(valor);
 });
-$('#btMenosAccidentes').click(function() {
+$('#btMenosAccidentes').click(function () {
     let valor = parseInt($('#txtAccidentes').val());
     if (valor > 0) {
         valor = valor - 1
@@ -423,7 +489,7 @@ $('#checkbox-desgravamen').on('click', function () {
     }
 });
 
-$('#checkbox-cesantia').on('click', function() {
+$('#checkbox-cesantia').on('click', function () {
     if ($(this).is(':checked')) {
         $('#txtCesantia').val('1');
         $("#btMasCesantia").prop('disabled', false);
@@ -435,7 +501,7 @@ $('#checkbox-cesantia').on('click', function() {
     }
 });
 
-$('#checkbox-vida').on('click', function() {
+$('#checkbox-vida').on('click', function () {
     if ($(this).is(':checked')) {
         $('#txtVida').val('1');
         $("#btMenosVida").prop('disabled', false);
@@ -447,7 +513,7 @@ $('#checkbox-vida').on('click', function() {
     }
 });
 
-$('#checkbox-hogar').on('click', function() {
+$('#checkbox-hogar').on('click', function () {
     if ($(this).is(':checked')) {
         $('#txtHogar').val('1');
         $("#btMenosHogar").prop('disabled', false);
@@ -459,7 +525,7 @@ $('#checkbox-hogar').on('click', function() {
     }
 });
 
-$('#checkbox-accidentes').on('click', function() {
+$('#checkbox-accidentes').on('click', function () {
     if ($(this).is(':checked')) {
         $('#txtAccidentes').val('1');
 
@@ -473,7 +539,7 @@ $('#checkbox-accidentes').on('click', function() {
     }
 });
 
-$("#modal-seguros").on("hidden.bs.modal", function() {
+$("#modal-seguros").on("hidden.bs.modal", function () {
     $("#checkbox-cesantia").prop("checked", false);
     $("#checkbox-vida").prop("checked", false);
     $("#checkbox-hogar").prop("checked", false);
@@ -486,7 +552,7 @@ $("#modal-seguros").on("hidden.bs.modal", function() {
     $('#txtAccidentes').val('0');
     $('#modal_seguro_rut_busc').val("");
     $('#txtFechaModalSeguro').datepicker("setDate", new Date());
-    $('#slTipoAsegurado').val("0") 
+    $('#slTipoAsegurado').val("0")
     desabilitaBotonesMasMenos();
     desabilitaCheckSeguros();
 
