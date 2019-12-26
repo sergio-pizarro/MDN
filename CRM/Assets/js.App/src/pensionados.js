@@ -1,13 +1,13 @@
 ﻿jQuery.support.cors = true;
 
-
+/////// CONTACTABILIDAD ///////////////////
 function opcionContactabilidad(val, row, index) {
     console.log({
         val, row, index
     })
 
     return `<select class="form-contol" onchange="ejecutarAccion(${row.id})">
-                <option value="0">Selecciona</option>
+                <option value="0">Seleccione</option>
                 <option value="1">Contactado</option>
                 <option value="2">No Contesta</option>
                 <option value="3">Equivocado</option>
@@ -48,6 +48,58 @@ function estadoImg(val, row, index) {
     else if (row.marca == 3) {
         return `<i class="btn btn-danger btn-icon btn-circle"><i class="ion-close icon-xs add-tooltip"></i></i>`
         //data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"
+    }
+
+}
+
+////////////// DOMICILIO ////////////////////////////////////////////////////////////////////////
+
+function opcionDomicilio(val, row, index) {
+    console.log({
+        val, row, index
+    })
+
+    return `<select class="form-contol" onchange="ejecutarAccionDomicilio(${row.id})">
+                <option value="0">Seleccione</option>
+                <option value="1">Visitado</option>
+                <option value="2">No Encontrado</option>
+                <option value="3">Equivocado</option>
+            </select>`
+}
+
+function ejecutarAccionDomicilio(id) {
+    opt = $(event.target).val()
+
+    var rutCont = $('#txtRutPen').val()
+    rutCont = rutCont.substring(0, rutCont.length - 2)
+
+    let marcaPotenciada = {
+        id: id,
+        marca: opt,
+    }
+
+    fetch(`http://${motor_api_server}:4002/pensionados/cambiaMarcaPotenciada-domicilio`, {
+        method: 'POST',
+        body: JSON.stringify(marcaPotenciada),
+        headers: {
+            'Content-Type': 'application/json',
+            'Token': getCookie('Token')
+        }
+    }).then(async (response) => {
+        appPensionadoBasePotenciadaDomicilio.handleEventoClickBuscaBasePotenciadaDomic(rutCont)
+    });
+
+}
+
+function estadoImgDomicilio(val, row, index) {
+    if (row.marca == 1) {
+        return `<i class="btn btn-success  btn-icon btn-circle"><i class="ion-checkmark icon-xs add-tooltip"></i></i>`
+    }
+    else if (row.marca == 2) {
+        return `<i class="btn btn-warning btn-icon btn-circle"><i class="ion-minus icon-xs add-tooltip"></i></i>`
+    }
+    else if (row.marca == 3) {
+        return `<i class="btn btn-danger btn-icon btn-circle"><i class="ion-close icon-xs add-tooltip"></i></i>`
     }
 
 }
@@ -384,7 +436,7 @@ $(function () {
 
             $.niftyNoty({
                 type: 'danger',
-                message: 'Debe ingresar un Relaciondo',
+                message: 'Debe ingresar un Relacionado',
                 container: '#msj-contact-potenc',
                 timer: 4000
             });
@@ -438,8 +490,140 @@ $(function () {
 });
 
 
-////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////BASE POTENCIADA DOMICILIO//////////////////////////////////////////////////////////////////////
 
+var appPensionadoBasePotenciadaDomicilio = new Vue({
+    el: '#tab-gestion-domicilio',
+    data: {
+        dataModalPDomc: [],
+        idPensionadoValDomc: ''
+    },
+    mounted() {
+    },
+    updated() {
+    },
+    methods: {
+        handleEventoClickBuscaBasePotenciadaDomic(rut_) {
+
+            let rut = rut_;
+            fetch(`http://${motor_api_server}:4002/pensionados/base-potenciada-domicilio/${rut}`, {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'default'
+            })
+                .then(response => response.json())
+                .then(datos => {
+                    if (datos.length > 0) {
+                        this.dataModalPDomc = datos[0];
+                        $("#tblPenPotenciadaDirecciones").bootstrapTable('load', datos);
+                    }
+                    else {
+                        this.dataModalPDomc = datos;
+                        appPensionadoBasePotenciadaDomicilio.setDefaultsModalPotenciadaDomicilio();
+                        $("#tblPenPotenciadaDirecciones").bootstrapTable('load', []);
+                    }
+                });
+        },
+        setDefaultsModalPotenciadaDomicilio() {
+            this.dataModalP = {}
+            $("#tblPenPotenciadaDirecciones").bootstrapTable('load', []);
+        },
+
+        onlyNumber($event) {
+            let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
+            if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) {
+                $event.preventDefault();
+            }
+        },
+    },
+});
+
+$(function () {
+
+    $('#btNewContatoDomicilio').on('click', function (event) {
+
+        $('#newContactoDirecciones').css('display', 'block')
+    });
+
+
+    $('#btSaveContPontenciadaDirecciones').on('click', function (event) {
+        if ($('#txtTelfConPotDirecciones').val() == '') {
+
+            $.niftyNoty({
+                type: 'danger',
+                message: 'Debe ingresar una dirección',
+                container: '#msj-contact-domicilio',
+                timer: 4000
+            });
+            return false;
+        }
+
+        if ($('#txtRelacConPotDirecciones').val() == '') {
+
+            $.niftyNoty({
+                type: 'danger',
+                message: 'Debe ingresar un Relacionado',
+                container: '#msj-contact-domicilio',
+                timer: 4000
+            });
+            return false;
+        }
+
+
+        //dv: string;
+
+        let rutCont = $('#txtRutPen').val()
+        rutCont = rutCont.substring(0, rutCont.length - 2)
+
+        let dv = $('#txtRutPen').val().split('-')
+        let dv_ = dv[1]
+
+
+        let contatoPotenciadaDom = {
+            id_asign: $('#txtId').val(),
+            rut: rutCont,
+            dv: dv_,
+            nombre: $('#pen_nombre').val(),
+            direccion: $('#txtTelfConPotDirecciones').val(),
+            relacionado: $('#txtRelacConPotDirecciones').val(),
+            oficina: getCookie('Oficina'),
+        }
+
+
+        fetch(`http://${motor_api_server}:4002/pensionados/guardaContatoPotenciada-domicilio`, {
+            method: 'POST',
+            body: JSON.stringify(contatoPotenciadaDom),
+            headers: {
+                'Content-Type': 'application/json',
+                'Token': getCookie('Token')
+            }
+        }).then(async (response) => {
+            if (!response.ok) {
+                $.niftyNoty({
+                    type: 'danger',
+                    message: 'Error al Guardar Direccion...',
+                    container: '#msj-contact-domicilio',
+                    timer: 4000
+                });
+                $('#btn_contacto').attr('disabled', true);
+                return false;
+            }
+            $.niftyNoty({
+                type: 'success',
+                icon: 'pli-like-2 icon-2x',
+                message: 'Se guardo Dirección Correctamente...',
+                container: '#msj-contact-domicilio',
+                timer: 4000
+            });
+
+            $('#txtTelfConPotDirecciones').val("")
+            $('#txtRelacConPotDirecciones').val("")
+            $('#newContactoDirecciones').css('display', 'none')
+            appPensionadoBasePotenciadaDomicilio.handleEventoClickBuscaBasePotenciadaDomic(rutCont)
+        });
+    });
+});
+////////////////////////////////////////////////////////////////////////////////////////
 
 var appPensionadosModal = new Vue({
     el: '#mdl_data_gestion_pensionado',
@@ -1278,6 +1462,7 @@ $(function () {
         appPensionadosModal.ModalUltimaGestion(idLead);
         //appPensionadoBasePotenciada.handleEventoClickBuscaBasePotenciada(idLead);
         appPensionadoBasePotenciada.handleEventoClickBuscaBasePotenciada(rutPen);
+        appPensionadoBasePotenciadaDomicilio.handleEventoClickBuscaBasePotenciadaDomic(rutCont);
         //$('#mdl_data_gestion_pensionado').modal({ backdrop: 'static', keyboard: false })
     });
 
@@ -1409,8 +1594,8 @@ $(function () {
                             cache: 'default'
                         })
                             .then(response => response.json())
-                            .then(datos => {
-                                $.each(datos, function (i, e) {
+                            .then(datosCont => {
+                                $.each(datosCont, function (i, e) {
                                     body.append(
                                         $("<tr>")
                                             .append($("<td>").append(e.telefono))
@@ -1423,6 +1608,39 @@ $(function () {
                                 // console.log({ secondtable });
                                 secondtable.show().insertAfter(newTable.last());
                             });
+
+
+
+
+                        var secondtableDom = $('#tblppontenciadaDom').clone();
+                        var bodyDom = $("<tbody>")
+
+                        var rutCont = datos[0].rut
+                        rutCont = rutCont.substring(0, rutCont.length - 2)
+
+                        fetch(`http://${motor_api_server}:4002/pensionados/base-potenciada-domicilio/${rutCont}`, {
+                            method: 'GET',
+                            mode: 'cors',
+                            cache: 'default'
+                        })
+                            .then(response => response.json())
+                            .then(datosDom => {
+                                secondtableDom.css('page-break-before', 'always').css('margin-top', '50px');
+                                $.each(datosDom, function (i, e) {
+                                    secondtableDom.find(`th:contains('([nombreDom])')`).text(datos[0].nombre);
+                                    secondtableDom.find(`th:contains('([idCod])')`).text('ID: ' + datos[0].id + ' / CODIGO: ' + datos[0].codigo)
+
+                                    bodyDom.append(
+                                        $("<tr>")
+                                            .append($("<td>").append(e.direccion))
+                                            .append($("<td>").append(e.ranking))
+                                            .append($("<td>").append(e.relacionados))
+                                    )
+                                });
+                                secondtableDom.append(bodyDom);
+                                secondtableDom.show().insertAfter(newTable.last());
+                            });
+
                         return datos;
                     })
             });
@@ -1480,9 +1698,10 @@ $(function () {
 
         $('#txtTelfConPot').val("")
         $('#txtRelacConPot').val("")
+        $('#txtTelfConPotDirecciones').val("")
+        $('#txtRelacConPotDirecciones').val("")
         $('#newContacto').css('display', 'none')
-
-
+        $('#newContactoDirecciones').css('display', 'none')
     });
 
 

@@ -1,24 +1,94 @@
 ﻿jQuery.support.cors = true;
 var appIgn = new Vue({
     el: '#contIGN',
+    data: {
+        filtrosP: {
+            estadosIgn: [],
+            subEstadosIgn: [],
+            estadoNominaIgn: [],
+
+        },
+        modelosP: {
+            estadosIgn: '',
+            subEstadosIgn: '',
+            estadoNominaIgn: '',
+        },
+        dataM: {}
+    },
 
     mounted() {
+        this.obEstadoIgn();
+        this.estadoNominaIgn();
     },
     methods: {
 
         cargalistaIgn() {
+
+            var fechaHoy = new Date();
+            var periodo = fechaHoy.getFullYear().toString() + (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
+
             $("#tblIgn").bootstrapTable('refresh', {
                 url: `http://${motor_api_server}:4002/ign/leads`,
                 query: {
                     oficina: getCookie('Oficina'),
                     cargo: getCookie('Cargo'),
-                    rutEjecutivo: getCookie('Rut')
+                    rutEjecutivo: getCookie('Rut'),
+                    periodo: periodo,
+                    estado: this.modelosP.estadosIgn,
+                    subEstado: this.modelosP.subEstadosIgn,
+                    estadoNomina: this.modelosP.estadoNominaIgn,
                 }
             });
         },
         loadTablaAcuerdoPago() {
             $("#tblIgn").bootstrapTable();
         },
+
+
+        obEstadoIgn() {
+            fetch(`http://${motor_api_server}:4002/ign/estados-ign`, {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'default'
+            })
+                .then(response => response.json())
+                .then(estadosJSON => {
+                    this.filtrosP.estadosIgn = estadosJSON;
+                });
+        },
+        obSubEstados(padre) {
+            fetch(`http://${motor_api_server}:4002/ign/sub-estado-ign/${padre}`, {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'default'
+            })
+                .then(response => response.json())
+                .then(subEstadosSubJSON => {
+                    this.filtrosP.subEstadosIgn = subEstadosSubJSON;
+                });
+        },
+        eventoCambSubEstadoIng() {
+            this.obSubEstados(this.modelosP.estadosIgn)
+
+            if (this.modelosP.estadosIgn != 4 && this.modelosP.estadosIgn != 5) {
+                $('#slSubEstadoIngPrin').prop('disabled', false);
+            }
+            else {
+                $('#slSubEstadoIngPrin').prop('disabled', true);
+            }
+        },
+        estadoNominaIgn() {
+            fetch(`http://${motor_api_server}:4002/ign/estados-nomina`, {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'default'
+            })
+                .then(response => response.json())
+                .then(estadosJSON => {
+                    this.filtrosP.estadoNominaIgn = estadosJSON;
+                });
+        },
+
     }
 });
 
@@ -34,9 +104,9 @@ function idFormatterMoldalIgn(value, row, index) {
     return `<a href="${value}" class="btn-link"  data-id_lead="${row.id_lead}" data-rut_emp="${value}"  data-toggle="modal" data-target="#modal_ign" data-backdrop="static" data-keyboard="false">${value}</a>`;
 }
 
-$('#tab_ing').click(function () {
-    appIgn.cargalistaIgn();
-})
+//$('#tab_ing').click(function () {
+//    appIgn.cargalistaIgn();
+//})
 
 
 var appIgnModal = new Vue({
@@ -78,7 +148,7 @@ var appIgnModal = new Vue({
                 .then(response => response.json())
                 .then(subEstadosSubJSON => {
                     this.filtros.subEstadosIgn = subEstadosSubJSON;
-                }); 
+                });
         },
         eventoCambiaSubEstadoIng() {
             this.obtenerSubEstados(this.modelos.estadosIgn)
@@ -204,7 +274,7 @@ var appIgnModal = new Vue({
                 $('#dllEstadoIgn').val("")
                 $('#slSubEstadoIng').val("")
                 appIgn.cargalistaIgn();
-               
+
 
             });
         },
