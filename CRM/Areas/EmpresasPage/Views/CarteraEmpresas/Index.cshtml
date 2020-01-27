@@ -23,7 +23,13 @@
                                 <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="false" id="tab_Empresas" style="font-weight: bold;">Empresas Asignadas</a>
                             </li>
                             <li class="">
-                                <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_Contactabilidad" style="font-weight: bold;">Contactabilidad</a>
+                                <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false" id="tab_3" style="font-weight: bold;">Planificación Agente</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false" id="tab_Contactabilidad" style="font-weight: bold;">Contactabilidad</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#demo-lft-tab-5" aria-expanded="false" id="tab_AlertaExtraordinaria" style="font-weight: bold;">Alerta Extraordinaria</a>
                             </li>
                         </ul>
                     </div>
@@ -94,7 +100,25 @@
                             </div>
                         </div>
                         <div id="demo-lft-tab-3" class="tab-pane fade">
+                            <div id="page-content">
+                                <div class="row">
+                                    <div class="embed-responsive embed-responsive-4by3" style="height: 1200px;">
+                                        <iframe class="embed-responsive-item" src="http://localhost:4200" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="demo-lft-tab-4" class="tab-pane fade">
                             @Html.Partial("../Contactabilidad/index")
+                        </div>
+                        <div id="demo-lft-tab-5" class="tab-pane fade">
+                            <div id="page-content">
+                                <div class="row">
+                                    <div class="embed-responsive embed-responsive-4by3" style="height: 1200px;">
+                                        <iframe class="embed-responsive-item" src="http://motordenegocios/front/alerta-extraordinaria/" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -887,11 +911,151 @@
 
 
 
+<div id="mdl_management" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title" id="myLargeModalLabel">Gestión</h4>
+            </div>
+            <div class="modal-body">
 
+                <div class="tab-base" id="MDL_Primario" style="margin-bottom: 0px !important;">
+                    <!--Nav Tabs-->
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab-gestion-1" id="tab_contacti" aria-expanded="true">Empresa</a>
+                        </li>
+                        <li class="">
+                            <a data-toggle="tab" href="#tab-gestion-2" aria-expanded="false">Historial de Gestión</a>
+                        </li>
+                    </ul>
+
+                    <!--Tabs Content-->
+                    <div class="tab-content" style="box-shadow: 0 0 0 !important;">
+                        <div id="tab-gestion-1" class="tab-pane fade active in">
+                            <form>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="control-label">Rut</label>
+                                            <input class="form-control" id="companyId" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label class="control-label">Razon Social</label>
+                                            <input class="form-control" id="companyName" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="control-label segmento_texto">Segmento</label>
+                                            <input class="form-control" id="companySegment" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Oficina Asignación</label>
+                                            <input class="form-control" id="assignedOffice" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Telefono</label>
+                                            <input class="form-control" id="companyPhone" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Email</label>
+                                            <input class="form-control" id="companyEmail" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label segmento_texto">Dirección</label>
+                                            <input class="form-control" id="companyAddress" type="text" value="" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row charlyNTF" style="display:none;">
+                                    <div class="col-sm-12 charlyNTFContainer">
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="tab-gestion-2" class="tab-pane fade">
+                            <div class="list-group" id="gestiones_realizadas" style="min-height:100px; max-height:200px; overflow: scroll;">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--Modal footer-->
+            <div class="modal-footer" id="mensahes-must">
+                <form id="management-data" action="#" method="post">
+                    <div class="row" style="text-align: left;">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">Estado</label>
+                                <select class="form-control" id="parentStats" name="parentStats" required>
+                                    <option value="">Seleccione</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">Sub Estado</label>
+                                <select class="form-control" id="childStats" name="childStats" disabled="disabled" required>
+                                    <option value="">Seleccione</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group" id="fpg">
+                                <label class="control-label">Fecha Próxima Gestión</label>
+                                <div id="datepicker-component">
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" id="nextCommitmentDate" name="nextCommitment" autocomplete="off">
+                                        <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row esconder" style="text-align: left;">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Comentarios</label>
+                                <textarea placeholder="Comentarios" rows="3" class="form-control" id="comments" name="comments" required></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <input type="hidden" id="leadId" name="leadId" value="" />
+
+                    <button data-dismiss="modal" class="btn btn-default close-modal-btn" type="button">Cerrar</button>
+                    <button class="btn btn-primary esconder" id="btn_savear" type="submit">Guardar</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section script{
-
 
     <script src="~/Assets/js/vue.js"></script>
     <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
@@ -1189,7 +1353,7 @@
                         $("#tbdyGestMan")
                             .append(
                                 $("<tr>")
-                                    .append($("<td>").append(e.FechaIngreso.toFecha()))
+                                    .append($("<td>").append(e.FechaIngreso.replace('0:00:00', '')))
                                     .append($("<td>").append("<span class='pull-center badge badge-success' style='width: 62px;'>" + e.Tipo + "</span>"))
                                     .append($("<td>").append(e.Comentarios))
                                     .append($("<td>").append(e.NombreEjecutivo.OrdenaNombreCompleto()))
@@ -1298,7 +1462,7 @@
                     $("#slEmpresaAgendasIng").html("");
                     $("#slEmpresaAgendasIng").append($("<option>").attr("value", "").html("Seleccione"));
                     $.each(datos, function (i, e) {
-                        $("#slEmpresaAgendasIng").append($("<option>").attr("value", e.RutEmpresa).html(e.NombreEmpresa).data('idanexo', e.IdEmpresa)); //.trigger('chosen:updated')
+                        $("#slEmpresaAgendasIng").append($("<option>").attr("value", e.RutEmpresa).html(e.NombreEmpresa).data('idanexo', e.IdEmpresa)).trigger('chosen:updated')
                     });
                 });
                 $('#slEmpresaAgendasIng').chosen({ width: '100%' });
@@ -1479,7 +1643,7 @@
             else if ($('#slFrecuencia').val() == 'Diaria') {
                 results = "Null"
             }
-            //var test = $('#slEmpresaAgendasIng option:selected').data('idanexo');
+
             var objeto_envio_agenda_empresa = {
                 RutEmpresa: $('#slEmpresaAgendasIng').val(),
                 RutEjecutivo: $('#slEjecutivoAgendaIng').val(),
@@ -2067,14 +2231,11 @@
                 });
             });
         });
-
-
         $('#demo-lg-modal-agenda_update').on('show.bs.modal', async (event) => {
 
             $('#FechaCabeceraGest').val($('#txtFechacita_update').val())
             $('#FechaGestges').val($('#txtFechacita_update').val())
         });
-
 
 
 

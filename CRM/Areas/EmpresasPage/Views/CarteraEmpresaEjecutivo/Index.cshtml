@@ -45,6 +45,7 @@
                                             <th>Nombre Empresa</th>
                                             <th data-align="center" data-sortable="true">N° Trabajadores</th>
                                             <th data-align="center" data-sortable="true">Clasificación Empresa</th>
+                                            <th data-sortable="false">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody id="bdy_datos"></tbody>
@@ -843,7 +844,6 @@
     </div>
 </div>
 
-
 <div id="modal-gestion" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -858,6 +858,72 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
             </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="demo-lg-modal-updateAnexo" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 6px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title">    Actualizar anexo</h4>
+            </div>
+            <form id="form_registro_anexoUp" action="#" method="post">
+                <div class="panel-body">
+                    <div class="panel panel-bordered-primary" style="border-color: #e6e6e6;">
+                        <div class="panel-body">
+                            <input type="text" class="form-control" id="ISeMPup" disabled name="ISeMPup" style="display: none;">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Rut Empresa</label>
+                                        <input type="text" class="form-control" id="txRutEmpUp" disabled name="txRutEmpUp">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre Empresa</label>
+                                        <input type="text" class="form-control" id="slEmperesa_multiselectUp" disabled name="slEmperesa_multiselectUp">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Anexo</label>
+                                        <input type="text" id="anexoUp" class="form-control" name="anexoUp">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">N° de Trabajadores</label>
+                                        <input type="text" class="form-control" id="nTrajadoresUp" name="nTrajadoresUp">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Dirección</label>
+                                        <input type="text" class="form-control" id="direccionAnexoUp" name="direccionAnexoUp">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Comuna</label>
+                                        <select class="form-control" id="slComuna_multiselectUp" tabindex="2" name="slComuna_multiselectUp" required>
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right" style="background-color: #fff;">
+                    <button class="btn btn-success" id="btGuardaEmpresaUp">Actualizar datos de Punto</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -903,6 +969,8 @@
                 $("#bdy_datos").html("");
                 $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/obtener-cartera-empresa", function (menus) {
                     $.each(menus, function (i, e) {
+
+                        console.log({ mgn: 'showing ID', e });
                         var NomHolding = ""
                         if (e.Holding == 0) {
                             NomHolding = $('<div>').addClass('label label-table label-warning').append('Sin Holding')
@@ -911,7 +979,7 @@
                             NomHolding = $('<div>').addClass('label label-table label-success').append(e.NombreHolding)
                         }
                         if (e.Tipo == "FAnexo") {
-                            NomHolding = $('<div>').addClass('label label-table label-info').append(e.NombreHolding)
+                            NomHolding = $('<div>').addClass('label label-table label-info').append('Pto. Atención')
                         }
 
                         if (e.Tipo != "FAnexo") {
@@ -921,6 +989,7 @@
                                     .append($("<td>").addClass('hidden-xs').append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmp=' + e.RutEmpresa + '&IJ=0' + '&rutEmpA=0' + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(NomHolding))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.Id + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
                                 )
                         }
                         else {
@@ -930,6 +999,7 @@
                                     .append($("<td>").append('<a href="' + BASE_URL + '/motor/Emp/FichaEmpresa?rutEmpA=' + e.IdEmpresa + '&IJ=0' + '&rutEmAnexo=' + e.RutEmpresa + '" class="btn-link text-semibold" style="font-weight: 400;">' + e.NombreEmpresa + '</a>'))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(e.NTrabajador))
                                     .append($("<td>").addClass('hidden-xs hidden-sm text-center').append(NomHolding))
+                                    .append($("<td>").addClass('hidden-xs hidden-sm text-center').append('<button class="btn btn-primary btn-icon btn-circle" data-target="#demo-lg-modal-updateAnexo" data-toggle="modal" data-idAnexo="' + e.Id + '"><i class="demo-psi-pen-5 icon-xs add-tooltip" data-toggle="tooltip" data-original-title="Actualiza datos de Anexo"></i></button>'))
                                 )
                         }
                     });
@@ -1929,6 +1999,81 @@
                 });
             });
         });
+
+
+
+    $('#demo-lg-modal-updateAnexo').on('show.bs.modal', function (event) {
+        var Anexo = $(event.relatedTarget);
+        var idAnexo = Anexo.data('idanexo')
+        $.SecGetJSON(BASE_URL + "/motor/api/perfil-empresas/lista-datos-anexo", {
+            IdEmpresa: idAnexo
+        }, function (respuesta) {
+
+
+            $("#txRutEmpUp").val(respuesta.RutEmpresa)
+            $("#slEmperesa_multiselectUp").val(respuesta.NombreEmpresa)
+            $('#anexoUp').val(respuesta.Anexo)
+            $('#nTrajadoresUp').val(respuesta.NumTrabajadores)
+            $('#direccionAnexoUp').val(respuesta.Direccion)
+            $('#slComuna_multiselectUp').val(respuesta.IdComuna).trigger('chosen:updated');
+            $('#ISeMPup').val(idAnexo)
+        });
+        
+    });
+
+
+        $('#form_registro_anexoUp').bootstrapValidator({
+    excluded: [':disabled', ':not(:visible)'],
+    feedbackIcons: [],
+    fields: {
+        nTrajadoresUp: {
+            validators: {
+                notEmpty: {
+                    message: 'Debe ingresar N° trabajadores'
+                }
+            }
+        },
+        slComuna_multiselectUp: {
+            validators: {
+                notEmpty: {
+                    message: 'Debe seleccionar una comuna'
+                }
+            }
+        },
+        direccionAnexoUp: {
+            validators: {
+                notEmpty: {
+                    message: 'Debe ingresar una dirección'
+                }
+            }
+        }
+    }
+}).on('success.form.bv', function (e) {
+    e.preventDefault();
+    var $form = $(e.target);
+    var idcomuna = 0;
+    var objeto_envio_anexoUp = {
+        IdEmpresaAnexo: $('#ISeMPup').val(),
+        Anexo: $('#anexoUp').val(),
+        NumTrabajadores: $('#nTrajadoresUp').val(),
+        IdComuna: $('#slComuna_multiselectUp option:selected').val(),
+        NombreComuna: $('#slComuna_multiselectUp option:selected').text(),
+        Direccion: $('#direccionAnexoUp').val()
+    }
+    $.SecPostJSON(BASE_URL + "/motor/api/perfil-empresas/actualiza-nuevo-anexo", objeto_envio_anexoUp, function (datos) {
+        $("#form_registro_anexoUp").bootstrapValidator('resetForm', true);
+        $('#demo-lg-modal-updateAnexo').modal('hide');
+        $.niftyNoty({
+            type: 'success',
+            icon: 'pli-like-2 icon-2x',
+            message: 'Punto de Atención Actualizado Correctamente.',
+            container: 'floating',
+            timer: 5000
+        });
+       
+    });
+});
+
 
     </script>
 

@@ -1122,13 +1122,7 @@ $(function () {
         }, function (respuesta) {
 
 
-            console.log({
-                respuesta
-            });
-            if (respuesta.EsMatriz == 1) {
-                $('#anexoUp').prop('disabled', true);
-            }
-
+            
             $("#txRutEmpUp").val(respuesta.RutEmpresa)
             $("#slEmperesa_multiselectUp").val(respuesta.NombreEmpresa)
             $('#anexoUp').val(respuesta.Anexo)
