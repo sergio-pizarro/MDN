@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewBag.Title = "AAAA";
+    Layout = "~/Areas/AppPage/Views/Shared/_Layout.cshtml";
+}
+
+<!--Masked Input [ OPTIONAL ]-->
+<script src="~/Assets/plugins/masked-input/jquery.maskedinput.min.js"></script>
+<!--Magic Checkbox [ OPTIONAL ]-->
+<link href="~/Assets/plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
+
+<link href="~/Assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
+<!--Bootstrap Select [ OPTIONAL ]-->
+<link href="~/Assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+<script src="~/Assets/plugins/bootbox/bootbox.min.js"></script>
+
+
+ <!--Page content-->
+<!--===================================================-->
+<div id="page-content">
+
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Licencias Medicas Disponibles a Pago</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row filter-container mar-btm">
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="busqueda" placeholder="Búsqueda por Rut...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" id="btn_buscar">Buscar</button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-6 -->
+                    </div>
+                    <div class="row results-container">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Rut</th>
+                                <th>Folio</th>
+                                <th>Dias Reposo</th>
+                                <th>Periodo Reposo</th>
+                                <th>Monto Subsidio</th>
+                            </tr>
+                            <tbody id="result_list"></tbody>
+                        </table>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--===================================================-->
+<!--End page content-->
+@section script{
+
+    <script>
+        $(function () {
+            $('#btn_buscar').on('click', function () {
+
+                $('#result_list').html('');
+
+                let buscar = $('#busqueda').val();
+
+                if (buscar.length === 0) {
+                    alert('Debes Ingresar un Rut para Búsqueda')
+                    return false;
+                }
+
+                let endpoint = `http://${motor_api_server}:4002/licencias-disponibles-a-pago?filter=fullRut||cont||${buscar}`;
+
+                $.getJSON(endpoint, function (res) {
+                    let html = ``;
+                    if (res.length === 0) {
+                        alert('Sin resultados para el rut Ingresado')
+                        return false;
+                    }
+                    res.forEach(function (e) {
+
+                        html += `<tr>  
+                                    <td>${e.fullRut}</td>
+                                    <td>${e.folioLicencia}</td>
+                                    <td>${e.diasReposo}</td>
+                                    <td>desde ${new Date(e.fechaInicioReposo).toLocaleDateString()} hasta ${new Date(e.fechaTerminoReposo).toLocaleDateString()}</td>
+                                    <td>$ ${e.montoSubsidio.toMoney(0)}</td>
+                                </tr>`
+                    });
+
+                    
+
+                    $('#result_list').append(html)
+                })
+            })
+        });
+    </script>
+}
+
+
+
