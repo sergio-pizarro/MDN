@@ -145,6 +145,12 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Dotacion_ListarByPeriodo", p, ConstructorEntidad);
         }
 
+        public static List<DotacionEntity> ListarEntidadesEspecial(int periodo)
+        {
+            Parametro p = new Parametro("@periodo", periodo);
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Dotacion_ListarByPeriodo_Especial", p, ConstructorEntidad);
+        }
+
         public static int MarcarReemplazoRequerido(string rut, bool forzar = false)
         {
             Parametros p = new Parametros

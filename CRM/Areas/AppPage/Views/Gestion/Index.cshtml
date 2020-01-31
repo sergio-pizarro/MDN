@@ -234,8 +234,20 @@
                                             </select>
                                         </div>
                                     </div>
-
                                 </div>
+                                <div class="col-sm-2 text-xs-center">
+                                    <div class="form-group">
+                                        <label class="control-label">Vencimiento</label>
+                                        <select id="vencidos_acuerdo_pago" class="form-control">
+                                            <option value="">Todos</option>
+                                            <option value="AYER">Vencidos</option>
+                                            <option value="HOY">Vence Hoy</option>
+                                            <option value="PROX5DIAS">Prox. 5 dias</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
                                 <div class="row" style="margin-top: 23px;">
                                     <div class="col-sm-3">
                                         <button id="btn_recuperaciones_acuerdo" class="btn btn-default" v-on:click="handleEventoClickFiltrar">Filtrar</button>
@@ -263,7 +275,7 @@
                                    data-pagination="true"
                                    data-side-pagination="client"
                                    data-show-pagination-switch="false"
-                                   data-locale="es-CL" style="font-size: 12px;">
+                                   data-locale="es-CL" style="font-size: 11px;">
                                 <thead>
                                     <tr>
                                         <th data-field="rut" data-sortable="true" data-formatter="AcuerdoPagoLinkFormatter">Rut Cliente</th>
@@ -273,6 +285,7 @@
                                         <th data-field="ofertaPagoTotal" data-sortable="true" data-formatter="formatoMoneyFormatterAcuerdo">Oferta Pago Total</th>
                                         <th data-field="OfertaAcuerdoPago" data-sortable="true" data-formatter="formatoMoneyFormatterAcuerdo">Oferta Acuerdo Pago</th>
                                         <th data-field="rutempresa" data-sortable="true" data-formatter="AcuerdoPagoEstadoAfiliadoFormatter">Estado Cliente</th>
+                                        <th data-field="rutempresa" data-sortable="true" data-formatter="AcuerdoPagoFechaCompromisoAfiliadoFormatter">Prox Gestión</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -633,6 +646,10 @@
                                 <li class="">
                                     <a data-toggle="tab" href="#tab-gestion-4" aria-expanded="false">Filtros</a>
                                 </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#tab-empresa" aria-expanded="false">Empresa</a>
+                                </li>
+
                             </ul>
 
                             <!--Tabs Content-->
@@ -892,9 +909,6 @@
                                             <tbody id="bdy_datos_contactos"></tbody>
                                         </table>
                                     </div>
-
-
-
                                 </div>
                                 <div id="tab-gestion-4" class="tab-pane fade">
                                     <div class="table-responsive" style="overflow:scroll; height:350px;">
@@ -902,6 +916,9 @@
                                             <tbody id="letable"></tbody>
                                         </table>
                                     </div>
+                                </div>
+                                <div id="tab-empresa" class="tab-pane fade">
+                                    @Html.Partial("InfoEmpresa")
                                 </div>
                             </div>
                         </div>
@@ -1719,14 +1736,21 @@
     <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
     <script src="~/Assets/js.App/printThis.js"></script>
+
+
+    <script src="~/Assets/js.App/src/info-empresa.js?g=@Guid.NewGuid().ToString()"></script>
+    <script src="~/Assets/js.App/src/acuerdo_pagos.js?g=@Guid.NewGuid().ToString()"></script>
+
     <script src="~/Assets/js.App/src/index.js?g=@Guid.NewGuid().ToString()"></script>
 
     <!--<script src="~/Assets/js.App/gestion/index.js?v=@Html.Raw(ViewBag.hash)"></script>-->
     <script src="~/Assets/js.App/src/normalizacion.js?g=@Guid.NewGuid().ToString()"></script>
-    <script src="~/Assets/js.App/src/acuerdo_pagos.js?g=@Guid.NewGuid().ToString()"></script>
+
     <script src="~/Assets/js.App/src/seguro_cesantia.js?g=@Guid.NewGuid().ToString()"></script>
     <script src="~/Assets/js.App/src/pensionados.js?g=@Guid.NewGuid().ToString()"></script>
     <script src="~/Assets/js.App/src/ign.js?g=@Guid.NewGuid().ToString()"></script>
+
+
 
 }
 

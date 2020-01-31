@@ -17,7 +17,7 @@
     <AssemblyName>CRM</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\AppPage\Controllers\CampanaPexController.cs" />
     <Compile Include="Areas\AppPage\Controllers\CarteraFFVVController.cs" />
     <Compile Include="Areas\AppPage\Controllers\CosalController.cs" />
     <Compile Include="Areas\AppPage\Controllers\SegurosController.cs" />
@@ -373,6 +374,7 @@
     <Content Include="Assets\js.App\src\acuerdo_pagos.js" />
     <Content Include="Assets\js.App\src\BuscadorGrilla.js" />
     <Content Include="Assets\js.App\src\contactabilidad-empresa.js" />
+    <Content Include="Assets\js.App\src\dotacion-asignable.js" />
     <Content Include="Assets\js.App\src\empresas.incorporaciones.prospectos-visados.reasignacion.js" />
     <Content Include="Assets\js.App\src\empresas.incorporaciones.prospectos-visados.js" />
     <Content Include="Assets\js.App\src\empresas-carteras.js" />
@@ -382,11 +384,13 @@
     <Content Include="Assets\js.App\src\ficha-empresa.js" />
     <Content Include="Assets\js.App\src\ign.js" />
     <Content Include="Assets\js.App\src\index.js" />
+    <Content Include="Assets\js.App\src\info-empresa.js" />
     <Content Include="Assets\js.App\src\inicio.js" />
     <Content Include="Assets\js.App\jspdf.plugin.from_html.js" />
     <Content Include="Assets\js.App\src\normalizacion.js" />
     <Content Include="Assets\js.App\src\oferta.js" />
     <Content Include="Assets\js.App\src\pensionados.js" />
+    <Content Include="Assets\js.App\src\pex.js" />
     <Content Include="Assets\js.App\src\seguros.js" />
     <Content Include="Assets\js.App\src\seguro_cesantia.js" />
     <Content Include="Content\bootstrap.css" />
@@ -531,6 +535,9 @@
     <Content Include="Areas\AppPage\Views\Gestion\Ign.cshtml" />
     <Content Include="Areas\AppPage\Views\Seguros\Index.cshtml" />
     <Content Include="Areas\AppPage\Views\Configuraciones\FugaEmpresas.cshtml" />
+    <Content Include="Areas\AppPage\Views\CampanaPex\Index.cshtml" />
+    <Content Include="Areas\AppPage\Views\Configuraciones\DotacionAsignable.cshtml" />
+    <Content Include="Areas\AppPage\Views\Gestion\InfoEmpresa.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -720,7 +727,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49969</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Motor</IISUrl>
+          <IISUrl>http://localhost:49969/Motor</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

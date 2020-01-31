@@ -21,5 +21,14 @@ namespace CRM.Controllers
             int periodo = Convert.ToInt32(hoy.Year.ToString() + hoy.Month.ToString().PadLeft(2,'0'));
             return DotacionDataAccess.ListarEntidades(periodo);
         }
+
+        [HttpGet]
+        [Route("listar-ejecutivos-especial")]
+        public IEnumerable<DotacionEntity> obtenerDotacionEspecial()
+        {
+            DateTime hoy = DateTime.Now;
+            int periodo = Convert.ToInt32(hoy.Year.ToString() + hoy.Month.ToString().PadLeft(2, '0'));
+            return DotacionDataAccess.ListarEntidadesEspecial(periodo);
+        }
     }
 }

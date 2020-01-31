@@ -208,20 +208,42 @@ var appPensionadosFiltros = new Vue({
             $("#tblAsigPen").bootstrapTable('refresh', {
                 url: `http://${motor_api_server}:4002/pensionados/leads`,
                 query: {
-                    nombre: nombre,// this.modelos.nombre,
+                    nombre: nombre,
                     comuna: this.modelos.comuna,
                     prioridad: this.modelos.prioridad,
                     estadoGestion: this.modelos.estados,
                     rutEjecutivo: rut,
                     marca: marca,
                     oficina: getCookie('Oficina'),
-                    periodo: periodo
+                    periodo: periodo,
+                    pex: $('#dllMarca').val()
                 }
             });
         },
     }
 });
 
+function toolTipsPex(value, row, index) {
+    let rutPex = row.rut;
+    let data = $.ajax({
+        type: "GET",
+        url: `http://${motor_api_server}:4002/campana-pex/lead-pex-pensioandos/${rutPex}`,
+        async: false
+    }).responseText;
+
+    let datos = JSON.parse(data);
+    if (datos.length > 0) {
+        return row.nombre + `<a href="#popover" class="pull-right badge badge-warning add-popover" data-original-title="Campaña PEX" data-content="Afiliado con pago de exceso, monto: $ ${datos[0].monto.toMoney(0)}" data-placement="top" data-trigger="focus" data-toggle="popover">PEX</a>`;
+    }
+    else {
+        return row.nombre
+    }
+}
+
+
+function formatoMoney(value, row, index) {
+    return '$ ' + value.toMoney(0);
+}
 
 function idFormatter(value, row, index) {
     return `<a href="${value}" class="btn-link" data-id="${value}"  data-estado="${row.PRIORIDAD}" data-toggle="modal" data-target="#mdl_data_gestion_pensionado" data-backdrop="static" data-keyboard="false" data-lead="${row.id}"  data-rut="${row.rut}">${value}</a>`;
@@ -307,7 +329,10 @@ var appPensionadoUniversal = new Vue({
                             $('#btGesPen').append("<a href='#' class='btn btn-primary' style='margin-top: -7px; border-radius: 7px;' data-toggle='modal' data-target='#mdl_data_gestion_pensionado' data-backdrop='static' data-keyboard='false' data-lead='" + datos[0].id + "' data-rut='" + datos[0].lead + "'>Gestionar</a>")
                         }
                         else {
-                            $('#divGestUni').css('display', 'none');
+                            //$('#divGestUni').css('display', 'none');
+                            $('#divGestUni').css('display', 'block');
+                            $('#btGesPen').html("");
+                            $('#btGesPen').append("<a href='#' class='btn btn-primary' style='margin-top: -7px; border-radius: 7px;' data-toggle='modal' data-target='#mdl_data_gestion_pensionado' data-backdrop='static' data-keyboard='false' data-lead='" + datos[0].id + "' data-rut='" + datos[0].lead + "'>Gestionar</a>")
                         }
                     }
                     else {
@@ -331,6 +356,17 @@ var appPensionadoUniversal = new Vue({
 });
 
 $(function () {
+
+    $('body').popover({
+        placement: 'top',
+        container: 'body',
+        html: true,
+        selector: '[data-toggle="popover"]', //Sepcify the selector here
+        trigger: 'hover',
+        content: function () {
+            return $('#popover-content').html();
+        }
+    })
 
     $('#demo-lg-modal-pensionado').on('hidden.bs.modal', async (event) => {
 
@@ -1372,6 +1408,8 @@ var appPensionadosModal = new Vue({
 });
 
 $(function () {
+
+
 
     if (getCookie('Cargo') == 'Agente' || getCookie('Cargo') == 'Jefe Servicio al Cliente' || getCookie('Cargo') == 'Jefe Plataforma') {
         $('#divAgente').css('display', 'block')

@@ -34,7 +34,7 @@ var appAcuerdoPagosFiltros = new Vue({
         this.obtenerPrioridad();
     },
     updated() {
-       // console.log('cambió')
+        // console.log('cambió')
     },
     methods: {
         obtenerCausasAcuerdoPago() {
@@ -181,6 +181,25 @@ function AcuerdoPagoEstadoAfiliadoFormatter(value, row, index) {
     }
     return 'Sin Gestion';
 }
+
+function AcuerdoPagoFechaCompromisoAfiliadoFormatter(value, row, index) {
+
+    if (row.gestiones.length > 0) {
+        let n = row.gestiones.length - 1
+        const maximo = row.gestiones[n]
+        if (maximo.fechaCompromiso != null && maximo.fechaCompromiso != "") {
+            return maximo.fechaCompromiso.toFecha();
+        }
+        else {
+            return 'Sin Compromiso.'
+        }
+    }
+    return '------';
+}
+
+
+
+
 
 function NombreEmpresaFormatter(value, row, index) {
     return row.empresa.nombre;

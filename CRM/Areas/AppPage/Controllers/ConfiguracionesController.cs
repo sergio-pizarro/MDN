@@ -23,6 +23,13 @@ namespace CRM.Areas.AppPage.Controllers
             return View();
         }
 
+
+        public ActionResult DotacionAsignable()
+        {
+            return View();
+        }
+
+
         // GET: AppPage/Configuraciones/DotacionMes
         public ActionResult DotacionMes()
         {
