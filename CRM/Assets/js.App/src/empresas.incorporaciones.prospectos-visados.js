@@ -77,16 +77,21 @@ var app = new Vue({
             fechaFinCompromiso: '',
             busquedaEmpresa: '',
             rutEjecutivo: ''
-        }
+        },
+        sucursales: [],
+        sucursalSeleccionada: ''
     },
     mounted: async function () {
         this.fetchLeads();
         this.fetchTopicos();
-        
+        this.sucursales = await this.fetchSucursales();
+
         if (this.vistaElevada) {
             this.ejecutivos = await this.fetchEjecutivos();
             $('#table-conche').bootstrapTable('showColumn', 'ejecutivo');
         }
+
+        console.log('mounted');
     },
     updated: async function () {
         if (this.participees.actuales !== this.participees.contactos) {
@@ -127,7 +132,7 @@ var app = new Vue({
                 query: q
             });
         },
-        fetchLead(id) {
+        fetchLead(id) {ñ
             return fetch(`http://${motor_api_server}:4002/lead-visados/${id}`, {
                 method: 'GET',
                 mode: 'cors',
@@ -465,6 +470,22 @@ var app = new Vue({
                 }
             }).then(response => response.json());
 
+        },
+        fetchSucursales() {
+            return fetch(`${BASE_URL}/motor/api/stage/call-center/oficinas`, {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    'Token': getCookie('Token')
+                }
+            }).then(response => response.json());
+        },
+        handleSucursalesChange(e) {
+            let q = {
+                oficina: this.sucursalSeleccionada
+            };
+
+            $('#table-conche').bootstrapTable('refresh', {query: q});
         }
     },
     computed: {

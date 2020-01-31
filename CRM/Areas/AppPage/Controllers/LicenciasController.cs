@@ -7,7 +7,7 @@ using CRM.Filters;
 
 namespace CRM.Areas.AppPage.Controllers
 {
-    [PermisosAppFilter]
+    //[PermisosAppFilter]
     public class LicenciasController : Controller
     {
         // GET: AppPage/Licencias
@@ -16,9 +16,13 @@ namespace CRM.Areas.AppPage.Controllers
             return View();
         }
 
-
         // GET: AppPage/Licencias/Ingreso
         public ActionResult Ingreso()
+        {
+            return View();
+        }
+
+        public ActionResult PagosDisponibles()
         {
             return View();
         }
