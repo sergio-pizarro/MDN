@@ -62,12 +62,21 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-2 text-xs-center">
+                        <div class="col-sm-1 text-xs-center">
                             <div class="form-group">
                                 <label class="control-label">Foco</label>
                                 <select id="dllFoco" tabindex="2" class="form-control">
                                     <option value="">Todos</option>
                                     <option value="Base Potenciada">Base Potenciada</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-1 text-xs-center">
+                            <div class="form-group">
+                                <label class="control-label">Marca</label>
+                                <select id="dllMarca" tabindex="2" class="form-control">
+                                    <option value="">Todos</option>
+                                    <option value="PEX">PEX</option>
                                 </select>
                             </div>
                         </div>
@@ -127,14 +136,14 @@
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
                                 <th data-field="id" data-sortable="true" data-formatter="idFormatter">ID</th>
-                                <th data-field="nombre" data-sortable="true">Nombre</th>
+                                <th data-field="nombre" data-sortable="true" data-formatter="toolTipsPex">Nombre</th>
                                 <th data-field="prioridad" data-sortable="true">Prioridad</th>
                                 <th data-field="comuna" data-sortable="true">Comuna</th>
                                 <th data-field="celular" data-sortable="true">Celular</th>
                                 <th data-field="fono_particular" data-sortable="true">Fono P.</th>
                                 <th data-field="ejecutivo_asignado" data-sortable="true">Asignado</th>
-                                <th data-field="NOM_GESTION" data-sortable="true">Sub-Estado</th>
                                 <th data-field="codigo" data-sortable="true">Codigo</th>
+                                <th data-field="NOM_GESTION" data-sortable="true">Sub-Estado</th>
                             </tr>
                         </thead>
                     </table>
@@ -219,7 +228,7 @@
                         </table>
 
                         <table id="tblppontenciadaDom" style="font-size: 10px; display:none;" class="table table-bordered">
-                
+
                             <thead>
                                 <tr>
                                     <th colspan="2">([nombreDom]):</th>
@@ -543,7 +552,7 @@
                                                                 </div>
                                                                 <div class="col-sm-6">
                                                                     <div class="form-group">
-                                                                        <label class="control-label">Relaciondo</label>
+                                                                        <label class="control-label">Observación</label>
                                                                         <input type="text" id="txtRelacConPot" class="form-control">
                                                                     </div>
                                                                 </div>
@@ -899,7 +908,7 @@
 
     <div id="demo-lg-modal-pensionado" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="modal-content" style="border-radius: 13px;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
                     <h4 class="modal-title" id="myLargeModalLabel-search">Buscar Pensionado</h4>
@@ -989,9 +998,10 @@
                                             <div id="divGestUni" style="display:none;">
                                                 <hr />
                                                 <div class="row">
-                                                    <div class="col-sm-5 text-xs-center">
+                                                    <div class="col-sm-3 text-xs-center">
                                                         <div class="form-group">
-                                                            <p class="btn-link text-semibold"> Pensionado sin gestion!.. Desea Gestionarlo?</p>
+                                                            @*<p class="btn-link text-semibold"> Pensionado sin gestion!.. Desea Gestionarlo?</p>*@
+                                                            <p class="btn-link text-semibold"> Desea realizar una gestion?</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4 text-xs-center">
