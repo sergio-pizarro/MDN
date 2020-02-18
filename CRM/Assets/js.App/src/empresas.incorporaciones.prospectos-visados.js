@@ -1,3 +1,14 @@
+
+if (getCookie('Rut') === '13115389-9' || getCookie('Rut') === '14211768-1' || getCookie('Rut') === '16455469-4' || getCookie('Rut') === '8398979-3') {
+    $('.slSucVisado').css('display', 'block');
+}
+else {
+    $('.slSucVisado').css('display', 'none');
+}
+
+
+
+
 var prospectoDefaults = {
     id: 0,
     clase: 'Z',
@@ -98,7 +109,7 @@ var app = new Vue({
             this.participees.actuales = this.participees.contactos;
             $("#managementQuorum").trigger("chosen:updated");
         }
-        
+
         this.formulario.fechaProximaGestion = $('#nextCommitmentDate').val();
         this.formulario.participantes = [];
         $("#managementQuorum option:selected").each((i, e) => {
@@ -125,14 +136,22 @@ var app = new Vue({
                 q.oficina = this.oficinaLogeado;
             } else {
                 q.rutEjecutivo = this.rutLogeado;
+                q.oficina = this.oficinaLogeado;
             }
 
             $('#table-conche').bootstrapTable({
                 url: `http://${motor_api_server}:4002/lead-visados`,
                 query: q
             });
+            setTimeout(function () {
+                $("#table-conche").bootstrapTable('refresh', {
+                    url: `http://${motor_api_server}:4002/lead-visados`,
+                    query: q
+                });
+            }, 100);
+
         },
-        fetchLead(id) {ñ
+        fetchLead(id) {
             return fetch(`http://${motor_api_server}:4002/lead-visados/${id}`, {
                 method: 'GET',
                 mode: 'cors',
@@ -264,7 +283,7 @@ var app = new Vue({
                     container: '#mensajes'
                 });
             }
-            
+
 
         },
         checkForm() {
@@ -380,10 +399,10 @@ var app = new Vue({
                 });
             }
 
-            
+
         },
         handleFilterTable() {
-          
+
             let update = true;
             let filtros = {};
 
@@ -485,7 +504,7 @@ var app = new Vue({
                 oficina: this.sucursalSeleccionada
             };
 
-            $('#table-conche').bootstrapTable('refresh', {query: q});
+            $('#table-conche').bootstrapTable('refresh', { query: q });
         }
     },
     computed: {
@@ -575,7 +594,7 @@ $(function () {
     /*setTimeout(() => {
         app.fireCalendar();
     }, 1000);*/
-    
+
 
     //Datepicker
     $('#dp-fecha-proxima-gestion .input-group.date').datepicker({
@@ -585,13 +604,13 @@ $(function () {
         daysOfWeekDisabled: [6, 0],
         todayHighlight: true
     })
-    .on('changeDate', function (event) {
-        event.stopPropagation();
-        app.$forceUpdate();
-    })
-    .on('show.bs.modal hide.bs.modal', function (event) {
-        event.stopPropagation();
-    });
+        .on('changeDate', function (event) {
+            event.stopPropagation();
+            app.$forceUpdate();
+        })
+        .on('show.bs.modal hide.bs.modal', function (event) {
+            event.stopPropagation();
+        });
 });
 
 //Formatters

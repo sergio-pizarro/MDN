@@ -216,7 +216,8 @@ var appPensionadosFiltros = new Vue({
                     marca: marca,
                     oficina: getCookie('Oficina'),
                     periodo: periodo,
-                    pex: $('#dllMarca').val()
+                    pex: $('#dllMarca').val(),
+                    fecha_compromiso: $('#vencidos_pensionados').val()
                 }
             });
         },
@@ -1347,9 +1348,17 @@ var appPensionadosModal = new Vue({
                     //  this.dataModal = datos;
                     $("#gestiones_realizadas_pensionados").html("");
                     $.each(datos, function (i, e) {
+                        let fecha_compromete = ''
+                        if (e.ges_fecha_compromete === null || e.ges_fecha_compromete === '') {
+                            fecha_compromete = "Sin Compromiso..."
+                        }
+                        else {
+                            fecha_compromete = e.ges_fecha_compromete.toFecha();
+                        }
+
                         $("#gestiones_realizadas_pensionados").append($("<a>").attr("href", '#')
-                            .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Ejecutivo.OrdenaNombreCompleto()))
-                            .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.ges_fecha_accion.toFechaHora() + ", <strong>Fecha Prox. Gestión:</strong> " + e.ges_fecha_compromete.toFechaHora()))
+                            .append($("<h4>").addClass("list-group-item-heading").html("<strong>Gestor:</strong> " + e.Ejecutivo))
+                            .append($("<p>").addClass("list-group-item-text").html("<strong>Fecha Gestión:</strong>" + e.ges_fecha_accion.toFechaHoraPrueba() + ", <strong>Fecha Prox. Gestión:</strong> " + fecha_compromete))
                             .append($("<p>").addClass("list-group-item-text").html("<strong>Estado:</strong> " + e.estado + ",  <strong>Sub Estado:</strong> " + e.subEstado))
                             .append($("<p>").addClass("list-group-item-text").html("<strong>Comentario:</strong> " + e.ges_descripcion_gst))
                         );

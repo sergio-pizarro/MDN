@@ -30,10 +30,10 @@
                         <td>HOLDING</td>
                         <td style="text-align: center;">{{dataModal.HOLDING}}</td>
                     </tr>
-                    <tr>
+                    @*<tr>
                         <td>SUCURSAL</td>
                         <td style="text-align: center;"></td>
-                    </tr>
+                    </tr>*@
                     <tr>
                         <td>TIPO EMPRESA</td>
                         <td style="text-align: center;">{{dataModal.SEGMENTO_EMPRESA}}</td>
@@ -61,7 +61,7 @@
                 <thead>
                     <tr>
                         <th style="width: 200px;">IGN</th>
-                        <th style="background-color: #ef5350; border-radius: 5px; color: white; text-align: center;">{{dataModal.IGN_ACTUAL}}</th>
+                        <th style="background-color: #ef5350; border-radius: 5px; color: white; text-align: center;">{{dataModal.IGN_ACTUAL}} %</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,11 +80,11 @@
                 <tbody>
                     <tr>
                         <td style="width: 200px;">TOTAL COLACIONES</td>
-                        <td style="text-align: center;">{{dataModal.IGN_ACTUAL}}</td>
+                        <td style="text-align: center;">{{dataModal.CREDITOS}}</td>
                     </tr>
                     <tr>
                         <td>COLACIONES VIG. $</td>
-                        <td style="text-align: center;">{{dataModal.IGN_ACTUAL}}</td>
+                        <td style="text-align: center;">{{dataModal.DEUDA}}</td>
                     </tr>
                     <tr>
                         <td>MORA + 30 $</td>
@@ -92,7 +92,7 @@
                     </tr>
                     <tr>
                         <td>INDICE MORA + 30</td>
-                        <td style="text-align: center;">{{dataModal.INDICE_MORA_30}}</td>
+                        <td style="text-align: center;">{{dataModal.INDICE_MORA_30}} %</td>
                     </tr>
                     <tr>
                         <td>MORA + 365 $</td>
@@ -100,7 +100,7 @@
                     </tr>
                     <tr>
                         <td>TASA DE RIESGO</td>
-                        <td style="background-color: #ef5350; border-radius: 5px; color: white; text-align: center;">{{dataModal.TR}}</td>
+                        <td style="background-color: #ef5350; border-radius: 5px; color: white; text-align: center;">{{dataModal.TR}} %</td>
                     </tr>
                     <tr>
                         <td>CLASIFICACIÓN</td>

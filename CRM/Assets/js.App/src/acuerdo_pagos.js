@@ -138,9 +138,8 @@ var appAcuerdoPagosFiltros = new Vue({
                     estadoCliente: this.modelos.estadoCliente,
                     tipoCampana: this.modelos.tipoCampana,
                     derivacion: this.modelos.derivacion,
-                    prioridad: this.modelos.prioridad,
+                    fechaCompromiso: $("#vencidos_acuerdo_pago").val(),
                     oficina: getCookie('Oficina'),
-
                 }
             });
         },

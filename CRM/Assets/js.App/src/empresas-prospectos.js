@@ -6,7 +6,7 @@ $(function () {
     */
     var codigo_oficina = getCookie("Oficina");
     var rut_ejecutivo = getCookie("Rut");
-    var servidor_api = "http://localhost:15001";
+    var servidor_api = "http://motordenegocios:15001"//"http://localhost:15001";
     var objeto_localidad = [];
     var prospecto_data = {};
     prospecto_data.contactos = [];

@@ -26,7 +26,7 @@ namespace CRM.Controllers
             return NoticiaDataAccess.ObtenerPorID(idNoticia);
         }
 
-        [AuthorizationRequired]
+       
         [HttpGet]
         [Route("noticia-leida")]
         public ResultadoBase NoticiaLeida()
@@ -332,6 +332,12 @@ namespace CRM.Controllers
             }
         }
 
-
+        [HttpGet]
+        [Route("noticia-leida-rut")]
+        public IEnumerable<NoticiaLeidasEntity> NoticiaLeidaPorRut()
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            return NoticiaDataAccess.NoticiaLeidaRut(token);
+        }
     }
 }
