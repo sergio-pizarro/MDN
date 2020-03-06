@@ -25,7 +25,7 @@
             <li class="active">
                 <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_ingreso" class="tab-principal">Ingreso</a>
             </li>
-            <li class="">
+            <li class="" style="display:none">
                 <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_disponible_pago" class="tab-principal">Disponible a pago</a>
             </li>
         </ul>
@@ -354,12 +354,12 @@
                     res.forEach(function (e) {
 
                         html += `<tr>
-                                        <td>${e.fullRut}</td>
-                                        <td>${e.folioLicencia}</td>
-                                        <td>${e.diasReposo}</td>
-                                        <td>desde ${new Date(e.fechaInicioReposo).toLocaleDateString()} hasta ${new Date(e.fechaTerminoReposo).toLocaleDateString()}</td>
-                                        <td>$ ${e.montoSubsidio.toMoney(0)}</td>
-                                    </tr>`
+                                            <td>${e.fullRut}</td>
+                                            <td>${e.folioLicencia}</td>
+                                            <td>${e.diasReposo}</td>
+                                            <td>desde ${new Date(e.fechaInicioReposo).toLocaleDateString()} hasta ${new Date(e.fechaTerminoReposo).toLocaleDateString()}</td>
+                                            <td>$ ${e.montoSubsidio.toMoney(0)}</td>
+                                        </tr>`
                     });
 
 

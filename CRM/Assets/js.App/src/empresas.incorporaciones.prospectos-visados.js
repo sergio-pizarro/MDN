@@ -1,5 +1,5 @@
 
-if (getCookie('Rut') === '13115389-9' || getCookie('Rut') === '14211768-1' || getCookie('Rut') === '16455469-4' || getCookie('Rut') === '8398979-3') {
+if (getCookie('Rut') === '13115389-9' || getCookie('Rut') === '14211768-1' || getCookie('Rut') === '16455469-4' || getCookie('Rut') === '08398979-3') {
     $('.slSucVisado').css('display', 'block');
 }
 else {

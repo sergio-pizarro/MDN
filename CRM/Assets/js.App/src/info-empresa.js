@@ -4,6 +4,7 @@ var appInfoEmpresa = new Vue({
     data: {
         dataModal: {}
     },
+   
 
     mounted() {
         
