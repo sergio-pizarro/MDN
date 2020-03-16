@@ -1,5 +1,4 @@
-﻿
-function httpGet(param) {
+﻿function httpGet(param) {
     url = document.URL;
     url = String(url.match(/\?+.+/));
     url = url.replace("?", "");
@@ -35,7 +34,7 @@ function setCookie(c_name, value, exdays) {
     var exdate = new Date();
     exdate.setDate(exdate.getDate() + exdays);
     var c_value = escape(value) +
-      ((exdays == null) ? "" : ("; expires=" + exdate.toUTCString()));
+        ((exdays == null) ? "" : ("; expires=" + exdate.toUTCString()));
     document.cookie = c_name + "=" + c_value + "; path=/";
 }
 
@@ -47,7 +46,7 @@ function objectifyForm(formArray) {//serialize data function
 
     var returnArray = {};
     for (var i = 0; i < formArray.length; i++) {
-        returnArray[formArray[i]['name']] = formArray[i]['value'].replace(/\./g,'');
+        returnArray[formArray[i]['name']] = formArray[i]['value'].replace(/\./g, '');
     }
     return returnArray;
 }
@@ -99,7 +98,7 @@ function CalcularDiasHabiles(fechaInicio, cantidadDias) {
             i++;
         }
     }
-    return fecha_inicio.getDate().toString().paddingLeft("00") + "-" +(fecha_inicio.getMonth() +1).toString().paddingLeft("00") + "-" +fecha_inicio.getFullYear().toString();        
+    return fecha_inicio.getDate().toString().paddingLeft("00") + "-" + (fecha_inicio.getMonth() + 1).toString().paddingLeft("00") + "-" + fecha_inicio.getFullYear().toString();
 }
 
 function CalcularDiasHabilesFer(fechaInicio, cantidadDias, feriados) {
@@ -139,13 +138,13 @@ function CantidadDiasHabiles(FechaInicio, FechaFin) {
 
 function parseDate(str) {
     var mdy = str.split('-');
-    return new Date(mdy[2], mdy[1]-1, mdy[0]);
+    return new Date(mdy[2], mdy[1] - 1, mdy[0]);
 }
 
 
 
 function CantidadDiasCorridos(FechaInicio, FechaFin) {
-    return Math.round((FechaFin - FechaInicio) / (1000 * 60 * 60 * 24)) +1;
+    return Math.round((FechaFin - FechaInicio) / (1000 * 60 * 60 * 24)) + 1;
 }
 
 function CalcularDiasCorridos(FechaInicio, CantidadDias) {
@@ -210,8 +209,7 @@ function CalcularDiasCorridos(FechaInicio, CantidadDias) {
 
 })(window);
 
-Date.prototype.monthDays = function()
-{
+Date.prototype.monthDays = function () {
     var d = new Date(this.getFullYear(), this.getMonth() + 1, 0);
     return d.getDate();
 }
@@ -222,8 +220,7 @@ Date.prototype.monthDaysLeft = function () {
     return d.getDate() - this.getDate();
 }
 
-Date.prototype.toChileanDateString = function()
-{
+Date.prototype.toChileanDateString = function () {
     var month = String(this.getMonth() + 1);
     var day = String(this.getDate());
     const year = String(this.getFullYear());
@@ -280,8 +277,7 @@ String.prototype.toFecha = function () {
 
 
 
-String.prototype.addSlashes = function()
-{
+String.prototype.addSlashes = function () {
     //return this.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
     return this.replace(/\'/g, '')
 }
@@ -296,7 +292,7 @@ String.prototype.OrdenaNombre = function () {
         var EjecNN = EjecNombres.trim().split(" ")
         var EjecAP = EjecApellidos.trim().split(" ")
 
-        return EjecNN[0]+ ' ' +EjecAP[0];
+        return EjecNN[0] + ' ' + EjecAP[0];
     } else {
         return this;
     }
@@ -323,8 +319,7 @@ function Evalua(valor) {
     return valor == null ? '' : valor;
 }
 
-String.prototype.toEtiquetaPreAprobados = function(hijo)
-{
+String.prototype.toEtiquetaPreAprobados = function (hijo) {
     var sinGestion = 'label-default', pendientes = 'label-warning', cierrePositivo = 'label-success', cierreNegativo = 'label-danger'
 
     var f = [];
@@ -347,7 +342,7 @@ String.prototype.toEtiquetaPreAprobados = function(hijo)
     f['Se llama en diferentes horarios'] = pendientes
 
     f['Sin Gestión'] = sinGestion
-    
+
 
     var t = '<span class="label {CLASE}">{VALOR}</span>';
 
@@ -357,7 +352,7 @@ String.prototype.toEtiquetaPreAprobados = function(hijo)
 
 
 String.prototype.toEtiquetaPrioridad = function () {
-    
+
     var f = [];
     f[1] = 'badge-success';
     f[2] = 'badge-yelow';
@@ -365,7 +360,7 @@ String.prototype.toEtiquetaPrioridad = function () {
     f[4] = 'badge-danger';
     f[5] = 'badge-purple';
     f[6] = 'badge-neutral';
-    
+
     var d = [];
     d[1] = 'verde';
     d[2] = 'amarillo';
@@ -373,14 +368,14 @@ String.prototype.toEtiquetaPrioridad = function () {
     d[4] = 'rojo';
     d[5] = 'morado';
     d[6] = 'neutral';
-    
+
     var t = '<span class="badge {CLASE}">{VALOR}</span>';
 
-    return t.replace("{CLASE}", f[this]).replace("{VALOR}", (this > 5 ? "": this) ); //.replace("{COLOR}",d[this]);
+    return t.replace("{CLASE}", f[this]).replace("{VALOR}", (this > 5 ? "" : this)); //.replace("{COLOR}",d[this]);
 }
 
 String.prototype.toEtiquetaPrioridadScan = function () {
-    
+
     var f = [];
     f[0] = 'badge-neutral';
     f[1] = 'badge-success';
@@ -389,7 +384,7 @@ String.prototype.toEtiquetaPrioridadScan = function () {
     f[4] = 'badge-danger';
     f[5] = 'badge-purple';
     f[6] = 'badge-neutral';
-    
+
     var d = [];
     d[0] = 'light';
     d[1] = 'verde';
@@ -398,13 +393,13 @@ String.prototype.toEtiquetaPrioridadScan = function () {
     d[4] = 'rojo';
     d[5] = 'morado';
     d[6] = 'neutral';
-    
-  
-        var t = '<span class="badge {CLASE}">{VALOR} <label style="display:none;">{COLOR}</label></span>';
 
-        return t.replace("{CLASE}", f[this]).replace("{VALOR}", (this > 5 ? "": this) ).replace("{COLOR}",d[this]);
-    
-   
+
+    var t = '<span class="badge {CLASE}">{VALOR} <label style="display:none;">{COLOR}</label></span>';
+
+    return t.replace("{CLASE}", f[this]).replace("{VALOR}", (this > 5 ? "" : this)).replace("{COLOR}", d[this]);
+
+
 }
 String.prototype.toEtiquetaFlagLicencia = function () {
 
@@ -420,7 +415,7 @@ String.prototype.toEtiquetaFlagLicencia = function () {
     d[1] = 'verde';
     d[2] = 'amarillo';
     d[3] = 'rojo';
-    d[4] = 'naranjo'; 
+    d[4] = 'naranjo';
     d[5] = 'morado';
     d[6] = 'neutral';
 
@@ -443,7 +438,7 @@ String.prototype.toEtiquetaFlagLicenciaGrilla = function () {
     d[2] = 'amarillo';
     d[3] = 'rojo';
     d[4] = 'naranjo';
-    d[5] = 'morado'; 
+    d[5] = 'morado';
     d[6] = 'neutral';
 
     var t = '<span class="badge {CLASE}"><label></label><label></label><label style="display:none;">{COLOR}</label></span>';
@@ -466,7 +461,7 @@ String.prototype.toEtiquetaSuperior = function (c) {
         return "";
     }
 
-    
+
 }
 
 String.prototype.toEtiquetaPrioridadNormalizacion = function () {
@@ -497,9 +492,9 @@ String.prototype.toEtiquetaSeleccion = function () {
     f[1] = 'badge-success ion-checkmark-round';
 
     var d = [];
-    d[0]=  'gestionados'
+    d[0] = 'gestionados'
     d[1] = 'contactados';
-  
+
     var t = '<span class="badge {CLASE}"><label style="display:none; align-items:center;">{NUMERO}</label></span>';
 
     return t.replace("{CLASE}", f[this]).replace("{VALOR}", this).replace("{NUMERO}", d[this]);
@@ -619,7 +614,7 @@ String.prototype.toEtiquetaPloma = function () {
 
     var t = '<span class="badge badge-gray">{VALOR} <label style="display:none;">{NUMERO}</label></span>';
 
-    return t.replace("{VALOR}", this).replace("{NUMERO}",n[this]);
+    return t.replace("{VALOR}", this).replace("{NUMERO}", n[this]);
 }
 
 String.prototype.paddingLeft = function (paddingValue) {
@@ -631,12 +626,12 @@ String.prototype.paddingLeft = function (paddingValue) {
 
 Number.prototype.toMoney = function (decimals, decimal_sep, thousands_sep) {
     var n = this,
-    c = isNaN(decimals) ? 0 : Math.abs(decimals),
-    d = decimal_sep || ',', 
-    t = (typeof thousands_sep === 'undefined') ? '.' : thousands_sep, 
-    sign = (n < 0) ? '-' : '',
-    i = parseInt(n = Math.abs(n).toFixed(c)) + '',
-    j = ((j = i.length) > 3) ? j % 3 : 0;
+        c = isNaN(decimals) ? 0 : Math.abs(decimals),
+        d = decimal_sep || ',',
+        t = (typeof thousands_sep === 'undefined') ? '.' : thousands_sep,
+        sign = (n < 0) ? '-' : '',
+        i = parseInt(n = Math.abs(n).toFixed(c)) + '',
+        j = ((j = i.length) > 3) ? j % 3 : 0;
     return sign + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '');
 }
 
@@ -644,70 +639,61 @@ Number.prototype.toMoney = function (decimals, decimal_sep, thousands_sep) {
 $(function () {
 
 
-
+    //debugger;
     $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
-            
 
-            
-            if (DEBUG_JS) {
-                console.log('event', event)
-                console.log('jqxhr', jqxhr)
-                console.log('settings', settings)
-                console.log('thrownError', thrownError)
-            } else {
-                const ajx = jqxhr;
-                switch(ajx.status) 
-                {
-                    case 401:
-                        location.href = BASE_URL + "/motor/home/Acceso";
-                        break;
-                    default:
-                        console.log('event', event)
-                        console.log('jqxhr', jqxhr)
-                        console.log('settings', settings)
-                        console.log('thrownError', thrownError)
-                }
-                
+
+
+        if (DEBUG_JS) {
+            console.log('event', event)
+            console.log('jqxhr', jqxhr)
+            console.log('settings', settings)
+            console.log('thrownError', thrownError)
+        } else {
+            const ajx = jqxhr;
+            switch (ajx.status) {
+                case 401:
+                    location.href = BASE_URL + "/motor/home/Acceso";
+                    break;
+                default:
+                    console.log('event', event)
+                    console.log('jqxhr', jqxhr)
+                    console.log('settings', settings)
+                    console.log('thrownError', thrownError)
             }
-        });
 
-   
+        }
+    });
 
-    var nid = getCookie("Noticia")
-    if (nid > 0)
-    {
 
-        $.SecGetJSON(BASE_URL + "/motor/api/Config/noticia-inicio", { idNoticia: nid }, function (noticia) {
-
-            var modalOptions = { show: true}
-
-            $("#notini-title").html(noticia.noti_titulo);
-            $("#notini-body").html(noticia.noti_cuerpo);
-            
-            if (noticia.noti_cerrable === 0)
-            {
-                modalOptions.backdrop = 'static';
-                modalOptions.keyboard = false;
-                $(".puede-cerrarse").hide();
-            }
+    $.SecGetJSON(BASE_URL + "/motor/api/Config/noticia-leida-rut", function (datos) {
+        //debugger;
+        var nid = datos[0].usr_noticia_inicio;
+        console.log("cookie noticia " + nid.toString());
+        //debugger;
+        if (nid > 0) {
+          //  debugger;
+            var modalOptions = { show: true }
+            modalOptions.backdrop = 'static';
+            modalOptions.keyboard = false;
+            $(".puede-cerrarse").hide();
 
             $("#notini-modal").modal(modalOptions).on("hidden.bs.modal", function () {
-                
-                $.SecGetJSON(BASE_URL + "/motor/api/Config/noticia-leida", function () {
-                    setCookie("Noticia", "0", 2);
 
-                })
 
             });
-        });
-    }
 
-    
+        }
 
 
+    });
 
-    if (sessionStorage.getItem('menu_principal') == null)
-    {
+
+
+
+
+    //debugger;
+    if (sessionStorage.getItem('menu_principal') == null) {
         $.SecGetJSON(BASE_URL + "/motor/api/Auth/menu", function (categorias) {
 
             sessionStorage.setItem('menu_principal', JSON.stringify(categorias));
@@ -731,11 +717,11 @@ $(function () {
                 $.each(menus, function (i, e) {
                     if (e.Activa) {
                         cUL.append('<li>' +
-                                ' <a href="/motor/App/Engine?cc=' + e.CodCamp + '" >' +
-                                    '  <span class="menu-title">' +
-                                    '      <strong>' + e.IdentidadCamp + '</strong>' +
-                                    '  </span>' +
-                                '  </a>' +
+                            ' <a href="/motor/App/Engine?cc=' + e.CodCamp + '" >' +
+                            '  <span class="menu-title">' +
+                            '      <strong>' + e.IdentidadCamp + '</strong>' +
+                            '  </span>' +
+                            '  </a>' +
                             ' </li>');
                         algunaCamp++;
                     }
@@ -745,12 +731,12 @@ $(function () {
                     //.addClass("active-link")
                     $("#mainnav-menu").append($("<li>").addClass("list-header").text("Otras Campañas"))
                     $("#mainnav-menu").append($("<li>").append(
-                          $("<a>").addClass("otras-campas").attr({ href: "#" }).append(
-                              $("<i>").addClass("ion-clipboard")
-                          ).append(
-                              $("<span>").addClass("menu-title").append($("<strong>").text("Mis Campañas"))
-                          )
-                      ).append(cUL));
+                        $("<a>").addClass("otras-campas").attr({ href: "#" }).append(
+                            $("<i>").addClass("ion-clipboard")
+                        ).append(
+                            $("<span>").addClass("menu-title").append($("<strong>").text("Mis Campañas"))
+                        )
+                    ).append(cUL));
                 }
 
 
@@ -764,8 +750,8 @@ $(function () {
 
         });
     }
-    else
-    {
+    else {
+        //debugger;
         var categorias = JSON.parse(sessionStorage.getItem('menu_principal'));
         $.each(categorias, function (i, categoriaItm) {
 
@@ -781,11 +767,11 @@ $(function () {
         $.each(menus, function (i, e) {
             if (e.Activa) {
                 cUL.append('<li>' +
-                        ' <a href="/motor/App/Engine?cc=' + e.CodCamp + '" >' +
-                            '  <span class="menu-title">' +
-                            '      <strong>' + e.IdentidadCamp + '</strong>' +
-                            '  </span>' +
-                        '  </a>' +
+                    ' <a href="/motor/App/Engine?cc=' + e.CodCamp + '" >' +
+                    '  <span class="menu-title">' +
+                    '      <strong>' + e.IdentidadCamp + '</strong>' +
+                    '  </span>' +
+                    '  </a>' +
                     ' </li>');
                 algunaCamp++;
             }
@@ -795,12 +781,12 @@ $(function () {
             //.addClass("active-link")
             $("#mainnav-menu").append($("<li>").addClass("list-header").text("Otras Campañas"))
             $("#mainnav-menu").append($("<li>").append(
-                  $("<a>").addClass("otras-campas").attr({ href: "#" }).append(
-                      $("<i>").addClass("ion-clipboard")
-                  ).append(
-                      $("<span>").addClass("menu-title").append($("<strong>").text("Mis Campañas"))
-                  )
-              ).append(cUL));
+                $("<a>").addClass("otras-campas").attr({ href: "#" }).append(
+                    $("<i>").addClass("ion-clipboard")
+                ).append(
+                    $("<span>").addClass("menu-title").append($("<strong>").text("Mis Campañas"))
+                )
+            ).append(cUL));
         }
 
 
@@ -820,17 +806,16 @@ $(function () {
             cText = $("<span>").addClass("menu-title").append($("<strong>").text(menuItm.Nombre));
             cLi.append(cAnch.append(cIcon).append(cText));
 
-            if(menuItm.Hijos.length > 0)
-            {
+            if (menuItm.Hijos.length > 0) {
                 cUl = $("<ul>");
                 Recxve(menuItm.Hijos, cUl);
-                cLi.append(cUl)        
+                cLi.append(cUl)
             }
 
             $(elmBase).append(cLi);
         });
 
-        
+
     }
 
 })
@@ -919,6 +904,24 @@ $(function () {
 });
 
 
+function setCookie(c_name, value, expiredays) {
+
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + expiredays);
+    document.cookie = c_name + "=" + escape(value) +
+        ((expiredays == null) ? "" : ";expires=" + exdate.toUTCString());
+}
+
+
+
+
+
+function init() {
+    for (var i = 1; i < 3; i++) {
+        var x = Cookies['ppkcookie' + i];
+        if (x) alert('Cookie ppkcookie' + i + '\nthat you set on a previous visit, is still active.\nIts value is ' + x);
+    }
+}
 
 $(function () {
     var support = getCookie('X-Support-Token');
@@ -943,4 +946,20 @@ $(function () {
             setTimeout("location.href = '/motor/App/Inicio'", 1000);
         });
     });
+
+
+    $('#btn_popup_noticia').on('click', function (e) {
+        //debugger;
+        let flag = 0;
+        let rut = getCookie('Rut');
+
+        //$.SecGetJSON(BASE_URL + "/motor/api/Auth/actualiza-estado-noticia", { Rut: rut }, function (respuesta) {
+
+        $.SecGetJSON(BASE_URL + "/motor/api/Config/noticia-leida", function (respuesta) {
+
+            // Deletes a cookie
+
+        });
+    });
+
 });

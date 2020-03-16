@@ -1477,7 +1477,9 @@ $(function () {
                 }
                 let lerut = $('#afi_empresa_rut').val().replace(/\./g, '')
                 lerut = lerut.substring(0, 8);
-                appInfoEmpresa.obtenerInfoEmpresa(lerut);
+
+                console.log('Sergio:' +  lerut)
+               // appInfoEmpresa.obtenerInfoEmpresa(lerut);
 
 
             }

@@ -62,4 +62,15 @@ namespace CRM.Business.Entity
 
         }
     }
+    public class NoticiaLeidasEntity
+    {
+        public int usr_noticia_inicio { get; set; }
+
+        public NoticiaLeidasEntity()
+        {
+            usr_noticia_inicio = 0;
+        }
+    }
+
+
 }

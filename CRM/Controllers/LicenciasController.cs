@@ -22,6 +22,30 @@ namespace CRM.Controllers
     [RoutePrefix("api/Licencias")]
     public class LicenciasController : ApiController
     {
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("lista-licencias-rut")]
+        public IEnumerable<BusquedaLicenciasEntity> ListaLicenciasIngresadasRut(string rut)
+        {
+
+            List<BaseLicencia> Retorno = new List<BaseLicencia>();
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            List<BusquedaLicenciasEntity> ingLc = IngresolicenciaDataAccess.ObtenerLicenciasByRut(rut);
+            //ingLc.ForEach(lc =>
+            //{
+            //    Retorno.Add(new 
+            //    {
+            //        IngresoData = ingLc,
+            //     EstadoData = EstadolicenciaDataAccess.ObtenerPorID(lc.CodEstado),
+            //        NombreEjecutivo = DotacionDataAccess.ObtenerByRut(lc.RutEjecutivo).Nombres
+            //    });
+            //});
+
+            return ingLc;
+        }
+
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("lista-licencias-dia")]
@@ -129,18 +153,18 @@ namespace CRM.Controllers
                     entrada.FolioLc,
                     entrada.RutAfiliado.Replace(".", ""),
                     codFinal,
-                    entrada.LiqMes1==1,
-                    entrada.LiqMes2==1,
-                    entrada.LiqMes3==1,
-                    entrada.LiqMes4==1,
-                    entrada.LiqMes5==1,
-                    entrada.LiqMes6==1,
-                    entrada.CertificadoRenta==1,
-                    entrada.Acredita90==1,
-                    entrada.Acredita180==1,
-                    entrada.Otros==1,
+                    entrada.LiqMes1 == 1,
+                    entrada.LiqMes2 == 1,
+                    entrada.LiqMes3 == 1,
+                    entrada.LiqMes4 == 1,
+                    entrada.LiqMes5 == 1,
+                    entrada.LiqMes6 == 1,
+                    entrada.CertificadoRenta == 1,
+                    entrada.Acredita90 == 1,
+                    entrada.Acredita180 == 1,
+                    entrada.Otros == 1,
                     entrada.Comentarios,
-                    entrada.FaltaDocumentacion==1
+                    entrada.FaltaDocumentacion == 1
                 );
 
                 DocumentosFaltantesLMDataAccess.GuardarEntrada(dcm, token);
@@ -151,7 +175,7 @@ namespace CRM.Controllers
             {
                 var x = ex.Message.Split(';');
                 return new ResultadoBase() { Estado = "ERR", Mensaje = x[1], Objeto = x[0] };
-                
+
                 //if (base1.Estado.Equals("ERR"))
                 //{
                 //    return new ResultadoBase() { Estado = "ERR", Mensaje = x[0], Objeto = ex };
@@ -395,7 +419,7 @@ namespace CRM.Controllers
                 doc.Open();
                 PdfPTable tblPrueba = new PdfPTable(dataTable.Columns.Count);
                 PdfPRow row = null;
-                float[] widths = new float[] { 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f,4f,4f };
+                float[] widths = new float[] { 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f };
                 iTextSharp.text.Font font5 = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
                 iTextSharp.text.Font font6 = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
                 Paragraph header = new Paragraph("Motor de Negocios: Recepción LM Sin Visar Mixta") { Alignment = Element.ALIGN_CENTER };

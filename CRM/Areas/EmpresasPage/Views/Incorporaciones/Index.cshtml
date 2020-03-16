@@ -253,7 +253,7 @@
                             <div class="row">
                                 <!--<div class="embed-responsive embed-responsive-4by3" style="height: 1200px;">-->
                                 <div class="embed-responsive embed-responsive-4by3" style="height: 1200px;">
-                                    <iframe class="embed-responsive-item" src="http://localhost:4200"></iframe>
+                                    <iframe class="embed-responsive-item" src="http://motordenegocios/front/proceso-incorporacion-empresas"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -267,6 +267,7 @@
 @section script{
 
     <!--Bootstrap Table [ OPTIONAL ]-->
+    <script src="~/Assets/plugins/chosen/chosen.jquery.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
     <!--Bootstrap Wizard [ OPTIONAL ]-->
@@ -275,11 +276,14 @@
     <script src="~/Assets/js.App/src/empresas.incorporaciones.prospectos-visados.js"></script>
     <script src="~/Assets/js.App/src/empresas.incorporaciones.prospectos-visados.reasignacion.js"></script>
     <script src="~/Assets/js.App/src/empresas-prospectos.js"></script>
+
+
     <script>
         $(function () {
 
             //getCookie('Oficina');
             //getCookie('Cargo');
+            //13115389-9 -- 14211768-1 -- 16455469-4 -- 8398979-3
             if ((getCookie('Oficina') === '992' && getCookie('Cargo') === 'Agente') || getCookie('Cargo') === 'Administrador Sistema') {
                 $('#tab_visados_reasigna').show();
             }

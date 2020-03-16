@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
@@ -199,6 +199,8 @@
     <Compile Include="Areas\AppPage\Controllers\CampanaPexController.cs" />
     <Compile Include="Areas\AppPage\Controllers\CarteraFFVVController.cs" />
     <Compile Include="Areas\AppPage\Controllers\CosalController.cs" />
+    <Compile Include="Areas\AppPage\Controllers\DistribucionWappController.cs" />
+    <Compile Include="Areas\AppPage\Controllers\MantenedoresController.cs" />
     <Compile Include="Areas\AppPage\Controllers\SegurosController.cs" />
     <Compile Include="Areas\AppPage\Controllers\UpdateController.cs" />
     <Compile Include="Areas\EmpresasPage\Controllers\CarteraEmpresaEjecutivoController.cs" />
@@ -208,6 +210,7 @@
     <Compile Include="Areas\EmpresasPage\Controllers\DetalleVisitaController.cs" />
     <Compile Include="Areas\EmpresasPage\Controllers\FichaEmpresaController.cs" />
     <Compile Include="Areas\EmpresasPage\Controllers\IncorporacionesController.cs" />
+    <Compile Include="Areas\EmpresasPage\Controllers\InfoEmpresaController.cs" />
     <Compile Include="Areas\EmpresasPage\EmpresasPageAreaRegistration.cs" />
     <Compile Include="Areas\EmpresasPage\App_Start\EmpresasPageConfig.cs" />
     <Compile Include="Areas\EmpresasPage\Controllers\InicioController.cs" />
@@ -312,6 +315,11 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Providers\GuardService.cs" />
     <Compile Include="Providers\TokenService.cs" />
@@ -361,6 +369,7 @@
     <Content Include="Assets\img\bg-img\thumbs\bg-img-6.jpg" />
     <Content Include="Assets\img\bg-img\thumbs\bg-img-7.jpg" />
     <Content Include="Assets\img\bg-img\thumbs\bg-trns.jpg" />
+    <Content Include="Assets\img\imagen_popup.jpg" />
     <Content Include="Assets\img\logo_arau.png" />
     <Content Include="Assets\js.App\Conf.js" />
     <Content Include="Assets\js.App\Ext.js" />
@@ -374,6 +383,7 @@
     <Content Include="Assets\js.App\src\acuerdo_pagos.js" />
     <Content Include="Assets\js.App\src\BuscadorGrilla.js" />
     <Content Include="Assets\js.App\src\contactabilidad-empresa.js" />
+    <Content Include="Assets\js.App\src\distribucion-wapp.js" />
     <Content Include="Assets\js.App\src\dotacion-asignable.js" />
     <Content Include="Assets\js.App\src\empresas.incorporaciones.prospectos-visados.reasignacion.js" />
     <Content Include="Assets\js.App\src\empresas.incorporaciones.prospectos-visados.js" />
@@ -538,8 +548,17 @@
     <Content Include="Areas\AppPage\Views\CampanaPex\Index.cshtml" />
     <Content Include="Areas\AppPage\Views\Configuraciones\DotacionAsignable.cshtml" />
     <Content Include="Areas\AppPage\Views\Gestion\InfoEmpresa.cshtml" />
+    <Content Include="Areas\AppPage\Views\Licencias\PagosDisponibles.cshtml" />
+    <Content Include="Areas\AppPage\Views\Mantenedores\Index.cshtml" />
+    <Content Include="Areas\EmpresasPage\Views\InfoEmpresa\Index.cshtml" />
+    <Content Include="Areas\AppPage\Views\DistribucionWapp\Index.cshtml" />
+    <Content Include="Areas\AppPage\Views\Licencias\BusquedaLicencia.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

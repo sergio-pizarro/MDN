@@ -102,8 +102,37 @@ namespace CRM.Business.Data
             return DBHelper.InstanceCRM.EjecutarProcedimiento("spMotor_Noticia_Leida", p);
         }
 
+        #endregion
+
+
+        #region metodos adicionales
+        /// <summary>
+        /// Recupera todas las entidades <see cref="NoticiaEntity"/> de la Base de Datos
+        /// </summary>
+        /// <author>Charly</author>
+        /// <created>12-06-2017 10:15:26</created>
+        /// <returns>Lista con todas las entidades <see cref="NoticiaEntity"/>.</returns>
+        public static List<NoticiaLeidasEntity> NoticiaLeidaRut(string token)
+        {
+            Parametro p = new Parametro("@token", token);
+            return DBHelper.InstanceCRM.ObtenerColeccion("dbo.spMotor_Noticia_Leida_ByRut", p, consNoticias);
+        }
+
+        private static NoticiaLeidasEntity consNoticias(DataRow row)
+        {
+            return new NoticiaLeidasEntity
+            {
+                usr_noticia_inicio = row["usr_noticia_inicio"] != DBNull.Value ? Convert.ToInt32(row["usr_noticia_inicio"]) : 0,
+
+            };
+        }
+
+
+
 
         #endregion
+
+
 
         #region constructor
         private static NoticiaEntity ConstructorEntidad(DataRow row)

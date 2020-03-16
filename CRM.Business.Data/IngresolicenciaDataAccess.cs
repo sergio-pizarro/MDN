@@ -16,6 +16,7 @@ using CDK.Data;
 
 namespace CRM.Business.Data
 {
+
     /// <summary>
     /// Clase Acceso de Datos IngresolicenciaDataAccess
     /// </summary>
@@ -210,7 +211,7 @@ namespace CRM.Business.Data
                 FechaIngreso = row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]) : new DateTime(1900, 1, 1),
                 FormatoLM = row["FormatoLM"] != DBNull.Value ? row["FormatoLM"].ToString() : string.Empty,
                 FlagLM = row["FlagLM"] != DBNull.Value ? row["FlagLM"].ToString() : string.Empty,
-                OficinaDerivacion= row["OficinaDerivada"] != DBNull.Value ? Convert.ToInt32(row["OficinaDerivada"]) : 0,
+                OficinaDerivacion = row["OficinaDerivada"] != DBNull.Value ? Convert.ToInt32(row["OficinaDerivada"]) : 0,
 
             };
         }
@@ -222,11 +223,55 @@ namespace CRM.Business.Data
                 Lm_Verde = row["1"] != DBNull.Value ? Convert.ToInt32(row["1"]) : 0,
                 Lm_Amarillo = row["2"] != DBNull.Value ? Convert.ToInt32(row["2"]) : 0,
                 Lm_Rojo = row["3"] != DBNull.Value ? Convert.ToInt32(row["3"]) : 0,
-                Lm_Naranjo= row["4"] != DBNull.Value ? Convert.ToInt32(row["4"]) : 0,
+                Lm_Naranjo = row["4"] != DBNull.Value ? Convert.ToInt32(row["4"]) : 0,
                 Lm_Actualizacion = row["Actualizacion"] != DBNull.Value ? row["Actualizacion"].ToString() : string.Empty
 
             };
         }
         #endregion
+
+
+
+
+
+        /// <summary>
+        /// Recupera todas las entidades <see cref="Ingresolicencia"/> de la Base de Datos
+        /// </summary>
+        /// <author>@Victor</author>
+        /// <created>06-03-2020 16:35:13</created>
+        /// <returns>Lista con todas las entidades <see cref="Ingresolicencia"/>.</returns>
+        public static List<BusquedaLicenciasEntity> ObtenerLicenciasByRut(string Rut)
+        {
+            Parametros parametros = new Parametros()
+            {
+                new Parametro("@Rut", Rut),
+
+            };
+            return DBHelper.InstanceCRM.ObtenerColeccion("licencias.sp_Lic_Ingresolicencia_ListarByRut", parametros, ConstructorEntidadBusqueda);
+        }
+
+
+        private static BusquedaLicenciasEntity ConstructorEntidadBusqueda(DataRow row)
+        {
+            return new BusquedaLicenciasEntity
+            {
+                CodIngreso = row["CodIngreso"] != DBNull.Value ? Convert.ToInt64(row["CodIngreso"]) : 0,
+                RutAfiliado = row["RutAfiliado"] != DBNull.Value ? row["RutAfiliado"].ToString() : string.Empty,
+                NombreAfiliado = row["NombreAfiliado"] != DBNull.Value ? row["NombreAfiliado"].ToString() : string.Empty,
+                FolioLicencia = row["FolioLicencia"] != DBNull.Value ? row["FolioLicencia"].ToString() : string.Empty,
+                Oficina = row["Oficina"] != DBNull.Value ? Convert.ToInt32(row["Oficina"]) : 0,
+                RutEjecutivo = row["RutEjecutivo"] != DBNull.Value ? row["RutEjecutivo"].ToString() : string.Empty,
+                CodEstado = row["CodEstado"] != DBNull.Value ? Convert.ToInt32(row["CodEstado"]) : 0,
+                FechaIngreso = row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]) : new DateTime(1900, 1, 1),
+                FormatoLM = row["FormatoLM"] != DBNull.Value ? row["FormatoLM"].ToString() : string.Empty,
+                FlagLM = row["FlagLM"] != DBNull.Value ? row["FlagLM"].ToString() : string.Empty,
+                OficinaDerivacion = row["OficinaDerivada"] != DBNull.Value ? Convert.ToInt32(row["OficinaDerivada"]) : 0,
+                OficinaDescripcion = row["OficinaDescripcion"] != DBNull.Value ? row["OficinaDescripcion"].ToString() : string.Empty,
+                NombreEjecutivo = row["OrdenaNombre"] != DBNull.Value ? row["OrdenaNombre"].ToString() : string.Empty,
+                EstadoLicencia = row["estadoLicencia"] != DBNull.Value ? row["estadoLicencia"].ToString() : string.Empty,
+
+            };
+        }
+
     }
 }
