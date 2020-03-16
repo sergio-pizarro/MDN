@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Areas/AppPage/Views/Shared/_Layout.cshtml";
 }
@@ -25,8 +24,8 @@
             <li class="active">
                 <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true" id="tab_ingreso" class="tab-principal">Ingreso</a>
             </li>
-            <li class="" style="display:none">
-                <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_disponible_pago" class="tab-principal">Disponible a pago</a>
+            <li class="">
+                <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false" id="tab_buscar" class="tab-principal">Licencias Multi Oficina</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -152,33 +151,121 @@
 
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Licencias Medicas Disponibles a Pago</h3>
+                                <h3 class="panel-title">Licencias Multi Oficinas </h3>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-sm-4 text-xs-center">
+                                    <h5></h5>
+                                </div>
+                                <div class="col-sm-4 text-xs-center">
+                                    <h5></h5>
+                                </div>
+                                @*<div class="col-sm-4 text-xs-center">
+                                        <h5>
+                                            Actualización AS400: <label id="fecha_actualizacion"></label>Hrs.
+                                        </h5>
+                                    </div>*@
                             </div>
                             <div class="panel-body">
-                                <div class="row filter-container mar-btm">
-                                    <div class="col-lg-6">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="busqueda" placeholder="Búsqueda por Rut...">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-primary" type="button" id="btn_buscar">Buscar</button>
-                                            </span>
-                                        </div><!-- /input-group -->
-                                    </div><!-- /.col-lg-6 -->
-                                </div>
-                                <div class="row results-container">
-                                    <table class="table table-bordered">
+
+
+
+                                <table id="demo-foo-filtering_busqueda" class="table table-bordered table-hover toggle-circle" data-page-size="20">
+                                    <thead>
                                         <tr>
-                                            <th>Rut</th>
-                                            <th>Folio</th>
-                                            <th>Dias Reposo</th>
-                                            <th>Periodo Reposo</th>
-                                            <th>Monto Subsidio</th>
+                                            <th data-toggle="true">Rut Afiliado</th>
+                                            <th data-toggle="true">Nombre Afiliado</th>
+                                            <th data-hide="phone">Fecha Ingreso</th>
+                                            <th data-hide="phone">Oficina</th>
+                                            <th data-hide="phone">Folio</th>
+                                            <th data-hide="phone">Tipo</th>
+                                            <th data-hide="phone">Ejecutivo Ingreso</th>
+                                            <th data-hide="phone">Estado</th>
+                                            <th data-hide="phone">Validación</th>
+                                            <th data-hide="phone">Acción</th>
                                         </tr>
-                                        <tbody id="result_list"></tbody>
-                                    </table>
-                                </div>
+                                    </thead>
+
+                                    <div class="pad-btm">
+                                        <div class="row">
+                                            <div class="col-sm-2 ">
+
+                                                <div class="form-group">
+                                                    <label class="control-label" id="lbl_rut">Rut</label>
+                                                    <input id="txt_buscar_licencia" type="text" placeholder="Ingrese Rut" class="form-control" autocomplete="off">
+
+                                                </div>
 
 
+                                            </div>
+
+                                            <div class="col-sm-1 mar-top">
+                                                <div class="input-group">
+                                                    <button class="btn btn-success" type="button" id="btn-buscar-licencia">Buscar Rut</button>
+                                                    @*<a class="btn btn-primary mar-lft" href="#" id="exportar">Exportar LM Manual</a>
+                                                        <a class="btn btn-primary mar-lft" href="#" id="expLmMixta">Exportar LM Mixta</a>*@
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-1 mar-top">
+                                                <div class="input-group">
+                                                    <button class="btn btn-primary" type="button" id="btn-nueva-busqueda">Nueva Búsqueda</button>
+                                                </div>
+
+                                            </div>
+                                            <div class="" style="display:none">
+                                                <label class="control-label">Día</label>
+                                                <div id="demo-dp-component">
+                                                    <div class="input-group date">
+                                                        <input type="text" class="form-control" id="flt_dia_buscar" name="flt_dia_buscar" readonly>
+                                                        <span class="input-group-addon"><i class="demo-pli-calendar-4"></i></span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-2" style="display:none">
+                                                <label class="control-label">Validación LM Manuales</label>
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                @*<span class="badge badge-mint control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Total" id="cantLM"></span>*@
+                                                <span class="badge badge-success control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Folio y rut idénticos AS400–Motor" id="number_one">0</span>
+                                                <span class="badge badge-yelow control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Inconsistencia:Rut distinto AS400–Motor" id="number_two">0</span>
+                                                <span class="badge badge-warning control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Inconsistencia:Folios Diferentes" id="number_folios">0</span>
+                                                <span class="badge badge-danger control-label add-tooltip" data-toggle="tooltip" data-container="body" data-placement="left" data-original-title="Folio no encontrado en AS400" id="number_three">0</span>
+                                            </div>
+                                        </div>
+
+                                        @*<div class="row">
+                                                <div class="col-sm-4 mar-top">
+                                                    <div class="input-group">
+
+                                                        <a class="btn btn-primary mar-lft" href="#" id="exportar">Exportar LM Manual</a>
+                                                        <a class="btn btn-mint" href="#" id="expLmMixta">Exportar LM Mixta</a>
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                    </div>
+                                    <tbody id="bdy_datos_busqueda"></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="10">
+                                                <div class="text-right">
+                                                    <ul class="pagination"></ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -202,6 +289,8 @@
 
 
         var cargador = {
+
+            //-----------tab_ingreso
             CargaDatosEncabezado: function (enc_dia) {
                 $.SecGetJSON(BASE_URL + "/motor/api/Licencias/datos-encabezado-lic", { codOficina: getCookie("Oficina"), dia: enc_dia }, function (menus) {
                     $("#number_one").html(menus.Lm_Verde);
@@ -238,6 +327,39 @@
                 });
                 $("#exportar").prop("href", "/motor/api/Licencias/export-pdf?codOficina=" + getCookie("Oficina") + "&dia=" + el_dia);
                 $("#expLmMixta").prop("href", "/motor/api/Licencias/export-pdf-mixta?codOficina=" + getCookie("Oficina") + "&dia=" + el_dia);
+            },
+
+            //-----------tab_busqueda
+            CargaDatosTablaTab2Busequda: function (Rut, el_dia) {
+
+                $("#bdy_datos_busqueda").html("");
+                $.SecGetJSON(BASE_URL + "/motor/api/Licencias/lista-licencias-rut", { rut: Rut, dia: el_dia }, function (result) {
+
+                    $.each(result, function (i, e) {
+
+                        $("#bdy_datos_busqueda").append(
+                            $("<tr>").append($("<td>").html(e.RutAfiliado))
+                                // .append($("<td>").append($("<a>").prop({ "href": "/motor/App/Licencias/Ingreso?ci=" + e.CodIngreso }).addClass("btn-link").html(e.FolioLicencia)))
+                                .append($("<td>").html(e.NombreAfiliado))
+                                .append($("<td>").html(e.FechaIngreso.toFecha()))
+                                .append($("<td>").html(e.OficinaDescripcion))
+                                .append($("<td>").html(e.FolioLicencia))
+                                .append($("<td>").html(e.FormatoLM))
+                                .append($("<td>").html(e.NombreEjecutivo))
+                                //.append($("<td>").html(e.Nombre))
+                                .append($("<td>").html(e.EstadoLicencia))
+                                .append($("<td align=center>").html(e.FlagLM.toString().toEtiquetaFlagLicenciaGrilla()))
+                                .append($("<a>").addClass("btn").addClass("btn-primary").addClass("mar-lft").append($('<i>').addClass("ion-edit")).prop({ "title": "Editar", "href": "/motor/App/Licencias/busquedaLicencia?ci=" + e.CodIngreso }))
+                        )
+                        $("#cantLM").html(i + 1)
+                        $("#btn-buscar-licencia").hide();
+                        $("#txt_buscar_licencia").val("");
+                        $('#lbl_rut').text("Filtro por registo");
+                        $(txt_buscar_licencia).attr("placeholder", "Ingrese campo a filtrar");
+                    });
+                });
+                //$("#exportar").prop("href", "/motor/api/Licencias/export-pdf?codOficina=" + getCookie("Oficina") + "&dia=" + el_dia);
+                //$("#expLmMixta").prop("href", "/motor/api/Licencias/export-pdf-mixta?codOficina=" + getCookie("Oficina") + "&dia=" + el_dia);
             }
 
         }
@@ -282,6 +404,7 @@
             var hoy = new Date();
             var d = hoy.getDate().toString().paddingLeft("00") + "-" + (hoy.getMonth() + 1).toString().paddingLeft("00") + "-" + hoy.getFullYear().toString();
             $("#flt_dia").val(d)
+            $("#flt_dia_buscar").val(d)
 
 
 
@@ -291,6 +414,10 @@
                 e.clear = !e.filter;
             });
 
+            $('#demo-foo-filtering_busqueda').footable().on('footable_filtering', function (e) {
+
+                e.clear = !e.filter;
+            });
 
             // Search input
             $('#flt_general').on('input', function (e) {
@@ -303,7 +430,15 @@
             $("#bt-nueva").on("click", function () {
                 location.href = BASE_URL + "/motor/App/Licencias/Ingreso";
             });
+            // Search input
+            $('#txt_buscar_licencia').on('input', function (e) {
+                e.preventDefault();
+                if ($(this).val().length >= 3 || $(this).val().length == 0) {
+                    $('#demo-foo-filtering_busqueda').footable().trigger('footable_filter', { filter: $(this).val() });
+                }
+            });
 
+            txt_buscar_licencia
 
             $('#demo-dp-component .input-group.date').datepicker({
                 autoclose: true,
@@ -318,7 +453,10 @@
                 cargador.CargaDatosEncabezado($("#flt_dia").val());
             });
 
+            $('#btn-nueva-busqueda').click(function () {
 
+                location.reload(true);
+            });
 
 
 
@@ -332,40 +470,49 @@
 
 
         $(function () {
-            $('#btn_buscar').on('click', function () {
+
+
+
+            $('#btn-buscar-licencia').on('click', function () {
 
                 $('#result_list').html('');
 
-                let buscar = $('#busqueda').val();
+                let buscar = $('#txt_buscar_licencia').val();
 
                 if (buscar.length === 0) {
                     alert('Debes Ingresar un Rut para Búsqueda')
                     return false;
                 }
 
-                let endpoint = `http://${motor_api_server}:4002/licencias-disponibles-a-pago?filter=fullRut||cont||${buscar}`;
+                $('#demo-foo-filtering').footable().on('footable_filtering', function (e) {
 
-                $.getJSON(endpoint, function (res) {
-                    let html = ``;
-                    if (res.length === 0) {
-                        alert('Sin resultados para el rut Ingresado')
-                        return false;
-                    }
-                    res.forEach(function (e) {
+                    e.clear = !e.filter;
+                });
 
-                        html += `<tr>
-                                            <td>${e.fullRut}</td>
-                                            <td>${e.folioLicencia}</td>
-                                            <td>${e.diasReposo}</td>
-                                            <td>desde ${new Date(e.fechaInicioReposo).toLocaleDateString()} hasta ${new Date(e.fechaTerminoReposo).toLocaleDateString()}</td>
-                                            <td>$ ${e.montoSubsidio.toMoney(0)}</td>
-                                        </tr>`
-                    });
+                cargador.CargaDatosTablaTab2Busequda(buscar);
+                //let endpoint = `http://${motor_api_server}:4002/licencias-disponibles-a-pago?filter=fullRut||cont||${buscar}`;
+
+                //$.getJSON(endpoint, function (res) {
+                //    let html = ``;
+                //    if (res.length === 0) {
+                //        alert('Sin resultados para el rut Ingresado')
+                //        return false;
+                //    }
+                //    res.forEach(function (e) {
+
+                //        html += `<tr>
+                //                            <td>${e.fullRut}</td>
+                //                            <td>${e.folioLicencia}</td>
+                //                            <td>${e.diasReposo}</td>
+                //                            <td>desde ${new Date(e.fechaInicioReposo).toLocaleDateString()} hasta ${new Date(e.fechaTerminoReposo).toLocaleDateString()}</td>
+                //                            <td>$ ${e.montoSubsidio.toMoney(0)}</td>
+                //                        </tr>`
+                //    });
 
 
 
-                    $('#result_list').append(html)
-                })
+                //    $('#result_list').append(html)
+                //})
             })
         });
 
@@ -377,6 +524,3 @@
     </script>
 
 }
-
-
-

@@ -26,5 +26,11 @@ namespace CRM.Areas.AppPage.Controllers
         {
             return View();
         }
+
+        public ActionResult BusquedaLicencia()
+        {
+            return View();
+        }
+
     }
 }
