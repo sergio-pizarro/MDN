@@ -1,4 +1,4 @@
-﻿jQuery.support.cors = true;
+jQuery.support.cors = true;
 
 /////// CONTACTABILIDAD ///////////////////
 function opcionContactabilidad(val, row, index) {
