@@ -19,6 +19,74 @@ namespace CRM.Controllers
     [RoutePrefix("api/Gestion")]
     public class GestionController : ApiController
     {
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("v3/lista-afiliados")]
+        public IEnumerable<CargasFamiliaresEntity> ListaCargasAfiliado()
+        {
+
+            CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+            int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+            List<CargasFamiliaresEntity> Retorno = new List<CargasFamiliaresEntity>();
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            Retorno = CargasFamiliaresDataAccess.obtenerCargasFamiliaresByOficina(codOficina);
+            return Retorno;
+
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("v3/lista-cargas-familiares")]
+        public IEnumerable<CargasFamiliaresEntity> ListaCargasAfiliadoRut(string rutAfiliado)
+        {
+
+            CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+            int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+            List<CargasFamiliaresEntity> Retorno = new List<CargasFamiliaresEntity>();
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            Retorno = CargasFamiliaresDataAccess.obtenerCargasFamiliaresByAfiliado(rutAfiliado);
+            return Retorno;
+
+        }
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("v3/actualiza-estados-carga-familiares")]
+        public int ActulizaCargasFamiliares(string rutAfiliado, string codOficina, string rutCarga, int indice)
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            int Retorno = CargasFamiliaresDataAccess.ActualizarCargasEstados(rutAfiliado, codOficina, rutCarga, indice);
+            return Retorno;
+        }
+
+
+
+
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("v2/lista-afiliados")]
+        public BootstrapTableResult<CargasFamiliaresEntity> ListaAfiliados(int limit = 30, int offset = 0, string sort = "asc", string order = "")
+        {
+            string token = ActionContext.Request.Headers.GetValues("Token").First();
+            List<CargasFamiliaresEntity> res = new List<CargasFamiliaresEntity>();
+            BootstrapTableResult<CargasFamiliaresEntity> xd = new BootstrapTableResult<CargasFamiliaresEntity>();
+            CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+            int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+
+            sort = sort.Substring(sort.IndexOf(".") + 1);
+            sort = sort.IndexOf(".") >= 0 ? sort.Substring(sort.IndexOf(".") + 1) : sort;
+            res = CargasFamiliaresDataAccess.obtenerCargasFamiliaresByOficina(codOficina);
+
+
+            //return res;
+            xd.rows = res;
+            xd.total = res.Count > 0 ? res[0].TotalRegistros : 0;
+
+            return xd;
+
+        }
+
         [AuthorizationRequired]
         [HttpGet]
         [Route("lista-seguimientos")]
