@@ -65,5 +65,29 @@ namespace CRM.Business.Entity
 
     }
 
+    public class IncorporacionesaEmpresaEntity
+    {
+        
+        public string RutEmpresa { get; set; }
+        public string NombreEmpresa { get; set; }
+        public string Comuna { get; set; }
+        public string Direccion { get; set; }
+        public string CajaOrigen { get; set; }
+        public int NTrabajador { get; set; }
+        public string Rubro { get; set; }
+        public string Segmento { get; set; }
+        public string Categoria { get; set; }
+        public DateTime FechaIngreso { get; set; }
+        public int codOficina { get; set; }
+        public string ejecutivo { get; set; }
+        public string rutHolding { get; set; }
+        public string Holding { get; set; }
+        public string Region { get; set; }
+        public string Estado { get; set; }
+        public string Comentarios { get; set; }
+       
+       
+    }
+
 
 }

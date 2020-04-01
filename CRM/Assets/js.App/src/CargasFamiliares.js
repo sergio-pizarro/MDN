@@ -206,7 +206,8 @@ $(function () {
     $('#button').click(function () {
 
      
-        cargador.CargaDatosTablaTab2Busequda(); $('#demo-foo-filtering').footable().on('footable_filtering', function (e) {
+        cargador.CargaDatosTablaTab2Busequda();
+        $('#demo-foo-filtering').footable().on('footable_filtering', function (e) {
 
             e.clear = !e.filter;
         });

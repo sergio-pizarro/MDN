@@ -11,6 +11,7 @@ using CRM.Business.Data;
 using CRM.ActionFilters;
 using CRM.Filters;
 using CRM.Business.Entity.Empresas;
+using System.Net.Http.Headers;
 
 namespace CRM.Controllers
 {
@@ -18,6 +19,21 @@ namespace CRM.Controllers
     [RoutePrefix("api/CarteraEmpresas")]
     public class CarteraEmpresasController : ApiController
     {
+
+
+        // GET: CarteraEmpresas
+        [AuthorizationRequired]
+        [HttpGet]
+        [Route("obtener-incorporaciones")]
+        public IEnumerable<IncorporacionesaEmpresaEntity> ObtEmpresaIncorporaciones(string estado)
+        {
+            CookieHeaderValue cookie = Request.Headers.GetCookies("Oficina").FirstOrDefault();
+            int codOficina = Convert.ToInt32(cookie.Cookies.FirstOrDefault(s => s.Name == "Oficina").Value);
+            if (estado == null)
+                estado = "Todos";
+            return CarteraEmpresaDataAccess.ObtenerEmpresaIncorporacion(codOficina,estado);
+        }
+
         // GET: CarteraEmpresas
         [AuthorizationRequired] 
         [HttpGet]

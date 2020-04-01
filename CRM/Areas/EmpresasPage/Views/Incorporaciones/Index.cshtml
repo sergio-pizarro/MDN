@@ -34,28 +34,66 @@
                             <div class="row listado-prospectos">
                                 <div class="col-lg-12">
 
-                                    <div class="mar-btm">
+                                    <div class="mar-btm" style="display:none">
                                         <button type="button" id="nuevo-prospecto" class="btn btn-primary">
                                             <i class="ion-plus-circled"></i>
                                             Nuevo
                                         </button>
                                     </div>
 
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Rut</th>
-                                                <th>Nombre</th>
-                                                <th>Holding</th>
-                                                <th>Caja Origen</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tbody_prospectos"></tbody>
+                                    <div class="col-sm-3 ">
+                                        <div class="form-group">
+                                            <label class="control-label">Ingrese dato a buscar</label>
+                                            <input id="footable_filtering" type="text" placeholder="Palabra Clave" class="form-control" autocomplete="off">
+                                        </div>
 
-                                    </table>
+                                    </div>
+                                    <div class="col-md-3 pull-left">
+                                        <div class="form-group">
+                                            <label class="control-label">Estados</label>
+                                            <select class="form-control" id="cmb_estados">
+                                                <option value="">Todos</option>
+                                                <option value="1">Pendiente</option>
+                                                <option value="2">Visado</option>
+                                                <option value="3">Rechazado</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3" style="margin-top: 23px;">
+                                            <button type="button" id="buscar-prospecto" class="btn btn-primary">
+                                                <i class="pli-search-on-cloud"></i> Buscar
+                                            </button>
+                                        </div>
+                                        
+                                        
+                                    </div>
 
+                                        @*<table class="table">*@
+                                        <table id="demo-foo-filtering" data-page-size="20" class="table table-bordered table-hover toggle-circle" style="font-size: 11px;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rut</th>
+                                                    <th>Nombre</th>
+                                                    <th>Holding</th>
+                                                    <th>Caja Origen</th>
+                                                    <th>Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_prospectos"></tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="5">
+                                                        <div class="text-right">
+                                                            <ul class="pagination"></ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+
+                                    </div>
                                 </div>
-                            </div>
                             <div class="row detalle-prospectos" style="display:none;">
                                 <div class="col-lg-12">
                                     <form name="form-ingreso-prospecto" id="form-ingreso-prospecto" data-method="post" action="#" method="post">
@@ -271,13 +309,13 @@
     <script src="~/Assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="~/Assets/plugins/bootstrap-table/locale/bootstrap-table-es-ES.min.js"></script>
     <!--Bootstrap Wizard [ OPTIONAL ]-->
-    <script src="~/Assets/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    @*<script src="~/Assets/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>*@
     <script src="~/Assets/js/vue.js"></script>
     <script src="~/Assets/js.App/src/empresas.incorporaciones.prospectos-visados.js"></script>
     <script src="~/Assets/js.App/src/empresas.incorporaciones.prospectos-visados.reasignacion.js"></script>
     <script src="~/Assets/js.App/src/empresas-prospectos.js"></script>
 
-
+    <script src="~/Assets/plugins/fooTable/dist/footable.all.min.js"></script>
     <script>
         $(function () {
 
