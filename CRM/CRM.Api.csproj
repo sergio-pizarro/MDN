@@ -196,6 +196,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\AppPage\Controllers\AtencionClienteController.cs" />
+    <Compile Include="Areas\AppPage\Controllers\CallBackController.cs" />
     <Compile Include="Areas\AppPage\Controllers\CampanaPexController.cs" />
     <Compile Include="Areas\AppPage\Controllers\CarteraFFVVController.cs" />
     <Compile Include="Areas\AppPage\Controllers\CosalController.cs" />
@@ -381,7 +383,9 @@
     <Content Include="Assets\js.App\jspdf.plugin.standard_fonts_metrics.js" />
     <Content Include="Assets\js.App\printThis.js" />
     <Content Include="Assets\js.App\src\acuerdo_pagos.js" />
+    <Content Include="Assets\js.App\src\atencion-cliente.js" />
     <Content Include="Assets\js.App\src\BuscadorGrilla.js" />
+    <Content Include="Assets\js.App\src\call-back.js" />
     <Content Include="Assets\js.App\src\contactabilidad-empresa.js" />
     <Content Include="Assets\js.App\src\distribucion-wapp.js" />
     <Content Include="Assets\js.App\src\dotacion-asignable.js" />
@@ -553,6 +557,8 @@
     <Content Include="Areas\EmpresasPage\Views\InfoEmpresa\Index.cshtml" />
     <Content Include="Areas\AppPage\Views\DistribucionWapp\Index.cshtml" />
     <Content Include="Areas\AppPage\Views\Licencias\BusquedaLicencia.cshtml" />
+    <Content Include="Areas\AppPage\Views\AtencionCliente\Index.cshtml" />
+    <Content Include="Areas\AppPage\Views\CallBack\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CharlyMOTOR.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\Settings.settings">
