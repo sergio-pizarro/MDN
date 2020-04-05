@@ -1,4 +1,4 @@
-﻿jQuery.support.cors = true;
+jQuery.support.cors = true;
 var appInfoEmpresa = new Vue({
     el: '#infoEmpresa',
     data: {

@@ -1,6 +1,77 @@
 ﻿
 
+
+
+function cargaColor(obj) {
+    debugger;
+    var objeto = obj.val();
+    return "#FF0000";
+}
+
 $(function () {
+
+
+
+    $('#buscar-prospecto').click(function () {
+        $("#tbody_prospectos").html("");
+        debugger;
+        var estados=$('#cmb_estados').val();
+        $.SecGetJSON(BASE_URL + "/motor/api/CarteraEmpresas/obtener-incorporaciones", { estado: estados }, function (result) {
+
+            console.log(result);
+            $.each(result, function (i, e) {
+              
+                var $wrapper = (`
+                        <tr>
+                            <td>${e.RutEmpresa}</td>
+                            <td>${e.NombreEmpresa}</td>
+                            <td>${e.Holding}</td>
+                            <td>${e.CajaOrigen}</td>`);
+                if (e.Estado == "Pendiente") {
+                    $wrapper = $wrapper + (`<td  title="${e.Comentarios}" class="text-center bg-warning">${e.Estado}</td>
+                        </tr> `);
+                }
+                if (e.Estado == "Visado") {
+                    $wrapper = $wrapper + (`<td title="${e.Comentarios}"  class="text-center bg-success">${e.Estado}</td>
+                        </tr> `);
+                }
+                if (e.Estado == "Rechazado") {
+                    $wrapper = $wrapper + (`<td  title="${e.Comentarios}"  class="text-center bg-danger">${e.Estado}</td>
+                        </tr> `);
+                }
+
+                if (e.Estado == "") {
+                    $wrapper = $wrapper + (`<td  title="${e.Comentarios}"  class="text-center">${e.Estado}</td>
+                        </tr> `);
+                }
+
+
+
+                $("#tbody_prospectos").append($wrapper);
+            });
+
+            // Search input
+            $('#footable_filtering').on('input', function (e) {
+                e.preventDefault();
+                if ($(this).val().length >= 3 || $(this).val().length == 0) {
+                    $('#demo-foo-filtering').footable().trigger('footable_filter', { filter: $(this).val() });
+                }
+            });
+
+
+            $('#demo-foo-filtering').footable().on('footable_filtering', function (e) {
+
+                e.clear = !e.filter;
+            });
+        });
+
+
+
+    });
+
+
+
+
     /*#Prospecciones
             Tabla de prospecciones donde se cargan todos los datos cargados para una oficina en partucular.
     */
@@ -12,6 +83,8 @@ $(function () {
     prospecto_data.contactos = [];
     var moduloContactos = {
         renderizarListadoContactos: function () {
+
+
             $("#tbody-contactos").html("");
             $.each(prospecto_data.contactos, function (i, e) {
                 $("#tbody-contactos").append(`
@@ -21,8 +94,12 @@ $(function () {
                         <td class="text-center">${e.correo}</td>
                         <td class="text-center">${e.celular}</td>
                         <td class="text-center">${e.telefono}</td>
+                      
+
                     </tr>`);
             });
+
+
         },
         agregarNuevoContacto: function () {
             var modelo = $("#form-contacto").serializeFormJSON();
@@ -49,7 +126,7 @@ $(function () {
             console.log({ modelo, url_envio, metodo });
 
             $.ajax({
-                type: metodo === "post" ? "POST":"PUT",
+                type: metodo === "post" ? "POST" : "PUT",
                 url: url_envio,
                 data: JSON.stringify(modelo),
                 contentType: "application/json; charset=utf-8"
@@ -68,31 +145,68 @@ $(function () {
                 moduloContactos.cargarTablaProspectos();
                 $(".listado-prospectos").toggle();
                 $(".detalle-prospectos").toggle();
-                
+
                 console.log({ data });
             }).fail(function (error) {
                 console.log({ error });
             });
 
-            
+
         },
-        cargarTablaProspectos: function (){
-            var link = `${servidor_api}/api/prospectos/${codigo_oficina}`;
+        cargarTablaProspectos: function () {
+          
+
             $("#tbody_prospectos").html("");
-            $.getJSON(link, function (prospectos) {
-                console.log(prospectos);
-                $.each(prospectos, function (i, e) {
-                    $("#tbody_prospectos").append(`
+            var estados = $('#cmb_estados').val();
+            $.SecGetJSON(BASE_URL + "/motor/api/CarteraEmpresas/obtener-incorporaciones", { estado: 'Todos'}, function (result) {
+
+                console.log(result);
+                $.each(result, function (i, e) {
+                    debugger;
+                    var $wrapper = (`
                         <tr>
-                            <td><a href="#" class="btn-link prospecto-accion" data-rut="${e.rut}">${e.rut}</a></td>
-                            <td>${e.nombre}</td>
-                            <td>${e.nombreHolding}</td>
-                            <td>${e.cajaOrigen}</td>
-                        </tr>
-                    `);
+                            <td>${e.RutEmpresa}</td>
+                            <td>${e.NombreEmpresa}</td>
+                            <td>${e.Holding}</td>
+                            <td>${e.CajaOrigen}</td>`);
+                    if (e.Estado == "Pendiente") {
+                        $wrapper = $wrapper + (`<td  title="${e.Comentarios}" class="text-center bg-warning">${e.Estado}</td>
+                        </tr> `);
+                    }
+                    if (e.Estado == "Visado") {
+                        $wrapper = $wrapper + (`<td title="${e.Comentarios}"  class="text-center bg-success">${e.Estado}</td>
+                        </tr> `);
+                    }
+                    if (e.Estado == "Rechazado") {
+                        $wrapper = $wrapper + (`<td  title="${e.Comentarios}"  class="text-center bg-danger">${e.Estado}</td>
+                        </tr> `);
+                    }
+
+                    if (e.Estado == "") {
+                        $wrapper = $wrapper + (`<td  title="${e.Comentarios}"  class="text-center">${e.Estado}</td>
+                        </tr> `);
+                    }
+
+
+
+                    $("#tbody_prospectos").append($wrapper);
+                });
+
+                // Search input
+                $('#footable_filtering').on('input', function (e) {
+                    e.preventDefault();
+                    if ($(this).val().length >= 3 || $(this).val().length == 0) {
+                        $('#demo-foo-filtering').footable().trigger('footable_filter', { filter: $(this).val() });
+                    }
+                });
+
+
+                $('#demo-foo-filtering').footable().on('footable_filtering', function (e) {
+
+                    e.clear = !e.filter;
                 });
             });
-        }, 
+        },
         cargaLocalidades: function () {
             $.getJSON(`${servidor_api}/api/localizacion`, function (regiones) {
                 objeto_localidad = regiones;
@@ -117,7 +231,7 @@ $(function () {
                     $("#rubro").val("Otro").trigger("change");
                     $("#otroRubro").val(prospecto.rubro);
                 }
-                
+
                 $(".listado-prospectos").toggle();
                 $(".detalle-prospectos").toggle();
                 prospecto_data.contactos = prospecto.contactos.map(function (o) {
@@ -133,7 +247,7 @@ $(function () {
                 moduloContactos.renderizarListadoContactos();
             });
         },
-        formateaRut: function(rut) {
+        formateaRut: function (rut) {
 
             var actual = rut.replace(/^0+/, "");
             if (actual != '' && actual.length > 1) {
@@ -186,7 +300,7 @@ $(function () {
         moduloContactos.renderizarListadoContactos();
 
     });
-    
+
 
     $("#segmento").on("change", function () {
         if ($(this).val() === "Publica") {
@@ -216,12 +330,12 @@ $(function () {
                 $("#comuna").append(`<option value="${element.Nombre}">${element.Nombre}</option>`);
             });
         }
-        
+
         console.log({ codigoreg, seleccionada, objeto_localidad });
     });
 
 
-   
+
 
 
     $("#form-ingreso-prospecto").on("submit", function () {
@@ -239,7 +353,7 @@ $(function () {
     });
 
     $("#rut").on("blur", function () {
-        
+
         $(this).val(moduloContactos.formateaRut($(this).val()));
     });
 

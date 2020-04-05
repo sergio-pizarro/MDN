@@ -244,3 +244,5 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 *.xlsx
+/CRM/Areas/EmpresasPage/App_Start/Controllers/CarteraEmpresaEjecutivoController.cs
+*.cs
