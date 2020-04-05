@@ -13,6 +13,9 @@ namespace CRM.Areas.AppPage.Controllers
     public class GestionController : Controller
     {
 
+       
+
+
         public GestionController()
         {
             ViewBag.hash = Jasheo.CurrentDateHash;
@@ -23,6 +26,14 @@ namespace CRM.Areas.AppPage.Controllers
         {
             return View();
         }
+
+        public ActionResult CargasFamiliares()
+        {
+
+            return View();
+        }
+
+
 
         public ActionResult PrintPensionado()
         {
